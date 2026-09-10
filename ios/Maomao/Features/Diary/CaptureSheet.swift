@@ -31,7 +31,7 @@ struct CaptureSheet: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                 }
-                .frame(minHeight: 92)
+                .frame(minHeight: 92, maxHeight: 180)   // TextEditor 是贪心的，不封顶会把抽屉撑成整屏
                 .background(Color(hex: 0xFBFAF2), in: RoundedRectangle(cornerRadius: Metrics.radiusCard))
                 .overlay(
                     RoundedRectangle(cornerRadius: Metrics.radiusCard)
