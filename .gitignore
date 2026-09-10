@@ -26,6 +26,10 @@ outputs/**/camera-tests
 outputs/**/interaction-tests
 outputs/**/v4-tests
 outputs/**/package-v4
+outputs/**/WorldCameraTests
+outputs/**/WorldInteractionTests
+outputs/**/WorldSimulationTests
+outputs/**/WorldV4Tests
 
 # Local simulator recordings; sources and review images remain versioned
 outputs/**/*.mp4
