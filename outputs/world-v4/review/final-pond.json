@@ -1,0 +1,17 @@
+{
+  "meanSimulationMilliseconds" : 0.033061633654688352,
+  "x" : 0.85399999999999998,
+  "maxSimulationMilliseconds" : 14.953416772186756,
+  "phase" : "interacting",
+  "y" : 0.70399999999999996,
+  "target" : 4,
+  "foreground" : true,
+  "onHome" : true,
+  "ticks" : 2306,
+  "paused" : false,
+  "action" : "waterWatch",
+  "textureValidationError" : "",
+  "current" : 4,
+  "worldSeconds" : 38.700601541809739,
+  "p95TimerIntervalMilliseconds" : 16.889124875888228
+}

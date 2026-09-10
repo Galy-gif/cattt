@@ -1,0 +1,673 @@
+{
+  "actions" : [
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 85.700000000000003,
+      "fps" : 8,
+      "frameCount" : 6,
+      "hitInset" : 7,
+      "id" : "walk",
+      "loop" : "loop",
+      "name" : "走路",
+      "size" : [
+        128,
+        91
+      ],
+      "stride" : 1
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 92,
+      "fps" : 8,
+      "frameCount" : 8,
+      "frameDurations" : [
+        0.90000000000000002,
+        0.5,
+        0.40000000000000002,
+        0.40000000000000002,
+        0.69999999999999996,
+        0.40000000000000002,
+        0.40000000000000002,
+        0.29999999999999999
+      ],
+      "hitInset" : 5,
+      "id" : "sleepyNod",
+      "imagePrefix" : "cat-v2",
+      "loop" : "loop",
+      "name" : "sleepyNod",
+      "size" : [
+        82,
+        97
+      ],
+      "stride" : null
+    },
+    {
+      "bodyLength" : 70.700000000000003,
+      "footY" : 94.099999999999994,
+      "fps" : 10,
+      "frameCount" : 6,
+      "hitInset" : 7,
+      "id" : "blinkLook",
+      "loop" : "once",
+      "name" : "眨眼看你",
+      "size" : [
+        88,
+        98
+      ],
+      "stride" : null
+    },
+    {
+      "bodyLength" : 101,
+      "footY" : 92.700000000000003,
+      "fps" : 6,
+      "frameCount" : 6,
+      "hitInset" : 8,
+      "id" : "stretch",
+      "loop" : "once",
+      "name" : "伸懒腰",
+      "size" : [
+        189,
+        98
+      ],
+      "stride" : null
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 87,
+      "fps" : 12,
+      "frameCount" : 16,
+      "hitInset" : 5,
+      "id" : "tailChase",
+      "imagePrefix" : "cat-v2",
+      "loop" : "loop",
+      "name" : "tailChase",
+      "size" : [
+        93,
+        92
+      ],
+      "stride" : null
+    },
+    {
+      "bodyLength" : 114.3,
+      "footY" : 83.099999999999994,
+      "fps" : 12,
+      "frameCount" : 6,
+      "hitInset" : 7,
+      "id" : "run",
+      "loop" : "loop",
+      "name" : "奔跑",
+      "size" : [
+        183,
+        90
+      ],
+      "stride" : 1.6000000000000001
+    },
+    {
+      "bodyLength" : 91.200000000000003,
+      "footY" : 73,
+      "fps" : 3,
+      "frameCount" : 6,
+      "hitInset" : 6,
+      "id" : "sleepBreathe",
+      "loop" : "pingpong",
+      "name" : "蜷睡呼吸",
+      "size" : [
+        110,
+        78
+      ],
+      "stride" : null
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 83,
+      "fps" : 8,
+      "frameCount" : 6,
+      "hitInset" : 5,
+      "id" : "walkToward",
+      "imagePrefix" : "cat-v2",
+      "loop" : "loop",
+      "name" : "walkToward",
+      "size" : [
+        82,
+        88
+      ],
+      "stride" : 1
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 82,
+      "fps" : 8,
+      "frameCount" : 6,
+      "hitInset" : 5,
+      "id" : "walkAway",
+      "imagePrefix" : "cat-v2",
+      "loop" : "loop",
+      "name" : "walkAway",
+      "size" : [
+        82,
+        87
+      ],
+      "stride" : 1
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 82,
+      "fps" : 8,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.5,
+        0.25,
+        0.20000000000000001,
+        0.65000000000000002
+      ],
+      "hitInset" : 5,
+      "id" : "flowerPlay",
+      "imagePrefix" : "cat-v3",
+      "loop" : "loop",
+      "name" : "flowerPlay",
+      "size" : [
+        107,
+        87
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 84,
+      "fps" : 8,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.080000000000000002,
+        0.10000000000000001,
+        0.12,
+        0.10000000000000001
+      ],
+      "hitInset" : 5,
+      "id" : "turn",
+      "imagePrefix" : "cat-v3",
+      "loop" : "once",
+      "name" : "turn",
+      "size" : [
+        100,
+        89
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 115,
+      "fps" : 8,
+      "frameCount" : 2,
+      "frameDurations" : [
+        0.25,
+        0.25
+      ],
+      "hitInset" : 5,
+      "id" : "scratchEnter",
+      "imagePrefix" : "cat-v3",
+      "loop" : "once",
+      "name" : "scratchEnter",
+      "size" : [
+        115,
+        120
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 115,
+      "fps" : 8,
+      "frameCount" : 2,
+      "frameDurations" : [
+        0.25,
+        0.25
+      ],
+      "hitInset" : 5,
+      "id" : "scratchExit",
+      "imagePrefix" : "cat-v3",
+      "loop" : "once",
+      "name" : "scratchExit",
+      "size" : [
+        115,
+        120
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 115,
+      "fps" : 8,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.22,
+        0.22,
+        0.22,
+        0.22
+      ],
+      "hitInset" : 5,
+      "id" : "treeScratch",
+      "imagePrefix" : "cat-v3",
+      "loop" : "loop",
+      "name" : "treeScratch",
+      "size" : [
+        115,
+        120
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 77,
+      "fps" : 12,
+      "frameCount" : 3,
+      "frameDurations" : [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset" : 5,
+      "id" : "jumpPrepare",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "jumpPrepare",
+      "size" : [
+        112,
+        85
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 84,
+      "fps" : 12,
+      "frameCount" : 5,
+      "frameDurations" : [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset" : 5,
+      "id" : "jumpUp",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "jumpUp",
+      "size" : [
+        184,
+        133
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 66,
+      "fps" : 12,
+      "frameCount" : 6,
+      "frameDurations" : [
+        0.13999999999999999,
+        0.13999999999999999,
+        0.13999999999999999,
+        0.13999999999999999,
+        0.13999999999999999,
+        0.13999999999999999
+      ],
+      "hitInset" : 5,
+      "id" : "climbIn",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "climbIn",
+      "size" : [
+        176,
+        101
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 62,
+      "fps" : 12,
+      "frameCount" : 3,
+      "frameDurations" : [
+        1.5,
+        0.12,
+        0.97999999999999998
+      ],
+      "hitInset" : 5,
+      "id" : "nestLook",
+      "imagePrefix" : "cat-v4",
+      "loop" : "loop",
+      "name" : "nestLook",
+      "size" : [
+        180,
+        69
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 59,
+      "fps" : 12,
+      "frameCount" : 1,
+      "frameDurations" : [
+        1
+      ],
+      "hitInset" : 5,
+      "id" : "nestSleep",
+      "imagePrefix" : "cat-v4",
+      "loop" : "loop",
+      "name" : "nestSleep",
+      "size" : [
+        180,
+        66
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 91,
+      "fps" : 12,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset" : 5,
+      "id" : "railReach",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "railReach",
+      "size" : [
+        106,
+        100
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 90,
+      "fps" : 12,
+      "frameCount" : 5,
+      "frameDurations" : [
+        0.17599999999999999,
+        0.17599999999999999,
+        0.17599999999999999,
+        0.17599999999999999,
+        0.17599999999999999
+      ],
+      "hitInset" : 5,
+      "id" : "railClimb",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "railClimb",
+      "size" : [
+        156,
+        140
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 68,
+      "fps" : 12,
+      "frameCount" : 5,
+      "frameDurations" : [
+        0.14399999999999999,
+        0.14399999999999999,
+        0.14399999999999999,
+        0.14399999999999999,
+        0.14399999999999999
+      ],
+      "hitInset" : 5,
+      "id" : "railSettle",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "railSettle",
+      "size" : [
+        166,
+        100
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 45,
+      "fps" : 12,
+      "frameCount" : 1,
+      "frameDurations" : [
+        1
+      ],
+      "hitInset" : 5,
+      "id" : "perchLook",
+      "imagePrefix" : "cat-v4",
+      "loop" : "loop",
+      "name" : "perchLook",
+      "size" : [
+        112,
+        75
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 39,
+      "fps" : 12,
+      "frameCount" : 1,
+      "frameDurations" : [
+        1
+      ],
+      "hitInset" : 5,
+      "id" : "perchSleep",
+      "imagePrefix" : "cat-v4",
+      "loop" : "loop",
+      "name" : "perchSleep",
+      "size" : [
+        112,
+        70
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 77,
+      "fps" : 12,
+      "frameCount" : 2,
+      "frameDurations" : [
+        0.34999999999999998,
+        0.34999999999999998
+      ],
+      "hitInset" : 5,
+      "id" : "waterLook",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterLook",
+      "size" : [
+        128,
+        83
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 84,
+      "fps" : 12,
+      "frameCount" : 3,
+      "frameDurations" : [
+        0.26666666666666666,
+        0.26666666666666666,
+        0.26666666666666666
+      ],
+      "hitInset" : 5,
+      "id" : "waterReach",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterReach",
+      "size" : [
+        134,
+        90
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 84,
+      "fps" : 12,
+      "frameCount" : 7,
+      "frameDurations" : [
+        0.28000000000000003,
+        0.17999999999999999,
+        0.23999999999999999,
+        0.28000000000000003,
+        0.17999999999999999,
+        0.23999999999999999,
+        0.20000000000000001
+      ],
+      "hitInset" : 5,
+      "id" : "waterTap",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterTap",
+      "size" : [
+        134,
+        88
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 83,
+      "fps" : 12,
+      "frameCount" : 2,
+      "frameDurations" : [
+        0.40000000000000002,
+        0.40000000000000002
+      ],
+      "hitInset" : 5,
+      "id" : "waterWatch",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterWatch",
+      "size" : [
+        124,
+        87
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 81,
+      "fps" : 12,
+      "frameCount" : 5,
+      "frameDurations" : [
+        0.17999999999999999,
+        0.17999999999999999,
+        0.17999999999999999,
+        0.17999999999999999,
+        0.17999999999999999
+      ],
+      "hitInset" : 5,
+      "id" : "waterShake",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterShake",
+      "size" : [
+        128,
+        88
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 78,
+      "fps" : 12,
+      "frameCount" : 1,
+      "frameDurations" : [
+        1
+      ],
+      "hitInset" : 5,
+      "id" : "waterRest",
+      "imagePrefix" : "cat-v4",
+      "loop" : "loop",
+      "name" : "waterRest",
+      "size" : [
+        104,
+        85
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 83,
+      "fps" : 12,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "hitInset" : 5,
+      "id" : "waterRecover",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "waterRecover",
+      "size" : [
+        128,
+        90
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 79,
+      "fps" : 12,
+      "frameCount" : 4,
+      "frameDurations" : [
+        0.16250000000000001,
+        0.16250000000000001,
+        0.16250000000000001,
+        0.16250000000000001
+      ],
+      "hitInset" : 5,
+      "id" : "climbOut",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "climbOut",
+      "size" : [
+        178,
+        104
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 99,
+      "fps" : 12,
+      "frameCount" : 5,
+      "frameDurations" : [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset" : 5,
+      "id" : "jumpDown",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "jumpDown",
+      "size" : [
+        162,
+        111
+      ]
+    },
+    {
+      "bodyLength" : 100.90000000000001,
+      "footY" : 85,
+      "fps" : 12,
+      "frameCount" : 7,
+      "frameDurations" : [
+        0.045714285714285714,
+        0.045714285714285714,
+        0.045714285714285714,
+        0.045714285714285714,
+        0.045714285714285714,
+        0.045714285714285714,
+        0.045714285714285714
+      ],
+      "hitInset" : 5,
+      "id" : "land",
+      "imagePrefix" : "cat-v4",
+      "loop" : "once",
+      "name" : "land",
+      "size" : [
+        122,
+        97
+      ]
+    }
+  ],
+  "catPt" : 76,
+  "referenceScreen" : [
+    390,
+    844
+  ]
+}

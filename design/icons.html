@@ -1,0 +1,222 @@
+<title>猫猫图标系统</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EDEBE4;--paper-2:#F7F6F1;--sunk:#E4E2D9;--ink:#24261F;--ink-2:#5A5D52;--ink-3:#8C9084;
+  --rule:#D6D5CB;--rule-2:#C4C3B7;--accent:#B4702A;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --serif:"Noto Serif SC",var(--sans);--mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1A1C17;--paper-2:#23261F;--sunk:#141610;--ink:#E9E9E1;--ink-2:#A6AA9D;--ink-3:#787C70;
+  --rule:#343830;--rule-2:#454A40;--accent:#DDA45C;}}
+:root[data-theme="dark"]{
+  --paper:#1A1C17;--paper-2:#23261F;--sunk:#141610;--ink:#E9E9E1;--ink-2:#A6AA9D;--ink-3:#787C70;
+  --rule:#343830;--rule-2:#454A40;--accent:#DDA45C;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased;}
+.doc{max-width:980px;margin:0 auto;padding:56px 30px 96px;}
+.mast{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:12px;}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(27px,4.4vw,40px);line-height:1.2;margin:0 0 14px;letter-spacing:-.015em;}
+.sub{font-size:15px;color:var(--ink-2);max-width:62ch;margin:0;}
+.meta{display:flex;flex-wrap:wrap;gap:0 26px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.05em;padding:12px 0 0;margin-bottom:44px;}
+section{margin:0 0 52px;}
+.sh{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:9px;margin-bottom:20px;}
+.sh .num{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500;}
+.sh h2{font-family:var(--serif);font-weight:500;font-size:20px;margin:0;}
+p{margin:0 0 14px;font-size:14.5px;color:var(--ink-2);max-width:66ch;}
+p strong{color:var(--ink);font-weight:600;}
+code{font-family:var(--mono);font-size:12.5px;background:var(--sunk);padding:1px 5px;border-radius:2px;color:var(--ink);}
+
+.set{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:2px;background:var(--rule-2);border:1px solid var(--rule-2);margin:18px 0;}
+.ic{background:var(--paper-2);display:flex;flex-direction:column;align-items:center;gap:9px;padding:20px 6px 13px;}
+.ic b{font-family:var(--mono);font-size:9px;font-weight:400;color:var(--ink-3);letter-spacing:.04em;}
+.ic .g{color:var(--ink);}
+
+.truesize{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--rule-2);margin:18px 0;}
+.truesize > div{flex:1 1 200px;padding:22px 18px 15px;display:flex;flex-direction:column;gap:13px;align-items:center;}
+.truesize .row{display:flex;gap:15px;align-items:center;}
+.truesize b{font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.06em;}
+.on-cream{background:#EFE6D2;color:#4A4038;} .on-cream b{color:#7A6E5E;}
+.on-sage{background:#C6D9C4;color:#4A4038;} .on-sage b{color:#5B6656;}
+.on-dark{background:#2C3329;color:#EFE6D2;} .on-dark b{color:#93A08C;}
+
+.tabmock{border:1px solid var(--rule-2);max-width:330px;margin:16px 0;}
+.tabmock .head{padding:15px 15px 24px;font-size:11.5px;color:#A79E8E;font-family:var(--mono);letter-spacing:.06em;background:#F3F1EA;}
+.tabmock .bar{display:flex;border-top:1px solid #DDD8CB;background:#F3F1EA;}
+.tabmock .t{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 12px;font-size:10px;color:#A79E8E;}
+.tabmock .t.on{color:#B4702A;}
+
+.spec{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;}
+.spec th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:400;padding:0 12px 7px 0;border-bottom:1px solid var(--rule-2);}
+.spec td{padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.spec td:first-child{color:var(--ink);font-weight:600;width:24%;}
+.spec .v{font-family:var(--mono);font-size:12.5px;color:var(--accent);}
+.note{border-left:2px solid var(--accent);padding:2px 0 2px 16px;margin:22px 0;max-width:66ch;}
+.note p{margin:0;font-size:14px;}
+.note .t{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 5px;}
+.end{margin-top:58px;padding-top:20px;border-top:2px solid var(--ink);font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.9;}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<g id="I"></g>
+<symbol id="i-tuanzi" viewBox="0 0 24 24">
+  <path d="M9.6 21.6 C8.4 21.6 7.9 20.9 7.9 19.9 L7.9 15.6 C7.9 14.1 8.2 13 8.8 12 C8.4 10.4 8.4 8.4 8.7 6.6 L8.2 2.2 C8.1 1.5 8.6 1.2 9.2 1.6 L13.1 4 C14.4 3.7 15.6 3.7 16.9 4 L20.8 1.6 C21.4 1.2 21.9 1.5 21.8 2.2 L21.3 6.6 C21.6 8.4 21.6 10.4 21.2 12 C21.8 13 22.1 14.1 22.1 15.6 L22.1 19.9 C22.1 20.9 21.6 21.6 20.4 21.6 Z" fill="currentColor"/>
+  <path d="M9 20.4 C6.2 21.2 3.4 19.6 2.7 16.8 C2.1 14.4 3.2 12.2 5.1 11.6" fill="none" stroke="currentColor" stroke-width="3.1" stroke-linecap="round"/>
+</symbol>
+<symbol id="i-diary" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M5.6 3.6 h12.8 v16.8 h-12.8 Z"/><path d="M8.6 8 h6.8 M8.6 11.7 h6.8 M8.6 15.4 h4.4"/></g></symbol>
+<symbol id="i-me" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8.4" r="3.9"/><path d="M5 20.6 c0 -4 3.1 -6.6 7 -6.6 s7 2.6 7 6.6"/></g></symbol>
+
+<symbol id="i-house" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M3.4 11.2 Q12 2.4 20.6 11.2 Z"/><path d="M8.4 11.2 v8.4 h7.2 v-8.4"/><path d="M10.4 19.6 v-4.2 a1.6 1.6 0 0 1 3.2 0 v4.2"/></g></symbol>
+<symbol id="i-tree" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20.4 v-6.6"/><path d="M12 13.8 c-4.4 0 -6.4 -3 -4.8 -5.4 C8.4 6.6 10 8 12 8 c2 0 3.6 -1.4 4.8 0.4 c1.6 2.4 -0.4 5.4 -4.8 5.4 Z"/><path d="M12 8 c0 -2.6 1.6 -4.4 3.4 -3.6"/></g></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.4 13.4 C3.4 19.8 20.6 19.8 20.6 13.4 Z"/><path d="M3.4 13.4 a8.6 3.2 0 0 1 17.2 0"/></g></symbol>
+<symbol id="i-grass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 20.4 V9.2"/><path d="M7.2 20.4 C6 16.4 5.6 13.6 6.4 11.2"/><path d="M16.8 20.4 C18 16.4 18.4 13.8 17.6 11.6"/></g></symbol>
+<symbol id="i-pond" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><ellipse cx="12" cy="13.4" rx="8.6" ry="5.6"/><path d="M8 12.2 q2.4 -1.8 4.8 0"/><path d="M11.6 15.8 q2.4 -1.8 4.8 0"/></g></symbol>
+<symbol id="i-fence" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M6 20 V8.4 L7.6 6.6 L9.2 8.4 V20"/><path d="M14.8 20 V8.4 L16.4 6.6 L18 8.4 V20"/><path d="M3.6 11.4 H20.4 M3.6 15.6 H20.4"/></g></symbol>
+
+<symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.6" cy="10.6" r="6.4"/><path d="M15.3 15.3 L20 20"/></g></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7.4 h16 M4 12 h16 M4 16.6 h16"/><circle cx="9" cy="7.4" r="2.1" fill="var(--paper-2)"/><circle cx="15.4" cy="12" r="2.1" fill="var(--paper-2)"/><circle cx="8" cy="16.6" r="2.1" fill="var(--paper-2)"/></g></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M15.2 4.6 L7.8 12 L15.2 19.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6.6 6.6 L17.4 17.4 M17.4 6.6 L6.6 17.4"/></g></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5.6" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18.4" cy="12" r="1.7"/></g></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.4 V5"/><path d="M6.2 10.8 L12 5 L17.8 10.8"/></g></symbol>
+<symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2.2" fill="currentColor"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="9" y="2.8" width="6" height="11.2" rx="3"/><path d="M5.4 11.6 a6.6 6.6 0 0 0 13.2 0"/><path d="M12 18.2 V21.2"/></g></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.4 8.4 a1.8 1.8 0 0 1 1.8 -1.8 h2.6 l1.4 -2.4 h4.6 l1.4 2.4 h2.6 a1.8 1.8 0 0 1 1.8 1.8 v9.4 a1.8 1.8 0 0 1 -1.8 1.8 h-12.6 a1.8 1.8 0 0 1 -1.8 -1.8 Z"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
+<symbol id="i-add" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5.2 V18.8 M5.2 12 H18.8"/></g></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M4.4 19.6 L5.6 15.2 L16.2 4.6 L19.4 7.8 L8.8 18.4 Z"/><path d="M14.2 6.6 L17.4 9.8"/></g></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M4.6 6.6 H19.4"/><path d="M9.6 6.6 V4.4 H14.4 V6.6"/><path d="M6.6 6.6 L7.6 19.6 H16.4 L17.4 6.6"/></g></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4.8" y="10.4" width="14.4" height="9.4" rx="2.2"/><path d="M8.4 10.4 V7.4 a3.6 3.6 0 0 1 7.2 0 v3"/></g></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="12" cy="16" rx="5.4" ry="4.2"/><ellipse cx="6.4" cy="10.2" rx="2.1" ry="2.4"/><ellipse cx="10.4" cy="7.6" rx="2.1" ry="2.5"/><ellipse cx="14.6" cy="8" rx="2.1" ry="2.5"/><ellipse cx="18" cy="11.4" rx="2" ry="2.3"/></g></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.2"/><path d="M12 7 V12.4 L15.6 14.6"/></g></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.4" y="4.8" width="17.2" height="14.4" rx="2.2"/><circle cx="8.6" cy="10" r="1.7"/><path d="M4 17.4 L9.6 11.8 L13.8 16 L16.4 13.4 L20 17"/></g></symbol>
+<symbol id="i-note" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M5 4.4 h9.6 l4.4 4.4 v10.8 h-14 Z"/><path d="M14.6 4.4 v4.4 h4.4"/><path d="M8 13 h7 M8 16.2 h4.4"/></g></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M3.8 6.6 A2.6 2.6 0 0 1 6.4 4 h11.2 A2.6 2.6 0 0 1 20.2 6.6 v7.2 A2.6 2.6 0 0 1 17.6 16.4 H9.8 l-5 4 v-4 A2.6 2.6 0 0 1 3.8 13.8 Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div class="doc">
+
+<div class="mast">
+  <p class="kicker">猫猫 App · 图标系统 · 矢量 · 2026-09-07</p>
+  <h1>二十二个图标</h1>
+  <p class="sub">全部在 24×24 网格上直接设计，统一线宽 1.7、圆角端点、<code>currentColor</code> 上色。团子记号是唯一的实心图形，其余全部是线图标。</p>
+</div>
+<div class="meta">
+  <span>3 导航 · 6 地点 · 13 功能</span>
+  <span>线宽 1.7 / 24</span>
+  <span>currentColor</span>
+</div>
+
+<!-- 01 -->
+<section>
+  <div class="sh"><span class="num">01</span><h2>底部导航</h2></div>
+  <div class="set">
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-tuanzi"/></svg></span><b>陪伴</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-diary"/></svg></span><b>日记</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-me"/></svg></span><b>我的</b></div>
+  </div>
+  <p>团子记号是<strong>唯一的实心图形</strong>。它在 tab bar 里天然比另外两个重，这是有意的：陪伴是主入口，其余两个是去处。</p>
+
+  <div class="tabmock">
+    <div class="head">陪伴主页</div>
+    <div class="bar">
+      <div class="t on"><svg width="24" height="24"><use href="#i-tuanzi"/></svg>陪伴</div>
+      <div class="t"><svg width="22" height="22"><use href="#i-diary"/></svg>日记</div>
+      <div class="t"><svg width="22" height="22"><use href="#i-me"/></svg>我的</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sh"><span class="num">02</span><h2>地点轨</h2></div>
+  <p>六个地点对应六张场景。这一组挂在陪伴主页左侧的竖轨上，当前地点用蜂蜜橙，其余降到中性灰。</p>
+  <div class="set">
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-house"/></svg></span><b>蘑菇屋</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-tree"/></svg></span><b>树</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-bed"/></svg></span><b>猫窝</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-grass"/></svg></span><b>草丛</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-pond"/></svg></span><b>池塘</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-fence"/></svg></span><b>栅栏</b></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sh"><span class="num">03</span><h2>功能</h2></div>
+  <div class="set">
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-search"/></svg></span><b>搜索</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-settings"/></svg></span><b>设置</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-back"/></svg></span><b>返回</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-close"/></svg></span><b>关闭</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-more"/></svg></span><b>更多</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-add"/></svg></span><b>记一下</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-send"/></svg></span><b>发送</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-stop"/></svg></span><b>停止生成</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-mic"/></svg></span><b>语音</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-camera"/></svg></span><b>拍照</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-image"/></svg></span><b>图片</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-edit"/></svg></span><b>编辑</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-trash"/></svg></span><b>删除</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-lock"/></svg></span><b>只留给自己</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-paw"/></svg></span><b>团子的留言</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-clock"/></svg></span><b>话题</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-note"/></svg></span><b>长期记忆</b></div>
+    <div class="ic"><span class="g"><svg width="26" height="26"><use href="#i-chat"/></svg></span><b>聊会儿</b></div>
+  </div>
+
+  <div class="note">
+    <p class="t">两个不是通用图标的</p>
+    <p><strong>爪印</strong>是团子留言的专属锚点，也是唯一的第二个实心图形——它在日记时间线上标记「这条是团子留的」，不能用通用的气泡代替。<strong>锁</strong>标记「只留给自己」的碎片，它和爪印是一对反义，视觉上要能一眼分开：一个实心一个线框。</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sh"><span class="num">04</span><h2>真实尺寸</h2></div>
+  <p>下面每一个都是 <strong>24px 实际渲染</strong>，没有放大。三种底色都要过。</p>
+  <div class="truesize">
+    <div class="on-cream">
+      <div class="row"><svg width="24" height="24"><use href="#i-tuanzi"/></svg><svg width="24" height="24"><use href="#i-diary"/></svg><svg width="24" height="24"><use href="#i-house"/></svg><svg width="24" height="24"><use href="#i-pond"/></svg><svg width="24" height="24"><use href="#i-paw"/></svg><svg width="24" height="24"><use href="#i-lock"/></svg><svg width="24" height="24"><use href="#i-mic"/></svg></div>
+      <b>24px · 奶油</b>
+    </div>
+    <div class="on-sage">
+      <div class="row"><svg width="24" height="24"><use href="#i-tuanzi"/></svg><svg width="24" height="24"><use href="#i-tree"/></svg><svg width="24" height="24"><use href="#i-grass"/></svg><svg width="24" height="24"><use href="#i-fence"/></svg><svg width="24" height="24"><use href="#i-bed"/></svg><svg width="24" height="24"><use href="#i-chat"/></svg><svg width="24" height="24"><use href="#i-search"/></svg></div>
+      <b>24px · 鼠尾草</b>
+    </div>
+    <div class="on-dark">
+      <div class="row"><svg width="24" height="24"><use href="#i-tuanzi"/></svg><svg width="24" height="24"><use href="#i-me"/></svg><svg width="24" height="24"><use href="#i-camera"/></svg><svg width="24" height="24"><use href="#i-clock"/></svg><svg width="24" height="24"><use href="#i-note"/></svg><svg width="24" height="24"><use href="#i-send"/></svg><svg width="24" height="24"><use href="#i-trash"/></svg></div>
+      <b>24px · 深色</b>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sh"><span class="num">05</span><h2>规则</h2></div>
+  <table class="spec">
+    <tr><th>项</th><th>值</th></tr>
+    <tr><td>网格</td><td class="v">24 × 24</td></tr>
+    <tr><td>线宽</td><td class="v">1.7</td><tr>
+    <tr><td>加重线宽</td><td class="v">1.9</td></tr>
+    <tr><td>端点与转角</td><td>全部圆角。<strong>没有一个尖角</strong>，这是和团子那套手绘线保持同一口音的关键。</td></tr>
+    <tr><td>实心图形</td><td>只有两个：<strong>团子记号</strong>和<strong>爪印</strong>。其余全部线框。实心是留给身份和归属的，不是给普通功能的。</td></tr>
+    <tr><td>上色</td><td><code>fill/stroke: currentColor</code>，<strong>不要写死颜色</strong>。选中态蜂蜜橙 <code>#B4702A</code>，未选中态中性灰。</td></tr>
+    <tr><td>iOS</td><td>拖进 Asset Catalog 设为 Template Image，勾 Preserve Vector Data，不用导 @2x @3x。</td></tr>
+  </table>
+
+  <div class="note">
+    <p class="t">为什么设置用滑杆不用齿轮</p>
+    <p>齿轮在 24px 上齿会糊成一圈毛边，而且它是这套里唯一需要八次旋转对称的图形——<strong>正好撞上「不许几何完美」那条</strong>。三根滑杆更干净，也更符合这个 App 的设置其实只有寥寥几项这一事实。</p>
+  </div>
+</section>
+
+<p class="end">
+在 24×24 网格上直接设计，未由大图缩小 · 线宽 1.7，端点与转角全圆 · 由 currentColor 上色<br>
+团子记号与爪印是仅有的两个实心图形，分别承担身份与归属<br>
+源文件写入 outputs/icon/
+</p>
+
+</div>

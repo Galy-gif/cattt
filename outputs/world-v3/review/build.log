@@ -1,0 +1,253 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ios/Maomao.xcodeproj -scheme Maomao -configuration Debug -sdk iphonesimulator -destination "platform=iOS Simulator,id=5D171DD3-720E-4FC4-BEB5-BF7B73A25ECD" -derivedDataPath outputs/world-v3/build build
+
+Build settings from command line:
+    SDKROOT = iphonesimulator26.5
+
+2026-09-10 15:17:42.924 xcodebuild[1091:35000940] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'Maomao' in project 'Maomao' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/gouzi/猫猫的app/ios/Maomao/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 84f33030382d938f8ddd20ddf775f618
+Build description path: /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/XCBuildData/84f33030382d938f8ddd20ddf775f618.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk /Users/gouzi/猫猫的app/outputs/world-v3/build/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+    cd /Users/gouzi/猫猫的app/ios/Maomao.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -o /Users/gouzi/猫猫的app/outputs/world-v3/build/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+
+SwiftDriver Maomao normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Maomao -Onone @/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -F /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -sdk-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_const_extract_protocols.json -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-generated-files.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-own-target-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-all-target-headers.hmap -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-project-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources-normal/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-Swift.h -working-directory /Users/gouzi/猫猫的app/ios -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ WorldTextureCache.swift /Users/gouzi/猫猫的app/ios/Maomao/Store/WorldTextureCache.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Store/WorldTextureCache.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ WorldView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/WorldView.swift (in target 'Maomao' from project 'Maomao')
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/WorldView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Maomao (in target 'Maomao' from project 'Maomao')
+
+EmitSwiftModule normal arm64 (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ AppStore.swift /Users/gouzi/猫猫的app/ios/Maomao/Store/AppStore.swift (in target 'Maomao' from project 'Maomao')
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Store/AppStore.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+/Users/gouzi/猫猫的app/ios/Maomao/Store/AppStore.swift:322:9: warning: result of call to 'withAnimation' is unused
+        withAnimation(.easeOut(duration: Metrics.fadeFast)) {
+        ^            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SwiftDriverJobDiscovery normal arm64 Compiling WorldTextureCache.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 Compiling\ RootView.swift,\ DebugPanel.swift,\ DebugScript.swift /Users/gouzi/猫猫的app/ios/Maomao/App/RootView.swift /Users/gouzi/猫猫的app/ios/Maomao/Debug/DebugPanel.swift /Users/gouzi/猫猫的app/ios/Maomao/Debug/DebugScript.swift (in target 'Maomao' from project 'Maomao')
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/App/RootView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Debug/DebugPanel.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Debug/DebugScript.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ LocationRail.swift,\ MeView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/LocationRail.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Me/MeView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/LocationRail.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Me/MeView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ CaptureSheet.swift,\ DiaryEntryRow.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/CaptureSheet.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/DiaryEntryRow.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/CaptureSheet.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/DiaryEntryRow.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ ChatView.swift,\ MessageRow.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Chat/ChatView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Chat/MessageRow.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Chat/ChatView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Chat/MessageRow.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ FirstMeetingStep.swift,\ NamingStep.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/FirstMeetingStep.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/NamingStep.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/FirstMeetingStep.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/NamingStep.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ DiaryTodayView.swift,\ CompanionHomeView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/DiaryTodayView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/CompanionHomeView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Diary/DiaryTodayView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Home/CompanionHomeView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 Compiling\ TemperamentStep.swift,\ TabBarView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/TemperamentStep.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Shell/TabBarView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/TemperamentStep.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Shell/TabBarView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling WorldView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 Compiling\ OnboardingView.swift,\ PickAppearanceStep.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/OnboardingView.swift /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/PickAppearanceStep.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/OnboardingView.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftCompile normal arm64 /Users/gouzi/猫猫的app/ios/Maomao/Features/Onboarding/PickAppearanceStep.swift (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling AppStore.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling CaptureSheet.swift, DiaryEntryRow.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling FirstMeetingStep.swift, NamingStep.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling LocationRail.swift, MeView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling DiaryTodayView.swift, CompanionHomeView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ChatView.swift, MessageRow.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling TemperamentStep.swift, TabBarView.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling OnboardingView.swift, PickAppearanceStep.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriverJobDiscovery normal arm64 Compiling RootView.swift, DebugPanel.swift, DebugScript.swift (in target 'Maomao' from project 'Maomao')
+
+SwiftDriver\ Compilation Maomao normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Maomao -Onone @/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -F /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -sdk-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_const_extract_protocols.json -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-generated-files.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-own-target-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-all-target-headers.hmap -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-project-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources-normal/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-Swift.h -working-directory /Users/gouzi/猫猫的app/ios -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Maomao (in target 'Maomao' from project 'Maomao')
+
+SwiftDriver\ Compilation\ Requirements Maomao normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Maomao -Onone @/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -F /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -sdk-module-cache-path /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/gouzi/猫猫的app/outputs/world-v3/build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_const_extract_protocols.json -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-generated-files.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-own-target-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-all-target-headers.hmap -Xcc -iquote -Xcc /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-project-headers.hmap -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources-normal/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources/arm64 -Xcc -I/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-Swift.h -working-directory /Users/gouzi/猫猫的app/ios -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib normal (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -F/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -filelist /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.LinkFileList -install_name @rpath/Maomao.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule @/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib
+
+Copy /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftmodule /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.abi.json (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.abi.json /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftsourceinfo (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.swiftsourceinfo /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+ConstructStubExecutorLinkFileList /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-ExecutorLinkFileList-normal-arm64.txt (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    construct-stub-executor-link-file-list /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Maomao' from project 'Maomao')
+
+Ld /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao normal (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -F/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao-ExecutorLinkFileList-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao.app-Simulated.xcent.der /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao
+
+ExtractAppIntentsMetadata (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Maomao --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk --xcode-version 17F113 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.maomao.app --output /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao --dependency-file /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao_dependency_info.dat --stringsdata-file /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.SwiftFileList --metadata-file-list /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao.DependencyMetadataFileList --static-metadata-file-list /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Maomao.DependencyStaticMetadataFileList --swift-const-vals-list /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/Objects-normal/arm64/Maomao.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-10 15:18:12.795 appintentsmetadataprocessor[1194:35002193] Starting appintentsmetadataprocessor export
+2026-09-10 15:18:12.807 appintentsmetadataprocessor[1194:35002193] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+CopySwiftLibs /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib --scan-folder /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Frameworks --scan-folder /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/PlugIns --scan-folder /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/SystemExtensions --scan-folder /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ProcessInfoPlistFile /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Info.plist /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/empty-Maomao.plist (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-infoPlistUtility /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/empty-Maomao.plist -producttype com.apple.product-type.application -genpkginfo /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Intermediates.noindex/Maomao.build/Debug-iphonesimulator/Maomao.build/assetcatalog_generated_info.plist -o /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Info.plist
+
+CodeSign /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/Maomao.debug.dylib
+
+CodeSign /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/__preview.dylib (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/__preview.dylib
+/Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app/__preview.dylib: replacing existing signature
+
+CodeSign /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app
+
+Validate /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app (in target 'Maomao' from project 'Maomao')
+    cd /Users/gouzi/猫猫的app/ios
+    builtin-validationUtility /Users/gouzi/猫猫的app/outputs/world-v3/build/Build/Products/Debug-iphonesimulator/Maomao.app -shallow-bundle -infoplist-subpath Info.plist
+
+** BUILD SUCCEEDED **
+

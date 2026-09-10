@@ -1,0 +1,35 @@
+# macOS and local editor state
+.DS_Store
+.claude/
+*.xcuserstate
+xcuserdata/
+
+# Credentials and signing material
+.env
+.env.*
+!.env.example
+!.env.sample
+*.p12
+*.p8
+*.mobileprovision
+*.key
+
+# Reproducible build products and Python caches
+build/
+DerivedData/
+__pycache__/
+*.py[cod]
+*.app/
+*.dSYM/
+outputs/**/world-tests
+outputs/**/camera-tests
+outputs/**/interaction-tests
+outputs/**/v4-tests
+outputs/**/package-v4
+
+# Local simulator recordings; sources and review images remain versioned
+outputs/**/*.mp4
+outputs/**/*.mov
+
+# Unrelated personal document
+/机票行程单_前两页.pdf

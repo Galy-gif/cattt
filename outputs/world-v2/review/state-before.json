@@ -1,0 +1,17 @@
+{
+  "action" : "run",
+  "current" : 0,
+  "phase" : "moving",
+  "p95TimerIntervalMilliseconds" : 40.999458404257894,
+  "target" : 5,
+  "maxSimulationMilliseconds" : 0.83733326755464077,
+  "x" : 0.64012407632129709,
+  "ticks" : 110,
+  "onHome" : true,
+  "y" : 0.80154996641168352,
+  "paused" : true,
+  "foreground" : true,
+  "textureValidationError" : "",
+  "worldSeconds" : 3.6997762500774116,
+  "meanSimulationMilliseconds" : 0.18293296240947463
+}

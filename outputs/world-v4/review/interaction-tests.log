@@ -1,0 +1,3 @@
+PASS: nest, 11 stages, continuity and exit from every stage
+PASS: flower / rail, 8 stages, continuity and exit from every stage
+PASS: elevated retarget preserves last request and lands before navigation

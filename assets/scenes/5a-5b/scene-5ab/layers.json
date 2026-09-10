@@ -1,0 +1,600 @@
+{
+  "canvas": [
+    853,
+    1844
+  ],
+  "background": "5a-background-plate.png",
+  "safe_top": 148,
+  "safe_bottom": 1622,
+  "layers": [
+    {
+      "id": "birdhouse",
+      "file": "assets/prop-birdhouse.png",
+      "x": 680,
+      "y": 560,
+      "scale": 1.0,
+      "source_scale": 0.5714285714285714,
+      "z": 10,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 0,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "lantern",
+      "file": "assets/prop-lantern.png",
+      "x": 560,
+      "y": 640,
+      "scale": 1.0,
+      "source_scale": 0.425531914893617,
+      "z": 11,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 0,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "sign",
+      "file": "assets/prop-sign.png",
+      "x": 30,
+      "y": 720,
+      "scale": 1.0,
+      "source_scale": 0.9174311926605505,
+      "z": 20,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "potted-plant",
+      "file": "assets/prop-potted-plant.png",
+      "x": 70,
+      "y": 860,
+      "scale": 1.0,
+      "source_scale": 0.7531380753138075,
+      "z": 21,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "flower",
+      "file": "assets/prop-flower.png",
+      "x": 385,
+      "y": 835,
+      "scale": 1.0,
+      "source_scale": 0.5025125628140703,
+      "z": 22,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "lamp-stand",
+      "file": "assets/prop-lamp-stand.png",
+      "x": 450,
+      "y": 760,
+      "scale": 1.0,
+      "source_scale": 0.9865470852017937,
+      "z": 23,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "crate-stack",
+      "file": "assets/prop-crate-stack.png",
+      "x": 570,
+      "y": 925,
+      "scale": 1.0,
+      "source_scale": 0.9216589861751152,
+      "z": 24,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "stool",
+      "file": "assets/prop-stool.png",
+      "x": 115,
+      "y": 1010,
+      "scale": 1.0,
+      "source_scale": 0.8080808080808081,
+      "z": 30,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "table",
+      "file": "assets/prop-table.png",
+      "x": 305,
+      "y": 995,
+      "scale": 1.0,
+      "source_scale": 0.9411764705882353,
+      "z": 31,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "books",
+      "file": "assets/prop-books.png",
+      "x": 395,
+      "y": 970,
+      "scale": 1.0,
+      "source_scale": 0.45248868778280543,
+      "z": 32,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "cup",
+      "file": "assets/prop-cup.png",
+      "x": 505,
+      "y": 998,
+      "scale": 1.0,
+      "source_scale": 0.23529411764705882,
+      "z": 33,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "bucket",
+      "file": "assets/prop-bucket.png",
+      "x": 228,
+      "y": 1120,
+      "scale": 1.0,
+      "source_scale": 0.5150214592274678,
+      "z": 40,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "watering-can",
+      "file": "assets/prop-watering-can.png",
+      "x": 255,
+      "y": 1190,
+      "scale": 1.0,
+      "source_scale": 0.5025125628140703,
+      "z": 41,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "cardboard-box",
+      "file": "assets/prop-cardboard-box.png",
+      "x": 567,
+      "y": 1100,
+      "scale": 1.0,
+      "source_scale": 0.6896551724137931,
+      "z": 42,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "rolled-blanket",
+      "file": "assets/prop-rolled-blanket.png",
+      "x": 605,
+      "y": 1180,
+      "scale": 1.0,
+      "source_scale": 0.547945205479452,
+      "z": 43,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "broom",
+      "file": "assets/prop-broom.png",
+      "x": 690,
+      "y": 975,
+      "scale": 1.0,
+      "source_scale": 0.8270676691729323,
+      "z": 44,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "fern",
+      "file": "assets/prop-fern.png",
+      "x": 655,
+      "y": 1300,
+      "scale": 1.0,
+      "source_scale": 0.6666666666666666,
+      "z": 45,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "cat-bed",
+      "file": "assets/prop-cat-bed.png",
+      "x": 345,
+      "y": 1170,
+      "scale": 1.0,
+      "source_scale": 0.7531380753138075,
+      "z": 50,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "blanket",
+      "file": "assets/prop-blanket.png",
+      "x": 338,
+      "y": 1240,
+      "scale": 1.0,
+      "source_scale": 0.6451612903225806,
+      "z": 51,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "clay-bowl",
+      "file": "assets/prop-clay-bowl.png",
+      "x": 550,
+      "y": 1270,
+      "scale": 1.0,
+      "source_scale": 0.5673758865248227,
+      "z": 52,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "water-bowl",
+      "file": "assets/prop-water-bowl.png",
+      "x": 530,
+      "y": 1350,
+      "scale": 1.0,
+      "source_scale": 0.43956043956043955,
+      "z": 53,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "kibble-bowl",
+      "file": "assets/prop-kibble-bowl.png",
+      "x": 555,
+      "y": 1440,
+      "scale": 1.0,
+      "source_scale": 0.47619047619047616,
+      "z": 54,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "yarn",
+      "file": "assets/prop-yarn.png",
+      "x": 294,
+      "y": 1405,
+      "scale": 1.0,
+      "source_scale": 0.19753086419753085,
+      "z": 55,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "fish-toy",
+      "file": "assets/prop-fish-toy.png",
+      "x": 565,
+      "y": 1530,
+      "scale": 1.0,
+      "source_scale": 0.24870466321243523,
+      "z": 56,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "bell",
+      "file": "assets/prop-bell.png",
+      "x": 490,
+      "y": 1510,
+      "scale": 1.0,
+      "source_scale": 0.38095238095238093,
+      "z": 57,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "mushroom-cluster",
+      "file": "assets/prop-mushroom-cluster.png",
+      "x": 695,
+      "y": 1450,
+      "scale": 1.0,
+      "source_scale": 0.36585365853658536,
+      "z": 58,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "leaf-pile",
+      "file": "assets/prop-leaf-pile.png",
+      "x": 675,
+      "y": 1510,
+      "scale": 1.0,
+      "source_scale": 0.4830917874396135,
+      "z": 59,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "low-grass",
+      "file": "assets/prop-low-grass.png",
+      "x": 700,
+      "y": 1555,
+      "scale": 1.0,
+      "source_scale": 0.45977011494252873,
+      "z": 60,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "rock",
+      "file": "assets/prop-rock.png",
+      "x": 370,
+      "y": 1510,
+      "scale": 1.0,
+      "source_scale": 0.36036036036036034,
+      "z": 61,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "paper-bag",
+      "file": "assets/prop-paper-bag.png",
+      "x": 70,
+      "y": 1040,
+      "scale": 1.0,
+      "source_scale": 0.6060606060606061,
+      "z": 29,
+      "kind": "prop",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    },
+    {
+      "id": "tuanzi",
+      "file": "assets/tuanzi-world-sleep-basket.png",
+      "x": 342,
+      "y": 1310,
+      "scale": 1.0,
+      "source_scale": 0.6521739130434783,
+      "z": 100,
+      "kind": "character",
+      "shadow": {
+        "opacity": 15,
+        "offset": [
+          2,
+          3
+        ],
+        "blur": 3,
+        "height": 8
+      }
+    }
+  ]
+}

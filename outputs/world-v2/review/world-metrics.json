@@ -1,0 +1,17 @@
+{
+  "current" : 1,
+  "foreground" : true,
+  "paused" : false,
+  "action" : "blinkLook",
+  "x" : 0.36499999999999999,
+  "maxSimulationMilliseconds" : 3.4845001064240932,
+  "textureValidationError" : "",
+  "y" : 0.67700000000000005,
+  "ticks" : 9000,
+  "worldSeconds" : 300.3550861246884,
+  "onHome" : true,
+  "meanSimulationMilliseconds" : 0.17235254602403277,
+  "p95TimerIntervalMilliseconds" : 34.235625062137842,
+  "target" : 1,
+  "phase" : "idle"
+}

@@ -1,0 +1,37 @@
+import SwiftUI
+
+#if DEBUG
+/// 启动参数脚本：没有模拟器面板时也能驱动世界层做验收截图。
+///
+/// ```
+/// xcrun simctl launch booted com.maomao.app -script "500:moveCat:4;9000:poke;12000:look:0;14000:findCat"
+/// ```
+/// 每条 `延迟ms:命令[:参数]`，延迟从启动起算。命令：moveCat:i、look:i、findCat、poke、drag:dx（pt）、reseed。
+enum DebugScript {
+    static func run(on store: AppStore) {
+        guard let raw = UserDefaults.standard.string(forKey: "script"), !raw.isEmpty else { return }
+        for item in raw.split(separator: ";") {
+            let parts = item.split(separator: ":").map(String.init)
+            guard parts.count >= 2, let delay = Int(parts[0]) else { continue }
+            let command = parts[1]
+            let arg = parts.count > 2 ? parts[2] : ""
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
+                switch command {
+                case "moveCat": if let i = Int(arg) { store.moveCat(to: i) }
+                case "look": if let i = Int(arg) { store.look(at: i) }
+                case "findCat": store.findCat()
+                case "poke": store.poke()
+                case "drag":
+                    if let dx = Double(arg) {
+                        store.dragCamera(translation: CGFloat(dx))
+                        store.endDrag(velocity: 0)
+                    }
+                case "reseed": store.reseed()
+                default: print("DebugScript: 未知命令 \(command)")
+                }
+            }
+        }
+    }
+}
+#endif

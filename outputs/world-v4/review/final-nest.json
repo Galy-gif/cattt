@@ -1,0 +1,17 @@
+{
+  "y" : 0.67700000000000005,
+  "paused" : false,
+  "target" : 1,
+  "meanSimulationMilliseconds" : 0.019538855448447766,
+  "onHome" : true,
+  "x" : 0.41399999999999998,
+  "current" : 1,
+  "phase" : "interacting",
+  "foreground" : true,
+  "worldSeconds" : 17.86663075000979,
+  "textureValidationError" : "",
+  "maxSimulationMilliseconds" : 0.11658319272100925,
+  "ticks" : 1083,
+  "action" : "nestSleep",
+  "p95TimerIntervalMilliseconds" : 16.721041640266776
+}

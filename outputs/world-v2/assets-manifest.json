@@ -1,0 +1,569 @@
+[
+  {
+    "file": "assets/scenes/courtyard-v2/bed-front.png",
+    "pixels": [
+      1971,
+      789
+    ],
+    "mode": "RGBA",
+    "sha256": "aa24796a92d94776f4e102485b057bb8ebdfc84f90b5e312c7b4a6d9dd8e869e"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/bed.png",
+    "pixels": [
+      1971,
+      789
+    ],
+    "mode": "RGBA",
+    "sha256": "a58b67d295a7f18c81356bf5dff9a7f87bc71ea8c0de07717c3b7a0e4e2e6d97"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/board.png",
+    "pixels": [
+      316,
+      1310
+    ],
+    "mode": "RGBA",
+    "sha256": "f30f6cebfb2d2344ebe540efe1518e275ec273e0da7cb7531e6c968da3fc9ced"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/clean-plate-preview.png",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "764700ad78a7af499b978a162ea6780b87ada63f53c218ce003a93c2392031cb"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/composite-4302x2868.png",
+    "pixels": [
+      4302,
+      2868
+    ],
+    "mode": "RGBA",
+    "sha256": "2fa1a7c72fa8e8efd2b7c2c3b15395824844554c13f66e4306c3024fd31b7a1c"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/composition-preview.png",
+    "pixels": [
+      1619,
+      971
+    ],
+    "mode": "RGB",
+    "sha256": "89e0e76e14be7c9c90af8d4346b29448ede187399db06df42f64c372c6fa8fe0"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/composition-round-crown.png",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "51cfe761dd6f1cec4d048afdbae111726b22dab6a874f804a8b6fff28fbd9f6f"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/fence.png",
+    "pixels": [
+      2138,
+      559
+    ],
+    "mode": "RGBA",
+    "sha256": "0084e61eed222cb56eb4ef3ca1a3657124ea046e299f6794c19848548c16d84e"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/grass-front.png",
+    "pixels": [
+      1344,
+      1110
+    ],
+    "mode": "RGBA",
+    "sha256": "0a2f33d5ad814f44323332eca8db64b9a2aa960077e4ec19dc2e0004131bd5e4"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/grass.png",
+    "pixels": [
+      1344,
+      1110
+    ],
+    "mode": "RGBA",
+    "sha256": "0a2f33d5ad814f44323332eca8db64b9a2aa960077e4ec19dc2e0004131bd5e4"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/ground-native.png",
+    "pixels": [
+      5166,
+      3444
+    ],
+    "mode": "RGB",
+    "sha256": "ab57b8ec3da29d7501078d6e60206c69db1f096a46f4d37085e7e20a8c3f649f"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/house.png",
+    "pixels": [
+      1437,
+      1094
+    ],
+    "mode": "RGBA",
+    "sha256": "a7a006ccb56968bd6e4243b7edb61724283b09be27eccaaff4c5acd0df8e94e8"
+  },
+  {
+    "file": "assets/scenes/courtyard-v2/tree.png",
+    "pixels": [
+      1604,
+      1649
+    ],
+    "mode": "RGBA",
+    "sha256": "d6dcc933a3ae626f4edd16527821a2ea32c269dea58b972a28cfa5116354facd"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchEnter/01.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "a8c587ff699779f786f5c7de2fc50dd2c4e4d6c36a27c025b2b0b47b3c272e73"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchEnter/02.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "90fa49644781c464792e86149c1e1b5707188badf729f975bac9dff073f1ea73"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchEnter/03.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "b6b488cf9eed533418321823871881e92af6ec7eb485b73872dd53cd8236d933"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchEnter/04.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "9bf977d6da8623ba29309ebdabb5d21ca428d951dc27964c56a99b1676b4580e"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchExit/01.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "9bf977d6da8623ba29309ebdabb5d21ca428d951dc27964c56a99b1676b4580e"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchExit/02.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "b6b488cf9eed533418321823871881e92af6ec7eb485b73872dd53cd8236d933"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchExit/03.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "90fa49644781c464792e86149c1e1b5707188badf729f975bac9dff073f1ea73"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/scratchExit/04.png",
+    "pixels": [
+      550,
+      550
+    ],
+    "mode": "RGBA",
+    "sha256": "a8c587ff699779f786f5c7de2fc50dd2c4e4d6c36a27c025b2b0b47b3c272e73"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/01.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "de23e1f7319f401354df536e117ae0651fc085d4d743e547d7b862d43bb7029c"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/02.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "5229238c71d43ff537698bd845f8be9df8f45a0d9766e82faf41ad32bcb5910a"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/03.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "3f9ba1e68a7e9517268de4cdd2849e705b1976e88792ed881f7da78c3d4717ef"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/04.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "ea2cc42ad48fa75b122add9dc1269fe092d9d5f4f8c8932fcf8a12493956c9fe"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/05.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "017ef0c465ad02c4e37894e59b9b17259e3706f5d89b64f27ad5a734561ed28d"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/06.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "60f4252859e1a27462a5b3999494b5f48599e5dc3339f5ff2a5963d126cd196d"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/07.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "057f6b7af68ec50ba3a29d9902650ad3d08f091601bbe46d6ff85054f8e2b0c7"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/sleepyNod/08.png",
+    "pixels": [
+      364,
+      431
+    ],
+    "mode": "RGBA",
+    "sha256": "379d92046fe07f960d61908e0ea5319fbaa82ed81e357c9f97f17a4f01fb0c52"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/01.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "65738201919164138ac05da1bbd1d988c1c73d8da71599b18752f78af7c15c18"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/02.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "dc31f5191a890f72b0b5378af3547c6ccf456ac58df86723782ea518d4481db1"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/03.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "837c9eba1f739bccc1eccc8ab217339aee6b45a06fec68a78374b59200ede139"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/04.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "af8b8f0390cf3148265a146b204eff67ba687f92903100395c771a18b3e15b94"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/05.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "f577402141e28e42a1d71fce0e458abf7fe0d208d8a8c5de9fb85b64f3b789f4"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/06.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "5c3c5d8ff821a1534c7239e3d5ed30da7ab3e1041ee9ce7238d4caa46f5c97c9"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/07.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "2cb7cf3d95f96ca2f0a3ba78fb171d3b84e627f22ab18353a4308ae0273b4c7a"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/08.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "e7fd214270c8151db97f5bc0827c4fe84e84f8bf9f55d807a0bf0fae36b2589d"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/09.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "aa8927f7673c96ffc59fbe2c644189ff15e8e6f715f61ab7ed9352e7c7ed043e"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/10.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "5c405df1382996e6ed098d8ecc7313e49822a784555fb66c0ee9bc7913cab398"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/11.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "79421d29d1065fd869eb426e8a6533d57db08f3e48cf7bb58dc7653e8f881869"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/12.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "92429ce72620f172e302fdc2a0ca1e7f9b615542fdb0ba678d188788df649c2c"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/13.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "a7fe3000b94d2ecda0fa12b8be3441acea20736bb63f096eb3e2d2d8e3387acc"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/14.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "f0452c4049dafe62565c0b894e512e58e9c0058f68417934b818eb5cc25f9d33"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/15.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "1462ebd7a0ac985df86a667bbe523fdb712cba39a98e63a04f84ee05027fef29"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/tailChase/16.png",
+    "pixels": [
+      396,
+      392
+    ],
+    "mode": "RGBA",
+    "sha256": "e478bdf249e391aa9b1d7e5944e0f91b707cdeaf66e764b2c482efbb0efecc88"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/01.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "c788a4847ad49f45eac4bf89be2f95eb6acd3798e3654f6dcf49d21e2551b70e"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/02.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "18eda4ba9db47da07d05dd476a3b0ba7aa057dab1fda53621dff8d65b0e922c9"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/03.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "fb94dc711145a2eb56533179ee25855aeb8466674f08b01f5239a8fef98ac3fc"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/04.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "e937a92bf1864cb99c7aab096ebdc9996d4dbaaf3694dbb2ffeaf9889061a9e1"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/05.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "bc5c15a9357d889fb50037224fdf879e8a315d2e0e27868731248a71833cb4e8"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/treeScratch/06.png",
+    "pixels": [
+      418,
+      432
+    ],
+    "mode": "RGBA",
+    "sha256": "7654204bd43fe343248c73b87a8a795bc5e75592501f80b2de021627d44012ea"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/01.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "b6b80012d262bde55bab84bd2e87fdc9d76fc075a1bbcbf27a55620443a98a38"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/02.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "43e26c9dda0cab1551c94486392cf13652a8e55d10058cb4361cec7cd2702387"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/03.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "0f0823a2b428a3658a1bd06ebb66ebf01a6b0f306cd8c4f1f06ac44f2aca305d"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/04.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "213dc6d146a1b1e4bbd87c86381dcb2548e0feca9868216f30b5a98ddc0d2a6a"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/05.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "af07df0cdd668319fe9413c7dd501ed2ab2659ab28210ae63e21cf770c76eaab"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkAway/06.png",
+    "pixels": [
+      355,
+      377
+    ],
+    "mode": "RGBA",
+    "sha256": "49dbae8b6c4dcdc60e621d21fba4faff1100291507b2e139941c53fbaa31dde2"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/01.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "8643ba21ede062d3359ceb64edee138265acbd6fcf23ec4f6710a8888d006c12"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/02.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "0e57b2dcda2ddba9611eece6851e9a6a7d78ff9796c8d8cb12e483a9f73af360"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/03.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "fb791d713b277481f31b57e56569586c9999661114d305317d150605abf1b3ff"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/04.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "bd43d83cdd701dd1936b4a95e96fb84c0f17edccb7999d5822377637bf76aac3"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/05.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "06ddb2c6849fea9f2329c5be2a143cd55e6587b6c9bcd55edd30dafc991499fd"
+  },
+  {
+    "file": "assets/tuanzi/world-v2/walkToward/06.png",
+    "pixels": [
+      411,
+      441
+    ],
+    "mode": "RGBA",
+    "sha256": "0fdb089a480dbe087f03d7c9cbf2f5b81b263ae9fd15b1f1f5b438343aee07b6"
+  }
+]

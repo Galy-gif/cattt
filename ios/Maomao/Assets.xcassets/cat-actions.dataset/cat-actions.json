@@ -1,0 +1,129 @@
+{
+  "referenceScreen": [
+    390,
+    844
+  ],
+  "catPt": 76.0,
+  "actions": [
+    {
+      "id": "walk",
+      "name": "走路",
+      "frameCount": 6,
+      "fps": 8,
+      "loop": "loop",
+      "size": [
+        128,
+        91
+      ],
+      "footY": 85.7,
+      "bodyLength": 100.9,
+      "stride": 1.0,
+      "hitInset": 7
+    },
+    {
+      "id": "sleepyNod",
+      "name": "困倦点头",
+      "frameCount": 6,
+      "fps": 4,
+      "loop": "pingpong",
+      "size": [
+        98,
+        102
+      ],
+      "footY": 97.7,
+      "bodyLength": 77.0,
+      "stride": null,
+      "hitInset": 8
+    },
+    {
+      "id": "blinkLook",
+      "name": "眨眼看你",
+      "frameCount": 6,
+      "fps": 10,
+      "loop": "once",
+      "size": [
+        88,
+        98
+      ],
+      "footY": 94.1,
+      "bodyLength": 70.7,
+      "stride": null,
+      "hitInset": 7
+    },
+    {
+      "id": "stretch",
+      "name": "伸懒腰",
+      "frameCount": 6,
+      "fps": 6,
+      "loop": "once",
+      "size": [
+        189,
+        98
+      ],
+      "footY": 92.7,
+      "bodyLength": 101.0,
+      "stride": null,
+      "hitInset": 8
+    },
+    {
+      "id": "treeScratch",
+      "name": "树干磨爪",
+      "frameCount": 6,
+      "fps": 8,
+      "loop": "loop",
+      "size": [
+        124,
+        132
+      ],
+      "footY": 126.7,
+      "bodyLength": 88.9,
+      "stride": null,
+      "hitInset": 10
+    },
+    {
+      "id": "tailChase",
+      "name": "追尾巴",
+      "frameCount": 6,
+      "fps": 8,
+      "loop": "loop",
+      "size": [
+        96,
+        94
+      ],
+      "footY": 88.9,
+      "bodyLength": 82.0,
+      "stride": null,
+      "hitInset": 8
+    },
+    {
+      "id": "run",
+      "name": "奔跑",
+      "frameCount": 6,
+      "fps": 12,
+      "loop": "loop",
+      "size": [
+        183,
+        90
+      ],
+      "footY": 83.1,
+      "bodyLength": 114.3,
+      "stride": 1.6,
+      "hitInset": 7
+    },
+    {
+      "id": "sleepBreathe",
+      "name": "蜷睡呼吸",
+      "frameCount": 6,
+      "fps": 3,
+      "loop": "pingpong",
+      "size": [
+        110,
+        78
+      ],
+      "footY": 73.0,
+      "bodyLength": 91.2,
+      "stride": null,
+      "hitInset": 6
+    }
+  ]
+}

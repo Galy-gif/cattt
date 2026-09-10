@@ -1,0 +1,17 @@
+{
+  "paused" : false,
+  "worldSeconds" : 48.133314458327369,
+  "textureValidationError" : "",
+  "maxSimulationMilliseconds" : 14.953416772186756,
+  "current" : 4,
+  "phase" : "interacting",
+  "ticks" : 2792,
+  "foreground" : true,
+  "meanSimulationMilliseconds" : 0.034536636317079421,
+  "p95TimerIntervalMilliseconds" : 18.622000003233552,
+  "x" : 0.85399999999999998,
+  "onHome" : true,
+  "action" : "waterRest",
+  "y" : 0.70399999999999996,
+  "target" : 4
+}

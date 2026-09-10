@@ -1,0 +1,9 @@
+/* 猫猫 App 界面配色 B「院子里」· 2026-09-08 定 */
+:root{
+  --bg:#D5E2D7; --card:#FFFFFF; --rule:#B7CEBB;
+  --ink:#1F3022; --ink-2:#394C3C; --ink-3:#5A705E;
+  --chip:#C4DAC7; --chip-ink:#4C5945;
+  --accent:#C25A3E; --accent-ink:#F8EDE6;
+  /* 世界配色（定版，不随界面改） */
+  --sky:#CFE3EA; --ground:#C6D9C4; --tuanzi:#E3A05C; --pond:#9FC0C2; --line:#6B5B4A;
+}

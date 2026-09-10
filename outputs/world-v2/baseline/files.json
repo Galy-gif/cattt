@@ -1,0 +1,142 @@
+[
+  {
+    "file": "ios/Maomao/DesignSystem/Typography.swift",
+    "sha256": "4ae649e38bd681c66a4e9aeb0e7c38fd5af5299ff0d51929d31a542abab0d53e"
+  },
+  {
+    "file": "ios/Maomao/DesignSystem/Palette.swift",
+    "sha256": "72dbae3a85d377f792298da93195353e99215af7fa16bf6602e0d3629fce5a03"
+  },
+  {
+    "file": "ios/Maomao/DesignSystem/Icons.swift",
+    "sha256": "d4b01b8ffaeecfcd884d20cf3fcbc4f9ebfdf0eaff3cca59fdab4868749251c4"
+  },
+  {
+    "file": "ios/Maomao/DesignSystem/Metrics.swift",
+    "sha256": "10285f90134557c4bba9db9de99a6898bf1aff8ce6191e529a80e1b435d94483"
+  },
+  {
+    "file": "ios/Maomao/DesignSystem/VectorIcon.swift",
+    "sha256": "23480c14c600550dbff8c2a089187c7190db4d0991908fa529be537dfb077a0d"
+  },
+  {
+    "file": "ios/Maomao/App/MaomaoApp.swift",
+    "sha256": "12ddb529797296e61799d755f066bfe89061af652850b6e927077cb8c8bb2c05"
+  },
+  {
+    "file": "ios/Maomao/App/RootView.swift",
+    "sha256": "15aecbb3c3573141b9c7d6670b9685fba4303381479e05f05dc88e1893c192f4"
+  },
+  {
+    "file": "ios/Maomao/Model/Location.swift",
+    "sha256": "afe3da67828c9c0417744dedee29c009462673c7a4a0cb76e892dfdbd96f8fe7"
+  },
+  {
+    "file": "ios/Maomao/Model/ChatMessage.swift",
+    "sha256": "7d36d60d0b35f2e205846fd5a19f9f1d3aed3d9715b58809eb6200778095f36b"
+  },
+  {
+    "file": "ios/Maomao/Model/CatAction.swift",
+    "sha256": "cad45e82481a22b389ad4ffea10ffeb92bede007b6d34bd578d801e075fa7ef4"
+  },
+  {
+    "file": "ios/Maomao/Model/DiaryEntry.swift",
+    "sha256": "75b0a9b77307a935be41a25b46a213c6459326e813883df22b8a3ffa143e37af"
+  },
+  {
+    "file": "ios/Maomao/Model/World.swift",
+    "sha256": "c5401ce0e5bf7a4aeca6e3295a9ad355042c5415f1f5b491489c358dab1e9388"
+  },
+  {
+    "file": "ios/Maomao/Store/AppStore.swift",
+    "sha256": "d8f2d30ddc1bee1145a29d63f4b3f293461a064e8d5892f3251df5360797db6a"
+  },
+  {
+    "file": "ios/Maomao/Debug/DebugPanel.swift",
+    "sha256": "2e00c13b3bb63be0e9b8c05d7ff44021fc52d7ca895b210fe33ebe84c8757477"
+  },
+  {
+    "file": "ios/Maomao/Debug/DebugScript.swift",
+    "sha256": "7244d90a3b365dafe46f0f7c88c596adeb17fff07a07a34408c9f15877889a44"
+  },
+  {
+    "file": "ios/Maomao/Features/Home/WorldView.swift",
+    "sha256": "ed88e3e2fcd61cd04b7a254f110eaffa39f7e469d4ab6fe11eb62bb0b09b2c4b"
+  },
+  {
+    "file": "ios/Maomao/Features/Home/LocationRail.swift",
+    "sha256": "91206190f241f0342a5bbcd2c9441ec004199b7d3979260c3c7fa537da1289e0"
+  },
+  {
+    "file": "ios/Maomao/Features/Home/CompanionHomeView.swift",
+    "sha256": "38b7c9ba719a7bf546c7cb7d06741ec2f999d14e5434013a4a0f6b815ffc5b82"
+  },
+  {
+    "file": "ios/Maomao/Features/Chat/MessageRow.swift",
+    "sha256": "4deb07e54a27a05faccca6e8e66551d13682fdfc3c370c35ae3b83ec271383b6"
+  },
+  {
+    "file": "ios/Maomao/Features/Chat/ChatBackground.swift",
+    "sha256": "97029ffdf005f921d708d6ba60b517175ce3a6ca5e21eb576cf6ba2e71b0cb0a"
+  },
+  {
+    "file": "ios/Maomao/Features/Chat/ChatView.swift",
+    "sha256": "b8204fcf9118a4b433038cf510b56b0ba37a8bfe4d088e31ab9cf80cb50eefd9"
+  },
+  {
+    "file": "ios/Maomao/Features/Shell/TabBarView.swift",
+    "sha256": "5293dcb13d0cc026816e8c3e7314bc237805629c0f1f4af2fc4eba54f0d74bfe"
+  },
+  {
+    "file": "ios/Maomao/Features/Shell/Components.swift",
+    "sha256": "29e7926bb5feaf43ba7c77cc08540820a745103033ae8af262a2d57ed153a2ee"
+  },
+  {
+    "file": "ios/Maomao/Features/Me/MeView.swift",
+    "sha256": "d1361a1473b83b792e56a5539e0ea110e011f64606a1f06fd5c5780c85c8367e"
+  },
+  {
+    "file": "ios/Maomao/Features/Diary/DiaryEntryRow.swift",
+    "sha256": "8957e157453d25b7924e5ddd5c66a114ffff901c5d69f704e68e50a73c52669a"
+  },
+  {
+    "file": "ios/Maomao/Features/Diary/CaptureSheet.swift",
+    "sha256": "ff7df3960c9a41630ace171f5c27be55a5a4ea4cde6a583086e4dfc44f4fbb23"
+  },
+  {
+    "file": "ios/Maomao/Features/Diary/DiaryTodayView.swift",
+    "sha256": "4862f18e05b2089e2ec47c4cbe0e1e1ddec36cee2abc4e9dde52756a1060eab2"
+  },
+  {
+    "file": "ios/Maomao/Features/Onboarding/NamingStep.swift",
+    "sha256": "4489f6920dcacca9ccab48986d516dbd7dc4297437ce8d6f8c976596cef0b89f"
+  },
+  {
+    "file": "ios/Maomao/Features/Onboarding/PickAppearanceStep.swift",
+    "sha256": "63bf10b8ed5e10eb4d8db1f32b69f598524f5bd5caf4b8a3e5898e7b4f3d7bfd"
+  },
+  {
+    "file": "ios/Maomao/Features/Onboarding/TemperamentStep.swift",
+    "sha256": "fc18367c2272af16d9a2f6b8bdde77dc6daef1b0384514be49ea266015971e39"
+  },
+  {
+    "file": "ios/Maomao/Features/Onboarding/OnboardingView.swift",
+    "sha256": "f91f2079bd563a3bdc590efa18b9fb5ed8c5a7b901dbfc8d418b9517c64259e6"
+  },
+  {
+    "file": "ios/Maomao/Features/Onboarding/FirstMeetingStep.swift",
+    "sha256": "cb4d11d3e9432def8a78cb80b084dacb1990ba33c94912feb0ecd464e6cd3338"
+  },
+  {
+    "file": "ios/Maomao.xcodeproj/project.pbxproj",
+    "sha256": "3371e5f1ac0527452f8c630b821d4396994f275cd6c9393ffed7f1feee0e3e70"
+  },
+  {
+    "file": "assets/tuanzi/felt-world-pack-v1/frames/manifest.json",
+    "sha256": "372e6e4e5bff393959b6de9c65c960f606a35c6afbd4c1941b940cc2938ff6d1"
+  },
+  {
+    "file": "assets/scenes/tuanzi-courtyard-v1/hires-brief.md",
+    "sha256": "47bc2ba26ca54658eab1e9304221a7e88a904793a77b64dc428e7d0d3775b80d"
+  }
+]

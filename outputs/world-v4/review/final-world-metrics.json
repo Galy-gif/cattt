@@ -1,0 +1,17 @@
+{
+  "p95TimerIntervalMilliseconds" : 22.093541687354445,
+  "phase" : "idle",
+  "onHome" : true,
+  "textureValidationError" : "",
+  "meanSimulationMilliseconds" : 0.035378502872891918,
+  "paused" : false,
+  "target" : 4,
+  "y" : 0.70399999999999996,
+  "x" : 0.85399999999999998,
+  "current" : 4,
+  "foreground" : true,
+  "maxSimulationMilliseconds" : 14.953416772186756,
+  "worldSeconds" : 68.200697875069466,
+  "action" : "blinkLook",
+  "ticks" : 3900
+}

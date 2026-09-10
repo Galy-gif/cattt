@@ -1,0 +1,739 @@
+{
+  "version": 2,
+  "requested_canvas_1x": 512,
+  "canvas_1x": [
+    311,
+    311
+  ],
+  "baseline_1x": 274,
+  "allow_upscale": false,
+  "all_3x_non_upscaled": true,
+  "assets": [
+    {
+      "name": "aloof",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/01-aloof.png",
+      "source_sha256": "fa729bfc044cb0e8af2415f2f9350c2ea946c9791095b1c13f5ce0949f700c20",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "crop_bbox": [
+        214,
+        22,
+        1061,
+        1192
+      ],
+      "source_foot_y": 1189,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "neutral",
+        "key_colors": [
+          [
+            255.0,
+            255.0,
+            255.0
+          ],
+          [
+            239.0,
+            239.0,
+            239.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-aloof@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            186,
+            258
+          ],
+          "source_to_output_scale": 0.22013281919451583,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3084,
+          "foot_y": 273.895,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-aloof@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            373,
+            515
+          ],
+          "source_to_output_scale": 0.44026563838903165,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 6630,
+          "foot_y": 547.79,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-aloof@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            559,
+            773
+          ],
+          "source_to_output_scale": 0.6603984575835475,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 10617,
+          "foot_y": 821.685,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/02-content.png",
+      "source_sha256": "c997e52a99a2661cc868ae026039009a04df8f91d71d6f204f07b1d739d72a3d",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "crop_bbox": [
+        89,
+        239,
+        1205,
+        1071
+      ],
+      "source_foot_y": 1069,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "neutral",
+        "key_colors": [
+          [
+            255.0,
+            255.0,
+            255.0
+          ],
+          [
+            239.0,
+            239.0,
+            239.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-content@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            261,
+            195
+          ],
+          "source_to_output_scale": 0.23408602150537636,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3105,
+          "foot_y": 274.2913978494624,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-content@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            522,
+            390
+          ],
+          "source_to_output_scale": 0.4681720430107527,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 6783,
+          "foot_y": 547.5827956989248,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-content@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            784,
+            584
+          ],
+          "source_to_output_scale": 0.702258064516129,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 11143,
+          "foot_y": 821.8741935483872,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "sleepy",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/03-sleepy.png",
+      "source_sha256": "f87dba205933c9050a266a84fc3dcebd7521477f8e23580e9ba6e5224b69f7e9",
+      "source_size": [
+        919,
+        1710
+      ],
+      "crop_bbox": [
+        60,
+        210,
+        875,
+        1496
+      ],
+      "source_foot_y": 1493,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "cream",
+        "key_colors": [
+          [
+            244.0,
+            229.0,
+            205.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-sleepy@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            163,
+            257
+          ],
+          "source_to_output_scale": 0.20022992985190957,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3454,
+          "foot_y": 273.895,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-sleepy@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            326,
+            515
+          ],
+          "source_to_output_scale": 0.40045985970381914,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 7718,
+          "foot_y": 547.79,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-sleepy@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            490,
+            772
+          ],
+          "source_to_output_scale": 0.6006897895557287,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 12638,
+          "foot_y": 821.685,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "curious",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/04-curious.png",
+      "source_sha256": "f74a227c7560b9c95c0df7e65114b83902a4963a45a165da6430855c4a87d9fe",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "crop_bbox": [
+        106,
+        127,
+        1197,
+        1096
+      ],
+      "source_foot_y": 1094,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "neutral",
+        "key_colors": [
+          [
+            255.0,
+            255.0,
+            255.0
+          ],
+          [
+            239.0,
+            239.0,
+            239.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-curious@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            261,
+            232
+          ],
+          "source_to_output_scale": 0.2394500458295142,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3942,
+          "foot_y": 273.5481943171402,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-curious@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            522,
+            464
+          ],
+          "source_to_output_scale": 0.4789000916590284,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 8527,
+          "foot_y": 548.0963886342804,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-curious@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            784,
+            696
+          ],
+          "source_to_output_scale": 0.7183501374885426,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 13660,
+          "foot_y": 821.6445829514207,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "startled",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/05-startled.png",
+      "source_sha256": "6a52f3e056a82631435a76bf528585ba07fc066c7598581933048e4952703681",
+      "source_size": [
+        1070,
+        1470
+      ],
+      "crop_bbox": [
+        64,
+        172,
+        995,
+        1239
+      ],
+      "source_foot_y": 1236,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "neutral",
+        "key_colors": [
+          [
+            255.0,
+            255.0,
+            255.0
+          ],
+          [
+            239.0,
+            239.0,
+            239.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-startled@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            225,
+            258
+          ],
+          "source_to_output_scale": 0.2414426691729323,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3799,
+          "foot_y": 273.895,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-startled@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            450,
+            515
+          ],
+          "source_to_output_scale": 0.4828853383458646,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 8440,
+          "foot_y": 547.79,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-startled@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            674,
+            773
+          ],
+          "source_to_output_scale": 0.7243280075187969,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 13961,
+          "foot_y": 821.685,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "affectionate",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/2026-09-05/expressions-approved/06-affectionate.png",
+      "source_sha256": "288162db8453d16cfab75ecb16ca12273a6f64ff32924720e97aea4e593da26b",
+      "source_size": [
+        919,
+        1711
+      ],
+      "crop_bbox": [
+        0,
+        102,
+        881,
+        1478
+      ],
+      "source_foot_y": 1412,
+      "foot_method": "manual source-coordinate anchor",
+      "cleanup": {
+        "roi": [
+          130,
+          1330,
+          845,
+          1500
+        ],
+        "protected_polygons": [
+          [
+            [
+              156,
+              1330
+            ],
+            [
+              317,
+              1330
+            ],
+            [
+              314,
+              1405
+            ],
+            [
+              302,
+              1450
+            ],
+            [
+              283,
+              1466
+            ],
+            [
+              217,
+              1467
+            ],
+            [
+              199,
+              1456
+            ],
+            [
+              179,
+              1417
+            ]
+          ],
+          [
+            [
+              393,
+              1330
+            ],
+            [
+              538,
+              1330
+            ],
+            [
+              548,
+              1350
+            ],
+            [
+              547,
+              1383
+            ],
+            [
+              525,
+              1404
+            ],
+            [
+              478,
+              1410
+            ],
+            [
+              431,
+              1406
+            ],
+            [
+              407,
+              1392
+            ],
+            [
+              395,
+              1376
+            ]
+          ],
+          [
+            [
+              655,
+              1317
+            ],
+            [
+              795,
+              1317
+            ],
+            [
+              796,
+              1366
+            ],
+            [
+              781,
+              1387
+            ],
+            [
+              752,
+              1395
+            ],
+            [
+              701,
+              1395
+            ],
+            [
+              668,
+              1385
+            ],
+            [
+              653,
+              1364
+            ]
+          ]
+        ],
+        "changed_alpha_pixels": 6494,
+        "protected_pixels_changed": 0,
+        "method": "Only pale ground outside protected anatomy: alpha fade for mean RGB 135..190; manual source-coordinate ROI"
+      },
+      "background": {
+        "mode": "cream",
+        "key_colors": [
+          [
+            243.0,
+            228.0,
+            203.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-affectionate@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            173,
+            270
+          ],
+          "source_to_output_scale": 0.1961030534351145,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 4199,
+          "foot_y": 273.895,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-affectionate@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            346,
+            540
+          ],
+          "source_to_output_scale": 0.392206106870229,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 9036,
+          "foot_y": 547.79,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-affectionate@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            518,
+            810
+          ],
+          "source_to_output_scale": 0.5883091603053435,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 14417,
+          "foot_y": 821.685,
+          "target_foot_y": 822
+        }
+      ]
+    },
+    {
+      "name": "canonical",
+      "source": "/Users/gouzi/Documents/ChatGPT/猫/outputs/cat-ip-concepts/canonical/团子-canonical-v1.png",
+      "source_sha256": "1b1cca67187398c53f4aa232ad20eea8f491c737d0249a200922752dbc314f2f",
+      "source_size": [
+        550,
+        1024
+      ],
+      "crop_bbox": [
+        41,
+        120,
+        525,
+        894
+      ],
+      "source_foot_y": 892,
+      "foot_method": "automatic solid-content bottom",
+      "cleanup": null,
+      "background": {
+        "mode": "cream",
+        "key_colors": [
+          [
+            245.0,
+            232.0,
+            207.0
+          ]
+        ]
+      },
+      "files": [
+        {
+          "path": "ui/tuanzi-ui-canonical@1x.png",
+          "size": [
+            311,
+            311
+          ],
+          "resampled_subject_size": [
+            161,
+            258
+          ],
+          "source_to_output_scale": 0.33276554404145076,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 3607,
+          "foot_y": 273.895,
+          "target_foot_y": 274
+        },
+        {
+          "path": "ui/tuanzi-ui-canonical@2x.png",
+          "size": [
+            622,
+            622
+          ],
+          "resampled_subject_size": [
+            322,
+            515
+          ],
+          "source_to_output_scale": 0.6655310880829015,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 7902,
+          "foot_y": 547.79,
+          "target_foot_y": 548
+        },
+        {
+          "path": "ui/tuanzi-ui-canonical@3x.png",
+          "size": [
+            933,
+            933
+          ],
+          "resampled_subject_size": [
+            483,
+            773
+          ],
+          "source_to_output_scale": 0.9982966321243523,
+          "upscaled": false,
+          "alpha_min": 0,
+          "alpha_max": 255,
+          "partial_alpha_pixels": 12368,
+          "foot_y": 821.685,
+          "target_foot_y": 822
+        }
+      ]
+    }
+  ]
+}

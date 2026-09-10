@@ -1,0 +1,9 @@
+outputs/world-v3/review/extract-video.swift:12:29: warning: 'copyCGImage(at:actualTime:)' was deprecated in macOS 15.0: Use generateCGImageAsynchronouslyForTime:completionHandler: instead [#DeprecatedDeclaration]
+10 | try FileManager.default.createDirectory(at:output,withIntermediateDirectories:true)
+11 | for time in CommandLine.arguments.dropFirst(3).compactMap(Double.init) {
+12 |     let image=try generator.copyCGImage(at:CMTime(seconds:time,preferredTimescale:600),actualTime:nil)
+   |                             `- warning: 'copyCGImage(at:actualTime:)' was deprecated in macOS 15.0: Use generateCGImageAsynchronouslyForTime:completionHandler: instead [#DeprecatedDeclaration]
+13 |     let bitmap=NSBitmapImageRep(cgImage:image)
+14 |     try bitmap.representation(using:.png,properties:[:])!.write(to:output.appendingPathComponent(String(format:"frame-%06.2f.png",time)))
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>

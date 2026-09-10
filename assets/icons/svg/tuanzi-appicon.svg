@@ -1,0 +1,17 @@
+<!-- 团子 App Icon · 180×180 · 深鼠尾草底 + 蜂蜜橙记号 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180" role="img" aria-label="猫猫">
+  <rect width="180" height="180" rx="40" fill="#A6C0A3"/>
+  <g transform="translate(90 92) scale(5.4) translate(-15 -11.6)">
+    <g fill="#E3A05C" stroke="#6B5B4A" stroke-width="0.9" stroke-linejoin="round">
+      <path d="M9.6 21.6 C8.4 21.6 7.9 20.9 7.9 19.9 L7.9 15.6 C7.9 14.1 8.2 13.0 8.8 12.0
+               C8.4 10.4 8.4 8.4 8.7 6.6 L8.2 2.2 C8.1 1.5 8.6 1.2 9.2 1.6 L13.1 4.0
+               C14.4 3.7 15.6 3.7 16.9 4.0 L20.8 1.6 C21.4 1.2 21.9 1.5 21.8 2.2 L21.3 6.6
+               C21.6 8.4 21.6 10.4 21.2 12.0 C21.8 13.0 22.1 14.1 22.1 15.6 L22.1 19.9
+               C22.1 20.9 21.6 21.6 20.4 21.6 Z"/>
+    </g>
+    <path d="M9.0 20.4 C6.2 21.2 3.4 19.6 2.7 16.8 C2.1 14.4 3.2 12.2 5.1 11.6"
+          fill="none" stroke="#6B5B4A" stroke-width="3.9" stroke-linecap="round"/>
+    <path d="M9.0 20.4 C6.2 21.2 3.4 19.6 2.7 16.8 C2.1 14.4 3.2 12.2 5.1 11.6"
+          fill="none" stroke="#E3A05C" stroke-width="3.1" stroke-linecap="round"/>
+  </g>
+</svg>

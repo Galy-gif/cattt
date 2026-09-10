@@ -1,0 +1,10 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ios/Maomao.xcodeproj -scheme Maomao -sdk iphonesimulator -destination "platform=iOS Simulator,id=5D171DD3-720E-4FC4-BEB5-BF7B73A25ECD" -derivedDataPath outputs/nav-mailbox/build test
+
+Build settings from command line:
+    SDKROOT = iphonesimulator26.5
+
+2026-09-10 16:17:14.982 xcodebuild[8710:35090754] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+2026-09-10 16:17:14.987 xcodebuild[8710:35090754] Writing error result bundle to /var/folders/5c/srj63hjs1213l4n6rzt6kv5r0000gn/T/ResultBundle_2026-10-09_16-17-0014.xcresult
+xcodebuild: error: Scheme Maomao is not currently configured for the test action.
+

@@ -1,0 +1,345 @@
+{
+  "tuanzi-sleep-breathe-sheet-v2.png": {
+    "frames": [
+      {
+        "frame": 1,
+        "bbox": [
+          25,
+          224,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 228,
+        "baseline_y": 451
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          25,
+          222,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 230,
+        "baseline_y": 451
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          25,
+          220,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 232,
+        "baseline_y": 451
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          25,
+          218,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 234,
+        "baseline_y": 451
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          25,
+          220,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 232,
+        "baseline_y": 451
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          25,
+          222,
+          336,
+          451
+        ],
+        "width": 312,
+        "height": 230,
+        "baseline_y": 451
+      }
+    ],
+    "height_min": 228,
+    "height_max": 234,
+    "height_range_percent_of_mean": 2.6,
+    "baseline_min": 451,
+    "baseline_max": 451,
+    "local_flank_displacement_pixels": [
+      0,
+      2,
+      4,
+      6,
+      4,
+      2
+    ],
+    "local_flank_max_percent_of_cat_height": 2.63
+  },
+  "tuanzi-sleepy-sheet-v2.png": {
+    "frames": [
+      {
+        "frame": 1,
+        "bbox": [
+          22,
+          170,
+          339,
+          563
+        ],
+        "width": 318,
+        "height": 394,
+        "baseline_y": 563
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          19,
+          182,
+          341,
+          563
+        ],
+        "width": 323,
+        "height": 382,
+        "baseline_y": 563
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          17,
+          206,
+          344,
+          563
+        ],
+        "width": 328,
+        "height": 358,
+        "baseline_y": 563
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          15,
+          230,
+          346,
+          563
+        ],
+        "width": 332,
+        "height": 334,
+        "baseline_y": 563
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          15,
+          182,
+          346,
+          563
+        ],
+        "width": 332,
+        "height": 382,
+        "baseline_y": 563
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          27,
+          172,
+          334,
+          562
+        ],
+        "width": 308,
+        "height": 391,
+        "baseline_y": 562
+      }
+    ],
+    "height_min": 334,
+    "height_max": 394,
+    "height_range_percent_of_mean": 16.06,
+    "baseline_min": 562,
+    "baseline_max": 563,
+    "head_only_region_end_y": 350,
+    "body_lock_region_start_y": 410,
+    "body_region_pixel_identical_to_frame_1": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "tuanzi-run-sheet-v2.png": {
+    "frames": [
+      {
+        "frame": 1,
+        "bbox": [
+          42,
+          266,
+          319,
+          471
+        ],
+        "width": 278,
+        "height": 206,
+        "baseline_y": 471
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          24,
+          266,
+          336,
+          464
+        ],
+        "width": 313,
+        "height": 199,
+        "baseline_y": 464
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          -4,
+          260,
+          365,
+          428
+        ],
+        "width": 370,
+        "height": 169,
+        "baseline_y": 428
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          35,
+          255,
+          326,
+          443
+        ],
+        "width": 292,
+        "height": 189,
+        "baseline_y": 443
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          -5,
+          260,
+          366,
+          436
+        ],
+        "width": 372,
+        "height": 177,
+        "baseline_y": 436
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          32,
+          258,
+          328,
+          470
+        ],
+        "width": 297,
+        "height": 213,
+        "baseline_y": 470
+      }
+    ],
+    "height_min": 169,
+    "height_max": 213,
+    "height_range_percent_of_mean": 22.9,
+    "baseline_min": 428,
+    "baseline_max": 471
+  },
+  "tuanzi-tree-scratch-cat-only-sheet-v2.png": {
+    "frames": [
+      {
+        "frame": 1,
+        "bbox": [
+          33,
+          258,
+          327,
+          582
+        ],
+        "width": 295,
+        "height": 325,
+        "baseline_y": 582
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          35,
+          219,
+          325,
+          582
+        ],
+        "width": 291,
+        "height": 364,
+        "baseline_y": 582
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          32,
+          173,
+          329,
+          581
+        ],
+        "width": 298,
+        "height": 409,
+        "baseline_y": 581
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          32,
+          251,
+          329,
+          581
+        ],
+        "width": 298,
+        "height": 331,
+        "baseline_y": 581
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          32,
+          215,
+          329,
+          581
+        ],
+        "width": 298,
+        "height": 367,
+        "baseline_y": 581
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          33,
+          258,
+          328,
+          582
+        ],
+        "width": 296,
+        "height": 325,
+        "baseline_y": 582
+      }
+    ],
+    "height_min": 325,
+    "height_max": 409,
+    "height_range_percent_of_mean": 23.76,
+    "baseline_min": 581,
+    "baseline_max": 582
+  }
+}

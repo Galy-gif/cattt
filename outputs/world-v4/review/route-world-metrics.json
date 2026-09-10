@@ -1,0 +1,17 @@
+{
+  "x" : 0.93999999999999995,
+  "p95TimerIntervalMilliseconds" : 16.713750082999468,
+  "ticks" : 1500,
+  "action" : "perchSleep",
+  "phase" : "interacting",
+  "onHome" : true,
+  "target" : 5,
+  "maxSimulationMilliseconds" : 0.10962504893541336,
+  "meanSimulationMilliseconds" : 0.019882723999520142,
+  "current" : 5,
+  "paused" : false,
+  "foreground" : true,
+  "textureValidationError" : "",
+  "worldSeconds" : 24.833359291777015,
+  "y" : 0.56599999999999995
+}

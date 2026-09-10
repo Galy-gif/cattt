@@ -1,0 +1,425 @@
+[
+ {
+  "asset": "sign",
+  "x": 336,
+  "y": 886,
+  "w": 85,
+  "h": 92,
+  "scale": 0.46,
+  "baseline_y": 0.53
+ },
+ {
+  "asset": "low-grass",
+  "x": 471,
+  "y": 977,
+  "w": 35,
+  "h": 18,
+  "scale": 0.473,
+  "baseline_y": 0.54
+ },
+ {
+  "asset": "watering-can",
+  "x": 390,
+  "y": 952,
+  "w": 54,
+  "h": 47,
+  "scale": 0.476,
+  "baseline_y": 0.542
+ },
+ {
+  "asset": "mushroom-cluster",
+  "x": 252,
+  "y": 981,
+  "w": 28,
+  "h": 28,
+  "scale": 0.482,
+  "baseline_y": 0.547
+ },
+ {
+  "asset": "cup",
+  "x": 235,
+  "y": 1005,
+  "w": 19,
+  "h": 17,
+  "scale": 0.492,
+  "baseline_y": 0.555
+ },
+ {
+  "asset": "books",
+  "x": 301,
+  "y": 986,
+  "w": 49,
+  "h": 44,
+  "scale": 0.498,
+  "baseline_y": 0.559
+ },
+ {
+  "asset": "crate-stack",
+  "x": 472,
+  "y": 949,
+  "w": 102,
+  "h": 102,
+  "scale": 0.512,
+  "baseline_y": 0.57
+ },
+ {
+  "asset": "clay-bowl",
+  "x": 172,
+  "y": 1025,
+  "w": 41,
+  "h": 31,
+  "scale": 0.516,
+  "baseline_y": 0.573
+ },
+ {
+  "asset": "potted-plant",
+  "x": 444,
+  "y": 969,
+  "w": 72,
+  "h": 93,
+  "scale": 0.52,
+  "baseline_y": 0.576
+ },
+ {
+  "asset": "crate",
+  "x": 523,
+  "y": 1002,
+  "w": 72,
+  "h": 60,
+  "scale": 0.52,
+  "baseline_y": 0.576
+ },
+ {
+  "asset": "table",
+  "x": 170,
+  "y": 997,
+  "w": 126,
+  "h": 73,
+  "scale": 0.526,
+  "baseline_y": 0.581
+ },
+ {
+  "asset": "bucket",
+  "x": 432,
+  "y": 1017,
+  "w": 49,
+  "h": 64,
+  "scale": 0.534,
+  "baseline_y": 0.586
+ },
+ {
+  "asset": "firewood",
+  "x": 494,
+  "y": 1024,
+  "w": 85,
+  "h": 59,
+  "scale": 0.535,
+  "baseline_y": 0.588
+ },
+ {
+  "asset": "lantern",
+  "x": 268,
+  "y": 1046,
+  "w": 28,
+  "h": 54,
+  "scale": 0.548,
+  "baseline_y": 0.597
+ },
+ {
+  "asset": "stool",
+  "x": 336,
+  "y": 1016,
+  "w": 84,
+  "h": 88,
+  "scale": 0.55,
+  "baseline_y": 0.599
+ },
+ {
+  "asset": "flower",
+  "x": 282,
+  "y": 1051,
+  "w": 36,
+  "h": 55,
+  "scale": 0.551,
+  "baseline_y": 0.6
+ },
+ {
+  "asset": "tall-grass",
+  "x": 183,
+  "y": 1032,
+  "w": 68,
+  "h": 77,
+  "scale": 0.554,
+  "baseline_y": 0.601
+ },
+ {
+  "asset": "paper-bag",
+  "x": 410,
+  "y": 1049,
+  "w": 56,
+  "h": 67,
+  "scale": 0.559,
+  "baseline_y": 0.606
+ },
+ {
+  "asset": "dandelion",
+  "x": 716,
+  "y": 1128,
+  "w": 39,
+  "h": 48,
+  "scale": 0.602,
+  "baseline_y": 0.638
+ },
+ {
+  "asset": "twigs",
+  "x": 558,
+  "y": 1142,
+  "w": 73,
+  "h": 46,
+  "scale": 0.61,
+  "baseline_y": 0.644
+ },
+ {
+  "asset": "basket",
+  "x": 600,
+  "y": 1106,
+  "w": 85,
+  "h": 85,
+  "scale": 0.612,
+  "baseline_y": 0.646
+ },
+ {
+  "asset": "scratching-log",
+  "x": 689,
+  "y": 1135,
+  "w": 114,
+  "h": 87,
+  "scale": 0.634,
+  "baseline_y": 0.663
+ },
+ {
+  "asset": "feather-toy",
+  "x": 415,
+  "y": 1128,
+  "w": 99,
+  "h": 103,
+  "scale": 0.577,
+  "baseline_y": 0.668
+ },
+ {
+  "asset": "mossy-rock",
+  "x": 561,
+  "y": 1205,
+  "w": 65,
+  "h": 46,
+  "scale": 0.655,
+  "baseline_y": 0.679
+ },
+ {
+  "asset": "rock",
+  "x": 530,
+  "y": 1244,
+  "w": 26,
+  "h": 21,
+  "scale": 0.665,
+  "baseline_y": 0.686
+ },
+ {
+  "asset": "cardboard-box",
+  "x": 733,
+  "y": 1194,
+  "w": 107,
+  "h": 81,
+  "scale": 0.672,
+  "baseline_y": 0.692
+ },
+ {
+  "asset": "mushroom",
+  "x": 292,
+  "y": 1269,
+  "w": 15,
+  "h": 21,
+  "scale": 0.683,
+  "baseline_y": 0.7
+ },
+ {
+  "asset": "broom",
+  "x": 685,
+  "y": 1142,
+  "w": 109,
+  "h": 150,
+  "scale": 0.685,
+  "baseline_y": 0.701
+ },
+ {
+  "asset": "log",
+  "x": 533,
+  "y": 1224,
+  "w": 138,
+  "h": 80,
+  "scale": 0.693,
+  "baseline_y": 0.707
+ },
+ {
+  "asset": "fern",
+  "x": 682,
+  "y": 1252,
+  "w": 99,
+  "h": 86,
+  "scale": 0.717,
+  "baseline_y": 0.726
+ },
+ {
+  "asset": "stump",
+  "x": 620,
+  "y": 1253,
+  "w": 107,
+  "h": 86,
+  "scale": 0.718,
+  "baseline_y": 0.726
+ },
+ {
+  "asset": "birdhouse",
+  "x": 569,
+  "y": 1273,
+  "w": 73,
+  "h": 87,
+  "scale": 0.733,
+  "baseline_y": 0.738
+ },
+ {
+  "asset": "string",
+  "x": 492,
+  "y": 1320,
+  "w": 59,
+  "h": 48,
+  "scale": 0.738,
+  "baseline_y": 0.742
+ },
+ {
+  "asset": "bell",
+  "x": 270,
+  "y": 1376,
+  "w": 14,
+  "h": 18,
+  "scale": 0.757,
+  "baseline_y": 0.756
+ },
+ {
+  "asset": "leaf",
+  "x": 411,
+  "y": 1401,
+  "w": 18,
+  "h": 17,
+  "scale": 0.774,
+  "baseline_y": 0.769
+ },
+ {
+  "asset": "water-bowl",
+  "x": 306,
+  "y": 1376,
+  "w": 62,
+  "h": 48,
+  "scale": 0.778,
+  "baseline_y": 0.772
+ },
+ {
+  "asset": "kibble-bowl",
+  "x": 410,
+  "y": 1394,
+  "w": 63,
+  "h": 44,
+  "scale": 0.789,
+  "baseline_y": 0.78
+ },
+ {
+  "asset": "clover",
+  "x": 172,
+  "y": 1417,
+  "w": 64,
+  "h": 54,
+  "scale": 0.812,
+  "baseline_y": 0.798
+ },
+ {
+  "asset": "blanket",
+  "x": 203,
+  "y": 1374,
+  "w": 130,
+  "h": 101,
+  "scale": 0.815,
+  "baseline_y": 0.8
+ },
+ {
+  "asset": "cushion",
+  "x": 403,
+  "y": 1412,
+  "w": 98,
+  "h": 74,
+  "scale": 0.823,
+  "baseline_y": 0.806
+ },
+ {
+  "asset": "rolled-blanket",
+  "x": 233,
+  "y": 1425,
+  "w": 100,
+  "h": 80,
+  "scale": 0.836,
+  "baseline_y": 0.816
+ },
+ {
+  "asset": "yarn",
+  "x": 489,
+  "y": 1485,
+  "w": 26,
+  "h": 23,
+  "scale": 0.839,
+  "baseline_y": 0.818
+ },
+ {
+  "asset": "cat-bed",
+  "x": 304,
+  "y": 1412,
+  "w": 153,
+  "h": 115,
+  "scale": 0.852,
+  "baseline_y": 0.828
+ },
+ {
+  "asset": "fish-toy",
+  "x": 409,
+  "y": 1505,
+  "w": 40,
+  "h": 23,
+  "scale": 0.853,
+  "baseline_y": 0.829
+ },
+ {
+  "asset": "leaf-pile",
+  "x": 239,
+  "y": 1492,
+  "w": 86,
+  "h": 48,
+  "scale": 0.861,
+  "baseline_y": 0.835
+ },
+ {
+  "asset": "stepping-stone",
+  "x": 337,
+  "y": 1539,
+  "w": 126,
+  "h": 61,
+  "scale": 0.904,
+  "baseline_y": 0.868
+ },
+ {
+  "asset": "tuanzi-world-sleep-basket",
+  "x": 302,
+  "y": 1365,
+  "w": 172,
+  "h": 132,
+  "scale": 0.714,
+  "baseline_y": 0.812
+ }
+]

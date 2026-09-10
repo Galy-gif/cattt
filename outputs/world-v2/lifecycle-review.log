@@ -1,0 +1,5 @@
+lifecycle-manual-paused.json 3.68 True True
+lifecycle-before.json 0.89 False True
+lifecycle-resumed.json 5.69 False True
+lifecycle-off-home.json 1.05 True False
+lifecycle-after.json 3.58 False True

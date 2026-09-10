@@ -1,0 +1,8 @@
+fence (2138, 559) -> (1484, 493) upscale False
+tree (1604, 1649) -> (1562, 1606) upscale False
+board (316, 1310) -> (98, 225) upscale False
+house (1437, 1094) -> (882, 882) upscale False
+grass (1344, 1110) -> (366, 324) upscale False
+bed (1971, 789) -> (688, 215) upscale False
+grass-front (1344, 1110) -> (366, 195) upscale False
+bed-front (1971, 789) -> (688, 215) upscale False

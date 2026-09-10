@@ -1,0 +1,517 @@
+{
+  "version": 2,
+  "width": 5400,
+  "height": 3600,
+  "tiles": [
+    {
+      "id": "preview",
+      "image": "world-v2-ground",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "tree",
+      "image": "world-v2-tree",
+      "rect": {
+        "x": 0.18842732969476447,
+        "y": 0.11,
+        "width": 0.36314534061047105,
+        "height": 0.56
+      },
+      "depth": 0.6,
+      "target": 1,
+      "occlusion": null,
+      "parent": null
+    },
+    {
+      "id": "house",
+      "image": "world-v2-house",
+      "rect": {
+        "x": 0.055,
+        "y": 0.34,
+        "width": 0.205,
+        "height": 0.3075
+      },
+      "depth": 0.63,
+      "target": 0,
+      "occlusion": null,
+      "parent": null
+    },
+    {
+      "id": "board",
+      "image": "world-v2-board",
+      "rect": {
+        "x": 0.5,
+        "y": 0.87,
+        "width": 0.063,
+        "height": 0.14
+      },
+      "depth": 0.61,
+      "target": 1,
+      "occlusion": null,
+      "parent": "tree"
+    },
+    {
+      "id": "grass",
+      "image": "world-v2-grass",
+      "rect": {
+        "x": 0.444,
+        "y": 0.674,
+        "width": 0.085,
+        "height": 0.113
+      },
+      "depth": 0.73,
+      "target": 3,
+      "occlusion": null,
+      "parent": null
+    },
+    {
+      "id": "grass-front",
+      "image": "world-v2-grass-front",
+      "rect": {
+        "x": 0.444,
+        "y": 0.719,
+        "width": 0.085,
+        "height": 0.068
+      },
+      "depth": 0.78,
+      "target": 3,
+      "occlusion": "grass",
+      "parent": null
+    },
+    {
+      "id": "bed",
+      "image": "world-v2-bed",
+      "rect": {
+        "x": 0.15,
+        "y": 0.719,
+        "width": 0.16,
+        "height": 0.075
+      },
+      "depth": 0.735,
+      "target": 2,
+      "occlusion": null,
+      "parent": null
+    },
+    {
+      "id": "bed-front",
+      "image": "world-v2-bed-front",
+      "rect": {
+        "x": 0.15,
+        "y": 0.719,
+        "width": 0.16,
+        "height": 0.075
+      },
+      "depth": 0.79,
+      "target": 2,
+      "occlusion": "bed",
+      "parent": null
+    },
+    {
+      "id": "fence",
+      "image": "world-v2-fence",
+      "rect": {
+        "x": 0.65,
+        "y": 0.395,
+        "width": 0.345,
+        "height": 0.172
+      },
+      "depth": 0.59,
+      "target": 5,
+      "occlusion": null,
+      "parent": null
+    }
+  ],
+  "nodes": [
+    {
+      "id": "m0",
+      "point": {
+        "x": 0.137,
+        "y": 0.648
+      }
+    },
+    {
+      "id": "m1",
+      "point": {
+        "x": 0.162,
+        "y": 0.666
+      }
+    },
+    {
+      "id": "m2",
+      "point": {
+        "x": 0.2,
+        "y": 0.69
+      }
+    },
+    {
+      "id": "m3",
+      "point": {
+        "x": 0.24,
+        "y": 0.711
+      }
+    },
+    {
+      "id": "m4",
+      "point": {
+        "x": 0.3,
+        "y": 0.72
+      }
+    },
+    {
+      "id": "m5",
+      "point": {
+        "x": 0.345,
+        "y": 0.721
+      }
+    },
+    {
+      "id": "m6",
+      "point": {
+        "x": 0.4,
+        "y": 0.755
+      }
+    },
+    {
+      "id": "m7",
+      "point": {
+        "x": 0.48,
+        "y": 0.786
+      }
+    },
+    {
+      "id": "m8",
+      "point": {
+        "x": 0.57,
+        "y": 0.799
+      }
+    },
+    {
+      "id": "m9",
+      "point": {
+        "x": 0.68,
+        "y": 0.803
+      }
+    },
+    {
+      "id": "m10",
+      "point": {
+        "x": 0.77,
+        "y": 0.801
+      }
+    },
+    {
+      "id": "m11",
+      "point": {
+        "x": 0.85,
+        "y": 0.792
+      }
+    },
+    {
+      "id": "m12",
+      "point": {
+        "x": 0.9,
+        "y": 0.768
+      }
+    },
+    {
+      "id": "m13",
+      "point": {
+        "x": 0.933,
+        "y": 0.719
+      }
+    },
+    {
+      "id": "m14",
+      "point": {
+        "x": 0.934,
+        "y": 0.665
+      }
+    },
+    {
+      "id": "m15",
+      "point": {
+        "x": 0.915,
+        "y": 0.622
+      }
+    },
+    {
+      "id": "d1-0",
+      "point": {
+        "x": 0.36,
+        "y": 0.688
+      }
+    },
+    {
+      "id": "d1-1",
+      "point": {
+        "x": 0.365,
+        "y": 0.682
+      }
+    },
+    {
+      "id": "d1-2",
+      "point": {
+        "x": 0.365,
+        "y": 0.677
+      }
+    },
+    {
+      "id": "d2-0",
+      "point": {
+        "x": 0.232,
+        "y": 0.777
+      }
+    },
+    {
+      "id": "d3-0",
+      "point": {
+        "x": 0.438,
+        "y": 0.766
+      }
+    },
+    {
+      "id": "d3-1",
+      "point": {
+        "x": 0.484,
+        "y": 0.754
+      }
+    },
+    {
+      "id": "d4-0",
+      "point": {
+        "x": 0.68,
+        "y": 0.764
+      }
+    },
+    {
+      "id": "clearing",
+      "point": {
+        "x": 0.427,
+        "y": 0.777
+      }
+    }
+  ],
+  "edges": [
+    {
+      "a": "m0",
+      "b": "m1",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m1",
+      "b": "m2",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m2",
+      "b": "m3",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m3",
+      "b": "m4",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m4",
+      "b": "m5",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m5",
+      "b": "m6",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m6",
+      "b": "m7",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m7",
+      "b": "m8",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m8",
+      "b": "m9",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m9",
+      "b": "m10",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m10",
+      "b": "m11",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m11",
+      "b": "m12",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m12",
+      "b": "m13",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m13",
+      "b": "m14",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m14",
+      "b": "m15",
+      "width": 0.033,
+      "main": true
+    },
+    {
+      "a": "m5",
+      "b": "d1-0",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "d1-0",
+      "b": "d1-1",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "d1-1",
+      "b": "d1-2",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "m3",
+      "b": "d2-0",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "m6",
+      "b": "d3-0",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "d3-0",
+      "b": "d3-1",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "m9",
+      "b": "d4-0",
+      "width": 0.035,
+      "main": false
+    },
+    {
+      "a": "m6",
+      "b": "clearing",
+      "width": 0.035,
+      "main": false
+    }
+  ],
+  "obstacles": [
+    {
+      "x": 0.555,
+      "y": 0.59,
+      "width": 0.295,
+      "height": 0.15
+    },
+    {
+      "x": 0.07,
+      "y": 0.36,
+      "width": 0.16,
+      "height": 0.265
+    },
+    {
+      "x": 0.388,
+      "y": 0.46,
+      "width": 0.025,
+      "height": 0.15
+    }
+  ],
+  "destinations": [
+    {
+      "id": "house",
+      "name": "蘑菇屋",
+      "node": "m0",
+      "idle": "sleepyNod",
+      "cameraX": 0.15,
+      "facingRight": true
+    },
+    {
+      "id": "tree",
+      "name": "树屋",
+      "node": "d1-2",
+      "idle": "blinkLook",
+      "cameraX": 0.37,
+      "facingRight": true,
+      "contact": {
+        "x": 0.379,
+        "y": 0.594,
+        "width": 0.016,
+        "height": 0.055
+      }
+    },
+    {
+      "id": "bed",
+      "name": "猫窝",
+      "node": "d2-0",
+      "idle": "sleepBreathe",
+      "cameraX": 0.23,
+      "facingRight": true
+    },
+    {
+      "id": "grass",
+      "name": "草丛",
+      "node": "d3-1",
+      "idle": "blinkLook",
+      "cameraX": 0.484,
+      "facingRight": true
+    },
+    {
+      "id": "pond",
+      "name": "池塘",
+      "node": "d4-0",
+      "idle": "blinkLook",
+      "cameraX": 0.68,
+      "facingRight": true
+    },
+    {
+      "id": "fence",
+      "name": "栅栏边",
+      "node": "m15",
+      "idle": "blinkLook",
+      "cameraX": 0.9,
+      "facingRight": true
+    }
+  ]
+}

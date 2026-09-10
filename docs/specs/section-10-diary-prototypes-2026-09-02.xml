@@ -1,0 +1,102 @@
+<h2>生活碎片异步日记：完整交互原型（2026-09-02）</h2>
+<p>这组原型图补全了日记主页面及其六个打开状态。阅读顺序是：先看日记主页面如何承接“今天”和“这个月”，再分别查看搜索、月历、日期切换、当天详情、从留言进入聊天与月份归档。图中的手绘图标和走路脚印是同一套界面规则，不是装饰性贴图。</p>
+<callout background-color="light-blue" border-color="blue" emoji="📌">
+  <p><b>当前页面结论</b></p>
+  <p>主页面标题暂用“日记”，当天分组统一叫“今天”。团子到访固定为三态：未读不显示标记；读过但未评论只留下走路脚印；有评论才显示团子头像、文字和“聊聊”。一级导航最终使用“日记”还是“回忆”仍待确认。</p>
+</callout>
+<h3>怎样阅读这组原型</h3>
+<table>
+  <colgroup><col width="160"/><col width="220"/><col width="340"/></colgroup>
+  <thead><tr><th background-color="light-gray">入口</th><th background-color="light-gray">打开后的页面／状态</th><th background-color="light-gray">作用</th></tr></thead>
+  <tbody>
+    <tr><td>搜索图标</td><td>日记搜索</td><td>搜索文字、语音转写和日期，并在结果中保留团子到访状态。</td></tr>
+    <tr><td>日历图标</td><td>完整月历</td><td>查看哪些日期有记录，以及团子在哪些日期读过但未评论。</td></tr>
+    <tr><td>顶部日期标题</td><td>最近日期切换</td><td>在底部面板快速切换前后几天；完整月历仍由日历图标进入。</td></tr>
+    <tr><td>“今天”</td><td>当天详情</td><td>查看完整时间线，并阅读或编辑按天生成的“今日小记”。</td></tr>
+    <tr><td>“聊聊”</td><td>带来源的专注聊天</td><td>把对应生活碎片与团子留言带入聊天，由用户主动继续对话。</td></tr>
+    <tr><td>“这个月”／日期卡</td><td>月份归档</td><td>纵向回看本月真正留下过记录的日期，不补空白日期，也不做连续打卡。</td></tr>
+  </tbody>
+</table>
+<h3>系统级快捷记录</h3>
+<p>这三张保留原有的系统级快捷采集链路。它们负责“马上记下并离开”，不进入完整 App，也不在记录完成后自动展开聊天。</p>
+<table>
+  <colgroup><col width="320"/><col width="400"/></colgroup>
+  <thead><tr><th background-color="light-gray">原型图</th><th background-color="light-gray">原型图介绍</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><img src="PftQb3xX2omNDFxM7zicYlVEnab" name="01-system-quick-capture-entry.png" width="300" caption="系统级快捷入口"/></td>
+      <td><p><b>页面：</b>系统级“记一下”。</p><p><b>入口：</b>锁屏、控制中心、Action Button、Siri／快捷指令或分享菜单。</p><p><b>核心作用：</b>用语音、文字或照片快速投递生活碎片。</p><p><b>设计说明：</b>语音是默认主操作；这里不进入陪伴主页，也不要求用户继续操作。</p></td>
+    </tr>
+    <tr>
+      <td><img src="IyNjbYNF0oVT2ux7HMRcBY6lnNf" name="02-minimal-voice-capture.png" width="300" caption="极简语音投递"/></td>
+      <td><p><b>页面：</b>极简语音录入层。</p><p><b>入口：</b>点按或长按系统级录音入口。</p><p><b>核心作用：</b>显示实时转写与录音时长，结束后直接保存。</p><p><b>设计说明：</b>这是记录，不是聊天；不出现聊天气泡和继续对话提示。</p></td>
+    </tr>
+    <tr>
+      <td><img src="RCncbvLI7opjhYxXMebcolyCntC" name="03-capture-saved-confirmation.png" width="300" caption="记下确认"/></td>
+      <td><p><b>状态：</b>保存成功的行内反馈，不是独立页面。</p><p><b>触发：</b>录音、文字或照片保存成功后。</p><p><b>核心作用：</b>用轻震和约 1 秒的“记下了”确认内容已进入“今天”。</p><p><b>设计说明：</b>反馈随后自动收起，不制造必须立即检查或整理的压力。</p></td>
+    </tr>
+  </tbody>
+</table>
+<h3>App 内日记完整交互</h3>
+<p>下面七张是本轮补全的页面闭环。每张图都对应主页面上一个可以点开的入口，并沿用同一套暖白 iOS 底板、手绘线条图标和低打扰团子状态。</p>
+<table>
+  <colgroup><col width="320"/><col width="400"/></colgroup>
+  <thead><tr><th background-color="light-gray">原型图</th><th background-color="light-gray">原型图介绍</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/01-diary-main-walking-paws.png" width="300" caption="01｜日记主页面"/></td>
+      <td><p><b>页面：</b>日记主页面。</p><p><b>入口：</b>底部“日记”标签。</p><p><b>核心作用：</b>同一屏先看“今天”，向下衔接“这个月”；照片、语音与文字按时间排列。</p><p><b>设计说明：</b>有评论的记录显示团子头像、文字与“聊聊”；读过但未评论只留一串走路脚印。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/02-search-diary-walking-paws.png" width="300" caption="02｜日记搜索"/></td>
+      <td><p><b>页面：</b>日记搜索。</p><p><b>入口：</b>主页面右上角搜索图标。</p><p><b>核心作用：</b>按文字、语音转写内容或日期找到过去的生活碎片。</p><p><b>设计说明：</b>结果高亮命中词，同时保留日期、内容类型与团子到访状态，避免搜索后失去上下文。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/03-calendar-walking-paws.png" width="300" caption="03｜完整月历"/></td>
+      <td><p><b>页面：</b>完整月历。</p><p><b>入口：</b>主页面右上角日历图标。</p><p><b>核心作用：</b>快速判断哪些天有记录，点某天查看当天内容预览。</p><p><b>设计说明：</b>普通记录使用小圆点；团子读过但未评论的日期使用两枚极小走路脚印，不用重提醒。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/04-date-switcher-walking-paws.png" width="300" caption="04｜最近日期切换"/></td>
+      <td><p><b>状态：</b>最近日期底部面板。</p><p><b>入口：</b>点击顶部“9月2日 星期三”日期标题。</p><p><b>核心作用：</b>不离开当前页面即可切换前后几天。</p><p><b>设计说明：</b>底部面板只处理高频的最近日期切换；查看整月仍使用日历图标，避免两个入口功能重叠。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/05-today-detail-walking-paws.png" width="300" caption="05｜今天详情"/></td>
+      <td><p><b>页面：</b>“今天”详情。</p><p><b>入口：</b>点击主页面的“今天”标题或进入对应日期。</p><p><b>核心作用：</b>查看当天完整时间线，并在页尾阅读或编辑“今日小记”。</p><p><b>设计说明：</b>原始碎片始终优先；AI 只做按天整理，不能覆盖原文，也不在每条记录下重复改写。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/06-chat-from-diary.png" width="300" caption="06｜从日记进入聊天"/></td>
+      <td><p><b>页面：</b>带日记来源的专注聊天。</p><p><b>入口：</b>点击团子文字评论右侧的“聊聊”。</p><p><b>核心作用：</b>把对应生活碎片和团子评论带入聊天，减少重新解释。</p><p><b>设计说明：</b>来源条可以收起；只有用户主动点击才进入聊天，脚印本身不承担聊天入口。</p></td>
+    </tr>
+    <tr>
+      <td><img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/07-month-archive-walking-paws.png" width="300" caption="07｜这个月"/></td>
+      <td><p><b>页面：</b>月份归档。</p><p><b>入口：</b>点击主页面“这个月”或某张日期预览卡。</p><p><b>核心作用：</b>纵向回看本月真正留下记录的日期，点日期进入当天。</p><p><b>设计说明：</b>只展示有记录的日子，不补齐空白日期，不设置连续打卡；脚印仍只代表团子读过但未评论。</p></td>
+    </tr>
+  </tbody>
+</table>
+<h3>团子来过的三种状态</h3>
+<table>
+  <colgroup><col width="150"/><col width="230"/><col width="340"/></colgroup>
+  <thead><tr><th background-color="light-gray">状态</th><th background-color="light-gray">页面表现</th><th background-color="light-gray">规则</th></tr></thead>
+  <tbody>
+    <tr><td>团子尚未读</td><td>不显示任何标记</td><td>保持安静，不用“待回复”“未处理”等任务式提示。</td></tr>
+    <tr><td>读过但未评论</td><td>两至三枚连续的小猫走路脚印</td><td>只表达“团子来过”。脚印不进入聊天，也不等于遗漏回复。</td></tr>
+    <tr><td>已经评论</td><td>团子头像、评论文字与“聊聊”</td><td>评论锚定具体生活碎片；此时不再叠加脚印，避免重复表达。</td></tr>
+  </tbody>
+</table>
+<h3>手绘图标与走路脚印</h3>
+<p>这里的“手绘感”来自线条本身，而不是给普通图标叠加纸纹或手工材质。轮廓允许轻微线宽变化、自然抖动、圆角端点和小幅不对称，但必须继续保持 iOS 图标的清楚与克制。</p>
+<img path="@./outputs/wireframes/2026-09-02/revision-20-walking-paw-trails/08-icon-system-walking-paws.png" width="620" caption="08｜手绘图标与走路脚印母版"/>
+<ul>
+  <li><b>走路形态：</b>每串使用两至三枚小猫爪，左右交替、轻微旋转和大小变化，沿一条短斜线向前。</li>
+  <li><b>落位方式：</b>可以出现在记录条框或日期卡里的任意安全留白，不固定右对齐，也不为了放脚印扩大条框。</li>
+  <li><b>避让规则：</b>不得压住时间、正文、照片、分隔线、箭头或“聊聊”等操作；一串脚印只属于一条记录。</li>
+  <li><b>尺寸规则：</b>月历日期格使用两枚极小脚印；记录条框和月份归档根据空间使用两至三枚。</li>
+  <li><b>图标规则：</b>搜索、日历、箭头、蘑菇、团子头像等都使用同一套手绘线画语言，不使用 emoji、3D、纸纹或心形肉垫。</li>
+</ul>
+<h3>当前设计语言与边界</h3>
+<ul>
+  <li>整页使用统一暖白底和 iOS 式大标题、工具栏、内嵌分组、细分隔线与贴底标签栏。</li>
+  <li>背景不使用花草、综合色光、渐变、玻璃虚化或纸张纹理；可爱感只由小型手绘图标和团子到访状态承担。</li>
+  <li>按钮尺寸、返回方式、底部面板和信息密度遵循 iOS 习惯，避免安卓式大圆按钮、厚描边和等宽卡片宫格。</li>
+  <li>当前原型标题使用“日记”，但一级导航的正式命名仍需在“日记”和“回忆”之间确认；本文只把页面内部的“今天这一页”统一改为“今天”。</li>
+</ul>

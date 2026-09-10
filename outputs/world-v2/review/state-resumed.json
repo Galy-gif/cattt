@@ -1,0 +1,17 @@
+{
+  "action" : "blinkLook",
+  "current" : 5,
+  "phase" : "idle",
+  "p95TimerIntervalMilliseconds" : 34.630958456546068,
+  "target" : 5,
+  "maxSimulationMilliseconds" : 0.83733326755464077,
+  "x" : 0.91500000000000004,
+  "ticks" : 300,
+  "onHome" : true,
+  "y" : 0.622,
+  "paused" : false,
+  "foreground" : true,
+  "textureValidationError" : "",
+  "worldSeconds" : 10.033376333443448,
+  "meanSimulationMilliseconds" : 0.18018458969891071
+}

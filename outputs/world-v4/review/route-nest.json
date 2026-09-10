@@ -1,0 +1,17 @@
+{
+  "p95TimerIntervalMilliseconds" : 16.724708490073681,
+  "target" : 1,
+  "action" : "nestSleep",
+  "maxSimulationMilliseconds" : 0.12891669757664204,
+  "phase" : "interacting",
+  "onHome" : true,
+  "worldSeconds" : 17.348061041580515,
+  "y" : 0.67700000000000005,
+  "ticks" : 1034,
+  "current" : 1,
+  "foreground" : true,
+  "x" : 0.41399999999999998,
+  "meanSimulationMilliseconds" : 0.020254471805847361,
+  "paused" : false,
+  "textureValidationError" : ""
+}

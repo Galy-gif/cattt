@@ -1,0 +1,94 @@
+[
+  {
+    "id": "sleepyNod",
+    "frames": [
+      "assets/tuanzi/world-v2/sleepyNod/01.png",
+      "assets/tuanzi/world-v2/sleepyNod/02.png",
+      "assets/tuanzi/world-v2/sleepyNod/03.png",
+      "assets/tuanzi/world-v2/sleepyNod/04.png",
+      "assets/tuanzi/world-v2/sleepyNod/05.png",
+      "assets/tuanzi/world-v2/sleepyNod/06.png",
+      "assets/tuanzi/world-v2/sleepyNod/07.png",
+      "assets/tuanzi/world-v2/sleepyNod/08.png"
+    ],
+    "nativeScaleToPoints": 0.22546419098143236
+  },
+  {
+    "id": "tailChase",
+    "frames": [
+      "assets/tuanzi/world-v2/tailChase/01.png",
+      "assets/tuanzi/world-v2/tailChase/02.png",
+      "assets/tuanzi/world-v2/tailChase/03.png",
+      "assets/tuanzi/world-v2/tailChase/04.png",
+      "assets/tuanzi/world-v2/tailChase/05.png",
+      "assets/tuanzi/world-v2/tailChase/06.png",
+      "assets/tuanzi/world-v2/tailChase/07.png",
+      "assets/tuanzi/world-v2/tailChase/08.png",
+      "assets/tuanzi/world-v2/tailChase/09.png",
+      "assets/tuanzi/world-v2/tailChase/10.png",
+      "assets/tuanzi/world-v2/tailChase/11.png",
+      "assets/tuanzi/world-v2/tailChase/12.png",
+      "assets/tuanzi/world-v2/tailChase/13.png",
+      "assets/tuanzi/world-v2/tailChase/14.png",
+      "assets/tuanzi/world-v2/tailChase/15.png",
+      "assets/tuanzi/world-v2/tailChase/16.png"
+    ],
+    "nativeScaleToPoints": 0.23493044822256567
+  },
+  {
+    "id": "walkToward",
+    "frames": [
+      "assets/tuanzi/world-v2/walkToward/01.png",
+      "assets/tuanzi/world-v2/walkToward/02.png",
+      "assets/tuanzi/world-v2/walkToward/03.png",
+      "assets/tuanzi/world-v2/walkToward/04.png",
+      "assets/tuanzi/world-v2/walkToward/05.png",
+      "assets/tuanzi/world-v2/walkToward/06.png"
+    ],
+    "nativeScaleToPoints": 0.19973718791064388
+  },
+  {
+    "id": "walkAway",
+    "frames": [
+      "assets/tuanzi/world-v2/walkAway/01.png",
+      "assets/tuanzi/world-v2/walkAway/02.png",
+      "assets/tuanzi/world-v2/walkAway/03.png",
+      "assets/tuanzi/world-v2/walkAway/04.png",
+      "assets/tuanzi/world-v2/walkAway/05.png",
+      "assets/tuanzi/world-v2/walkAway/06.png"
+    ],
+    "nativeScaleToPoints": 0.23100303951367782
+  },
+  {
+    "id": "scratchEnter",
+    "frames": [
+      "assets/tuanzi/world-v2/scratchEnter/01.png",
+      "assets/tuanzi/world-v2/scratchEnter/02.png",
+      "assets/tuanzi/world-v2/scratchEnter/03.png",
+      "assets/tuanzi/world-v2/scratchEnter/04.png"
+    ],
+    "nativeScaleToPoints": 0.22380467955239064
+  },
+  {
+    "id": "scratchExit",
+    "frames": [
+      "assets/tuanzi/world-v2/scratchExit/01.png",
+      "assets/tuanzi/world-v2/scratchExit/02.png",
+      "assets/tuanzi/world-v2/scratchExit/03.png",
+      "assets/tuanzi/world-v2/scratchExit/04.png"
+    ],
+    "nativeScaleToPoints": 0.22380467955239064
+  },
+  {
+    "id": "treeScratch",
+    "frames": [
+      "assets/tuanzi/world-v2/treeScratch/01.png",
+      "assets/tuanzi/world-v2/treeScratch/02.png",
+      "assets/tuanzi/world-v2/treeScratch/03.png",
+      "assets/tuanzi/world-v2/treeScratch/04.png",
+      "assets/tuanzi/world-v2/treeScratch/05.png",
+      "assets/tuanzi/world-v2/treeScratch/06.png"
+    ],
+    "nativeScaleToPoints": 0.2777777777777778
+  }
+]
