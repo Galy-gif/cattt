@@ -23,7 +23,7 @@ struct DebugChip: View {
                     .environmentObject(store)
                     .frame(width: 272)
                     .frame(maxHeight: 520, alignment: .top)
-                    .designTopInset(92)
+                    .designTopInset(150)
                     .padding(.trailing, 12)
                     .transition(.opacity)
             }
@@ -58,7 +58,8 @@ struct DebugChip: View {
                 chipVisible = false
             }
             .padding(.trailing, 6)
-            .designTopInset(52)
+            // 右上角 52 那格现在是「我的」头像钮（2026-09-10），小点挪到它底下。
+            .designTopInset(112)
             .accessibilityLabel("调试面板")
     }
 
