@@ -22,6 +22,8 @@ struct ChatMessage: Identifiable, Equatable {
     var remembered = false
     /// 用户对这条猫消息选了「不要再提」
     var boundary = false
+    /// 服务端的消息 id。本地模拟时为空；接了后端时，重新回复和「不要再提」要用它
+    var serverID: String?
 
     var isCat: Bool { role == .cat }
 

@@ -6,7 +6,8 @@ import SwiftUI
 /// ```
 /// xcrun simctl launch booted com.maomao.app -script "500:moveCat:4;9000:poke;12000:look:0;14000:findCat"
 /// ```
-/// 每条 `延迟ms:命令[:参数]`，延迟从启动起算。命令：moveCat:i、look:i、findCat、poke、drag:dx（pt）、screen:home|chat|mailbox|me、mail、reseed。
+/// 每条 `延迟ms:命令[:参数]`，延迟从启动起算。命令：moveCat:i、look:i、findCat、poke、drag:dx（pt）、screen:home|chat|mailbox|me、mail、reseed，
+/// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
         guard let raw = UserDefaults.standard.string(forKey: "script"), !raw.isEmpty else { return }
@@ -44,6 +45,16 @@ enum DebugScript {
                 case "seed": if let seed=UInt64(arg) {store.world.setSeed(seed)}
                 case "action": if CatAction(rawValue:arg) != nil {store.world.preview(arg)}
                 case "reseed": store.reseed()
+                case "backend": if let mode = BackendConfig.Mode(rawValue: arg) { store.setBackendMode(mode) }
+                case "send":
+                    store.draft = arg
+                    store.send()
+                case "stop": store.stopStreaming()
+                case "boundary":
+                    if let last = store.messages.last(where: { $0.isCat }) {
+                        store.messagePanel = AppStore.MessagePanel(id: last.id, isCat: true)
+                        store.markBoundary()
+                    }
                 default: print("DebugScript: 未知命令 \(command)")
                 }
             }

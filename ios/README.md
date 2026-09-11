@@ -116,14 +116,18 @@ Maomao/
 
 ## 后端接入点
 
-原型和这一版都是本地 mock。真接口要换的四处都在 `AppStore` 里标了 `TODO: 后端`，
-时序形状（发送落地 520ms → 等待 900ms → 流式每字 58ms → 可停止 → 可重试）已经按真接口写好，
-换成网络层不用动界面：
+**聊天已经能接本机后端（09-12）。** 后端在仓库根目录的 `server/`，怎么跑见 `server/README.md`。
+调试面板最上面的「后端」切到「本机后端 localhost:8787」，填上 `pnpm create-dev-user` 生成的 token 就行；
+不切就还是本地 mock。网络层在 `Backend/Backend.swift`，聊天接后端的逻辑在 `Store/AppStore+Remote.swift`，
+气泡状态和服务端事件的对应见 `docs/specs/后端-开发者版-2026-09-11.md` 第 8 节。
+
+已接：发送、流式、停止、重试、断线续传、「记下了」、「不要再提」、「我的」页的记忆数和边界数、创建流程写猫的设定。
+还是本地 mock 的（代码里标了 `TODO: 后端`）：
 
 - **世界状态** —— 猫位置 + 状态句（`moveCat`）
-- **聊天流式** —— 含停止与重试（`send` / `retry` / `catReply` / `stopStreaming`）
 - **日记碎片** —— 列表与团子访问状态（`entries` / `advanceVisit` / `saveCapture`）
-- **记忆条目** —— CRUD 与边界列表（`markBoundary` / `memoryCount`）
+- **记忆条目的查看、修改** —— 二级页还没做；后端已有 `GET /v1/memories`、`DELETE /v1/memories/:id`
+- **消息的删除、反馈**
 
 语音转写、记忆抽取、模型调用都在后端，前端只消费结果。
 

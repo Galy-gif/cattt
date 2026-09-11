@@ -78,7 +78,7 @@ struct DebugPanel: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(spacing: 0) {
-                    Text("DEBUG · MOCK")
+                    Text(store.backend.isRemote ? "DEBUG · 本机后端" : "DEBUG · MOCK")
                         .font(Typo.mono(10))
                         .tracking(track(0.14, 10))
                         .foregroundStyle(Palette.ink4)
@@ -88,6 +88,28 @@ struct DebugPanel: View {
                         .contentShape(Rectangle())
                         .onTapGesture { onDismiss() }
                         .accessibilityLabel("关闭调试面板")
+                }
+
+                group("后端") {
+                    toggle("本地模拟，不连后端", isOn: store.backend.mode == .mock) { store.setBackendMode(.mock) }
+                    toggle("本机后端 localhost:8787", isOn: store.backend.mode == .local) { store.setBackendMode(.local) }
+                    if store.backend.isRemote {
+                        TextField("开发者 token", text: $store.backend.token)
+                            .font(Typo.mono(11))
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                            .submitLabel(.done)
+                            .onSubmit { store.connectBackend() }
+                            .padding(.horizontal, 11)
+                            .frame(minHeight: 36)
+                            .background(Palette.bg, in: RoundedRectangle(cornerRadius: Metrics.radiusCard))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: Metrics.radiusCard)
+                                    .stroke(Palette.rule, lineWidth: 1)
+                            )
+                        action("重新连接、拉聊天记录") { store.connectBackend() }
+                        note(store.backendStatus ?? "token 在 server/ 下跑 pnpm create-dev-user 生成。")
+                    }
                 }
 
                 group("世界") {
@@ -124,7 +146,9 @@ struct DebugPanel: View {
                 group("聊天") {
                     toggle("下一条发送失败", isOn: store.forceFail) { store.forceFail.toggle() }
                     toggle("下一条回复超时", isOn: store.forceTimeout) { store.forceTimeout.toggle() }
-                    note("打开后回主界面发一条消息，就能看到对应的失败态。")
+                    note(store.backend.isRemote
+                         ? "这两个开关只管本地模拟。接后端时的失败态靠真的断网、停服务来看。"
+                         : "打开后回主界面发一条消息，就能看到对应的失败态。")
                 }
 
                 group("提示") {

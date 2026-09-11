@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */; };
 		E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */; };
+		A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C908A7DB0E92D34F9C84C967 /* Backend.swift */; };
 		B485FFB3A10979FD02FA68B5 /* DebugPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583FD250B759CC0529658A18 /* DebugPanel.swift */; };
 		F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4203F85727B26935CFD648C /* DebugScript.swift */; };
 		82D0A61B87B8447177641A95 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58F8802EEFAB15733FBF52 /* Icons.swift */; };
@@ -40,6 +41,7 @@
 		41395686B4E2B32DCC3C5223 /* WorldCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF454089B66E87EB601A2A /* WorldCamera.swift */; };
 		0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */; };
 		BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D814ABAF82C26409760529A /* WorldScene.swift */; };
+		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
 		C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */; };
 		199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */; };
@@ -79,6 +81,7 @@
 		F5BF48AA40CAD7891EB709FC /* Maomao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maomao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaomaoApp.swift; sourceTree = "<group>"; };
 		9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		C908A7DB0E92D34F9C84C967 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		583FD250B759CC0529658A18 /* DebugPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPanel.swift; sourceTree = "<group>"; };
 		A4203F85727B26935CFD648C /* DebugScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugScript.swift; sourceTree = "<group>"; };
 		CE58F8802EEFAB15733FBF52 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		6CEF454089B66E87EB601A2A /* WorldCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldCamera.swift; sourceTree = "<group>"; };
 		EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldInteraction.swift; sourceTree = "<group>"; };
 		0D814ABAF82C26409760529A /* WorldScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScene.swift; sourceTree = "<group>"; };
+		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldEngine.swift; sourceTree = "<group>"; };
 		A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTextureCache.swift; sourceTree = "<group>"; };
@@ -179,6 +183,14 @@
 				9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		50B87C8A0011A61FC7E4E830 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				C908A7DB0E92D34F9C84C967 /* Backend.swift */,
+			);
+			path = Backend;
 			sourceTree = "<group>";
 		};
 		A05A128F7E54308167EACEAD /* Debug */ = {
@@ -335,6 +347,7 @@
 		58028F200655078E589966B9 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
 				54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */,
 				A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */,
@@ -346,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				A3460D7A577B62941D25F525 /* App */,
+				50B87C8A0011A61FC7E4E830 /* Backend */,
 				A05A128F7E54308167EACEAD /* Debug */,
 				1A8429CE87EE78531084D104 /* DesignSystem */,
 				9118762A58187C8BD897E53D /* Features */,
@@ -457,6 +471,7 @@
 			files = (
 				F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */,
+				A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */,
 				B485FFB3A10979FD02FA68B5 /* DebugPanel.swift in Sources */,
 				F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */,
 				82D0A61B87B8447177641A95 /* Icons.swift in Sources */,
@@ -488,6 +503,7 @@
 				41395686B4E2B32DCC3C5223 /* WorldCamera.swift in Sources */,
 				0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */,
 				BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */,
+				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
 				C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */,
 				199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */,

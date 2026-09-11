@@ -88,8 +88,8 @@ final class AppStore: ObservableObject {
 
     @Published var messages = SeedData.messages
     @Published var draft = ""
-    @Published private(set) var isWaiting = false
-    @Published private(set) var isStreaming = false
+    @Published var isWaiting = false
+    @Published var isStreaming = false
     @Published var chatSource: ChatSource?
     @Published var messagePanel: MessagePanel?
 
@@ -114,8 +114,23 @@ final class AppStore: ObservableObject {
     /// 右上角头像钮打开的系统 sheet。
     @Published var showsMe = false
     @Published var shareByDefault = true
-    @Published private(set) var memoryCount = 37
-    @Published private(set) var boundaryCount = 2
+    @Published var memoryCount = 37
+    @Published var boundaryCount = 2
+
+    // MARK: - 后端
+
+    /// 聊天走本地模拟还是本机后端。切换走 `setBackendMode(_:)`。
+    @Published var backend = BackendConfig.load() {
+        didSet { backend.save() }
+    }
+    /// 调试面板上显示的连接状态。
+    @Published var backendStatus: String?
+    /// 当前这一轮回复在服务端的 id，停止时要用。
+    var remoteTurnID: String?
+    /// 用户按了停止：之后到的字不再显示。
+    var remoteStopped = false
+    /// 收到 accepted 后 20 秒没有第一个字就判超时。
+    var watchdogTask: Task<Void, Never>?
 
     // MARK: - 创建流程
 
@@ -157,7 +172,7 @@ final class AppStore: ObservableObject {
     // MARK: - 任务管理
 
     /// 一次只有一条消息在途，所以聊天用单个句柄 —— 「停止」直接取消它。
-    private var chatTask: Task<Void, Never>?
+    var chatTask: Task<Void, Never>?
     private var onboardingTask: Task<Void, Never>?
     private var toastTask: Task<Void, Never>?
     private var reactionTask: Task<Void, Never>?
@@ -166,6 +181,7 @@ final class AppStore: ObservableObject {
         worldTextures=WorldTextureCache(scene:world.scene)
         world.stateChanged = { [weak self] in self?.objectWillChange.send() }
         world.frameChanged = { [weak self] dt in self?.advanceCamera(dt) }
+        connectBackend()
     }
 
     private func run(_ body: @escaping () async throws -> Void) -> Task<Void, Never> {
@@ -181,7 +197,7 @@ final class AppStore: ObservableObject {
         reactionTask?.cancel()
     }
 
-    private static func sleep(_ milliseconds: Int) async throws {
+    static func sleep(_ milliseconds: Int) async throws {
         try await Task.sleep(nanoseconds: UInt64(milliseconds) * 1_000_000)
     }
 
@@ -314,7 +330,7 @@ final class AppStore: ObservableObject {
     // MARK: - 聊天
 
     /// 发送：520ms 落地 → 等待 900ms → 流式每字 58ms。
-    /// TODO: 后端 —— 换成真的流式接口，落地态对应请求已受理，streaming 对应 SSE/WebSocket 分片。
+    /// 接了后端时走 `remoteSend`，状态对应见 AppStore+Remote.swift。
     func send() {
         let text = draft.trimmed
         guard !text.isEmpty, !isStreaming else { return }
@@ -324,6 +340,11 @@ final class AppStore: ObservableObject {
         messages.append(ChatMessage(id: id, role: .user, text: text, state: .sending))
         draft = ""
         forceFail = false
+
+        if backend.isRemote {
+            remoteSend(localID: id, text: text)
+            return
+        }
 
         chatTask?.cancel()
         chatTask = run { [weak self] in
@@ -343,6 +364,10 @@ final class AppStore: ObservableObject {
     func retry(messageID: String) {
         guard let text = messages.first(where: { $0.id == messageID })?.text else { return }
         setState(.sending, for: messageID)
+        if backend.isRemote {
+            remoteSend(localID: messageID, text: text)
+            return
+        }
         chatTask?.cancel()
         chatTask = run { [weak self] in
             try await Self.sleep(600)
@@ -363,6 +388,11 @@ final class AppStore: ObservableObject {
             messages.remove(at: index)
         }
         guard let previousUserMessage else { return }
+        if backend.isRemote, let serverID = previousUserMessage.serverID {
+            // 用户那句服务端已经收了，只让猫重新回，不再发一遍
+            remoteReply(to: serverID)
+            return
+        }
         retry(messageID: previousUserMessage.id)
     }
 
@@ -410,6 +440,10 @@ final class AppStore: ObservableObject {
 
     /// 流式中按停止：保留已生成文字。
     func stopStreaming() {
+        if backend.isRemote {
+            remoteStop()
+            return
+        }
         chatTask?.cancel()
         isStreaming = false
         isWaiting = false
@@ -423,22 +457,26 @@ final class AppStore: ObservableObject {
     }
 
     /// 长按菜单里的「不要再提」：该气泡标记边界，「我的」页边界计数 +1。
-    /// TODO: 后端 —— 写进边界列表，之后模型不再提这条。
+    /// 接了后端时写进服务端的边界列表，之后模型不再主动提。
     func markBoundary() {
         guard let panel = messagePanel else { return }
         if let index = messages.firstIndex(where: { $0.id == panel.id }) {
             messages[index].boundary = true
+            if backend.isRemote, let serverID = messages[index].serverID {
+                remoteMarkBoundary(messageID: serverID)
+            } else {
+                boundaryCount += 1
+            }
         }
-        boundaryCount += 1
         messagePanel = nil
     }
 
-    private func setState(_ state: ChatMessage.State, for id: String) {
+    func setState(_ state: ChatMessage.State, for id: String) {
         guard let index = messages.firstIndex(where: { $0.id == id }) else { return }
         messages[index].state = state
     }
 
-    private func updateText(_ text: String, for id: String) {
+    func updateText(_ text: String, for id: String) {
         guard let index = messages.firstIndex(where: { $0.id == id }) else { return }
         messages[index].text = text
     }
@@ -577,6 +615,7 @@ final class AppStore: ObservableObject {
     func enterYard() {
         onboarding = nil
         screen = .home
+        if backend.isRemote { remoteUpdateCat() }
     }
 
     // MARK: - 重置
@@ -606,6 +645,7 @@ final class AppStore: ObservableObject {
         toast = nil
         forceFail = false
         forceTimeout = false
+        connectBackend()
     }
 }
 

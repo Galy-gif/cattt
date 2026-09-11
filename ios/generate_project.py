@@ -13,6 +13,7 @@ byte-identical file and diffs stay readable.
 
 import hashlib
 import os
+import re
 
 PROJECT = "Maomao"
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -25,6 +26,14 @@ SWIFT_VERSION = "5.0"
 def oid(key: str) -> str:
     """Deterministic 24-hex-char object id."""
     return hashlib.md5(key.encode()).hexdigest()[:24].upper()
+
+
+def pbx_str(value: str) -> str:
+    """Old-style plist strings may stay bare only with [A-Za-z0-9_$./-]; anything else (e.g. the `+` in
+    `AppStore+Remote.swift`) has to be quoted or Xcode refuses to open the project."""
+    if re.fullmatch(r"[A-Za-z0-9_$./-]+", value):
+        return value
+    return '"%s"' % value.replace("\\", "\\\\").replace('"', '\\"')
 
 
 def collect():
@@ -108,11 +117,11 @@ def main():
     for path in swift_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, name))
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, pbx_str(name)))
     for path in resource_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "image.png", name))
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "image.png", pbx_str(name)))
     out("/* End PBXFileReference section */")
 
     # ---- PBXFrameworksBuildPhase
@@ -144,7 +153,7 @@ def main():
             group_lines.append("\t\t\t\t%s /* %s */," % (oid("file:" + rel), name))
         group_lines.append("\t\t\t);")
         if node.path is not None:
-            group_lines.append("\t\t\tpath = %s;" % node.path)
+            group_lines.append("\t\t\tpath = %s;" % pbx_str(node.path))
         group_lines.append('\t\t\tsourceTree = "<group>";')
         group_lines.append("\t\t};")
 
