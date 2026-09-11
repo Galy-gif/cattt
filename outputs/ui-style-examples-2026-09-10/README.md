@@ -8,7 +8,7 @@
 
 ## A-毛毡绘本-轻手帐
 
-![示例](A-毛毡绘本-轻手帐.png)
+![示例](A-毛毡绘本-轻手帐.jpg)
 
 ### 实际提示词
 
@@ -18,7 +18,7 @@ Variant heading: 'A · 毛毡绘本 / 轻手帐'. Direction: tender tactile felt
 
 ## B-庭院信笺
 
-![示例](B-庭院信笺.png)
+![示例](B-庭院信笺.jpg)
 
 ### 实际提示词
 
@@ -28,7 +28,7 @@ Variant heading: 'B · 庭院信笺'. Direction: calm intimate garden correspond
 
 ## C-小院窗景
 
-![示例](C-小院窗景.png)
+![示例](C-小院窗景.jpg)
 
 ### 实际提示词
 

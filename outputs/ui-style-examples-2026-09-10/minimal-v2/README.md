@@ -5,12 +5,12 @@
 使用内置 image_gen；D 雾绿磨砂、E 暖白轻透。均为静态候选，未改 App。图中比例、字体和角色细节仍需落地校准。
 
 ## 参考图
-/Users/gouzi/猫猫的app/outputs/ui-style-examples-2026-09-10/C-小院窗景.png
+/Users/gouzi/猫猫的app/outputs/ui-style-examples-2026-09-10/C-小院窗景.jpg
 /Users/gouzi/猫猫的app/assets/tuanzi/felt-world-pack-v1/character/02-single-cat-material-preview.png
 
 ## D-雾绿磨砂
 
-![示例](D-雾绿磨砂.png)
+![示例](D-雾绿磨砂.jpg)
 
 ### 实际提示词
 
@@ -24,7 +24,7 @@ Heading 'D · 雾绿磨砂'. Cool-clean direction, pale grey sage #EDF2EF backgr
 
 ## E-暖白轻透
 
-![示例](E-暖白轻透.png)
+![示例](E-暖白轻透.jpg)
 
 ### 实际提示词
 

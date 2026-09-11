@@ -3,7 +3,7 @@
 
 用法：
     python3 gen_preview.py --frames ../tuanzi/felt-world-pack-v1/frames \
-        --bg ../scenes/tuanzi-courtyard-v1/02-tuanzi-courtyard-background-felt-selected.png \
+        --bg ../tuanzi/felt-world-pack-v1/background/01-courtyard-felt-selected.png \
         --out /path/preview.html
 
 页面：每个动作一格循环播放，可调 fps / 循环方式 / 镜像 / 逐帧，

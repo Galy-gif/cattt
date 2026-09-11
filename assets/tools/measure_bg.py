@@ -2,7 +2,7 @@
 """背景规则 1 量测：沿行走带逐列量地面色相，与猫主色算角距。
 
 用法：
-    python3 measure_bg.py --image ../scenes/tuanzi-courtyard-v1/02-....png \
+    python3 measure_bg.py --image ../tuanzi/felt-world-pack-v1/background/01-courtyard-felt-selected.png \
         [--band 0.72 0.95] [--step 60] [--cat-hue 30 --cat-sat 0.76] [--out report.md]
 
 规则（README 第 0 节）：猫与周围地面色相角距 ≥ 55°，且猫饱和度比地面高 ≥ 0.2。

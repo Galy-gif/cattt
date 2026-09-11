@@ -23,7 +23,7 @@ struct DebugChip: View {
                     .environmentObject(store)
                     .frame(width: 272)
                     .frame(maxHeight: 520, alignment: .top)
-                    .designTopInset(150)
+                    .designTopInset(240)
                     .padding(.trailing, 12)
                     .transition(.opacity)
             }
@@ -58,8 +58,9 @@ struct DebugChip: View {
                 chipVisible = false
             }
             .padding(.trailing, 6)
-            // 右上角 52 那格现在是「我的」头像钮（2026-09-10），小点挪到它底下。
-            .designTopInset(112)
+            // 右上角 52 那格是「我的」头像钮、112 撞日记纸的关闭钮（2026-09-10），小点挪到右边中段：
+            // 院子那里是树，纸那里是空白，聊天那里最多碰到气泡边。
+            .designTopInset(200)
             .accessibilityLabel("调试面板")
     }
 

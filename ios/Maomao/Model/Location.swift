@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// 院子里的六个地点。第一版（2026-09-09 起）它们是同一张长图上的六个落脚点，不再各配一张场景图。
-/// 坐标是归一化的（相对整张 `courtyard-felt`），从图上量；换高清版不用改。
+/// 坐标是归一化的（相对整张毛毡长卷世界，与场景配置 world-scene-v4 同一坐标系）；换高清版不用改。
 struct Location: Identifiable, Equatable {
     enum ID: String, CaseIterable {
         case mushroomHouse, treeHouse, catBed, grass, pond, fence

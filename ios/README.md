@@ -1,8 +1,8 @@
 # 猫猫 iOS MVP · SwiftUI 实现
 
-原生 SwiftUI 实现。本仓库内的页面设计位于 `design/`，产品资料位于 `docs/feishu/`。
+原生 SwiftUI 实现。产品文档位于 `docs/产品/`，决策与方案见 `docs/README.md`；现行界面以本工程为准（`design/` 只留配色令牌）。
 早期交接文档中的 `project/Maomao iOS MVP.dc.html` 与 `project/design_handoff_ios_mvp/README.md` 路径不在当前资料包中；构建不依赖它们。
-覆盖核心闭环：创建流程（5 屏）、陪伴主页、专注聊天、日记「今天」、我的主页。
+覆盖核心闭环：创建流程（5 屏）、陪伴主页（毛毡小院世界层）、专注聊天、日记（院子信箱里抽出的纸）、我的（右上角头像 sheet）。2026-09-10 起没有底部 Tab 栏。
 
 产品要旨没有变：**没有打卡、没有等级金币、没有喂养任务、没有连续天数**。
 用户几天不来，猫不掉状态、不催、不怪。任何带「任务」「进度」「坚持」意味的措辞都不要往里加。
@@ -20,7 +20,7 @@ open ios/Maomao.xcodeproj
 - 竖屏专用
 - Swift 5 语言模式
 
-陪伴世界已于 2026-09-10 构建并在 iPhone 17 Pro / iOS 26.5 Simulator 运行验证。最新树窝／栅栏动作、道路朝向、背景图层与池塘玩水记录见 `docs/specs/世界层-v4-实施与验收.md`。最低部署版本仍为 iOS 17；尚未完成 iOS 17 真机验收。
+陪伴世界最近一次在 iPhone 17 Pro / iOS 26.5 Simulator 构建并运行验证是 2026-09-12（逐帧 v5 树窝与走路换向），记录见 `docs/specs/逐帧v5-实施与验收.md`；更早的 v4 记录在 `docs/archive/specs/`。尚未完成 iOS 17 真机验收。
 
 ### 文件列表变了怎么办
 
@@ -37,19 +37,21 @@ cd ios && python3 generate_project.py
 
 ```
 Maomao/
-  App/           入口、根视图（路由 + 轻提示 + Tab 栏叠放）
+  App/           入口、根视图（路由 + 轻提示 + 信箱抽纸 / 我的 sheet 叠放）
   DesignSystem/  色板、字体、尺寸令牌、矢量图标
-  Model/         地点、消息、碎片、气质与特征、种子数据
-  Store/         AppStore —— 全部状态与状态转换
+  Model/         地点、消息、碎片、气质与特征、种子数据；世界层：场景、猫的模拟、树窝等交互阶段、镜头、动作目录
+  Backend/       聊天走本地模拟还是本机后端（server/）
+  Store/         AppStore —— 全部状态与状态转换；WorldEngine 驱动世界层时钟，WorldTextureCache 按镜头加载贴图
   Features/
-    Home/        陪伴主页、地点轨
+    Home/        陪伴主页、地点轨、世界层画布
     Chat/        专注聊天、消息行、长按菜单、光斑背景
-    Diary/       今天、碎片行（团子来过三态）、记一下抽屉
+    Diary/       日记纸（信箱里抽出来）、碎片行（团子来过三态）、记一下抽屉
     Me/          我的
     Onboarding/  欢迎 / 选外观 / 气质 / 命名 / 初次见面
-    Shell/       Tab 栏、通用零件
+    Shell/       通用零件（含信箱抽纸容器 PaperSheet）
   Debug/         调试面板（#if DEBUG）
-  Assets.xcassets 六张场景图 + 团子七表情
+  Assets.xcassets 团子表情、世界层动作帧（world-v2…v5）、动作目录 cat-actions-v2、场景配置 world-scene-v4 及备用链
+  Resources/WorldTextures 世界层地块与物件贴图
 ```
 
 状态全部集中在 `AppStore`（`@MainActor` 的 `ObservableObject`），界面只读它、只调它的方法。
@@ -63,7 +65,7 @@ Maomao/
 | 字号 / 衬线字体 / 行高 / 字距 | `DesignSystem/Typography.swift`，字距用 `track(em, size)` 折算 |
 | 圆角 / 间距 / 点按高度 / 动效时长 | `DesignSystem/Metrics.swift` |
 | 手绘线性图标 | `DesignSystem/Icons.swift`，SVG 路径逐条搬成 `Path` |
-| 六场景坐标、状态句、反应句 | `Model/Location.swift` |
+| 各地点落脚点（长卷归一化坐标）、状态句、反应句 | `Model/Location.swift`；世界层几何以场景配置 `world-scene-v4` 为准 |
 | 语料池、名字池、三档解释 | `Model/ChatMessage.swift` |
 | 种子数据（四条碎片、五条消息） | `Model/DiaryEntry.swift` |
 
@@ -80,11 +82,11 @@ Maomao/
    把 `NotoSerifSC-Medium/Bold` 加进 target 并在 Info.plist 的 `UIAppFonts` 里登记，
    `Typo.serif` 会自动改用它，**代码一行都不用改**。这是唯一影响保真度的替换。
 
-2. **底部安全区**。设计稿把 Tab 栏底部写死成 22pt —— Web 画框里没有真的 Home Indicator。
+2. **底部安全区**（Tab 栏已于 09-10 拆掉，这一条只剩顶部规则有效）。设计稿把 Tab 栏底部写死成 22pt —— Web 画框里没有真的 Home Indicator。
    真机取 `max(安全区, 22)`：参考机型看着和设计稿一致，带 Home Indicator 的机器也不会压上去。
    顶部同理，`designTopInset` 取 `max(设计值, 安全区 + 5)`，在参考机型上恒等于设计值。
 
-3. **日记「记一下」按钮**。原型里它被绝对定位的 Tab 栏盖住了（Web 端的定位疏漏）。
+3. **日记「记一下」按钮**（已随 Tab 栏拆除而过时，日记改为信箱抽纸）。原型里它被绝对定位的 Tab 栏盖住了（Web 端的定位疏漏）。
    这里给它让出了 Tab 栏的高度。「我的」页底部同样让了位，最后一个分区能滚干净。
 
 4. **回复超时后重试**。原型把「……」气泡留在原地又追加一条新回复，看起来像猫说了两次。

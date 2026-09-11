@@ -3,7 +3,6 @@ import SwiftUI
 /// 小院是一张横向长图。所有位置都用**归一化坐标**（x、y 各 0–1，相对整张背景图），
 /// 换高清背景时坐标不用改。几何计算在「参考屏 pt 空间」里做：高 844，宽 = 844 × 长宽比。
 enum World {
-    static let imageName = "courtyard-felt"
 
     /// 背景宽 / 高。从图上读，换图自动跟着变。
     static let aspect: CGFloat = 1.5

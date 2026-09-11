@@ -1,0 +1,7 @@
+# 允许超过 3MB 的文件（fnmatch 模式，* 也匹配 /）。只放必须保留原尺寸的：App 资源、美术源文件、飞书原图、出图交付。
+# 验收截图、对照图不在此列，压缩到 1MB 以内再提交。
+ios/Maomao/Resources/WorldTextures/*
+ios/Maomao/Assets.xcassets/*
+assets/scenes/*
+assets/tuanzi/*
+outputs/*-delivery/*

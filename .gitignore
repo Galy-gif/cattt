@@ -46,3 +46,9 @@ outputs/frames-v5-review/tools/frames
 outputs/frames-v5-review/tools/export
 outputs/rig-v1-review/*__aligned.png
 outputs/rig-v1-review/*__deltaE.png
+
+# 构建日志不进仓库；测试原始输出存成 *-tests.txt（已跟踪的旧日志不受影响）
+*.log
+# 信箱改版验收：原尺寸截图只留本地，提交 *-small.png
+outputs/nav-mailbox/review/*.png
+!outputs/nav-mailbox/review/*-small.png
