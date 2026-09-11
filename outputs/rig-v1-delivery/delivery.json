@@ -1,0 +1,240 @@
+{
+  "batch": "rig-v1",
+  "items": [
+    {
+      "id": "P00-rest-pose",
+      "file": "P00-rest-pose/P00-rest-pose__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "6baf5abef7114e56efe0483b031c972824ec00b52f70d98806c910d958a23ec3",
+      "refs": [
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready 2D cutout reference for a rigged cat character\nInput images: Image 1 (R1) is the only approved identity and material reference for Tuanzi. Image 2 (R2) provides the side-view drawing angle and proportions; use frame 1.\nOutput: exactly one standalone PNG, exactly 1536x1024.\n\nBACKGROUND CORRECTION — critical: render the entire background as one perfectly uniform, flat, opaque solid color #FF00FF. No alpha transparency, no checkerboard pattern, no texture, no gradient, no shadow, and no variation anywhere in the background.\n\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\n\nUsing R1 for identity and material and R2 frame 1 for the side-view angle and proportions: ONE cat only,\nfull body, side view facing RIGHT (profile with the face turned very slightly toward the viewer, one eye\nvisible), standing still with all four paws flat on an invisible ground line. Legs straight and slightly\napart so all four legs are visible and clearly separated: near legs in front, far legs partly visible\nbehind. Head level, looking right. Tail raised behind in a gentle S curve.\nCat centered, total height about 55% of the canvas height, paws at about y=800. No ground and no shadow.\n\nConstraints: exactly one cat; all four legs separately visible; facing right; background is only exact flat #FF00FF; no extra object.\nAvoid: transparency preview, checkerboard, text, watermark, signature, border, grid, cream or white chest or belly, realistic fur, 3D plush, flat vector.",
+      "background": "magenta",
+      "notes": "Built-in transparent output baked a checkerboard, so the permitted magenta fallback was generated; near-magenta background pixels were mechanically normalized to exact #FF00FF."
+    },
+    {
+      "id": "P01-head",
+      "file": "P01-head/P01-head__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "041eff7c52f8e61818131f5012ba4bc92ed6dc0c7401d2db92ac5bdb17698c2b",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nDraw ONLY the HEAD of the cat in reference P00, same angle as P00. Remove the eyes completely: leave smooth\norange fur where the eyes were (eyes are added later in animation). Remove both ears: the top of the head is\na smooth rounded fur line where the ears were. Keep the tiny mouth, the three forehead stripes and the cheek\nfur tufts. At the neck (bottom left of the head), extend the fur downward as a plain rounded orange\n\"overlap cap\" about 25% of the head height, with NO outline along that cap edge; it will be hidden under\nthe body. Head centered, head width about 50% of the canvas.\nConstraints: only one connected head part; absolutely no eyes and no ears; keep mouth and exactly three forehead stripes; neck overlap cap has no outline. No other cat part, object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P02-ear-near",
+      "file": "P02-ear-near/P02-ear-near__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "e0150cf0cde6cebad7eda9507885993bdb26d6ad799905affda00e71d3f4af25",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nDraw ONLY the near ear (the ear closer to the viewer) of the cat in P00, upright, with the pink inner ear\nand fuzzy felt edge, outlined on its outer edges. At the base, extend it with a plain rounded orange cap\nabout 30% of the ear height with NO outline; it will be hidden under the head. Ear centered, ear height\nabout 45% of the canvas.\nConstraints: only one connected ear part; clearly visible pink inner ear; no head or other cat part; base overlap cap has no outline. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P03-ear-far",
+      "file": "P03-ear-far/P03-ear-far__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "7a3bab28b867472319adebd3ad2bf9e465afb843081def94015965ab06e9e323",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nDraw ONLY the far ear of the cat in P00, the ear farther from the viewer, seen mostly from behind: orange\nfur only, at most a thin sliver of pink. Upright, outlined on its outer edges. At the base, extend it with a\nplain rounded orange cap about 30% of the ear height with NO outline. Ear centered, ear height about 45% of\nthe canvas.\nConstraints: only one connected ear part; nearly no pink; no head or other cat part; base overlap cap has no outline. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P04-torso",
+      "file": "P04-torso/P04-torso__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "418dc17a272ba5a9d60ba2d3d8f21b0afe8b010783d5f7e3bd44f80904a02ff6",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1536x1024.\nDraw ONLY the BODY of the cat in P00, from neck to hips, side view facing right like P00. NO head, NO legs,\nNO tail. Keep the body stripes and the round belly. Where the head, the legs and the tail attach, simply close\nthe body with a smooth rounded fur contour; those spots will be covered by the other parts.\nBody centered, body length about 60% of the canvas width.\nConstraints: exactly one connected torso part; no head, ears, eyes, mouth, legs, paws, or tail; keep the body stripes. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Near-magenta background pixels were mechanically normalized to exact #FF00FF."
+    },
+    {
+      "id": "P05-foreleg-upper",
+      "file": "P05-foreleg-upper/P05-foreleg-upper__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "0676126f0d53d68fd9a65f5a642754a5abeb901970ddbd4b3779d340858e1ff6",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nDraw ONLY the near front leg, UPPER segment (shoulder to elbow), of the cat in P00, perfectly straight and\nvertical. Top end (shoulder): a plain rounded cap with NO outline; it will be hidden under the body. Bottom\nend (elbow): round and fully outlined. Same thickness as the front leg in P00. Centered, length about 40% of\nthe canvas height.\nConstraints: exactly one connected vertical upper-leg segment; top cap has no outline; bottom end is outlined; no paw, toes, body, head, tail, or other part. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P06-foreleg-lower",
+      "file": "P06-foreleg-lower/P06-foreleg-lower__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "4e502f7894e69996439656e981a0d446f2506f6e00725a10b4ec8e2b3ab31709",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nDraw ONLY the near front leg, LOWER segment with the paw (elbow to paw), of the cat in P00, perfectly\nstraight and vertical. Top end (elbow): a plain rounded cap with NO outline. Bottom: the small round paw\nseen from the side, pointing right, with 2-3 toe lines, outlined. Same thickness as in P00. Centered, length\nabout 40% of the canvas height.\nConstraints: exactly one connected vertical lower-leg-and-paw part; top cap has no outline; paw points right and has 2-3 toe lines; no upper leg, body, head, tail, or other part. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P07-hindleg-thigh",
+      "file": "P07-hindleg-thigh/P07-hindleg-thigh__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "25d2d1f6258315cdf5cee220f5a1b12986ab36cc5946db5e50b886ae83629b27",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nDraw ONLY the near hind THIGH (hip to knee) of the cat in P00: a plump rounded teardrop shape like the\nhaunch in P00, standing vertical. Top end (hip): a plain rounded cap with NO outline. Bottom (knee): round\nand outlined. Centered, length about 45% of the canvas height.\nConstraints: exactly one connected vertical plump teardrop thigh; top cap has no outline; bottom knee is outlined; no foot, toes, body, head, tail, or other part. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P08-hindleg-lower",
+      "file": "P08-hindleg-lower/P08-hindleg-lower__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "930f47acbfb03388403992220e61895d3fe370c0c9b906f112f2f86b11e81aaa",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1024x1024.\nDraw ONLY the near hind leg, LOWER segment with the foot (knee to foot), of the cat in P00, straight and\nvertical. Top end (knee): a plain rounded cap with NO outline. Bottom: the foot seen from the side, pointing\nright, with 2-3 toe lines, outlined. Same thickness as in P00. Centered, length about 40% of the canvas\nheight.\nConstraints: exactly one connected vertical lower-hind-leg-and-foot part; top cap has no outline; foot points right and has 2-3 toe lines; no thigh, body, head, tail, or other part. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Built-in square output was 1254x1254; proportion-preserving Lanczos downsampling produced the required 1024x1024 canvas. Near-magenta background pixels were normalized to exact #FF00FF."
+    },
+    {
+      "id": "P09-tail",
+      "file": "P09-tail/P09-tail__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "63b531b1399759e6e9b57377e81302c8d62d94ad9d1fb630aae23aa9150a9fa8",
+      "refs": [
+        "P00-rest-pose__r1.png",
+        "R1-cat-identity.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready isolated 2D part for a rigged cat character\nInput images: Image 1 is the approved P00 rest-pose and controls exact angle, proportions, part shape, and scale. Image 2 is R1 and controls identity and material.\nBackground: fill every background pixel with perfectly uniform, flat, opaque solid #FF00FF. No transparency preview, no checkerboard, no texture, gradient, shadow, or variation in the background.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nOutput: exactly one standalone PNG, exactly 1536x1024.\nDraw ONLY the TAIL of the cat in P00, but perfectly STRAIGHT and horizontal (the animation will bend it).\nBase at the LEFT: a plain rounded cap with NO outline. Tip at the right: rounded and outlined. Same thickness\nand the same ring stripes as the tail in P00, same length as P00's tail would be if straightened.\nCentered, tail length about 70% of the canvas width.\nConstraints: exactly one connected perfectly horizontal straight tail; left base cap has no outline; right tip is rounded and outlined; at least three darker orange ring stripes; no curve, body, legs, head, or other part. No object, ground, shadow, text, watermark, signature, border, or grid.",
+      "background": "magenta",
+      "notes": "Near-magenta background pixels were mechanically normalized to exact #FF00FF."
+    },
+    {
+      "id": "T01-nest-crouch",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R3-scene-nest.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nInput images: Image 1 is R3, the exact edit target and must be preserved pixel-for-pixel outside the newly added cat and its physically required local contact effect. Image 2 is R1, the only approved cat identity/material reference. Image 3 is R2, the approved side-view angle and proportion reference; use frame 1.\nOutput: exactly one opaque PNG, exactly 1536x1024.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown\nbead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body\nstripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe\nlines; short soft felt fibers on the surface; fuzzy fiber edge along the outline; warm dark-brown\nvariable-width outline. Uniform orange chest and belly, NO cream or white chest or belly.\nNOT realistic, NOT a 3D plush toy, NOT flat vector. Even soft light from the upper left. No text.\nEdit reference image R3. Keep the whole scene EXACTLY: same framing, same objects, same positions,\nsame felt materials and colors. Only add the cat. Output canvas exactly 1536x1024.\nDraw the cat Tuanzi (identity from R1, side-view drawing from R2) at the correct size for this scene.\nIntegrate the cat into the scene: it receives the scene's light from the upper left, it has a soft dark\ncontact shadow exactly where it touches a surface, and any part of the cat that is behind an object is\ncorrectly hidden by that object.\nThe cat stands on the stone path at the foot of the tree, paws at about x=810, y=940, facing LEFT toward\nthe hanging woven basket. It is in a deep loaded crouch, ready to jump, looking up at the lower lip of the\nbasket opening (around x=710, y=600). Its whole body is in front of the tree roots.\nCat size on this canvas: head width about 143 px, standing height about 271 px.\nConstraints: the cat faces left; all four paws contact the stone path; the cat stays fully in front of the tree roots; preserve every existing scene object and pixel outside the cat/contact-shadow area. No text, watermark, signature, border, grid, or extra cat.",
+      "background": "scene",
+      "notes": "The generated candidate globally redrew R3 outside the cat/contact region instead of preserving the scene exactly, so no file was accepted. The candidate is retained in _rejected/."
+    },
+    {
+      "id": "T02-nest-air",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R3-scene-nest.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nInput images: Image 1 is R3, the exact edit target and must be preserved pixel-for-pixel outside the newly added cat and its local contact effect. Image 2 is R1, the only approved cat identity/material reference. Image 3 is R2, the approved side-view angle and proportions.\nOutput: exactly one opaque PNG, exactly 1536x1024.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration. Keep exactly its big round slightly irregular head, small triangular ears with pink inner ear, small dark-brown bead eyes with no highlight, tiny warm-brown mouth, three darker orange forehead stripes, broad soft body stripes, ringed tail, thick round body, short legs and round paws. Uniform orange chest and belly, no cream or white. Not realistic, not a 3D plush toy, not flat vector. No text.\nEdit R3 only by adding the cat and the specified shadow/contact effect. Keep the same framing, objects, positions, felt materials, and colors everywhere else.\nTARGETED CORRECTION FOR T02 — the cat must be clearly airborne and must not touch the basket, tree, roots, or ground.\nPlace the cat halfway through the open air between the launch point around (810,940) and the basket lip around (710,600), approximately centered near (760,760). It faces LEFT in side profile. Stretch its body diagonally up-left: front paws reach forward but remain visibly separated from the basket lip; hind legs trail down-right after pushing off. Head width about 143 px. Add one small, faint, soft oval shadow on the stone path below near the launch point; the shadow is separated from the cat by clear air.\nConstraints: no paw touches the basket; cat clearly floats in open air; preserve R3 outside cat and shadow; exactly one cat; no text, watermark, border, grid, or extra object.",
+      "background": "scene",
+      "notes": "Two attempts were generated. The revised pose became airborne, but R3 was globally redrawn outside the cat/shadow region and the head remained too frontal for the requested left profile, so no file was accepted. Both attempts are retained in _rejected/."
+    },
+    {
+      "id": "T03-nest-grip",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R3-scene-nest.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nInput images: Image 1 is R3, the exact edit target and must be preserved pixel-for-pixel outside the newly added cat and its local contact effect. Image 2 is R1, the only approved cat identity/material reference. Image 3 is R2, the approved side-view angle and proportions.\nOutput: exactly one opaque PNG, exactly 1536x1024.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration. Keep exactly its big round slightly irregular head, small triangular ears with pink inner ear, small dark-brown bead eyes with no highlight, tiny warm-brown mouth, three darker orange forehead stripes, broad soft body stripes, ringed tail, thick round body, short legs and round paws. Uniform orange chest and belly, no cream or white. Not realistic, not a 3D plush toy, not flat vector. No text.\nEdit R3 only by adding the cat and the specified shadow/contact effect. Keep the same framing, objects, positions, felt materials, and colors everywhere else.\nTARGETED CORRECTION FOR T03 — use a LEFT-facing side profile, not a front-facing cat.\nBoth front paws hook over and visibly rest ON TOP of the basket's lower lip at about (710,600). The head and chest remain OUTSIDE the basket, to the lower-right of the opening; the torso hangs vertically outside below the lip, and both hind legs dangle and press against the basket's outer front wall. Do not place the torso inside the opening. The cat looks left and slightly into the opening. Head width about 143 px. The basket may tilt only imperceptibly from its weight.\nConstraints: side profile facing left; two front paws on top of lip; entire torso outside and hanging below; preserve R3 everywhere except cat and minimal local contact; exactly one cat; no text, watermark, border, grid, or extra object.",
+      "background": "scene",
+      "notes": "Two attempts were generated. The revised pose improved the left-facing grip, but R3 was globally redrawn outside the cat/contact region and the hindquarters did not cleanly brace against the basket wall, so no file was accepted. Both attempts are retained in _rejected/."
+    },
+    {
+      "id": "T04-nest-inside",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R3-scene-nest.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nInput images: Image 1 is R3, the exact edit target. Image 2 is R1 identity/material. Image 3 is R2 side-view proportions.\nOutput exactly one opaque 1536x1024 PNG. Preserve R3 exactly outside the new cat and its minimal contact area.\nTuanzi is the approved orange tabby from R1 in soft felt-over-crayon illustration: big round slightly irregular head, small triangular pink-inner ears, dark-brown bead eyes without highlights, tiny warm-brown mouth, three forehead stripes, broad body stripes, ringed tail, thick low body and short legs. Uniform orange chest and belly, no cream or white. Not realistic, not a 3D plush toy, not flat vector.\nTARGETED SIZE CORRECTION FOR T04: the visible head must be approximately 143 pixels wide—about 30% of the basket opening width and distinctly smaller than half the opening. Place this small cat inside the basket. Show ONLY the head and exactly two front paws resting on top of the lower lip around (710,600). Hide the entire neck, torso, hind legs, and main tail behind the lower lip; at most a tiny tail tip may appear. The head looks calmly outward and is slightly darker/cooler because it is inside the shaded basket.\nConstraints: do not enlarge the cat; visible head width 143 px ±10%; only head plus two paws visible; preserve every other scene pixel; no text, watermark, border, grid, or extra cat.",
+      "background": "scene",
+      "notes": "Two attempts were generated. The revised image still exceeded the required approximately 143 px head width, so no file was accepted. Both attempts are retained in _rejected/."
+    },
+    {
+      "id": "T05-rail-perch",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R4-scene-fence.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nOutput: exactly one opaque PNG, exactly 1536x1024.\nReference image R1 is the approved cat \"Tuanzi\": an orange tabby in soft felt-over-crayon illustration.\nKeep EXACTLY: big round slightly irregular head; small triangular ears with pink inner ear; small dark-brown bead eyes with no highlight; tiny warm-brown mouth; three darker orange forehead stripes; broad soft body stripes; ringed tail; thick round body with low center of gravity; short legs; small round paws with 2-3 toe lines; short soft felt fibers; fuzzy fiber outline; warm dark-brown variable-width outline. Uniform orange chest and belly, NO cream or white. NOT realistic, NOT a 3D plush toy, NOT flat vector. No text.\nIntegrate the cat with upper-left scene light, a soft dark contact shadow where it touches a surface, and correct occlusion behind scene objects. No text, watermark, signature, border, grid, or extra cat.\n\nInput images: Image 1 is R4, the exact edit target and must be preserved pixel-for-pixel outside the newly added cat and its minimal contact effect. Image 2 is R1, the only approved cat identity/material reference. Image 3 is R2, the approved side-view angle/proportion reference.\nEdit R4. Keep exactly the same framing, objects, positions, felt materials and colors. Only add the cat.\nThe cat lies relaxed ON TOP of the upper horizontal wooden rail of the RIGHT fence section, belly resting on the rail top near (1211,445), facing RIGHT with head raised. Cat head width about 202 px and body length about 516 px. The cat is longer than one picket gap. Existing pointed picket tops stand IN FRONT of the cat and correctly hide overlapping body parts. One front paw and the tail tip hang down in front of the rail between pickets. Add a soft contact shadow on the rail top under the belly.\nConstraints: cat is supported by the rail top, not floating or standing on ground; pickets occlude overlapping body; preserve R4 outside the cat/contact area.",
+      "background": "scene",
+      "notes": "The generated perch pose was visually plausible, but the model globally redrew R4 outside the cat/contact region instead of preserving the scene exactly, so no file was accepted. The candidate is retained in _rejected/."
+    },
+    {
+      "id": "T06-rail-reach",
+      "file": null,
+      "round": 1,
+      "status": "failed",
+      "refs": [
+        "R4-scene-fence.png",
+        "R1-cat-identity.png",
+        "R2-cat-walk-side.png"
+      ],
+      "prompt": "Use case: compositing\nAsset type: full-scene animation target frame\nInput images: Image 1 is R4, the exact edit target. Image 2 is R1 identity/material. Image 3 is R2 side-view proportions.\nOutput exactly one opaque 1536x1024 PNG. Preserve R4 exactly outside the new cat and its minimal contact/shadow area.\nTuanzi is the approved orange tabby from R1 in soft felt-over-crayon illustration: big round slightly irregular head, small triangular pink-inner ears, dark-brown bead eyes without highlights, tiny warm-brown mouth, three forehead stripes, broad body stripes, ringed tail, thick low body and short legs. Uniform orange chest and belly, no cream or white. Not realistic, not a 3D plush toy, not flat vector.\nTARGETED POSITION AND CONTACT CORRECTION FOR T06: place the cat upright in front of the RIGHT fence section with both hind paws centered at exactly about (1185,923) on the grass. Its standing height is about 384 px and head width about 202 px. The body rises nearly vertically. Both front paws reach to and hook over the horizontal LOWER EDGE of the upper rail at about (1211,545), in the gap beside the pointed picket—not on the face or tip of any vertical picket. The cat faces right and slightly toward the fence; a subtle three-quarter rear angle is allowed if it makes the rail contact physically correct. Existing base leaves stay behind the hind legs. Add a narrow contact shadow directly under the hind paws.\nConstraints: hind paws at (1185,923); both front paws on horizontal rail lower edge at (1211,545); no paw touching a vertical picket; preserve R4 outside cat/contact area; one cat only; no text, watermark, border, or grid.",
+      "background": "scene",
+      "notes": "Two attempts were generated. The revised image still placed the front paws on a vertical picket instead of the lower edge of the upper rail and missed the specified hind-paw x position, so no file was accepted. Both attempts are retained in _rejected/."
+    },
+    {
+      "id": "F01-felt-grain",
+      "file": "F01-felt-grain/F01-felt-grain__r1.png",
+      "round": 1,
+      "status": "new",
+      "sha256": "541ad889719e327c951ea09c222c90e1465ce0d184990f99ab5e11b70df38aa6",
+      "refs": [],
+      "prompt": "Use case: stylized-concept\nAsset type: seamless world-layer felt grain texture\nOutput: exactly one opaque PNG, exactly 1024x1024, filling the canvas edge to edge.\n\nA flat, evenly lit close-up texture of soft wool felt fibers, neutral light gray with absolutely no color,\nfilling the entire canvas edge to edge. Uniform fiber density and uniform illumination everywhere.\nNo recognizable object, no stitches, no seams, no folds, no shadows, no vignette, no border, no text,\nno watermark, no signature, no grid, and no checkerboard. The texture must be suitable for later\ndesaturation, mid-gray normalization, and seamless tiling as a subtle overlay.",
+      "background": "scene",
+      "notes": "Opaque full-frame neutral-gray felt texture. Built-in square output was proportion-preservingly downsampled from 1254x1254 to 1024x1024."
+    }
+  ]
+}
