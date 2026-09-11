@@ -4,8 +4,31 @@ import SwiftUI
 /// Versioned atlas import lives in assets/tools/package_world_v3.swift.
 enum CatAction: String, Codable, CaseIterable {
     case walk, sleepyNod, blinkLook, stretch, treeScratch, tailChase, run, sleepBreathe, walkToward, walkAway, scratchEnter, scratchExit, jumpPrepare, jumpUp, climbIn, climbOut, jumpDown, land, perchLook, perchSleep, flowerPlay, turn, nestLook, nestSleep, railReach, railClimb, railSettle, waterLook, waterReach, waterTap, waterWatch, waterShake, waterRest, waterRecover
+    // v5 树窝整段（逐帧 v5，见 docs/specs/逐帧v5-出图与播放规则-2026-09-11.md）
+    case v5Prepare, v5Air, v5Grip, v5Enter, v5Look, v5Sleep, v5Out, v5Leap, v5Fall, v5Land
 
     var spec: CatActionSpec { CatActionCatalog.shared.spec(for: self) }
+
+    /// v5 帧缺失时退回的 v4 动作。
+    var v4Fallback: CatAction? {
+        switch self {
+        case .v5Prepare: return .jumpPrepare
+        case .v5Air: return .jumpUp
+        case .v5Grip, .v5Enter: return .climbIn
+        case .v5Look: return .nestLook
+        case .v5Sleep: return .nestSleep
+        case .v5Out, .v5Leap: return .climbOut
+        case .v5Fall: return .jumpDown
+        case .v5Land: return .land
+        default: return nil
+        }
+    }
+
+    /// 播放时实际用哪一套帧：v5 帧齐全用 v5，否则用 v4 回退。
+    var resolved: CatAction {
+        guard let fallback = v4Fallback, !CatActionCatalog.shared.hasV5 else { return self }
+        return fallback
+    }
 
     func imageName(frame: Int) -> String {
         String(format: "%@-%@-%02d", spec.imagePrefix ?? "cat", rawValue, frame + 1)
@@ -37,6 +60,9 @@ struct CatActionSpec: Codable, Equatable {
     let hitInset: CGFloat
     let imagePrefix: String?
     let frameDurations: [Double]?
+    /// 腾空帧：锚点是身体重心。弧线起点处重心相对起跳锚点的偏移、终点处相对落点锚点的偏移（pt，素材朝右，y 向下）。
+    let airFrom: [CGFloat]?
+    let airTo: [CGFloat]?
 
     var canvas: CGSize { CGSize(width: size[0], height: size[1]) }
 
@@ -79,6 +105,8 @@ struct CatActionCatalog: Decodable {
         do {
             let catalog=try JSONDecoder().decode(CatActionCatalog.self, from: data)
             for action in CatAction.allCases {
+                // v5 可以整组缺失（回退 v4）；只要出现就必须完整合法。
+                if action.v4Fallback != nil && !catalog.actions.contains(where:{$0.id == action}) {continue}
                 guard let spec=catalog.actions.first(where:{$0.id == action}), spec.frameCount>0, spec.fps>0,
                       spec.size.count==2, spec.size.allSatisfy({$0>0}),spec.footY>0,spec.footY<=spec.size[1] else {
                     throw CocoaError(.fileReadCorruptFile)
@@ -92,7 +120,12 @@ struct CatActionCatalog: Decodable {
         }
     }()
 
+    func has(_ action: CatAction) -> Bool { actions.contains { $0.id == action } }
+    /// v5 树窝整段是否可用：十个动作都在才用，缺一个就整段回退 v4，不混用。
+    var hasV5: Bool { CatAction.allCases.filter { $0.v4Fallback != nil }.allSatisfy(has) }
+
     func spec(for action: CatAction) -> CatActionSpec {
+        if let fallback = action.v4Fallback, !hasV5 { return spec(for: fallback) }
         guard let spec = actions.first(where: { $0.id == action }) else {
             fatalError("cat-actions.json 里没有 \(action.rawValue)")
         }
@@ -110,7 +143,10 @@ final class CatFrameCache: ObservableObject {
     func preheat() {
         guard !loading, images.isEmpty else { return }
         loading = true
-        let names = CatAction.allCases.flatMap { action in
+        let catalog = CatActionCatalog.shared
+        // 只有树窝独用的 v4 帧会被 v5 取代；climbOut / jumpDown / land 栅栏还在用。
+        let superseded: Set<CatAction> = catalog.hasV5 ? [.jumpPrepare, .jumpUp, .climbIn, .nestLook, .nestSleep] : []
+        let names = CatAction.allCases.filter { !superseded.contains($0) && (catalog.hasV5 || $0.v4Fallback == nil) }.flatMap { action in
             (0..<action.spec.frameCount).map { action.imageName(frame: $0) }
         }
         Task.detached(priority: .userInitiated) {

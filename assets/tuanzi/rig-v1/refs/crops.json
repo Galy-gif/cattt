@@ -1,0 +1,52 @@
+{
+ "R3-scene-nest": {
+  "worldPx": [
+   671,
+   1257,
+   1756,
+   1170
+  ],
+  "scaleToRef": 0.8747152619589977,
+  "refPxPerPt": 3.569,
+  "catRefPx": {
+   "headWidth40pt": 143,
+   "standHeight76pt": 271,
+   "walkLength102pt": 364
+  },
+  "points": {
+   "launch": [
+    809,
+    940
+   ],
+   "nestLip": [
+    710,
+    600
+   ]
+  }
+ },
+ "R4-scene-fence": {
+  "worldPx": [
+   3900,
+   1205,
+   1239,
+   826
+  ],
+  "scaleToRef": 1.2397094430992737,
+  "refPxPerPt": 5.059,
+  "catRefPx": {
+   "headWidth40pt": 202,
+   "standHeight76pt": 384,
+   "walkLength102pt": 516
+  },
+  "points": {
+   "ground": [
+    1185,
+    923
+   ],
+   "railTop": [
+    1211,
+    445
+   ]
+  }
+ }
+}

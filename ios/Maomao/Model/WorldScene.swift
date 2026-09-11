@@ -59,6 +59,8 @@ struct WorldScene: Codable {
     let obstacles: [WorldRect]
     let destinations: [Destination]
     let nestSupport: WorldPoint?
+    /// 吊窝的摆动支点（树枝上的绳结）。窝、吊绳、窝上的猫都绕它转；缺省时用窝顶。
+    let nestPivot: WorldPoint?
     let railSupport: WorldPoint?
     let waterContact: WorldPoint?
     let waterOutline: [WorldPoint]?
@@ -216,7 +218,13 @@ struct WorldSimulation {
         if index == target && pending == nil && (isMoving || phase == .interacting) {return}
         if index == current && currentNode == scene.destinations[index].node && !isMoving && phase != .exiting {poke();return}
         pending=index;tailExcursion=false
-        if interaction != nil {interaction?.requestExit();return}
+        if var sequence=interaction {
+            // requestExit 可能直接跳到出窝 / 下栏阶段；tick 只在自己推进时检测阶段变化，所以这里要同步动作和朝向。
+            let before=sequence.stage
+            sequence.requestExit();interaction=sequence
+            if sequence.stage != before {enterStage(sequence)}
+            return
+        }
         if turnRemaining>0 {return}
         if isMoving {if brakeRemaining<=0 {brakeRemaining=0.22;brakeVelocity=speed};return}
         if phase == .exiting {return}
@@ -329,9 +337,9 @@ struct WorldSimulation {
         let nextFacing=abs(dx)>abs(dy)*0.7 ? dx>0:facingRight
         if allowTurn && dot < -0.85 && nextFacing != facingRight {
             turnFacing=nextFacing;turnRemaining=0.4;arrivalTurn=false;speed=0;setAction("turn")
-        } else {orient(dx:dx,dy:dy,gait:leg.action)}
+        } else {orient(dx:dx,dy:dy,gait:leg.action,force:allowTurn)}
     }
-    private mutating func orient(dx:Double,dy:Double,gait:String) {
+    private mutating func orient(dx:Double,dy:Double,gait:String,force:Bool=false) {
         let len=hypot(dx,dy)
         guard len>0.000001 else {return}
         heading=WorldPoint(x:dx/len,y:dy/len)
@@ -339,8 +347,20 @@ struct WorldSimulation {
         let wasDepth=action == "walkToward" || action == "walkAway"
         let depth=ratio > (wasDepth ? 0.85:1.15)
         let name=depth ? (dy<0 ? "walkAway":"walkToward"):(gait == "run" ? "run":"walk")
-        if !depth {facingRight=dx>0}
+        let facing=depth ? facingRight:dx>0
+        guard name != action || facing != facingRight else {return}
+        // 走路中换视角或左右，只在一只脚刚着地的那一帧换（六帧一步态的第 1、4 帧），腿就不会跳。
+        // 从站着出发的第一段（force）不必等；走着经过路口时照样等着地帧。
+        let gaits=["walk","walkAway","walkToward","run"]
+        // 一个步态循环走过的距离与视图里的相位时钟一致：走路 100.9×1，奔跑 114.3×1.6（见 cat-actions-v2）。
+        if !force && gaits.contains(action) && !Self.atFootfall(travelled:travelled,bodyLength:action == "run" ? 182.88:bodyLength) {return}
+        facingRight=facing
         if action != name {setAction(name)}
+    }
+    /// 步态相位落在一只脚着地的那一帧（六帧循环的第 1 或第 4 帧）时为真。
+    static func atFootfall(travelled:Double,bodyLength:Double)->Bool {
+        let phase=(travelled/max(bodyLength,0.001)).truncatingRemainder(dividingBy:1)
+        return phase<1.0/6 || (phase>=0.5 && phase<0.5+1.0/6)
     }
     private mutating func arrive() {
         if tailExcursion && currentNode == "clearing" {
@@ -369,6 +389,14 @@ struct WorldSimulation {
         interaction=WorldInteraction(kind:kind,ground:point,nest:nest,rail:rail,sleepingDuration:rng.seconds(20,32))
         facingRight = !tree;phase = .interacting;setAction(interaction!.action)
     }
+    /// 进入交互的新阶段：换动作，必要时换朝向。
+    private mutating func enterStage(_ sequence:WorldInteraction) {
+        setAction(sequence.action)
+        if sequence.stage == .nestReturn {facingRight=true}
+        if sequence.stage == .nestPrepare {facingRight=false}
+        // v5 出窝帧朝右画：转身朝向起跳点那一侧，从同一处窝沿跳下。
+        if sequence.stage == .nestOut && WorldInteraction.useV5 {facingRight=true}
+    }
     private mutating func beginPond() {
         interaction=WorldInteraction(kind:.pond,ground:point,nest:scene.nestSupport ?? point,rail:scene.railSupport ?? point)
         facingRight=false;phase = .interacting;setAction(interaction!.action)
@@ -390,11 +418,7 @@ struct WorldSimulation {
         if var sequence=interaction {
             let stage=sequence.stage
             sequence.tick(dt);interaction=sequence
-            if stage != sequence.stage {
-                setAction(sequence.action)
-                if sequence.stage == .nestReturn {facingRight=true}
-                if sequence.stage == .nestPrepare {facingRight=false}
-            }
+            if stage != sequence.stage {enterStage(sequence)}
             actionTime=sequence.elapsed
             if sequence.stage == .done {
                 interaction=nil

@@ -8,8 +8,10 @@ import Foundation
             var natural=initial,seen=Set<String>(),snapshots=[WorldInteraction]()
             for _ in 0..<3000 where natural.stage != .done {
                 if seen.insert(natural.stage.rawValue).inserted {snapshots.append(natural)}
-                let p=natural.point;natural.tick(1.0/60)
-                precondition(p.distance(to:natural.point,aspect:scene.aspect)*844<8,"Support transition jumped: \(natural.stage)")
+                let p=natural.point,wasAirborne=natural.airborne;natural.tick(1.0/60)
+                // 腾空段按真猫起跳速度走（v5：0.25 秒升约 95pt），允许每帧 16pt；支撑段仍须 < 8pt，抓的是接触点之间的跳位。
+                let limit=(wasAirborne || natural.airborne) ? 16.0:8.0
+                precondition(p.distance(to:natural.point,aspect:scene.aspect)*844<limit,"Support transition jumped: \(natural.stage)")
             }
             precondition(natural.stage == .done && natural.point==ground)
             precondition(seen.contains(tree ? "nestSleep":"railSleep"))

@@ -1,0 +1,176 @@
+{
+ "order": [
+  {
+   "id": "P09-tail",
+   "scale": 0.53,
+   "rotate": 100,
+   "anchor": [
+    0.5,
+    1.0
+   ],
+   "at": [
+    470,
+    600
+   ]
+  },
+  {
+   "id": "P07-hindleg-thigh",
+   "scale": 0.4198,
+   "far": true,
+   "anchor": [
+    0.5,
+    0.0
+   ],
+   "at": [
+    622,
+    592
+   ]
+  },
+  {
+   "id": "P08-hindleg-lower",
+   "scale": 0.455,
+   "far": true,
+   "anchor": [
+    0.45,
+    1.0
+   ],
+   "at": [
+    624,
+    872
+   ]
+  },
+  {
+   "id": "P05-foreleg-upper",
+   "scale": 0.653,
+   "far": true,
+   "anchor": [
+    0.5,
+    0.0
+   ],
+   "at": [
+    982,
+    446
+   ]
+  },
+  {
+   "id": "P06-foreleg-lower",
+   "scale": 0.6016,
+   "far": true,
+   "anchor": [
+    0.42,
+    1.0
+   ],
+   "at": [
+    999,
+    872
+   ]
+  },
+  {
+   "id": "P07-hindleg-thigh",
+   "scale": 0.4449,
+   "anchor": [
+    0.5,
+    0.0
+   ],
+   "at": [
+    500,
+    512
+   ]
+  },
+  {
+   "id": "P08-hindleg-lower",
+   "scale": 0.455,
+   "anchor": [
+    0.45,
+    1.0
+   ],
+   "at": [
+    439,
+    880
+   ]
+  },
+  {
+   "id": "P05-foreleg-upper",
+   "scale": 0.455,
+   "anchor": [
+    0.5,
+    0.0
+   ],
+   "at": [
+    861,
+    566
+   ]
+  },
+  {
+   "id": "P06-foreleg-lower",
+   "scale": 0.6016,
+   "anchor": [
+    0.42,
+    1.0
+   ],
+   "at": [
+    835,
+    888
+   ]
+  },
+  {
+   "id": "P04-torso",
+   "scale": 0.72,
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "at": [
+    728,
+    560
+   ]
+  },
+  {
+   "id": "P03-ear-far",
+   "scale": 0.2849,
+   "anchor": [
+    0.5,
+    1.0
+   ],
+   "at": [
+    1007,
+    328
+   ]
+  },
+  {
+   "id": "P02-ear-near",
+   "scale": 0.3205,
+   "anchor": [
+    0.5,
+    1.0
+   ],
+   "at": [
+    921,
+    445
+   ]
+  },
+  {
+   "id": "P01-head",
+   "scale": 0.6832,
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "at": [
+    994,
+    478
+   ]
+  }
+ ],
+ "eye": [
+  1098,
+  466,
+  17
+ ],
+ "tail_box": [
+  250,
+  160,
+  560,
+  600
+ ]
+}

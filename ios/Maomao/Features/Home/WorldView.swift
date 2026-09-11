@@ -28,7 +28,8 @@ private struct WorldCanvas: View {
                 }
                 water(geo:geo).saturation(scenerySaturation).zIndex(0.53)
                 shadow(geo:geo).zIndex(engine.simulation.point.y-0.001)
-                cat(geo:geo).zIndex(engine.simulation.interaction?.inNest == true ? 0.70:engine.simulation.interaction?.isElevated == true ? 0.80:engine.simulation.point.y)
+                cat(geo:geo).zIndex(catDepth)
+                feltGrain(geo:geo).zIndex(5)
             }
             .frame(width:proxy.size.width,height:proxy.size.height).clipped()
             .transaction {$0.animation=nil;$0.disablesAnimations=true}
@@ -68,39 +69,91 @@ private struct WorldCanvas: View {
         let sequence=engine.simulation.interaction
         // 信箱旗子绕杆底转，和花茎一样轴在底边中点；角度由 AppStore 逐帧插值（画布关了隐式动画）。
         let angle=object.motion == "nest" ? sequence?.nestSwing ?? 0:object.motion == "flower" ? sequence?.flowerBend ?? 0:object.motion == "flag" ? store.flagAngle:0
-        let pivot=geo.screenPoint(CGPoint(x:rect.x+rect.width/2,y:rect.y+(object.motion == "flower" || object.motion == "flag" ? rect.height:0)),cameraX:store.cameraX)
+        let pivot=object.motion == "nest" ? nestPivot(geo):geo.screenPoint(CGPoint(x:rect.x+rect.width/2,y:rect.y+(object.motion == "flower" || object.motion == "flag" ? rect.height:0)),cameraX:store.cameraX)
         return texture(object.image,rect:rect,source:object.sourceRect,cutouts:object.cutouts ?? [],outline:object.outline,cutoutPaths:object.cutoutPaths ?? [],geo:geo)
             .rotationEffect(.degrees(angle),anchor:UnitPoint(x:pivot.x/geo.screen.width,y:pivot.y/geo.screen.height))
     }
+    /// 树窝整段锁定起跳点处的透视缩放：猫不因"升高"而变小，只有沿地面走远才变。
     private func catScale(_ geo:WorldGeometry)->Double {
-        geo.catScale(at:engine.simulation.point.cgPoint)
+        if let s=engine.simulation.interaction, s.isTree {return geo.catScale(at:s.launch.cgPoint)}
+        return geo.catScale(at:engine.simulation.point.cgPoint)
+    }
+    /// 吊窝摆动支点（树枝绳结）的屏幕坐标；窝、吊绳、窝上的猫都绕它转。
+    private func nestPivot(_ geo:WorldGeometry)->CGPoint {
+        if let p=engine.scene.nestPivot {return geo.screenPoint(p.cgPoint,cameraX:store.cameraX)}
+        let r=engine.scene.objects.first(where:{$0.id == "nest-back"})?.rect ?? WorldRect(x:0,y:0,width:0,height:0)
+        return geo.screenPoint(CGPoint(x:r.x+r.width/2,y:r.y),cameraX:store.cameraX)
+    }
+    private func nestRectOnScreen(_ geo:WorldGeometry)->CGRect {
+        let r=engine.scene.objects.first(where:{$0.id == "nest-back"})?.rect ?? WorldRect(x:0,y:0,width:0,height:0)
+        let o=geo.screenPoint(CGPoint(x:r.x,y:r.y),cameraX:store.cameraX)
+        return CGRect(x:o.x,y:o.y,width:r.width*geo.bgSize.width,height:r.height*geo.bgSize.height)
+    }
+    /// 层级：窝前片 0.92、窝后壁 0.615。猫在窝里时夹在两者之间，只从窝口露出来；
+    /// 起跳、抓沿、蹬出、落地时在整个窝前面。换层时刻（翻上窝沿、蹬出窝沿）猫和窝前片不重叠，所以看不出跳变。
+    private var catDepth:Double {
+        let sim=engine.simulation
+        if let s=sim.interaction, s.isTree {
+            if s.behindNestWall {return 0.70}
+            if s.isElevated {return 0.95}
+            return sim.renderPoint.y
+        }
+        if sim.interaction?.isElevated == true {return 0.80}
+        return sim.point.y
     }
     private func cat(geo:WorldGeometry)->some View {
         let sim=engine.simulation
-        let action=CatAction(rawValue:sim.action) ?? .blinkLook
+        let action=(CatAction(rawValue:sim.action) ?? .blinkLook).resolved
         let spec=action.spec,scale=catScale(geo)
-        let foot=geo.screenPoint(sim.renderPoint.cgPoint,cameraX:store.cameraX)
+        var foot=geo.screenPoint(sim.renderPoint.cgPoint,cameraX:store.cameraX)
+        // 腾空帧的锚点是身体重心：沿弧线从"起跳锚点 + 起跳时重心偏移"过渡到"落点锚点 + 落点重心偏移"。
+        if let a=spec.airFrom,let b=spec.airTo,let s=sim.interaction,s.airborne {
+            let u=CGFloat(s.airFraction),dir:CGFloat=sim.facingRight ? 1:-1
+            foot.x += (a[0]+(b[0]-a[0])*u)*dir*scale
+            foot.y += (a[1]+(b[1]-a[1])*u)*scale
+        }
         let clock=action.isGait && sim.isMoving ? sim.travelled/Double(spec.bodyLength*(spec.stride ?? 1))*spec.cycleDuration():sim.actionTime
         let breathing=(action == .perchSleep || action == .nestSleep) ? 1+sin(sim.actionTime*1.6)*0.012:1
-        let nestRect=engine.scene.objects.first(where:{$0.id == "nest-back"})?.rect
-        let pivot=geo.screenPoint(CGPoint(x:(nestRect?.x ?? 0)+(nestRect?.width ?? 0)/2,y:nestRect?.y ?? 0),cameraX:store.cameraX)
+        let pivot=nestPivot(geo)
         return frames.image(action.imageName(frame:spec.frame(at:clock)))
             .resizable().frame(width:spec.canvas.width*scale,height:spec.canvas.height*scale)
             .scaleEffect(x:sim.facingRight ? 1:-1,y:breathing,anchor:.center)
             .position(x:foot.x,y:foot.y+(spec.canvas.height/2-spec.footY)*scale)
             .frame(width:geo.screen.width,height:geo.screen.height)
-            .modifier(CatNestMask(rect:nestRect,sequence:sim.interaction,geo:geo,camera:store.cameraX))
-            .rotationEffect(.degrees(sim.interaction?.inNest == true ? sim.interaction?.nestSwing ?? 0:0),anchor:UnitPoint(x:pivot.x/geo.screen.width,y:pivot.y/geo.screen.height))
+            // 猫在窝里时整个被窝的外轮廓裁住：尾巴、耳朵不会穿出窝壁（窝前片只挡住窝口以外的部分）。
+            .mask(NestSilhouette(active:sim.interaction?.behindNestWall == true,image:textures.images["world-v4-nest"],rect:nestRectOnScreen(geo),screen:geo.screen))
+            .rotationEffect(.degrees(sim.interaction?.onNest == true ? sim.interaction?.nestSwing ?? 0:0),anchor:UnitPoint(x:pivot.x/geo.screen.width,y:pivot.y/geo.screen.height))
             .accessibilityLabel("团子，"+engine.scene.destinations[sim.current].name)
     }
+    /// 毛毡收尾层：一张中灰毛毡纤维，按世界坐标平铺（跟着镜头走），柔光叠在世界最上面，把猫和场景罩进同一种材质里。
+    @ViewBuilder private func feltGrain(geo:WorldGeometry)->some View {
+        if let grain=textures.images["world-v5-felt-grain"] {
+            let tile=geo.bgSize.height*0.30
+            let shift=(store.cameraX*geo.bgSize.width).truncatingRemainder(dividingBy:tile)
+            Rectangle().fill(ImagePaint(image:Image(uiImage:grain),scale:tile/grain.size.width))
+                .frame(width:geo.screen.width+tile,height:geo.screen.height)
+                .offset(x:-shift)
+                .frame(width:geo.screen.width,height:geo.screen.height,alignment:.leading).clipped()
+                .blendMode(.softLight).opacity(0.18)
+                .allowsHitTesting(false)
+        }
+    }
+    /// 两层：贴着脚掌的接触影（窄、实），和身子底下的环境影（宽、淡）。离地越高接触影越快消失、环境影越小越淡。
     private func shadow(geo:WorldGeometry)->some View {
         let sim=engine.simulation
-        let foot=geo.screenPoint(sim.point.cgPoint,cameraX:store.cameraX)
-        let height=abs(sim.renderPoint.y-sim.point.y)
-        let opacity=sim.interaction?.inNest == true || sim.interaction?.onRail == true ? 0:max(0.015,0.12-height*0.7)
-        return Ellipse().fill(.black.opacity(opacity))
-            .frame(width:48*geo.catScale(at:sim.point.cgPoint),height:7)
-            .blur(radius:2).position(x:geo.screenPoint(CGPoint(x:sim.renderPoint.x,y:sim.point.y),cameraX:store.cameraX).x,y:foot.y+2)
+        let ground=sim.interaction?.isTree == true ? WorldPoint(x:sim.renderPoint.x,y:sim.interaction!.launch.y):WorldPoint(x:sim.renderPoint.x,y:sim.point.y)
+        let foot=geo.screenPoint(ground.cgPoint,cameraX:store.cameraX)
+        let height=max(0,ground.y-sim.renderPoint.y)
+        let hidden=sim.interaction?.onNest == true || sim.interaction?.onRail == true
+        let ambient=hidden ? 0:max(0.02,0.13-height*0.9)
+        let contact=hidden ? 0:max(0,0.30*(1-height/0.02))
+        let s=catScale(geo),shrink=max(0.55,1-height*4)
+        return ZStack {
+            Ellipse().fill(.black.opacity(ambient)).frame(width:52*s*shrink,height:8*shrink).blur(radius:2.5)
+            Ellipse().fill(Color(red:0.24,green:0.17,blue:0.10).opacity(contact)).frame(width:30*s,height:3.5).blur(radius:1)
+        }
+        .position(x:foot.x,y:foot.y+1.5)
+        .allowsHitTesting(false)
     }
     private func water(geo:WorldGeometry)->some View {
         Canvas { context,size in
@@ -148,7 +201,7 @@ private struct WorldCanvas: View {
             store.openMailbox(anchor:mouth);return
         }
         if let front=objects.first(where:{$0.occlusion != nil && $0.depth>sim.point.y}),let target=front.target {store.interact(with:target);return}
-        let action=CatAction(rawValue:sim.action) ?? .blinkLook,spec=action.spec,scale=catScale(geo)
+        let action=(CatAction(rawValue:sim.action) ?? .blinkLook).resolved,spec=action.spec,scale=catScale(geo)
         let foot=geo.screenPoint(sim.renderPoint.cgPoint,cameraX:store.cameraX)
         let catRect=CGRect(x:foot.x-spec.canvas.width*scale/2,y:foot.y-spec.footY*scale,width:spec.canvas.width*scale,height:spec.canvas.height*scale)
         if catRect.contains(location) {store.poke();return}
@@ -176,19 +229,6 @@ private struct RegionMask:Shape {
         return path
     }
 }
-private struct NestOpening:Shape {
-    let rect:WorldRect
-    let sequence:WorldInteraction
-    let geo:WorldGeometry
-    let camera:Double
-    func path(in bounds:CGRect)->Path {
-        let p=geo.screenPoint(CGPoint(x:rect.x+rect.width*0.13,y:rect.y+rect.height*0.42),cameraX:camera)
-        let opening=CGRect(x:p.x,y:p.y,width:rect.width*0.74*geo.bgSize.width,height:rect.height*0.47*geo.bgSize.height)
-        return Path(ellipseIn:opening)
-    }
-}
-
-
 private struct SceneCutout:ViewModifier {
     let holes:[WorldRect]
     let outline:[WorldPoint]?
@@ -206,13 +246,19 @@ private struct SceneCutout:ViewModifier {
         } else {content}
     }
 }
-private struct CatNestMask:ViewModifier {
-    let rect:WorldRect?
-    let sequence:WorldInteraction?
-    let geo:WorldGeometry
-    let camera:Double
-    @ViewBuilder func body(content:Content)->some View {
-        if let sequence,[WorldInteraction.Stage.nestLook,.nestSleep].contains(sequence.stage),let rect {content.mask(NestOpening(rect:rect,sequence:sequence,geo:geo,camera:camera).fill())}
-        else {content}
+/// 猫在窝里时的遮罩：窝贴图的 alpha。不在窝里时不裁。
+private struct NestSilhouette:View {
+    let active:Bool
+    let image:UIImage?
+    let rect:CGRect
+    let screen:CGSize
+    var body:some View {
+        if active,let image {
+            Image(uiImage:image).resizable().frame(width:rect.width,height:rect.height)
+                .position(x:rect.midX,y:rect.midY)
+                .frame(width:screen.width,height:screen.height)
+        } else {
+            Rectangle().frame(width:screen.width,height:screen.height)
+        }
     }
 }

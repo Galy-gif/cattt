@@ -16,7 +16,8 @@ import ImageIO
             pixelLimits[object.image]=max(pixelLimits[object.image] ?? 0,needed)
         }
         pixelLimits["world-v3-ground-preview"]=1800
-        for name in Set(scene.objects.map(\.image)).union(["world-v3-ground-preview"]) {
+        pixelLimits["world-v5-felt-grain"]=512
+        for name in Set(scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]) {
             if let image=Self.decode(name,limit:pixelLimits[name] ?? 1200) {images[name]=image}
         }
     }

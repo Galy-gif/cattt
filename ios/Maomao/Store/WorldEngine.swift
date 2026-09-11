@@ -19,8 +19,14 @@ final class WorldEngine: ObservableObject {
     private(set) var maxTickMilliseconds = 0.0
     private(set) var tickCount = 0
     private(set) var totalTickMilliseconds = 0.0
+    #if DEBUG
+    /// 调试慢放：验收录 0.25 倍速用。只缩放世界时间，不影响镜头和界面动画。
+    var debugTimeScale = 1.0
+    #endif
 
     init() {
+        // v5 树窝帧不齐就整段退回 v4，时长和动作名一起换，不混用。
+        WorldInteraction.useV5 = CatActionCatalog.shared.hasV5
         let loaded = Self.load()
         scene=loaded.0;loadError=loaded.1
         simulation=WorldSimulation(scene:loaded.0)
@@ -58,7 +64,11 @@ final class WorldEngine: ObservableObject {
         let oldPhase=simulation.phase
         let oldTarget=simulation.target
         let oldCurrent=simulation.current
+        #if DEBUG
+        simulation.tick(dt*debugTimeScale)
+        #else
         simulation.tick(dt)
+        #endif
         tickIntervals.append(dt)
         if tickIntervals.count>9000 {tickIntervals.removeFirst()}
         accumulator += dt

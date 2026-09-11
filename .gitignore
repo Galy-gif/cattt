@@ -37,3 +37,12 @@ outputs/**/*.mov
 
 # Unrelated personal document
 /机票行程单_前两页.pdf
+
+# Regenerable intake and review artifacts (rebuilt by assets/tools/intake_*.py and review capture)
+assets/registry/
+outputs/**/build-*/
+outputs/**/capture/*/
+outputs/frames-v5-review/tools/frames
+outputs/frames-v5-review/tools/export
+outputs/rig-v1-review/*__aligned.png
+outputs/rig-v1-review/*__deltaE.png

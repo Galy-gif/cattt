@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-11",
+  "generator": "Codex built-in imagegen",
+  "round": 1,
+  "source_brief": "assets/tuanzi/frames-v5/brief.md",
+  "prompt_storage": "The built-in calls used the common locks below plus each item's prompt; wording was normalized into labeled imagegen specs without changing the requested content.",
+  "common_prompt": {
+    "cat_lock": "Reference R1 is the approved cat Tuanzi; R2 locks the approved side-view drawing style, outline and gait; R3 locks proportions. Keep the same orange tabby with a big slightly irregular round head, small triangular pink-inner ears, matte dark-brown bead eyes without highlights, tiny warm-brown mouth, three forehead stripes, broad body stripes, ringed tail, thick low body, short legs, round toe-lined paws, soft felt-over-crayon fibers, fuzzy edge and warm dark-brown variable-width outline. Uniform orange chest and belly; no cream or white. Not realistic, not 3D plush and not flat vector.",
+    "sheet_lock": "Canvas exactly 1536x1024, 3 columns x 2 rows of six 512x512 cells. One complete cat per cell, no crossing cells, no grid, border, number, label or text. Same cat scale in every cell, target head width about 110 px. Cat only on a magenta background; no basket, rope, ledge, ground, shadow, prop or checkerboard."
+  },
+  "items": [
+    {
+      "id": "N1-prepare",
+      "status": "new",
+      "file": "N1-prepare/N1-prepare__r1.png",
+      "sha256": "1ca246532e2e4da5b1143504e9bdc22eb5f41d35044bcb7f5466ea43bb684e02",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png", "R4-pose-crouch.png", "R9-nest-geometry.png"],
+      "prompt": "Cat faces right and prepares for a steep nearly vertical jump to a high ledge only slightly ahead. Six cells: standing and looking up; head raised and shoulders lowering; crouch; deeper crouch; deepest loaded crouch with rump left; same deepest crouch with rump right."
+    },
+    {
+      "id": "N2-jump",
+      "status": "new",
+      "file": "N2-jump/N2-jump__r1.png",
+      "sha256": "e297d616b37c9fe385d9e0fa4c44d35408c371fa4b2ef73540cdcf5295310e91",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R5-pose-air.png", "R6-pose-grip.png", "N1-prepare__r1.png"],
+      "prompt": "Continue from N1 cell 6. Six cells: identical deepest crouch; push off; nearly vertical airborne stretch; apex reach; paws hook an invisible fixed-height edge; both paws grip it with hind paws scrabbling. Do not draw the edge."
+    },
+    {
+      "id": "N3-climb",
+      "status": "new",
+      "file": "N3-climb/N3-climb__r1.png",
+      "sha256": "4f0f3a9ee1ac35bc340d1215c89628cf459b5f27a2434e4e9e34402cb5527ca7",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R6-pose-grip.png", "N2-jump__r1.png"],
+      "prompt": "Continue from N2 cell 6. Six cells: identical grip; pull chest up; one hind paw reaches the invisible edge; belly slides over; crouch on top; step down forward beyond it. Keep the invisible edge at one height and do not draw it."
+    },
+    {
+      "id": "N4-settle",
+      "status": "new",
+      "file": "N4-settle/N4-settle__r1.png",
+      "sha256": "1d482748cdfa954e0b747b65228f6256e3d7e3d7acc4efffe7eea978ae166fb0",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R7-pose-inside.png", "N3-climb__r1.png"],
+      "prompt": "Continue from N3 cell 6. Six cells: side-view body lowering; three-quarter turn toward viewer; sit facing viewer; lower down; lie facing viewer with head up and forepaws together; rest head on forepaws with eyes closed."
+    },
+    {
+      "id": "N5-look",
+      "status": "new",
+      "file": "N5-look/N5-look__r1.png",
+      "sha256": "34ca54edc0aba5fc71873581ddcfa99863ed228f7176ac966ff007c83c21d1bd",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R7-pose-inside.png", "N4-settle__r1.png"],
+      "prompt": "Front-facing lying loop based on N4 cell 5. Keep body, paws, tail, scale and position fixed. Six cells: eyes open; half closed; closed; open; slight head tilt; head straight with one ear twitch."
+    },
+    {
+      "id": "N6-sleep",
+      "status": "new",
+      "file": "N6-sleep/N6-sleep__r1.png",
+      "sha256": "d8a1fe36ef2ba3bef5df731d159286ca7d51802509e134e2e7886c9c795ca03c",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R7-pose-inside.png", "N4-settle__r1.png"],
+      "prompt": "Front-facing sleep loop based on N4 cell 6. Six cells: breathe in; chest slightly raised; breathe out; one ear twitch; tail tip curls; return to cell 1. Keep the body nearly identical. A second precise edit removed two unintended motion marks marks and changed nothing else.",
+      "rejected": ["_rejected/N6-sleep__attempt1-motion-marks.png"]
+    },
+    {
+      "id": "N7-out",
+      "status": "new",
+      "file": "N7-out/N7-out__r1.png",
+      "sha256": "ae565fdd718092f455d098ade9427212a1563ffb3bc2669a33261618748275ca",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R7-pose-inside.png", "N5-look__r1.png"],
+      "prompt": "Start exactly from N5 cell 1. Six cells: lying front-facing; stand and turn right; both forepaws on an invisible edge looking down; lean out; hind legs push into a forward-down dive; airborne descending with forelegs reaching down."
+    },
+    {
+      "id": "N8-land",
+      "status": "new",
+      "file": "N8-land/N8-land__r1.png",
+      "sha256": "373555a38f79604c4f34ab94726aaba900dcd1e0a3e10e257726f21b959d82ac",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png", "N7-out__r1.png"],
+      "prompt": "Continue exactly from N7 cell 6. Six cells: airborne descending; forepaws touch invisible ground; forelegs absorb while hind legs descend; hind paws land in low crouch; rise; relaxed right-facing side stand matching R2."
+    },
+    {
+      "id": "W1-walk-toward",
+      "status": "new",
+      "file": "W1-walk-toward/W1-walk-toward__r1.png",
+      "sha256": "3d2fb8e35840ab37b667a9a96ae3e3d170321173889b09ecfa8db4f7342654d2",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png"],
+      "prompt": "Six-frame seamless walk cycle matching R2 rhythm, walking diagonally toward viewer and right in three-quarter front view, both eyes visible, with natural alternating paws."
+    },
+    {
+      "id": "W2-walk-away",
+      "status": "new",
+      "file": "W2-walk-away/W2-walk-away__r1.png",
+      "sha256": "46d60f8e17ef340e4726adaa8c1af4abf616544674a37bea83baf2e6f390c48b",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png"],
+      "prompt": "Six-frame seamless walk cycle matching R2 rhythm, walking diagonally away from viewer and right in three-quarter back view, rump/back toward viewer, head away and tail raised."
+    },
+    {
+      "id": "W3-turn",
+      "status": "new",
+      "file": "W3-turn/W3-turn__r1.png",
+      "sha256": "27221579b54db2a41eb354a32b45b18d3aa42395dfebce360a77b34e6e0e09c7",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png"],
+      "prompt": "Turn in place with forepaws stepping: right-facing side; right three-quarter front; face viewer; left three-quarter front; left-facing side still stepping; left-facing side stand."
+    },
+    {
+      "id": "K1-rope",
+      "status": "new",
+      "file": "K1-rope/K1-rope__r1.png",
+      "sha256": "af92dd59baa94a07b041ac518bce87b26564c8a39a74bbac5567c864b5e7a22f",
+      "references": ["R8-rope-material.png"],
+      "prompt": "Canvas exactly 1024x1536. One straight centered twisted warm-tan rope matching R8, running continuously from top edge to bottom edge, about 60 px wide, evenly repeating for vertical tiling. No knots, ends, basket, shadow or text; magenta background."
+    }
+  ],
+  "strict_validation": {
+    "file_count": "pass: 12 requested deliverables present",
+    "dimensions": "pass: 11 action sheets are 1536x1024; K1 is 1024x1536",
+    "hash_uniqueness": "pass: all 12 SHA-256 values are unique and none collides with assets/registry/sha256.txt",
+    "alpha": "all outputs are opaque",
+    "background_exact_FF00FF": "fail: built-in imagegen rendered a slight magenta gradient rather than exact #FF00FF; originals are preserved and are not represented as format-approved",
+    "human_visual_review": "pending"
+  }
+}

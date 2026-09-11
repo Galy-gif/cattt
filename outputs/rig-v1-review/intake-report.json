@@ -1,0 +1,537 @@
+{
+ "delivery": "outputs/rig-v1-delivery",
+ "gates": {
+  "1_inventory": [],
+  "2_hash": []
+ },
+ "items": {
+  "P00-rest-pose": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.2741,
+    "components": 1,
+    "bbox": [
+     266,
+     167,
+     948,
+     720
+    ],
+    "aspect_w_h": 1.317,
+    "orange_share": 0.947,
+    "pink_share": 0.019,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ]
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P01-head": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.287,
+    "components": 1,
+    "bbox": [
+     205,
+     194,
+     642,
+     637
+    ],
+    "aspect_w_h": 1.008,
+    "orange_share": 0.974,
+    "pink_share": 0.0,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.963,
+    "eye_like_dots": []
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P02-ear-near": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.2637,
+    "components": 1,
+    "bbox": [
+     279,
+     136,
+     506,
+     754
+    ],
+    "aspect_w_h": 0.671,
+    "orange_share": 0.755,
+    "pink_share": 0.205,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.973
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P03-ear-far": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.1852,
+    "components": 1,
+    "bbox": [
+     286,
+     213,
+     460,
+     589
+    ],
+    "aspect_w_h": 0.781,
+    "orange_share": 0.945,
+    "pink_share": 0.012,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.985
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P04-torso": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.2456,
+    "components": 1,
+    "bbox": [
+     354,
+     212,
+     849,
+     578
+    ],
+    "aspect_w_h": 1.469,
+    "orange_share": 0.975,
+    "pink_share": 0.0,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ]
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P05-foreleg-upper": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.1052,
+    "components": 1,
+    "bbox": [
+     397,
+     240,
+     234,
+     547
+    ],
+    "aspect_w_h": 0.428,
+    "orange_share": 0.934,
+    "pink_share": 0.0,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.957,
+    "axis_angle_deg": 89.8,
+    "shaft_tilt_deg": 1.71
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P06-foreleg-lower": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.0924,
+    "components": 1,
+    "bbox": [
+     405,
+     262,
+     262,
+     498
+    ],
+    "aspect_w_h": 0.526,
+    "orange_share": 0.943,
+    "pink_share": 0.001,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.961,
+    "axis_angle_deg": 83.3,
+    "shaft_tilt_deg": -0.11,
+    "paw_right_protrusion": 0.218
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P07-hindleg-thigh": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.1728,
+    "components": 1,
+    "bbox": [
+     322,
+     193,
+     384,
+     657
+    ],
+    "aspect_w_h": 0.584,
+    "orange_share": 0.952,
+    "pink_share": 0.0,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.938,
+    "axis_angle_deg": 88.2,
+    "shaft_tilt_deg": -2.58
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P08-hindleg-lower": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.1284,
+    "components": 1,
+    "bbox": [
+     352,
+     255,
+     329,
+     564
+    ],
+    "aspect_w_h": 0.583,
+    "orange_share": 0.948,
+    "pink_share": 0.001,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 0.969,
+    "axis_angle_deg": 82.4,
+    "shaft_tilt_deg": -0.49,
+    "paw_right_protrusion": 0.201
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "P09-tail": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "foreground_share": 0.1335,
+    "components": 1,
+    "bbox": [
+     211,
+     395,
+     1127,
+     218
+    ],
+    "aspect_w_h": 5.17,
+    "orange_share": 0.961,
+    "pink_share": 0.0,
+    "corner_rgb": [
+     255,
+     0,
+     255
+    ],
+    "cap_outline_share": 0.0,
+    "distal_outline_share": 1.0,
+    "axis_angle_deg": 179.7,
+    "ring_count": 5
+   },
+   "fails": [],
+   "background": "magenta"
+  },
+  "T01-nest-crouch": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "T02-nest-air": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "T03-nest-grip": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "T04-nest-inside": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "T05-rail-perch": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "T06-rail-reach": {
+   "status": "failed",
+   "format": [],
+   "fingerprint": {},
+   "fails": []
+  },
+  "F01-felt-grain": {
+   "status": "new",
+   "format": [],
+   "fingerprint": {
+    "mean_saturation": 0.014,
+    "luma_std": 19.69,
+    "corner_center_diff": 1.16
+   },
+   "fails": []
+  }
+ },
+ "registry_count": 1758,
+ "rejected_T": {
+  "T01-nest-crouch__attempt1-scene-drift.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.622,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 0.0,
+    "blocks": 65,
+    "deltaE_outside_cat_median": 3.53,
+    "cat_bbox_ref_px": [
+     852,
+     716,
+     254,
+     222
+    ]
+   },
+   "fails": []
+  },
+  "T02-nest-air__attempt1-gripping.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.428,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 1.0,
+    "blocks": 53,
+    "deltaE_outside_cat_median": 4.11,
+    "cat_bbox_ref_px": [
+     838,
+     488,
+     308,
+     364
+    ]
+   },
+   "fails": []
+  },
+  "T02-nest-air__attempt2-scene-drift.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.45,
+    "block_residual_px_median": 1.0,
+    "block_residual_px_p90": 1.0,
+    "blocks": 55,
+    "deltaE_outside_cat_median": 4.89,
+    "cat_bbox_ref_px": [
+     644,
+     512,
+     292,
+     298
+    ]
+   },
+   "fails": []
+  },
+  "T03-nest-grip__attempt1-front-facing.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.239,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 1.0,
+    "blocks": 52,
+    "deltaE_outside_cat_median": 4.04,
+    "cat_bbox_ref_px": [
+     692,
+     350,
+     392,
+     372
+    ]
+   },
+   "fails": []
+  },
+  "T03-nest-grip__attempt2-scene-drift.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.215,
+    "block_residual_px_median": 1.0,
+    "block_residual_px_p90": 1.41,
+    "blocks": 52,
+    "deltaE_outside_cat_median": 3.9,
+    "cat_bbox_ref_px": [
+     786,
+     406,
+     314,
+     408
+    ]
+   },
+   "fails": []
+  },
+  "T04-nest-inside__attempt1-too-large.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.588,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 0.9,
+    "blocks": 62,
+    "deltaE_outside_cat_median": 3.83,
+    "cat_bbox_ref_px": [
+     646,
+     408,
+     232,
+     200
+    ]
+   },
+   "fails": []
+  },
+  "T04-nest-inside__attempt2-too-large.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.539,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 0.0,
+    "blocks": 63,
+    "deltaE_outside_cat_median": 3.44,
+    "cat_bbox_ref_px": [
+     662,
+     422,
+     222,
+     190
+    ]
+   },
+   "fails": []
+  },
+  "T05-rail-perch__attempt1-scene-drift.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.62,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 0.0,
+    "blocks": 61,
+    "deltaE_outside_cat_median": 3.17,
+    "cat_bbox_ref_px": [
+     1116,
+     196,
+     324,
+     280
+    ]
+   },
+   "fails": []
+  },
+  "T06-rail-reach__attempt1-wrong-contact.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.463,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 1.0,
+    "blocks": 48,
+    "deltaE_outside_cat_median": 2.97,
+    "cat_bbox_ref_px": [
+     814,
+     380,
+     368,
+     484
+    ]
+   },
+   "fails": []
+  },
+  "T06-rail-reach__attempt2-wrong-contact.png": {
+   "fingerprint": {
+    "scale": 1.0,
+    "shift_xy": [
+     -0.0,
+     -0.0
+    ],
+    "peak": 0.382,
+    "block_residual_px_median": 0.0,
+    "block_residual_px_p90": 1.08,
+    "blocks": 49,
+    "deltaE_outside_cat_median": 3.95,
+    "cat_bbox_ref_px": [
+     786,
+     350,
+     292,
+     490
+    ]
+   },
+   "fails": []
+  }
+ }
+}

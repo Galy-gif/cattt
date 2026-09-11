@@ -1,0 +1,194 @@
+{
+ "v5Prepare": {
+  "size": [
+   142.0,
+   106.0
+  ],
+  "footY": 99.6629491945477,
+  "frames": [
+   "N1-prepare#1 hind",
+   "N1-prepare#2 hind",
+   "N1-prepare#3 hind",
+   "N1-prepare#4 hind",
+   "N1-prepare#5 hind",
+   "N1-prepare#6 hind",
+   "N2-jump#2 hind"
+  ]
+ },
+ "v5Air": {
+  "size": [
+   116.0,
+   123.0
+  ],
+  "footY": 59.10742104239204,
+  "frames": [
+   "N2-jump#3 centroid",
+   "N2-jump#4 centroid"
+  ],
+  "airFrom": [
+   -5.94,
+   -47.61
+  ],
+  "airTo": [
+   -39.76,
+   4.95
+  ]
+ },
+ "v5Grip": {
+  "size": [
+   196.0,
+   133.0
+  ],
+  "footY": 68.29479034307496,
+  "frames": [
+   "N2-jump#5 manual",
+   "N2-jump#6 manual",
+   "N3-climb#2 manual",
+   "N3-climb#3 manual",
+   "N3-climb#4 manual",
+   "N3-climb#5 manual"
+  ]
+ },
+ "v5Enter": {
+  "size": [
+   194.0,
+   110.0
+  ],
+  "footY": 79.94701986754967,
+  "frames": [
+   "N3-climb#6 manual",
+   "N4-settle#2 bottom",
+   "N4-settle#5 bottom"
+  ]
+ },
+ "v5Look": {
+  "size": [
+   171.0,
+   91.0
+  ],
+  "footY": 72.64516129032258,
+  "frames": [
+   "N5-look#1 bottom",
+   "N5-look#2 bottom",
+   "N5-look#3 bottom",
+   "N5-look#4 bottom",
+   "N5-look#5 bottom",
+   "N5-look#6 bottom"
+  ]
+ },
+ "v5Sleep": {
+  "size": [
+   181.0,
+   81.0
+  ],
+  "footY": 62.64439140811456,
+  "frames": [
+   "N6-sleep#1 bottom",
+   "N6-sleep#2 bottom",
+   "N6-sleep#3 bottom",
+   "N6-sleep#4 bottom",
+   "N6-sleep#5 bottom",
+   "N6-sleep#6 bottom"
+  ]
+ },
+ "v5Out": {
+  "size": [
+   149.0,
+   87.0
+  ],
+  "footY": 68.62037037037037,
+  "frames": [
+   "N7-out#2 bottom"
+  ]
+ },
+ "v5Leap": {
+  "size": [
+   164.0,
+   121.0
+  ],
+  "footY": 88.49074074074073,
+  "frames": [
+   "N7-out#3 bottom",
+   "N7-out#4 manual",
+   "N7-out#5 manual"
+  ]
+ },
+ "v5Fall": {
+  "size": [
+   110.0,
+   106.0
+  ],
+  "footY": 57.73653069566219,
+  "frames": [
+   "N7-out#6 centroid",
+   "N8-land#1 centroid"
+  ],
+  "airFrom": [
+   28.55,
+   -18.16
+  ],
+  "airTo": [
+   -19.09,
+   -35.32
+  ]
+ },
+ "v5Land": {
+  "size": [
+   147.0,
+   93.0
+  ],
+  "footY": 87.23831242873432,
+  "frames": [
+   "N8-land#2 front",
+   "N8-land#3 front",
+   "N8-land#4 front",
+   "N8-land#5 front",
+   "N8-land#6 front"
+  ]
+ },
+ "walkToward": {
+  "size": [
+   94.0,
+   93.0
+  ],
+  "footY": 87.2721552176193,
+  "frames": [
+   "W1-walk-toward#1 walk",
+   "W1-walk-toward#2 walk",
+   "W1-walk-toward#3 walk",
+   "W1-walk-toward#4 walk",
+   "W1-walk-toward#5 walk",
+   "W1-walk-toward#6 walk"
+  ]
+ },
+ "walkAway": {
+  "size": [
+   108.0,
+   97.0
+  ],
+  "footY": 90.75,
+  "frames": [
+   "W2-walk-away#1 walk",
+   "W2-walk-away#2 walk",
+   "W2-walk-away#3 walk",
+   "W2-walk-away#4 walk",
+   "W2-walk-away#5 walk",
+   "W2-walk-away#6 walk"
+  ]
+ },
+ "turn": {
+  "size": [
+   109.0,
+   89.0
+  ],
+  "footY": 83.42477876106194,
+  "frames": [
+   "W3-turn#1 walk",
+   "W3-turn#2 walk",
+   "W3-turn#3 walk",
+   "W3-turn#4 walk",
+   "W3-turn#5 walk",
+   "W3-turn#6 walk"
+  ]
+ }
+}

@@ -1,0 +1,1364 @@
+{
+ "gates": {
+  "1_inventory": [],
+  "2_hash": []
+ },
+ "sheets": {
+  "N1-prepare": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.308 与 R2 29.091 相差 11%",
+    "outline_L_p25 26.056 与 R2 43.381 相差 40%",
+    "texture_std 3.361 与 R2 2.529 相差 33%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      50,
+      106,
+      390,
+      353
+     ],
+     "area": 87800,
+     "crosses_own_cell": false,
+     "hue_median": 32.35,
+     "outline_L_p25": 26.121,
+     "texture_std": 2.93
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      550,
+      138,
+      408,
+      319
+     ],
+     "area": 81445,
+     "crosses_own_cell": false,
+     "hue_median": 32.202,
+     "outline_L_p25": 26.293,
+     "texture_std": 3.132
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1060,
+      166,
+      420,
+      291
+     ],
+     "area": 75823,
+     "crosses_own_cell": false,
+     "hue_median": 32.308,
+     "outline_L_p25": 26.049,
+     "texture_std": 3.295
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      54,
+      620,
+      420,
+      291
+     ],
+     "area": 76012,
+     "crosses_own_cell": false,
+     "hue_median": 32.267,
+     "outline_L_p25": 26.064,
+     "texture_std": 3.427
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      588,
+      588,
+      396,
+      323
+     ],
+     "area": 81775,
+     "crosses_own_cell": false,
+     "hue_median": 32.308,
+     "outline_L_p25": 25.98,
+     "texture_std": 3.462
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1110,
+      602,
+      391,
+      309
+     ],
+     "area": 80132,
+     "crosses_own_cell": false,
+     "hue_median": 32.394,
+     "outline_L_p25": 25.886,
+     "texture_std": 3.436
+    }
+   ],
+   "bg_rgb": [
+    249,
+    6,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.308,
+    "outline_L_p25": 26.056,
+    "texture_std": 3.361
+   }
+  },
+  "N2-jump": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.124 与 R2 29.091 相差 10%",
+    "outline_L_p25 22.637 与 R2 43.381 相差 48%",
+    "texture_std 3.701 与 R2 2.529 相差 46%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      84,
+      182,
+      390,
+      281
+     ],
+     "area": 73186,
+     "crosses_own_cell": false,
+     "hue_median": 32.432,
+     "outline_L_p25": 22.148,
+     "texture_std": 3.845
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      556,
+      92,
+      403,
+      381
+     ],
+     "area": 75923,
+     "crosses_own_cell": false,
+     "hue_median": 32.318,
+     "outline_L_p25": 22.898,
+     "texture_std": 3.609
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1086,
+      26,
+      383,
+      452
+     ],
+     "area": 79667,
+     "crosses_own_cell": false,
+     "hue_median": 32.174,
+     "outline_L_p25": 23.173,
+     "texture_std": 3.597
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      68,
+      526,
+      420,
+      426
+     ],
+     "area": 82879,
+     "crosses_own_cell": false,
+     "hue_median": 31.981,
+     "outline_L_p25": 22.636,
+     "texture_std": 3.732
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      584,
+      536,
+      388,
+      412
+     ],
+     "area": 75437,
+     "crosses_own_cell": false,
+     "hue_median": 32.074,
+     "outline_L_p25": 22.634,
+     "texture_std": 3.67
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1078,
+      518,
+      413,
+      434
+     ],
+     "area": 79185,
+     "crosses_own_cell": false,
+     "hue_median": 31.875,
+     "outline_L_p25": 22.638,
+     "texture_std": 3.965
+    }
+   ],
+   "bg_rgb": [
+    249,
+    4,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.124,
+    "outline_L_p25": 22.637,
+    "texture_std": 3.701
+   }
+  },
+  "N3-climb": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.534 与 R2 29.091 相差 12%",
+    "outline_L_p25 23.997 与 R2 43.381 相差 45%",
+    "texture_std 3.965 与 R2 2.529 相差 57%",
+    "估算头宽 157.4px 与全体中位数 168px 相差 6%",
+    "接力帧与 N2-jump#6 重合度 0.823 < 0.85"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      54,
+      78,
+      394,
+      415
+     ],
+     "area": 74489,
+     "crosses_own_cell": false,
+     "hue_median": 32.655,
+     "outline_L_p25": 23.262,
+     "texture_std": 4.006
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      574,
+      68,
+      370,
+      399
+     ],
+     "area": 71084,
+     "crosses_own_cell": false,
+     "hue_median": 32.586,
+     "outline_L_p25": 23.981,
+     "texture_std": 4.107
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1098,
+      68,
+      385,
+      362
+     ],
+     "area": 68958,
+     "crosses_own_cell": false,
+     "hue_median": 32.579,
+     "outline_L_p25": 24.086,
+     "texture_std": 3.79
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      62,
+      574,
+      420,
+      226
+     ],
+     "area": 65768,
+     "crosses_own_cell": false,
+     "hue_median": 32.489,
+     "outline_L_p25": 24.013,
+     "texture_std": 3.912
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      568,
+      568,
+      400,
+      232
+     ],
+     "area": 61549,
+     "crosses_own_cell": false,
+     "hue_median": 32.455,
+     "outline_L_p25": 23.981,
+     "texture_std": 4.003
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1098,
+      532,
+      397,
+      385
+     ],
+     "area": 73803,
+     "crosses_own_cell": false,
+     "hue_median": 32.348,
+     "outline_L_p25": 24.38,
+     "texture_std": 3.926
+    }
+   ],
+   "bg_rgb": [
+    248,
+    7,
+    249
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.534,
+    "outline_L_p25": 23.997,
+    "texture_std": 3.965
+   }
+  },
+  "N4-settle": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.739 与 R2 29.091 相差 13%",
+    "outline_L_p25 26.269 与 R2 43.381 相差 39%",
+    "texture_std 3.940 与 R2 2.529 相差 56%",
+    "估算头宽 151.0px 与全体中位数 168px 相差 10%",
+    "接力帧与 N3-climb#6 重合度 0.841 < 0.85"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      60,
+      114,
+      400,
+      349
+     ],
+     "area": 76845,
+     "crosses_own_cell": false,
+     "hue_median": 32.775,
+     "outline_L_p25": 24.974,
+     "texture_std": 3.818
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      568,
+      124,
+      395,
+      327
+     ],
+     "area": 81100,
+     "crosses_own_cell": false,
+     "hue_median": 32.679,
+     "outline_L_p25": 25.407,
+     "texture_std": 3.862
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1122,
+      114,
+      332,
+      346
+     ],
+     "area": 80693,
+     "crosses_own_cell": false,
+     "hue_median": 32.92,
+     "outline_L_p25": 26.231,
+     "texture_std": 4.018
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      108,
+      598,
+      370,
+      306
+     ],
+     "area": 78965,
+     "crosses_own_cell": false,
+     "hue_median": 32.946,
+     "outline_L_p25": 26.853,
+     "texture_std": 3.697
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      606,
+      648,
+      385,
+      248
+     ],
+     "area": 70994,
+     "crosses_own_cell": false,
+     "hue_median": 32.703,
+     "outline_L_p25": 26.36,
+     "texture_std": 4.198
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1124,
+      644,
+      381,
+      263
+     ],
+     "area": 65916,
+     "crosses_own_cell": false,
+     "hue_median": 32.556,
+     "outline_L_p25": 26.307,
+     "texture_std": 4.374
+    }
+   ],
+   "bg_rgb": [
+    246,
+    9,
+    248
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.739,
+    "outline_L_p25": 26.269,
+    "texture_std": 3.94
+   }
+  },
+  "N5-look": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.861 与 R2 29.091 相差 13%",
+    "outline_L_p25 23.583 与 R2 43.381 相差 46%",
+    "texture_std 3.756 与 R2 2.529 相差 49%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      68,
+      110,
+      423,
+      323
+     ],
+     "area": 103960,
+     "crosses_own_cell": false,
+     "hue_median": 32.92,
+     "outline_L_p25": 23.489,
+     "texture_std": 3.767
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      574,
+      110,
+      424,
+      323
+     ],
+     "area": 103873,
+     "crosses_own_cell": false,
+     "hue_median": 32.87,
+     "outline_L_p25": 23.74,
+     "texture_std": 3.759
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1076,
+      112,
+      420,
+      321
+     ],
+     "area": 103252,
+     "crosses_own_cell": false,
+     "hue_median": 32.973,
+     "outline_L_p25": 23.008,
+     "texture_std": 3.792
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      66,
+      582,
+      425,
+      323
+     ],
+     "area": 104394,
+     "crosses_own_cell": false,
+     "hue_median": 32.679,
+     "outline_L_p25": 23.452,
+     "texture_std": 3.743
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      578,
+      560,
+      420,
+      345
+     ],
+     "area": 103968,
+     "crosses_own_cell": false,
+     "hue_median": 32.658,
+     "outline_L_p25": 23.677,
+     "texture_std": 3.748
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1076,
+      582,
+      422,
+      323
+     ],
+     "area": 105115,
+     "crosses_own_cell": false,
+     "hue_median": 32.851,
+     "outline_L_p25": 23.698,
+     "texture_std": 3.753
+    }
+   ],
+   "bg_rgb": [
+    246,
+    12,
+    249
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.861,
+    "outline_L_p25": 23.583,
+    "texture_std": 3.756
+   },
+   "loop_scale_vs_cell1": [
+    0.995,
+    1.0,
+    0.995,
+    1.005,
+    0.995
+   ]
+  },
+  "N6-sleep": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 35.263 与 R2 29.091 相差 21%",
+    "outline_L_p25 25.189 与 R2 43.381 相差 42%",
+    "texture_std 4.459 与 R2 2.529 相差 76%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      80,
+      130,
+      410,
+      291
+     ],
+     "area": 82018,
+     "crosses_own_cell": false,
+     "hue_median": 35.353,
+     "outline_L_p25": 25.451,
+     "texture_std": 4.473
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      586,
+      130,
+      417,
+      291
+     ],
+     "area": 81977,
+     "crosses_own_cell": false,
+     "hue_median": 35.339,
+     "outline_L_p25": 25.045,
+     "texture_std": 4.489
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1088,
+      130,
+      407,
+      291
+     ],
+     "area": 82019,
+     "crosses_own_cell": false,
+     "hue_median": 35.263,
+     "outline_L_p25": 25.333,
+     "texture_std": 4.495
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      78,
+      606,
+      414,
+      289
+     ],
+     "area": 83843,
+     "crosses_own_cell": false,
+     "hue_median": 35.247,
+     "outline_L_p25": 25.543,
+     "texture_std": 4.374
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      586,
+      608,
+      415,
+      287
+     ],
+     "area": 83310,
+     "crosses_own_cell": false,
+     "hue_median": 35.263,
+     "outline_L_p25": 25.015,
+     "texture_std": 4.445
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1088,
+      604,
+      407,
+      291
+     ],
+     "area": 82245,
+     "crosses_own_cell": false,
+     "hue_median": 35.263,
+     "outline_L_p25": 24.692,
+     "texture_std": 4.44
+    }
+   ],
+   "bg_rgb": [
+    249,
+    11,
+    249
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 35.263,
+    "outline_L_p25": 25.189,
+    "texture_std": 4.459
+   },
+   "loop_scale_vs_cell1": [
+    0.995,
+    1.005,
+    0.995,
+    0.99,
+    1.005
+   ]
+  },
+  "N7-out": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.237 与 R2 29.091 相差 11%",
+    "outline_L_p25 24.888 与 R2 43.381 相差 43%",
+    "texture_std 3.353 与 R2 2.529 相差 33%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      66,
+      110,
+      425,
+      323
+     ],
+     "area": 103952,
+     "crosses_own_cell": false,
+     "hue_median": 32.895,
+     "outline_L_p25": 22.574,
+     "texture_std": 3.792
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      564,
+      90,
+      428,
+      326
+     ],
+     "area": 89043,
+     "crosses_own_cell": false,
+     "hue_median": 32.533,
+     "outline_L_p25": 24.106,
+     "texture_std": 3.197
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1078,
+      56,
+      407,
+      360
+     ],
+     "area": 89431,
+     "crosses_own_cell": false,
+     "hue_median": 32.247,
+     "outline_L_p25": 24.649,
+     "texture_std": 3.36
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      82,
+      494,
+      376,
+      405
+     ],
+     "area": 78384,
+     "crosses_own_cell": true,
+     "hue_median": 32.227,
+     "outline_L_p25": 25.166,
+     "texture_std": 3.315
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      558,
+      494,
+      415,
+      423
+     ],
+     "area": 77400,
+     "crosses_own_cell": true,
+     "hue_median": 32.17,
+     "outline_L_p25": 25.126,
+     "texture_std": 3.38
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1082,
+      530,
+      403,
+      411
+     ],
+     "area": 73041,
+     "crosses_own_cell": false,
+     "hue_median": 32.17,
+     "outline_L_p25": 26.068,
+     "texture_std": 3.347
+    }
+   ],
+   "bg_rgb": [
+    248,
+    11,
+    249
+   ],
+   "crosses_cell_lines": true,
+   "style_median": {
+    "hue_median": 32.237,
+    "outline_L_p25": 24.888,
+    "texture_std": 3.353
+   }
+  },
+  "N8-land": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.408 与 R2 29.091 相差 11%",
+    "outline_L_p25 24.580 与 R2 43.381 相差 43%",
+    "texture_std 3.412 与 R2 2.529 相差 35%",
+    "估算头宽 175.4px 与全体中位数 168px 相差 4%",
+    "接力帧与 N7-out#6 重合度 0.811 < 0.85"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      56,
+      94,
+      400,
+      388
+     ],
+     "area": 74915,
+     "crosses_own_cell": false,
+     "hue_median": 32.405,
+     "outline_L_p25": 24.762,
+     "texture_std": 3.462
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      566,
+      118,
+      419,
+      360
+     ],
+     "area": 76690,
+     "crosses_own_cell": false,
+     "hue_median": 32.411,
+     "outline_L_p25": 24.232,
+     "texture_std": 3.476
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1076,
+      152,
+      404,
+      323
+     ],
+     "area": 76603,
+     "crosses_own_cell": false,
+     "hue_median": 32.432,
+     "outline_L_p25": 24.782,
+     "texture_std": 3.361
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      56,
+      596,
+      418,
+      292
+     ],
+     "area": 73671,
+     "crosses_own_cell": false,
+     "hue_median": 32.288,
+     "outline_L_p25": 24.398,
+     "texture_std": 3.666
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      558,
+      584,
+      424,
+      314
+     ],
+     "area": 80405,
+     "crosses_own_cell": false,
+     "hue_median": 32.308,
+     "outline_L_p25": 24.233,
+     "texture_std": 3.325
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1060,
+      576,
+      418,
+      327
+     ],
+     "area": 83189,
+     "crosses_own_cell": false,
+     "hue_median": 32.523,
+     "outline_L_p25": 24.766,
+     "texture_std": 3.249
+    }
+   ],
+   "bg_rgb": [
+    251,
+    4,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.408,
+    "outline_L_p25": 24.58,
+    "texture_std": 3.412
+   }
+  },
+  "W1-walk-toward": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 32.540 与 R2 29.091 相差 12%",
+    "outline_L_p25 23.962 与 R2 43.381 相差 45%",
+    "texture_std 4.137 与 R2 2.529 相差 64%",
+    "估算头宽 190.7px 与全体中位数 168px 相差 13%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      84,
+      84,
+      385,
+      382
+     ],
+     "area": 89287,
+     "crosses_own_cell": false,
+     "hue_median": 32.533,
+     "outline_L_p25": 23.762,
+     "texture_std": 4.111
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      598,
+      80,
+      364,
+      386
+     ],
+     "area": 85534,
+     "crosses_own_cell": false,
+     "hue_median": 32.5,
+     "outline_L_p25": 23.8,
+     "texture_std": 4.411
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1096,
+      84,
+      375,
+      383
+     ],
+     "area": 87053,
+     "crosses_own_cell": false,
+     "hue_median": 32.523,
+     "outline_L_p25": 24.071,
+     "texture_std": 4.184
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      84,
+      552,
+      386,
+      375
+     ],
+     "area": 84009,
+     "crosses_own_cell": false,
+     "hue_median": 32.579,
+     "outline_L_p25": 23.894,
+     "texture_std": 4.025
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      602,
+      544,
+      367,
+      392
+     ],
+     "area": 86274,
+     "crosses_own_cell": false,
+     "hue_median": 32.547,
+     "outline_L_p25": 24.031,
+     "texture_std": 3.935
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1098,
+      554,
+      372,
+      382
+     ],
+     "area": 83913,
+     "crosses_own_cell": false,
+     "hue_median": 32.655,
+     "outline_L_p25": 24.227,
+     "texture_std": 4.164
+    }
+   ],
+   "bg_rgb": [
+    250,
+    3,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 32.54,
+    "outline_L_p25": 23.962,
+    "texture_std": 4.137
+   },
+   "loop_scale_vs_cell1": [
+    1.025,
+    1.03,
+    1.015,
+    1.025,
+    1.025
+   ]
+  },
+  "W2-walk-away": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "outline_L_p25 24.209 与 R2 43.381 相差 44%",
+    "texture_std 3.290 与 R2 2.529 相差 30%",
+    "循环内缩放偏差 5.0% > 4%",
+    "估算头宽 160.0px 与全体中位数 168px 相差 5%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      82,
+      106,
+      375,
+      332
+     ],
+     "area": 79471,
+     "crosses_own_cell": false,
+     "hue_median": 31.211,
+     "outline_L_p25": 24.16,
+     "texture_std": 3.374
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      598,
+      110,
+      347,
+      333
+     ],
+     "area": 75567,
+     "crosses_own_cell": false,
+     "hue_median": 31.143,
+     "outline_L_p25": 24.188,
+     "texture_std": 3.342
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1102,
+      102,
+      356,
+      342
+     ],
+     "area": 74037,
+     "crosses_own_cell": false,
+     "hue_median": 31.351,
+     "outline_L_p25": 24.503,
+     "texture_std": 3.237
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      76,
+      570,
+      377,
+      328
+     ],
+     "area": 78644,
+     "crosses_own_cell": false,
+     "hue_median": 31.111,
+     "outline_L_p25": 24.065,
+     "texture_std": 3.173
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      596,
+      568,
+      364,
+      330
+     ],
+     "area": 73723,
+     "crosses_own_cell": false,
+     "hue_median": 31.091,
+     "outline_L_p25": 24.882,
+     "texture_std": 3.34
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1096,
+      568,
+      369,
+      337
+     ],
+     "area": 78002,
+     "crosses_own_cell": false,
+     "hue_median": 31.29,
+     "outline_L_p25": 24.229,
+     "texture_std": 3.24
+    }
+   ],
+   "bg_rgb": [
+    248,
+    5,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 31.177,
+    "outline_L_p25": 24.209,
+    "texture_std": 3.29
+   },
+   "loop_scale_vs_cell1": [
+    1.05,
+    1.04,
+    0.995,
+    1.025,
+    1.01
+   ]
+  },
+  "W3-turn": {
+   "size": [
+    1536,
+    1024
+   ],
+   "fails": [
+    "hue_median 33.094 与 R2 29.091 相差 14%",
+    "outline_L_p25 23.742 与 R2 43.381 相差 45%",
+    "texture_std 3.524 与 R2 2.529 相差 39%",
+    "估算头宽 180.8px 与全体中位数 168px 相差 8%"
+   ],
+   "cells": [
+    {
+     "cell": 1,
+     "bbox": [
+      58,
+      112,
+      430,
+      342
+     ],
+     "area": 96391,
+     "crosses_own_cell": false,
+     "hue_median": 32.655,
+     "outline_L_p25": 23.414,
+     "texture_std": 3.127
+    },
+    {
+     "cell": 2,
+     "bbox": [
+      576,
+      108,
+      382,
+      353
+     ],
+     "area": 91511,
+     "crosses_own_cell": false,
+     "hue_median": 33.429,
+     "outline_L_p25": 23.848,
+     "texture_std": 3.643
+    },
+    {
+     "cell": 3,
+     "bbox": [
+      1090,
+      108,
+      354,
+      353
+     ],
+     "area": 86957,
+     "crosses_own_cell": false,
+     "hue_median": 33.537,
+     "outline_L_p25": 23.548,
+     "texture_std": 3.781
+    },
+    {
+     "cell": 4,
+     "bbox": [
+      60,
+      564,
+      408,
+      354
+     ],
+     "area": 93497,
+     "crosses_own_cell": false,
+     "hue_median": 33.067,
+     "outline_L_p25": 23.637,
+     "texture_std": 3.6
+    },
+    {
+     "cell": 5,
+     "bbox": [
+      552,
+      564,
+      414,
+      351
+     ],
+     "area": 93476,
+     "crosses_own_cell": false,
+     "hue_median": 32.946,
+     "outline_L_p25": 23.983,
+     "texture_std": 3.26
+    },
+    {
+     "cell": 6,
+     "bbox": [
+      1044,
+      564,
+      436,
+      354
+     ],
+     "area": 97429,
+     "crosses_own_cell": false,
+     "hue_median": 33.122,
+     "outline_L_p25": 23.915,
+     "texture_std": 3.447
+    }
+   ],
+   "bg_rgb": [
+    249,
+    5,
+    250
+   ],
+   "crosses_cell_lines": false,
+   "style_median": {
+    "hue_median": 33.094,
+    "outline_L_p25": 23.742,
+    "texture_std": 3.524
+   }
+  }
+ },
+ "pairs": [
+  {
+   "a": "N1-prepare#6",
+   "b": "N2-jump#1",
+   "kind": "relay",
+   "scale_a_to_b": 0.96,
+   "iou": 0.879
+  },
+  {
+   "a": "N2-jump#6",
+   "b": "N3-climb#1",
+   "kind": "relay",
+   "scale_a_to_b": 0.975,
+   "iou": 0.823
+  },
+  {
+   "a": "N3-climb#6",
+   "b": "N4-settle#1",
+   "kind": "relay",
+   "scale_a_to_b": 1.01,
+   "iou": 0.841
+  },
+  {
+   "a": "N5-look#1",
+   "b": "N7-out#1",
+   "kind": "relay",
+   "scale_a_to_b": 0.995,
+   "iou": 0.988
+  },
+  {
+   "a": "N7-out#6",
+   "b": "N8-land#1",
+   "kind": "relay",
+   "scale_a_to_b": 1.015,
+   "iou": 0.811
+  },
+  {
+   "a": "N4-settle#5",
+   "b": "N5-look#1",
+   "kind": "same",
+   "scale_a_to_b": 1.15,
+   "iou": 0.847
+  },
+  {
+   "a": "N4-settle#6",
+   "b": "N6-sleep#1",
+   "kind": "same",
+   "scale_a_to_b": 1.11,
+   "iou": 0.921
+  },
+  {
+   "a": "W3-turn#1",
+   "b": "N8-land#6",
+   "kind": "same",
+   "scale_a_to_b": 0.97,
+   "iou": 0.882
+  },
+  {
+   "a": "W3-turn#1",
+   "b": "N1-prepare#1",
+   "kind": "same",
+   "scale_a_to_b": 0.93,
+   "iou": 0.809
+  },
+  {
+   "a": "W3-turn#1",
+   "b": "R3#0",
+   "kind": "same",
+   "scale_a_to_b": 2.157,
+   "iou": 0.919
+  },
+  {
+   "a": "W3-turn#3",
+   "b": "W1-walk-toward#1",
+   "kind": "same",
+   "scale_a_to_b": 1.055,
+   "iou": 0.75
+  },
+  {
+   "a": "W3-turn#1",
+   "b": "W2-walk-away#1",
+   "kind": "same",
+   "scale_a_to_b": 0.885,
+   "iou": 0.832
+  }
+ ],
+ "k1": {
+  "size": [
+   1024,
+   1536
+  ],
+  "tilt_deg": -0.0,
+  "width_median": 98,
+  "spans_full_height": true,
+  "seam_L_diff": 2.22,
+  "fails": []
+ },
+ "registry_count": 1789,
+ "r2_style": {
+  "hue_median": 29.090909090909097,
+  "outline_L_p25": 43.38100619835883,
+  "texture_std": 2.52897972202767
+ },
+ "head_width_est": {
+  "W3-turn": 180.8,
+  "N8-land": 175.4,
+  "N1-prepare": 168.1,
+  "W1-walk-toward": 190.7,
+  "W2-walk-away": 160.0,
+  "N7-out": 172.8,
+  "N2-jump": 161.4,
+  "N5-look": 173.6,
+  "N3-climb": 157.4,
+  "N4-settle": 151.0,
+  "N6-sleep": 167.6
+ },
+ "relative_scale_vs_W3": {
+  "W3-turn": 1.0,
+  "N8-land": 0.97,
+  "N1-prepare": 0.93,
+  "R3": 2.157,
+  "W1-walk-toward": 1.055,
+  "W2-walk-away": 0.885,
+  "N7-out": 0.956,
+  "N2-jump": 0.893,
+  "N5-look": 0.96,
+  "N3-climb": 0.87,
+  "N4-settle": 0.835,
+  "N6-sleep": 0.927
+ },
+ "head_width_median": 168.1
+}
