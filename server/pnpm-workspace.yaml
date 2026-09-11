@@ -1,0 +1,4 @@
+# 两个包的安装脚本都不需要跑：esbuild 的二进制由平台子包提供，msgpackr-extract 只是 BullMQ 的可选加速
+allowBuilds:
+  esbuild: false
+  msgpackr-extract: false

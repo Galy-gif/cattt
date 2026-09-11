@@ -1,0 +1,90 @@
+import { createDeepSeek } from '@ai-sdk/deepseek';
+import { APICallError, type LanguageModel, type LanguageModelUsage, RetryError } from 'ai';
+import { UnrecoverableError } from 'bullmq';
+import { config } from '../config.ts';
+import { db } from '../db/client.ts';
+import { modelCalls } from '../db/schema.ts';
+import { mockChatModel, mockExtractModel } from './mock.ts';
+
+/**
+ * 模型适配层。业务代码只拿 model + providerOptions，不关心是哪家。
+ * DeepSeek V4.1 Flash 默认开思考，聊天必须显式关掉，否则首字要等思考结束。
+ */
+const deepseek = createDeepSeek({ apiKey: config.MAOMAO_DEEPSEEK_API_KEY });
+
+export type ModelSlot = {
+  model: LanguageModel;
+  modelId: string;
+  providerOptions: { deepseek: { thinking: { type: 'enabled' | 'disabled' } } };
+};
+
+export function chatSlot(): ModelSlot {
+  return {
+    model: config.MODEL_PROVIDER === 'mock' ? mockChatModel() : deepseek(config.CHAT_MODEL),
+    modelId: config.MODEL_PROVIDER === 'mock' ? 'mock-chat' : config.CHAT_MODEL,
+    providerOptions: { deepseek: { thinking: { type: config.CHAT_THINKING } } },
+  };
+}
+
+export function extractSlot(): ModelSlot {
+  return {
+    model: config.MODEL_PROVIDER === 'mock' ? mockExtractModel() : deepseek(config.EXTRACT_MODEL),
+    modelId: config.MODEL_PROVIDER === 'mock' ? 'mock-extract' : config.EXTRACT_MODEL,
+    providerOptions: { deepseek: { thinking: { type: config.EXTRACT_THINKING } } },
+  };
+}
+
+export type ModelErrorInfo = { code: string; retryable: boolean; summary: string };
+
+/**
+ * 模型出错分两类：限流、超时、服务端 5xx 可以重试；
+ * 余额不足、key 不对、请求格式错，重试也没用，要告诉客户端别让用户一直点「再试一次」。
+ */
+export function classifyModelError(err: unknown): ModelErrorInfo {
+  const e = RetryError.isInstance(err) ? err.lastError : err;
+  if (APICallError.isInstance(e)) {
+    const summary = `${e.statusCode ?? '?'} ${e.message}`;
+    switch (e.statusCode) {
+      case 402:
+        return { code: 'model_quota', retryable: false, summary };
+      case 401:
+      case 403:
+        return { code: 'model_auth', retryable: false, summary };
+      case 400:
+      case 422:
+        return { code: 'model_bad_request', retryable: false, summary };
+      default:
+        return { code: 'model_error', retryable: true, summary };
+    }
+  }
+  return { code: 'model_error', retryable: true, summary: e instanceof Error ? e.message : String(e) };
+}
+
+/** 队列任务里用：重试也没用的错误标成 UnrecoverableError，BullMQ 就不再白白重试 */
+export function rethrowForQueue(err: unknown): never {
+  const info = classifyModelError(err);
+  if (!info.retryable) throw new UnrecoverableError(`${info.code}: ${info.summary}`);
+  throw err;
+}
+
+/** 成本账本：每次模型调用记一行，按用途分 */
+export async function recordModelCall(entry: {
+  purpose: 'chat' | 'memory_extract' | 'boundary_summarize';
+  modelId: string;
+  usage: LanguageModelUsage | null;
+  latencyMs: number;
+  turnId?: string;
+  jobId?: string;
+}) {
+  await db.insert(modelCalls).values({
+    purpose: entry.purpose,
+    model: entry.modelId,
+    turnId: entry.turnId,
+    jobId: entry.jobId,
+    inputTokens: entry.usage?.inputTokens ?? null,
+    cacheReadTokens: entry.usage?.inputTokenDetails.cacheReadTokens ?? null,
+    outputTokens: entry.usage?.outputTokens ?? null,
+    reasoningTokens: entry.usage?.outputTokenDetails.reasoningTokens ?? null,
+    latencyMs: entry.latencyMs,
+  });
+}

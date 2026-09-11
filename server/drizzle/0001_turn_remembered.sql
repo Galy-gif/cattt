@@ -1,0 +1,1 @@
+ALTER TABLE "turns" ADD COLUMN "remembered" boolean DEFAULT false NOT NULL;

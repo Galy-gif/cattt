@@ -1,0 +1,39 @@
+{
+  "name": "maomao-server",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@ai-sdk/deepseek": "^3.0.42",
+    "@ai-sdk/provider": "4.0.13",
+    "@hono/node-server": "^2.1.1",
+    "ai": "^7.0.97",
+    "bullmq": "^6.3.4",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.13.7",
+    "ioredis": "^6.0.0",
+    "postgres": "^3.4.9",
+    "zod": "^4.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm run --parallel \"/^dev:/\"",
+    "dev:api": "tsx watch src/api.ts",
+    "dev:worker": "tsx watch src/worker.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "create-dev-user": "tsx scripts/create-dev-user.ts",
+    "smoke": "tsx scripts/smoke.ts"
+  },
+  "packageManager": "pnpm@11.11.0+sha512.4463f65fd80ed80d69bc1d4bf163ee94f605c7380fc318bb5b2ebe15f8cd12d49c51a4d59e951b401e764d3b6ca751cbf51bc50ed7001a6bcb4935e684c34882"
+}

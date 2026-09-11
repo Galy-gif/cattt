@@ -1,0 +1,254 @@
+/**
+ * 冒烟测试：对着正在跑的服务，把 spec 第 10 节第 2、3 步的验收逐条走一遍。
+ *   用假模型起服务（MODEL_PROVIDER=mock pnpm dev）后：pnpm smoke
+ * 每次新建一个临时账号，跑完删掉，互不影响。
+ * 用到假模型的 [slow] [fail1] 标记，所以只在 mock 下全部有效。
+ */
+import { randomUUID } from 'node:crypto';
+import { sql } from '../src/db/client.ts';
+import { createDevUser, deleteUser } from '../src/dev-user.ts';
+
+const BASE = process.env.BASE_URL ?? 'http://localhost:8787';
+const devUser = await createDevUser('smoke');
+const headers = { authorization: `Bearer ${devUser.token}`, 'content-type': 'application/json' };
+
+type Ev = { id: string; event: string; data: any };
+
+/** 读 SSE。stopWhen 返回 true 时主动断开，模拟断线 */
+async function sse(
+  method: string,
+  path: string,
+  opts: { body?: unknown; lastEventId?: string; stopWhen?: (evs: Ev[]) => boolean } = {},
+): Promise<Ev[]> {
+  const ac = new AbortController();
+  const res = await fetch(BASE + path, {
+    method,
+    headers: { ...headers, ...(opts.lastEventId ? { 'last-event-id': opts.lastEventId } : {}) },
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+    signal: ac.signal,
+  });
+  if (!res.ok) throw new Error(`${method} ${path} → ${res.status} ${await res.text()}`);
+  const evs: Ev[] = [];
+  const decoder = new TextDecoder();
+  let buf = '';
+  try {
+    for await (const chunk of res.body!) {
+      buf += decoder.decode(chunk, { stream: true });
+      let idx;
+      while ((idx = buf.indexOf('\n\n')) >= 0) {
+        const block = buf.slice(0, idx);
+        buf = buf.slice(idx + 2);
+        const ev: Partial<Ev> = {};
+        for (const line of block.split('\n')) {
+          if (line.startsWith('id: ')) ev.id = line.slice(4);
+          else if (line.startsWith('event: ')) ev.event = line.slice(7);
+          else if (line.startsWith('data: ')) ev.data = JSON.parse(line.slice(6));
+        }
+        if (!ev.event) continue;
+        evs.push(ev as Ev);
+        if (['done', 'superseded', 'error'].includes(ev.event)) return evs;
+        if (opts.stopWhen?.(evs)) {
+          ac.abort();
+          return evs;
+        }
+      }
+    }
+  } catch (err) {
+    if (!ac.signal.aborted) throw err;
+  }
+  return evs;
+}
+
+const send = (text: string, opts: Parameters<typeof sse>[2] = {}) =>
+  sse('POST', '/v1/messages', { ...opts, body: { client_message_id: randomUUID(), text } });
+
+async function get(path: string) {
+  const res = await fetch(BASE + path, { headers });
+  return res.json() as Promise<any>;
+}
+async function post(path: string) {
+  const res = await fetch(BASE + path, { method: 'POST', headers });
+  return res.json() as Promise<any>;
+}
+async function del(path: string) {
+  const res = await fetch(BASE + path, { method: 'DELETE', headers });
+  return res.json() as Promise<any>;
+}
+
+const textOf = (evs: Ev[]) => evs.filter((e) => e.event === 'delta').map((e) => e.data.text).join('');
+const last = (evs: Ev[]) => evs[evs.length - 1]!;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function waitExtracted(turnId: string) {
+  for (let i = 0; i < 40; i++) {
+    const t = await get(`/v1/turns/${turnId}`);
+    if (t.extracted) return t;
+    await sleep(250);
+  }
+  throw new Error(`turn ${turnId} 10 秒内没提取完`);
+}
+
+let failed = 0;
+async function check(name: string, fn: () => Promise<void>) {
+  try {
+    await fn();
+    console.log(`✓ ${name}`);
+  } catch (err) {
+    failed++;
+    console.log(`✗ ${name}\n    ${(err as Error).message}`);
+  }
+}
+function expect(cond: unknown, msg: string): asserts cond {
+  if (!cond) throw new Error(msg);
+}
+
+await check('一轮完整回复：accepted → delta… → done，落库的就是发出去的字', async () => {
+  const evs = await send('今天好累');
+  expect(evs[0]?.event === 'accepted', `第一个事件是 ${evs[0]?.event}`);
+  expect(last(evs).event === 'done' && last(evs).data.status === 'done', `最后是 ${JSON.stringify(last(evs))}`);
+  const { messages } = await get('/v1/messages?limit=1');
+  expect(messages[0].id === last(evs).data.message_id, '最新消息不是这条回复');
+  expect(messages[0].text === textOf(evs), `库里「${messages[0].text}」≠ 发出「${textOf(evs)}」`);
+});
+
+await check('重复的 client_message_id：不存第二条，返回同一轮', async () => {
+  const id = randomUUID();
+  const a = await sse('POST', '/v1/messages', { body: { client_message_id: id, text: '重复测试' } });
+  const before = (await get('/v1/messages?limit=100')).messages.length;
+  const b = await sse('POST', '/v1/messages', { body: { client_message_id: id, text: '重复测试' } });
+  const after = (await get('/v1/messages?limit=100')).messages.length;
+  expect(a[0]!.data.turn_id === b[0]!.data.turn_id, '两次返回的不是同一轮');
+  expect(before === after, `消息数从 ${before} 变成 ${after}`);
+  expect(textOf(a) === textOf(b), '重放的内容不一致');
+});
+
+await check('中途断线再续：拿到完整回复，库里只有一条', async () => {
+  const first = await send('[slow] 断线测试', { stopWhen: (evs) => evs.filter((e) => e.event === 'delta').length >= 3 });
+  expect(last(first).event === 'delta', '没断在中途');
+  const turnId = first[0]!.data.turn_id;
+  const rest = await sse('GET', `/v1/turns/${turnId}/stream`, { lastEventId: last(first).id });
+  expect(last(rest).event === 'done', `续传最后是 ${last(rest).event}`);
+  const { messages } = await get('/v1/messages?limit=100');
+  const replies = messages.filter((m: any) => m.turn_id === turnId);
+  expect(replies.length === 1, `这一轮有 ${replies.length} 条猫消息`);
+  expect(replies[0].text === textOf(first) + textOf(rest), `拼起来「${textOf(first) + textOf(rest)}」≠ 库里「${replies[0].text}」`);
+});
+
+await check('等回复时补一句：旧的收到 superseded，新的一轮回复', async () => {
+  const oldP = send('[slow] 第一句');
+  await sleep(80);
+  const fresh = await send('第二句');
+  const old = await oldP;
+  expect(last(old).event === 'superseded', `旧的一轮最后是 ${last(old).event}`);
+  expect(last(fresh).event === 'done', `新的一轮最后是 ${last(fresh).event}`);
+  const { messages } = await get('/v1/messages?limit=100');
+  expect(!messages.some((m: any) => m.turn_id === old[0]!.data.turn_id), '作废的一轮还是留下了猫消息');
+});
+
+await check('停止：保留已经说出来的字，状态 stopped', async () => {
+  // 边读边看：读到 3 个字就发停止，然后接着读到结束
+  const seen: Ev[] = [];
+  const reading = send('[slow] 停止测试', {
+    stopWhen: (evs) => {
+      seen.splice(0, seen.length, ...evs);
+      return false;
+    },
+  });
+  while (seen.filter((e) => e.event === 'delta').length < 3) await sleep(50);
+  // 带上「屏幕上已经显示的长度」：服务端停住之前还会多吐几个字，存库时要截回到这里
+  const shown = textOf(seen);
+  const res = await fetch(`${BASE}/v1/turns/${seen[0]!.data.turn_id}/cancel`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ visible_length: shown.length }),
+  });
+  expect(res.ok, `cancel 返回 ${res.status}`);
+  const done = await reading;
+  expect(last(done).event === 'done' && last(done).data.status === 'stopped', `最后是 ${JSON.stringify(last(done))}`);
+  const { messages } = await get('/v1/messages?limit=1');
+  expect(messages[0].status === 'stopped', `状态是 ${messages[0].status}`);
+  expect(messages[0].text === shown, `库里「${messages[0].text}」≠ 屏幕上的「${shown}」`);
+});
+
+await check('模型输出里的空行压成一个换行，开头结尾不留换行', async () => {
+  // 假模型会原样复述用户的话，里面的连续换行就是要压的
+  const evs = await send('第一行\n\n\n第二行');
+  const shown = textOf(evs);
+  expect(shown.includes('\n') && !shown.includes('\n\n'), `发出去的是「${JSON.stringify(shown)}」`);
+  const { messages } = await get('/v1/messages?limit=1');
+  expect(messages[0].text === shown, '库里和发出去的不一致');
+});
+
+await check('模型出错：发可重试的 error；「再试一次」对同一句话重新回复', async () => {
+  const text = `[fail1] 失败测试 ${randomUUID().slice(0, 8)}`;
+  const evs = await send(text);
+  expect(last(evs).event === 'error' && last(evs).data.retryable === true, `最后是 ${JSON.stringify(last(evs))}`);
+  const again = await sse('POST', `/v1/messages/${evs[0]!.data.user_message_id}/reply`);
+  expect(last(again).event === 'done', `重新回复最后是 ${last(again).event}`);
+  const { messages } = await get('/v1/messages?limit=2');
+  expect(messages[0].role === 'user' && messages[1].role === 'cat', '用户那句没有重复存');
+});
+
+let rememberedTurn = '';
+await check('「记住……」：提取出明确要记的记忆，/turns 显示 remembered', async () => {
+  const evs = await send('记住我对猫毛过敏');
+  rememberedTurn = evs[0]!.data.turn_id;
+  const t = await waitExtracted(rememberedTurn);
+  expect(t.remembered === true, 'remembered 不是 true');
+  const { memories } = await get('/v1/memories');
+  expect(memories.some((m: any) => m.value.includes('猫毛过敏') && m.explicit), '记忆列表里没有');
+  // 同一件事再说一遍「记住」：已有记忆只刷新，但这一轮照样要显示「记下了」
+  const again = await send('记住我对猫毛过敏');
+  const t2 = await waitExtracted(again[0]!.data.turn_id);
+  expect(t2.remembered === true, '第二次说「记住」时 remembered 不是 true');
+  const after = (await get('/v1/memories')).memories.filter((m: any) => m.value.includes('猫毛过敏'));
+  expect(after.length === 1, `同一件事存了 ${after.length} 条`);
+  // 重新打开 app 拉历史时，「记下了」要还在
+  const { messages } = await get('/v1/messages?limit=100');
+  const reply = messages.find((m: any) => m.id === last(evs).data.message_id);
+  expect(reply?.remembered === true, '历史记录里这条回复没带 remembered');
+});
+
+await check('下一轮回复会用上记住的事', async () => {
+  const evs = await send('在吗');
+  const t = await get(`/v1/turns/${evs[0]!.data.turn_id}`);
+  const { memories } = await get('/v1/memories');
+  const target = memories.find((m: any) => m.value.includes('猫毛过敏'));
+  expect(t.memory_ids.includes(target.id), `这一轮用到的记忆 ${JSON.stringify(t.memory_ids)} 里没有它`);
+});
+
+await check('删掉的记忆：不再召回，同样的话再说一遍也不会被重新提取', async () => {
+  const a = await send('我喜欢拿铁');
+  await waitExtracted(a[0]!.data.turn_id);
+  let { memories } = await get('/v1/memories');
+  const latte = memories.find((m: any) => m.value.includes('拿铁'));
+  expect(latte, '第一次没提取出来');
+  await del(`/v1/memories/${latte.id}`);
+  const b = await send('我喜欢拿铁');
+  const t = await waitExtracted(b[0]!.data.turn_id);
+  expect(!t.memory_ids.includes(latte.id), '删掉的记忆还在被召回');
+  ({ memories } = await get('/v1/memories'));
+  expect(!memories.some((m: any) => m.value.includes('拿铁')), '删掉后又被提取回来了');
+});
+
+await check('「不要再提」：写进边界，worker 整理出一句话', async () => {
+  const evs = await send('我们聊聊前任吧');
+  await post(`/v1/messages/${last(evs).data.message_id}/boundary`);
+  for (let i = 0; i < 40; i++) {
+    const { boundaries } = await get('/v1/boundaries');
+    const b = boundaries.find((x: any) => x.source_message_id === last(evs).data.message_id);
+    if (b?.description) {
+      const { messages } = await get('/v1/messages?limit=100');
+      const marked = messages.find((m: any) => m.id === last(evs).data.message_id);
+      expect(marked?.boundary === true, '历史记录里这条没带 boundary');
+      return;
+    }
+    await sleep(250);
+  }
+  throw new Error('10 秒内没整理出描述');
+});
+
+console.log(failed === 0 ? '\n全部通过' : `\n${failed} 项没通过`);
+await deleteUser(devUser.userId);
+await sql.end();
+process.exit(failed === 0 ? 0 : 1);
