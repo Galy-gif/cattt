@@ -62,7 +62,8 @@ ACTIONS = [
     ('v5Look', [('N5-look', k, 'bottom', INSIDE_L) for k in range(1, 7)], [1.60, 0.10, 0.14, 0.90, 1.00, 0.80], 'loop'),
     ('v5Sleep', [('N6-sleep', k, 'bottom', INSIDE_L) for k in range(1, 7)], [0.50, 0.45, 0.50, 0.40, 0.45, 0.40], 'loop'),
     # 在窝里站起来（窝壁后面），然后站上窝沿、探身、蹬出（窝前面）
-    ('v5Out', [('N7-out', 2, 'bottom', INSIDE_R)], [0.16], 'once'),
+    # 第 1 格（趴在窝里、朝着观众）原来没用，出窝只有一格，读起来是"直接跳上窝沿"（v5 实施记录的遗留）。
+    ('v5Out', [('N7-out', 1, 'bottom', INSIDE_R), ('N7-out', 2, 'bottom', INSIDE_R)], [0.20, 0.16], 'once'),
     ('v5Leap', [('N7-out', 3, 'bottom', ORIGIN), ('N7-out', 4, 'manual', ORIGIN), ('N7-out', 5, 'manual', ORIGIN)],
      [0.20, 0.18, 0.12], 'once'),
     ('v5Fall', [('N7-out', 6, 'centroid', ORIGIN), ('N8-land', 1, 'centroid', ORIGIN)], [0.14, 0.14], 'once'),

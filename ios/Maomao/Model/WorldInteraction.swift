@@ -58,7 +58,7 @@ struct WorldInteraction {
         case .nestLook: return Self.useV5 ? 4.54:2.6
         case .railLook: return 2.6
         case .nestSleep,.railSleep: return sleepingDuration
-        case .nestOut: return Self.useV5 ? 0.16:0.65
+        case .nestOut: return Self.useV5 ? 0.36:0.65
         case .nestLeap: return Self.useV5 ? 0.50:0.12
         case .nestDown: return Self.useV5 ? 0.28:0.6
         case .railDown: return 0.6

@@ -1,0 +1,124 @@
+{
+ "target_lab": [
+  67.05,
+  28.34,
+  56.9,
+  9.27,
+  6.89,
+  9.13
+ ],
+ "groups": {
+  "cat": {
+   "source_lab": [
+    69.26,
+    28.05,
+    59.36,
+    9.18,
+    6.09,
+    7.67
+   ],
+   "frames": 36,
+   "actions": [
+    "blinkLook",
+    "sleepBreathe",
+    "stretch"
+   ]
+  },
+  "cat-v2": {
+   "source_lab": [
+    69.03,
+    28.94,
+    61.41,
+    11.07,
+    8.85,
+    8.3
+   ],
+   "frames": 24,
+   "actions": [
+    "sleepyNod",
+    "tailChase"
+   ]
+  },
+  "cat-v3": {
+   "source_lab": [
+    67.54,
+    28.17,
+    64.1,
+    10.63,
+    5.33,
+    8.25
+   ],
+   "frames": 12,
+   "actions": [
+    "flowerPlay",
+    "scratchEnter",
+    "scratchExit",
+    "treeScratch"
+   ]
+  },
+  "cat-v4": {
+   "source_lab": [
+    66.05,
+    35.18,
+    61.93,
+    9.9,
+    7.15,
+    8.15
+   ],
+   "frames": 74,
+   "actions": [
+    "climbIn",
+    "climbOut",
+    "jumpDown",
+    "jumpPrepare",
+    "jumpUp",
+    "land",
+    "nestLook",
+    "nestSleep",
+    "perchLook",
+    "perchSleep",
+    "railClimb",
+    "railReach",
+    "railSettle",
+    "waterLook",
+    "waterReach",
+    "waterRecover",
+    "waterRest",
+    "waterShake",
+    "waterTap",
+    "waterWatch"
+   ]
+  }
+ },
+ "actions": {
+  "blinkLook": 6,
+  "sleepBreathe": 6,
+  "stretch": 6,
+  "sleepyNod": 8,
+  "tailChase": 16,
+  "flowerPlay": 4,
+  "scratchEnter": 2,
+  "scratchExit": 2,
+  "treeScratch": 4,
+  "climbIn": 6,
+  "climbOut": 4,
+  "jumpDown": 5,
+  "jumpPrepare": 3,
+  "jumpUp": 5,
+  "land": 7,
+  "nestLook": 3,
+  "nestSleep": 1,
+  "perchLook": 1,
+  "perchSleep": 1,
+  "railClimb": 5,
+  "railReach": 4,
+  "railSettle": 5,
+  "waterLook": 2,
+  "waterReach": 3,
+  "waterRecover": 4,
+  "waterRest": 1,
+  "waterShake": 5,
+  "waterTap": 7,
+  "waterWatch": 2
+ }
+}

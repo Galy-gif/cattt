@@ -44,7 +44,8 @@ import Foundation
                 let gaits=["walk","walkAway","walkToward","run"]
                 if last.2 && w.isMoving && gaits.contains(last.0) && gaits.contains(w.action) && (w.action != last.0 || w.facingRight != last.1) {
                     changes += 1
-                    let cycle=last.0 == "run" ? 182.88:w.bodyLength   // 引擎按切换前的步态判断
+                    // 引擎按切换前的步态判断，一个循环覆盖的距离还要乘纵深缩放（和视图的相位时钟同一个值）
+                    let cycle=(last.0 == "run" ? 182.88:w.bodyLength)*WorldDepth.catScaleFactor(y:w.point.y)
                     precondition(WorldSimulation.atFootfall(travelled:before,bodyLength:cycle),"switched \(last.0)->\(w.action) mid-stride at \(before)")
                 }
                 last=(w.action,w.facingRight,w.isMoving)

@@ -755,8 +755,9 @@
       "bodyLength": 100.9,
       "footY": 68.62,
       "fps": 12,
-      "frameCount": 1,
+      "frameCount": 2,
       "frameDurations": [
+        0.2,
         0.16
       ],
       "hitInset": 5,

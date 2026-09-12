@@ -11,8 +11,9 @@ enum World {
     static var refSize: CGSize { CGSize(width: Metrics.referenceHeight * aspect, height: Metrics.referenceHeight) }
 
     /// 猫能落脚的最远一行（最上）和前景行走带。纵深缩放在这两行之间插值。
-    static let farY: CGFloat = 0.60
-    static let nearY: CGFloat = 0.82   // 再往下就进底部 Tab 栏了
+    /// 唯一定义在 `WorldDepth`，那边世界层逻辑测试也编译得到。
+    static let farY = CGFloat(WorldDepth.catFarY)
+    static let nearY = CGFloat(WorldDepth.catNearY)
 
     /// 归一化位移 → 参考屏 pt 距离。
     static func distance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
@@ -51,12 +52,8 @@ struct WorldGeometry: Equatable {
         screen.width / 2 - cameraX * bgSize.width
     }
 
-    /// 纵深缩放里只跟位置有关的那一半（0.85–1.00）：越靠前（下）越大。
-    /// 走路的帧相位要除掉它 —— 位移按参考屏 pt 累加，画出来的身子却被它缩过，不除就脚打滑（最靠里差 13%）。
-    func depthFactor(at p: CGPoint) -> CGFloat {
-        let t = min(max((p.y - World.farY) / (World.nearY - World.farY), 0), 1)
-        return 0.85 + 0.15 * t
-    }
+    /// 纵深缩放里只跟位置有关的那一半（0.85–1.00）：越靠前（下）越大。见 `WorldDepth.catScaleFactor`。
+    func depthFactor(at p: CGPoint) -> CGFloat { CGFloat(WorldDepth.catScaleFactor(y: p.y)) }
 
     /// 猫的整体缩放：参考屏 844 高为 1，再叠一点纵深。
     func catScale(at p: CGPoint) -> CGFloat {

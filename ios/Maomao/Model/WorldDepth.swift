@@ -10,6 +10,17 @@ enum WorldDepth {
     static let groundStart = 0.56
     static let foregroundRate = 1.18
 
+    /// 猫能落脚的最远一行（最上）和前景行走带；纵深缩放在这两行之间插值。
+    static let catFarY = 0.60
+    static let catNearY = 0.82
+
+    /// 纵深缩放里只跟位置有关的那一半（0.85–1.00）。
+    /// 画猫时乘它；走路的帧相位要除掉它 —— 位移按参考屏 pt 累加，画出来的身子却被它缩过，不除脚会打滑。
+    /// 换向判断（`WorldSimulation.atFootfall`）和视图的相位时钟必须用同一个值，不然"只在着地帧换向"就不成立。
+    static func catScaleFactor(y: Double) -> Double {
+        0.85 + 0.15 * min(max((y - catFarY) / (catNearY - catFarY), 0), 1)
+    }
+
     /// Detect the continuous green skyline once from the existing plate. We classify
     /// only the boundary, not each rendered pixel: cream clouds must remain whole,
     /// and highlights within mountains must never become transparent holes.

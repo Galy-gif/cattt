@@ -491,7 +491,9 @@ struct WorldSimulation {
         // 从站着出发的第一段（force）不必等；走着经过路口时照样等着地帧。
         let gaits=["walk","walkAway","walkToward","run"]
         // 一个步态循环走过的距离与视图里的相位时钟一致：走路 100.9×1，奔跑 114.3×1.6（见 cat-actions-v2）。
-        if !force && gaits.contains(action) && !Self.atFootfall(travelled:travelled,bodyLength:action == "run" ? 182.88:bodyLength) {return}
+        // 一个步态循环覆盖的距离要和视图的相位时钟一致：屏幕上的身长被纵深缩放缩过，所以乘同一个系数。
+        let cycle=(action == "run" ? 182.88:bodyLength)*WorldDepth.catScaleFactor(y:point.y)
+        if !force && gaits.contains(action) && !Self.atFootfall(travelled:travelled,bodyLength:cycle) {return}
         facingRight=facing
         if action != name {setAction(name)}
     }
