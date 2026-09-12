@@ -20,7 +20,7 @@ export function streamTurn(c: Context, turnId: string, afterId: string) {
       next = await events.next();
     }
     // Redis 里的事件已过期（结束超过 10 分钟）：按库里的结果补发
-    if (next.value === 'missing') await replayFromDb(stream, turnId);
+    if (next.value === 'missing') await replayFromDb(stream, turnId, afterId !== '0', c.req.header('x-maomao-snapshot') === '1');
   });
 }
 
@@ -28,7 +28,7 @@ async function write(stream: SSEStreamingApi, id: string, ev: TurnEvent) {
   await stream.writeSSE({ id, event: ev.event, data: JSON.stringify(ev.data) });
 }
 
-async function replayFromDb(stream: SSEStreamingApi, turnId: string) {
+async function replayFromDb(stream: SSEStreamingApi, turnId: string, resuming: boolean, supportsSnapshot: boolean) {
   const [turn] = await db.select().from(turns).where(eq(turns.id, turnId));
   if (!turn) {
     await write(stream, 'db-0', { event: 'error', data: { code: 'not_found', retryable: false } });
@@ -43,7 +43,13 @@ async function replayFromDb(stream: SSEStreamingApi, turnId: string) {
     case 'stopped': {
       if (turn.catMessageId) {
         const [msg] = await db.select({ text: messages.text }).from(messages).where(eq(messages.id, turn.catMessageId));
-        if (msg) await write(stream, 'db-1', { event: 'delta', data: { text: msg.text } });
+        if (msg) {
+          if (resuming && !supportsSnapshot) {
+            await write(stream, 'db-1', { event: 'error', data: { code: 'lost', retryable: true } });
+            return;
+          }
+          await write(stream, 'db-1', { event: supportsSnapshot ? 'snapshot' : 'delta', data: { text: msg.text } });
+        }
       }
       await write(stream, 'db-2', {
         event: 'done',

@@ -1,5 +1,8 @@
 import { TURN_EVENTS_TTL_S } from '../config.ts';
 import { redis } from '../redis.ts';
+import { eq } from 'drizzle-orm';
+import { db } from '../db/client.ts';
+import { turns } from '../db/schema.ts';
 
 /**
  * 发给 iOS 的 SSE 事件。格式是我们自己定的，不用 AI SDK 的流协议，
@@ -8,6 +11,7 @@ import { redis } from '../redis.ts';
 export type TurnEvent =
   | { event: 'accepted'; data: { turn_id: string; user_message_id: string } }
   | { event: 'delta'; data: { text: string } }
+  | { event: 'snapshot'; data: { text: string } }
   | { event: 'superseded'; data: { turn_id: string } }
   | { event: 'done'; data: { message_id: string | null; status: 'done' | 'stopped' } }
   | { event: 'error'; data: { code: string; retryable: boolean } };
@@ -25,11 +29,13 @@ const eventsKey = (turnId: string) => `turn:${turnId}:events`;
  */
 export async function publish(turnId: string, ev: TurnEvent) {
   const key = eventsKey(turnId);
-  await redis
+  const results = await redis
     .multi()
     .xadd(key, '*', 'event', ev.event, 'data', JSON.stringify(ev.data))
     .expire(key, isTerminal(ev.event) ? TURN_EVENTS_TTL_S : 3600)
     .exec();
+  if (!results) throw new Error('Redis transaction aborted');
+  for (const [error] of results) if (error) throw error;
 }
 
 function parse(id: string, fields: string[]): StoredEvent {
@@ -48,18 +54,38 @@ export async function* tail(
   afterId: string,
   signal: AbortSignal,
 ): AsyncGenerator<StoredEvent | 'ping', 'missing' | 'end' | 'aborted'> {
+  if (afterId === 'snapshot') return 'missing';
   const key = eventsKey(turnId);
   if ((await redis.exists(key)) === 0) return 'missing';
+  if (afterId !== '0' && (await redis.xrange(key, afterId, afterId)).length === 0) return 'missing';
 
   // 阻塞读会占住连接，每个监听者单独一条
-  const conn = redis.duplicate();
+  const conn = redis.duplicate({ lazyConnect: true });
   const onAbort = () => conn.disconnect();
   signal.addEventListener('abort', onAbort, { once: true });
   let lastId = afterId;
   try {
+    if (signal.aborted) return 'aborted';
+    await conn.connect();
     while (!signal.aborted) {
-      const res = await conn.xread('BLOCK', 15_000, 'STREAMS', key, lastId);
+      const res = await conn.xread('BLOCK', 1_000, 'STREAMS', key, lastId);
       if (!res) {
+        if (!await redis.exists(key)) return 'missing';
+        const terminal = await terminalEvent(turnId);
+        if (terminal) {
+          // 最后 delta 可能在空读之后、PG 终态之前写入。终态不可变，
+          // 此时再读完已落入流的内容，才能补结束标记，避免漏尾字。
+          const remaining = await conn.xrange(key, `(${lastId}`, '+');
+          if (!await redis.exists(key)) return 'missing';
+          for (const [id, fields] of remaining) {
+            lastId = id;
+            const ev = parse(id, fields);
+            yield ev;
+            if (isTerminal(ev.event)) return 'end';
+          }
+          yield { ...terminal, id: lastId };
+          return 'end';
+        }
         yield 'ping';
         continue;
       }
@@ -80,6 +106,18 @@ export async function* tail(
     signal.removeEventListener('abort', onAbort);
     conn.disconnect();
   }
+}
+
+export async function terminalEvent(turnId: string): Promise<TurnEvent | null> {
+  const [turn] = await db.select().from(turns).where(eq(turns.id, turnId));
+  if (!turn) return { event: 'error', data: { code: 'not_found', retryable: false } };
+  if (turn.status === 'completed' || turn.status === 'stopped') return { event: 'done', data: { message_id: turn.catMessageId, status: turn.status === 'completed' ? 'done' : 'stopped' } };
+  if (turn.status === 'superseded') return { event: 'superseded', data: { turn_id: turn.id } };
+  if (turn.status === 'failed') {
+    const code = turn.error?.split(':', 1)[0] ?? 'stale';
+    return { event: 'error', data: { code, retryable: !['model_auth', 'model_quota', 'model_bad_request'].includes(code) } };
+  }
+  return null;
 }
 
 // ---- 停止与作废 ----
@@ -120,13 +158,13 @@ export async function acquireConversationLock(
   waitMs: number,
   onWait?: () => Promise<void>,
 ): Promise<boolean> {
-  const deadline = Date.now() + waitMs;
-  let lastBeat = Date.now();
-  while (Date.now() < deadline) {
+  const deadline = performance.now() + waitMs;
+  let lastBeat = performance.now();
+  while (performance.now() < deadline) {
     const ok = await redis.set(lockKey(conversationId), token, 'PX', LOCK_TTL_MS, 'NX');
     if (ok) return true;
-    if (onWait && Date.now() - lastBeat > 5_000) {
-      lastBeat = Date.now();
+    if (onWait && performance.now() - lastBeat > 5_000) {
+      lastBeat = performance.now();
       await onWait();
     }
     await new Promise((r) => setTimeout(r, 100));
@@ -143,5 +181,5 @@ export async function releaseConversationLock(conversationId: string, token: str
 }
 
 export async function refreshConversationLock(conversationId: string, token: string) {
-  await redis.eval(REFRESH, 1, lockKey(conversationId), token, LOCK_TTL_MS);
+  return (await redis.eval(REFRESH, 1, lockKey(conversationId), token, LOCK_TTL_MS)) === 1;
 }

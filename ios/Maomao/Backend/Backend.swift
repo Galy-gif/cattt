@@ -105,7 +105,7 @@ struct APIClient {
         try decoder.decode(type, from: data)
     }
 
-    private func request(_ method: String, _ path: String, body: [String: Any]? = nil) -> URLRequest {
+    func request(_ method: String, _ path: String, body: [String: Any]? = nil) -> URLRequest {
         var request = URLRequest(url: config.baseURL.appending(path: path))
         request.httpMethod = method
         request.setValue("Bearer \(config.token)", forHTTPHeaderField: "Authorization")
@@ -116,7 +116,7 @@ struct APIClient {
         return request
     }
 
-    private func json<T: Decodable>(_ type: T.Type, _ request: URLRequest) async throws -> T {
+    func json<T: Decodable>(_ type: T.Type, _ request: URLRequest) async throws -> T {
         let (data, response) = try await Self.session.data(for: request)
         try Self.check(response, body: data)
         return try Self.decode(type, from: data)
@@ -194,9 +194,10 @@ struct APIClient {
     // MARK: SSE
 
     /// 逐字节切行。`URLSession.AsyncBytes.lines` 会吞掉空行，而 SSE 靠空行分隔事件，所以自己切。
-    private func sse(_ request: URLRequest) -> AsyncThrowingStream<SSEEvent, Error> {
+    func sse(_ request: URLRequest) -> AsyncThrowingStream<SSEEvent, Error> {
         var request = request
         request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
+        request.setValue("1", forHTTPHeaderField: "X-Maomao-Snapshot")
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {

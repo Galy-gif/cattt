@@ -1,11 +1,12 @@
+import { rethrowForQueue } from './model-error.ts';
 import { generateText, Output } from 'ai';
 import { and, desc, eq, gt, inArray, lt, lte, max } from 'drizzle-orm';
 import { z } from 'zod';
 import { db, dbNow } from '../db/client.ts';
-import { conversations, memories, memoryBlocks, messages, turns } from '../db/schema.ts';
+import { cats, conversations, memories, memoryBlocks, memoryReceipts, messages, turns } from '../db/schema.ts';
 import { EXTRACTOR_VERSION } from '../queue.ts';
 import { memoryFingerprint, normalize } from '../runtime/fingerprint.ts';
-import { extractSlot, recordModelCall, rethrowForQueue } from '../runtime/model.ts';
+import { extractSlot, recordModelCall } from '../runtime/model.ts';
 
 // 次要字段缺了给默认值，免得模型漏一个字段整次提取作废；
 // 敏感度不给默认值，缺了宁可这次不记
@@ -50,7 +51,8 @@ const MIN_CONFIDENCE = 0.6;
 
 export async function extractMemories(turnId: string, jobId: string) {
   const [turn] = await db.select().from(turns).where(eq(turns.id, turnId));
-  if (!turn || turn.extractedAt) return;
+  if (!turn) return false;
+  if (turn.extractedAt) return turn.remembered;
   // 作废和失败的轮次不提取：用户的话会跟着下一轮一起提
   if (turn.status !== 'completed' && turn.status !== 'stopped') return;
   const [conv] = await db.select().from(conversations).where(eq(conversations.id, turn.conversationId));
@@ -64,7 +66,7 @@ export async function extractMemories(turnId: string, jobId: string) {
     .from(messages)
     .where(and(eq(messages.conversationId, conv.id), eq(messages.role, 'cat'), lt(messages.seq, anchor.seq)));
   const userMessages = await db
-    .select({ text: messages.text })
+    .select({ text: messages.text, createdAt: messages.createdAt })
     .from(messages)
     .where(
       and(
@@ -86,10 +88,10 @@ export async function extractMemories(turnId: string, jobId: string) {
     .orderBy(desc(memories.lastConfirmedAt))
     .limit(60);
 
-  const today = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'full' }).format(new Date());
+  const today = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'full' }).format(anchor.createdAt);
   const existingBlock =
     existing.length > 0 ? existing.map((m) => `- ${m.subject}｜${m.predicate}｜${m.value}`).join('\n') : '（还没有）';
-  const dialogue = [...userMessages.map((m) => `用户：${m.text}`), ...(catReply ? [`猫：${catReply}`] : [])].join('\n');
+  const dialogue = [...userMessages.map((m) => `用户（${new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", dateStyle: "full" }).format(m.createdAt)}）：${m.text}`), ...(catReply ? [`猫：${catReply}`] : [])].join('\n');
 
   const slot = extractSlot();
   const started = Date.now();
@@ -108,7 +110,7 @@ export async function extractMemories(turnId: string, jobId: string) {
     const applied = await applyCandidate(conv.catId, turn.userMessageId, candidate);
     if (applied && candidate.explicit) remembered = true;
   }
-  await db.update(turns).set({ extractedAt: dbNow(), remembered }).where(eq(turns.id, turnId));
+  return remembered;
 }
 
 /**
@@ -126,12 +128,23 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
   const fingerprint = memoryFingerprint(c.subject, c.predicate);
 
   return db.transaction(async (tx) => {
+    await tx.select({ id: cats.id }).from(cats).where(eq(cats.id, catId)).for('update');
+    const [source] = await tx.select().from(messages).where(eq(messages.id, sourceMessageId));
+    if (!source) return false;
+    const [receipt] = await tx.select().from(memoryReceipts).where(and(eq(memoryReceipts.sourceMessageId, sourceMessageId), eq(memoryReceipts.fingerprint, fingerprint)));
+    if (receipt) return receipt.accepted;
+    const [prior] = await tx.select().from(memories).where(and(eq(memories.sourceMessageId, sourceMessageId), eq(memories.fingerprint, fingerprint)));
+    if (prior) return prior.status === 'active';
+    const finish = async (accepted: boolean) => {
+      await tx.insert(memoryReceipts).values({ catId, sourceMessageId, fingerprint, accepted }).onConflictDoNothing();
+      return accepted;
+    };
     const [blocked] = await tx
-      .select({ id: memoryBlocks.id })
+      .select()
       .from(memoryBlocks)
       .where(and(eq(memoryBlocks.catId, catId), eq(memoryBlocks.fingerprint, fingerprint)));
     if (blocked) {
-      if (!c.explicit) return false;
+      if (!c.explicit || source.seq <= blocked.sourceSeq) return finish(false);
       await tx.delete(memoryBlocks).where(eq(memoryBlocks.id, blocked.id));
     }
 
@@ -146,13 +159,19 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
         ),
       );
 
+    const sourceIds = current.map((m) => m.sourceMessageId);
+    const latestSources = sourceIds.length ? await tx.select({ seq: messages.seq }).from(messages).where(inArray(messages.id, sourceIds)) : [];
+    const confirmations = await tx.select({ seq: messages.seq }).from(memoryReceipts)
+      .innerJoin(messages, eq(messages.id, memoryReceipts.sourceMessageId))
+      .where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, fingerprint), eq(memoryReceipts.accepted, true)));
+    if ([...latestSources, ...confirmations].some((m) => m.seq > source.seq)) return finish(false);
     const same = current.find((m) => normalize(m.value) === normalize(c.value));
     if (same) {
       await tx
         .update(memories)
         .set({ lastConfirmedAt: dbNow(), explicit: same.explicit || c.explicit })
         .where(eq(memories.id, same.id));
-      return true;
+      return finish(true);
     }
 
     let status: 'active' | 'conflicted' = 'active';
@@ -183,6 +202,26 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
         extractorVersion: EXTRACTOR_VERSION,
       })
       .onConflictDoNothing();
+    return finish(true);
+  });
+}
+
+export async function deleteMemory(catId: string, memoryId: string): Promise<boolean> {
+  return db.transaction(async (tx) => {
+    await tx.select({ id: cats.id }).from(cats).where(eq(cats.id, catId)).for('update');
+    const [memory] = await tx.select().from(memories).where(and(eq(memories.id, memoryId), eq(memories.catId, catId)));
+    if (!memory) return false;
+    const sources = await tx.select({ id: memories.sourceMessageId }).from(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, memory.fingerprint)));
+    const { invalidateSoulSources } = await import('../soul/service.ts');
+    const confirmations = await tx.select({ id: memoryReceipts.sourceMessageId }).from(memoryReceipts)
+      .where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, memory.fingerprint)));
+    await invalidateSoulSources(tx, catId, [...new Set([...sources, ...confirmations].map((s) => s.id))]);
+    const [latest] = await tx.select({ seq: max(messages.seq) }).from(messages)
+      .innerJoin(conversations, eq(conversations.id, messages.conversationId)).where(eq(conversations.catId, catId));
+    await tx.insert(memoryBlocks).values({ catId, fingerprint: memory.fingerprint, sourceSeq: latest?.seq ?? 0 })
+      .onConflictDoUpdate({ target: [memoryBlocks.catId, memoryBlocks.fingerprint], set: { sourceSeq: latest?.seq ?? 0, createdAt: dbNow() } });
+    await tx.delete(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, memory.fingerprint)));
+    await tx.update(memoryReceipts).set({ accepted: false }).where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, memory.fingerprint)));
     return true;
   });
 }

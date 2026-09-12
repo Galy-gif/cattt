@@ -2,6 +2,7 @@ import { and, inArray, sql } from 'drizzle-orm';
 import { STALE_TURN_MS } from '../config.ts';
 import { db, dbNow } from '../db/client.ts';
 import { turns } from '../db/schema.ts';
+import { commitOutcome } from '../turns/store.ts';
 import { publish } from '../turns/events.ts';
 
 /**
@@ -10,18 +11,19 @@ import { publish } from '../turns/events.ts';
  */
 export async function sweepStaleTurns() {
   const stale = await db
-    .update(turns)
-    .set({ status: 'failed', error: 'stale: no heartbeat', finishedAt: dbNow() })
+    .select({ id: turns.id }).from(turns)
     .where(
       and(
         inArray(turns.status, ['queued', 'generating']),
         sql`coalesce(${turns.heartbeatAt}, ${turns.createdAt}) < now() - ${`${STALE_TURN_MS} milliseconds`}::interval`,
       ),
-    )
-    .returning({ id: turns.id });
+    );
 
   for (const t of stale) {
-    await publish(t.id, { event: 'error', data: { code: 'stale', retryable: true } });
+    const result = await commitOutcome(t.id, { status: 'failed', error: 'stale: no heartbeat', staleBeforeMs: STALE_TURN_MS });
+    if (!result.applied) continue;
+    await publish(t.id, { event: 'error', data: { code: 'stale', retryable: true } })
+      .catch((error) => console.error(`[sweep ${t.id}] 终态已保存，事件稍后从 PG 恢复`, error));
   }
   if (stale.length > 0) console.log(`[sweep] ${stale.length} 条卡住的回复判为失败`);
 }

@@ -1,6 +1,5 @@
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import { APICallError, type LanguageModel, type LanguageModelUsage, RetryError } from 'ai';
-import { UnrecoverableError } from 'bullmq';
 import { config } from '../config.ts';
 import { db } from '../db/client.ts';
 import { modelCalls } from '../db/schema.ts';
@@ -58,13 +57,6 @@ export function classifyModelError(err: unknown): ModelErrorInfo {
     }
   }
   return { code: 'model_error', retryable: true, summary: e instanceof Error ? e.message : String(e) };
-}
-
-/** 队列任务里用：重试也没用的错误标成 UnrecoverableError，BullMQ 就不再白白重试 */
-export function rethrowForQueue(err: unknown): never {
-  const info = classifyModelError(err);
-  if (!info.retryable) throw new UnrecoverableError(`${info.code}: ${info.summary}`);
-  throw err;
 }
 
 /** 成本账本：每次模型调用记一行，按用途分 */

@@ -53,3 +53,11 @@ pnpm smoke                     # 逐条走验收：流式、续传、作废、�
 docker compose exec postgres psql -U maomao -c \
   "select purpose, count(*), sum(input_tokens) input, sum(cache_read_tokens) cached, sum(output_tokens) output from model_calls group by 1"
 ```
+
+## 2026-09-12 本轮优化
+
+聊天已接 ToolLoopAgent，世界连接使用独立 SSE；新增每猫 Soul 与显式临时状态接口。后端与 iOS 协同变更、迁移顺序、验收结果和未完成能力见 [实施验收](../docs/specs/后端与Agent循环-实施验收-2026-09-12.md)。现有开发库升级前先停旧 API/worker，再执行 `pnpm db:migrate`；本轮迁移已在隔离库验证。
+
+世界协议在前台小院和聊天都可运行，后台、引导和手动暂停不开放移动。get_weather 已接 Open-Meteo，必须明确城市、重名需消歧；当前天气为模型估算，附来源/时间/单位，总 3 秒超时，地理缓存 24 小时、天气缓存 10 分钟。公共端点仅用于本机非商业开发，商业服务需另配符合条款的方案。
+
+本机 maomao 开发库已迁移至 0004；其它旧库需完整执行迁移，0004 修复旧删除阻断水位。Soul 当前接受明确调整，不自动从聊天推断人格；状态目前按显式有效期回到基线。运行 `pnpm dev` 启动本机服务，本轮隔离验证服务已停止。

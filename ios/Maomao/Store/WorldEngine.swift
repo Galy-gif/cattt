@@ -7,12 +7,20 @@ final class WorldEngine: ObservableObject {
     @Published private(set) var simulation: WorldSimulation
     @Published private(set) var loadError: String?
     var stateChanged: (() -> Void)?
+    var bridgeChanged: (() -> Void)?
+    var agentActionChanged: ((WorldCommand, String, String?) -> Void)?
+    private var activeAgentCommand: WorldCommand?
+    private var agentFinishUptime: Double?
+    private var lastBridgeSnapshot: WorldSnapshot?
+    private var bridgeVersion = 0
+    private var runtimeQuiet = false
     var frameChanged: ((Double) -> Void)?
     private var displayLink: CADisplayLink?
     private var clockTarget: WorldClockTarget?
     private var lastTick = ProcessInfo.processInfo.systemUptime
     private var foreground = true
     private var onHome = true
+    private var worldEnabled = true
     private var manuallyPaused = false
     private var accumulator = 0.0
     private var tickIntervals:[Double]=[]
@@ -56,8 +64,8 @@ final class WorldEngine: ObservableObject {
     private func advance() {
         let now=ProcessInfo.processInfo.systemUptime
         let dt=now-lastTick;lastTick=now
-        guard foreground,onHome,dt<0.5 else {return}
-        frameChanged?(dt)
+        guard foreground,worldEnabled,dt<0.5 else {return}
+        if onHome { frameChanged?(dt) }
         guard !manuallyPaused else {return}
         let start=ProcessInfo.processInfo.systemUptime
         let oldRevision=simulation.revision
@@ -73,7 +81,7 @@ final class WorldEngine: ObservableObject {
         if tickIntervals.count>9000 {tickIntervals.removeFirst()}
         accumulator += dt
         if oldRevision != simulation.revision || oldPhase != simulation.phase || oldTarget != simulation.target || oldCurrent != simulation.current || accumulator>0.1 {
-            accumulator=0;stateChanged?()
+            accumulator=0;notifyState()
         }
         let elapsed=(ProcessInfo.processInfo.systemUptime-start)*1000
         tickCount += 1;totalTickMilliseconds += elapsed;maxTickMilliseconds=max(maxTickMilliseconds,elapsed)
@@ -82,7 +90,7 @@ final class WorldEngine: ObservableObject {
         #endif
     }
     #if DEBUG
-    func placeForReview(_ index:Int) {simulation.placeForReview(index);stateChanged?()}
+    func placeForReview(_ index:Int) {interruptAgentMove(reason: "user_preempted");simulation.placeForReview(index);notifyState()}
     func writeSnapshot(label:String="world-metrics") {
         let intervals=tickIntervals.sorted()
         let p95=intervals.isEmpty ? 0:intervals[min(intervals.count-1,Int(Double(intervals.count)*0.95))]*1000
@@ -93,30 +101,103 @@ final class WorldEngine: ObservableObject {
         }
     }
     #endif
-    func setVisibility(home:Bool,foreground:Bool) {
-        onHome=home;self.foreground=foreground
-        displayLink?.isPaused = !home || !foreground
-        simulation.setPaused(!home || !foreground || manuallyPaused)
-        lastTick=ProcessInfo.processInfo.systemUptime
+    private func notifyState() {
+        inspectAgentAction()
+        stateChanged?()
+        bridgeChanged?()
     }
-    func request(_ index:Int) { simulation.request(index);stateChanged?() }
-    func poke() {simulation.poke();stateChanged?()}
+    /// 同一份后端临时状态控制自发活动；不把想安静冒充已经睡着。
+    func applyRuntimeState(energy: String, willingness: String) {
+        runtimeQuiet = energy == "resting" || willingness == "quiet"
+        simulation.autonomous = activeAgentCommand == nil && !runtimeQuiet
+    }
+    var canRunWorld: Bool { foreground && worldEnabled && !manuallyPaused }
+    func worldSnapshot() -> WorldSnapshot {
+        let destinations = scene.destinations
+        var snapshot = WorldSnapshot(stateVersion: bridgeVersion, sceneVersion: scene.version,
+            destinationIds: destinations.map(\.id), currentDestinationId: destinations[simulation.current].id,
+            targetDestinationId: destinations[simulation.pendingTarget ?? simulation.target].id,
+            phase: simulation.phase.rawValue, action: simulation.action,
+            paused: simulation.paused, runnable: canRunWorld)
+        if var previous = lastBridgeSnapshot {
+            previous.stateVersion = snapshot.stateVersion
+            if previous != snapshot { bridgeVersion += 1; snapshot.stateVersion = bridgeVersion }
+        }
+        lastBridgeSnapshot = snapshot
+        return snapshot
+    }
+    /// accepted 已经持久化后才执行；等待网络期间任何世界变化都会使命令失效。
+    func beginAgentMove(_ command: WorldCommand, finishAfter: Double) -> Bool {
+        let snapshot = worldSnapshot()
+        guard canRunWorld, snapshot.stateVersion == command.stateVersion,
+              let index = scene.destinations.firstIndex(where: { $0.id == command.destinationId }),
+              activeAgentCommand == nil else { return false }
+        activeAgentCommand = command
+        agentFinishUptime = ProcessInfo.processInfo.systemUptime + max(0, finishAfter)
+        simulation.autonomous = false
+        simulation.request(index)
+        agentActionChanged?(command, "running", nil)
+        notifyState()
+        return true
+    }
+    func interruptAgentMove(reason: String) {
+        guard let command = activeAgentCommand else { return }
+        activeAgentCommand = nil; agentFinishUptime = nil
+        simulation.autonomous = !runtimeQuiet
+        // 不强切出窝/下栏动画。用户请求走正常重定向；暂停保留安全过渡，回前台不重发命令。
+        agentActionChanged?(command, "interrupted", reason)
+    }
+    private func inspectAgentAction() {
+        guard let command = activeAgentCommand else { return }
+        if !canRunWorld { interruptAgentMove(reason: "world_paused"); return }
+        if let deadline = agentFinishUptime, ProcessInfo.processInfo.systemUptime >= deadline {
+            interruptAgentMove(reason: "execution_timeout"); return
+        }
+        guard let index = scene.destinations.firstIndex(where: { $0.id == command.destinationId }),
+              simulation.current == index, simulation.target == index,
+              simulation.pendingTarget == nil, !simulation.isMoving, !simulation.isTurning,
+              simulation.phase != .exiting else { return }
+        // treeScratch 在进窝之前，railUp 在上栏途中；这些都不能算进场完成。
+        let settled: Bool
+        if let interaction = simulation.interaction {
+            settled = [.nestLook, .nestSleep, .railLook, .railSleep, .pondLook, .pondReach,
+                       .pondTap, .pondWatch, .pondRest, .flower, .flowerWatch].contains(interaction.stage)
+        } else {
+            settled = simulation.phase == .idle || (simulation.phase == .interacting && index != 1 && index != 5)
+        }
+        if settled {
+            activeAgentCommand = nil; agentFinishUptime = nil; simulation.autonomous = !runtimeQuiet
+            agentActionChanged?(command, "arrived", nil)
+        }
+    }
+    func setVisibility(home:Bool,foreground:Bool,enabled:Bool = true) {
+        onHome=home;self.foreground=foreground;worldEnabled=enabled
+        displayLink?.isPaused = !enabled || !foreground
+        simulation.setPaused(!enabled || !foreground || manuallyPaused)
+        lastTick=ProcessInfo.processInfo.systemUptime
+        notifyState()
+    }
+    func request(_ index:Int) { interruptAgentMove(reason: "user_preempted"); simulation.request(index);notifyState() }
+    func poke() {interruptAgentMove(reason: "user_preempted");simulation.poke();notifyState()}
     func togglePause() {
-        manuallyPaused.toggle();simulation.setPaused(manuallyPaused || !foreground || !onHome)
-        lastTick=ProcessInfo.processInfo.systemUptime;stateChanged?()
+        interruptAgentMove(reason: "world_paused")
+        manuallyPaused.toggle();simulation.setPaused(manuallyPaused || !foreground || !worldEnabled)
+        lastTick=ProcessInfo.processInfo.systemUptime;notifyState()
     }
     func setSeed(_ value:UInt64) {simulation.seed(value)}
     func stepFrame() {
         guard let action=CatAction(rawValue:simulation.action) else {return}
         let spec=action.spec,index=spec.frame(at:simulation.actionTime)
         let duration=spec.frameDurations?[index] ?? (1/spec.fps)
-        simulation.stepFrame(duration+0.00001);stateChanged?()
+        simulation.stepFrame(duration+0.00001);notifyState()
     }
-    func preview(_ name:String) {manuallyPaused=true;simulation.preview(name);stateChanged?()}
+    func preview(_ name:String) {interruptAgentMove(reason: "world_paused");manuallyPaused=true;simulation.preview(name);notifyState()}
     func reset() {
+        interruptAgentMove(reason: "world_reset")
         simulation=WorldSimulation(scene:scene);manuallyPaused=false
-        simulation.setPaused(!foreground || !onHome)
-        stateChanged?()
+        simulation.autonomous = !runtimeQuiet
+        simulation.setPaused(!foreground || !worldEnabled)
+        notifyState()
     }
 }
 

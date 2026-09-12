@@ -1,8 +1,9 @@
+import { rethrowForQueue } from './model-error.ts';
 import { generateText } from 'ai';
 import { eq } from 'drizzle-orm';
 import { db } from '../db/client.ts';
 import { boundaries, messages } from '../db/schema.ts';
-import { extractSlot, recordModelCall, rethrowForQueue } from '../runtime/model.ts';
+import { extractSlot, recordModelCall } from '../runtime/model.ts';
 
 /** 把用户标了「不要再提」的那条消息，概括成一句「不要主动提起的话题」 */
 export async function summarizeBoundary(boundaryId: string, jobId: string) {

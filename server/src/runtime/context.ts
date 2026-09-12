@@ -4,6 +4,8 @@ import { CONTEXT_MESSAGES, RECALL_EXPLICIT, RECALL_RECENT } from '../config.ts';
 import { db } from '../db/client.ts';
 import { boundaries, cats, memories, messages } from '../db/schema.ts';
 import { personaBlock } from './persona.ts';
+import { snapshotSoul } from '../soul/service.ts';
+import { compileRuntime, compileSoul } from '../soul/rules.ts';
 
 /** 开发者版先按北京时间；以后按用户时区 */
 const TIME_ZONE = 'Asia/Shanghai';
@@ -18,9 +20,9 @@ export type TurnContext = {
  * 组装一轮回复的上下文，顺序是：性格（不变）→ 边界 → 记忆 → 当前时间。
  * 越靠前越稳定，前缀缓存命中越多。
  */
-export async function buildTurnContext(catId: string, conversationId: string): Promise<TurnContext> {
-  const [cat] = await db.select().from(cats).where(eq(cats.id, catId));
-  if (!cat) throw new Error(`cat ${catId} not found`);
+export async function buildTurnContext(catId: string, conversationId: string, turnId?: string): Promise<TurnContext> {
+  const snapshot = await snapshotSoul(catId, turnId);
+  const cat = snapshot.cat;
 
   const [boundaryRows, recalled, history] = await Promise.all([
     db
@@ -38,7 +40,8 @@ export async function buildTurnContext(catId: string, conversationId: string): P
       .limit(CONTEXT_MESSAGES),
   ]);
 
-  const parts = [personaBlock(cat)];
+  const parts = [personaBlock(cat), compileSoul(snapshot.soul.entries), compileRuntime(snapshot.runtime.state)].filter(Boolean);
+  parts.push('当前用户需要和最新明确边界优先于性格、习惯与临时状态；熟悉不自动授予许可。');
 
   if (boundaryRows.length > 0) {
     const lines = boundaryRows.map((b) => `- ${b.description ?? clip(b.text, 60)}`);

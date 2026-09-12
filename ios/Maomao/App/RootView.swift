@@ -72,7 +72,7 @@ struct RootView: View {
     }
 
     private func updateWorldVisibility() {
-        store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active)
+        store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active, enabled: store.onboarding == nil)
     }
 
     @ViewBuilder

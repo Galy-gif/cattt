@@ -76,6 +76,7 @@ export const messages = pgTable(
   (t) => [
     uniqueIndex('messages_client_id').on(t.conversationId, t.clientMessageId),
     index('messages_conversation_seq').on(t.conversationId, t.seq),
+    uniqueIndex('messages_cat_turn').on(t.turnId).where(sql`${t.role} = 'cat'`),
   ],
 );
 
@@ -179,6 +180,7 @@ export const memoryBlocks = pgTable(
       .notNull()
       .references(() => cats.id, { onDelete: 'cascade' }),
     fingerprint: text('fingerprint').notNull(),
+    sourceSeq: integer('source_seq').notNull().default(0),
     createdAt: createdAt(),
   },
   (t) => [uniqueIndex('memory_blocks_cat_fingerprint').on(t.catId, t.fingerprint)],
@@ -195,3 +197,31 @@ export const boundaries = pgTable('boundaries', {
   description: text('description'),
   createdAt: createdAt(),
 });
+
+/** PG 是异步任务的真相源，Redis 只是可重建的投递通道。 */
+export const asyncJobs = pgTable('async_jobs', {
+  id: id(),
+  kind: text('kind').notNull(),
+  sourceId: uuid('source_id').notNull(),
+  objectId: uuid('object_id').notNull(),
+  version: text('version').notNull(),
+  state: text('state').notNull().default('pending'),
+  attempts: integer('attempts').notNull().default(0),
+  nextAttemptAt: timestamp('next_attempt_at', { withTimezone: true }).notNull().defaultNow(),
+  leaseUntil: timestamp('lease_until', { withTimezone: true }),
+  error: text('error'),
+  remembered: boolean('remembered').notNull().default(false),
+  createdAt: createdAt(),
+}, (t) => [uniqueIndex('async_jobs_source_kind_version').on(t.sourceId, t.kind, t.version)]);
+
+/** 即使候选仅确认已有记忆，也保存来源凭证，重放不能再次改变状态。 */
+export const memoryReceipts = pgTable('memory_receipts', {
+  catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
+  sourceMessageId: uuid('source_message_id').notNull(),
+  fingerprint: text('fingerprint').notNull(),
+  accepted: boolean('accepted').notNull(),
+}, (t) => [uniqueIndex('memory_receipts_source_fingerprint').on(t.sourceMessageId, t.fingerprint)]);
+
+export * from './schema-world.ts';
+export * from './schema-soul.ts';
+export * from './schema-runtime.ts';

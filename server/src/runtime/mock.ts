@@ -32,6 +32,30 @@ export function mockChatModel() {
     modelId: 'mock-chat',
     doStream: async (options) => {
       const said = lastUserText(options);
+      if (options.toolChoice?.type !== 'none' && options.tools?.length) {
+        const toolReplies = options.prompt.filter((m) => m.role === 'tool').flatMap((m) => m.content);
+        const hasTime = toolReplies.some((p) => p.type === 'tool-result' && p.toolName === 'get_time');
+        const worldReply = toolReplies.find((p) => p.type === 'tool-result' && p.toolName === 'get_world_state');
+        const hasMove = toolReplies.some((p) => p.type === 'tool-result' && p.toolName === 'move_cat');
+        let toolName = said.includes('[time]') && !hasTime ? 'get_time' : 'finish_tools';
+        let toolInput: object = {};
+        if (said.includes('[move]') && !hasMove) {
+          if (!worldReply) toolName = 'get_world_state';
+          else if (worldReply.type === 'tool-result' && worldReply.output.type === 'json') {
+            const observation = worldReply.output.value as { data?: { available?: boolean; sessionId: string; generation: string; stateVersion: number } };
+            if (observation.data?.available && options.tools.some(t => t.name === 'move_cat')) {
+              toolName = 'move_cat';
+              toolInput = { destinationId: 'pond', sessionId: observation.data.sessionId, generation: observation.data.generation, stateVersion: observation.data.stateVersion };
+            }
+          }
+        }
+        return { stream: new ReadableStream<LanguageModelV4StreamPart>({ start(controller) {
+          controller.enqueue({ type: 'stream-start', warnings: [] });
+          controller.enqueue({ type: 'tool-call', toolCallId: `mock-${toolName}`, toolName, input: JSON.stringify(toolInput) });
+          controller.enqueue({ type: 'finish', finishReason: { unified: 'tool-calls', raw: 'tool_calls' }, usage: usage(200, 5) });
+          controller.close();
+        } }) };
+      }
       const reply = `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`;
       const chars = Array.from(reply);
       const delay = said.includes('[slow]') ? 300 : config.MOCK_DELAY_MS;

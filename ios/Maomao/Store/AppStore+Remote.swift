@@ -31,6 +31,7 @@ extension AppStore {
         isStreaming = false
         backend.mode = mode
         if mode == .mock {
+            worldBridge?.stop(); worldBridge = nil
             messages = SeedData.messages
             memoryCount = 37
             boundaryCount = 2
@@ -42,11 +43,14 @@ extension AppStore {
 
     /// 接后端时拉最近 50 条聊天记录和「我的」页的两个数。
     func connectBackend() {
+        worldBridge?.stop(); worldBridge = nil
         guard backend.isRemote else { return }
         guard !backend.token.isEmpty else {
             backendStatus = "还没填 token"
             return
         }
+        worldBridge = WorldBridge(engine: world, api: api)
+        worldBridge?.start()
         backendStatus = "连接中…"
         // 连不上时别留着本地模拟的示例对话，看着像真的
         if messages == SeedData.messages { messages = [] }
@@ -124,7 +128,7 @@ extension AppStore {
                         isWaiting = true
                         armWatchdog(turnID: data.turnId)
 
-                    case "delta":
+                    case "delta", "snapshot":
                         guard !remoteStopped else { continue }
                         watchdogTask?.cancel()
                         let data = try APIClient.decode(TurnEventData.Delta.self, from: event.data)
@@ -137,7 +141,8 @@ extension AppStore {
                             return id
                         }()
                         if let index = messages.firstIndex(where: { $0.id == id }) {
-                            messages[index].text += data.text
+                            if event.event == "snapshot" { messages[index].text = data.text }
+                            else { messages[index].text += data.text }
                         }
 
                     case "done":
@@ -218,11 +223,11 @@ extension AppStore {
         }
     }
 
-    /// accepted 之后 20 秒还没有第一个字：判超时，顺手让服务端停掉这一轮。
+    /// 工具循环允许 45 秒；客户端留 5 秒传输余量，不在工具阶段提前停止。
     private func armWatchdog(turnID: String) {
         watchdogTask?.cancel()
         watchdogTask = Task { @MainActor [weak self] in
-            try? await Self.sleep(20_000)
+            try? await Self.sleep(50_000)
             guard !Task.isCancelled, let self else { return }
             chatTask?.cancel()
             let api = api

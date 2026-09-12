@@ -1,5 +1,5 @@
 import { and, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
-import { db } from '../db/client.ts';
+import { db, dbNow, type Tx } from '../db/client.ts';
 import { cats, conversations, messages, turns } from '../db/schema.ts';
 import { publish, requestCancel } from './events.ts';
 import { startTurn } from './run.ts';
@@ -25,6 +25,7 @@ export async function createSendTurn(
   text: string,
 ): Promise<{ turnId: string; userMessageId: string; created: boolean }> {
   const result = await db.transaction(async (tx) => {
+    await tx.select().from(conversations).where(eq(conversations.id, owner.conversationId)).for('update');
     const [inserted] = await tx
       .insert(messages)
       .values({ conversationId: owner.conversationId, role: 'user', text, clientMessageId })
@@ -42,7 +43,7 @@ export async function createSendTurn(
         .where(eq(turns.userMessageId, existing!.id))
         .orderBy(desc(turns.createdAt))
         .limit(1);
-      return { turnId: turn!.id, userMessageId: existing!.id, created: false };
+      return { turnId: turn!.id, userMessageId: existing!.id, created: false, cancelled: [] as string[] };
     }
 
     const [conv] = await tx
@@ -54,16 +55,17 @@ export async function createSendTurn(
       .insert(turns)
       .values({ conversationId: owner.conversationId, userMessageId: inserted.id, inputVersion: conv!.version })
       .returning({ id: turns.id });
-    return { turnId: turn!.id, userMessageId: inserted.id, created: true };
+    return { turnId: turn!.id, userMessageId: inserted.id, created: true, cancelled: await cancelPending(tx, owner.conversationId, turn!.id) };
   });
 
-  if (result.created) await launch(owner, result.turnId, result.userMessageId);
+  if (result.created) await launch(result.turnId, result.userMessageId, result.cancelled);
   return result;
 }
 
 /** 对已有的用户消息重新回复（超时后「再试一次」）。不新增用户消息，所以 version 不变。 */
 export async function createReplyTurn(owner: Owner, userMessageId: string): Promise<{ turnId: string } | null> {
-  const turnId = await db.transaction(async (tx) => {
+  const result = await db.transaction(async (tx) => {
+    await tx.select().from(conversations).where(eq(conversations.id, owner.conversationId)).for('update');
     const [msg] = await tx
       .select({ id: messages.id })
       .from(messages)
@@ -83,29 +85,29 @@ export async function createReplyTurn(owner: Owner, userMessageId: string): Prom
       .insert(turns)
       .values({ conversationId: owner.conversationId, userMessageId, inputVersion: conv!.version })
       .returning({ id: turns.id });
-    return turn!.id;
+    return { turnId: turn!.id, cancelled: await cancelPending(tx, owner.conversationId, turn!.id) };
   });
-  if (!turnId) return null;
-  await launch(owner, turnId, userMessageId);
-  return { turnId };
+  if (!result) return null;
+  await launch(result.turnId, userMessageId, result.cancelled);
+  return { turnId: result.turnId };
 }
 
-async function launch(owner: Owner, turnId: string, userMessageId: string) {
-  await publish(turnId, { event: 'accepted', data: { turn_id: turnId, user_message_id: userMessageId } });
+async function cancelPending(tx: Tx, conversationId: string, except: string): Promise<string[]> {
+  const rows = await tx.update(turns).set({ status: 'superseded', finishedAt: dbNow() }).where(and(
+    eq(turns.conversationId, conversationId), inArray(turns.status, ['queued', 'generating']),
+    isNull(turns.firstTokenAt), ne(turns.id, except),
+  )).returning({ id: turns.id });
+  return rows.map(row => row.id);
+}
 
-  // 还没开口的旧回复作废：用户补了一句，新的这一轮会把两句一起回。已经开口的让它说完。
-  const pending = await db
-    .select({ id: turns.id })
-    .from(turns)
-    .where(
-      and(
-        eq(turns.conversationId, owner.conversationId),
-        inArray(turns.status, ['queued', 'generating']),
-        isNull(turns.firstTokenAt),
-        ne(turns.id, turnId),
-      ),
-    );
-  await Promise.all(pending.map((t) => requestCancel(t.id, 'supersede')));
-
-  startTurn(turnId);
+async function launch(turnId: string, userMessageId: string, cancelled: string[]) {
+  // 输入已落库，即使 Redis 发布失败也启动执行/失败收尾，不留无人认领的 queued。
+  try {
+    await publish(turnId, { event: 'accepted', data: { turn_id: turnId, user_message_id: userMessageId } });
+    for (const id of cancelled) {
+      await requestCancel(id, 'supersede').catch(() => {});
+      await publish(id, { event: 'superseded', data: { turn_id: id } }).catch(() => {});
+    }
+  } catch (error) { console.error(`[turn ${turnId}] accepted 投递失败`, error); }
+  finally { startTurn(turnId); }
 }

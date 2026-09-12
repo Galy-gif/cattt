@@ -29,6 +29,7 @@ final class AppStore: ObservableObject {
     /// Debug comparison only; not persisted as a new product setting.
     @Published var worldDepthEnabled = true
     let world = WorldEngine()
+    var worldBridge: WorldBridge?
     @Published var viewedIndex = 0
     @Published private(set) var reaction: String?
     @Published private(set) var camera = WorldCamera()

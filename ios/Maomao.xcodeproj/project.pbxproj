@@ -10,6 +10,9 @@
 		F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */; };
 		E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */; };
 		A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C908A7DB0E92D34F9C84C967 /* Backend.swift */; };
+		836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */; };
+		E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */; };
+		9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */; };
 		B485FFB3A10979FD02FA68B5 /* DebugPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583FD250B759CC0529658A18 /* DebugPanel.swift */; };
 		F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4203F85727B26935CFD648C /* DebugScript.swift */; };
 		82D0A61B87B8447177641A95 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58F8802EEFAB15733FBF52 /* Icons.swift */; };
@@ -87,6 +90,9 @@
 		6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaomaoApp.swift; sourceTree = "<group>"; };
 		9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C908A7DB0E92D34F9C84C967 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridge.swift; sourceTree = "<group>"; };
+		C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeModels.swift; sourceTree = "<group>"; };
+		2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeProtocol.swift; sourceTree = "<group>"; };
 		583FD250B759CC0529658A18 /* DebugPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPanel.swift; sourceTree = "<group>"; };
 		A4203F85727B26935CFD648C /* DebugScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugScript.swift; sourceTree = "<group>"; };
 		CE58F8802EEFAB15733FBF52 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -199,6 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				C908A7DB0E92D34F9C84C967 /* Backend.swift */,
+				A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */,
+				C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */,
+				2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -490,6 +499,9 @@
 				F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */,
 				A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */,
+				836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */,
+				E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */,
+				9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */,
 				B485FFB3A10979FD02FA68B5 /* DebugPanel.swift in Sources */,
 				F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */,
 				82D0A61B87B8447177641A95 /* Icons.swift in Sources */,
