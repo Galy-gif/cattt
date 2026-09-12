@@ -4,6 +4,7 @@ import ImageIO
 /// Visible tiles survive until replacements are decoded. Objects remain resident.
 @MainActor final class WorldTextureCache: ObservableObject {
     @Published private(set) var images: [String:UIImage] = [:]
+    private(set) var skyline:[Float] = []
     private var desired=Set<String>()
     private var pending=Set<String>()
     private var failed=Set<String>()
@@ -15,11 +16,14 @@ import ImageIO
             let needed=Int(ceil(max(rect.width/source.width*World.refSize.width,rect.height/source.height*World.refSize.height)*3.5))
             pixelLimits[object.image]=max(pixelLimits[object.image] ?? 0,needed)
         }
+        // The same leaf asset now also frames the near edge at a larger display size.
+        pixelLimits["world-v2-grass"]=max(pixelLimits["world-v2-grass"] ?? 0,900)
         pixelLimits["world-v3-ground-preview"]=1800
         pixelLimits["world-v5-felt-grain"]=512
         for name in Set(scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]) {
             if let image=Self.decode(name,limit:pixelLimits[name] ?? 1200) {images[name]=image}
         }
+        if let plate=images["world-v3-ground-preview"]?.cgImage {skyline=WorldDepth.skyline(from:plate)}
     }
     nonisolated private static func decode(_ name:String,limit:Int)->UIImage? {
         guard let url=Bundle.main.url(forResource:name,withExtension:"png"),

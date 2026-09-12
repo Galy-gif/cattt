@@ -22,7 +22,7 @@ func save(_ image:CGImage,_ url:URL) throws {
     CGImageDestinationAddImage(d,image,nil);precondition(CGImageDestinationFinalize(d))
 }
 struct Cell {let image:CGImage;let crop:CGRect;let cellSize:CGSize}
-func extract(_ im:CGImage,_ index:Int,columns:Int=4,rows:Int=4)->Cell {
+func extract(_ im:CGImage,_ index:Int,columns:Int=4,rows:Int=4,protectHighlights:Bool=false)->Cell {
     let x0=im.width*(index%columns)/columns,x1=im.width*(index%columns+1)/columns
     let y0=im.height*(index/columns)/rows,y1=im.height*(index/columns+1)/rows
     let input=im.cropping(to:CGRect(x:x0,y:y0,width:x1-x0,height:y1-y0))!
@@ -31,8 +31,34 @@ func extract(_ im:CGImage,_ index:Int,columns:Int=4,rows:Int=4)->Cell {
     ctx.draw(input,in:CGRect(x:0,y:0,width:w,height:h))
     let p=ctx.data!.assumingMemoryBound(to:UInt8.self)
     let nativeAlpha=[CGImageAlphaInfo.premultipliedLast,.premultipliedFirst,.last,.first].contains(input.alphaInfo)
+    var background = Set<Int>()
+    if protectHighlights && !nativeAlpha {
+        // Generated RGB sprites can contain a neutral preview backdrop. Remove only
+        // large connected neutral regions, retaining cream rope highlights inside.
+        var seen = Set<Int>()
+        for start in 0..<w*h where !seen.contains(start) {
+            let i=start*4
+            guard Int(max(p[i],p[i+1],p[i+2]))-Int(min(p[i],p[i+1],p[i+2])) < 18 else {continue}
+            var part=[start],cursor=0
+            seen.insert(start)
+            while cursor<part.count {
+                let n=part[cursor];cursor += 1
+                for next in [n-1,n+1,n-w,n+w] where next>=0 && next<w*h && abs(next%w-n%w)<=1 && !seen.contains(next) {
+                    let j=next*4
+                    if Int(max(p[j],p[j+1],p[j+2]))-Int(min(p[j],p[j+1],p[j+2])) < 18 {
+                        seen.insert(next);part.append(next)
+                    }
+                }
+            }
+            if part.count > 500 {background.formUnion(part)}
+        }
+    }
     for n in 0..<w*h {
         if nativeAlpha {continue}
+        if protectHighlights {
+            if background.contains(n) {for c in 0..<4 {p[n*4+c]=0}}
+            continue
+        }
         let i=n*4,r=Double(p[i]),g=Double(p[i+1]),b=Double(p[i+2])
         let a=min(1,max(0,(max(r,g,b)-min(r,g,b)-12)/22))
         for c in 0..<4 {p[i+c]=UInt8(Double(p[i+c])*a)}
@@ -56,6 +82,13 @@ func extract(_ im:CGImage,_ index:Int,columns:Int=4,rows:Int=4)->Cell {
     }
     let bounds=CGRect(x:minX,y:minY,width:maxX-minX+1,height:maxY-minY+1)
     return Cell(image:ctx.makeImage()!.cropping(to:bounds)!,crop:bounds,cellSize:CGSize(width:w,height:h))
+}
+// Reimport the nest without rebuilding unrelated cat animation atlases.
+if CommandLine.arguments.contains("--nest-only") {
+    let input = extract(load("nest-source"), 0, columns: 1, rows: 1, protectHighlights: true).image
+    try save(input, root.appendingPathComponent("ios/Maomao/Resources/WorldTextures/world-v4-nest.png"))
+    print("Imported nest", input.width, input.height)
+    exit(0)
 }
 struct Pose {let sheet:String;let cell:Int;let anchor:CGPoint;let head:Double}
 func pose(_ sheet:String,_ i:Int,_ x:Double=0.58,_ y:Double=0.90,_ head:Double=0.36)->Pose {Pose(sheet:sheet,cell:i,anchor:CGPoint(x:x,y:y),head:head)}
@@ -127,6 +160,6 @@ catalog["actions"]=specs
 try json(catalog,root.appendingPathComponent("ios/Maomao/Assets.xcassets/cat-actions-v2.dataset/data.json"))
 try json(["info":info],xc.appendingPathComponent("Contents.json"))
 for (sourceName,outputName) in [("nest-source","world-v4-nest")] {
-    let input=extract(load(sourceName),0,columns:1,rows:1).image
+    let input=extract(load(sourceName),0,columns:1,rows:1,protectHighlights:true).image
     try save(input,root.appendingPathComponent("ios/Maomao/Resources/WorldTextures/"+outputName+".png"))
 }

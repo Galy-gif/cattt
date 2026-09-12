@@ -7,6 +7,7 @@ struct WorldView: View {
 
 private struct WorldCanvas: View {
     @EnvironmentObject private var store: AppStore
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @ObservedObject var engine:WorldEngine
     @ObservedObject var textures:WorldTextureCache
     @ObservedObject private var frames=CatFrameCache.shared
@@ -19,16 +20,14 @@ private struct WorldCanvas: View {
             let camera=store.cameraX
             ZStack(alignment:.topLeading) {
                 Color(red:0.42,green:0.68,blue:0.82).saturation(scenerySaturation).zIndex(-2)
-                texture("world-v3-ground-preview",rect:WorldRect(x:0,y:0,width:1,height:1),geo:geo).zIndex(-1.5)
-                ForEach(engine.scene.tiles.filter {visible($0.rect,camera:camera,geo:geo)}) { tile in
-                    texture(tile.image,rect:tile.rect,geo:geo).zIndex(-1)
-                }
+                background(geo:geo, camera:camera).zIndex(-1)
                 ForEach(engine.scene.objects) { object in
                     objectLayer(object,geo:geo).zIndex(object.depth)
                 }
                 water(geo:geo).saturation(scenerySaturation).zIndex(0.53)
                 shadow(geo:geo).zIndex(engine.simulation.point.y-0.001)
                 cat(geo:geo).zIndex(catDepth)
+                if store.worldDepthEnabled { foreground(geo:geo).zIndex(2) }
                 feltGrain(geo:geo).zIndex(5)
             }
             .frame(width:proxy.size.width,height:proxy.size.height).clipped()
@@ -43,8 +42,99 @@ private struct WorldCanvas: View {
             .onChange(of:proxy.size) {store.worldGeometry=WorldGeometry(screen:proxy.size);store.prepareWorldTextures()}
         }
     }
-    private func visible(_ r:WorldRect,camera:Double,geo:WorldGeometry)->Bool {
-        r.x+r.width>=camera-geo.halfScreen-0.02 && r.x<=camera+geo.halfScreen+0.02
+    private var hasDepth:Bool {store.worldDepthEnabled && !textures.skyline.isEmpty}
+    private var parallaxEnabled: Bool {hasDepth && !reduceMotion}
+
+    /// Three rigid planes share one camera. The near plane is the unmodified original
+    /// geometry; only decorative sky/ridge pixels move at a different speed.
+    private func background(geo:WorldGeometry, camera:Double)->some View {
+        let size=geo.bgSize
+        return ZStack(alignment:.topLeading) {
+            if hasDepth, let preview=textures.images["world-v3-ground-preview"] {
+                farPlate(preview,size:size)
+                    .layerEffect(ShaderLibrary.courtyardSky(.float2(size),.floatArray(textures.skyline),.float(Double(textures.skyline.count))),
+                                 maxSampleOffset:CGSize(width:0,height:size.height*0.58))
+                    .saturation(scenerySaturation)
+                    .offset(x:geo.backgroundOffsetX(cameraX:WorldDepth.camera(camera,rate:WorldDepth.skyRate,enabled:parallaxEnabled)))
+                farPlate(preview,size:size)
+                    .colorEffect(ShaderLibrary.courtyardRidge(.float2(size),.floatArray(textures.skyline),.float(Double(textures.skyline.count))))
+                    .saturation(scenerySaturation*0.92)
+                    .offset(x:geo.backgroundOffsetX(cameraX:WorldDepth.camera(camera,rate:WorldDepth.ridgeRate,enabled:parallaxEnabled)))
+            }
+            groundPlate(geo:geo,camera:camera)
+                .mask {
+                    if hasDepth {
+                        LinearGradient(stops:[
+                            .init(color:.clear,location:0),
+                            .init(color:.clear,location:0.535),
+                            .init(color:.white,location:WorldDepth.groundStart),
+                            .init(color:.white,location:1)
+                        ],startPoint:.top,endPoint:.bottom)
+                    } else {Color.white}
+                }
+                .offset(x:geo.backgroundOffsetX(cameraX:camera))
+        }
+        .frame(width:geo.screen.width,height:geo.screen.height,alignment:.topLeading)
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func farPlate(_ image:UIImage,size:CGSize)->some View {
+        Image(uiImage:image).resizable()
+            .frame(width:size.width,height:size.height)
+            .frame(width:size.width,height:size.height*0.58,alignment:.top)
+            .clipped()
+            .drawingGroup(opaque:true)
+    }
+
+    private func groundPlate(geo:WorldGeometry,camera:Double)->some View {
+        let size=geo.bgSize
+        return ZStack(alignment:.topLeading) {
+            if let preview=textures.images["world-v3-ground-preview"] {
+                Image(uiImage:preview).resizable().frame(width:size.width,height:size.height)
+            }
+            ForEach(engine.scene.tiles.filter {visible($0.rect,camera:camera,geo:geo)}) { tile in
+                if let image=textures.images[tile.image] {
+                    Image(uiImage:image).resizable()
+                        .frame(width:tile.rect.width*size.width,height:tile.rect.height*size.height)
+                        .position(x:tile.rect.center.x*size.width,y:tile.rect.center.y*size.height)
+                }
+            }
+        }
+        .frame(width:size.width,height:size.height)
+        .saturation(scenerySaturation)
+    }
+
+    /// Reuse the existing felt leaves at the lens edge. These are decorations only;
+    /// interactive grass and its occlusion/hit regions remain attached to the ground.
+    private func foreground(geo:WorldGeometry)->some View {
+        let clumps:[(x:Double,y:Double,w:Double,h:Double,mirror:Bool)] = [
+            (0.035,1.045,0.17,0.19,false),
+            (0.335,1.06,0.15,0.17,true),
+            (0.655,1.04,0.16,0.18,false),
+            (0.955,1.06,0.19,0.21,true)
+        ]
+        return ZStack(alignment:.topLeading) {
+            if let grass=textures.images["world-v2-grass"] {
+                ForEach(clumps.indices,id:\.self) { i in
+                    let clump=clumps[i]
+                    let x=WorldDepth.foregroundX(clump.x,camera:store.cameraX,enabled:parallaxEnabled)*geo.bgSize.width+geo.screen.width/2
+                    Image(uiImage:grass).resizable()
+                        .frame(width:clump.w*geo.bgSize.width,height:clump.h*geo.bgSize.height)
+                        .scaleEffect(x:clump.mirror ? -1:1,y:1)
+                        .saturation(0.66).brightness(-0.04)
+                        .blur(radius:0.7)
+                        .position(x:x,y:(clump.y-clump.h/2)*geo.bgSize.height)
+                }
+            }
+        }
+        .frame(width:geo.screen.width,height:geo.screen.height)
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func visible(_ r:WorldRect,camera:Double,geo:WorldGeometry,margin:Double = 0.02)->Bool {
+        r.x+r.width>=camera-geo.halfScreen-margin && r.x<=camera+geo.halfScreen+margin
     }
     private func texture(_ name:String,rect:WorldRect,source:WorldRect? = nil,cutouts:[WorldRect] = [],outline:[WorldPoint]? = nil,cutoutPaths:[[WorldPoint]] = [],geo:WorldGeometry)->some View {
         let w=rect.width*geo.bgSize.width,h=rect.height*geo.bgSize.height

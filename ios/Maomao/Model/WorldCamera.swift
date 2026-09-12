@@ -1,6 +1,6 @@
 import Foundation
 
-/// One presented world coordinate; scene layers never animate independently.
+/// One presented world coordinate; decorative depth derives from this same clock.
 struct WorldCamera {
     enum Mode { case manual, gliding, returning, following }
     private(set) var x: Double = 0.20

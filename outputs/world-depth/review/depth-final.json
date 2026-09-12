@@ -1,0 +1,17 @@
+{
+  "p95TimerIntervalMilliseconds" : 0,
+  "paused" : true,
+  "x" : 0.13700000000000001,
+  "textureValidationError" : "",
+  "foreground" : true,
+  "worldSeconds" : 0,
+  "meanSimulationMilliseconds" : 0,
+  "onHome" : true,
+  "ticks" : 0,
+  "current" : 0,
+  "phase" : "idle",
+  "target" : 0,
+  "y" : 0.64800000000000002,
+  "action" : "sleepyNod",
+  "maxSimulationMilliseconds" : 0
+}

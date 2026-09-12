@@ -52,3 +52,6 @@ outputs/rig-v1-review/*__deltaE.png
 # 信箱改版验收：原尺寸截图只留本地，提交 *-small.png
 outputs/nav-mailbox/review/*.png
 !outputs/nav-mailbox/review/*-small.png
+# 世界纵深与树窝验收：原尺寸截图只留本地，提交压缩后的 JPEG
+outputs/world-depth/review/*.png
+outputs/nest-style/review/*.png

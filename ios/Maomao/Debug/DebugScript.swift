@@ -20,6 +20,7 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "depth": store.worldDepthEnabled = arg != "off"
                 case "moveCat": if let i = Int(arg) { store.moveCat(to: i) }
                 case "look": if let i = Int(arg) { store.look(at: i) }
                 case "findCat": store.findCat()

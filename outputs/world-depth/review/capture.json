@@ -1,0 +1,5 @@
+{
+  "script": "0:place:0;50:pause;100:depth:off;1800:depth:on;4500:look:4;7500:look:5;10500:findCat;13500:look:1;15500:findCat;17500:snapshot:depth-final",
+  "peakRSSMiB": 394.078125,
+  "samples": 57
+}

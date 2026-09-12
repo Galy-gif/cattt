@@ -26,6 +26,8 @@ final class AppStore: ObservableObject {
 
     // MARK: - 世界
 
+    /// Debug comparison only; not persisted as a new product setting.
+    @Published var worldDepthEnabled = true
     let world = WorldEngine()
     @Published var viewedIndex = 0
     @Published private(set) var reaction: String?

@@ -37,7 +37,7 @@ def pbx_str(value: str) -> str:
 
 
 def collect():
-    """Return (swift_files, resource_files) as paths relative to SOURCE_DIR."""
+    """Return (source_files, resource_files) as paths relative to SOURCE_DIR."""
     swift, resources = [], []
     for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, SOURCE_DIR)):
         dirnames.sort()
@@ -53,7 +53,7 @@ def collect():
         for name in sorted(filenames):
             if name.endswith(".png") and rel_dir.startswith("Resources/WorldTextures"):
                 resources.append(os.path.join(rel_dir, name))
-            if name.endswith(".swift"):
+            if name.endswith((".swift", ".metal")):
                 swift.append(os.path.join(rel_dir, name) if rel_dir else name)
     return sorted(swift), sorted(resources)
 
@@ -116,8 +116,8 @@ def main():
         % (oid("product"), PROJECT, PROJECT))
     for path in swift_files:
         name = os.path.basename(path)
-        out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, pbx_str(name)))
+        out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "sourcecode.metal" if path.endswith(".metal") else "sourcecode.swift", pbx_str(name)))
     for path in resource_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
@@ -370,7 +370,7 @@ def main():
     with open(os.path.join(project_dir, "project.pbxproj"), "w") as handle:
         handle.write("\n".join(lines) + "\n")
 
-    print("%d Swift files, %d resources → %s/project.pbxproj"
+    print("%d source files, %d resources → %s/project.pbxproj"
           % (len(swift_files), len(resource_files), PROJECT + ".xcodeproj"))
 
 

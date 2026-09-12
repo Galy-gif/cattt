@@ -114,6 +114,9 @@ struct DebugPanel: View {
                 }
 
                 group("世界") {
+                    action(store.worldDepthEnabled ? "纵深：开 → 对比原版" : "纵深：关 → 开启") {
+                        store.worldDepthEnabled.toggle()
+                    }
                     ForEach(Array(Location.all.enumerated()), id: \.offset) { i,location in
                         action("去"+location.name) { store.interact(with:i) }
                     }

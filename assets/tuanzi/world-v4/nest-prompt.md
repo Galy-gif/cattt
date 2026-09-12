@@ -1,0 +1,9 @@
+# Tree nest style · 2026-09-11
+
+Generated with built-in image_gen, using the previous world-v4-nest.png as the edit target. Selected first result; the background-extraction retry was discarded. The generated RGB preview backdrop is removed by the existing Swift importer, with connected-region handling to preserve cream highlights. Runtime asset: ios/Maomao/Resources/WorldTextures/world-v4-nest.png.
+
+Import: `swift assets/tools/package_world_v4.swift --nest-only`
+
+## Selected prompt
+
+Use case: precise-object-edit. Edit target: the attached isolated hanging cat nest game sprite. Redesign this nest into a polished adorable cozy handcrafted wool-felt and cotton-rope hanging cat cocoon for a cute tactile miniature garden. Preserve the EXACT tall teardrop silhouette, top hanging loop position, front-facing slightly top-down camera, overall bounding box proportions, and opening position (opening spans approximately x=15%-85%, y=51%-86%; floor at 86% of full image height), because an animated cat will be placed here separately. Refine chunky brick-like weaving into finer rounded cream/oatmeal braided cotton strands, softly fuzzy realistic felt texture, warm neutral ivory not bright yellow. A welcoming visibly deep interior with soft warm ambient occlusion rather than pitch-black, a pale sage green softly padded cushion inside at the bottom, slim rounded plush cream rim. Add only one tiny sage felt leaf tucked into rope knot near top as subtle detail. Keep nest structural volume and realistic contact shadows within the object. Full isolated sprite, genuine transparent background, no ground or background shadow, no cat, no additional props, no lettering, no watermark. Soft light from upper left. Make beautiful refined game-ready material matching the source artisanal tactile style; no flat cartoon outline. All extremities fully visible.
