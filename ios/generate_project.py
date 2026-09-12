@@ -53,6 +53,8 @@ def collect():
         for name in sorted(filenames):
             if name.endswith(".png") and rel_dir.startswith("Resources/WorldTextures"):
                 resources.append(os.path.join(rel_dir, name))
+            if name.endswith(".m4a") and rel_dir.startswith("Resources/Audio"):
+                resources.append(os.path.join(rel_dir, name))
             if name.endswith((".swift", ".metal")):
                 swift.append(os.path.join(rel_dir, name) if rel_dir else name)
     return sorted(swift), sorted(resources)
@@ -121,7 +123,7 @@ def main():
     for path in resource_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "image.png", pbx_str(name)))
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "audio.m4a" if path.endswith(".m4a") else "image.png", pbx_str(name)))
     out("/* End PBXFileReference section */")
 
     # ---- PBXFrameworksBuildPhase

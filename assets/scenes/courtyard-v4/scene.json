@@ -733,6 +733,32 @@
       "depth": 0.6151,
       "target": 1,
       "motion": "nest"
+    },
+    {
+      "id": "water",
+      "image": "world-v6-water",
+      "rect": {
+        "x": 0.19495,
+        "y": 0.60478,
+        "width": 0.02225,
+        "height": 0.01152
+      },
+      "depth": 0.631,
+      "target": 0,
+      "visibility": "water"
+    },
+    {
+      "id": "window-lit",
+      "image": "world-v6-window-lit",
+      "rect": {
+        "x": 0.1805,
+        "y": 0.50573,
+        "width": 0.04722,
+        "height": 0.08966
+      },
+      "depth": 0.632,
+      "target": 0,
+      "visibility": "lit"
     }
   ],
   "nodes": [
@@ -910,6 +936,13 @@
         "x": 0.94,
         "y": 0.566
       }
+    },
+    {
+      "id": "bowl",
+      "point": {
+        "x": 0.15815,
+        "y": 0.63047
+      }
     }
   ],
   "edges": [
@@ -1055,6 +1088,12 @@
       "a": "m12",
       "b": "d4-0",
       "width": 0.026,
+      "main": false
+    },
+    {
+      "a": "m0",
+      "b": "bowl",
+      "width": 0.033,
       "main": false
     }
   ],
@@ -1203,5 +1242,11 @@
   "nestPivot": {
     "x": 0.3105,
     "y": 0.3949
+  },
+  "bowlHit": {
+    "x": 0.18525,
+    "y": 0.58454,
+    "width": 0.04166,
+    "height": 0.06156
   }
 }

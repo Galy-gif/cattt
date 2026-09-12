@@ -11,6 +11,14 @@ export const snapshotSchema = z.object({
   action: z.string().min(1).max(80),
   paused: z.boolean(),
   runnable: z.boolean(),
+  // 院子里的事实，聊天只读（性格系统优化方案第 2.3 节）。老版本 App 不带这些字段。
+  mood: z.enum(['calm', 'happy', 'sulk', 'sad']).default('calm'),
+  moodReason: z.string().max(60).default(''),
+  dayPhase: z.enum(['dawn', 'day', 'dusk', 'evening', 'night']).default('day'),
+  weather: z.enum(['clear', 'rain']).default('clear'),
+  bowlFilledToday: z.boolean().default(false),
+  lastDrinkAt: z.iso.datetime({ offset: true }).nullish(),
+  placesToday: z.array(z.string().max(20)).max(40).default([]),
 }).refine((s) => s.destinationIds.includes(s.currentDestinationId) && s.destinationIds.includes(s.targetDestinationId));
 export type WorldSnapshot = z.infer<typeof snapshotSchema>;
 export const actionStatuses = ['requested', 'accepted', 'running', 'arrived', 'rejected', 'interrupted', 'expired'] as const;

@@ -220,6 +220,16 @@ enum Icons {
         .frame(width: size, height: size)
     }
 
+    /// 水壶：给团子倒水。壶身、壶嘴、提手、壶盖，和其它图标同一套笔触。
+    static func kettle(size: CGFloat = IconSize.md, color: Color) -> some View {
+        VectorIcon(size: size, color: color) { p in
+            p.addRoundedRect(in: CGRect(x: 4.5, y: 10, width: 11.5, height: 9.5), cornerSize: CGSize(width: 3.5, height: 3.5))
+            p.move(to: CGPoint(x: 16, y: 13.5)); p.addLine(to: CGPoint(x: 21, y: 9.5))
+            p.move(to: CGPoint(x: 7, y: 10)); p.addQuadCurve(to: CGPoint(x: 13.5, y: 10), control: CGPoint(x: 10.25, y: 4))
+            p.move(to: CGPoint(x: 8.5, y: 10)); p.addLine(to: CGPoint(x: 12, y: 10))
+        }
+    }
+
     /// 团子的爪印。留言纸徽标、日记脚印、来源卡都用它。
     static func paw(size: CGFloat = IconSize.sm, color: Color) -> some View {
         VectorIcon(size: size, color: color, mode: .fill) { p in

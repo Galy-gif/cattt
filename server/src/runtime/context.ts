@@ -4,6 +4,8 @@ import { CONTEXT_MESSAGES, RECALL_EXPLICIT, RECALL_RECENT } from '../config.ts';
 import { db } from '../db/client.ts';
 import { boundaries, cats, memories, messages } from '../db/schema.ts';
 import { personaBlock } from './persona.ts';
+import { getWorldState } from '../world/service.ts';
+import { yardBlock } from './yard.ts';
 import { snapshotSoul } from '../soul/service.ts';
 import { compileRuntime, compileSoul } from '../soul/rules.ts';
 
@@ -24,7 +26,7 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
   const snapshot = await snapshotSoul(catId, turnId);
   const cat = snapshot.cat;
 
-  const [boundaryRows, recalled, history] = await Promise.all([
+  const [boundaryRows, recalled, history, world] = await Promise.all([
     db
       .select({ description: boundaries.description, text: messages.text })
       .from(boundaries)
@@ -38,6 +40,7 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
       .where(eq(messages.conversationId, conversationId))
       .orderBy(desc(messages.seq))
       .limit(CONTEXT_MESSAGES),
+    getWorldState(catId).catch(() => null),
   ]);
 
   const parts = [personaBlock(cat), compileSoul(snapshot.soul.entries), compileRuntime(snapshot.runtime.state)].filter(Boolean);
@@ -52,6 +55,9 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
     const lines = recalled.map((m) => `- ${m.subject}的${m.predicate}：${m.value}${m.explicit ? '（对方让你记住的）' : ''}`);
     parts.push(`## 你记得的事\n${lines.join('\n')}`);
   }
+
+  const yard = yardBlock(world);
+  if (yard) parts.push(yard);
 
   parts.push(`## 现在\n${formatNow()}`);
 

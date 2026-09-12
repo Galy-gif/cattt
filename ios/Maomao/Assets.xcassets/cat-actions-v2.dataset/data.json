@@ -892,6 +892,299 @@
         109.0,
         89.0
       ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 97.51,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        1.6,
+        0.1,
+        0.14,
+        0.9,
+        1.0,
+        0.8
+      ],
+      "hitInset": 5,
+      "id": "sitLook",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "sitLook",
+      "size": [
+        119.0,
+        104.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 96.98,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        0.8,
+        0.12,
+        0.9,
+        0.5,
+        0.9,
+        0.6
+      ],
+      "hitInset": 5,
+      "id": "headTilt",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "headTilt",
+      "size": [
+        125.0,
+        103.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 96.98,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        0.6,
+        0.15,
+        0.25,
+        0.25,
+        0.25,
+        0.2
+      ],
+      "hitInset": 5,
+      "id": "groom",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "groom",
+      "size": [
+        126.0,
+        103.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 105.99,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        1.2,
+        0.3,
+        0.3,
+        0.6,
+        0.5,
+        0.5
+      ],
+      "hitInset": 5,
+      "id": "moodHappy",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "moodHappy",
+      "size": [
+        117.0,
+        112.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 97.51,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        1.5,
+        0.15,
+        0.15,
+        0.15,
+        0.15,
+        1.2
+      ],
+      "hitInset": 5,
+      "id": "moodSulk",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "moodSulk",
+      "size": [
+        120.0,
+        104.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 96.98,
+      "fps": 12,
+      "frameCount": 2,
+      "frameDurations": [
+        0.12,
+        0.14
+      ],
+      "hitInset": 5,
+      "id": "moodSadIn",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "name": "moodSadIn",
+      "size": [
+        121.0,
+        103.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 79.5,
+      "fps": 12,
+      "frameCount": 4,
+      "frameDurations": [
+        2.0,
+        1.2,
+        1.0,
+        1.2
+      ],
+      "hitInset": 5,
+      "id": "moodSad",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "name": "moodSad",
+      "size": [
+        112.0,
+        86.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 96.98,
+      "fps": 12,
+      "frameCount": 2,
+      "frameDurations": [
+        0.14,
+        0.12
+      ],
+      "hitInset": 5,
+      "id": "moodSadOut",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "name": "moodSadOut",
+      "size": [
+        121.0,
+        103.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 97.77,
+      "fps": 12,
+      "frameCount": 3,
+      "frameDurations": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset": 5,
+      "id": "sitToStand",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "name": "sitToStand",
+      "size": [
+        163.0,
+        104.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 97.77,
+      "fps": 12,
+      "frameCount": 3,
+      "frameDurations": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset": 5,
+      "id": "standToSit",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "name": "standToSit",
+      "size": [
+        163.0,
+        104.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 80.1,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        0.14,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.16
+      ],
+      "hitInset": 5,
+      "id": "drinkDown",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "mouth": [
+        54.46,
+        19.31
+      ],
+      "name": "drinkDown",
+      "size": [
+        123.0,
+        88.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 80.1,
+      "fps": 12,
+      "frameCount": 6,
+      "frameDurations": [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "hitInset": 5,
+      "id": "drinkLap",
+      "imagePrefix": "cat-v6",
+      "loop": "loop",
+      "mouth": [
+        54.46,
+        19.31
+      ],
+      "name": "drinkLap",
+      "size": [
+        121.0,
+        88.0
+      ]
+    },
+    {
+      "bodyLength": 100.9,
+      "footY": 80.31,
+      "fps": 12,
+      "frameCount": 4,
+      "frameDurations": [
+        0.14,
+        0.16,
+        0.3,
+        0.2
+      ],
+      "hitInset": 5,
+      "id": "drinkUp",
+      "imagePrefix": "cat-v6",
+      "loop": "once",
+      "mouth": [
+        54.46,
+        19.31
+      ],
+      "name": "drinkUp",
+      "size": [
+        118.0,
+        88.0
+      ]
     }
   ],
   "catPt": 76,

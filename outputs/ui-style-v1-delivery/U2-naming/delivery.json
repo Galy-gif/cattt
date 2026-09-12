@@ -1,0 +1,12 @@
+{
+  "id": "U2-naming",
+  "file": "U2-naming__r2.png",
+  "status": "新生成",
+  "refs_used": [
+    "assets/ui/style-v1/refs/S2-single-screen-r2.png",
+    "assets/ui/style-v1/refs/S4-mood-question.png",
+    "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+    "outputs/frames-v5-delivery/N4-settle/N4-settle__r1.png"
+  ],
+  "note": "根据用户对 r1 的反馈重做：缩小字级、补原生 iOS 顶栏、页面底改为轻雾化米白到淡青、输入框改成连续圆角与单层软影。r1 已移入 _rejected；待用户人眼确认后才生成 U2a-U2d。"
+}

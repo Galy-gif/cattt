@@ -13,7 +13,10 @@ final class WorldEngine: ObservableObject {
     private var agentFinishUptime: Double?
     private var lastBridgeSnapshot: WorldSnapshot?
     private var bridgeVersion = 0
+    private var yard = WorldYardFacts()
     private var runtimeQuiet = false
+    private var runtimeResting = false
+    private var runtimeUnsocial = false
     var frameChanged: ((Double) -> Void)?
     private var displayLink: CADisplayLink?
     private var clockTarget: WorldClockTarget?
@@ -108,8 +111,18 @@ final class WorldEngine: ObservableObject {
     }
     /// 同一份后端临时状态控制自发活动；不把想安静冒充已经睡着。
     func applyRuntimeState(energy: String, willingness: String) {
-        runtimeQuiet = energy == "resting" || willingness == "quiet"
+        runtimeResting = energy == "resting"
+        runtimeUnsocial = willingness == "quiet"
+        runtimeQuiet = runtimeResting || runtimeUnsocial
         simulation.autonomous = activeAgentCommand == nil && !runtimeQuiet
+    }
+    /// 后端临时状态压在性格上（性格系统优化方案第 2.2 节）：
+    /// 想休息 → 家与窝只打盹；想安静 → 不看你、也不来门口。
+    func adjusted(_ behavior: BehaviorParams) -> BehaviorParams {
+        var b = behavior
+        if runtimeResting { b.sleepWeight = 1; b.lookWeight = 0; b.groomWeight = 0 }
+        if runtimeUnsocial { b.lookWeight = 0; b.comesToDoor = false }
+        return b
     }
     var canRunWorld: Bool { foreground && worldEnabled && !manuallyPaused }
     func worldSnapshot() -> WorldSnapshot {
@@ -118,7 +131,9 @@ final class WorldEngine: ObservableObject {
             destinationIds: destinations.map(\.id), currentDestinationId: destinations[simulation.current].id,
             targetDestinationId: destinations[simulation.pendingTarget ?? simulation.target].id,
             phase: simulation.phase.rawValue, action: simulation.action,
-            paused: simulation.paused, runnable: canRunWorld)
+            paused: simulation.paused, runnable: canRunWorld,
+            mood: yard.mood, moodReason: yard.moodReason, dayPhase: yard.dayPhase, weather: yard.weather,
+            bowlFilledToday: yard.bowlFilledToday, lastDrinkAt: yard.lastDrinkAt, placesToday: yard.placesToday)
         if var previous = lastBridgeSnapshot {
             previous.stateVersion = snapshot.stateVersion
             if previous != snapshot { bridgeVersion += 1; snapshot.stateVersion = bridgeVersion }
@@ -179,6 +194,19 @@ final class WorldEngine: ObservableObject {
     }
     func request(_ index:Int) { interruptAgentMove(reason: "user_preempted"); simulation.request(index);notifyState() }
     func poke() {interruptAgentMove(reason: "user_preempted");simulation.poke();notifyState()}
+    /// 情绪、时段、天气、水碗：每秒由 AppStore 喂一次。
+    func setConditions(mood:Mood,night:Bool,allowed:Set<Int>,bowlFull:Bool,behavior:BehaviorParams) {
+        simulation.setConditions(mood:mood,night:night,allowed:allowed,bowlFull:bowlFull,behavior:adjusted(behavior))
+    }
+    /// 打开 App：按性格决定来不来门口。
+    func greet() { simulation.greet();notifyState() }
+    /// 院子里的事实（情绪、时段、天气、水、今天去过哪）：每秒由 AppStore 喂一次，只为送进聊天。
+    func setYardFacts(_ facts: WorldYardFacts) {
+        guard facts != yard else { return }
+        yard = facts
+        bridgeChanged?()
+    }
+    func requestDrink() { if simulation.requestDrink() {notifyState()} }
     func togglePause() {
         interruptAgentMove(reason: "world_paused")
         manuallyPaused.toggle();simulation.setPaused(manuallyPaused || !foreground || !worldEnabled)

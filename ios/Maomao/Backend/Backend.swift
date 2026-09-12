@@ -191,6 +191,12 @@ struct APIClient {
         ]))
     }
 
+    /// 团子的日记：把当天事实交给服务端写。写不出来就抛错，App 用本地模板兜底。
+    func catDiary(facts: [String: Any]) async throws -> String {
+        struct Diary: Decodable { let text: String }
+        return try await json(Diary.self, request("POST", "v1/cat/diary", body: facts)).text
+    }
+
     // MARK: SSE
 
     /// 逐字节切行。`URLSession.AsyncBytes.lines` 会吞掉空行，而 SSE 靠空行分隔事件，所以自己切。

@@ -73,6 +73,8 @@ struct RootView: View {
 
     private func updateWorldVisibility() {
         store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active, enabled: store.onboarding == nil)
+        // 打开 App（或从后台回来）：按性格决定猫来不来门口。
+        if scenePhase == .active { store.greetOnOpen() } else if scenePhase == .background { store.greetedThisSession = false }
     }
 
     @ViewBuilder

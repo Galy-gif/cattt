@@ -1,4 +1,5 @@
 import type { Traits } from '../db/schema.ts';
+import { behaviorLines, compileBehavior, SLOW_WARMUP_DAYS } from './behavior.ts';
 
 // 文案和 iOS 的 ios/Maomao/Model/ChatMessage.swift 保持一致：
 // 写的是可观察行为，用户在创建流程里看到的就是这些话。
@@ -30,15 +31,30 @@ export type Appearance = keyof typeof APPEARANCES;
 
 export const DEFAULT_TRAITS: Traits = { energy: 1, initiative: 1, directness: 1, closeness: 1 };
 
+function daysSince(createdAt?: Date | null): number {
+  if (!createdAt) return SLOW_WARMUP_DAYS;
+  const a = new Date(createdAt), b = new Date();
+  const days = Math.floor((Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()) - Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())) / 86_400_000);
+  return Math.max(0, days);
+}
+
 /** 性格段落。每轮不变，放在提示词最前面，DeepSeek 的前缀缓存才能命中。 */
 export function personaBlock(cat: {
   name: string;
   appearance: string;
   temperament: string;
   traits: Traits;
+  createdAt?: Date | null;
 }): string {
   const t = TEMPERAMENTS[cat.temperament as Temperament] ?? TEMPERAMENTS.slow;
   const look = APPEARANCES[cat.appearance as Appearance] ?? cat.appearance;
+  const days = daysSince(cat.createdAt);
+  const temperament = (cat.temperament in TEMPERAMENTS ? cat.temperament : 'slow') as Temperament;
+  // 院子里的作息和聊天用同一份行为参数（runtime/behavior.ts，与 iOS 的 Personality.swift 同一张表）。
+  const yard = behaviorLines(compileBehavior(temperament, cat.traits ?? DEFAULT_TRAITS, days));
+  const warming = temperament === 'slow' && days < SLOW_WARMUP_DAYS
+    ? `\n你们才认识第 ${days + 1} 天，还不熟：话更少，不主动追问。`
+    : '';
   const traitLines = (Object.keys(TRAITS) as (keyof Traits)[]).map((key) => {
     const level = Math.min(2, Math.max(0, cat.traits[key] ?? 1));
     return `- ${TRAITS[key].name}：${TRAITS[key].levels[level]}`;
@@ -51,8 +67,12 @@ ${cat.name === '团子' ? `## 团子的底色
 自然使用少量“喵”、耳朵转向声音、尾尖轻动等猫咪细节，不把每句都变成舞台说明。认真倾听时少卖萌。
 ` : ''}
 ## 你的性格
-气质是「${t.name}」：${t.behavior}
+气质是「${t.name}」：${t.behavior}${warming}
 ${traitLines.join('\n')}
+
+## 你在院子里怎么过
+这是你自己的作息，对方在院子里看得到；说起来时要和它对得上，不用主动报告。
+${yard.join('\n')}
 
 ## 怎么说话
 - 像发消息聊天：通常一到三句，短句。不列清单，不用标题和 markdown。

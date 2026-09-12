@@ -16,7 +16,8 @@ async function fixture() {
   const [message] = await db.insert(messages).values({ conversationId: conv!.id, role: 'user', text: '去池塘', clientMessageId: randomUUID() }).returning();
   const [turn] = await db.insert(turns).values({ conversationId: conv!.id, userMessageId: message!.id, inputVersion: 0, status: 'generating' }).returning();
   const session = await registerSession(cat!.id);
-  const snapshot: WorldSnapshot = { stateVersion: 1, sceneVersion: 4, destinationIds: ['tree', 'pond'], currentDestinationId: 'tree', targetDestinationId: 'tree', phase: 'idle', action: 'nestLook', paused: false, runnable: true };
+  // 院子里的事实用默认值补齐（老版本 App 也是这样上报的）。
+  const snapshot: WorldSnapshot = snapshotSchema.parse({ stateVersion: 1, sceneVersion: 4, destinationIds: ['tree', 'pond'], currentDestinationId: 'tree', targetDestinationId: 'tree', phase: 'idle', action: 'nestLook', paused: false, runnable: true });
   await putState(cat!.id, session.sessionId, session.generation, snapshot);
   await pollCommands(cat!.id, session.sessionId, session.generation);
   const input = { catId: cat!.id, turnId: turn!.id, userMessageId: message!.id, destinationId: 'pond', stateVersion: 1, sessionId: session.sessionId, generation: session.generation };

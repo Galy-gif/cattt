@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import { db, dbNow } from '../db/client.ts';
 import { cats, personalityVersions } from '../db/schema.ts';
 import { APPEARANCES, TEMPERAMENTS } from '../runtime/persona.ts';
+import { writeDiary } from '../runtime/diary.ts';
 
 export const catRoutes = new Hono<Env>();
 
@@ -51,4 +52,36 @@ catRoutes.put('/cat', async (c) => {
     return updated!;
   });
   return c.json(catJson(cat!));
+});
+
+// ---- 团子的日记 ----
+
+const diaryBody = z.object({
+  date: z.string().max(20),
+  isFirstDay: z.boolean().default(false),
+  mood: z.enum(['calm', 'happy', 'sulk', 'sad']).default('calm'),
+  moodReason: z.string().max(60).optional(),
+  weather: z.enum(['clear', 'rain']).default('clear'),
+  filledToday: z.boolean().default(false),
+  drankToday: z.boolean().default(false),
+  visitedToday: z.boolean().default(false),
+  absenceDays: z.number().int().min(0).max(3650).default(0),
+  emptyDays: z.number().int().min(0).max(3650).default(0),
+  places: z.array(z.string().max(20)).max(40).default([]),
+  chatSnippet: z.string().max(40).optional(),
+  fragmentSnippet: z.string().max(40).optional(),
+});
+
+/** 一天一条，由 App 在夜晚开始时带着当天事实来取；写不出来 App 用本地模板兜底。 */
+catRoutes.post('/cat/diary', async (c) => {
+  const body = diaryBody.safeParse(await c.req.json().catch(() => null));
+  if (!body.success) return c.json(bad(z.prettifyError(body.error)), 400);
+  try {
+    const text = await writeDiary(c.get('owner').catId, body.data);
+    if (!text) return c.json({ error: { code: 'diary_empty' } }, 503);
+    return c.json({ text });
+  } catch (error) {
+    if (error instanceof Error && error.message === 'not_found') return c.json(notFound, 404);
+    return c.json({ error: { code: 'diary_failed' } }, 503);
+  }
 });

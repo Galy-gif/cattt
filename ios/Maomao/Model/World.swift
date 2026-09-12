@@ -51,11 +51,16 @@ struct WorldGeometry: Equatable {
         screen.width / 2 - cameraX * bgSize.width
     }
 
-    /// 猫的整体缩放：参考屏 844 高为 1，再叠一点纵深 —— 越靠前（下）越大。
-    func catScale(at p: CGPoint) -> CGFloat {
-        let base = screen.height / Metrics.referenceHeight
+    /// 纵深缩放里只跟位置有关的那一半（0.85–1.00）：越靠前（下）越大。
+    /// 走路的帧相位要除掉它 —— 位移按参考屏 pt 累加，画出来的身子却被它缩过，不除就脚打滑（最靠里差 13%）。
+    func depthFactor(at p: CGPoint) -> CGFloat {
         let t = min(max((p.y - World.farY) / (World.nearY - World.farY), 0), 1)
-        return base * (0.85 + 0.15 * t)
+        return 0.85 + 0.15 * t
+    }
+
+    /// 猫的整体缩放：参考屏 844 高为 1，再叠一点纵深。
+    func catScale(at p: CGPoint) -> CGFloat {
+        screen.height / Metrics.referenceHeight * depthFactor(at: p)
     }
 
     func isVisible(_ x: CGFloat, cameraX: CGFloat, margin: CGFloat = 0.02) -> Bool {

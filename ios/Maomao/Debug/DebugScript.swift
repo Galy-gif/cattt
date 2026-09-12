@@ -8,6 +8,8 @@ import SwiftUI
 /// ```
 /// 每条 `延迟ms:命令[:参数]`，延迟从启动起算。命令：moveCat:i、look:i、findCat、poke、drag:dx（pt）、screen:home|chat|mailbox|me、mail、reseed，
 /// speed:倍数（世界时间慢放，0.25 = 四分之一速），
+/// 时段与情绪：time:小时（如 19.6，auto 恢复）、weather:rain|clear|auto、mood:calm|happy|sulk|sad|auto、bowl:fill|empty、drink（去喝水）、diary（现在写团子的日记）；
+/// 性格：temperament:slow|close|quiet|curious、trait:energy|initiative|directness|closeness=0|1|2、days:N（假装领养了 N 天）、greet（当成刚打开 App）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
@@ -48,6 +50,30 @@ enum DebugScript {
                 case "seed": if let seed=UInt64(arg) {store.world.setSeed(seed)}
                 case "action": if CatAction(rawValue:arg) != nil {store.world.preview(arg)}
                 case "reseed": store.reseed()
+                case "time": store.debugHour = arg == "auto" ? nil : Double(arg); store.conditionsClock = 1
+                case "weather": store.debugWeather = arg == "auto" ? nil : Weather(rawValue: arg); store.rainAmount = arg == "rain" ? 1 : 0; store.conditionsClock = 1
+                case "mood": store.debugMood = arg == "auto" ? nil : Mood(rawValue: arg); store.conditionsClock = 1
+                case "bowl": if arg == "fill" { store.fillBowl() } else { store.emptyBowl() }
+                case "drink": store.world.requestDrink()
+                case "diary": store.writeCatDiary(now: store.currentDate())
+                case "temperament":
+                    if let t = Temperament(rawValue: arg) { store.temperament = t }
+                    store.conditionsClock = 1
+                case "trait":
+                    let pair = arg.split(separator: "=")
+                    if pair.count == 2, let trait = Trait(rawValue: String(pair[0])), let level = Int(pair[1]) {
+                        store.traitLevels[trait] = min(2, max(0, level))
+                    }
+                    store.conditionsClock = 1
+                case "days":
+                    if let n = Int(arg) {
+                        store.createdAt = Calendar.current.date(byAdding: .day, value: -n, to: store.currentDate()) ?? store.createdAt
+                        store.compileBehavior()
+                    }
+                    store.conditionsClock = 1
+                case "greet":
+                    store.greetedThisSession = false
+                    store.greetOnOpen()
                 case "backend": if let mode = BackendConfig.Mode(rawValue: arg) { store.setBackendMode(mode) }
                 case "send":
                     store.draft = arg

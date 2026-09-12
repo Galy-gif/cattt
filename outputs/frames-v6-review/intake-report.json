@@ -1,0 +1,241 @@
+{
+  "delivery": "/Users/gouzi/猫猫的app/outputs/frames-v6-delivery",
+  "gates": {
+    "1_inventory": [],
+    "2_hash": [],
+    "3_format": [],
+    "4_content_fingerprint": [],
+    "5_human": [
+      "数字关完成后由用户确认美术观感；当前仅记录模型自检。"
+    ]
+  },
+  "sheets": {
+    "H1-sit-look": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "H2-head-tilt": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "H3-groom": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "M1-happy": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "M2-sulk": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "M3-sad": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "D1-drink-down": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "D2-drink-lap": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    },
+    "D3-drink-up": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "cat_components": 6,
+      "crosses_cell_lines": false,
+      "fails": []
+    }
+  },
+  "relay": [
+    {
+      "source": "N4#3",
+      "target": "H1-sit-look#1",
+      "scale": 1.0,
+      "iou": 0.999,
+      "pass": true
+    },
+    {
+      "source": "N4#3",
+      "target": "H2-head-tilt#1",
+      "scale": 1.0,
+      "iou": 0.999,
+      "pass": true
+    },
+    {
+      "source": "N4#3",
+      "target": "H3-groom#1",
+      "scale": 1.0,
+      "iou": 0.999,
+      "pass": true
+    },
+    {
+      "source": "N4#3",
+      "target": "M3-sad#1",
+      "scale": 1.0,
+      "iou": 0.999,
+      "pass": true
+    },
+    {
+      "source": "R3#1",
+      "target": "D1-drink-down#1",
+      "scale": 0.475,
+      "iou": 0.934,
+      "pass": true
+    },
+    {
+      "source": "D1-drink-down#6",
+      "target": "D2-drink-lap#1",
+      "scale": 0.995,
+      "iou": 0.991,
+      "pass": true
+    },
+    {
+      "source": "D1-drink-down#6",
+      "target": "D3-drink-up#1",
+      "scale": 0.975,
+      "iou": 0.936,
+      "pass": true
+    },
+    {
+      "source": "R3#1",
+      "target": "D3-drink-up#6",
+      "scale": 0.486,
+      "iou": 0.919,
+      "pass": true
+    }
+  ],
+  "emotion_silhouette": {
+    "M1-happy vs M2-sulk": 0.608,
+    "M1-happy vs M3-sad": 0.648,
+    "M2-sulk vs M3-sad": 0.651
+  },
+  "drink_mouth_y": {
+    "D1-drink-down#6": 317.0,
+    "D2-drink-lap#1": 317.0,
+    "D2-drink-lap#2": 317.0,
+    "D2-drink-lap#3": 317.0,
+    "D2-drink-lap#4": 317.0,
+    "D2-drink-lap#5": 317.0,
+    "D2-drink-lap#6": 317.0,
+    "D3-drink-up#1": 317.0
+  },
+  "seated_scale_proxy": {
+    "N4#3": 283,
+    "H1-sit-look#1": 283,
+    "H2-head-tilt#1": 283,
+    "H3-groom#1": 283,
+    "M1-happy#1": 283,
+    "M2-sulk#1": 283,
+    "M3-sad#1": 283
+  },
+  "drink_mouth_y_spread": 0.0
+}

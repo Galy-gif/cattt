@@ -20,11 +20,15 @@ import ImageIO
         pixelLimits["world-v2-grass"]=max(pixelLimits["world-v2-grass"] ?? 0,900)
         pixelLimits["world-v3-ground-preview"]=1800
         pixelLimits["world-v5-felt-grain"]=512
-        for name in Set(scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]) {
+        for (name,limit) in Self.skyLimits {pixelLimits[name]=limit}
+        for name in Set(scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]).union(Self.skyLimits.keys) {
             if let image=Self.decode(name,limit:pixelLimits[name] ?? 1200) {images[name]=image}
         }
         if let plate=images["world-v3-ground-preview"]?.cgImage {skyline=WorldDepth.skyline(from:plate)}
     }
+    /// 时段与雨天的天空物件（atmosphere-v1），不在场景配置里，由 WorldView 的天空层画。
+    static let skyLimits:[String:Int] = ["world-v6-sun":320,"world-v6-moon":300,"world-v6-raincloud-a":640,"world-v6-raincloud-b":560,
+                                         "world-v6-star-1":96,"world-v6-star-2":96,"world-v6-star-3":96,"world-v6-star-4":96,"world-v6-star-5":96]
     nonisolated private static func decode(_ name:String,limit:Int)->UIImage? {
         guard let url=Bundle.main.url(forResource:name,withExtension:"png"),
               let source=CGImageSourceCreateWithURL(url as CFURL,nil) else {return nil}

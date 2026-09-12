@@ -1,0 +1,210 @@
+{
+  "delivery": "/Users/gouzi/猫猫的app/outputs/atmosphere-v1-delivery",
+  "gates": {
+    "1_inventory": [],
+    "2_hash": [],
+    "3_format": [],
+    "4_content_fingerprint": [],
+    "5_human": [
+      "数字关完成后由用户确认氛围与物件美术观感；当前仅记录模型自检。"
+    ]
+  },
+  "items": {
+    "A1-dusk": {
+      "size": [
+        828,
+        1800
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "atmosphere": {
+        "cat_pixels": 36804,
+        "ground_pixels": 23352,
+        "cat_ground_hue_angle_deg": 66.5,
+        "cat_sky_hue_angle_deg": 31.7,
+        "cat_L_median": 55.4,
+        "ground_L_median": 32.4,
+        "saturation_median": 0.5
+      }
+    },
+    "A2-evening": {
+      "size": [
+        828,
+        1800
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "atmosphere": {
+        "cat_pixels": 30233,
+        "ground_pixels": 20432,
+        "cat_ground_hue_angle_deg": 64.6,
+        "cat_sky_hue_angle_deg": 132.9,
+        "cat_L_median": 41.7,
+        "ground_L_median": 28.6,
+        "saturation_median": 0.346
+      }
+    },
+    "A3-night": {
+      "size": [
+        828,
+        1800
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "atmosphere": {
+        "cat_pixels": 27528,
+        "ground_pixels": 20157,
+        "cat_ground_hue_angle_deg": 116.7,
+        "cat_sky_hue_angle_deg": 120.4,
+        "cat_L_median": 36.0,
+        "ground_L_median": 20.2,
+        "saturation_median": 0.442
+      }
+    },
+    "A4-rain": {
+      "size": [
+        828,
+        1800
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "atmosphere": {
+        "cat_pixels": 27395,
+        "ground_pixels": 28315,
+        "cat_ground_hue_angle_deg": 63.5,
+        "cat_sky_hue_angle_deg": 159.1,
+        "cat_L_median": 47.8,
+        "ground_L_median": 41.0,
+        "saturation_median": 0.344
+      }
+    },
+    "P1-bowl-empty": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "P2-bowl-full": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "S1-sun": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "S2-moon": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "S3-stars": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 5
+    },
+    "S4-raincloud-a": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "S4-raincloud-b": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    },
+    "S5-window-lit": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "fails": [],
+      "background_border_rgb": [
+        255.0,
+        0.0,
+        255.0
+      ],
+      "exact_FF00FF_share": 1.0,
+      "components_over_80px": 1
+    }
+  },
+  "bowl_pair": {
+    "silhouette_iou": 0.9997,
+    "changed_share_outside_water": 0.0
+  },
+  "rain_saturation": {
+    "reference": 0.513,
+    "rain": 0.344
+  }
+}

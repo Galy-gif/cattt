@@ -44,7 +44,7 @@ MANUAL = {
 }
 
 # 动作表：(动作 id, [(张, 格, 接触方式, 目标位置 pt)], 每帧时长, 循环方式)
-# 接触方式：hind 后脚、front 前爪、bottom 底部中心、manual 人工标注、centroid 重心（腾空帧）
+# 接触方式：hind 后脚（旧规则，v5 原样保留）、hindStable 后脚（低头也稳，见 contact）、front 前爪、bottom 底部中心、manual 人工标注、centroid 重心（腾空帧）
 ORIGIN = (0.0, 0.0)
 INSIDE_L = (INSIDE_FWD, FLOOR_D)      # 朝左进窝时的窝里位置（画面坐标的前方 = 世界左）
 INSIDE_R = (-INSIDE_FWD, FLOOR_D)     # 朝右出窝时，同一个世界位置在画面坐标里是后方
@@ -184,6 +184,26 @@ def ground_runs(hard):
     return runs, ymax
 
 
+def rear_ground_runs(hard, rear=0.40):
+    """只看轮廓后 40% 横向范围里的最低行，再在那一行附近取着地段。
+
+    `ground_runs` 从**整只猫的最低行**往上取 8px 的带。低头喝水这种姿势下巴比后脚低，
+    后脚会掉出这条带，`runs[0]` 就换成了前面的接触段，锚点在帧之间来回跳 43pt
+    （见 docs/specs/世界层动画连贯性-诊断与方案-2026-09-12.md 第 2.1 节）。
+    """
+    ys, xs = np.nonzero(hard)
+    cut = xs.min() + rear * (xs.max() - xs.min())
+    ymax = int(ys[xs <= cut].max())
+    band = hard[max(0, ymax - 8):ymax + 1].any(0)
+    runs, start = [], None
+    for x, v in enumerate(band):
+        if v and start is None: start = x
+        if not v and start is not None: runs.append((start, x - 1)); start = None
+    if start is not None: runs.append((start, len(band) - 1))
+    runs = [r for r in runs if r[1] - r[0] >= 6]
+    return runs, ymax
+
+
 def contact(cat, kind, key):
     hard = cat['hard']; ox, oy = cat['origin']
     ys, xs = np.nonzero(hard)
@@ -192,6 +212,10 @@ def contact(cat, kind, key):
         bx, by = MANUAL[key]; gx0, gy0 = xs.min(), ys.min()
         return bx + gx0, by + gy0
     if kind == 'centroid': return xs.mean(), ys.mean()
+    if kind == 'hindStable':
+        # 低头 / 趴姿也稳的后脚着地点。`hind` 是 v5 原样保留的旧规则（那一轮已验收，不动）。
+        runs, ymax = rear_ground_runs(hard)
+        r = runs[0]; return (r[0] + r[1]) / 2, ymax
     runs, ymax = ground_runs(hard)
     if kind == 'hind': r = runs[0]; return (r[0] + r[1]) / 2, ymax
     if kind == 'front': r = runs[-1]; return (r[0] + r[1]) / 2, ymax

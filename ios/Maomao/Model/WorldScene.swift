@@ -40,6 +40,8 @@ struct WorldScene: Codable {
         let cutoutPaths: [[WorldPoint]]?
         /// 点它不是让猫走过去，而是打开界面里的东西。目前只有 `mail`（信箱 → 日记）。
         let action: String?
+        /// 只在某种状态下才画：`water` 碗里有水时，`lit` 傍晚和夜晚（窗户亮着）。nil = 一直画。
+        let visibility: String?
     }
     struct Destination: Codable, Identifiable {
         let id: String; let name: String; let node: String
@@ -64,6 +66,8 @@ struct WorldScene: Codable {
     let railSupport: WorldPoint?
     let waterContact: WorldPoint?
     let waterOutline: [WorldPoint]?
+    /// 蘑菇屋门口水碗的点击热区；点它倒水。
+    let bowlHit: WorldRect?
     var aspect: Double { width/height }
     func node(_ id: String) -> Node? { nodes.first { $0.id == id } }
     func edge(_ a: String, _ b: String) -> Edge? { edges.first { ($0.a == a && $0.b == b) || ($0.a == b && $0.b == a) } }
@@ -194,6 +198,34 @@ struct WorldSimulation {
     private var arrivalTurn=false
     private var nextFenceFlowers=false
     private var heading=WorldPoint(x:1,y:0)
+    // 情绪、时段、天气、水碗（docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md）
+    private(set) var mood: Mood = .calm
+    private(set) var night = false
+    private(set) var allowed: Set<Int> = [0,1,2,3,4,5]
+    private(set) var bowlFull = false
+    /// 性格编译出来的行为参数（Model/Personality.swift）：停留、去处、待机池、喝水时机都按它算。
+    private(set) var behavior = BehaviorParams.default
+    /// 打开 App 时来门口的猫，到门口先坐下看你一会儿。
+    private var greetIdle = false
+    private var houseIdle = "sleepyNod"
+    private var idleSwapRemaining = 8.0
+    /// 门口换待机时上一个动作、它当时的帧时间、切换时刻：视图用来把上一帧淡出（0.3 秒），坐姿之间不硬切。
+    private(set) var previousIdle: (action: String, actionTime: Double, switchedAt: Double)?
+    /// 离开蘑菇屋前要先播完的过渡（委屈先坐起来，再起身转侧）；播完才出发。
+    private var exitQueue: [String] = []
+    private var exitToDrink = false
+    private var exitTransition = false
+    static let sitToStandDuration = 0.36
+    static let standToSitDuration = 0.36
+    /// 蘑菇屋门口的坐姿动作：从这些动作离开要先起身。
+    static let seatedIdles: Set<String> = ["sleepyNod","sitLook","headTilt","groom","moodHappy","moodSulk","moodSad","moodSadIn","moodSadOut","standToSit"]
+    enum DrinkStage { case none, going, down, lap, up, returning }
+    private(set) var drink: DrinkStage = .none
+    private var drinkRemaining = 0.0
+    private var drinkCooldown = 30.0
+    /// 喝过几次水；外面看它变了就记 lastDrinkAt。
+    private(set) var drinkCount = 0
+    var isDrinking: Bool { drink != .none }
     var renderPoint: WorldPoint { interaction?.point ?? point }
     var isTurning: Bool { turnRemaining>0 }
     var autonomous = true
@@ -211,6 +243,88 @@ struct WorldSimulation {
         idleRemaining=rng.seconds(120,180)
     }
     mutating func setPaused(_ value:Bool) {paused=value;revision += 1}
+    /// 外面（AppStore）每秒把情绪、时段、允许去的地点、碗里有没有水喂进来。
+    mutating func setConditions(mood newMood:Mood,night newNight:Bool,allowed newAllowed:Set<Int>,bowlFull newBowl:Bool,behavior newBehavior:BehaviorParams = .default) {
+        let moodChanged = newMood != mood || newNight != night
+        // 换了性格（创建流程、调试脚本）：还没走完的停留按新的倍数折算。
+        if newBehavior.idleScale != behavior.idleScale {idleRemaining *= newBehavior.idleScale/behavior.idleScale}
+        behavior=newBehavior
+        // 刚倒的水：多久过去喝由活力和主动性决定（性格系统优化方案第 2.1 节）。
+        if newBowl && !bowlFull {drinkCooldown=min(drinkCooldown,rng.seconds(behavior.drinkDelay.lowerBound,behavior.drinkDelay.upperBound))}
+        mood=newMood;night=newNight;allowed=newAllowed;bowlFull=newBowl
+        let atHomeIdle = current == 0 && phase == .idle && interaction == nil && drink == .none && !isMoving
+        if moodChanged && atHomeIdle {idleSwapRemaining=0}
+        // 夜里、下雨时不该待的地方：几秒内自己回去。
+        if autonomous && !allowed.contains(current) && phase == .idle && interaction == nil && drink == .none && !isMoving {
+            idleRemaining=min(idleRemaining,4)
+        }
+    }
+    /// 去碗前喝水（碗里有水、在蘑菇屋门口闲着时）。自动喝水也走这里。
+    @discardableResult mutating func requestDrink() -> Bool {
+        guard current == 0, phase == .idle, interaction == nil, drink == .none, !isMoving, turnRemaining<=0,
+              currentNode == scene.destinations[0].node, let bowl=scene.node("bowl"), scene.route(from:currentNode,to:"bowl") != nil else {return false}
+        transientRemaining=0;tailExcursion=false
+        let from=scene.node(currentNode)!.point
+        let length=from.distance(to:bowl.point,aspect:scene.aspect)*844
+        legs=[Leg(from:from,to:bowl.point,endNode:"bowl",action:"walk",duration:max(0.35,length/bodyLength),length:length)]
+        drink = .going
+        if WorldSimulation.seatedIdles.contains(action) {
+            exitToDrink=true;phase = .exiting
+            exitQueue=(action == "moodSad" ? ["moodSadOut"]:[])+["sitToStand"]
+            playNextExit();return true
+        }
+        beginLeg(allowTurn:true)
+        return true
+    }
+    /// 播出发前的下一段过渡；队列空了就真正出发。
+    private mutating func playNextExit() {
+        guard !exitQueue.isEmpty else {
+            if exitToDrink {exitToDrink=false;beginLeg(allowTurn:true)} else {depart()}
+            return
+        }
+        let name=exitQueue.removeFirst()
+        setAction(name);exitTransition=true
+        interactionRemaining = name == "moodSadOut" ? WorldSimulation.moodSadOutDuration:WorldSimulation.sitToStandDuration
+        // 起身那三格是朝右转侧画的：出发方向朝左时镜像即可，和随后的走路朝向一致。
+        if name == "sitToStand", let next=pending ?? (exitToDrink ? 0:nil) {
+            let to = exitToDrink ? scene.node("bowl")?.point:scene.node(scene.destinations[next].node)?.point
+            if let to {facingRight = to.x >= point.x}
+        }
+    }
+    private func idleAction(for index:Int) -> String { index == 0 ? houseIdle:scene.destinations[index].idle }
+    /// 蘑菇屋门口按情绪加权换一个待机动作；委屈先播缩下去的两格再进循环。
+    private mutating func pickHouseIdle() {
+        // 刚被打开 App 叫回门口的猫：先坐下看你，再进正常的待机池。
+        if greetIdle {
+            greetIdle=false
+            if !night, mood == .calm || mood == .happy {
+                swapIdle("sitLook");idleSwapRemaining=rng.seconds(10,20);return
+            }
+        }
+        let pool=MoodRules.housePool(mood:mood,night:night,behavior:behavior)
+        var r=rng.unit()*pool.reduce(0){$0+$1.weight}
+        var chosen=pool.last!.action
+        for item in pool {r -= item.weight; if r<=0 {chosen=item.action;break}}
+        idleSwapRemaining=rng.seconds(6,15)
+        if chosen == houseIdle && chosen == action {return}
+        houseIdle=chosen
+        if action == "moodSad" && chosen != "moodSad" {
+            // 先从缩着的姿势坐起来，再换成选中的待机。
+            setAction("moodSadOut");transientRemaining=WorldSimulation.moodSadOutDuration;return
+        }
+        if chosen == "moodSad" && action != "moodSad" {swapIdle("moodSadIn");transientRemaining=WorldSimulation.moodSadInDuration;return}
+        swapIdle(chosen)
+    }
+    /// 门口的待机切换：记住上一帧，视图做交叉淡化。
+    private mutating func swapIdle(_ name:String) {
+        if action != name {previousIdle=(action,actionTime,time)}
+        setAction(name)
+    }
+    /// moodSadIn 两格的时长，必须和动作目录一致（有测试保证）。
+    static let moodSadInDuration = 0.26
+    static let moodSadOutDuration = 0.26
+    static let drinkDownDuration = 0.78
+    static let drinkUpDuration = 0.80
     mutating func seed(_ value:UInt64) {rng=WorldRandom(state:value)}
     mutating func request(_ index:Int) {
         guard scene.destinations.indices.contains(index) else {return}
@@ -218,6 +332,11 @@ struct WorldSimulation {
         if index == target && pending == nil && (isMoving || phase == .interacting) {return}
         if index == current && currentNode == scene.destinations[index].node && !isMoving && phase != .exiting {poke();return}
         pending=index;tailExcursion=false
+        if drink != .none {
+            // 喝水中被叫走：正在走就照常刹车换路；正低头喝就直接起身出发（碗前的节点连着家门口）。
+            drink = .none
+            if phase == .interacting {phase = .exiting;depart();return}
+        }
         if var sequence=interaction {
             // requestExit 可能直接跳到出窝 / 下栏阶段；tick 只在自己推进时检测阶段变化，所以这里要同步动作和朝向。
             let before=sequence.stage
@@ -227,11 +346,26 @@ struct WorldSimulation {
         }
         if turnRemaining>0 {return}
         if isMoving {if brakeRemaining<=0 {brakeRemaining=0.22;brakeVelocity=speed};return}
-        if phase == .exiting {return}
+        if phase == .exiting {
+            // 正在起身准备去喝水时被叫走：起身播完直接出发去新地点。
+            if exitToDrink {exitToDrink=false;drink = .none;legs=[]}
+            return
+        }
         beginExit()
     }
+    /// 打开 App：黏人、好奇的猫会来门口坐下看你；安静的不来（方案第 2.2 节）。
+    /// 猫已经在门口就直接换成「坐着看你」；在别处就叫它回来，到了之后先坐下。
+    mutating func greet() {
+        guard autonomous, behavior.comesToDoor, allowed.contains(0), !paused else {return}
+        greetIdle=true
+        if current == 0 && !isMoving && phase != .exiting && interaction == nil && drink == .none {
+            if phase == .idle {idleSwapRemaining=0}
+            return
+        }
+        request(0)
+    }
     mutating func poke() {
-        guard !isMoving,phase != .exiting,interaction == nil else {return}
+        guard !isMoving,phase != .exiting,interaction == nil,drink == .none else {return}
         if current == 4 { beginPond(); return }
         if current == 5 { beginInteraction(tree:false); return }
         if current == 3 { setAction("blinkLook"); transientRemaining=1.2 }
@@ -264,6 +398,10 @@ struct WorldSimulation {
         transientRemaining=0
         if current == 1 && (action == "treeScratch" || action == "scratchEnter") {
             phase = .exiting; scratchEnding=true; interactionRemaining=0.5;setAction("scratchExit")
+        } else if current == 0 && WorldSimulation.seatedIdles.contains(action) && pending != nil {
+            phase = .exiting;exitToDrink=false
+            exitQueue=(action == "moodSad" ? ["moodSadOut"]:[])+["sitToStand"]
+            playNextExit()
         } else {
             phase = .exiting
             depart()
@@ -363,14 +501,21 @@ struct WorldSimulation {
         return phase<1.0/6 || (phase>=0.5 && phase<0.5+1.0/6)
     }
     private mutating func arrive() {
+        if drink == .going && currentNode == "bowl" {
+            phase = .interacting;speed=0;facingRight=true
+            drink = .down;setAction("drinkDown");drinkRemaining=WorldSimulation.drinkDownDuration
+            return
+        }
+        if drink == .returning {drink = .none}
         if tailExcursion && currentNode == "clearing" {
             phase = .idle;speed=0;setAction("tailChase");transientRemaining=32.0/12
-            idleRemaining=rng.seconds(45,90);fidgetRemaining=20;return
+            idleRemaining=rng.seconds(45,90)*behavior.idleScale;fidgetRemaining=20;return
         }
         current=target;currentNode=scene.destinations[current].node
         point=scene.node(currentNode)!.point
         speed=0;phase = .interacting
         if current == 1 {facingRight=false;setAction("scratchEnter");interactionRemaining=0.5}
+        else if current == 0 {setAction("standToSit");interactionRemaining=WorldSimulation.standToSitDuration}
         else if current == 3 {setAction("blinkLook");interactionRemaining=1.0}
         else if current == 5, scene.railSupport != nil {beginInteraction(tree:false)}
         else if current == 4, scene.waterContact != nil {beginPond()}
@@ -378,8 +523,8 @@ struct WorldSimulation {
     }
     private mutating func settle() {
         phase = .idle;speed=0;scratchEnding=false
-        setAction(scene.destinations[current].idle)
-        idleRemaining = (current == 0 || current == 2) ? rng.seconds(120,180):rng.seconds(45,90)
+        if current == 0 {pickHouseIdle()} else {setAction(scene.destinations[current].idle)}
+        idleRemaining = ((current == 0 || current == 2) ? rng.seconds(120,180):rng.seconds(45,90)) * behavior.idleScale * (current == 0 ? behavior.homeIdleScale:1)
         fidgetRemaining=rng.seconds(4,10)
     }
     private mutating func beginInteraction(tree:Bool) {
@@ -417,9 +562,13 @@ struct WorldSimulation {
         }
         if var sequence=interaction {
             let stage=sequence.stage
+            let previous=sequence.point
             sequence.tick(dt);interaction=sequence
             if stage != sequence.stage {enterStage(sequence)}
             actionTime=sequence.elapsed
+            // 树窝往返那两段也是走路：把位移累进 travelled，帧相位跟平常走路一样按距离走，
+            // 不然固定 1.25 秒按 8fps 播，腿比身子快 72%（原地空转）。
+            if sequence.isWalking {travelled += previous.distance(to:sequence.point,aspect:scene.aspect)*844}
             if sequence.stage == .done {
                 interaction=nil
                 if pending != nil {depart()} else {settle()}
@@ -450,6 +599,11 @@ struct WorldSimulation {
             }
             return
         }
+        if phase == .exiting && exitTransition {
+            interactionRemaining -= dt
+            if interactionRemaining<=0 {exitTransition=false;playNextExit()}
+            return
+        }
         if !legs.isEmpty {
             let leg=legs[0];let previous=point
             legTime += dt
@@ -470,12 +624,35 @@ struct WorldSimulation {
         }
         if transientRemaining>0 {
             transientRemaining -= dt
-            if transientRemaining<=0 {tailExcursion=false;setAction(scene.destinations[current].idle)}
+            if transientRemaining<=0 {
+                tailExcursion=false
+                let next=idleAction(for:current)
+                if current == 0 && action != "moodSadIn" {swapIdle(next)} else {setAction(next)}
+            }
             return
         }
         if phase == .exiting && scratchEnding {
             interactionRemaining -= dt
             if interactionRemaining<=0 {depart()}
+            return
+        }
+
+        if phase == .interacting && drink != .none {
+            drinkRemaining -= dt
+            if drinkRemaining<=0 {
+                switch drink {
+                case .down: drink = .lap;setAction("drinkLap");drinkRemaining=rng.seconds(3,5)
+                case .lap: drink = .up;setAction("drinkUp");drinkRemaining=WorldSimulation.drinkUpDuration
+                case .up:
+                    drinkCount += 1;drinkCooldown=rng.seconds(3600,7200)
+                    drink = .returning
+                    let home=scene.node(scene.destinations[0].node)!.point
+                    let length=point.distance(to:home,aspect:scene.aspect)*844
+                    legs=[Leg(from:point,to:home,endNode:scene.destinations[0].node,action:"walk",duration:max(0.35,length/bodyLength),length:length)]
+                    beginLeg(allowTurn:true)
+                default: break
+                }
+            }
             return
         }
         if phase == .interacting {
@@ -488,11 +665,23 @@ struct WorldSimulation {
             }
             return
         }
-        idleRemaining -= dt; fidgetRemaining -= dt
+        idleRemaining -= dt; fidgetRemaining -= dt; drinkCooldown -= dt
+        if current == 0 && phase == .idle {
+            idleSwapRemaining -= dt
+            if idleSwapRemaining<=0 {pickHouseIdle()}
+            if autonomous && bowlFull && drinkCooldown<=0 && !night {
+                if requestDrink() {return}
+            }
+        }
         if autonomous && idleRemaining<=0 {
-            let others=scene.destinations.indices.filter{$0 != current}
-            let i=min(others.count-1,Int(rng.unit()*Double(others.count)))
-            request(others[i]);return
+            let others=scene.destinations.indices.filter{$0 != current && allowed.contains($0)}
+            guard !others.isEmpty else {idleRemaining=rng.seconds(60,120)*behavior.idleScale;return}
+            // 去哪按性格里的去处偏好加权（安静的猫多在家和窝，好奇的猫多在草丛、池塘、栅栏）。
+            let total=others.reduce(0.0){$0+behavior.weight(forPlace:$1)}
+            var r=rng.unit()*total
+            var choice=others[others.count-1]
+            for index in others {r -= behavior.weight(forPlace:index); if r<=0 {choice=index;break}}
+            request(choice);return
         }
         if autonomous && fidgetRemaining<=0 && current != 0 && current != 2 {
             fidgetRemaining=rng.seconds(10,18)

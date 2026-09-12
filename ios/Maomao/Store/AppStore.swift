@@ -37,6 +37,44 @@ final class AppStore: ObservableObject {
     var cameraX: CGFloat { camera.x }
     var cameraFollowsCat: Bool { camera.followsCat }
     @Published var worldGeometry = WorldGeometry.placeholder
+
+    // MARK: - 时段、天气、情绪、水碗（AppStore+Conditions.swift）
+
+    @Published var dayPhase: DayPhase = .day
+    @Published var weather: Weather = .clear
+    @Published var atmosphere = AtmosphereParams.day
+    @Published var mood = MoodEvaluation.calm
+    @Published var bowlFilledAt: Date?
+    @Published var lastDrinkAt: Date?
+    /// 倒水动画进度：1 刚开始，0 结束；0.5 是"碗已经满了，水晃一下"。
+    @Published var pouring = 0.0
+    @Published var rainSoundEnabled = true { didSet { UserDefaults.standard.set(rainSoundEnabled, forKey: Self.rainSoundKey) } }
+    /// 团子自己写的、不是今天的那几条，进"这个月"。
+    @Published var catMonthRows: [DiaryMonthRow] = []
+    var createdAt = Date()
+    /// 领养到今天几天（第一天 0）。慢热的猫靠它判断熟没熟。
+    var adoptionDays: Int { MoodRules.daysBetween(createdAt, currentDate(), calendar: .current) }
+    var familiar: Bool { temperament != .slow || adoptionDays >= BehaviorParams.slowWarmupDays }
+    /// 性格编译出来的行为参数：院子每秒取一次，聊天和日记也用它。
+    @Published var behavior = BehaviorParams.compile(temperament: .slow)
+    /// 这次打开 App 已经按性格打过招呼了。
+    var greetedThisSession = false
+    var previousVisitAt: Date?
+    let sessionStartedAt = Date()
+    var pokeTimes: [Date] = []
+    var interactedThisSession = false
+    var rainAmount = 0.0
+    var conditionsClock = 1.0
+    var lastDrinkCount = 0
+    var visitedPlacesToday: [String] = []
+    var lastPlaceIndex = -1
+    var catDiaryDate: Date?
+    let rainSound = RainSound()
+    #if DEBUG
+    var debugHour: Double?
+    var debugWeather: Weather?
+    var debugMood: Mood?
+    #endif
     var catIndex: Int { world.simulation.target }
     var viewedLocation: Location { Location.all[viewedIndex] }
     var catLocation: Location { Location.all[world.simulation.current] }
@@ -50,7 +88,16 @@ final class AppStore: ObservableObject {
     }
     var statusText: String {
         if let reaction {return reaction}
+        if world.simulation.isDrinking {
+            switch world.simulation.drink {
+            case .going: return "团子去喝水了"
+            case .down, .lap: return "团子在喝水"
+            case .up: return "团子喝完水，舔了舔嘴"
+            default: return "团子喝完水回来了"
+            }
+        }
         if let sequence=world.simulation.interaction {
+            if weather == .rain, sequence.inNest {return "下雨了，团子躲在树窝里"}
             switch sequence.stage {
             case .pondLook,.pondWatch,.pondRest:return "团子在池边看水纹"
             case .pondReach,.pondTap:return "团子伸爪轻轻拍了拍水"
@@ -70,6 +117,13 @@ final class AppStore: ObservableObject {
         case "tailChase": return "团子在追自己的尾巴"
         default:
             if world.simulation.hiddenInGrass {return "团子藏在草丛里，轻点草丛叫叫它"}
+            if world.simulation.current == 0 {
+                // 情绪有原因就说原因；否则按时段和天气说一句。
+                if mood.mood != .calm {return mood.reason}
+                if let line=MoodCopy.phaseLine(dayPhase,weather:weather,atHome:true) {return line}
+                return MoodCopy.temperamentLine(temperament,familiar:familiar)
+            }
+            if world.simulation.current == 2, dayPhase.isNight, let line=MoodCopy.phaseLine(dayPhase,weather:weather,atHome:false) {return line}
             if world.simulation.current == 1 {return "团子在树荫下歇着"}
             return catLocation.lines[0]
         }
@@ -138,11 +192,9 @@ final class AppStore: ObservableObject {
     // MARK: - 创建流程
 
     @Published var pickedAppearance = "orange"
-    @Published var temperament: Temperament = .slow
+    @Published var temperament: Temperament = .slow { didSet { compileBehavior() } }
     @Published var traitsOpen = false
-    @Published var traitLevels: [Trait: Int] = [
-        .energy: 1, .initiative: 1, .directness: 1, .closeness: 1,
-    ]
+    @Published var traitLevels: [Trait: Int] = Trait.defaults { didSet { compileBehavior() } }
     @Published var nameDraft = ""
     @Published var nameError: String?
     @Published private(set) var namePoolIndex = 0
@@ -185,6 +237,7 @@ final class AppStore: ObservableObject {
         world.stateChanged = { [weak self] in self?.objectWillChange.send() }
         world.frameChanged = { [weak self] dt in self?.advanceCamera(dt) }
         connectBackend()
+        loadPersisted()
     }
 
     private func run(_ body: @escaping () async throws -> Void) -> Task<Void, Never> {
@@ -244,11 +297,14 @@ final class AppStore: ObservableObject {
             $0.rect.x+$0.rect.width >= x-worldGeometry.halfScreen-margin && $0.rect.x <= x+worldGeometry.halfScreen+margin
         }.map(\.image))
     }
+    /// 常驻的贴图：所有独立物件、底板、毛毡收尾层、天上的东西（日月星雨云）。
+    private var pinnedTextures: Set<String> {
+        Set(world.scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]).union(WorldTextureCache.skyLimits.keys)
+    }
     func prepareWorldTextures() {
         let lookAhead=camera.x+camera.velocity*0.24
         let tiles=tileNames(at:camera.x,margin:0.14).union(tileNames(at:lookAhead,margin:0.08))
-        let pinned=Set(world.scene.objects.map(\.image)).union(["world-v3-ground-preview"])
-        worldTextures.update(tiles,pinned:pinned)
+        worldTextures.update(tiles,pinned:pinnedTextures)
     }
     #if DEBUG
     private var cameraFrames=0
@@ -266,6 +322,7 @@ final class AppStore: ObservableObject {
     #endif
     private func advanceCamera(_ dt:Double) {
         advanceFlag(dt)
+        advanceConditions(dt)
         #if DEBUG
         cameraFrames += 1
         if let previous=lastCameraForMetrics {maxCameraStep=max(maxCameraStep,abs(camera.x-previous))}
@@ -283,14 +340,18 @@ final class AppStore: ObservableObject {
             camera=next
             if camera.mode == .following {viewedIndex=world.simulation.current}
         } else {
-            let pinned=Set(world.scene.objects.map(\.image)).union(["world-v3-ground-preview"])
-            worldTextures.update(tileNames(at:camera.x,margin:0.14).union(needed),pinned:pinned)
+            worldTextures.update(tileNames(at:camera.x,margin:0.14).union(needed),pinned:pinnedTextures)
         }
     }
     func poke() {
         guard !isLost,!world.simulation.isMoving else {return}
+        let now=Date()
+        pokeTimes.append(now)
+        pokeTimes.removeAll { now.timeIntervalSince($0) > MoodRules.pokeBurstWindow+MoodRules.pokeSulkSeconds }
+        interactedThisSession=true
         world.poke()
-        announce(world.simulation.hiddenInGrass ? "草叶动了动，团子看着你":catLocation.reactions[0])
+        let lines=world.simulation.current == 0 ? MoodCopy.reactions(mood.mood,temperament:temperament,familiar:familiar):catLocation.reactions
+        announce(world.simulation.hiddenInGrass ? "草叶动了动，团子看着你":lines[pokeTimes.count % lines.count])
     }
 
     /// 状态条上说一句，2s 后回到常态句。同一时刻只有一句。
@@ -337,6 +398,7 @@ final class AppStore: ObservableObject {
     func send() {
         let text = draft.trimmed
         guard !text.isEmpty, !isStreaming else { return }
+        interactedThisSession = true
 
         let id = "u" + UUID().uuidString
         let willFail = forceFail
@@ -618,6 +680,10 @@ final class AppStore: ObservableObject {
     func enterYard() {
         onboarding = nil
         screen = .home
+        createdAt = Date()
+        savePersonality()
+        compileBehavior()
+        greetedThisSession = false
         if backend.isRemote { remoteUpdateCat() }
     }
 
@@ -648,6 +714,15 @@ final class AppStore: ObservableObject {
         toast = nil
         forceFail = false
         forceTimeout = false
+        bowlFilledAt = nil
+        lastDrinkAt = nil
+        pokeTimes = []
+        catDiaryDate = nil
+        catMonthRows = []
+        visitedPlacesToday = []
+        greetedThisSession = false
+        savePersisted()
+        conditionsClock = 1
         connectBackend()
     }
 }

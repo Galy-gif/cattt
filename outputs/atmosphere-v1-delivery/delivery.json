@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12",
+  "generator": "Codex built-in imagegen",
+  "round": 1,
+  "source_brief": "assets/scenes/atmosphere-v1/brief.md",
+  "prompt_storage": "Each built-in call used the locks below plus the item prompt. Wording was normalized into labeled imagegen specs without changing the requested content. Built-in native outputs were copied to the project and resampled without crop: A images to 828x1800 and props to 1024x1024. assets/tools/prepare_v6_deliveries.py then locked P2 outside the water region to P1 and normalized prop backgrounds to exact #FF00FF.",
+  "common_prompt": {
+    "world_lock": "Use the approved current home screenshot as composition lock and the approved cloud as material lock. Handmade felt-and-fabric diorama, matte wool felt, visible stitching, no gloss or plastic. Do not redesign the world.",
+    "prop_lock": "Canvas exactly 1024x1024. Requested object only, centered on flat pure #FF00FF, no ground, cast shadow, text, border, checkerboard or watermark. Object fills about 70% width and matches the approved felt construction."
+  },
+  "items": [
+    {
+      "id": "A1-dusk",
+      "status": "new",
+      "file": "A1-dusk/A1-dusk__r1.png",
+      "sha256": "c2b52ea7488f31b70bf41f5d8efce232f40978a594bb3cd444295248a8306019",
+      "references": ["R-home-screenshot.jpg", "R-cloud-current.png"],
+      "prompt": "Lighting-weather edit of the current home screen. Preserve exact camera, layout, world objects, cat and UI. Change only to sunset: orange-to-pink-to-dusty-violet sky, low felt sun on the right, warm light and long soft leftward shadows. Keep the cat clearly visible."
+    },
+    {
+      "id": "A2-evening",
+      "status": "new",
+      "file": "A2-evening/A2-evening__r1.png",
+      "sha256": "8b50567014531058be568802409bd54b3b8b329d8713d8e0a12737e10a360aa6",
+      "references": ["R-home-screenshot.jpg", "R-cloud-current.png"],
+      "prompt": "Lighting-weather edit of the current home screen. Preserve exact camera, layout, world objects, cat and UI. Change only to blue hour: dusty deep-blue sky with faded-peach horizon, no sun, cooler dimmer light and warm round-window glow with a small ground spill."
+    },
+    {
+      "id": "A3-night",
+      "status": "new",
+      "file": "A3-night/A3-night__r1.png",
+      "sha256": "50a168cbf2c0ccbc6743924ea7eedcff8fedb88fdf5b8a1b34f5b8adf8bf1e12",
+      "references": ["R-home-screenshot.jpg", "R-cloud-current.png"],
+      "prompt": "Lighting-weather edit of the current home screen. Preserve exact camera, layout, world objects, cat and UI. Change only to deep navy night with cream sewn felt crescent and a few stars plus warm window glow. Keep the full scene readable and cat lighter than its ground."
+    },
+    {
+      "id": "A4-rain",
+      "status": "new",
+      "file": "A4-rain/A4-rain__r1.png",
+      "sha256": "5d12b39f72aadb43ba3dcc6ab1159c5c1d2ded3ac3ea46c422a174b781705650",
+      "references": ["R-home-screenshot.jpg", "R-cloud-current.png"],
+      "prompt": "Lighting-weather edit of the current home screen. Preserve exact camera, layout, world objects, cat and UI. Change only to rainy daytime with soft grey sky, two sewn blue-grey rain clouds, fine diagonal rain threads and slightly darker desaturated damp grass. Cat stays dry under the mushroom cap; no lightning."
+    },
+    {
+      "id": "P1-bowl-empty",
+      "status": "new",
+      "file": "P1-bowl-empty/P1-bowl-empty__r1.png",
+      "sha256": "68e52caee4054fdf2bc02c4ed2305242d7e555d44333a3f3ac69443201c5e55c",
+      "references": ["R-bowls-current.png", "R-cloud-current.png"],
+      "prompt": "Use the prop lock. Reproduce only the approved teal-blue felt bowl at the same slightly-above front angle, with the same diamond stitching and darker rim. Bowl is empty, visible inside dry."
+    },
+    {
+      "id": "P2-bowl-full",
+      "status": "new",
+      "file": "P2-bowl-full/P2-bowl-full__r1.png",
+      "sha256": "d982256e88890c4c2760845d42d944d11f6eba5e308edac54641d2f616213a89",
+      "references": ["P1-bowl-empty__r1.png"],
+      "prompt": "Precise edit of P1. Fill only the bowl interior almost to the rim with calm pale-blue matte felt water and a faint lighter edge ring. Preserve silhouette, angle, size, position, rim, color, stitching, canvas and background exactly."
+    },
+    {
+      "id": "S1-sun",
+      "status": "new",
+      "file": "S1-sun/S1-sun__r1.png",
+      "sha256": "0ebf0ecdd50ae059e25b63c8e1d139b1dc85cdede688c2aa501c2e7a2a73b5c3",
+      "references": ["R-cloud-current.png"],
+      "prompt": "Use the prop lock. One warm orange-gold hand-cut round felt sun with sewn edge and subtle lighter center. No rays, face or glow outside the disc."
+    },
+    {
+      "id": "S2-moon",
+      "status": "new",
+      "file": "S2-moon/S2-moon__r1.png",
+      "sha256": "a789dee33705ced7d778d8cd390fb82cd1fca22cf7b40e5ec41bfe0af8bd6154",
+      "references": ["R-cloud-current.png"],
+      "prompt": "Use the prop lock. One cream hand-cut felt crescent with gently rounded tips and sewn edge, same cream as the approved cloud. No face, glow or stars."
+    },
+    {
+      "id": "S3-stars",
+      "status": "new",
+      "file": "S3-stars/S3-stars__r1.png",
+      "sha256": "7e2af3e694035095aec81b86d5c7815553511bb7dede58d98089a007255152f6",
+      "references": ["R-cloud-current.png"],
+      "prompt": "Use the prop lock. Exactly five separated cream felt five-point stars with rounded tips and sewn edges, in three sizes. No moon, cloud or glow."
+    },
+    {
+      "id": "S4-raincloud-a",
+      "status": "new",
+      "file": "S4-raincloud-a/S4-raincloud-a__r1.png",
+      "sha256": "ba86bde2bd883f9a051750df693b3ba1b88d851c6b5f004f0d2275dda23bc825",
+      "references": ["R-cloud-current.png"],
+      "prompt": "Use the prop lock. One wider flatter muted blue-grey rain cloud matching the approved cloud's sewn outer edge and inner lobes, with slightly darker underside. No rain or face."
+    },
+    {
+      "id": "S4-raincloud-b",
+      "status": "new",
+      "file": "S4-raincloud-b/S4-raincloud-b__r1.png",
+      "sha256": "fd4fb31dbcd8559b318d9eafa504243b0effea1962b4ba29d82565b464a93b09",
+      "references": ["S4-raincloud-a__r1.png"],
+      "prompt": "Use the prop lock and exactly match rain cloud A's felt, colors, stitching and darker underside, but make a different taller silhouette with three top lobes and one small left lobe. No rain or face."
+    },
+    {
+      "id": "S5-window-lit",
+      "status": "new",
+      "file": "S5-window-lit/S5-window-lit__r1.png",
+      "sha256": "58e745e91b4404da25deb34755c54c6cff1b204210a38f844f7d49d6411869d0",
+      "references": ["R-house-door.png"],
+      "prompt": "Precise isolated reproduction of the approved round window, cream felt frame and wooden cross bars. Change only the four panes to warm yellow felt glow, brighter at pane centers. No light spill, house wall or shadow."
+    }
+  ]
+}

@@ -19,7 +19,7 @@
 
 ```bash
 # 世界层逻辑测试（仓库根目录）
-d=$(mktemp -d); for t in ios/Tests/*.swift; do swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break; done
+d=$(mktemp -d); for t in ios/Tests/*.swift; do swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift ios/Maomao/Model/WorldMood.swift ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break; done
 # 模拟器构建
 xcodebuild -project ios/Maomao.xcodeproj -scheme Maomao -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/maomao-build build
 # 后端

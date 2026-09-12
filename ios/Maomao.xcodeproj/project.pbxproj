@@ -37,20 +37,27 @@
 		F74324A6F823B7D09FCD4647 /* PickAppearanceStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E79D1024F687302A936DAA /* PickAppearanceStep.swift */; };
 		A5C9259729E7E1DA696F6EA3 /* TemperamentStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EA097DE6CE74C49A23F5A5 /* TemperamentStep.swift */; };
 		545F003BC317E0471C5B07D0 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F735568340EAEDB8A5DAD8BA /* Components.swift */; };
+		96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */; };
 		44964362F1DB30F201D79907 /* CatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404FE55DC010C44B75AFAC22 /* CatAction.swift */; };
+		B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */; };
 		B8EC76B04906D68259B9FF1F /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56651B6536169C588E8E3E0C /* ChatMessage.swift */; };
 		3BBF4C1400C85E217CDBED47 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */; };
 		E805D6198DC960D223F80A31 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE3B9C19706DC69E8BDD559 /* Location.swift */; };
+		86DA7990BA314C37B712D5F6 /* Personality.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD6C089082D4459E387B08D /* Personality.swift */; };
 		9D87892ED808F81148011D57 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C51D5F53E72B7F46C1287C6 /* World.swift */; };
 		41395686B4E2B32DCC3C5223 /* WorldCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF454089B66E87EB601A2A /* WorldCamera.swift */; };
 		B2B6E905B6C0C2B5019E78A8 /* WorldDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC54DE1E8A0D3E1D0B254F3F /* WorldDepth.swift */; };
 		0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */; };
+		40B96C9A05764DEF44B0CF44 /* WorldMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44900FFDCD4703A937FB65C6 /* WorldMood.swift */; };
 		BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D814ABAF82C26409760529A /* WorldScene.swift */; };
+		EAD4C2B50E627271E0108D17 /* AppStore+Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A992792D2714773D46886 /* AppStore+Conditions.swift */; };
 		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
+		1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672224FB980742CAF2A8112 /* RainSound.swift */; };
 		C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */; };
 		199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */; };
 		A6070B9CF28E71610AA267AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A790BB479B2477E3A634A1EB /* Assets.xcassets */; };
+		E1AAACFB012B3DDE66976AC7 /* rain-loop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D842326EFD32B9EF70D0D126 /* rain-loop.m4a */; };
 		938754087F1D6D75F9782657 /* world-v2-bed-front.png in Resources */ = {isa = PBXBuildFile; fileRef = B7701392AB463B4BC0225487 /* world-v2-bed-front.png */; };
 		8769F94263782D788E5B5F20 /* world-v2-bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4470750D58556F4112614EC3 /* world-v2-bed.png */; };
 		C0071C7DF9D2892BD573CA4E /* world-v2-board.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B80982DE30AD8134167EC26 /* world-v2-board.png */; };
@@ -83,6 +90,17 @@
 		5CD441F26CE635545CC2EEEE /* world-v5-mailbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAA6B19209ECDF4FCDB0BDB /* world-v5-mailbox.png */; };
 		DFB37BC47F743222ADA94F49 /* world-v5-rope-knot.png in Resources */ = {isa = PBXBuildFile; fileRef = 06A96D5CB565C9F4FB52D642 /* world-v5-rope-knot.png */; };
 		A159D52AA36C4E8510262CC6 /* world-v5-rope.png in Resources */ = {isa = PBXBuildFile; fileRef = 9578EB0F6B8FABF5BCFC36F3 /* world-v5-rope.png */; };
+		EBAFCAAA678987EB183DB4E9 /* world-v6-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 19625C50320E1DF0EC0E0C9D /* world-v6-moon.png */; };
+		9BE4C96DED704508C392BD06 /* world-v6-raincloud-a.png in Resources */ = {isa = PBXBuildFile; fileRef = ED935E99ABBFF4890B24CFC7 /* world-v6-raincloud-a.png */; };
+		BF022A23123462D2415863AA /* world-v6-raincloud-b.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B766D534B0BE98473E987CC /* world-v6-raincloud-b.png */; };
+		C3DF48858FEBD78DC45A9B5B /* world-v6-star-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 738CFC813FC4149BD3AF46F0 /* world-v6-star-1.png */; };
+		B010DBF521A35A52769029AD /* world-v6-star-2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2222AC197954ACBDC3A7BA0 /* world-v6-star-2.png */; };
+		ACFF2111B9C566C187831504 /* world-v6-star-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A30B4DCE3A29A7930A0D869D /* world-v6-star-3.png */; };
+		6762E55127AA4619B7FABEEC /* world-v6-star-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 25B003BB73499D11B9809079 /* world-v6-star-4.png */; };
+		A8AC9883CDE1963D40AF1D54 /* world-v6-star-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AFD8BDA2A3DC313782D03D /* world-v6-star-5.png */; };
+		9405D712DD60A2374B392E46 /* world-v6-sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 798E85C68FFCD19B23722FAA /* world-v6-sun.png */; };
+		680CF7DA88FE37D31EB94369 /* world-v6-water.png in Resources */ = {isa = PBXBuildFile; fileRef = 55851EA3AD349AA4447D0201 /* world-v6-water.png */; };
+		E2557C896269C84B8A3051DB /* world-v6-window-lit.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,20 +135,27 @@
 		23E79D1024F687302A936DAA /* PickAppearanceStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAppearanceStep.swift; sourceTree = "<group>"; };
 		D1EA097DE6CE74C49A23F5A5 /* TemperamentStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentStep.swift; sourceTree = "<group>"; };
 		F735568340EAEDB8A5DAD8BA /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atmosphere.swift; sourceTree = "<group>"; };
 		404FE55DC010C44B75AFAC22 /* CatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAction.swift; sourceTree = "<group>"; };
+		778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDiary.swift; sourceTree = "<group>"; };
 		56651B6536169C588E8E3E0C /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		3EE3B9C19706DC69E8BDD559 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		BFD6C089082D4459E387B08D /* Personality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personality.swift; sourceTree = "<group>"; };
 		6C51D5F53E72B7F46C1287C6 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		6CEF454089B66E87EB601A2A /* WorldCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldCamera.swift; sourceTree = "<group>"; };
 		DC54DE1E8A0D3E1D0B254F3F /* WorldDepth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDepth.swift; sourceTree = "<group>"; };
 		EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldInteraction.swift; sourceTree = "<group>"; };
+		44900FFDCD4703A937FB65C6 /* WorldMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMood.swift; sourceTree = "<group>"; };
 		0D814ABAF82C26409760529A /* WorldScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScene.swift; sourceTree = "<group>"; };
+		185A992792D2714773D46886 /* AppStore+Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Conditions.swift"; sourceTree = "<group>"; };
 		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		B672224FB980742CAF2A8112 /* RainSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainSound.swift; sourceTree = "<group>"; };
 		54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldEngine.swift; sourceTree = "<group>"; };
 		A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTextureCache.swift; sourceTree = "<group>"; };
 		A790BB479B2477E3A634A1EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D842326EFD32B9EF70D0D126 /* rain-loop.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; path = rain-loop.m4a; sourceTree = "<group>"; };
 		B7701392AB463B4BC0225487 /* world-v2-bed-front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v2-bed-front.png; sourceTree = "<group>"; };
 		4470750D58556F4112614EC3 /* world-v2-bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v2-bed.png; sourceTree = "<group>"; };
 		1B80982DE30AD8134167EC26 /* world-v2-board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v2-board.png; sourceTree = "<group>"; };
@@ -163,6 +188,17 @@
 		0FAA6B19209ECDF4FCDB0BDB /* world-v5-mailbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v5-mailbox.png; sourceTree = "<group>"; };
 		06A96D5CB565C9F4FB52D642 /* world-v5-rope-knot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v5-rope-knot.png; sourceTree = "<group>"; };
 		9578EB0F6B8FABF5BCFC36F3 /* world-v5-rope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v5-rope.png; sourceTree = "<group>"; };
+		19625C50320E1DF0EC0E0C9D /* world-v6-moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-moon.png; sourceTree = "<group>"; };
+		ED935E99ABBFF4890B24CFC7 /* world-v6-raincloud-a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-raincloud-a.png; sourceTree = "<group>"; };
+		9B766D534B0BE98473E987CC /* world-v6-raincloud-b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-raincloud-b.png; sourceTree = "<group>"; };
+		738CFC813FC4149BD3AF46F0 /* world-v6-star-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-star-1.png; sourceTree = "<group>"; };
+		E2222AC197954ACBDC3A7BA0 /* world-v6-star-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-star-2.png; sourceTree = "<group>"; };
+		A30B4DCE3A29A7930A0D869D /* world-v6-star-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-star-3.png; sourceTree = "<group>"; };
+		25B003BB73499D11B9809079 /* world-v6-star-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-star-4.png; sourceTree = "<group>"; };
+		23AFD8BDA2A3DC313782D03D /* world-v6-star-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-star-5.png; sourceTree = "<group>"; };
+		798E85C68FFCD19B23722FAA /* world-v6-sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-sun.png; sourceTree = "<group>"; };
+		55851EA3AD349AA4447D0201 /* world-v6-water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-water.png; sourceTree = "<group>"; };
+		ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-window-lit.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,17 +344,29 @@
 		D7115ABDE0A011B8099BA769 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */,
 				404FE55DC010C44B75AFAC22 /* CatAction.swift */,
+				778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */,
 				56651B6536169C588E8E3E0C /* ChatMessage.swift */,
 				6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */,
 				3EE3B9C19706DC69E8BDD559 /* Location.swift */,
+				BFD6C089082D4459E387B08D /* Personality.swift */,
 				6C51D5F53E72B7F46C1287C6 /* World.swift */,
 				6CEF454089B66E87EB601A2A /* WorldCamera.swift */,
 				DC54DE1E8A0D3E1D0B254F3F /* WorldDepth.swift */,
 				EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */,
+				44900FFDCD4703A937FB65C6 /* WorldMood.swift */,
 				0D814ABAF82C26409760529A /* WorldScene.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3C9F3EE81E301E8FBB2E13F0 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D842326EFD32B9EF70D0D126 /* rain-loop.m4a */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		37D7D86C2ACC639CB31503B8 /* WorldTextures */ = {
@@ -356,6 +404,17 @@
 				0FAA6B19209ECDF4FCDB0BDB /* world-v5-mailbox.png */,
 				06A96D5CB565C9F4FB52D642 /* world-v5-rope-knot.png */,
 				9578EB0F6B8FABF5BCFC36F3 /* world-v5-rope.png */,
+				19625C50320E1DF0EC0E0C9D /* world-v6-moon.png */,
+				ED935E99ABBFF4890B24CFC7 /* world-v6-raincloud-a.png */,
+				9B766D534B0BE98473E987CC /* world-v6-raincloud-b.png */,
+				738CFC813FC4149BD3AF46F0 /* world-v6-star-1.png */,
+				E2222AC197954ACBDC3A7BA0 /* world-v6-star-2.png */,
+				A30B4DCE3A29A7930A0D869D /* world-v6-star-3.png */,
+				25B003BB73499D11B9809079 /* world-v6-star-4.png */,
+				23AFD8BDA2A3DC313782D03D /* world-v6-star-5.png */,
+				798E85C68FFCD19B23722FAA /* world-v6-sun.png */,
+				55851EA3AD349AA4447D0201 /* world-v6-water.png */,
+				ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */,
 			);
 			path = WorldTextures;
 			sourceTree = "<group>";
@@ -363,6 +422,7 @@
 		43BBA464C0395F7D2308BAD6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3C9F3EE81E301E8FBB2E13F0 /* Audio */,
 				37D7D86C2ACC639CB31503B8 /* WorldTextures */,
 			);
 			path = Resources;
@@ -371,8 +431,10 @@
 		58028F200655078E589966B9 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				185A992792D2714773D46886 /* AppStore+Conditions.swift */,
 				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
+				B672224FB980742CAF2A8112 /* RainSound.swift */,
 				54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */,
 				A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */,
 			);
@@ -454,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6070B9CF28E71610AA267AE /* Assets.xcassets in Resources */,
+				E1AAACFB012B3DDE66976AC7 /* rain-loop.m4a in Resources */,
 				938754087F1D6D75F9782657 /* world-v2-bed-front.png in Resources */,
 				8769F94263782D788E5B5F20 /* world-v2-bed.png in Resources */,
 				C0071C7DF9D2892BD573CA4E /* world-v2-board.png in Resources */,
@@ -486,6 +549,17 @@
 				5CD441F26CE635545CC2EEEE /* world-v5-mailbox.png in Resources */,
 				DFB37BC47F743222ADA94F49 /* world-v5-rope-knot.png in Resources */,
 				A159D52AA36C4E8510262CC6 /* world-v5-rope.png in Resources */,
+				EBAFCAAA678987EB183DB4E9 /* world-v6-moon.png in Resources */,
+				9BE4C96DED704508C392BD06 /* world-v6-raincloud-a.png in Resources */,
+				BF022A23123462D2415863AA /* world-v6-raincloud-b.png in Resources */,
+				C3DF48858FEBD78DC45A9B5B /* world-v6-star-1.png in Resources */,
+				B010DBF521A35A52769029AD /* world-v6-star-2.png in Resources */,
+				ACFF2111B9C566C187831504 /* world-v6-star-3.png in Resources */,
+				6762E55127AA4619B7FABEEC /* world-v6-star-4.png in Resources */,
+				A8AC9883CDE1963D40AF1D54 /* world-v6-star-5.png in Resources */,
+				9405D712DD60A2374B392E46 /* world-v6-sun.png in Resources */,
+				680CF7DA88FE37D31EB94369 /* world-v6-water.png in Resources */,
+				E2557C896269C84B8A3051DB /* world-v6-window-lit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,17 +600,23 @@
 				F74324A6F823B7D09FCD4647 /* PickAppearanceStep.swift in Sources */,
 				A5C9259729E7E1DA696F6EA3 /* TemperamentStep.swift in Sources */,
 				545F003BC317E0471C5B07D0 /* Components.swift in Sources */,
+				96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */,
 				44964362F1DB30F201D79907 /* CatAction.swift in Sources */,
+				B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */,
 				B8EC76B04906D68259B9FF1F /* ChatMessage.swift in Sources */,
 				3BBF4C1400C85E217CDBED47 /* DiaryEntry.swift in Sources */,
 				E805D6198DC960D223F80A31 /* Location.swift in Sources */,
+				86DA7990BA314C37B712D5F6 /* Personality.swift in Sources */,
 				9D87892ED808F81148011D57 /* World.swift in Sources */,
 				41395686B4E2B32DCC3C5223 /* WorldCamera.swift in Sources */,
 				B2B6E905B6C0C2B5019E78A8 /* WorldDepth.swift in Sources */,
 				0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */,
+				40B96C9A05764DEF44B0CF44 /* WorldMood.swift in Sources */,
 				BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */,
+				EAD4C2B50E627271E0108D17 /* AppStore+Conditions.swift in Sources */,
 				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
+				1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */,
 				C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */,
 				199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */,
 			);

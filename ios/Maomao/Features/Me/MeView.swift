@@ -183,6 +183,25 @@ struct MeView: View {
                 .accessibilityAddTraits(.isButton)
 
                 ListDivider()
+                HStack(spacing: 12) {
+                    Text("下雨时有雨声")
+                        .font(Typo.sans(14.5))
+                        .foregroundStyle(Palette.ink)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    ShareToggle(isOn: store.rainSoundEnabled)
+                }
+                .padding(.horizontal, 15)
+                .padding(.vertical, 14)
+                .frame(minHeight: Metrics.minTap)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(.easeOut(duration: 0.2)) { store.rainSoundEnabled.toggle() }
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isButton)
+
+                ListDivider()
                 // TODO: 二级页 —— 通知与声音，本版未做。
                 settingRow("通知与声音")
 

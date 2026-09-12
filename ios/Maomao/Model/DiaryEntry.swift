@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct DiaryEntry: Identifiable, Equatable {
-    enum Kind { case voice, photo, text }
+    /// `cat` 是团子自己写的那一条（每天一条，暖纸色，用户不能改）。
+    enum Kind { case voice, photo, text, cat }
 
     /// 团子来过 · 三态。互斥：有留言时不画脚印。
     enum Visit: Int, Comparable {

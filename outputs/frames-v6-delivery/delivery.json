@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12",
+  "generator": "Codex built-in imagegen",
+  "round": 1,
+  "source_brief": "assets/tuanzi/frames-v6/brief.md",
+  "prompt_storage": "Each built-in call used the common locks below plus the item prompt. Wording was normalized into labeled imagegen specs without changing the requested content. assets/tools/prepare_v6_deliveries.py then made deterministic brief-required fixes: shared hub cells, D1-to-D2 relay, drink-mouth vertical registration, and exact #FF00FF background normalization.",
+  "common_prompt": {
+    "cat_lock": "Match the approved orange tabby Tuanzi exactly: big round slightly irregular head; small triangular pink-inner ears; small dark-brown bead eyes without highlights; tiny warm-brown mouth; three darker orange forehead stripes; broad body stripes; ringed tail; thick round low body; short legs; round toe-lined paws; short felt-over-crayon fibers; fuzzy outline edge; warm dark-brown variable-width outline. Uniform orange chest and belly; no cream or white. No whiskers, blush or eye highlights. Not realistic, not 3D plush, not flat vector.",
+    "sheet_lock": "Canvas exactly 1536x1024, 3 columns x 2 rows of six equal 512x512 cells. Exactly one complete cat per cell, cats do not touch. No grid, borders, numbers or text. Same cat scale in every cell and as the supplied approved references, target head width about 170px. Only the cat on flat pure #FF00FF; no checkerboard, ground, shadow or props. Smooth incremental motion and no motion symbols.",
+    "sit_hub": "Cell 1 reproduces N4 cell 3: seated upright facing the viewer slightly right, front paws side by side, tail curled right, ears up, eyes open and neutral."
+  },
+  "items": [
+    {
+      "id": "H1-sit-look",
+      "status": "new",
+      "file": "H1-sit-look/H1-sit-look__r1.png",
+      "sha256": "89d3323cd129ac40c446c7bf92a831526a7d045542a47ed049295790ddf88e49",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "N4-settle__r1.png", "N5-look__r1.png"],
+      "prompt": "Use the common cat, sheet and sitting-hub locks. Six cells: eyes open looking at viewer; half closed; closed slow blink; open; head slightly left; head straight with one ear twitch. Body, paws and tail identical. A second precise edit removed only two unintended yellow motion marks above the right ear in cell 6.",
+      "rejected": ["_rejected/H1-sit-look__attempt1-motion-marks.png"]
+    },
+    {
+      "id": "H2-head-tilt",
+      "status": "new",
+      "file": "H2-head-tilt/H2-head-tilt__r1.png",
+      "sha256": "0a57eb7bbb35c3891b9f9b27b040e7468b37c11d7218108a60a09be813c8a959",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "N4-settle__r1.png", "N5-look__r1.png"],
+      "prompt": "Use the common cat, sheet and sitting-hub locks. Six cells: head straight; tilt left 15 degrees; tilt left 25 degrees; straight; tilt right 25 degrees; straight with both ears flicking. Body, paws and tail identical."
+    },
+    {
+      "id": "H3-groom",
+      "status": "new",
+      "file": "H3-groom/H3-groom__r1.png",
+      "sha256": "6efd625c2b5bd3a41938a4de2e23d8578b105b9cb323738a154bdcd087989303",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "N4-settle__r1.png", "N5-look__r1.png"],
+      "prompt": "Use the common cat, sheet and sitting-hub locks. Six cells: hub; right paw lifts toward mouth; lick raised paw with tiny tongue; wet paw wipes right ear and cheek; paw wipes right eye; paw lowers and eyes open. Body and tail identical; no motion symbols."
+    },
+    {
+      "id": "M1-happy",
+      "status": "new",
+      "file": "M1-happy/M1-happy__r1.png",
+      "sha256": "3acf79102d38967c951bb7d7f46dc1b07bf3932706c214395f3b42bae2243976",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "N4-settle__r1.png"],
+      "prompt": "Use the common cat and sheet locks. Quietly pleased seated cat, emotion legible through upright curved tail and alternating kneading. Six cells alternate left/right paw presses and a slow blink, returning to cell 1. Never wide eyes, open mouth, sparkles or hearts; tail visible upright in every cell."
+    },
+    {
+      "id": "M2-sulk",
+      "status": "new",
+      "file": "M2-sulk/M2-sulk__r1.png",
+      "sha256": "42d80d53931f7125b8c3c01fca794638bbb226fda1a87c10823d47953466e8c4",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "W2-walk-away__r1.png"],
+      "prompt": "Use the common cat and sheet locks. Cat sits with back to viewer, ears flattened outward, tail on ground toward viewer. Six cells show tail lifting and slapping left/right; cell 6 turns head slightly so one narrowed eye glances back. No impact marks."
+    },
+    {
+      "id": "M3-sad",
+      "status": "new",
+      "file": "M3-sad/M3-sad__r1.png",
+      "sha256": "f1aa2a9da5b84d5ab63d76bb8731e8ad91eff259f389e78d093eda6c4187937e",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "N4-settle__r1.png"],
+      "prompt": "Use the common cat, sheet and sitting-hub locks. The cat gradually hunches with head low, ears drooped and tail wrapped around paws. Cells 3-6 keep the hunched silhouette while eyes look down, glance up, half-close on a sigh, then open down again. Clearly awake; no tears or symbols."
+    },
+    {
+      "id": "D1-drink-down",
+      "status": "new",
+      "file": "D1-drink-down/D1-drink-down__r1.png",
+      "sha256": "5f327c2a2f26a63a037d0eb9bad916079423eb6ef80712fb1100f11e891a72de",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png"],
+      "prompt": "Use the common cat and sheet locks. Right-facing side-view cat lowers from the R3 standing pose to an invisible bowl rim at knee height in six incremental cells. Hind legs and tail stay fixed. Do not draw bowl or water."
+    },
+    {
+      "id": "D2-drink-lap",
+      "status": "new",
+      "file": "D2-drink-lap/D2-drink-lap__r1.png",
+      "sha256": "bf13fd3fa6a9725abc5dfb44bc4c1ae6f31c7e77dfe5acc1733cd396b80fab4c",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png", "D1-drink-down__r1.png"],
+      "prompt": "Use the common cat and sheet locks. Seamless six-frame lap loop beginning exactly from D1 cell 6. Mouth remains at one invisible rim height; only tiny tongue, jaw and one ear move. Body, legs and tail stay fixed. No bowl, water, droplets or splashes."
+    },
+    {
+      "id": "D3-drink-up",
+      "status": "new",
+      "file": "D3-drink-up/D3-drink-up__r1.png",
+      "sha256": "9cf5d0947742aff47a0d734646a77c5d42bef601ab614ac363150bc5115f523e",
+      "references": ["R1-cat-identity.png", "R2-cat-walk-side.png", "R3-cat-side-standing.png", "D1-drink-down__r1.png"],
+      "prompt": "Use the common cat and sheet locks. Six-frame transition from D1 cell 6: low mouth; head half up licking lips; head up; small left head shake; small right head shake; return exactly to R3 standing. Head-only motion blur is allowed; no bowl, water, droplets or splashes."
+    }
+  ]
+}

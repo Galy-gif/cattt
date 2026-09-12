@@ -23,7 +23,8 @@ import ImageIO
         }
         let delta=WorldDepth.foregroundX(0.5,camera:0.6)-WorldDepth.foregroundX(0.5,camera:0.5)
         precondition(abs(delta + 0.1*WorldDepth.foregroundRate)<1e-12)
-        if CommandLine.arguments.count > 1 {
+        // 根 README 的测试循环给所有测试传 scene.json；只有拿到 PNG 时才检查山脊轮廓。
+        if CommandLine.arguments.count > 1, CommandLine.arguments[1].hasSuffix(".png") {
             let url=URL(fileURLWithPath:CommandLine.arguments[1])
             let source=CGImageSourceCreateWithURL(url as CFURL,nil)!
             let image=CGImageSourceCreateImageAtIndex(source,0,nil)!

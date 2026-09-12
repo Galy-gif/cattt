@@ -61,7 +61,7 @@ export function classifyModelError(err: unknown): ModelErrorInfo {
 
 /** 成本账本：每次模型调用记一行，按用途分 */
 export async function recordModelCall(entry: {
-  purpose: 'chat' | 'memory_extract' | 'boundary_summarize';
+  purpose: 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary';
   modelId: string;
   usage: LanguageModelUsage | null;
   latencyMs: number;

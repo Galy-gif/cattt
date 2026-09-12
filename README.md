@@ -45,7 +45,7 @@ cd ios && python3 generate_project.py
 ```bash
 # 世界层逻辑测试（在仓库根目录跑）
 d=$(mktemp -d); for t in ios/Tests/*.swift; do
-  swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break
+  swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift ios/Maomao/Model/WorldMood.swift ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break
 done
 # 资源校验（传入构建好的 .app）
 python3 assets/tools/validate_world_v4.py <Maomao.app 路径>

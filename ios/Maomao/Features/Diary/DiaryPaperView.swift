@@ -149,7 +149,7 @@ struct DiaryPaperView: View {
             SectionTitle(text: "这个月")
 
             ListContainer {
-                ForEach(Array(SeedData.monthRows.enumerated()), id: \.element.id) { index, row in
+                ForEach(Array((store.catMonthRows + SeedData.monthRows).enumerated()), id: \.element.id) { index, row in
                     if index > 0 { ListDivider(leading: 45) }
 
                     HStack(spacing: 12) {
