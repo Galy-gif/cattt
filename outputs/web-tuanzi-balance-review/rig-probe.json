@@ -1,0 +1,32 @@
+[
+  {
+    "amount": 0.0,
+    "max_paw_target_error": 1.6763806343078613e-08,
+    "front_shoulder_z": 0.11499997973442078,
+    "hind_knee_z": 0.06799999624490738
+  },
+  {
+    "amount": 0.25,
+    "max_paw_target_error": 3.166496753692627e-08,
+    "front_shoulder_z": 0.11508625745773315,
+    "hind_knee_z": 0.06535232812166214
+  },
+  {
+    "amount": 0.5,
+    "max_paw_target_error": 3.0321666218526114e-08,
+    "front_shoulder_z": 0.11506789922714233,
+    "hind_knee_z": 0.05741898715496063
+  },
+  {
+    "amount": 0.75,
+    "max_paw_target_error": 1.8250120749944284e-08,
+    "front_shoulder_z": 0.11412042379379272,
+    "hind_knee_z": 0.05645564943552017
+  },
+  {
+    "amount": 1.0,
+    "max_paw_target_error": 2.0489096641540527e-08,
+    "front_shoulder_z": 0.11365994065999985,
+    "hind_knee_z": 0.058922696858644485
+  }
+]

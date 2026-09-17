@@ -1,0 +1,50 @@
+{
+  "method": "生成参数与 Catmull-Rom 中心线长度；不是渲染图外接框或实际全猫体积。",
+  "measurements": {
+    "torso_width_m": {
+      "before": 0.188,
+      "after": 0.16,
+      "change_percent": -14.89
+    },
+    "torso_depth_m": {
+      "before": 0.228,
+      "after": 0.184,
+      "change_percent": -19.3
+    },
+    "hip_width_m": {
+      "before": 0.2,
+      "after": 0.168,
+      "change_percent": -16.0
+    },
+    "chest_width_m": {
+      "before": 0.176,
+      "after": 0.14,
+      "change_percent": -20.45
+    },
+    "ear_axis_m": {
+      "before": 0.0701854685814663,
+      "after": 0.09453041838477182,
+      "change_percent": 34.69
+    },
+    "tail_curve_m": {
+      "before": 0.25011944134282843,
+      "after": 0.3438013735538299,
+      "change_percent": 37.45
+    },
+    "tail_root_radius_m": {
+      "before": 0.029,
+      "after": 0.035,
+      "change_percent": 20.69
+    },
+    "tail_tip_radius_m": {
+      "before": 0.019,
+      "after": 0.025,
+      "change_percent": 31.58
+    },
+    "head_center_z_m": {
+      "before": 0.224,
+      "after": 0.249,
+      "change_percent": 11.16
+    }
+  }
+}

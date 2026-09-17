@@ -1,0 +1,18 @@
+{
+  "assets/tuanzi-3d/tuanzi.blend": {
+    "sha256": "e179aa739bbd13d186ad3d0c169cc895d76cc0ed67c50b2e4c10139c2b1feca6",
+    "bytes": 1683223
+  },
+  "assets/tuanzi-3d/textures/tuanzi_color.png": {
+    "sha256": "30f03ddf6abd5e22a8b2c41786ebb2518935243c11e8d8817bad9231eb098f47",
+    "bytes": 2557062
+  },
+  "web/public/models/tuanzi.glb": {
+    "sha256": "1f0d6745d2a41ab3fb288e303cfd9ffd814dab48340f66fdab2a10e49111d3f5",
+    "bytes": 1217456
+  },
+  "assets/tuanzi-3d/build_tuanzi.py": {
+    "sha256": "c91aac8888a9b4e192a97e1f31ec7789af17eba9ba09e44f235db788c032caa0",
+    "bytes": 53205
+  }
+}

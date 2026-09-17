@@ -1,0 +1,29 @@
+{
+  "sittingTailRotationErrorRadians": 0,
+  "seatedEarFlickPawDrift": 0.0005680318514863563,
+  "routes": {
+    "straight": {
+      "maxWalkSlipFraction": 0.0007984619939421521,
+      "maxTurnSlipFraction": 0,
+      "maxTransitionSpeedRatio": 0.2467391557578538
+    },
+    "turn180": {
+      "maxWalkSlipFraction": 0.0035660485867924164,
+      "maxTurnSlipFraction": 0.003707792194808383,
+      "maxTransitionSpeedRatio": 0.2974577848396653
+    },
+    "corner90": {
+      "maxWalkSlipFraction": 0.004319255254407453,
+      "maxTurnSlipFraction": 0.0058255147457631565,
+      "maxTransitionSpeedRatio": 0.2467391557578538
+    },
+    "curve": {
+      "maxWalkSlipFraction": 0.002624421387469903,
+      "maxTurnSlipFraction": 0,
+      "maxTransitionSpeedRatio": 0.246739139034198
+    }
+  },
+  "interruptedWalkAndSit": "passed",
+  "triangles": 18878,
+  "glbBytes": 1158220
+}

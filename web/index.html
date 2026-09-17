@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="团子住在这个院子里，它有自己的一天。" />
+    <title>猫猫 · 团子的院子</title>
+    <link rel="stylesheet" href="/src/page/style.css" />
+  </head>
+  <body data-tone="day">
+    <!-- 分层（从下到上）：画布 → 页面文字 → 地点轨 → 顶栏 → 天色盘 → 光标微粒 → 预载幕 -->
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div id="fallback" aria-hidden="true"></div>
+
+    <div id="pre" role="status" aria-live="polite">
+      <div class="pre-in">
+        <p class="pre-mark">猫猫</p>
+        <div class="pre-bar"><i id="pre-fill"></i></div>
+        <p class="pre-note">院子正在醒来</p>
+      </div>
+    </div>
+
+    <header class="nav" id="nav">
+      <a class="nav-brand" href="#top">猫猫</a>
+      <p class="status" id="status" aria-live="polite">团子 · 蘑菇屋 · 白天 · 晴</p>
+    </header>
+
+    <nav class="rail" id="rail" aria-label="院子里的地点"></nav>
+
+    <main class="page" id="top">
+      <section class="sec hero" data-cam="0">
+        <div class="hero-copy">
+          <p class="eyebrow" data-rv>一只猫，和它的院子</p>
+          <h1 class="h-hero" data-rv>团子住在<br />这个院子里</h1>
+          <p class="lede" data-rv>它有自己的脾气，也有自己的一天。你不在的时候，它照样吃饭、喝水、发呆。</p>
+          <p class="note" data-rv><span class="note-dot"></span>iOS 版开发中</p>
+        </div>
+        <p class="cue" data-rv>往下，跟着它走一圈</p>
+      </section>
+
+      <section class="sec left" data-cam="1" data-place="house">
+        <div class="block">
+          <p class="eyebrow" data-rv>蘑菇屋</p>
+          <h2 class="h-sec" data-rv>它住在这里</h2>
+          <p class="body" data-rv>门口有水盆，屋里有灯。天黑了，窗会自己亮起来。</p>
+          <p class="body" data-rv>它不是你点开才出现的。院子一直在，它也一直在。</p>
+        </div>
+      </section>
+
+      <section class="sec right" data-cam="2" data-place="bed">
+        <div class="block">
+          <p class="eyebrow" data-rv>猫窝</p>
+          <h2 class="h-sec" data-rv>它有自己的作息</h2>
+          <p class="body" data-rv>几点醒、午后在哪儿打盹，每只猫不一样。</p>
+          <p class="body" data-rv>你来的时候，它可能正睡着。那就让它睡。</p>
+        </div>
+      </section>
+
+      <section class="sec left" data-cam="3" data-place="tree">
+        <div class="block">
+          <p class="eyebrow" data-rv>树屋</p>
+          <h2 class="h-sec" data-rv>它有自己的脾气</h2>
+          <p class="body" data-rv>外冷内细。刚认识的头几天，它会慢热，不会一上来就黏你。</p>
+          <p class="body" data-rv>熟了以后，它记得你说过的话。</p>
+        </div>
+      </section>
+
+      <section class="sec right" data-cam="4" data-place="grass">
+        <div class="block">
+          <p class="eyebrow" data-rv>草丛</p>
+          <h2 class="h-sec" data-rv>它有心情，<br />也会告诉你为什么</h2>
+          <p class="body" data-rv>开心、不高兴、委屈，都有来由。你问，它会说。</p>
+        </div>
+      </section>
+
+      <section class="sec left" data-cam="5" data-place="pond">
+        <div class="block">
+          <p class="eyebrow" data-rv>池塘</p>
+          <h2 class="h-sec" data-rv>院子的天，<br />跟着你那边的天</h2>
+          <p class="body" data-rv>清晨、白天、黄昏、傍晚、夜晚，晴天和雨天。你那边下雨，院子里也下。</p>
+          <p class="body hint" data-rv>试试下面的天色盘。</p>
+        </div>
+      </section>
+
+      <section class="sec right" data-cam="6" data-place="fence">
+        <div class="block">
+          <p class="eyebrow" data-rv>栅栏边</p>
+          <h2 class="h-sec" data-rv>它每天给你写一条日记</h2>
+          <p class="body" data-rv>写它这一天看见了什么、想了什么。信到了，信箱的旗子会立起来。</p>
+        </div>
+      </section>
+
+      <section class="sec outro" data-cam="7">
+        <div class="outro-copy">
+          <h2 class="h-outro" data-rv>晚安，团子。</h2>
+          <p class="note" data-rv><span class="note-dot"></span>iOS 版开发中</p>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p class="foot-brand">猫猫</p>
+        <p class="foot-line">团子住在这个院子里，它有自己的一天。</p>
+        <p class="foot-meta">电脑网页版 · 展示页 · iOS 版开发中</p>
+      </footer>
+    </main>
+
+    <div class="dock-wrap">
+      <div class="dock" id="dock" role="toolbar" aria-label="天色盘：时段与天气"></div>
+    </div>
+
+    <canvas id="motes" aria-hidden="true"></canvas>
+    <aside id="debug" hidden></aside>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+# Blender 自动备份
+*.blend1
+# 每次生成都会重出的白模渲染（脚本自检用）
+renders/
+__pycache__/

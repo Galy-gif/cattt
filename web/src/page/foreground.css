@@ -1,0 +1,47 @@
+/*
+ * 近景剪影层（见 foreground.ts）。单独一个文件：style.css 这阵子有别的会话在改控件，分开免得互相冲。
+ * 分层：画布（0）之上、页面文字（10）之下。
+ */
+#fg { position: fixed; inset: 0; z-index: 5; pointer-events: none; overflow: hidden; color: var(--fg-color, #2f5a2c); transition: color 1.2s linear; }
+
+.fg-stage {
+  /* 压得低、探进画面不多：只给下角镶一道边，不碰文字块，也不挡对面的主体 */
+  position: absolute; bottom: -9vh; height: min(40svh, 440px); width: min(34vw, 540px);
+  opacity: 0; visibility: hidden;
+}
+.fg-left { left: -7vw; }
+.fg-right { right: -7vw; transform: scaleX(-1); }
+
+.fg-piece { position: absolute; inset: 0; }
+.fg-piece svg { width: 100%; height: 100%; fill: currentColor; overflow: visible; }
+.fg-back { opacity: 0.55; transform: translate3d(9%, 0, 0) scale(0.84); transform-origin: 50% 100%; filter: blur(1.5px); }
+.fg-heart { fill: currentColor; opacity: 0.6; }
+
+/* 入场：从下面升起来，前后两丛错开 */
+.fg-piece { transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.fg-stage:not(.fg-active) .fg-front { transform: translate3d(0, 16%, 0); opacity: 0; }
+.fg-stage:not(.fg-active) .fg-back { transform: translate3d(9%, 14%, 0) scale(0.84); opacity: 0; }
+.fg-active { opacity: 1; visibility: visible; }
+.fg-active .fg-back { transition-delay: 90ms; }
+
+/* 离场：下沉、缩小、虚化 */
+.fg-retiring {
+  opacity: 0; visibility: visible;
+  transform: translate3d(0, 8vh, 0) scale(0.98); filter: blur(18px);
+  transition: opacity 0.68s linear, transform 0.78s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.78s linear;
+}
+.fg-right.fg-retiring { transform: translate3d(0, 8vh, 0) scale(-0.98, 0.98); }
+
+/* 一丛丛各自轻轻摆，周期错开 */
+.fg-spray { animation: fg-sway 17s ease-in-out infinite; animation-delay: var(--sway-delay, 0s); }
+@keyframes fg-sway { 0%, 100% { transform: rotate(-0.7deg); } 50% { transform: rotate(0.8deg); } }
+
+/* 截图模式：直接到位 */
+.shot .fg-piece, .shot .fg-stage { transition: none; }
+.shot .fg-spray { animation: none; }
+
+@media (max-width: 900px) { #fg { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .fg-piece, .fg-stage, .fg-retiring { transition: none; filter: none; }
+  .fg-spray { animation: none; }
+}

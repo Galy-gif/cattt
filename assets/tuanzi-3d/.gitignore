@@ -1,0 +1,4 @@
+# Blender 自动备份
+*.blend1
+# 每次生成都会重出的渲染；验收要用的挑出来压缩后放 outputs/web-tuanzi-spike-review/
+renders/

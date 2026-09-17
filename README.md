@@ -23,6 +23,7 @@
 - **聊天**：默认本地模拟；调试面板可以切到本机后端（`server/`，开发者版，只在本机跑）。
 - **后端本轮改动**：工具循环、聊天移动、世界回执恢复、真实天气、Soul 与临时状态初版已接入；原开发库已迁移。范围与证据见 [实施验收](docs/specs/后端与Agent循环-实施验收-2026-09-12.md)。
 - **最低系统**：iOS 17.0（`决策-2026-09-12.md` 定）。
+- **电脑网页版**（2026-09-17 起，和 iOS 并行、互不影响）：展示页，three.js 做的 3D 院子和 3D 团子，滚动带镜头走过院子六处地点，五个时段 × 晴雨。三轮交付（结构、材质与天色、合并）都已实施，未提交；团子的建模还在优化。见 [决策](docs/决策-2026-09-17-网页版.md) 与 [实施与验收](docs/specs/网页版-院子页面与天气-实施与验收.md)。
 
 ## 跑起来
 
@@ -39,6 +40,16 @@ cd ios && python3 generate_project.py
 ```
 
 **后端**：需要 Node 22+、pnpm、Docker（本机用 colima），步骤见 [`server/README.md`](server/README.md)。App 连本机后端：调试面板切到 local 并填 token，或者启动参数 `-backendMode local -backendToken <token>`。
+
+**网页版**：需要 Node 22+、pnpm。
+
+```bash
+pnpm --dir web install
+pnpm --dir web dev        # 首页 http://localhost:5173/ ，团子调试页 /tuanzi.html ；调试面板加 ?debug=1
+pnpm --dir web typecheck && pnpm --dir web build
+```
+
+改了院子物件或落点要重新生成：`python3 assets/yard-3d/make_paths.py`、`blender -b --factory-startup -P assets/yard-3d/build_yard.py`（见 [`assets/yard-3d/README.md`](assets/yard-3d/README.md)）。
 
 **测试**：
 
@@ -61,6 +72,9 @@ cd server && pnpm typecheck && pnpm test
 | `server/` | 开发者版后端：聊天流式、记忆、本地运行 |
 | `assets/` | 美术源文件与出图委托单。`tuanzi/` 团子（`canonical/` 是唯一角色基准及其出处），`scenes/` 场景，`props/`、`icons/` 道具与图标，`cats/` 早期三只猫（历史） |
 | `assets/tools/` | 素材产线脚本：收图验收、切帧打包、场景配置、资源校验 |
+| `assets/tuanzi-3d/` | 电脑网页版的 3D 团子：Blender 建模脚本、`.blend`、烘好的贴图、与 R3 的剪影对比脚本（见 [`README`](assets/tuanzi-3d/README.md)） |
+| `assets/yard-3d/` | 电脑网页版的 3D 院子：2D→3D 落点换算、路网导出脚本、Blender 建模脚本与 `.blend`（见 [`README`](assets/yard-3d/README.md)） |
+| `web/` | 电脑网页版（Vite + three.js）：`index.html` 是首页（院子 + 整页，`web/src/yard/`、`web/src/page/`、`web/src/render/`），`tuanzi.html` 是团子小样调试页，`web/src/tuanzi/` 是团子运行时 |
 | `docs/` | 决策记录、现行方案、工作约定；`产品/` 是产品需求、功能与页面清单、猫的个体差异机制；`archive/` 是历史与已被取代的文档 |
 | `outputs/` | 每一轮的出图交付（`*-delivery/`）与验收证据（`*-review/`、`world-v*/`） |
 | `design/`、`wireframes/` | 早期设计画布与线框稿，历史参考；现行界面以 App 为准 |

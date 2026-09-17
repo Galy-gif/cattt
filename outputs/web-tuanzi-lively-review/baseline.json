@@ -1,0 +1,10 @@
+{
+  "blend_sha256": "e179aa739bbd13d186ad3d0c169cc895d76cc0ed67c50b2e4c10139c2b1feca6",
+  "reference_sha256": "d1edec556b361bb7e5b66610ece8929789011e26ece1a62c10a98066cd42aa89",
+  "reference_bytes": 1959474,
+  "baseline_glb": {
+    "path": "assets/tuanzi-3d/baselines/2026-09-17-before-lively.glb",
+    "sha256": "1f0d6745d2a41ab3fb288e303cfd9ffd814dab48340f66fdab2a10e49111d3f5"
+  },
+  "baseline_render_texture": "从修改前 GLB 嵌入 JPEG 恢复，替代移至 /tmp 后失效的旧 blend 外部图片路径；与旧网页版显示纹样一致。"
+}

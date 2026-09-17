@@ -1,0 +1,305 @@
+/*
+ * 页面与控件（第一轮：结构）。界面语言沿用 iOS 已定的方向（决策 09-12 第 12 条）：
+ * 米白薄面压在院子上、珊瑚是唯一强调、宋体标题、入夜整套换浅字。
+ * 色值出处：ios/Maomao/DesignSystem/Palette.swift；圆角三档对应 Metrics.swift 现有档。
+ */
+:root {
+  --paper: 247 245 238;          /* Palette.chatMist */
+  --ink: #1f3022;
+  --ink-2: #394c3c;
+  --ink-3: #5a705e;
+  --accent: #c25a3e;
+  --accent-ink: #f8ede6;
+
+  --face: rgb(var(--paper) / 0.9);
+  --scrim: 247 245 238;          /* 首屏和结尾文字后面那团柔光 */
+  --face-line: rgb(31 48 34 / 0.08);
+  --face-shadow: 0 10px 30px rgb(31 48 34 / 0.10);
+
+  --r-face: 20px;
+  --r-control: 14px;
+  --r-pill: 999px;
+
+  --pad: clamp(20px, 4vw, 64px);
+  --nav-h: 64px;
+  /* 场景族：院子的节奏（换天色、文字入场），慢 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* 控件族：借 Fluid 三档，越大的东西越慢；退场是补间、快一档。不手写别的控件时长 */
+  --t-fast: 80ms;      --t-fast-exit: 60ms;
+  --t-moderate: 160ms; --t-moderate-exit: 120ms;
+  --t-slow: 240ms;     --t-slow-exit: 160ms;
+  --spring: cubic-bezier(0.23, 1, 0.32, 1);
+  /* 悬停／按下叠层（Fluid tokens），夜里换白 */
+  --hover: rgb(0 0 0 / 0.04);
+  --active: rgb(0 0 0 / 0.07);
+
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+  --sans: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+}
+
+/* 入夜：字面一起换（09-16 聊天页的教训：只换背景，字会压在夜空上看不见） */
+body[data-tone='night'] {
+  --ink: #f1f3f8;                /* Palette.chatInkNight */
+  --ink-2: #c5cddc;
+  --ink-3: #9da7ba;
+  --face: rgb(18 26 44 / 0.76);  /* Palette.chatMistNight */
+  --scrim: 12 18 32;
+  --face-line: rgb(230 236 247 / 0.12);
+  --face-shadow: 0 10px 30px rgb(4 8 18 / 0.35);
+  --hover: rgb(255 255 255 / 0.06);
+  --active: rgb(255 255 255 / 0.10);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  margin: 0;
+  background: #efe9dc;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: color 1.2s var(--ease);
+}
+body.is-locked { overflow: hidden; }
+p, h1, h2 { margin: 0; }
+a { color: inherit; text-decoration: none; }
+
+/* ── 分层 ─────────────────────────────────────────── */
+#gl, #fallback { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+#fallback { display: none; background: linear-gradient(#cfe3ea 0%, #e9efe2 58%, #c9d2b8 58%, #b9c5a6 100%); }
+.no-webgl #gl { display: none; }
+.no-webgl #fallback { display: block; }
+/* 没有院子可换天色、也没有地点可去，天色盘和地点轨收起来 */
+.no-webgl .dock-wrap, .no-webgl .rail, .no-webgl #fg { display: none; }
+.page { position: relative; z-index: 10; }
+.rail { z-index: 45; }
+.nav { z-index: 50; }
+.dock-wrap { z-index: 52; }
+#motes { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 80; pointer-events: none; }
+#pre { z-index: 100; }
+#debug { z-index: 90; }
+
+/* ── C1 预载幕 ─────────────────────────────────────── */
+#pre {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: #f4f0e6; color: #1f3022;
+  transition: opacity 0.8s var(--ease), visibility 0.8s;
+}
+#pre.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.pre-in { width: min(240px, 60vw); text-align: center; }
+.pre-mark { font-family: var(--serif); font-weight: 700; font-size: 30px; letter-spacing: 0.3em; margin-right: -0.3em; }
+.pre-bar { position: relative; height: 1px; margin: 22px 0 14px; background: rgb(31 48 34 / 0.14); }
+.pre-bar i { position: absolute; left: 0; top: 0; bottom: 0; right: 100%; background: #c25a3e; transition: right 0.35s linear; }
+.pre-note { font-size: 12px; letter-spacing: 0.2em; color: #5a705e; }
+
+/* ── C2 顶栏 + C3 状态条 ───────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+  transition: transform var(--t-slow) var(--spring);
+}
+/* 底放在伪元素上：首屏没有底，滚动后才出现 */
+.nav::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--face); border-bottom: 1px solid var(--face-line);
+  opacity: 0; transition: opacity var(--t-slow-exit) linear, background 1.2s var(--ease);
+}
+.nav.stuck::before { opacity: 1; transition-duration: var(--t-slow), 1.2s; }
+.nav.hide { transform: translate3d(0, -101%, 0); }
+.nav-brand { font-family: var(--serif); font-weight: 700; font-size: 20px; letter-spacing: 0.24em; }
+.status { font-size: 14px; letter-spacing: 0.08em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ── 章节 ─────────────────────────────────────────── */
+.sec {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: center;
+  padding: calc(var(--nav-h) + 24px) var(--pad) 140px;
+}
+.sec.left { justify-content: flex-start; }
+.sec.right { justify-content: flex-end; padding-right: calc(var(--pad) + 96px); } /* 让开地点轨 */
+
+/* C4 首屏字标组：压在天空那一半（用户 09-17 定；院子在画面下半，镜头见 rig.ts 机位 0）。
+   天是干净的渐变，白天不用垫；黄昏的紫天和傍晚的余晖上深浅字都吃力，所以留一团很淡的羽化柔光，
+   强度由 --scrim-hero 控制。结尾的字压在院子上方的天和远山上，柔光照旧。 */
+.hero { align-items: flex-start; padding-top: calc(var(--nav-h) + clamp(28px, 7vh, 72px)); }
+.hero-copy, .outro-copy { position: relative; max-width: min(560px, 88vw); }
+.hero-copy::before, .outro-copy::before {
+  content: ''; position: absolute; z-index: -1; inset: -64px -140px; pointer-events: none;
+  background: radial-gradient(closest-side, rgb(var(--scrim) / 0.86), rgb(var(--scrim) / 0.7) 60%, rgb(var(--scrim) / 0));
+  transition: background 1.2s var(--ease);
+}
+.hero-copy::before {
+  inset: -56px -96px -48px -120px;
+  background: radial-gradient(closest-side, rgb(var(--scrim) / 0.72), rgb(var(--scrim) / 0.58) 60%, rgb(var(--scrim) / 0));
+}
+/* 实测：柔光 0.5 时首屏小字白天 4.05、黄昏 2.3，过不了 4.5；柔光加到 0.72，小字一律用最深的墨。压在天上像一团薄云，不突兀 */
+.hero .eyebrow, .hero .lede { color: var(--ink); }
+.eyebrow { font-size: 12px; letter-spacing: 0.32em; color: var(--ink-2); margin-bottom: 14px; }
+.h-hero {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(40px, 5.6vw, 84px); line-height: 1.16; letter-spacing: 0.04em;
+}
+.lede { margin-top: 22px; max-width: 30em; font-size: clamp(15px, 1.15vw, 18px); color: var(--ink-2); }
+.note { margin-top: 26px; display: inline-flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.14em; color: var(--ink-2); }
+/* 首屏和结尾的这行小字后面只有柔光没有面，用最深一档的墨（黄昏实测 ink-2 只有 4.4:1） */
+.hero .note, .outro .note { color: var(--ink); }
+.note-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.cue {
+  position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%);
+  font-size: 12px; letter-spacing: 0.3em; color: var(--ink-3);
+}
+.cue::after {
+  content: ''; display: block; width: 1px; height: 34px; margin: 10px auto 0;
+  background: currentColor; transform-origin: top; animation: cue 2.8s var(--ease) infinite;
+}
+@keyframes cue { 0% { transform: scaleY(0); } 45% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* C5 章节文字块：一张米白薄面 */
+.block {
+  width: min(420px, 100%);
+  padding: 30px 32px 32px;
+  background: var(--face); border: 1px solid var(--face-line); border-radius: var(--r-face);
+  box-shadow: var(--face-shadow);
+  transition: background 1.2s var(--ease), border-color 1.2s var(--ease);
+}
+/* 小字用深一档的珊瑚：#c25a3e 压在米白面上只有 3.9:1，过不了 4.5 */
+.block .eyebrow { color: #a3432a; margin-bottom: 10px; }
+body[data-tone='night'] .block .eyebrow { color: #e59a82; }
+.h-sec { font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 2.5vw, 36px); line-height: 1.3; letter-spacing: 0.03em; }
+.body { margin-top: 14px; font-size: 15px; color: var(--ink-2); }
+.body.hint { color: var(--ink-2); font-size: 13px; letter-spacing: 0.06em; }
+
+/* 结尾这一段拉长：栅栏边 → 结尾全景是全程最大的一次拉远，同样的滚动距离下镜头比别处快三倍多，拉长到一屏半 */
+.outro { justify-content: center; text-align: center; min-height: 160svh; align-items: flex-end; padding-bottom: 34svh; }
+.h-outro { font-family: var(--serif); font-weight: 700; font-size: clamp(34px, 4.6vw, 68px); letter-spacing: 0.12em; }
+
+/* 文字出现：元素进入视口触发，和镜头各管各的 */
+[data-rv] { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity 0.9s var(--ease), transform 1.05s var(--ease-out); transition-delay: var(--rv-delay, 0ms); }
+[data-rv].rv-in { opacity: 1; transform: none; }
+.cue[data-rv] { transform: translateX(-50%); }
+
+/* ── C6 地点轨 ─────────────────────────────────────── */
+.rail {
+  position: fixed; right: calc(var(--pad) - 8px); top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 4px;
+  transition: opacity var(--t-slow) linear;
+}
+.rail.off { opacity: 0; pointer-events: none; }
+.rail button {
+  all: unset; cursor: pointer; position: relative; align-self: flex-end; display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+  height: 28px; padding: 0 8px; border-radius: var(--r-pill); color: var(--ink-2); font-size: 12px; letter-spacing: 0.12em;
+}
+.rail button span { opacity: 0; transform: translateX(6px); transition: opacity var(--t-moderate-exit) linear, transform var(--t-moderate-exit) linear; }
+/* 字跟着 Fluid 高亮出现，不跟 :hover —— 光标停在两行之间也不会闪没 */
+.rail button[data-fh-active] span, .rail button:focus-visible span, .rail button.on span {
+  opacity: 1; transform: none; transition: opacity var(--t-moderate) var(--spring), transform var(--t-moderate) var(--spring);
+}
+.rail button i {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgb(var(--paper) / 0.9); box-shadow: 0 0 0 1px rgb(31 48 34 / 0.22);
+  transition: transform var(--t-moderate) var(--spring), background var(--t-fast);
+}
+.rail button.on i { background: var(--accent); transform: scale(1.5); box-shadow: none; }
+.rail button:focus-visible { outline: none; }
+.rail button:focus-visible i { outline: 1.5px solid var(--accent); outline-offset: 3px; }
+.rail .fh-highlight { background: rgb(var(--paper) / 0.62); }
+body[data-tone='night'] .rail .fh-highlight { background: rgb(18 26 44 / 0.5); }
+
+/* ── C7 天色盘 ─────────────────────────────────────── */
+.dock-wrap { position: fixed; left: 0; right: 0; bottom: 22px; display: flex; justify-content: center; pointer-events: none; }
+.dock {
+  pointer-events: auto; position: relative; display: flex; align-items: flex-end; gap: 2px; height: 56px; padding: 6px;
+  background: var(--face); border: 1px solid var(--face-line); border-radius: var(--r-face);
+  box-shadow: var(--face-shadow);
+  transition: background 1.2s var(--ease), border-color 1.2s var(--ease);
+}
+/* 背景模糊只在这一小块上用；帧率判据不过就去掉（方案 3.2：Sylva 实测会掉到 20 帧） */
+.blur-ok .dock, .blur-ok .nav::before { -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); }
+.dock button {
+  all: unset; cursor: pointer; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  min-width: 52px; height: 44px; padding: 0 6px; border-radius: var(--r-control);
+  color: var(--ink-2); font-size: 12px; letter-spacing: 0.1em; white-space: nowrap;
+  transform-origin: 50% 100%;
+  /* 方案 A：保留靠近放大，但和 Fluid 高亮并用，幅度从 0.22 调到 0.12；高亮不跟着缩放 */
+  transform: scale(calc(1 + var(--near, 0) * 0.12)) translateY(calc(var(--near, 0) * -2px));
+  transition: color var(--t-fast);
+}
+/* 按下：底层内缩 1px、同色外扩撑满；按下时外扩归零，整块收 1px（Fluid 按钮的做法，不用 scale 免得宽按钮变形） */
+.dock button::before {
+  content: ''; position: absolute; inset: 1px; z-index: -1; border-radius: calc(var(--r-control) - 1px);
+  background: var(--btn-bg, transparent); box-shadow: 0 0 0 1px var(--btn-bg, transparent);
+  transition: box-shadow 180ms var(--spring), background-color var(--t-fast);
+}
+.dock button:active::before { --btn-bg: var(--active); box-shadow: 0 0 0 0 transparent; transition-duration: var(--t-fast); }
+.dock button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: stroke-width var(--t-fast); }
+.dock button[data-fh-active] svg { stroke-width: 1.8; }
+.dock .fh-highlight { background: var(--hover); }
+.dock button[aria-pressed='true'] { --btn-bg: var(--accent); color: var(--accent-ink); }
+.dock button[aria-pressed='true']:active::before { --btn-bg: var(--accent); }
+/* 焦点环：细、外偏 2px，圆角跟控件同心 */
+.dock button:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 2px; }
+.dock .sep { width: 1px; height: 26px; margin: 0 6px 9px; background: var(--face-line); }
+
+/* ── Fluid Hover 高亮（fluid-hover.ts）────────────────
+   只动 transform 与 opacity；进入时原地淡入（fast），移出淡出（fast-exit），项之间弹簧移动（fast） */
+.fh-highlight {
+  position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none;
+  border-radius: var(--r-control); opacity: 0;
+  transition: opacity var(--t-fast-exit) linear,
+    transform var(--t-fast) var(--spring), width var(--t-fast) var(--spring), height var(--t-fast) var(--spring);
+}
+.rail .fh-highlight { border-radius: var(--r-pill); }
+.fh-highlight.fh-on { opacity: 1; transition-duration: var(--t-fast), var(--t-fast), var(--t-fast), var(--t-fast); }
+.fh-highlight.fh-snap { transition: none; }
+.dock button, .rail button { z-index: 1; }
+
+/* ── C10 页脚：实底，不透院子 ──────────────────────── */
+.foot {
+  position: relative; padding: 72px var(--pad) 120px; text-align: center;
+  background: #f4f0e6; color: #1f3022;
+}
+.foot-brand { font-family: var(--serif); font-weight: 700; font-size: 24px; letter-spacing: 0.3em; margin-right: -0.3em; }
+.foot-line { margin-top: 14px; font-size: 15px; color: #394c3c; }
+.foot-meta { margin-top: 28px; font-size: 12px; letter-spacing: 0.16em; color: #5a705e; }
+
+/* ── 调试面板（?debug=1）──────────────────────────── */
+#debug {
+  position: fixed; left: 12px; bottom: 12px; width: 230px; padding: 12px 14px;
+  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: rgb(20 24 22 / 0.82); color: #e6ebe4; border-radius: 12px;
+}
+#debug label { display: block; margin-top: 8px; }
+#debug input[type='range'] { width: 100%; }
+#debug .row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+#debug button { all: unset; cursor: pointer; padding: 2px 8px; border-radius: 6px; background: rgb(255 255 255 / 0.12); }
+#debug button:hover { background: rgb(255 255 255 / 0.24); }
+
+/* 截图模式（?shot=N）：不做过渡，直接到位 */
+.shot [data-rv] { opacity: 1; transform: none; transition: none; }
+.shot .cue[data-rv] { transform: translateX(-50%); }
+.shot #pre, .shot .nav, .shot .nav::before, .shot body { transition: none; }
+
+/* ── C11 降级 ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .rail { display: none; }
+  .status { font-size: 13px; }
+  .sec.left, .sec.right { justify-content: center; align-items: flex-end; }
+  .dock button { min-width: 44px; }
+  .dock .weather-group, .dock .sep.weather-sep { display: none; }
+  #motes { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-rv] { opacity: 1; transform: none; transition: none; }
+  .cue[data-rv] { transform: translateX(-50%); }
+  .cue::after { animation: none; }
+  .nav, .dock button, body, .block, .dock { transition: none; }
+  .fh-highlight { transition: opacity var(--t-fast) linear; }
+  .fh-highlight:not(.fh-on) { transition-duration: var(--t-fast-exit); }
+  #motes { display: none; }
+}
