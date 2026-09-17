@@ -183,6 +183,39 @@ struct MeView: View {
                 .accessibilityAddTraits(.isButton)
 
                 ListDivider()
+                // 院子的天气：跟着真实天气，或者一直晴 / 一直下雨（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
+                Menu {
+                    Picker("院子的天气", selection: $store.weatherMode) {
+                        ForEach(WeatherMode.allCases, id: \.self) { Text($0.title).tag($0) }
+                    }
+                } label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 12) {
+                            Text("院子的天气")
+                                .font(Typo.sans(14.5))
+                                .foregroundStyle(Palette.ink)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            Text(store.weatherMode.title)
+                                .font(Typo.sans(12))
+                                .foregroundStyle(Palette.ink4)
+
+                            Icons.chevronRight(color: Color(hex: 0xA7B2A0))
+                        }
+                        if let note = store.weatherNote {
+                            Text(note)
+                                .font(Typo.sans(12))
+                                .foregroundStyle(Palette.ink4)
+                        }
+                    }
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 14)
+                    .frame(minHeight: Metrics.minTap)
+                    .contentShape(Rectangle())
+                }
+                .accessibilityLabel("院子的天气，\(store.weatherMode.title)")
+
+                ListDivider()
                 HStack(spacing: 12) {
                     Text("下雨时有雨声")
                         .font(Typo.sans(14.5))

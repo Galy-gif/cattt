@@ -27,16 +27,38 @@ enum DayPhase: String, CaseIterable {
     var isNight: Bool { self == .night }
 }
 
-/// 天气。第一版按天随机（决策 09-12 补记第 9 条），换成 WeatherKit 时只换 `forDay`。
+/// 天气。院子只分晴和雨；雪、雾不做（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
 enum Weather: String {
     case clear, rain
 
-    /// 同一天同一个种子永远同一个结果；约五分之一的天下雨。
-    static func forDay(_ date: Date, seed: UInt64 = 7, calendar: Calendar = .current) -> Weather {
-        let day = UInt64(calendar.ordinality(of: .day, in: .era, for: date) ?? 0)
-        var x = (day &* 0x9E3779B97F4A7C15) ^ (seed &* 0xBF58476D1CE4E5B9)
-        x ^= x >> 31; x = x &* 0x94D049BB133111EB; x ^= x >> 29
-        return (x % 100) < 20 ? .rain : .clear
+    /// Open-Meteo 的 WMO 天气码：毛毛雨、雨、冻雨、阵雨、雷雨算下雨，其余算晴。
+    static func fromWMO(_ code: Int) -> Weather {
+        switch code {
+        case 51...67, 80...82, 95...99: return .rain
+        default: return .clear
+        }
+    }
+}
+
+/// 院子的天气怎么来：用户在「我的 → 设置」里选。
+enum WeatherMode: String, CaseIterable {
+    case real, clear, rain
+
+    var title: String {
+        switch self {
+        case .real: return "跟着真实天气"
+        case .clear: return "一直晴天"
+        case .rain: return "一直下雨"
+        }
+    }
+
+    /// 真实模式用最近一次取到的真实天气；从没取到过就当晴天，不再按天随机下雨。
+    func resolve(real: Weather?) -> Weather {
+        switch self {
+        case .real: return real ?? .clear
+        case .clear: return .clear
+        case .rain: return .rain
+        }
     }
 }
 
@@ -203,7 +225,8 @@ enum MoodCopy {
         }
     }
     static func phaseLine(_ phase: DayPhase, weather: Weather, atHome: Bool) -> String? {
-        if weather == .rain { return atHome ? "下雨了，团子在屋檐下看雨" : "下雨了，团子躲在树窝里" }
+        // atHome == false 只从猫垫调进来（AppStore.statusText）；树窝里下雨另有一句，别在这里说树窝。
+        if weather == .rain { return atHome ? "下雨了，团子在屋檐下看雨" : "下雨了，团子蜷在垫子上" }
         switch phase {
         case .night: return atHome ? "窗户亮着，团子在门口打盹" : "夜深了，团子睡在垫子上"
         case .evening: return atHome ? "窗户刚亮起来，团子在门口坐着" : nil

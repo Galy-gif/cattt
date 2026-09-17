@@ -314,6 +314,8 @@ def main():
         ("INFOPLIST_KEY_UIApplicationSceneManifest_Generation", "YES"),
         ("INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents", "YES"),
         ("INFOPLIST_KEY_UILaunchScreen_Generation", "YES"),
+        # 院子「跟着真实天气」只要大致位置（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
+        ("INFOPLIST_KEY_NSLocationWhenInUseUsageDescription", '"用大致位置让院子跟着你那里的天气下雨或放晴。"'),
         # 竖屏专用。整套设计都是 390 × 844 的竖屏。
         ("INFOPLIST_KEY_UISupportedInterfaceOrientations", "UIInterfaceOrientationPortrait"),
         ("LD_RUNPATH_SEARCH_PATHS", '(\n\t\t\t\t\t"$(inherited)",\n\t\t\t\t\t"@executable_path/Frameworks",\n\t\t\t\t)'),

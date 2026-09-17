@@ -49,6 +49,14 @@ final class AppStore: ObservableObject {
     /// 倒水动画进度：1 刚开始，0 结束；0.5 是"碗已经满了，水晃一下"。
     @Published var pouring = 0.0
     @Published var rainSoundEnabled = true { didSet { UserDefaults.standard.set(rainSoundEnabled, forKey: Self.rainSoundKey) } }
+    /// 院子的天气怎么来（我的 → 设置）。手动切换时雨三秒起落，不等一分钟。
+    @Published var weatherMode: WeatherMode = .real {
+        didSet { UserDefaults.standard.set(weatherMode.rawValue, forKey: Self.weatherModeKey); rainQuick = true; conditionsClock = 1 }
+    }
+    /// 跟着真实天气但拿不到位置时，设置里那一行下面的说明。
+    @Published var weatherNote: String?
+    let realWeather = RealWeather()
+    var rainQuick = false
     /// 团子自己写的、不是今天的那几条，进"这个月"。
     @Published var catMonthRows: [DiaryMonthRow] = []
     var createdAt = Date()

@@ -68,7 +68,8 @@ struct RootView: View {
             #endif
         }
         // 全套令牌只有浅色一版，深色模式会把院子的地面色冲掉。
-        .preferredColorScheme(.light)
+        // 例外是入夜后的聊天页：背景是夜里的院子，状态栏、键盘、长按菜单要跟着暗（见 ChatTone）。
+        .preferredColorScheme(store.onboarding == nil && store.screen == .chat && ChatTone.from(store.atmosphere).isDark ? .dark : .light)
     }
 
     private func updateWorldVisibility() {

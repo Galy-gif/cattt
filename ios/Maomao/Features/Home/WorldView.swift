@@ -168,7 +168,7 @@ private struct WorldCanvas: View {
         default: return true
         }
     }
-    private func tint(_ t:Tint)->Color {Color(red:min(1,max(0,t.r)),green:min(1,max(0,t.g)),blue:min(1,max(0,t.b)))}
+    private func tint(_ t:Tint)->Color {t.color}
     private func objectLayer(_ object:WorldScene.Object,geo:WorldGeometry)->some View {
         let rect=engine.scene.objectRect(object)
         let sequence=engine.simulation.interaction
@@ -183,26 +183,14 @@ private struct WorldCanvas: View {
             .opacity(opacity)
             .rotationEffect(.degrees(angle),anchor:UnitPoint(x:pivot.x/geo.screen.width,y:pivot.y/geo.screen.height))
     }
-    /// 时段分级：拼贴（天空、远山、草地）上乘一层从天顶到地面的颜色，再加一层暖光（黄昏的粉、傍晚地平线的一线桃色）。
-    /// 参数来自 Model/Atmosphere.swift（从四张方向图上量的）。独立物件和猫各自乘色，不走这层。
+    /// 时段分级（AtmosphereLayers.swift，和聊天页共用）。独立物件和猫各自乘色，不走这层。
     @ViewBuilder private func skyGrade(geo:WorldGeometry)->some View {
         let a=store.atmosphere
         if a != .day {
             let h=geo.bgSize.height
-            let horizon=0.50*h/geo.screen.height,ground=0.62*h/geo.screen.height
-            let multiply=LinearGradient(stops:[.init(color:tint(a.skyTop),location:0),.init(color:tint(a.skyHorizon),location:horizon),
-                                               .init(color:tint(a.ground),location:ground),.init(color:tint(a.ground),location:1)],startPoint:.top,endPoint:.bottom)
-            let glow=LinearGradient(stops:[.init(color:tint(a.skyTopAdd),location:0),.init(color:tint(a.skyHorizonAdd),location:horizon),
-                                           .init(color:.black,location:ground)],startPoint:.top,endPoint:.bottom)
-            let cover=LinearGradient(stops:[.init(color:tint(a.cover).opacity(a.coverTop),location:0),.init(color:tint(a.cover).opacity(a.coverHorizon),location:horizon),
-                                            .init(color:tint(a.cover).opacity(0),location:ground)],startPoint:.top,endPoint:.bottom)
-            ZStack {
-                Rectangle().fill(multiply).blendMode(.multiply)
-                Rectangle().fill(glow).blendMode(.plusLighter)
-                if a.coverTop>0.001 {Rectangle().fill(cover)}
-            }
-            .frame(width:geo.screen.width,height:geo.screen.height)
-            .allowsHitTesting(false)
+            AtmosphereGrade(params:a,horizon:0.50*h/geo.screen.height,ground:0.62*h/geo.screen.height)
+                .frame(width:geo.screen.width,height:geo.screen.height)
+                .allowsHitTesting(false)
         }
     }
     /// 天上的东西：夕阳、月亮、星星、雨云。都是世界坐标里的毛毡件，和云一样不做视差；雨云慢慢往左飘。
@@ -235,29 +223,13 @@ private struct WorldCanvas: View {
     }
     // 星星避开屏幕顶部中间那条状态句（世界 y 0.07–0.11）。
     private static let stars:[(x:Double,y:Double,w:Double)] = [(0.03,0.24,0.018),(0.12,0.16,0.014),(0.30,0.20,0.016),(0.40,0.14,0.012),(0.58,0.22,0.015),(0.70,0.15,0.014),(0.86,0.19,0.016),(0.95,0.13,0.012),(0.22,0.28,0.011),(0.50,0.03,0.012)]
-    /// 雨丝：代码画的细线粒子，从上往下略斜；强度随雨的参数。开了"减少动态效果"就静止。
+    /// 雨丝（AtmosphereLayers.swift，和聊天页共用）。
     @ViewBuilder private func rain(geo:WorldGeometry)->some View {
         let amount=store.atmosphere.rain
         if amount>0.01 {
-            let still=UIAccessibility.isReduceMotionEnabled
-            TimelineView(.animation(minimumInterval:1/30,paused:still)) { timeline in
-                Canvas { context,size in
-                    let t=still ? 0:timeline.date.timeIntervalSinceReferenceDate
-                    let count=Int(150*amount)
-                    let length=size.height*0.05,speed=size.height*0.95
-                    for i in 0..<count {
-                        let seed=Double(i)*12.9898
-                        let fx=abs((sin(seed)*43758.5453).truncatingRemainder(dividingBy:1))
-                        let phase=abs((cos(seed*1.7)*7919.0).truncatingRemainder(dividingBy:1))
-                        let x=fx*size.width*1.15-size.width*0.05
-                        let y=((t*speed*(0.8+0.4*phase)+phase*size.height*3).truncatingRemainder(dividingBy:size.height+length))-length
-                        var path=Path();path.move(to:CGPoint(x:x,y:y));path.addLine(to:CGPoint(x:x-length*0.14,y:y+length))
-                        context.stroke(path,with:.color(.white.opacity((0.22+0.22*phase)*amount)),lineWidth:1.1)
-                    }
-                }
-            }
-            .frame(width:geo.screen.width,height:geo.screen.height)
-            .allowsHitTesting(false)
+            RainStreaks(amount:amount)
+                .frame(width:geo.screen.width,height:geo.screen.height)
+                .allowsHitTesting(false)
         }
     }
     /// 水壶：碗空着时停在碗的左上角，轻轻上下浮；倒水时倾斜，壶嘴到碗沿之间落几滴水。夜里不显示。
@@ -437,7 +409,8 @@ private struct WorldCanvas: View {
         // 信箱先于一切：点它打开日记，纸从投信口抽出来，所以把投信口的屏幕坐标带出去。
         if let mail=objects.first(where:{$0.action == "mail"}) {
             let rect=engine.scene.objectRect(mail)
-            let mouth=geo.screenPoint(CGPoint(x:rect.x+rect.width/2,y:rect.y+rect.height*0.36),cameraX:store.cameraX)
+            // 投信口在 world-v7-mailbox 里的位置（assets/tools/prepare_mailbox_v2.py 实测开口中心 0.389, 0.431，取口上沿）。
+            let mouth=geo.screenPoint(CGPoint(x:rect.x+rect.width*0.39,y:rect.y+rect.height*0.42),cameraX:store.cameraX)
             store.openMailbox(anchor:mouth);return
         }
         // 碗：点它（或碗旁的水壶）倒水。猫正在碗前时先算点猫。

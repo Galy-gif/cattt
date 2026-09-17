@@ -60,13 +60,23 @@ enum Palette {
     static let onSceneGlass = Color(hex: 0xD5E2D7, alpha: 0.22)
     static let onSceneGlassRule = Color(hex: 0x1F3022, alpha: 0.10)
 
-    // 聊天层
-    static let chatBubbleCat = Color(hex: 0xFFFFFF, alpha: 0.96)
-    static let chatBubbleUser = Color(hex: 0xB7CEBB, alpha: 0.96)
-    static let chatHint = Color(hex: 0x576B5A)    // 气泡下方中性状态注
-    static let chatBar = Color(hex: 0xD5E2D7, alpha: 0.86)
-    static let chatField = Color(hex: 0xFFFFFF)
+    // 聊天层。2026-09-16 起叠在虚化的院子底上（见 ChatBackground），不再是实色面。
+    // 气泡不描边、不发光，只靠半透明白和院子分开；正文对比度按底图最饱和处（天蓝、草绿）实测。
+    static let chatMist = Color(hex: 0xF7F5EE)                    // 上下雾层，暖白
+    static let chatBubbleCat = Color(hex: 0xFFFFFF, alpha: 0.80)
+    static let chatBubbleUser = Color(hex: 0xFBF4EC, alpha: 0.66) // 比猫透一档，略暖
+    static let chatHint = Color(hex: 0x2F4232)    // 气泡下方状态注，直接压在院子上，所以比 ink3 深
+    static let chatField = Color(hex: 0xFFFFFF, alpha: 0.80)
     static let chatDot = Color(hex: 0x667C6A)     // 等待回复三点
+    static let chatSeparation = Color(hex: 0x1F3022, alpha: 0.06) // 面和院子之间极轻的软投影
+    // 入夜以后（见 ChatTone）：雾换深夜蓝，面换冷白薄玻璃，字换浅色。
+    static let chatMistNight = Color(hex: 0x121A2C)
+    static let chatBubbleCatNight = Color(hex: 0xE6ECF7, alpha: 0.17)
+    static let chatBubbleUserNight = Color(hex: 0xF4E6DA, alpha: 0.13)
+    static let chatFieldNight = Color(hex: 0xE6ECF7, alpha: 0.15)
+    static let chatInkNight = Color(hex: 0xF1F3F8)
+    static let chatInk2Night = Color(hex: 0xC5CDDC)
+    static let chatPlaceholderNight = Color(hex: 0x9DA7BA)
 
     // 创建流程
     static let pendingCard = Color(hex: 0xCCDECF)   // 待定稿外观卡底

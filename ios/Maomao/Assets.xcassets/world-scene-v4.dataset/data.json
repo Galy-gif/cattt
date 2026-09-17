@@ -704,7 +704,7 @@
     },
     {
       "id": "mailbox",
-      "image": "world-v5-mailbox",
+      "image": "world-v7-mailbox",
       "rect": {
         "x": 0.018,
         "y": 0.532,
@@ -732,10 +732,10 @@
       "id": "mailbox-flag",
       "image": "world-v5-mailbox-flag",
       "rect": {
-        "x": 0.64,
-        "y": -0.07,
-        "width": 0.34,
-        "height": 0.36
+        "x": 0.589,
+        "y": 0.063,
+        "width": 0.31,
+        "height": 0.33
       },
       "depth": 0.673,
       "target": null,

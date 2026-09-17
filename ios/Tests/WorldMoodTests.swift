@@ -10,14 +10,12 @@ import Foundation
         // 1) 时段边界
         precondition(DayPhase.at(hour:5.99) == .night && DayPhase.at(hour:6) == .dawn && DayPhase.at(hour:8) == .day)
         precondition(DayPhase.at(hour:16.99) == .day && DayPhase.at(hour:17) == .dusk && DayPhase.at(hour:18.5) == .evening && DayPhase.at(hour:19.5) == .night)
-        // 2) 天气：同一天同一结果；一千天里雨天占一到三成
-        var rain=0
-        for d in 0..<1000 {
-            let day=cal.date(byAdding:.day,value:d,to:date(1,10))!
-            precondition(Weather.forDay(day) == Weather.forDay(day.addingTimeInterval(3600*5)),"same day, same weather")
-            if Weather.forDay(day) == .rain {rain += 1}
-        }
-        precondition(rain>100 && rain<300,"rain days \(rain)")
+        // 2) 天气：三种模式；真实天气取不到时是晴天；WMO 码只有降水类算雨
+        precondition(WeatherMode.real.resolve(real:nil) == .clear,"no real weather yet → clear, never random rain")
+        precondition(WeatherMode.real.resolve(real:.rain) == .rain && WeatherMode.real.resolve(real:.clear) == .clear)
+        precondition(WeatherMode.clear.resolve(real:.rain) == .clear && WeatherMode.rain.resolve(real:.clear) == .rain && WeatherMode.rain.resolve(real:nil) == .rain)
+        for code in [51,55,61,63,65,66,67,80,81,82,95,96,99] {precondition(Weather.fromWMO(code) == .rain,"wmo \(code) is rain")}
+        for code in [0,1,2,3,45,48,71,73,75,77,85,86] {precondition(Weather.fromWMO(code) == .clear,"wmo \(code) is not rain")}
         // 3) 情绪规则
         let created=date(1,9)
         func input(now:Date,previous:Date?=nil,filled:Date?=nil,drink:Date?=nil,pokes:[Date]=[],weather:Weather = .clear,session:Date?=nil,interacted:Bool=false)->MoodInput {
@@ -53,10 +51,13 @@ import Foundation
             precondition(abs(total-1)<0.0001,"pool \(mood) sums to \(total)")
         }
         precondition(MoodRules.housePool(mood:.sad,night:true).map(\.action) == ["sleepyNod"])
+        // 4b) 状态条：猫垫上下雨不能说成树窝
+        precondition(!(MoodCopy.phaseLine(.night,weather:.rain,atHome:false) ?? "").contains("树窝"),"cushion rain line must not mention the nest")
+        precondition(MoodCopy.phaseLine(.night,weather:.rain,atHome:false)?.contains("垫子") == true)
         // 5) 去处限制
         precondition(MoodRules.allowedDestinations(phase:.night,weather:.clear) == [0,2])
         precondition(MoodRules.allowedDestinations(phase:.day,weather:.rain) == [0,1])
         precondition(MoodRules.allowedDestinations(phase:.dusk,weather:.clear).count == 6)
-        print("PASS: day phases, deterministic weather (\(rain)/1000 rainy days), mood rules and priorities, idle pools, destination limits")
+        print("PASS: day phases, weather modes and WMO mapping, mood rules and priorities, idle pools, destination limits")
     }
 }

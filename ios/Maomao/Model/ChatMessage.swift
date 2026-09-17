@@ -45,7 +45,7 @@ struct ChatMessage: Identifiable, Equatable {
 
     /// 超时的猫气泡里显示「……」，头像换 aloof。
     var displayText: String { state == .timeout ? "……" : text }
-    var avatarImage: String { state == .timeout ? "tuanzi-aloof" : "tuanzi-content" }
+    var avatarImage: String { state == .timeout ? "tuanzi-aloof" : "tuanzi-canonical" }
 }
 
 // 气质 Temperament 与四条特征 Trait 搬到了 Model/Personality.swift（那里还编译出院子用的行为参数表）。

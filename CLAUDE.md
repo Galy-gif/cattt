@@ -14,6 +14,8 @@
 - 出图委托与收图验收按工作约定的六条和五道关；验收先跑哈希、先量数再看图。
 - 工程文件用 `ios/generate_project.py` 生成；场景配置用原地修改的脚本，不要重跑 `configure_world_v4.py`。
 - 界面文案和文档用中文；没有打卡、等级、任务、连续天数这类措辞。
+- 改界面（页面、控件、配色令牌、圆角尺寸、图标、导航）前，先读 [.claude/skills/maomao-ui/SKILL.md](.claude/skills/maomao-ui/SKILL.md)（也是 `maomao-ui` 技能）：那里记的是历次返工的真实原因和动手前的检查表，不是规格。
+- 加背景、加场景物件、加猫的动作帧或动图前，先读 [.claude/skills/maomao-assets/SKILL.md](.claude/skills/maomao-assets/SKILL.md)（也是 `maomao-assets` 技能）：出图前量什么、判据怎么写、收图先问加工能不能吸收、三条接入清单。
 
 ## 常用命令
 

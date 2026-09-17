@@ -237,14 +237,6 @@ struct GlassGroup<Content: View>: View {
     }
 }
 
-enum GlassAware {
-    /// 输入栏这类通宽条的底：玻璃元素浮在上面时底要透，让列表从底下穿过；低版本仍用实色托住。
-    static var barFill: Color {
-        if #available(iOS 26.0, *) { return .clear }
-        return Palette.chatBar
-    }
-}
-
 /// 按下去缩到 0.96 —— 每个可按的东西都要在按下时有反应，悬停不算（触屏没有悬停）。
 struct PressScaleStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

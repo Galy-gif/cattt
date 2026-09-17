@@ -1,6 +1,7 @@
 # macOS and local editor state
 .DS_Store
-.claude/
+.claude/*
+!.claude/skills/
 *.xcuserstate
 xcuserdata/
 

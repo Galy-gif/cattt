@@ -4,6 +4,7 @@ import SwiftUI
 /// 规则在 Model/WorldMood.swift、Model/Atmosphere.swift、Model/CatDiary.swift；这里只做时钟、持久化和拼装。
 extension AppStore {
     static let rainSoundKey = "maomao.rainSound"
+    static let weatherModeKey = "maomao.weatherMode"
     private enum Keys {
         static let bowl = "maomao.bowlFilledAt", drink = "maomao.lastDrinkAt", visit = "maomao.lastVisitAt", created = "maomao.createdAt"
         static let diaryDate = "maomao.catDiaryDate", diaryText = "maomao.catDiaryText", diaryTime = "maomao.catDiaryTime"
@@ -20,6 +21,7 @@ extension AppStore {
         bowlFilledAt = ud.object(forKey: Keys.bowl) as? Date
         lastDrinkAt = ud.object(forKey: Keys.drink) as? Date
         if ud.object(forKey: Self.rainSoundKey) != nil { rainSoundEnabled = ud.bool(forKey: Self.rainSoundKey) }
+        if let raw = ud.string(forKey: Self.weatherModeKey), let m = WeatherMode(rawValue: raw) { weatherMode = m }
         // 性格：创建流程选完就存着，下次打开院子里还是同一只猫。
         if let raw = ud.string(forKey: Keys.temperament), let t = Temperament(rawValue: raw) { temperament = t }
         if let saved = ud.dictionary(forKey: Keys.traits) as? [String: Int] {
@@ -89,11 +91,24 @@ extension AppStore {
     /// 每帧调用；真正的重算每秒一次。
     func advanceConditions(_ dt: Double) {
         if pouring > 0 { pouring = max(0, pouring - dt / 1.4) }
+        // 雨慢慢下起来、慢慢停：天气自己变是一分钟，用户手动切是三秒。逐帧推，三秒也不跳格。
+        let targetRain = weather == .rain ? 1.0 : 0.0
+        if rainAmount != targetRain {
+            let step = dt / (rainQuick ? 3 : 60)
+            rainAmount += max(-step, min(step, targetRain - rainAmount))
+            if rainAmount == targetRain { rainQuick = false }
+            let params = AtmosphereParams.at(hour: DayPhase.hour(of: currentDate()), weather: .rain, rainAmount: rainAmount)
+            if params != atmosphere { atmosphere = params }
+        }
         conditionsClock += dt
         guard conditionsClock >= 1 else { return }
         conditionsClock = 0
         let now = currentDate(), real = Date()
-        var w = Weather.forDay(now)
+        if weatherMode == .real, onboarding == nil { realWeather.refreshIfNeeded() }
+        var w = weatherMode.resolve(real: realWeather.latest)
+        let note: String? = weatherMode == .real && realWeather.locationDenied
+            ? (realWeather.latest == nil ? "没有位置，院子先按晴天" : "没有位置，院子用上次的天气") : nil
+        if note != weatherNote { weatherNote = note }
         #if DEBUG
         if let dw = debugWeather { w = dw }
         #endif
@@ -101,9 +116,6 @@ extension AppStore {
         let hour = DayPhase.hour(of: now)
         let phase = DayPhase.at(hour: hour)
         if phase != dayPhase { dayPhase = phase }
-        // 雨慢慢下起来、慢慢停，各一分钟。
-        let targetRain = w == .rain ? 1.0 : 0.0
-        rainAmount += max(-1.0 / 60, min(1.0 / 60, targetRain - rainAmount))
         let params = AtmosphereParams.at(hour: hour, weather: .rain, rainAmount: rainAmount)
         if params != atmosphere { atmosphere = params }
         // 情绪：时间都换算到"现在"这把钟上，调试拨钟时也成立。

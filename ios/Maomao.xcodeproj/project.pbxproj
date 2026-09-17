@@ -26,6 +26,7 @@
 		5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */; };
 		962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */; };
 		D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */; };
+		397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */; };
 		996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */; };
 		3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CA0F72F62426E4F81B633 /* LocationRail.swift */; };
 		E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */ = {isa = PBXBuildFile; fileRef = 72825AB6DC25D753F8530A33 /* WorldDepth.metal */; };
@@ -54,6 +55,7 @@
 		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
 		1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672224FB980742CAF2A8112 /* RainSound.swift */; };
+		40DF35FC2EAF34B651233332 /* RealWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00C17CF2CE5FABCE4AC93A7 /* RealWeather.swift */; };
 		C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */; };
 		199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */; };
 		A6070B9CF28E71610AA267AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A790BB479B2477E3A634A1EB /* Assets.xcassets */; };
@@ -101,6 +103,7 @@
 		9405D712DD60A2374B392E46 /* world-v6-sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 798E85C68FFCD19B23722FAA /* world-v6-sun.png */; };
 		680CF7DA88FE37D31EB94369 /* world-v6-water.png in Resources */ = {isa = PBXBuildFile; fileRef = 55851EA3AD349AA4447D0201 /* world-v6-water.png */; };
 		E2557C896269C84B8A3051DB /* world-v6-window-lit.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */; };
+		36D9DD9EB893C152322BAB44 /* world-v7-mailbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 300B420DFF1F1B4602A1C875 /* world-v7-mailbox.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +127,7 @@
 		3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSheet.swift; sourceTree = "<group>"; };
 		FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryRow.swift; sourceTree = "<group>"; };
 		FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperView.swift; sourceTree = "<group>"; };
+		496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtmosphereLayers.swift; sourceTree = "<group>"; };
 		D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionHomeView.swift; sourceTree = "<group>"; };
 		494CA0F72F62426E4F81B633 /* LocationRail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRail.swift; sourceTree = "<group>"; };
 		72825AB6DC25D753F8530A33 /* WorldDepth.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WorldDepth.metal; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		B672224FB980742CAF2A8112 /* RainSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainSound.swift; sourceTree = "<group>"; };
+		F00C17CF2CE5FABCE4AC93A7 /* RealWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealWeather.swift; sourceTree = "<group>"; };
 		54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldEngine.swift; sourceTree = "<group>"; };
 		A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTextureCache.swift; sourceTree = "<group>"; };
 		A790BB479B2477E3A634A1EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -199,6 +204,7 @@
 		798E85C68FFCD19B23722FAA /* world-v6-sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-sun.png; sourceTree = "<group>"; };
 		55851EA3AD349AA4447D0201 /* world-v6-water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-water.png; sourceTree = "<group>"; };
 		ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v6-window-lit.png; sourceTree = "<group>"; };
+		300B420DFF1F1B4602A1C875 /* world-v7-mailbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world-v7-mailbox.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +298,7 @@
 		0449DD6C2B36400FCC9CF793 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */,
 				D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */,
 				494CA0F72F62426E4F81B633 /* LocationRail.swift */,
 				72825AB6DC25D753F8530A33 /* WorldDepth.metal */,
@@ -415,6 +422,7 @@
 				798E85C68FFCD19B23722FAA /* world-v6-sun.png */,
 				55851EA3AD349AA4447D0201 /* world-v6-water.png */,
 				ADD892C58EE6463FF0F93E9B /* world-v6-window-lit.png */,
+				300B420DFF1F1B4602A1C875 /* world-v7-mailbox.png */,
 			);
 			path = WorldTextures;
 			sourceTree = "<group>";
@@ -435,6 +443,7 @@
 				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
 				B672224FB980742CAF2A8112 /* RainSound.swift */,
+				F00C17CF2CE5FABCE4AC93A7 /* RealWeather.swift */,
 				54D07AFB04CB27D28BE4EDDB /* WorldEngine.swift */,
 				A600C043C42381CD9773F1B8 /* WorldTextureCache.swift */,
 			);
@@ -560,6 +569,7 @@
 				9405D712DD60A2374B392E46 /* world-v6-sun.png in Resources */,
 				680CF7DA88FE37D31EB94369 /* world-v6-water.png in Resources */,
 				E2557C896269C84B8A3051DB /* world-v6-window-lit.png in Resources */,
+				36D9DD9EB893C152322BAB44 /* world-v7-mailbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +599,7 @@
 				5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */,
 				962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */,
 				D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */,
+				397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */,
 				996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */,
 				3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */,
 				E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */,
@@ -617,6 +628,7 @@
 				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
 				1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */,
+				40DF35FC2EAF34B651233332 /* RealWeather.swift in Sources */,
 				C403929B3DF3B8300FB1DAA3 /* WorldEngine.swift in Sources */,
 				199C9FB89D40333C264807F0 /* WorldTextureCache.swift in Sources */,
 			);
@@ -690,6 +702,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用大致位置让院子跟着你那里的天气下雨或放晴。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -715,6 +728,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用大致位置让院子跟着你那里的天气下雨或放晴。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
