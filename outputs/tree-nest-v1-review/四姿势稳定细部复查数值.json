@@ -1,0 +1,57 @@
+{
+  "method": "指定ROI深棕像素外接框；以K1眼竖径辅助跨朝向原画标尺，非通用自动身份识别，不据此追认整身体自动通过。",
+  "measurements": [
+    {
+      "id": "K1",
+      "eye_bbox": [
+        816,
+        455,
+        847,
+        496
+      ],
+      "eye_height_source_px": 42,
+      "source_pixels_to_world_pt": 0.12698412698412698,
+      "eye_height_reference_pt_before_depth": 5.333333333333333,
+      "difference_vs_K1_percent": 0.0
+    },
+    {
+      "id": "K2",
+      "eye_bbox": [
+        835,
+        551,
+        865,
+        591
+      ],
+      "eye_height_source_px": 41,
+      "source_pixels_to_world_pt": 0.12903225806451613,
+      "eye_height_reference_pt_before_depth": 5.290322580645161,
+      "difference_vs_K1_percent": -0.8064516129032251
+    },
+    {
+      "id": "K3",
+      "eye_bbox": [
+        314,
+        425,
+        353,
+        467
+      ],
+      "eye_height_source_px": 43,
+      "source_pixels_to_world_pt": 0.12403100775193798,
+      "eye_height_reference_pt_before_depth": 5.333333333333333,
+      "difference_vs_K1_percent": 0.0
+    },
+    {
+      "id": "T1",
+      "eye_bbox": [
+        288,
+        564,
+        325,
+        603
+      ],
+      "eye_height_source_px": 40,
+      "source_pixels_to_world_pt": 0.13400741489720255,
+      "eye_height_reference_pt_before_depth": 5.360296595888102,
+      "difference_vs_K1_percent": 0.5055611729019249
+    }
+  ]
+}

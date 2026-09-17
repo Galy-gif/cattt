@@ -1,0 +1,137 @@
+{
+  "reference_pair": [
+    {
+      "title": "已确认K3坐姿",
+      "source": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+      "manual_skull_bbox_px": [
+        188,
+        241,
+        685,
+        595
+      ],
+      "annotation_note": "人工近似框，排除耳/颈；约±10源px。眼/嘴以指定ROI深棕像素提取，非通用模型自动识别。",
+      "eyes": [
+        {
+          "centroid": [
+            333.51666666666665,
+            446.2217391304348
+          ],
+          "bbox": [
+            314,
+            425,
+            353,
+            467
+          ],
+          "pixels": 1380
+        },
+        {
+          "centroid": [
+            508.1216730038023,
+            459.37718631178706
+          ],
+          "bbox": [
+            489,
+            439,
+            527,
+            480
+          ],
+          "pixels": 1315
+        }
+      ],
+      "mouth": {
+        "centroid": [
+          411.32142857142856,
+          493.4432773109244
+        ],
+        "bbox": [
+          390,
+          481,
+          431,
+          506
+        ],
+        "pixels": 476
+      },
+      "normalized_skull_height": 0.7122736418511066,
+      "normalized_eye_distance": 0.3523136766258429,
+      "normalized_eye_to_mouth_vertical_distance": 0.08177829897346775,
+      "normalized_eye_dark_area": [
+        0.005586840965308956,
+        0.00532369265897194
+      ]
+    },
+    {
+      "title": "固定头脸树窝统一稿",
+      "source": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked__v1.png",
+      "manual_skull_bbox_px": [
+        172,
+        393,
+        632,
+        721
+      ],
+      "annotation_note": "人工近似框，排除耳/颈；约±10源px。眼/嘴以指定ROI深棕像素提取，非通用模型自动识别。",
+      "eyes": [
+        {
+          "centroid": [
+            306.64915254237286,
+            583.2271186440678
+          ],
+          "bbox": [
+            288,
+            564,
+            325,
+            603
+          ],
+          "pixels": 1180
+        },
+        {
+          "centroid": [
+            468.32946428571427,
+            595.3741071428572
+          ],
+          "bbox": [
+            451,
+            576,
+            486,
+            615
+          ],
+          "pixels": 1120
+        }
+      ],
+      "mouth": {
+        "centroid": [
+          378.61985472154964,
+          627.0
+        ],
+        "bbox": [
+          358,
+          615,
+          397,
+          639
+        ],
+        "pixels": 413
+      },
+      "normalized_skull_height": 0.7130434782608696,
+      "normalized_eye_distance": 0.35246949843913133,
+      "normalized_eye_to_mouth_vertical_distance": 0.0819551893620381,
+      "normalized_eye_dark_area": [
+        0.0055765595463138,
+        0.005293005671077505
+      ]
+    }
+  ],
+  "normalized_changes_percent": {
+    "normalized_skull_height": 0.10808155244410589,
+    "normalized_eye_distance": 0.044228147706548704,
+    "normalized_eye_to_mouth_vertical_distance": 0.21630480309666744
+  },
+  "interpretation": "新伏卧与K3脸形尺度/眼距/眼嘴距离接近，头比例差异量值需结合±10px标点误差及轻微姿势变化看；不使用新增未验证容差宣称全身份自动通过。耳/爪/额纹/尾形由人工图对照，伏卧/坐姿躯干投影不可直接拿总bbox比头身比例。",
+  "existing_drink_candidates": {
+    "K1_side_head_width_px_estimate": 315,
+    "K2_r2_side_head_width_px_estimate": 280,
+    "r2_change_percent": -11.111111111111116,
+    "K2_r4_side_head_width_px_estimate": 310,
+    "r4_change_percent": -1.5873015873015928,
+    "interpretation": "r2头宽约小11.1%，加上嘴高不足，不作为接触母版；r4同朝向头宽约小1.6%，在旧4%绘制尺度检查内，仍需结合低头投影及耳眼嘴人工对照，不能仅凭头宽追認全部身体比例通过。右站位复用原r4镜像，未新增身份漂移。"
+  },
+  "human_review": "pending"
+}

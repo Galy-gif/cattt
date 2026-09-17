@@ -1,0 +1,53 @@
+{
+  "round": "tree-nest-curled-v3",
+  "generation_mode": "内置image_gen",
+  "new_imagegen_calls": 1,
+  "scope": "参考整猫蜷卧静态场景；不是cat-only生产帧/连续动画",
+  "entries": [
+    {
+      "id": "S1",
+      "status": "新生成",
+      "file": "S1-curled-calibrated-scene__v1.png",
+      "sha256": "873c93ac74cf4caa59bc123e7a176bf01f24acc60aab205c628b057c894a2f06",
+      "source_file": "_sources/S1-curled__r1.png",
+      "source_sha256": "7b7efb36faf672db8d73b97eb97f558d5d0749d22e1a0848e31830ac6b4fb64f",
+      "actual_prompt": "prompt.md",
+      "prompt_sha256": "a18fe5cfc67cc5f1b39a25367db11437fcea730a50fc9308cdcdd011e43bebb2",
+      "references": [
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/edit-target.png",
+          "sha256": "e18393c6996254483bc9c6e9582e18c101d3efca8ca081314faa5de65c3d72d9"
+        },
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/_sources/pose-reference-9058.jpg",
+          "sha256": "e109ccbe4756712e6ecc06671cb01d075f8f777957d5311a297bcfe0c97cc2fa"
+        },
+        {
+          "file": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+          "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+        },
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/_sources/contact-reference-9059.jpg",
+          "sha256": "64259f5b40d5cb703c73fb61267be1899a4b7fa827cfa29297ca5877f33a5665"
+        }
+      ],
+      "processing": "整猫新姿势/紧贴接触局部保留；295±5px头骨局部轴校准回已确认55.633pt，完整姿势等比，不复用旧抬头脸/扒沿爪；原窝纹理等比1.30与合理承重点适配，内外层原生前后关系；下方源浅窝沿边作Alpha归一去除",
+      "processing_script": "../../assets/tools/render_tree_nest_curled_v3.py",
+      "processing_script_sha256": "e9a047e5e70c2f49f4719774850eb202031959726958ac736fe5b4974421bf07",
+      "processing_mask": "whole-cat-contact-patch-mask.png",
+      "processing_mask_sha256": "ce9a682ef213bd6d6458d9e8734e68e3f5efc056a4fe69748945d850e1b1e4c3",
+      "processing_patch": "S1-curled-contact-patch-alpha__v1.png",
+      "processing_patch_note": "带极近窝垫/接触的场景加工块，非干净cat-only生产源图",
+      "processing_values": "../tree-nest-curled-v3-review/整猫姿势与标尺数值.json",
+      "review": "用户已确认v3蜷卧静态图/场景；源标尺与接触复查记录保留，连续动画/App未做",
+      "runtime_changed": false,
+      "human_review": {
+        "status": "approved_static",
+        "date": "2026-09-16",
+        "user_feedback": "就这个，把其他确定的图也放到文件夹里去",
+        "scope": "上一条v3整猫参考蜷卧静态图/场景，不追認动态/App接入"
+      }
+    }
+  ],
+  "confirmed_collection": "outputs/已确认图片-2026-09-16/"
+}

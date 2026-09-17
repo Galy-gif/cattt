@@ -1,0 +1,53 @@
+{
+  "method": "真实水盆/水面和接触修正版K2r4的确定性缩放合成，场景近似应用Color饱和度0.70；灰绿平底仅辅助几何，非真实院子截图。不调用生图，不替换原图，没有逐帧配准或绘制中间帧。",
+  "variants": [
+    {
+      "variant": "衔接修正版：脚落地，闭嘴在水面上方",
+      "contact_house_px": [
+        1025,
+        952
+      ],
+      "world_contact": [
+        0.20122477383437717,
+        0.6075868372943327
+      ],
+      "world_hind_anchor": [
+        0.1457323489723127,
+        0.6351103674426118
+      ],
+      "depth_scale": 0.8739388868926898,
+      "estimated_head_width_source_px": 310,
+      "pixel_to_reference_pt_scale": 0.12903225806451613,
+      "runtime_head_width_reference_screen_pt": 34.95755547570759,
+      "mouth_offset_from_hind_pt": [
+        80.38709677419355,
+        26.58064516129032
+      ],
+      "note": "人工标点近似±10px；离线按屏高844缩放合成，图层顺序和整数重采样有像素误差，不是App截图。"
+    }
+  ],
+  "current_v6_depth_omission_error_reference_pt": [
+    -7.037742613444373,
+    2.495387621476512
+  ],
+  "current_v6_hardcoded_node": {
+    "id": "bowl",
+    "point": {
+      "x": 0.15815,
+      "y": 0.63047
+    }
+  },
+  "bowl_body_reference_pt": [
+    31.06413361169102,
+    25.85810786106033
+  ],
+  "water_surface_reference_pt": [
+    28.168499999999998,
+    9.72288
+  ],
+  "source_sha256": {
+    "ios/Maomao/Resources/WorldTextures/world-v2-house.png": "a7a006ccb56968bd6e4243b7edb61724283b09be27eccaaff4c5acd0df8e94e8",
+    "ios/Maomao/Resources/WorldTextures/world-v6-water.png": "19e00b787992ac87bef32830ec0a5078917c0d4595f3077f32bcd7e40466441a",
+    "outputs/frames-v8-delivery/keys/K2-drink-low__r4.png": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1"
+  }
+}

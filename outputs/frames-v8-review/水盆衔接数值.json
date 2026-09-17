@@ -1,0 +1,115 @@
+{
+  "method": "真实水盆/水面和已确认K2的确定性缩放合成，不调用生图，不替换原图；没有逐帧配准或绘制中间帧。",
+  "variants": [
+    {
+      "variant": "失败：嘴对上，脚悬空",
+      "contact_house_px": [
+        1025,
+        952
+      ],
+      "world_contact": [
+        0.20122477383437717,
+        0.6075868372943327
+      ],
+      "world_hind_anchor": [
+        0.1492560294303581,
+        0.6158921226149751
+      ],
+      "depth_scale": 0.8608355381465739,
+      "estimated_head_width_source_px": 280,
+      "pixel_to_reference_pt_scale": 0.14285714285714285,
+      "runtime_head_width_reference_screen_pt": 34.433421525862954,
+      "mouth_offset_from_hind_pt": [
+        76.42857142857143,
+        8.142857142857142
+      ],
+      "note": "人工标点近似±10px；离线按屏高844缩放合成，图层顺序和整数重采样有像素误差，不是App截图。"
+    },
+    {
+      "variant": "失败：嘴更深，脚踩红碗",
+      "contact_house_px": [
+        1025,
+        964
+      ],
+      "world_contact": [
+        0.20122477383437717,
+        0.6109597806215723
+      ],
+      "world_hind_anchor": [
+        0.1491162748838418,
+        0.619287400547312
+      ],
+      "depth_scale": 0.8631505003731673,
+      "estimated_head_width_source_px": 280,
+      "pixel_to_reference_pt_scale": 0.14285714285714285,
+      "runtime_head_width_reference_screen_pt": 34.526020014926694,
+      "mouth_offset_from_hind_pt": [
+        76.42857142857143,
+        8.142857142857142
+      ],
+      "note": "人工标点近似±10px；离线按屏高844缩放合成，图层顺序和整数重采样有像素误差，不是App截图。"
+    },
+    {
+      "variant": "失败：脚落地，嘴低于碗沿",
+      "contact_house_px": [
+        1025,
+        952
+      ],
+      "world_contact": [
+        0.20122477383437717,
+        0.6075868372943327
+      ],
+      "world_hind_anchor": [
+        0.1492560294303581,
+        0.644
+      ],
+      "depth_scale": 0.88,
+      "estimated_head_width_source_px": 280,
+      "pixel_to_reference_pt_scale": 0.14285714285714285,
+      "runtime_head_width_reference_screen_pt": 35.2,
+      "mouth_offset_from_hind_pt": [
+        76.42857142857143,
+        8.142857142857142
+      ],
+      "note": "人工标点近似±10px；离线按屏高844缩放合成，图层顺序和整数重采样有像素误差，不是App截图。"
+    }
+  ],
+  "current_v6_depth_omission_error_reference_pt": [
+    -7.037742613444373,
+    2.495387621476512
+  ],
+  "current_v6_hardcoded_node": {
+    "id": "bowl",
+    "point": {
+      "x": 0.15815,
+      "y": 0.63047
+    }
+  },
+  "bowl_body_reference_pt": [
+    31.06413361169102,
+    25.85810786106033
+  ],
+  "water_surface_reference_pt": [
+    28.168499999999998,
+    9.72288
+  ],
+  "source_sha256": {
+    "ios/Maomao/Resources/WorldTextures/world-v2-house.png": "a7a006ccb56968bd6e4243b7edb61724283b09be27eccaaff4c5acd0df8e94e8",
+    "ios/Maomao/Resources/WorldTextures/world-v6-water.png": "19e00b787992ac87bef32830ec0a5078917c0d4595f3077f32bcd7e40466441a",
+    "outputs/frames-v8-delivery/keys/K2-drink-low__r2.png": "9b971cbc3bbec31c8b1fb54be65503e0237d6f6b48484384c74438c4f5c22dc3"
+  },
+  "r3_geometry_review": {
+    "mouth_px": [
+      891,
+      678
+    ],
+    "hind_support_px": [
+      262,
+      802
+    ],
+    "side_head_width_px_estimate": 254,
+    "mouth_height_reference_pt": 19.52755905511811,
+    "result": "未达到现有碗高；仅抬高约72源px，嘴相对后脚仍仅约19.5参考pt，不能锁为接触端点。保留生成原件和候选；第二次从已认可K1站姿小幅低头，不从近地面K2强抬头。",
+    "annotation": "人工近似±10源px，非自动检测"
+  }
+}

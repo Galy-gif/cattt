@@ -1,0 +1,97 @@
+{
+  "round": "tree-nest-contact-v2",
+  "scope": "仅静态场景后身蜷尾与窝垫接触；不是完整猫-only帧/动画/生产贴图",
+  "entries": [
+    {
+      "id": "C1",
+      "status": "失败",
+      "file": "_rejected/C1-nest-contact-identity-locked__v1.png",
+      "sha256": "b630b8d889be72ed7611b55e50c43cb2ebe3587ceb4b9429e8b81e7809fdf8f9",
+      "source_file": "_sources/C1-contact__r1.png",
+      "source_sha256": "02c232a74d8b1baf985eb5ae36cf288ece82c2280756afb0aef4942e609c89f4",
+      "actual_prompt": "prompt.md",
+      "prompt_sha256": "8a62449c6b0af10d441525f0ad30b075e7f9b2339b70f2894e0464d786afc488",
+      "generation_mode": "内置image_gen",
+      "new_imagegen_calls": 1,
+      "references": [
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/edit-target.png",
+          "sha256": "e18393c6996254483bc9c6e9582e18c101d3efca8ca081314faa5de65c3d72d9"
+        },
+        {
+          "file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked__v1.png",
+          "sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858"
+        },
+        {
+          "file": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+          "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+        },
+        {
+          "file": "ios/Maomao/Resources/WorldTextures/world-v4-nest.png",
+          "sha256": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a"
+        }
+      ],
+      "processing": "配准等比缩1254→1024；只采用后身/贴近窝垫局部，原图头脸/前肢与场景外围锁定；小肩灰缺口另用同稿橙毛等尺度局部复用，区域/位移完整登记",
+      "acceptance": "用户指出尾部失真，粗圆管状/鼓起尾尖未通过；只作C2编辑输入，不能作为选中交付",
+      "runtime_changed": false,
+      "note": "失败的是C1尾部造型；原件保留_sources供追溯，仅有其邻近橙毛微小局部用于填旧肩灰缺口。C1不能作为全猫或选中尾部。"
+    },
+    {
+      "id": "C2",
+      "status": "新生成",
+      "file": "C2-nest-contact-identity-locked__v1.png",
+      "sha256": "327ed6d5ad7c1e0d233b625cdc69f073b3e7760b6594bd5f974edc62aad72dc9",
+      "source_file": "_sources/C2-tail__r1.png",
+      "source_sha256": "8c7d9b382ce7e333c938c319124d8d34e8deb37cb1a292e62f59ebcc6b678b35",
+      "actual_prompt": "prompt-C2.md",
+      "prompt_sha256": "440e25f106255e6ad4fab56984b46d266eec756ced0bfaf570ebf61e98137388",
+      "generation_mode": "内置image_gen",
+      "new_imagegen_calls": 1,
+      "references": [
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/_rejected/C1-nest-contact-identity-locked__v1.png",
+          "sha256": "b630b8d889be72ed7611b55e50c43cb2ebe3587ceb4b9429e8b81e7809fdf8f9",
+          "actual_tool_input_path": "outputs/tree-nest-contact-v2-delivery/C1-nest-contact-identity-locked__v1.png"
+        },
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/_sources/pose-reference-9058.jpg",
+          "sha256": "e109ccbe4756712e6ecc06671cb01d075f8f777957d5311a297bcfe0c97cc2fa"
+        },
+        {
+          "file": "outputs/tree-nest-contact-v2-delivery/_sources/contact-reference-9059.jpg",
+          "sha256": "64259f5b40d5cb703c73fb61267be1899a4b7fa827cfa29297ca5877f33a5665"
+        },
+        {
+          "file": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+          "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+        }
+      ],
+      "processing": "配准等比缩1254→1024；只采用后身/贴近窝垫局部，原图头脸/前肢与场景外围锁定；小肩灰缺口另用C1稿橙毛等尺度局部复用，区域/位移完整登记",
+      "processing_mask": "rear-contact-adoption-mask.png",
+      "processing_script": "../../assets/tools/process_tree_nest_contact_v2.py",
+      "processing_values": "../tree-nest-contact-v2-review/局部接触加工数值.json",
+      "acceptance": "机器范围/哈希复核及助手静态复查完成，待用户视觉评审",
+      "runtime_changed": false,
+      "editing_base_retained_pixels": {
+        "file": "edit-target.png",
+        "sha256": "e18393c6996254483bc9c6e9582e18c101d3efca8ca081314faa5de65c3d72d9"
+      },
+      "tiny_gray_notch_pixel_source": {
+        "file": "_sources/C1-contact__r1.png",
+        "sha256": "02c232a74d8b1baf985eb5ae36cf288ece82c2280756afb0aef4942e609c89f4",
+        "source_reference_target_px": [
+          764,
+          723
+        ],
+        "destination_reference_target_px": [
+          736,
+          732
+        ],
+        "uniform_scale": 1
+      },
+      "processing_mask_sha256": "8ea0f73d4ea5a182ab68782c9b37e493c942cbd8fb03fcd715042026524e39f1",
+      "processing_script_sha256": "cf7f13d34ef5ef0078b5ca546a7387fb8081c32e52a2c2c59f1439767ac42dd6"
+    }
+  ],
+  "new_imagegen_calls_this_round": 2
+}

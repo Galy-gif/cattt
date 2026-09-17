@@ -1,0 +1,116 @@
+{
+  "method": "r2新身体与已确认K3等比复用头脸统一稿整体等比缩放，原scene树/窝/绳/地面离线合成。猫身体夹在原窝前后片之间，仅复用原图两掌像素放前沿上，附微弱接触影；不重画场景、未改App。",
+  "head_source_width_px_estimate": 460,
+  "launch_ground_y": 0.677,
+  "launch_depth_scale": 0.9025000000000001,
+  "runtime_head_width_reference_screen_pt": 36.1,
+  "pixel_to_runtime_reference_pt_scale": 0.07847826086956522,
+  "manual_palm_anchor_px": [
+    399,
+    782
+  ],
+  "world_palm_anchor": [
+    0.3062853325571811,
+    0.563179865742378
+  ],
+  "source_palm_outline_masks": [
+    [
+      [
+        247,
+        742
+      ],
+      [
+        259,
+        718
+      ],
+      [
+        298,
+        711
+      ],
+      [
+        339,
+        719
+      ],
+      [
+        371,
+        737
+      ],
+      [
+        382,
+        756
+      ],
+      [
+        371,
+        772
+      ],
+      [
+        333,
+        778
+      ],
+      [
+        285,
+        775
+      ],
+      [
+        257,
+        762
+      ]
+    ],
+    [
+      [
+        395,
+        750
+      ],
+      [
+        415,
+        727
+      ],
+      [
+        450,
+        719
+      ],
+      [
+        506,
+        718
+      ],
+      [
+        544,
+        734
+      ],
+      [
+        567,
+        755
+      ],
+      [
+        561,
+        773
+      ],
+      [
+        521,
+        783
+      ],
+      [
+        470,
+        785
+      ],
+      [
+        426,
+        781
+      ],
+      [
+        400,
+        767
+      ]
+    ]
+  ],
+  "mask_note": "人工按完整前掌轮廓圈定，需在原速动态核对是否露边，静态图不作为完整帧链路通过。",
+  "opening_width_reference_pt": 61.8261228,
+  "nest_display_reference_pt": [
+    98.748,
+    103.812
+  ],
+  "registration_note": "人工标点约±10源px；anchor是新姿势掌点，不直接覆盖现有sim.nestSupport。正式公共画布需烘焙注册常数，完整进出端点另验。",
+  "reference_scene_sha256": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+  "runtime_changed": false,
+  "human_review": "pending"
+}

@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": "C5",
+      "status": "新生成",
+      "file": "outputs/chat-ui-v5-delivery/C5-小团子彩色蘑菇屋无描边.png",
+      "source": "/Users/gouzi/.codex/generated_images/01a0aa54-e73d-7242-aacb-bd7c3c870cee/exec-82d6bfa6-f50e-467b-b4a6-9456ab7bd8d6.png",
+      "sha256": "d3b6af81eb738958dcf70be6272a089ee044d056b895bd522d5cd2e881450223",
+      "dimensions": [
+        853,
+        1844
+      ],
+      "references": [
+        "outputs/chat-ui-v4-delivery/C4-团子无发光灰白玻璃.png",
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png"
+      ],
+      "note": "用户已选定 C5 静态视觉稿并要求归档；小团子圆窗、局部彩色蘑菇屋、无消息/输入描边。本轮未改聊天页代码，连续头像动画未制作。",
+      "selected": true,
+      "human_review": "approved_visual_direction",
+      "selected_date": "2026-09-16"
+    }
+  ]
+}

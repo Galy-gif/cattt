@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "C1",
+      "status": "新生成",
+      "file": "outputs/chat-ui-v1-delivery/C1-白色小院聊天页.png",
+      "source": "/Users/gouzi/.codex/generated_images/01a0aa54-e73d-7242-aacb-bd7c3c870cee/exec-71e08a95-c376-4047-8a57-967c988c55c0.png",
+      "sha256": "7940f0ebe91b237789835528591c501e1b57707176c411e9cfe8a2d240311085",
+      "dimensions": [
+        852,
+        1846
+      ],
+      "note": "仅方向图；实际尺寸记录，不拉伸。机器清点/哈希/格式/颜色量测完成，尚待用户选型。"
+    }
+  ]
+}

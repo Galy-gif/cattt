@@ -1,0 +1,641 @@
+{
+  "schema_version": 1,
+  "batch": "tree-nest-v1",
+  "generated_at": "2026-09-16",
+  "generator": "Codex built-in imagegen; deterministic declared compositing",
+  "actual_imagegen_calls": 2,
+  "source_brief": "assets/tuanzi/tree-nest-v1/brief.md",
+  "phase": "静态体型校准后，用户指出胸前肢遮断；连续前部可见区修复完成，源猫不改，最新为前肢连接修正版近景/场景，动态/App未接入",
+  "items": [
+    {
+      "id": "T1-rest",
+      "status": "new",
+      "round": 2,
+      "file": "T1-rest-identity-locked__v1.png",
+      "sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+      "processing_alpha_file": "T1-rest-identity-locked-alpha__v1.png",
+      "processing_alpha_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+      "source_file": "_sources/T1-rest__r2.png",
+      "source_sha256": "76a9a63d97a52296ed4364ee014d5861a5d85b5dafc3b9fe1d179c0381165ca8",
+      "prompt": "EDIT TARGET reference1: the newly drawn complete Tuanzi prone-rest cat on magenta. Reference2 is the fixed user-approved front K3 face, reference3 is fixed approved WORLD Tuanzi appearance, reference4 is the ACTUAL existing hanging tree nest for contact geometry only, reference5 canonical for overall anatomy/stripe structure only (older facial rendering not current world rendering).\nMake ONE specific posture correction: lower the entire head naturally onto/just above the front paws, instead of holding the head upright. The current head is too high and the real nest roof cuts off its ears. Keep the SAME head size and shape (side-to-side frontal skull width approximately495px on1024 basis), same small bead eye size/spacing, same ear size, same forehead stripe placement, same tiny closed brown mouth. DO NOT shrink ears, squash skull or change facial proportions to fit the nest. Move/redraw head-and-neck anatomy DOWN about80px in the target's1024-square basis: top of left ear moves from y234 to about y314, skull top from y296 to about y376, existing lip point from about(377,559) to about(377,639), chin from y659 to about y739, all facial features move together. Keep front paw support around y798, paw locations and sizes unchanged. Chin now rests comfortably close to the top of the two front paws, neck softly tucked, no stretched neck. Leave torso, tucked hindlegs and curled ringed tail basically where they were, keeping full animal visible. The cat is in a cozy chin-near-paws prone rest, head still facing the viewer very slightly to its own left, small normal dark eyes quietly watching, CLOSED mouth with no tongue, no smile, no sleepy symbols. This lower rest makes the complete familiar head, including its ears, fit inside the existing nest opening while paws stay supported on the rim. The nest itself must not be drawn in the output.\nKeep the EXACT familiar WORLD-layer Tuanzi appearance of references1/2/3: all orange face/chest/belly, three soft forehead stripes, broad body stripes, pink inner ears, no whiskers, no pale eye sockets, no cream bib, tiny dark bead eyes with no highlights, warm fuzzy brown contour, colored-pencil/crayon texture with short felt fibers, not3D plush, not realistic fur, not a smooth vector kitten, no giant baby eyes or baby head/body ratios. Do not copy canonical's obsolete whiskers or pale chest. Soft upper-left light. ONLY change head/neck resting HEIGHT, not identity or body scale.\nReturn ONE COMPLETE cat only on a uniform flat pure #FF00FF magenta square1024x1024 canvas, all paws and curled tail retained, at least80px clear margin, no nest/rope/tree/house/cushion/ground/cast shadow/grid/text or props. Do not cut off the body or draw a false curved boundary. Real nest layers will provide actual occlusion later.\n",
+      "references": [
+        "outputs/tree-nest-v1-delivery/T1-rest__r1.png",
+        "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+        "ios/Maomao/Resources/WorldTextures/world-v4-nest.png",
+        "assets/tuanzi/canonical/团子-canonical-v1.png"
+      ],
+      "generation_revisions": [
+        {
+          "round": 1,
+          "status": "failed",
+          "reason": "单独猫身份接近，但真实窝合成头过高、耳被屋顶切断，不能锁定为美观接触端点。",
+          "raw_file": "_sources/T1-rest__r1.png",
+          "raw_sha256": "efb5a43b22577b66f267624665035e97200bdfd6b85d73799e9d80a7f6becfc3",
+          "processed_file": "_rejected/T1-rest__r1.png",
+          "processed_sha256": "62d2e44ddfeb59b9f1a42a36900be9b89d42332846f313ef7e3eebb47f7a1b98",
+          "prompt": "Use case: stylized-concept. Asset: ONE full-body Tuanzi cat pose for insertion into the EXISTING hanging tree nest, not a new cat design.\nREFERENCE ROLES: image1 is the FIXED APPROVED WORLD-LAYER Tuanzi identity and felt-over-colored-pencil appearance, primary appearance authority. image2 is the user-approved K3 relaxed front sitting pose; preserve its round head shape, relative ear size, bead-eye size and spacing, tiny brown mouth, orange face, forehead stripes, and head-to-paw proportions, changing ONLY body posture to comfortable prone rest. image3 shows how head and paws rest at a nest rim; pose/contact reference ONLY, don't copy its scene or replace its identity. image4 is the ACTUAL existing hanging rope nest, geometry and contact reference ONLY; don't redraw that prop. image5 is original canonical structure reference for Tuanzi's thick-round low-center anatomy and stripe identity ONLY; it uses an older facial rendering, do NOT introduce its pale almond eye sockets, white/cream bib or whiskers into the current approved WORLD-LAYER cat.\nDraw exactly the SAME orange Tuanzi from images1/2 lying comfortably inside a tree-hung nest: facing the viewer with only a very small natural three-quarter turn as in image2. Body tucked in a relaxed low loaf-like PRONE rest, chest supported, two short round front paws close together but not rigidly symmetric, resting side-by-side over the invisible gently curved FRONT RIM. Head comfortably low yet lifted just above the paws, cheeks softly rounded, neck attached naturally into shoulders, shoulders loose. One paw is a few pixels farther forward for natural depth. Calm small normal-sized dark bead eyes looking quietly ahead, no eye highlights, tiny CLOSED brown mouth, no tongue, no smile. Rounded back and tucked hindquarters continue behind the head and shoulders; ringed tail curls comfortably along the tucked side, not rigidly upright. Draw the COMPLETE body and all supporting paws, not just a floating head cut off at chest; the existing real nest's front layer will hide belly/hindquarters when composited. Support line of two front paws near y820 on1024-square canvas, actual side-to-side head width roughly400px excluding ears and neck, head centered near x490. Full animal leaves at least80px clear margins; body proportions must match approved cat, never make a gigantic baby head or tiny body to fit the nest.\nCUTE AND BEAUTIFUL means the familiar Tuanzi in a cozy relaxed pose, not a redesign: keep exactly its large slightly irregular round head; relatively small triangular pink inner ears; three soft orange forehead stripes; broad soft body stripes; orange chest and belly throughout; ringed tail; short sturdy legs and rounded paws with tiny toe marks; plain small dark-brown bead eyes without highlights; very small brown closed mouth; warm-brown variable-width fuzzy outline; subtle colored-pencil/crayon grain with a little SHORT felt fiber. Match images1/2 colors and drawing texture. No white/cream chest/belly, no pale eye sockets, no whiskers, no blush, no giant sparkling eyes, no realistic fur, no3D plush toy, no glossy rendering, no heavy seams, no vector cartoon simplification. Soft light from upper left.\nReturn ONE complete cat only, square1024x1024 canvas, flat pure #FF00FF magenta background. No nest, rope, basket, cushion, tree, house, grass, ground, cast shadow, grid, numbers, text, sleeping symbols or motion marks. Those props must remain the existing exact scene assets; only draw the cat pose.\n",
+          "references_at_generation": [
+            "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+            "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+            "assets/tuanzi/frames-v5/refs/R7-pose-inside.png",
+            "ios/Maomao/Resources/WorldTextures/world-v4-nest.png",
+            "assets/tuanzi/canonical/团子-canonical-v1.png"
+          ],
+          "reference_sha256": {
+            "assets/tuanzi/frames-v5/refs/R1-cat-identity.png": "d4fc0cdfc852b92c418057173629a46eb874852bf15bbc747c9ad8e6dd37160a",
+            "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+            "assets/tuanzi/frames-v5/refs/R7-pose-inside.png": "2c4e0f7344baef8ad432a8e28f54cbc10876b35d954b01731183cb2cd051eb02",
+            "ios/Maomao/Resources/WorldTextures/world-v4-nest.png": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a",
+            "assets/tuanzi/canonical/团子-canonical-v1.png": "1b1cca67187398c53f4aa232ad20eea8f491c737d0249a200922752dbc314f2f"
+          },
+          "reference_relocations": {}
+        },
+        {
+          "round": 2,
+          "status": "failed",
+          "reason": "低头伏卧位置合适，但生成稿把头脸压扁；整猫身份不通过，仅使用新身体/前掌。",
+          "raw_file": "_sources/T1-rest__r2.png",
+          "raw_sha256": "76a9a63d97a52296ed4364ee014d5861a5d85b5dafc3b9fe1d179c0381165ca8",
+          "processed_file": "_rejected/T1-rest__r2.png",
+          "processed_sha256": "b3b44565adb88ef6276cdae06f6bda0d08e2c6fe709f042f77888d8c2f67ef06",
+          "prompt": "EDIT TARGET reference1: the newly drawn complete Tuanzi prone-rest cat on magenta. Reference2 is the fixed user-approved front K3 face, reference3 is fixed approved WORLD Tuanzi appearance, reference4 is the ACTUAL existing hanging tree nest for contact geometry only, reference5 canonical for overall anatomy/stripe structure only (older facial rendering not current world rendering).\nMake ONE specific posture correction: lower the entire head naturally onto/just above the front paws, instead of holding the head upright. The current head is too high and the real nest roof cuts off its ears. Keep the SAME head size and shape (side-to-side frontal skull width approximately495px on1024 basis), same small bead eye size/spacing, same ear size, same forehead stripe placement, same tiny closed brown mouth. DO NOT shrink ears, squash skull or change facial proportions to fit the nest. Move/redraw head-and-neck anatomy DOWN about80px in the target's1024-square basis: top of left ear moves from y234 to about y314, skull top from y296 to about y376, existing lip point from about(377,559) to about(377,639), chin from y659 to about y739, all facial features move together. Keep front paw support around y798, paw locations and sizes unchanged. Chin now rests comfortably close to the top of the two front paws, neck softly tucked, no stretched neck. Leave torso, tucked hindlegs and curled ringed tail basically where they were, keeping full animal visible. The cat is in a cozy chin-near-paws prone rest, head still facing the viewer very slightly to its own left, small normal dark eyes quietly watching, CLOSED mouth with no tongue, no smile, no sleepy symbols. This lower rest makes the complete familiar head, including its ears, fit inside the existing nest opening while paws stay supported on the rim. The nest itself must not be drawn in the output.\nKeep the EXACT familiar WORLD-layer Tuanzi appearance of references1/2/3: all orange face/chest/belly, three soft forehead stripes, broad body stripes, pink inner ears, no whiskers, no pale eye sockets, no cream bib, tiny dark bead eyes with no highlights, warm fuzzy brown contour, colored-pencil/crayon texture with short felt fibers, not3D plush, not realistic fur, not a smooth vector kitten, no giant baby eyes or baby head/body ratios. Do not copy canonical's obsolete whiskers or pale chest. Soft upper-left light. ONLY change head/neck resting HEIGHT, not identity or body scale.\nReturn ONE COMPLETE cat only on a uniform flat pure #FF00FF magenta square1024x1024 canvas, all paws and curled tail retained, at least80px clear margin, no nest/rope/tree/house/cushion/ground/cast shadow/grid/text or props. Do not cut off the body or draw a false curved boundary. Real nest layers will provide actual occlusion later.\n",
+          "references_at_generation": [
+            "outputs/tree-nest-v1-delivery/T1-rest__r1.png",
+            "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+            "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+            "ios/Maomao/Resources/WorldTextures/world-v4-nest.png",
+            "assets/tuanzi/canonical/团子-canonical-v1.png"
+          ],
+          "reference_sha256": {
+            "outputs/tree-nest-v1-delivery/T1-rest__r1.png": "62d2e44ddfeb59b9f1a42a36900be9b89d42332846f313ef7e3eebb47f7a1b98",
+            "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+            "assets/tuanzi/frames-v5/refs/R1-cat-identity.png": "d4fc0cdfc852b92c418057173629a46eb874852bf15bbc747c9ad8e6dd37160a",
+            "ios/Maomao/Resources/WorldTextures/world-v4-nest.png": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a",
+            "assets/tuanzi/canonical/团子-canonical-v1.png": "1b1cca67187398c53f4aa232ad20eea8f491c737d0249a200922752dbc314f2f"
+          },
+          "reference_relocations": {
+            "outputs/tree-nest-v1-delivery/T1-rest__r1.png": "outputs/tree-nest-v1-delivery/_rejected/T1-rest__r1.png"
+          }
+        }
+      ],
+      "processing_mode": "new_generated_body_plus_reused_approved_head",
+      "processing": {
+        "method": "已生成r2伏卧身体 + 复用用户已确认K3头脸 + 复用r2前掌；确定性合成，不冒充纯新绘制整猫或新增动画帧。",
+        "generated_body_source": "outputs/tree-nest-v1-delivery/_sources/T1-rest__r2.png",
+        "fixed_head_source": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+        "fixed_head_source_sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+        "head_transform": {
+          "uniform_scale": 0.9255533199195171,
+          "translation_source_px": [
+            -2.00402414486922,
+            170.29577464788736
+          ],
+          "nonuniform_deformation": false
+        },
+        "approved_head_mask": [
+          [
+            145,
+            130
+          ],
+          [
+            721,
+            130
+          ],
+          [
+            722,
+            476
+          ],
+          [
+            683,
+            538
+          ],
+          [
+            632,
+            571
+          ],
+          [
+            572,
+            585
+          ],
+          [
+            502,
+            599
+          ],
+          [
+            433,
+            606
+          ],
+          [
+            355,
+            603
+          ],
+          [
+            294,
+            589
+          ],
+          [
+            243,
+            570
+          ],
+          [
+            205,
+            545
+          ],
+          [
+            164,
+            506
+          ],
+          [
+            142,
+            410
+          ]
+        ],
+        "removed_generated_head_mask": [
+          [
+            149,
+            339
+          ],
+          [
+            652,
+            339
+          ],
+          [
+            652,
+            584
+          ],
+          [
+            632,
+            663
+          ],
+          [
+            603,
+            702
+          ],
+          [
+            555,
+            725
+          ],
+          [
+            464,
+            732
+          ],
+          [
+            392,
+            731
+          ],
+          [
+            282,
+            722
+          ],
+          [
+            218,
+            691
+          ],
+          [
+            165,
+            645
+          ],
+          [
+            148,
+            559
+          ]
+        ],
+        "body_preservation": "保留原身体y>=705和右肩x>=602,y>=459，以免头部圈定过宽切掉颈肩；未补画缺失像素。",
+        "restored_original_palms": [
+          [
+            [
+              247,
+              742
+            ],
+            [
+              259,
+              718
+            ],
+            [
+              298,
+              711
+            ],
+            [
+              339,
+              719
+            ],
+            [
+              371,
+              737
+            ],
+            [
+              382,
+              756
+            ],
+            [
+              371,
+              772
+            ],
+            [
+              333,
+              778
+            ],
+            [
+              285,
+              775
+            ],
+            [
+              257,
+              762
+            ]
+          ],
+          [
+            [
+              395,
+              750
+            ],
+            [
+              415,
+              727
+            ],
+            [
+              450,
+              719
+            ],
+            [
+              506,
+              718
+            ],
+            [
+              544,
+              734
+            ],
+            [
+              567,
+              755
+            ],
+            [
+              561,
+              773
+            ],
+            [
+              521,
+              783
+            ],
+            [
+              470,
+              785
+            ],
+            [
+              426,
+              781
+            ],
+            [
+              400,
+              767
+            ]
+          ]
+        ],
+        "inner_face_verified_pixels": 68480,
+        "inner_face_max_rgb_error_vs_transformed_approved_head": 0,
+        "processing_alpha_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+        "processed_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked__v1.png",
+        "processed_sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+        "alpha_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+        "identity_result": "复用区域的脸形/耳眼嘴/纹样保持K3统一等比变换，内脸像素独立验证零残差；身体仍是新伏卧姿势，不以头部精确复用追認全身体自动验收通过。",
+        "source_r2_review": "生成稿头脸高宽比变扁，不作为整猫身份母版；只复用身体/掌部。",
+        "final_background_processing": {
+          "operation": "最终沿用normalize_magenta去近似背景，RGB背景统一FF00FF，匹配背景区域Alpha设0、其余原Alpha与前景不变",
+          "changed_background_pixels": 4795,
+          "foreground_unchanged": true
+        }
+      },
+      "machine_review": {
+        "inventory": "pass",
+        "hash": "pass",
+        "format": "pass",
+        "identity": "已确认K3头脸等比复用，内脸68480px与重采样参考零RGB差；脸形/眼距/眼嘴归一化差约0.108%/0.044%/0.216%，不追認全身体自动验收。",
+        "scene_contact": "用户发现旧图窝沿切断胸/前肢；已修改连续前部可见区域，恢复69个参考屏原猫像素；原猫文件/标尺/窝尺寸/注册不变，头耳仍0口外遮挡、顶部约2pt，静态候选待人眼。",
+        "human": "pending"
+      },
+      "rejected": [
+        "_rejected/T1-rest__r1.png",
+        "_rejected/T1-rest__r2.png"
+      ],
+      "reference_relocations": {
+        "outputs/tree-nest-v1-delivery/T1-rest__r1.png": "outputs/tree-nest-v1-delivery/_rejected/T1-rest__r1.png"
+      },
+      "fixed_source_scale_pixels_to_world_pt_before_depth": 0.13400741489720255,
+      "latest_scene_layout_review": {
+        "nest_factor": 1.3869767441860466,
+        "cat_scale_unchanged": 0.12094169194472532,
+        "head_pt": 55.633178294573646,
+        "head_to_opening_width": 0.6487728696956413,
+        "cat_occupancy_of_opening_area": 0.7161789066813915,
+        "head_ear_pixels_outside_opening": 0,
+        "opening_area_px": 3622,
+        "cat_inside_opening_area_px": 2594,
+        "visible_cat_bbox_reference_px": [
+          358,
+          428,
+          429,
+          475
+        ],
+        "registration_shift_reference_pt": [
+          -1.5410852713178296,
+          6.164341085271318
+        ],
+        "nest_rect": {
+          "x": 0.25670610641860464,
+          "y": 0.4208193525581395,
+          "width": 0.10818418604651163,
+          "height": 0.17059813953488373
+        },
+        "minimum_head_roof_clearance_reference_pt": 2,
+        "cat_source_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+        "cat_source_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+        "same_cat_source_before_after": true,
+        "source_calibration_ratio_vs_old_wrong_head_width_normalization": 1.5410852713178296,
+        "cat_nest_specific_scale_factor": 1.0,
+        "calibration": {
+          "authority": "已确认K1側站物理标尺，43px K3豆眼竖径→42px K1豆眼竖径；T1完整已确认头脸矩阵传递，无非等比变形",
+          "K1_source_pixels_to_world_pt": 0.12698412698412698,
+          "K3_source_pixels_to_world_pt": 0.12403100775193798,
+          "T1_source_pixels_to_world_pt_before_depth": 0.13400741489720255,
+          "reference_eye_height_pt": 5.333333333333333,
+          "interpretation": "稳定细部辅助跨朝向源图校准，仍须人工核对头骨/耳/爪/躯干投影，不追認所有动作自动比例通过"
+        },
+        "nest_dimensions_reference_pt": [
+          136.9611795348837,
+          143.98482976744188
+        ],
+        "opening_width_reference_pt": 85.7513945067907,
+        "scene_original_sha256": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+        "preview_only_scene_delta": {
+          "nest-back": {
+            "x": 0.25670610641860464,
+            "y": 0.4208193525581395,
+            "width": 0.10818418604651163,
+            "height": 0.17059813953488373
+          },
+          "nest-front": {
+            "x": 0.25670610641860464,
+            "y": 0.4208193525581395,
+            "width": 0.10818418604651163,
+            "height": 0.17059813953488373
+          },
+          "nest-rope": {
+            "x": 0.30798,
+            "y": 0.3934,
+            "width": 0.00503,
+            "height": 0.03141935255813949
+          }
+        },
+        "rope_overlap_reference_pt": 3.376,
+        "head_roof_clearance_note": "参考屏栅格约1–2pt最小余量，边界/人工锚点误差约1pt；不是完整呼吸/进出动画余量证明。",
+        "same_camera": {
+          "reference_screen_height_pt": 844,
+          "reference_world_width_pt": 1266,
+          "crop_reference_pt": [
+            65,
+            325,
+            470,
+            590
+          ],
+          "output_crop_magnification": 3
+        },
+        "drink_sample": {
+          "side_head_reference_pt": 40,
+          "head_runtime_reference_pt": 34.95755547570759,
+          "depth_scale": 0.8739388868926898
+        },
+        "tree_sample": {
+          "front_head_reference_pt": 61.643410852713174,
+          "head_runtime_reference_pt": 55.633178294573646,
+          "depth_scale": 0.9025000000000001
+        },
+        "cat_scale_difference_reason": "不同朝向的横向脸宽是投影，不强行同宽；参考豆眼竖径固定5.333pt，纵深单独统一投影。早先3.27%只说明纵深，不构成完整体型证明。",
+        "runtime_changed": false,
+        "new_imagegen_calls_this_adjustment": 0,
+        "human_review": "pending",
+        "source_forequarters_visibility_polygon": [
+          [
+            150,
+            325
+          ],
+          [
+            638,
+            325
+          ],
+          [
+            638,
+            642
+          ],
+          [
+            641,
+            699
+          ],
+          [
+            625,
+            754
+          ],
+          [
+            586,
+            786
+          ],
+          [
+            538,
+            796
+          ],
+          [
+            395,
+            802
+          ],
+          [
+            240,
+            790
+          ],
+          [
+            215,
+            742
+          ],
+          [
+            217,
+            691
+          ],
+          [
+            150,
+            620
+          ]
+        ],
+        "front_layer_kind": "连续头胸前肢到掌，后身仍在窝前片后方"
+      },
+      "latest_forequarters_visibility_review": {
+        "operation": "仅修改源猫在原窝前沿前方的可见区域，从两掌独立块改为连续完整头胸前肢；后身仍由窝前片遮挡。",
+        "cat_rgba_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+        "cat_rgb_sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+        "cat_source_unchanged": true,
+        "cat_scale_unchanged": 0.12094169194472532,
+        "nest_rect_unchanged": {
+          "x": 0.25670610641860464,
+          "y": 0.4208193525581395,
+          "width": 0.10818418604651163,
+          "height": 0.17059813953488373
+        },
+        "registration_shift_unchanged": [
+          -1.5410852713178296,
+          6.164341085271318
+        ],
+        "source_forequarters_visibility_polygon": [
+          [
+            150,
+            325
+          ],
+          [
+            638,
+            325
+          ],
+          [
+            638,
+            642
+          ],
+          [
+            641,
+            699
+          ],
+          [
+            625,
+            754
+          ],
+          [
+            586,
+            786
+          ],
+          [
+            538,
+            796
+          ],
+          [
+            395,
+            802
+          ],
+          [
+            240,
+            790
+          ],
+          [
+            215,
+            742
+          ],
+          [
+            217,
+            691
+          ],
+          [
+            150,
+            620
+          ]
+        ],
+        "previous_palms_visibility_polygons": [
+          [
+            [
+              247,
+              742
+            ],
+            [
+              259,
+              718
+            ],
+            [
+              298,
+              711
+            ],
+            [
+              339,
+              719
+            ],
+            [
+              371,
+              737
+            ],
+            [
+              382,
+              756
+            ],
+            [
+              371,
+              772
+            ],
+            [
+              333,
+              778
+            ],
+            [
+              285,
+              775
+            ],
+            [
+              257,
+              762
+            ]
+          ],
+          [
+            [
+              395,
+              750
+            ],
+            [
+              415,
+              727
+            ],
+            [
+              450,
+              719
+            ],
+            [
+              506,
+              718
+            ],
+            [
+              544,
+              734
+            ],
+            [
+              567,
+              755
+            ],
+            [
+              561,
+              773
+            ],
+            [
+              521,
+              783
+            ],
+            [
+              470,
+              785
+            ],
+            [
+              426,
+              781
+            ],
+            [
+              400,
+              767
+            ]
+          ]
+        ],
+        "recovered_original_cat_reference_pixels": 69,
+        "recovered_bbox_reference_px": [
+          367,
+          473,
+          414,
+          481
+        ],
+        "head_to_opening_width": 0.6487728696956413,
+        "head_ear_pixels_outside_opening": 0,
+        "minimum_head_roof_clearance_reference_pt": 2,
+        "runtime_changed": false,
+        "new_imagegen_calls": 0,
+        "human_review": "pending"
+      }
+    }
+  ]
+}

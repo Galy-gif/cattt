@@ -1,0 +1,84 @@
+{
+  "file": "outputs/frames-v7-delivery/A1-walk-toward/A1-walk-toward__r2.png",
+  "sha256": "dbb5d240ebc5d29dfe41ec6415727ce6cad0cd71039bc3d9406cfaa7af267c43",
+  "size": [
+    1536,
+    1024
+  ],
+  "mode": "RGB",
+  "historical_matches": [],
+  "background_nonexact_percent": 99.99752195138069,
+  "background_rgb_median": [
+    249.0,
+    4.0,
+    250.0
+  ],
+  "foreground_bbox": [
+    106,
+    42,
+    1417,
+    961
+  ],
+  "margins": [
+    106,
+    42,
+    118,
+    62
+  ],
+  "luminance_median": 172.6076,
+  "adjacent_iou_fixed_cells": [
+    0.7375375893251706,
+    0.8475778228034628,
+    0.6741375868192374,
+    0.7577987019319327,
+    0.8488135670229563,
+    0.6678957591117297
+  ],
+  "minimum_pair_iou_fixed_cells": 0.6678957591117297,
+  "cell_bboxes": [
+    [
+      120,
+      54,
+      417,
+      470
+    ],
+    [
+      99,
+      42,
+      392,
+      469
+    ],
+    [
+      88,
+      46,
+      379,
+      475
+    ],
+    [
+      106,
+      35,
+      417,
+      445
+    ],
+    [
+      98,
+      22,
+      405,
+      441
+    ],
+    [
+      88,
+      26,
+      393,
+      449
+    ]
+  ],
+  "rgb_mean_brightness_median": 150.66666666666666,
+  "gate_status": {
+    "1_inventory": "pass: 母版2轮文件存在，其余明确skipped",
+    "2_hash": "pass: 与仓库历史PNG无碰撞",
+    "3_format": "fail: 背景不是精确#FF00FF",
+    "4_content": "not_run: 第三道关未过；轮廓数值仅为诊断，不作验收",
+    "5_human": "not_run"
+  }
+}

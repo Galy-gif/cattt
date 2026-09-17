@@ -1,0 +1,48 @@
+{
+  "format_checks": [
+    {
+      "file": "S1-curled-calibrated-scene__v1.png",
+      "sha256": "873c93ac74cf4caa59bc123e7a176bf01f24acc60aab205c628b057c894a2f06",
+      "size": [
+        1266,
+        844
+      ],
+      "mode": "RGB",
+      "bytes": 2045733
+    },
+    {
+      "file": "S1-curled-contact-patch-alpha__v1.png",
+      "sha256": "a8a26dbd499fee782273b4ce53b998c48deafe6813b041f3e5b9d2616347faa5",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 2346475
+    },
+    {
+      "file": "whole-cat-contact-patch-mask.png",
+      "sha256": "ce9a682ef213bd6d6458d9e8734e68e3f5efc056a4fe69748945d850e1b1e4c3",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "L",
+      "bytes": 8297
+    }
+  ],
+  "original_sources_sha_unchanged": true,
+  "new_raw_history_count": 569,
+  "new_raw_history_collisions": [],
+  "forehead_head_old_pixels_reused": false,
+  "original_extended_paws_reused": false,
+  "native_front_orange_hard_occlusion_pixels": 0,
+  "native_original_textures": {
+    "assets/scenes/courtyard-v4/scene.json": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+    "ios/Maomao/Resources/WorldTextures/world-v4-nest.png": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a",
+    "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+  },
+  "human_review": "用户2026-09-16明确确认v3蜷卧静态图/场景",
+  "runtime_changed": false,
+  "user_feedback": "就这个"
+}

@@ -1,0 +1,93 @@
+{
+  "nest_factor": 1.3869767441860466,
+  "cat_scale_unchanged": 0.12094169194472532,
+  "head_pt": 55.633178294573646,
+  "head_to_opening_width": 0.6487728696956413,
+  "cat_occupancy_of_opening_area": 0.7161789066813915,
+  "head_ear_pixels_outside_opening": 0,
+  "opening_area_px": 3622,
+  "cat_inside_opening_area_px": 2594,
+  "visible_cat_bbox_reference_px": [
+    358,
+    428,
+    429,
+    475
+  ],
+  "registration_shift_reference_pt": [
+    -1.5410852713178296,
+    6.164341085271318
+  ],
+  "nest_rect": {
+    "x": 0.25670610641860464,
+    "y": 0.4208193525581395,
+    "width": 0.10818418604651163,
+    "height": 0.17059813953488373
+  },
+  "minimum_head_roof_clearance_reference_pt": 2,
+  "cat_source_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+  "cat_source_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+  "same_cat_source_before_after": true,
+  "source_calibration_ratio_vs_old_wrong_head_width_normalization": 1.5410852713178296,
+  "cat_nest_specific_scale_factor": 1.0,
+  "calibration": {
+    "authority": "已确认K1側站物理标尺，43px K3豆眼竖径→42px K1豆眼竖径；T1完整已确认头脸矩阵传递，无非等比变形",
+    "K1_source_pixels_to_world_pt": 0.12698412698412698,
+    "K3_source_pixels_to_world_pt": 0.12403100775193798,
+    "T1_source_pixels_to_world_pt_before_depth": 0.13400741489720255,
+    "reference_eye_height_pt": 5.333333333333333,
+    "interpretation": "稳定细部辅助跨朝向源图校准，仍须人工核对头骨/耳/爪/躯干投影，不追認所有动作自动比例通过"
+  },
+  "nest_dimensions_reference_pt": [
+    136.9611795348837,
+    143.98482976744188
+  ],
+  "opening_width_reference_pt": 85.7513945067907,
+  "scene_original_sha256": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+  "preview_only_scene_delta": {
+    "nest-back": {
+      "x": 0.25670610641860464,
+      "y": 0.4208193525581395,
+      "width": 0.10818418604651163,
+      "height": 0.17059813953488373
+    },
+    "nest-front": {
+      "x": 0.25670610641860464,
+      "y": 0.4208193525581395,
+      "width": 0.10818418604651163,
+      "height": 0.17059813953488373
+    },
+    "nest-rope": {
+      "x": 0.30798,
+      "y": 0.3934,
+      "width": 0.00503,
+      "height": 0.03141935255813949
+    }
+  },
+  "rope_overlap_reference_pt": 3.376,
+  "head_roof_clearance_note": "参考屏栅格约1–2pt最小余量，边界/人工锚点误差约1pt；不是完整呼吸/进出动画余量证明。",
+  "same_camera": {
+    "reference_screen_height_pt": 844,
+    "reference_world_width_pt": 1266,
+    "crop_reference_pt": [
+      65,
+      325,
+      470,
+      590
+    ],
+    "output_crop_magnification": 3
+  },
+  "drink_sample": {
+    "side_head_reference_pt": 40,
+    "head_runtime_reference_pt": 34.95755547570759,
+    "depth_scale": 0.8739388868926898
+  },
+  "tree_sample": {
+    "front_head_reference_pt": 61.643410852713174,
+    "head_runtime_reference_pt": 55.633178294573646,
+    "depth_scale": 0.9025000000000001
+  },
+  "cat_scale_difference_reason": "不同朝向的横向脸宽是投影，不强行同宽；参考豆眼竖径固定5.333pt，纵深单独统一投影。早先3.27%只说明纵深，不构成完整体型证明。",
+  "runtime_changed": false,
+  "new_imagegen_calls_this_adjustment": 0,
+  "human_review": "pending"
+}

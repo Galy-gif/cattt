@@ -1,0 +1,228 @@
+{
+  "generation_mode": "内置image_gen，局部场景接触编辑；不是完整猫-only帧",
+  "new_imagegen_calls": 2,
+  "selected_candidate_imagegen_calls": 1,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_mode": "RGB",
+  "raw_sha256": "8c7d9b382ce7e333c938c319124d8d34e8deb37cb1a292e62f59ebcc6b678b35",
+  "edit_target_sha256": "e18393c6996254483bc9c6e9582e18c101d3efca8ca081314faa5de65c3d72d9",
+  "raw_registration": {
+    "uniform_resize": 0.8165869218500797,
+    "additional_translation_px": [
+      0,
+      0
+    ],
+    "nonuniform_warp": false,
+    "landmark_review": "原构图一致，最终外围与头脸/前肢直接采用原图；生成区域限定后身/直接窝垫接触，人工局部核对"
+  },
+  "adoption_polygon_target_px": [
+    [
+      737,
+      573
+    ],
+    [
+      799,
+      579
+    ],
+    [
+      849,
+      604
+    ],
+    [
+      875,
+      647
+    ],
+    [
+      879,
+      711
+    ],
+    [
+      854,
+      749
+    ],
+    [
+      805,
+      775
+    ],
+    [
+      753,
+      773
+    ],
+    [
+      740,
+      750
+    ],
+    [
+      727,
+      727
+    ],
+    [
+      743,
+      702
+    ],
+    [
+      752,
+      670
+    ],
+    [
+      747,
+      627
+    ]
+  ],
+  "original_head_frontlegs_protection_polygon_target_px": [
+    [
+      447,
+      490
+    ],
+    [
+      737,
+      490
+    ],
+    [
+      743,
+      572
+    ],
+    [
+      751,
+      616
+    ],
+    [
+      759,
+      657
+    ],
+    [
+      759,
+      687
+    ],
+    [
+      750,
+      711
+    ],
+    [
+      736,
+      727
+    ],
+    [
+      730,
+      731
+    ],
+    [
+      738,
+      724
+    ],
+    [
+      746,
+      716
+    ],
+    [
+      754,
+      714
+    ],
+    [
+      759,
+      718
+    ],
+    [
+      762,
+      726
+    ],
+    [
+      762,
+      737
+    ],
+    [
+      759,
+      748
+    ],
+    [
+      754,
+      758
+    ],
+    [
+      750,
+      765
+    ],
+    [
+      729,
+      780
+    ],
+    [
+      685,
+      788
+    ],
+    [
+      615,
+      792
+    ],
+    [
+      541,
+      785
+    ],
+    [
+      506,
+      777
+    ],
+    [
+      450,
+      739
+    ]
+  ],
+  "boundary_feather_px": 2,
+  "original_background_notch_fill": {
+    "ellipse_target_px": [
+      730,
+      726,
+      741,
+      739
+    ],
+    "feather_px": 1,
+    "source": "上一局部稿C1邻近尾部橙毛像素，等尺度局部复用填旧灰色缺口；非改头脸/源猫",
+    "local_fur_translation_target_px": [
+      -28,
+      9
+    ],
+    "fur_source_reference_pixel_target_px": [
+      764,
+      723
+    ],
+    "fur_destination_reference_pixel_target_px": [
+      736,
+      732
+    ]
+  },
+  "adoption_mask_sha256": "8ea0f73d4ea5a182ab68782c9b37e493c942cbd8fb03fcd715042026524e39f1",
+  "final_sha256": "327ed6d5ad7c1e0d233b625cdc69f073b3e7760b6594bd5f974edc62aad72dc9",
+  "changed_pixels": 21797,
+  "changed_bbox_px": [
+    728,
+    571,
+    882,
+    778
+  ],
+  "outside_adoption_mask_rgb_changed_pixels": 0,
+  "protected_head_frontlegs_rgb_changed_pixels": 0,
+  "protected_pixels": 87753,
+  "canvas_size": [
+    1024,
+    1024
+  ],
+  "native_reference_crop_px": [
+    263,
+    325,
+    468,
+    530
+  ],
+  "preview_multiplier": 4.995121951219512,
+  "cat_source_scale_reference_pt_per_px_unchanged": 0.12094169194472532,
+  "nest_reference_size_pt_unchanged": [
+    136.961,
+    143.985
+  ],
+  "source_cat_files_unchanged": true,
+  "physical_size_note": "头脸/前肢像素和原相机尺度固定，后身未经专用缩放；投影随收腿蜷尾姿势改变。局部场景不代替完整猫源图及体积/动态验收。",
+  "visual_review": "助手静态整体/尾部/前肢连接复查完成；原前肢曲线保护区域已收顺，无多边形切入硬边；用户未确认",
+  "runtime_changed": false
+}

@@ -1,0 +1,84 @@
+{
+  "nest_factor": 0.9,
+  "cat_scale_unchanged": 0.07847826086956522,
+  "head_pt": 36.1,
+  "head_to_opening_width": 0.6487728696956412,
+  "cat_occupancy_of_opening_area": 0.7278603749191984,
+  "head_ear_pixels_outside_opening": 0,
+  "opening_area_px": 1547,
+  "cat_inside_opening_area_px": 1126,
+  "visible_cat_bbox_reference_px": [
+    368,
+    444,
+    416,
+    475
+  ],
+  "registration_shift_reference_pt": [
+    -1,
+    4
+  ],
+  "nest_rect": {
+    "x": 0.27483216,
+    "y": 0.47080435,
+    "width": 0.0702,
+    "height": 0.1107
+  },
+  "minimum_head_roof_clearance_reference_pt": 1,
+  "cat_source_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+  "cat_source_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+  "same_cat_source_before_after": true,
+  "cat_uniform_scale_ratio_before_after": 1.0,
+  "nest_dimensions_reference_pt": [
+    88.8732,
+    93.4308
+  ],
+  "opening_width_reference_pt": 55.64351052,
+  "scene_original_sha256": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+  "preview_only_scene_delta": {
+    "nest-back": {
+      "x": 0.27483216,
+      "y": 0.47080435,
+      "width": 0.0702,
+      "height": 0.1107
+    },
+    "nest-front": {
+      "x": 0.27483216,
+      "y": 0.47080435,
+      "width": 0.0702,
+      "height": 0.1107
+    },
+    "nest-rope": {
+      "x": 0.30798,
+      "y": 0.3934,
+      "width": 0.00503,
+      "height": 0.08140434999999996
+    }
+  },
+  "rope_overlap_reference_pt": 3.376,
+  "head_roof_clearance_note": "参考屏栅格约1pt最小余量，边界/人工锚点误差约1pt；不是完整呼吸/进出动画余量证明。",
+  "same_camera": {
+    "reference_screen_height_pt": 844,
+    "reference_world_width_pt": 1266,
+    "crop_reference_pt": [
+      65,
+      345,
+      455,
+      590
+    ],
+    "output_crop_magnification": 3
+  },
+  "drink_sample": {
+    "head_reference_pt_before_depth": 40,
+    "head_runtime_reference_pt": 34.95755547570759,
+    "depth_scale": 0.8739388868926898
+  },
+  "tree_sample": {
+    "head_reference_pt_before_depth": 40,
+    "head_runtime_reference_pt": 36.1,
+    "depth_scale": 0.9025000000000001
+  },
+  "cat_scale_difference_reason": "两动作沿用同一40pt参考头宽；3.27%屏幕差异来自现有地面纵深，不是窝内专用缩放。",
+  "runtime_changed": false,
+  "new_imagegen_calls_this_adjustment": 0,
+  "human_review": "pending"
+}

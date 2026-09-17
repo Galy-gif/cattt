@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-16",
+  "purpose": "本轮确认图统一收藏，源像素不变",
+  "confirmed_themes": [
+    "树窝蜷卧",
+    "自然站姿",
+    "门口坐姿",
+    "红色信箱"
+  ],
+  "entries": [
+    {
+      "file": "01-树窝蜷卧-近景.jpg",
+      "source_repository_path": "outputs/tree-nest-curled-v3-review/团子参考蜷卧姿势近景.jpg",
+      "sha256": "509a06150381b9496b8b65f2fa711de7f67f27156097bf09a82dcb0e635257e4",
+      "format": "JPEG",
+      "size": [
+        690,
+        645
+      ],
+      "mode": "RGB",
+      "confirmation": "已确认",
+      "confirmation_scope": "用户最新“就这个”，确认上一条v3完整蜷卧静态图/场景",
+      "new_generation": false
+    },
+    {
+      "file": "01-树窝蜷卧-完整场景.png",
+      "source_repository_path": "outputs/tree-nest-curled-v3-delivery/S1-curled-calibrated-scene__v1.png",
+      "sha256": "873c93ac74cf4caa59bc123e7a176bf01f24acc60aab205c628b057c894a2f06",
+      "format": "PNG",
+      "size": [
+        1266,
+        844
+      ],
+      "mode": "RGB",
+      "confirmation": "已确认",
+      "confirmation_scope": "与已确认近景同一源场景，保留校准后猫大小/原窝适配",
+      "new_generation": false
+    },
+    {
+      "file": "02-团子-自然站姿.png",
+      "source_repository_path": "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+      "sha256": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+      "format": "PNG",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "confirmation": "姿势已确认",
+      "confirmation_scope": "用户此前认可三个关键姿势；本图为原K1站姿",
+      "new_generation": false
+    },
+    {
+      "file": "03-团子-门口坐姿.png",
+      "source_repository_path": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+      "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+      "format": "PNG",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "confirmation": "姿势已确认",
+      "confirmation_scope": "用户此前认可三个关键姿势；本图为原K3坐姿",
+      "new_generation": false
+    },
+    {
+      "file": "04-信箱-红色信箱.png",
+      "source_repository_path": "outputs/mailbox-v2-delivery/P1-mailbox/P1-mailbox__r2.png",
+      "sha256": "508b5397e89284343da04f09e0f2c712f015ae386f868ccb5f47ac418b3b86c6",
+      "format": "PNG",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGB",
+      "confirmation": "造型材质已确认",
+      "confirmation_scope": "用户“信箱没问题”；原r2保留，背景整理/小旗状态不追认",
+      "new_generation": false
+    },
+    {
+      "file": "待确认/05-团子-喝水端点-最新修正.png",
+      "source_repository_path": "outputs/frames-v8-delivery/keys/K2-drink-low-identity-restored__v1.png",
+      "sha256": "587174df8b60c9449d0988b388c051e4cf982badbda1224fd895e6ea6965fa5b",
+      "format": "PNG",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "confirmation": "待接触确认",
+      "confirmation_scope": "此前认可r2姿势方向；此最新r4盆高/眼睛修正版并未明确获水盆接触确认",
+      "new_generation": false
+    },
+    {
+      "file": "待确认/05-团子-喝水端点-透明加工图.png",
+      "source_repository_path": "outputs/frames-v8-delivery/keys/K2-drink-low-identity-restored-alpha__v1.png",
+      "sha256": "973c7be37ac750e7e9cd2a2cfff103651ac845a35e83c41a654b7838dcbb3683",
+      "format": "PNG",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "confirmation": "待接触确认",
+      "confirmation_scope": "与最新修正PNG同稿的真Alpha加工图，尚非连续舔饮",
+      "new_generation": false
+    },
+    {
+      "file": "待确认/05-喝水-右侧避挡场景.jpg",
+      "source_repository_path": "outputs/tree-nest-v1-review/喝水避挡与身份修正版场景.jpg",
+      "sha256": "d37a6fa52cb8221a3e56b829dab7948881b809ac223f0a1b4c6ffd667b721a43",
+      "format": "JPEG",
+      "size": [
+        1215,
+        795
+      ],
+      "mode": "RGB",
+      "confirmation": "待接触布局确认",
+      "confirmation_scope": "当前蓝盆右侧朝左避红盆离线示例，未追認接触/布局已确认",
+      "new_generation": false
+    }
+  ],
+  "app_integration": "本次仅整理确认图；未接入App/补连续帧",
+  "source_files_retained": true
+}

@@ -1,0 +1,68 @@
+{
+  "id": "C5",
+  "size": [
+    853,
+    1844
+  ],
+  "mode": "RGB",
+  "ratio": 2.1618,
+  "bytes": 1029766,
+  "sha256": "d3b6af81eb738958dcf70be6272a089ee044d056b895bd522d5cd2e881450223",
+  "historical_png_checked": 1075,
+  "hash_matches": [],
+  "alpha_below_255_percent": 0,
+  "low_chroma_percent": 89.45,
+  "strong_red_orange_percent": 2.7,
+  "blank_samples": {
+    "top": [
+      245,
+      245,
+      245
+    ],
+    "middle": [
+      245,
+      245,
+      245
+    ],
+    "lower": [
+      245,
+      245,
+      245
+    ]
+  },
+  "first_avatar_neutral_rim_bbox": {
+    "C4": {
+      "bbox": [
+        30,
+        238,
+        147,
+        355
+      ],
+      "width": 117,
+      "height": 117
+    },
+    "C5": {
+      "bbox": [
+        44,
+        257,
+        123,
+        335
+      ],
+      "width": 79,
+      "height": 78
+    },
+    "width_ratio": 0.675,
+    "measurement_note": "固定首头像区域内中性灰边像素包围盒，阈值通道差<=15且均值<230；用于窗口占位比较，不证明角色全身比例。"
+  },
+  "mushroom_region_color": {
+    "C4": {
+      "colored_pixel_percent": 1.29,
+      "mean_rgb_channel_span": 1.23
+    },
+    "C5": {
+      "colored_pixel_percent": 45.51,
+      "mean_rgb_channel_span": 22.24
+    },
+    "region": "x38%-100%, y60%-88%; 包含空白，用同区域比较局部颜色增加。"
+  }
+}

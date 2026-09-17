@@ -1,0 +1,104 @@
+{
+  "selected_id": "C2",
+  "selected_sha_verified": true,
+  "format": [
+    1024,
+    1024,
+    "RGB"
+  ],
+  "outside_adoption_mask_changed_pixels": 0,
+  "independent_fixed_character_regions": {
+    "head_face_ears": {
+      "bbox_px": [
+        470,
+        505,
+        738,
+        723
+      ],
+      "max_rgb_error": 0,
+      "changed_pixels": 0
+    },
+    "left_paw": {
+      "bbox_px": [
+        515,
+        744,
+        615,
+        784
+      ],
+      "max_rgb_error": 0,
+      "changed_pixels": 0
+    },
+    "right_paw": {
+      "bbox_px": [
+        617,
+        753,
+        734,
+        784
+      ],
+      "max_rgb_error": 0,
+      "changed_pixels": 0
+    }
+  },
+  "original_source_hash_checks": [
+    {
+      "file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked__v1.png",
+      "sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+      "unchanged": true
+    },
+    {
+      "file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+      "sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+      "unchanged": true
+    },
+    {
+      "file": "ios/Maomao/Resources/WorldTextures/world-v4-nest.png",
+      "sha256": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a",
+      "unchanged": true
+    },
+    {
+      "file": "assets/scenes/courtyard-v4/scene.json",
+      "sha256": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+      "unchanged": true
+    }
+  ],
+  "historical_png_count": 563,
+  "new_raw_collisions_with_history": [],
+  "review_jpeg_sizes": [
+    {
+      "file": "outputs/tree-nest-contact-v2-review/树窝参考收尾修正版.jpg",
+      "bytes": 229050,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/树窝真实伏卧修正版.jpg",
+      "bytes": 228798,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/后身修复后.jpg",
+      "bytes": 38462,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/树窝后身真实接触前后对照.jpg",
+      "bytes": 172187,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/树窝真实伏卧修正版近景.jpg",
+      "bytes": 91990,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/后身修复前.jpg",
+      "bytes": 33126,
+      "under_1mb": true
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-review/树窝参考收尾修正版近景.jpg",
+      "bytes": 92228,
+      "under_1mb": true
+    }
+  ],
+  "runtime_changed": false
+}

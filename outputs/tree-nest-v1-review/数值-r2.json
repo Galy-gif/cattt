@@ -1,0 +1,33 @@
+{
+  "id": "T1-rest",
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_mode": "RGBA",
+  "source_alpha_preserved": true,
+  "processed_size": [
+    1024,
+    1024
+  ],
+  "processing": "统一等比缩至962px、居中1024px加31px边；Alpha合成洋红后沿用normalize_magenta，不绘制新姿势或改身体形状。",
+  "source_sha256": "76a9a63d97a52296ed4364ee014d5861a5d85b5dafc3b9fe1d179c0381165ca8",
+  "processed_sha256": "b3b44565adb88ef6276cdae06f6bda0d08e2c6fe709f042f77888d8c2f67ef06",
+  "historical_collisions": {
+    "_sources/T1-rest__r2.png": [],
+    "T1-rest__r2.png": []
+  },
+  "foreground_bbox": [
+    172,
+    362,
+    882,
+    787
+  ],
+  "major_connected_components": 1,
+  "minimum_margin_px": 141,
+  "normalized_pixel_count": 6776,
+  "foreground_unchanged_after_normalization": true,
+  "format_pass": true,
+  "human_review": "pending",
+  "scene_contact_review": "pending"
+}

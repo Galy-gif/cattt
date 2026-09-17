@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "C2",
+      "status": "新生成",
+      "file": "outputs/chat-ui-v2-delivery/C2-灰调圆窗猫聊天页.png",
+      "source": "/Users/gouzi/.codex/generated_images/01a0aa54-e73d-7242-aacb-bd7c3c870cee/exec-97f94fdc-5089-4973-8c9b-36a7a40ecfab.png",
+      "sha256": "d16d0d3f974a93c3ba539b8da5e75985dceab2333f0235731e7d288054746f8d",
+      "dimensions": [
+        853,
+        1844
+      ],
+      "references": [
+        "outputs/chat-ui-v1-delivery/C1-白色小院聊天页.png",
+        "assets/ui/chat-v2/refs/IMG_9056.jpg"
+      ],
+      "note": "静态整页改稿；三头像只示意动作端点，未交付连续动画，App未改。"
+    }
+  ]
+}

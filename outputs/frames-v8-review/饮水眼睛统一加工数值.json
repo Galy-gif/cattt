@@ -1,0 +1,36 @@
+{
+  "operation": "保持r4原身体/脸轮廓/嘴点/落脚不变，仅等比复用已确认K1眼睛及紧邻肤色，边缘羽化；明确素材加工，不是新一次生图。",
+  "source_file": "outputs/frames-v8-delivery/keys/K2-drink-low__r4.png",
+  "source_sha256": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1",
+  "approved_eye_file": "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+  "approved_eye_sha256": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+  "approved_eye_roi": [
+    810,
+    449,
+    855,
+    504
+  ],
+  "uniform_scale": 0.9841269841269841,
+  "patch_position_px": [
+    829,
+    545
+  ],
+  "patch_size_px": [
+    44,
+    54
+  ],
+  "changed_pixels": 2223,
+  "changed_bbox_inclusive": [
+    829,
+    545,
+    872,
+    598
+  ],
+  "outside_eye_patch_pixels_unchanged": true,
+  "file": "keys/K2-drink-low-identity-restored__v1.png",
+  "sha256": "587174df8b60c9449d0988b388c051e4cf982badbda1224fd895e6ea6965fa5b",
+  "processing_alpha_file": "keys/K2-drink-low-identity-restored-alpha__v1.png",
+  "processing_alpha_sha256": "973c7be37ac750e7e9cd2a2cfff103651ac845a35e83c41a654b7838dcbb3683",
+  "new_imagegen_calls": 0,
+  "human_review": "pending"
+}

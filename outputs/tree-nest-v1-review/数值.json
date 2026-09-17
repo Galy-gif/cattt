@@ -1,0 +1,34 @@
+{
+  "id": "T1-rest",
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_mode": "RGBA",
+  "source_alpha_preserved": true,
+  "processed_size": [
+    1024,
+    1024
+  ],
+  "processing": "统一等比缩至962px、居中1024px加31px边；Alpha合成洋红后沿用normalize_magenta，不绘制新姿势或改身体形状。",
+  "source_sha256": "efb5a43b22577b66f267624665035e97200bdfd6b85d73799e9d80a7f6becfc3",
+  "processed_sha256": "62d2e44ddfeb59b9f1a42a36900be9b89d42332846f313ef7e3eebb47f7a1b98",
+  "historical_collisions": {
+    "raw": [],
+    "processed": []
+  },
+  "foreground_bbox": [
+    157,
+    234,
+    907,
+    806
+  ],
+  "major_connected_components": 1,
+  "minimum_margin_px": 116,
+  "normalized_pixel_count": 8927,
+  "foreground_unchanged_after_normalization": true,
+  "format_pass": true,
+  "human_review": "pending",
+  "scene_contact_review": "pending",
+  "historical_collision_note": "首次收图分别扫描源/加工SHA均无历史碰撞；原报告同basename键覆盖，补正为raw/processed分列。"
+}

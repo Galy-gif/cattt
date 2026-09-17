@@ -1,0 +1,34 @@
+{
+  "id": "C4",
+  "round": 2,
+  "size": [
+    853,
+    1844
+  ],
+  "mode": "RGB",
+  "ratio": 2.1618,
+  "bytes": 1019202,
+  "sha256": "c39579187acb649bd486265689e0fa944eb59b2902ca26bc293175fdec28463a",
+  "historical_png_checked": 1073,
+  "hash_matches": [],
+  "alpha_below_255_percent": 0,
+  "low_chroma_percent": 96.28,
+  "strong_coral_percent": 1.67,
+  "blank_samples": {
+    "top": [
+      244,
+      244,
+      244
+    ],
+    "middle": [
+      244,
+      244,
+      244
+    ],
+    "lower": [
+      244,
+      244,
+      244
+    ]
+  }
+}

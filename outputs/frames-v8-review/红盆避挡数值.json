@@ -1,0 +1,46 @@
+{
+  "variants": [
+    {
+      "title": "原站位：红盆遮前爪",
+      "direction": 1,
+      "closed_mouth_house_px": [
+        1025,
+        952
+      ],
+      "world_contact": [
+        0.20122477383437717,
+        0.6075868372943327
+      ],
+      "world_hind_support": [
+        0.1457323489723127,
+        0.6351103674426118
+      ],
+      "depth_scale": 0.8739388868926898,
+      "head_width_runtime_reference_screen_pt": 34.95755547570759,
+      "red_bowl_overlap_reference_pixels": 487,
+      "method": "原K2r4整段同倍缩放；右站位仅水平反射、不重绘角色。人工标点±10源px；按真实scene贴图离线合成，非App截图；右站位猫位于吊窝前片之前、蓝盆前沿之后的局部交互层，避免高处窝沿误挡尾尖；方向光照/正式统一锚点和全链路未验。"
+    },
+    {
+      "title": "优化站位：蓝盆右侧朝左喝水",
+      "direction": -1,
+      "closed_mouth_house_px": [
+        1103,
+        952
+      ],
+      "world_contact": [
+        0.21235212247738341,
+        0.6075868372943327
+      ],
+      "world_hind_support": [
+        0.2678445473394479,
+        0.6351103674426118
+      ],
+      "depth_scale": 0.8739388868926898,
+      "head_width_runtime_reference_screen_pt": 34.95755547570759,
+      "red_bowl_overlap_reference_pixels": 0,
+      "method": "原K2r4整段同倍缩放；右站位仅水平反射、不重绘角色。人工标点±10源px；按真实scene贴图离线合成，非App截图；右站位猫位于吊窝前片之前、蓝盆前沿之后的局部交互层，避免高处窝沿误挡尾尖；方向光照/正式统一锚点和全链路未验。"
+    }
+  ],
+  "cat_source_sha256": "355b430621c7bac0565d758f1d2fda6254012327e4016b229b3c6226188e5a22",
+  "runtime_scene_changed": false
+}

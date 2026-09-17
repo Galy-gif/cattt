@@ -1,0 +1,197 @@
+[
+  {
+    "id": "K1-stand",
+    "raw_sha256": "a7ca9587c4d72451fd069157332e9bafbe09c96192699fe228cbecff2fc088fb",
+    "processed_sha256": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "processed_size": [
+      1024,
+      1024
+    ],
+    "uniform_resize_scale": 0.7671451355661882,
+    "raw_historical_matches": [],
+    "processed_historical_matches": [],
+    "background_rgb": [
+      255,
+      0,
+      255
+    ],
+    "exact_background_fraction": 0.6650199890136719,
+    "background_normalized_pixel_count": 574174,
+    "foreground_pixels_unchanged_after_normalization": true,
+    "foreground_bbox": [
+      97,
+      174,
+      932,
+      860
+    ],
+    "margins": [
+      97,
+      174,
+      91,
+      163
+    ],
+    "major_connected_components": 1,
+    "foreground_pixel_count": 351252,
+    "foreground_rgb_mean_brightness_median": 140.33333333333334,
+    "human_review": "approved_pose",
+    "format_pass": true,
+    "canvas_padding": [
+      31,
+      31
+    ],
+    "keypoint_annotation": {
+      "method": "人工在1024px图上近似标注，误差约±10px，仅用于后续锚点／口碗几何定位；尚未做动态或场景合成验收",
+      "points": {
+        "mouth": [
+          893,
+          526
+        ],
+        "hind_support": [
+          270,
+          840
+        ]
+      }
+    },
+    "morphology_review": {
+      "closed_mouth_no_visible_tongue": true,
+      "body_supported": true,
+      "right_facing_side_direction": true,
+      "belly_off_ground": true
+    }
+  },
+  {
+    "id": "K2-drink-low",
+    "raw_sha256": "355b430621c7bac0565d758f1d2fda6254012327e4016b229b3c6226188e5a22",
+    "processed_sha256": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "processed_size": [
+      1024,
+      1024
+    ],
+    "uniform_resize_scale": 0.7671451355661882,
+    "raw_historical_matches": [],
+    "processed_historical_matches": [],
+    "background_rgb": [
+      255,
+      0,
+      255
+    ],
+    "exact_background_fraction": 0.7193765640258789,
+    "background_normalized_pixel_count": 14245,
+    "foreground_pixels_unchanged_after_normalization": true,
+    "foreground_bbox": [
+      123,
+      195,
+      933,
+      838
+    ],
+    "margins": [
+      123,
+      195,
+      90,
+      185
+    ],
+    "major_connected_components": 1,
+    "foreground_pixel_count": 294255,
+    "foreground_rgb_mean_brightness_median": 142.66666666666666,
+    "human_review": "pending_contact_endpoint",
+    "format_pass": true,
+    "canvas_padding": [
+      31,
+      31
+    ],
+    "raw_mode": "RGBA",
+    "source_alpha_preserved": true,
+    "keypoint_annotation": {
+      "method": "人工标点近似±10源px，仅用于离线接触；最终按动作统一锚点打包后重算节点。",
+      "points": {
+        "mouth": [
+          893,
+          616
+        ],
+        "hind_support": [
+          270,
+          822
+        ]
+      },
+      "side_head_width_px_estimate": 310
+    },
+    "morphology_review": {
+      "closed_mouth_no_visible_tongue": true,
+      "body_supported": true,
+      "right_facing_side_direction": true,
+      "belly_off_ground": true
+    }
+  },
+  {
+    "id": "K3-sit-relaxed",
+    "raw_sha256": "63213116c9d56c34ea105115fdc49c9448e2c63b18fd3cec0caf81b6eb78b933",
+    "processed_sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "processed_size": [
+      1024,
+      1024
+    ],
+    "uniform_resize_scale": 0.7671451355661882,
+    "raw_historical_matches": [],
+    "processed_historical_matches": [],
+    "background_rgb": [
+      255,
+      0,
+      255
+    ],
+    "exact_background_fraction": 0.6898336410522461,
+    "background_normalized_pixel_count": 600199,
+    "foreground_pixels_unchanged_after_normalization": true,
+    "foreground_bbox": [
+      184,
+      180,
+      867,
+      878
+    ],
+    "margins": [
+      184,
+      180,
+      156,
+      145
+    ],
+    "major_connected_components": 1,
+    "foreground_pixel_count": 325233,
+    "foreground_rgb_mean_brightness_median": 140.66666666666666,
+    "human_review": "approved_pose",
+    "format_pass": true,
+    "canvas_padding": [
+      31,
+      31
+    ],
+    "keypoint_annotation": {
+      "method": "人工在1024px图上近似标注，误差约±10px，仅用于后续锚点／口碗几何定位；尚未做动态或场景合成验收",
+      "points": {
+        "mouth": [
+          411,
+          497
+        ],
+        "seated_support": [
+          534,
+          870
+        ]
+      }
+    },
+    "morphology_review": {
+      "closed_mouth_no_visible_tongue": true,
+      "body_supported": true,
+      "right_facing_side_direction": "坐姿朝前略偏侧",
+      "belly_off_ground": "坐姿不适用"
+    }
+  }
+]

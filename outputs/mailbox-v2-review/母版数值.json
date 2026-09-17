@@ -1,0 +1,37 @@
+{
+  "file": "outputs/mailbox-v2-delivery/P1-mailbox/P1-mailbox__r2.png",
+  "sha256": "508b5397e89284343da04f09e0f2c712f015ae386f868ccb5f47ac418b3b86c6",
+  "size": [
+    1024,
+    1536
+  ],
+  "mode": "RGB",
+  "historical_matches": [],
+  "background_nonexact_percent": 100.0,
+  "background_rgb_median": [
+    249.0,
+    4.0,
+    251.0
+  ],
+  "foreground_bbox": [
+    194,
+    92,
+    811,
+    1454
+  ],
+  "margins": [
+    194,
+    92,
+    212,
+    81
+  ],
+  "luminance_median": 97.21860000000001,
+  "rgb_mean_brightness_median": 102.66666666666667,
+  "gate_status": {
+    "1_inventory": "pass: 母版2轮文件存在，其余明确skipped",
+    "2_hash": "pass: 与仓库历史PNG无碰撞",
+    "3_format": "fail: 背景不是精确#FF00FF",
+    "4_content": "not_run: 第三道关未过；轮廓数值仅为诊断，不作验收",
+    "5_human": "not_run"
+  }
+}

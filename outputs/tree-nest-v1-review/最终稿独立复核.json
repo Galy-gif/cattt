@@ -1,0 +1,33 @@
+{
+  "processed_sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+  "processing_alpha_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+  "historical_whole_file_sha_matches": {
+    "_sources/T1-rest__r1.png": [],
+    "_sources/T1-rest__r2.png": [],
+    "T1-rest-identity-locked__v1.png": [],
+    "T1-rest-identity-locked-alpha__v1.png": []
+  },
+  "hash_method": "遍历历史PNG，先按字节长度筛候选，再独立比SHA-256；显式复用旧头脸单独登记，不把无整文件碰撞当无局部复用。",
+  "processed_size": [
+    1024,
+    1024
+  ],
+  "processed_mode": "RGB",
+  "processing_alpha_size": [
+    1024,
+    1024
+  ],
+  "major_connected_components": 1,
+  "minimum_margin_px": 141,
+  "foreground_bbox": [
+    168,
+    337,
+    882,
+    787
+  ],
+  "pure_magenta_background_fraction": 0.7822532653808594,
+  "format_pass": true,
+  "human_review": "pending",
+  "dynamic_review": "not_done",
+  "background_processing": 4795
+}

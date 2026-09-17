@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "batch": "frames-v8-keyposes",
+  "generated_at": "2026-09-16",
+  "generator": "Codex built-in imagegen",
+  "source_brief": "assets/tuanzi/frames-v8/brief.md",
+  "phase": "三端点与树窝静态体型校准/眼睛修复/真实场景复查完成，候选待视觉确认，连续帧和App未接入",
+  "items": [
+    {
+      "id": "K1-stand",
+      "status": "new",
+      "round": 1,
+      "file": "keys/K1-stand__r1.png",
+      "sha256": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+      "source_file": "_sources/keys/K1-stand__r1.png",
+      "source_sha256": "a7ca9587c4d72451fd069157332e9bafbe09c96192699fe228cbecff2fc088fb",
+      "prompt": "Use case: stylized-concept. Asset type: one key-pose reference for Tuanzi's hand-drawn sprite animation.\nReference 1 is Tuanzi's locked identity; reference 2 is the approved drawing style. Draw this exact orange tabby in felt-over-crayon illustration, not a redesign.\nBig round slightly irregular head, small triangular ears with pink inner ears, dark brown bead eyes without highlights, tiny warm brown closed mouth, three darker orange forehead stripes, broad soft body stripes, ringed tail, thick rounded low-center body, short legs, rounded paws with two or three toe lines.\nEntire chest and belly orange. No cream belly, no whiskers, no blush, no eye highlights. Short soft felt fibers and fuzzy warm brown variable-width outlines. Soft upper-left light. Not photorealistic, not 3D, not a plush toy, not flat vector.\nSingle complete cat only, centered, no bowl, no water, house, nest, grass, ground, cast shadow, symbols or text.\nONE full-frame image, 1024x1024. A uniform flat opaque pure magenta RGB #FF00FF background, no transparency, gradient, vignette, halo or checkerboard. At least 80 pixels clear margin on all sides. Head about 340px wide for this single 1024px image (170px when reduced to a 512px sprite cell); no cropping.\nReference 3 is the approved RIGHT-facing side-standing pose and proportions. Draw one new relaxed right-facing SIDE VIEW standing pose: all four short paws supported at clearly separate depths, torso softly rounded, chest lifted, belly clearly off the invisible ground, neck relaxed, head level looking ahead. Tail up with a soft curved tip. Mouth closed with NO visible tongue. Not crouching or lying down. This will be the start and end of the drinking sequence. Feet near y=880; reproduce the reference's low, friendly cat proportions.\n",
+      "references": [
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png",
+        "assets/tuanzi/frames-v5/refs/R3-cat-side-standing.png"
+      ],
+      "reference_sha256": {
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png": "d4fc0cdfc852b92c418057173629a46eb874852bf15bbc747c9ad8e6dd37160a",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png": "15b8c2e8b8f306b421b496910d5174c02613e4fb40e89bcde91483369bb78a73",
+        "assets/tuanzi/frames-v5/refs/R3-cat-side-standing.png": "6baf5abef7114e56efe0483b031c972824ec00b52f70d98806c910d958a23ec3"
+      },
+      "processing": "三张统一从1254px缩至962px，居中放入1024px画布（边缘各31px）；调用现有 prepare_v6_deliveries.normalize_magenta 归一化背景。未复制旧角色帧、未改姿势或调主体颜色。",
+      "human_review": "approved_pose",
+      "machine_review": {
+        "inventory": "pass",
+        "hash": "pass",
+        "format": "pass",
+        "content": "单只猫、朝向、闭嘴与支撑姿势已检查；动态和口碗场景接触尚未验收",
+        "human": "approved_pose"
+      },
+      "human_feedback": "用户确认三个姿势可用，要求喝水必须与现有水盆自然衔接；不追认完整动画和场景接触通过。",
+      "fixed_source_scale_pixels_to_world_pt_before_depth": 0.12698412698412698,
+      "physical_scale_note": "固定K1侧站为物理标尺，对应朝向依已确认稳定细部校准；不能每张横向脸宽强归40pt，不能另加碗/窝专用缩放。"
+    },
+    {
+      "id": "K2-drink-low",
+      "status": "new",
+      "round": 4,
+      "file": "keys/K2-drink-low-identity-restored__v1.png",
+      "sha256": "587174df8b60c9449d0988b388c051e4cf982badbda1224fd895e6ea6965fa5b",
+      "source_file": "_sources/keys/K2-drink-low__r4.png",
+      "source_sha256": "355b430621c7bac0565d758f1d2fda6254012327e4016b229b3c6226188e5a22",
+      "prompt": "EDIT TARGET reference1: the accepted RIGHT-FACING STANDING Tuanzi cat. Supporting reference2 is the exact existing mushroom-house blue ceramic water bowl, for height and size geometry ONLY; do NOT draw the bowl into the output.\nProduce one standing drinking endpoint by a SMALL natural lowering of the head and neck from this STANDING pose. Do not use the old near-ground crouch. Keep the torso, four short supporting legs, rear paws, tail, scale and support line of reference1 almost unchanged; rear paw support around y840 on its1024-square basis. Keep the SIDE HEAD WIDTH around315px, the same as reference1, excluding ears and neck. The CLOSED actual lip point is now at approximately x895,y570, only about44px BELOW the standing reference's current lip y526. Thus the lip is270px ABOVE rear paw support, about0.86 headwidth, matching the existing tall bowl. This absolute mouth HEIGHT is essential: do not move the lips down near y700-800; the head must stay substantially above the feet. Make the head gently face down/right about10-15degrees with nose modestly reaching forward, connected neck and shoulder following a LITTLE. This is a shallow head bend to drink from a raised ceramic bowl, NOT a deep bend to lick the ground. Forelegs remain supporting, chest and belly off the ground, feet planted. Head ears stay high and torso relaxed. Do not bend legs or crouch.\nKeep the same orange felt colored-pencil handmade cat, soft fuzzy warm-brown outline, ringed tail, all orange belly, three forehead stripes, one plain dark side bead eye with no highlight, pink inner ear. Mouth CLOSED and tongue completely retracted; no smile or lip lick, no eye looking at viewer or second frontal eye, no 3D fur toy, no symbols. Do not translate or resize the whole animal; do not independently stretch head/neck or give it a skinny long neck.\nReturn exactly ONE complete cat on flat pure #FF00FF magenta background, square1024x1024 canvas, no bowl/house/ground/shadow/grid/text or other objects. Natural standing posture with subtle head lowering at bowl height.\n",
+      "references": [
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png",
+        "assets/tuanzi/frames-v5/refs/R3-cat-side-standing.png"
+      ],
+      "reference_sha256": {
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png": "d4fc0cdfc852b92c418057173629a46eb874852bf15bbc747c9ad8e6dd37160a",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png": "15b8c2e8b8f306b421b496910d5174c02613e4fb40e89bcde91483369bb78a73",
+        "assets/tuanzi/frames-v5/refs/R3-cat-side-standing.png": "6baf5abef7114e56efe0483b031c972824ec00b52f70d98806c910d958a23ec3"
+      },
+      "processing": "保留真实RGBA原件与Alpha；统一缩至962px、居中1024px洋红画布再normalize_magenta，生成/加工SHA分列。K1与K3未重掷。",
+      "human_review": "pending_contact_endpoint",
+      "machine_review": {
+        "inventory": "pass",
+        "hash": "pass",
+        "format": "pass",
+        "content": "单主体、侧面闭嘴、支撑姿势和真实口碗离线合成已核对；水面触舌与完整链路未做",
+        "human": "pending_contact_endpoint"
+      },
+      "generation_prompt": "Use case: stylized-concept. Asset type: one key-pose reference for Tuanzi's hand-drawn sprite animation.\nReference 1 is Tuanzi's locked identity; reference 2 is the approved drawing style. Draw this exact orange tabby in felt-over-crayon illustration, not a redesign.\nBig round slightly irregular head, small triangular ears with pink inner ears, dark brown bead eyes without highlights, tiny warm brown closed mouth, three darker orange forehead stripes, broad soft body stripes, ringed tail, thick rounded low-center body, short legs, rounded paws with two or three toe lines.\nEntire chest and belly orange. No cream belly, no whiskers, no blush, no eye highlights. Short soft felt fibers and fuzzy warm brown variable-width outlines. Soft upper-left light. Not photorealistic, not 3D, not a plush toy, not flat vector.\nSingle complete cat only, centered, no bowl, no water, house, nest, grass, ground, cast shadow, symbols or text.\nONE full-frame image, 1024x1024. A uniform flat opaque pure magenta RGB #FF00FF background, no transparency, gradient, vignette, halo or checkerboard. At least 80 pixels clear margin on all sides. Head about 340px wide for this single 1024px image (170px when reduced to a 512px sprite cell); no cropping.\nReference 3 shows the correct neutral standing anatomy. Create its LOW DRINKING endpoint in RIGHT-facing SIDE VIEW. The cat gently stretches its neck forward and down to reach an invisible water surface at knee height in front of its front paws. Head angled down; mouth near y=805 with paws at y=880. Front elbows only modestly flexed; hind feet planted, hindquarters remain up. Shoulders connect naturally to the neck; chest and orange belly remain visibly CLEAR OF THE GROUND. A visible open gap under the belly is essential. This is a cat STANDING WITH ITS HEAD LOWERED, not prone, not asleep, not squashed flat, not kneeling on its elbows. Head is round and the SAME SCALE as the standing reference. Eyes softly half-open. Mouth closed at rest between laps, tongue completely retracted and invisible. No tongue expression, no licking lips or shaking head. Tail relaxed upward with a soft tip, not a rigid vertical rod. Draw only the cat: the bowl/water are invisible geometry references, DO NOT draw them.\n",
+      "edit_references": [
+        "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+        "outputs/frames-v8-delivery/keys/refs/existing-bowl-geometry.png"
+      ],
+      "rejected": [
+        "_rejected/K2-drink-low__r1.png",
+        "_rejected/K2-drink-low__r3.png"
+      ],
+      "revision_reason": "现有K2r2单看姿势方向获确认，但嘴高不足；r3定点抬头幅度不足；r4从站姿自然轻低头，离线几何通过，尚待接触端点人眼与动态验收。",
+      "human_feedback": "用户确认三个姿势可用，要求喝水必须与现有水盆自然衔接；不追认完整动画和场景接触通过。",
+      "previous_candidates": [
+        {
+          "round": 2,
+          "file": "keys/K2-drink-low__r2.png",
+          "sha256": "9b971cbc3bbec31c8b1fb54be65503e0237d6f6b48484384c74438c4f5c22dc3",
+          "source_file": "_sources/keys/K2-drink-low__r2.png",
+          "source_sha256": "0832418aa1cfcfa536c8f84eb3c197944b7b15e6ee7de4918e6913ef7d530c65",
+          "prompt": "Edit ONLY the head's viewing direction in image 1, the low drinking pose. Image 2 is the approved drawing reference for this SAME cat in true right-facing side profile. The drinking cat's head must now be a TRUE RIGHT-FACING SIDE PROFILE, angled gently downward toward the invisible water, with ONLY ONE bead eye visible, like image 2. Do not turn the face toward the viewer. Keep the head round and at the current scale, retaining three forehead stripes and no eye highlight. Mouth tiny, closed, tongue completely retracted. Preserve the low neck connection, standing body, raised hindquarters, all four planted feet, belly clearance, tail, frame composition, orange colors and felt-crayon drawing EXACTLY. Keep the uniform pure #FF00FF background. Do not add bowl, water, symbols, shadows or props. One square 1024x1024 complete cat.\n",
+          "edit_references": [
+            "outputs/frames-v8-delivery/_rejected/K2-drink-low__r1.png",
+            "outputs/frames-v8-delivery/keys/K1-stand__r1.png"
+          ],
+          "human_review": "approved_pose_direction_conditional_bowl_fit"
+        }
+      ],
+      "revisions": [
+        {
+          "round": 3,
+          "status": "failed",
+          "reason": "嘴相对后脚约19.5参考pt，修正幅度仍不足；未锁定接触端点。",
+          "file": "_rejected/K2-drink-low__r3.png",
+          "sha256": "924bfb66ef7fa81196a3a6b058eb7590e721fbae019f64a952adef22d47abfa2",
+          "source_file": "_sources/keys/K2-drink-low__r3.png",
+          "source_sha256": "e78cee04462c4103ee1ac6583d05f6b5d504ca6783f8e14f2ee3cbddbc7bd62b",
+          "prompt": "Edit target: reference 1, the single right-facing orange Tuanzi cat on magenta. Preserve the cat's identity, soft warm brown fuzzy outline, felt colored-pencil grain, orange belly, three forehead stripes, plain dark bead eye with no highlight, ringed tail, body proportions, all four planted paws and rear-leg support. Reference 2 is its accepted relaxed standing pose for the natural head-neck connection only. Reference 3 is the REAL existing water bowl for height/proportion geometry only; DO NOT draw this bowl or any house/prop into the output.\nOne specific correction: the drinking head is currently too close to the paws to drink from this existing deep bowl. Make a naturally STANDING shallow head-lowering drinking endpoint at BOWL HEIGHT instead of a near-ground crouch. On the edit target's 1024-square coordinate basis rear paws remain around y807, actual closed lip point should now be near x845,y560 (roughly245px above rear paw support, about0.88 of the side head width280px). Keep the head approximately its existing width280px. Raise and redraw the head and connecting neck/shoulder anatomy as one continuous natural posture; ears will be nearer the upper-back height, nose reaching forward/right, face tilted gently down toward water. Keep torso/rear paws/tail near their existing positions and sizes; foreground front legs support the chest, abdomen clearly off the ground. Do not float or translate the whole cat, do not lengthen the legs, do not stretch a detached head with a skinny tube neck. The upper neck and shoulders must join organically into the body. The cat is comfortably standing beside a ceramic bowl, reaching its nose just over the near-left part of the bowl opening; paws stand on ground in front of the bowls. Mouth CLOSED, tongue fully retracted, one side eye, no viewer-facing second eye, no lick lips or smile, no exaggerated neck bend. This is the closed-mouth low pause endpoint from which tiny downward lapping frames will follow, not a fully erect standing pose and not lying down.\nReturn ONE complete cat only, on flat pure #FF00FF background, square canvas1024x1024, generous clear margins, no ground, no shadow, no bowl, no house, no text/grid/symbols. Never change body scale to fit the bowl. Preserve the exact handmade illustration style rather than making realistic fur or a3D toy.\n",
+          "references": [
+            "outputs/frames-v8-delivery/keys/K2-drink-low__r2.png",
+            "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+            "outputs/frames-v8-delivery/keys/refs/existing-bowl-geometry.png"
+          ],
+          "reference_sha256": {
+            "outputs/frames-v8-delivery/keys/K2-drink-low__r2.png": "9b971cbc3bbec31c8b1fb54be65503e0237d6f6b48484384c74438c4f5c22dc3",
+            "outputs/frames-v8-delivery/keys/K1-stand__r1.png": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+            "outputs/frames-v8-delivery/keys/refs/existing-bowl-geometry.png": "9fa17cfb29fd7a2a974a16d22c5380859418979201efc29302811199228d19ee"
+          }
+        },
+        {
+          "round": 4,
+          "status": "new",
+          "reason": "改从用户已认可的K1站姿轻低头；后脚落地线与蓝碗底基本一致，配合同源两碗前景遮挡。",
+          "file": "keys/K2-drink-low__r4.png",
+          "sha256": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1",
+          "source_file": "_sources/keys/K2-drink-low__r4.png",
+          "source_sha256": "355b430621c7bac0565d758f1d2fda6254012327e4016b229b3c6226188e5a22",
+          "prompt": "EDIT TARGET reference1: the accepted RIGHT-FACING STANDING Tuanzi cat. Supporting reference2 is the exact existing mushroom-house blue ceramic water bowl, for height and size geometry ONLY; do NOT draw the bowl into the output.\nProduce one standing drinking endpoint by a SMALL natural lowering of the head and neck from this STANDING pose. Do not use the old near-ground crouch. Keep the torso, four short supporting legs, rear paws, tail, scale and support line of reference1 almost unchanged; rear paw support around y840 on its1024-square basis. Keep the SIDE HEAD WIDTH around315px, the same as reference1, excluding ears and neck. The CLOSED actual lip point is now at approximately x895,y570, only about44px BELOW the standing reference's current lip y526. Thus the lip is270px ABOVE rear paw support, about0.86 headwidth, matching the existing tall bowl. This absolute mouth HEIGHT is essential: do not move the lips down near y700-800; the head must stay substantially above the feet. Make the head gently face down/right about10-15degrees with nose modestly reaching forward, connected neck and shoulder following a LITTLE. This is a shallow head bend to drink from a raised ceramic bowl, NOT a deep bend to lick the ground. Forelegs remain supporting, chest and belly off the ground, feet planted. Head ears stay high and torso relaxed. Do not bend legs or crouch.\nKeep the same orange felt colored-pencil handmade cat, soft fuzzy warm-brown outline, ringed tail, all orange belly, three forehead stripes, one plain dark side bead eye with no highlight, pink inner ear. Mouth CLOSED and tongue completely retracted; no smile or lip lick, no eye looking at viewer or second frontal eye, no 3D fur toy, no symbols. Do not translate or resize the whole animal; do not independently stretch head/neck or give it a skinny long neck.\nReturn exactly ONE complete cat on flat pure #FF00FF magenta background, square1024x1024 canvas, no bowl/house/ground/shadow/grid/text or other objects. Natural standing posture with subtle head lowering at bowl height.\n",
+          "references": [
+            "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+            "outputs/frames-v8-delivery/keys/refs/existing-bowl-geometry.png"
+          ],
+          "reference_sha256": {
+            "outputs/frames-v8-delivery/keys/K1-stand__r1.png": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+            "outputs/frames-v8-delivery/keys/refs/existing-bowl-geometry.png": "9fa17cfb29fd7a2a974a16d22c5380859418979201efc29302811199228d19ee"
+          },
+          "human_review": "pending_contact_endpoint"
+        }
+      ],
+      "previous_processed_file": "keys/K2-drink-low__r4.png",
+      "previous_processed_sha256": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1",
+      "processing_alpha_file": "keys/K2-drink-low-identity-restored-alpha__v1.png",
+      "processing_alpha_sha256": "973c7be37ac750e7e9cd2a2cfff103651ac845a35e83c41a654b7838dcbb3683",
+      "identity_eye_processing": {
+        "operation": "保持r4原身体/脸轮廓/嘴点/落脚不变，仅等比复用已确认K1眼睛及紧邻肤色，边缘羽化；明确素材加工，不是新一次生图。",
+        "source_file": "outputs/frames-v8-delivery/keys/K2-drink-low__r4.png",
+        "source_sha256": "21a9dac3ddbdfc20f6f03c4bc7cd2568d6b1737f3fd1ac9034a0e01a6f1fc5e1",
+        "approved_eye_file": "outputs/frames-v8-delivery/keys/K1-stand__r1.png",
+        "approved_eye_sha256": "1dbb8f6f34d8e4b5ec0adef35f1ca2b588487ba6a59e815d4fc5a05d97816daa",
+        "approved_eye_roi": [
+          810,
+          449,
+          855,
+          504
+        ],
+        "uniform_scale": 0.9841269841269841,
+        "patch_position_px": [
+          829,
+          545
+        ],
+        "patch_size_px": [
+          44,
+          54
+        ],
+        "changed_pixels": 2223,
+        "changed_bbox_inclusive": [
+          829,
+          545,
+          872,
+          598
+        ],
+        "outside_eye_patch_pixels_unchanged": true,
+        "file": "keys/K2-drink-low-identity-restored__v1.png",
+        "sha256": "587174df8b60c9449d0988b388c051e4cf982badbda1224fd895e6ea6965fa5b",
+        "processing_alpha_file": "keys/K2-drink-low-identity-restored-alpha__v1.png",
+        "processing_alpha_sha256": "973c7be37ac750e7e9cd2a2cfff103651ac845a35e83c41a654b7838dcbb3683",
+        "new_imagegen_calls": 0,
+        "human_review": "pending"
+      },
+      "fixed_source_scale_pixels_to_world_pt_before_depth": 0.12903225806451613,
+      "physical_scale_note": "固定K1侧站为物理标尺，对应朝向依已确认稳定细部校准；不能每张横向脸宽强归40pt，不能另加碗/窝专用缩放。"
+    },
+    {
+      "id": "K3-sit-relaxed",
+      "status": "new",
+      "round": 1,
+      "file": "keys/K3-sit-relaxed__r1.png",
+      "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+      "source_file": "_sources/keys/K3-sit-relaxed__r1.png",
+      "source_sha256": "63213116c9d56c34ea105115fdc49c9448e2c63b18fd3cec0caf81b6eb78b933",
+      "prompt": "Use case: stylized-concept. Asset type: one key-pose reference for Tuanzi's hand-drawn sprite animation.\nReference 1 is Tuanzi's locked identity; reference 2 is the approved drawing style. Draw this exact orange tabby in felt-over-crayon illustration, not a redesign.\nBig round slightly irregular head, small triangular ears with pink inner ears, dark brown bead eyes without highlights, tiny warm brown closed mouth, three darker orange forehead stripes, broad soft body stripes, ringed tail, thick rounded low-center body, short legs, rounded paws with two or three toe lines.\nEntire chest and belly orange. No cream belly, no whiskers, no blush, no eye highlights. Short soft felt fibers and fuzzy warm brown variable-width outlines. Soft upper-left light. Not photorealistic, not 3D, not a plush toy, not flat vector.\nSingle complete cat only, centered, no bowl, no water, house, nest, grass, ground, cast shadow, symbols or text.\nONE full-frame image, 1024x1024. A uniform flat opaque pure magenta RGB #FF00FF background, no transparency, gradient, vignette, halo or checkerboard. At least 80 pixels clear margin on all sides. Head about 340px wide for this single 1024px image (170px when reduced to a 512px sprite cell); no cropping.\nReference 3 is the previously approved seated Tuanzi sheet, for proportions and identity only. Draw ONE relaxed SEATED key pose facing the viewer, very slightly toward the cat's left. Hips sit solidly on the invisible ground, hind paws tucked comfortably, front paws support the chest naturally at slightly different depths. Back is softly rounded, shoulders loose and neck naturally connected. Head comfortably upright with a minute relaxed asymmetry, no pronounced tilt. Neutral soft bead eyes looking quietly ahead, mouth closed, no tongue. Tail rests in a gentle curve alongside the RIGHT of the body, tip relaxed near the paws, rather than rigidly standing like a handle. This is the calm baseline at the mushroom-house doorway. The head is large and round like the reference; don't elongate the torso or turn this into a tall regal cat. No house or props. Feet and sitting support near y=880.\n",
+      "references": [
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png",
+        "outputs/frames-v6-delivery/H1-sit-look/H1-sit-look__r1.png"
+      ],
+      "reference_sha256": {
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png": "d4fc0cdfc852b92c418057173629a46eb874852bf15bbc747c9ad8e6dd37160a",
+        "assets/tuanzi/frames-v5/refs/R2-cat-walk-side.png": "15b8c2e8b8f306b421b496910d5174c02613e4fb40e89bcde91483369bb78a73",
+        "outputs/frames-v6-delivery/H1-sit-look/H1-sit-look__r1.png": "89d3323cd129ac40c446c7bf92a831526a7d045542a47ed049295790ddf88e49"
+      },
+      "processing": "三张统一从1254px缩至962px，居中放入1024px画布（边缘各31px）；调用现有 prepare_v6_deliveries.normalize_magenta 归一化背景。未复制旧角色帧、未改姿势或调主体颜色。",
+      "human_review": "approved_pose",
+      "machine_review": {
+        "inventory": "pass",
+        "hash": "pass",
+        "format": "pass",
+        "content": "单只猫、朝向、闭嘴与支撑姿势已检查；动态和口碗场景接触尚未验收",
+        "human": "approved_pose"
+      },
+      "human_feedback": "用户确认三个姿势可用，要求喝水必须与现有水盆自然衔接；不追认完整动画和场景接触通过。",
+      "fixed_source_scale_pixels_to_world_pt_before_depth": 0.12403100775193798,
+      "physical_scale_note": "固定K1侧站为物理标尺，对应朝向依已确认稳定细部校准；不能每张横向脸宽强归40pt，不能另加碗/窝专用缩放。"
+    },
+    {
+      "id": "D1-drink-down",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "D2-drink-lap",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "D3-drink-up",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S1-sit-breathe",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S2-attend-tilt",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S3-stand-to-sit",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S4-sit-to-stand",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S5-drowsy-nod",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "S6-groom",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "T1-turn",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    },
+    {
+      "id": "W1-walk-toward",
+      "status": "skipped",
+      "reason": "用户要求先确定现有水盆自然衔接；K2r4高度修正版离线合成完成，先评审接触端点，再出完整喝水/单侧关注短片。此动作尚未生成。",
+      "prompt": "",
+      "references": []
+    }
+  ],
+  "scene_layout_review": {
+    "left_layout": "rejected_by_user_red_bowl_occlusion",
+    "recommended_layout": "blue_bowl_right_side_facing_left",
+    "right_layout_method": "deterministic_mirror_of_K2r4_not_new_generation",
+    "evidence": "../frames-v8-review/红盆避挡数值.json",
+    "human_review": "pending_right_layout",
+    "runtime_changed": false,
+    "latest_identity_eye_file": "keys/K2-drink-low-identity-restored__v1.png",
+    "latest_scale_report": "outputs/tree-nest-v1-review/本轮图片复查报告.md"
+  }
+}

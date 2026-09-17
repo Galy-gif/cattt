@@ -1,0 +1,43 @@
+{
+  "id": "S1",
+  "raw_file": "outputs/tree-nest-curled-v3-delivery/_sources/S1-curled__r1.png",
+  "raw_sha256": "7b7efb36faf672db8d73b97eb97f558d5d0749d22e1a0848e31830ac6b4fb64f",
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_mode": "RGB",
+  "history_count": 569,
+  "history_collisions": [],
+  "references": [
+    {
+      "file": "outputs/tree-nest-contact-v2-delivery/edit-target.png",
+      "sha256": "e18393c6996254483bc9c6e9582e18c101d3efca8ca081314faa5de65c3d72d9"
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-delivery/_sources/pose-reference-9058.jpg",
+      "sha256": "e109ccbe4756712e6ecc06671cb01d075f8f777957d5311a297bcfe0c97cc2fa"
+    },
+    {
+      "file": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+      "sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+    },
+    {
+      "file": "outputs/tree-nest-contact-v2-delivery/_sources/contact-reference-9059.jpg",
+      "sha256": "64259f5b40d5cb703c73fb61267be1899a4b7fa827cfa29297ca5877f33a5665"
+    }
+  ],
+  "physical_scale": {
+    "fixed_head_local_axis_width_reference_pt": 55.633178294573646,
+    "fixed_cat_source_pt_per_px": 0.12094169194472532,
+    "preview_reference_pt_per_px": 0.2001953125,
+    "fixed_nest_reference_size_pt": [
+      136.9611795348837,
+      143.98482976744188
+    ],
+    "note": "姿势可改变投影，不以朝向bbox或闭眼眼径作自动物理体型判据；须核对头骨/耳爪/全身解剖，不为塞窝独立缩猫"
+  },
+  "new_imagegen_calls": 1,
+  "human_review": "pending",
+  "runtime_changed": false
+}

@@ -1,0 +1,187 @@
+{
+  "source_head_local_axis_width_raw_px": 295,
+  "manual_measurement_range_raw_px": [
+    290,
+    300
+  ],
+  "fixed_skull_width_reference_pt": 55.633178294573646,
+  "source_px_to_reference_pt": 0.18858704506635135,
+  "source_calibration_vs_uncalibrated_scene_projection": 1.1536007537229491,
+  "calibration_purpose": "回归已确认团子的物理头骨尺度；完整新姿势整体等比，未改头/身/四肢比例，不以闭眼或水平bbox缩猫",
+  "nest_relative_to_previous_native_factor": 1.3,
+  "nest_rect": {
+    "x": 0.2404784785116279,
+    "y": 0.4208193525581395,
+    "width": 0.14063944186046512,
+    "height": 0.22177758139534887
+  },
+  "nest_size_reference_pt": [
+    178.04953339534885,
+    187.18027869767445
+  ],
+  "opening_width_reference_pt": 111.47681285882791,
+  "head_to_opening_width_pose_dependent": 0.4990560536120317,
+  "original_pose_paws_on_rim_retained": false,
+  "head_pixels_from_old_pose_reused": false,
+  "whole_cat_contact_outline_raw_px": [
+    [
+      505,
+      750
+    ],
+    [
+      557,
+      717
+    ],
+    [
+      620,
+      693
+    ],
+    [
+      678,
+      688
+    ],
+    [
+      704,
+      647
+    ],
+    [
+      736,
+      646
+    ],
+    [
+      771,
+      685
+    ],
+    [
+      802,
+      665
+    ],
+    [
+      862,
+      658
+    ],
+    [
+      921,
+      673
+    ],
+    [
+      976,
+      709
+    ],
+    [
+      1015,
+      750
+    ],
+    [
+      1040,
+      808
+    ],
+    [
+      1046,
+      849
+    ],
+    [
+      1030,
+      889
+    ],
+    [
+      1000,
+      914
+    ],
+    [
+      950,
+      933
+    ],
+    [
+      895,
+      946
+    ],
+    [
+      823,
+      949
+    ],
+    [
+      755,
+      951
+    ],
+    [
+      698,
+      950
+    ],
+    [
+      663,
+      938
+    ],
+    [
+      626,
+      943
+    ],
+    [
+      580,
+      937
+    ],
+    [
+      544,
+      921
+    ],
+    [
+      524,
+      901
+    ],
+    [
+      518,
+      871
+    ],
+    [
+      511,
+      840
+    ],
+    [
+      513,
+      807
+    ],
+    [
+      504,
+      778
+    ]
+  ],
+  "removed_generated_lower_rim_light_fringe": {
+    "raw_y_above": 875,
+    "alpha_keep_by_blue_channel": "clip((135-B)/45,0,1)",
+    "purpose": "只消除生成垫/窝沿浅边，保留橙毛棕轮廓与暗接触；不修改猫比例或补画新像素"
+  },
+  "patch_scale_uniform": 0.18858704506635135,
+  "patch_native_translation_px": [
+    237,
+    330
+  ],
+  "registration_left_shift_reference_pt": -5.5,
+  "registration_down_after_source_calibration_reference_pt": 9.60466559516101,
+  "front_opaque_pixels_hiding_orange_foreground_reference_px": 0,
+  "native_reference_camera": [
+    1266,
+    844
+  ],
+  "scene_crop_reference_px": [
+    65,
+    325,
+    505,
+    590
+  ],
+  "near_crop_reference_px": [
+    275,
+    340,
+    505,
+    555
+  ],
+  "same_preview_multiplier": 3,
+  "original_texture_scene_hashes": {
+    "assets/scenes/courtyard-v4/scene.json": "53ad16b622c6b7074411b7f6790fda8fad2eaa0856d0bf6e1ec4f9d207d5a16f",
+    "ios/Maomao/Resources/WorldTextures/world-v4-nest.png": "9e90d6441d8895b58e03506af4495c96ad3f176be52d23d0b7495d80ff08986a",
+    "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592"
+  },
+  "runtime_changed": false,
+  "new_imagegen_calls": 1,
+  "human_review": "用户2026-09-16明确确认v3蜷卧静态图/场景",
+  "user_feedback": "就这个"
+}

@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "C4",
+      "status": "新生成",
+      "file": "outputs/chat-ui-v4-delivery/C4-团子无发光灰白玻璃.png",
+      "round": 2,
+      "source": "/Users/gouzi/.codex/generated_images/01a0aa54-e73d-7242-aacb-bd7c3c870cee/exec-d796ee06-39e0-46d3-9cd8-bc7de1719ea3.png",
+      "sha256": "c39579187acb649bd486265689e0fa944eb59b2902ca26bc293175fdec28463a",
+      "dimensions": [
+        853,
+        1844
+      ],
+      "references": [
+        "outputs/chat-ui-v3-delivery/C3a-清透灰白玻璃.png",
+        "assets/tuanzi/frames-v5/refs/R1-cat-identity.png",
+        "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png"
+      ],
+      "note": "C4r1错误Alpha画布失败；r2内置imagegen补完整白偏灰底。团子参考用于头像，无发光玻璃；静态方向稿待评审，App未改。"
+    }
+  ],
+  "rejected": [
+    {
+      "id": "C4",
+      "status": "失败",
+      "file": null,
+      "round": 1,
+      "rejected_file": "outputs/chat-ui-v4-delivery/_rejected/C4-r1-透明画布错误.png",
+      "source": "/Users/gouzi/.codex/generated_images/01a0aa54-e73d-7242-aacb-bd7c3c870cee/exec-24b7948b-2dfe-4042-b732-3412033c9049.png",
+      "sha256": "073e2cae2cc5a662b258b7fc0ea2813264db3c355fb083bd95952b26c27bfc2e",
+      "reason": "误生成实际透明画布，完整白偏灰页面底不合格；仅用作补底编辑目标，不作为完整方向图交付。"
+    }
+  ]
+}

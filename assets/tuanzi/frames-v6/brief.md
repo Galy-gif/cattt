@@ -101,6 +101,8 @@ Body, paws and tail identical in all six cells.
 
 #### H2-head-tilt · 歪头
 
+> 2026-09-16：用户指出当前门口歪头像机械猫。此处“身体完全相同、左右 25° 来回”仅保留历史记录；新的单侧关注过程提案见 [v8](../frames-v8/brief.md)，尚未接入 App。
+
 ```
 [CAT_LOCK] [SHEET_LOCK] [SIT_HUB]
 Cell 1: hub sitting pose, head straight.
@@ -209,6 +211,8 @@ Body, legs, tail and the height of the mouth identical in all six cells; only th
 ```
 
 #### D3-drink-up · 抬头、舔嘴、甩头、回到站姿（把 D1 作为参考图传入）
+
+> 2026-09-16：用户要求自然喝水、不要怪异吐舌或突然趴下。新的收舌、抬头、站稳过程见 [v8](../frames-v8/brief.md)，默认不强制舔嘴／甩头；本段仅保留生成历史，当前 App 未改。
 
 ```
 [CAT_LOCK] [SHEET_LOCK]

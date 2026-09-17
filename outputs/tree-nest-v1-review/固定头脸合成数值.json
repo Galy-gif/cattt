@@ -1,0 +1,226 @@
+{
+  "method": "已生成r2伏卧身体 + 复用用户已确认K3头脸 + 复用r2前掌；确定性合成，不冒充纯新绘制整猫或新增动画帧。",
+  "generated_body_source": "outputs/tree-nest-v1-delivery/_sources/T1-rest__r2.png",
+  "fixed_head_source": "outputs/frames-v8-delivery/keys/K3-sit-relaxed__r1.png",
+  "fixed_head_source_sha256": "f0e3fc9204eb8dc119ce948127098add20055e24aaad86db3c5ff73fc4c5b592",
+  "head_transform": {
+    "uniform_scale": 0.9255533199195171,
+    "translation_source_px": [
+      -2.00402414486922,
+      170.29577464788736
+    ],
+    "nonuniform_deformation": false
+  },
+  "approved_head_mask": [
+    [
+      145,
+      130
+    ],
+    [
+      721,
+      130
+    ],
+    [
+      722,
+      476
+    ],
+    [
+      683,
+      538
+    ],
+    [
+      632,
+      571
+    ],
+    [
+      572,
+      585
+    ],
+    [
+      502,
+      599
+    ],
+    [
+      433,
+      606
+    ],
+    [
+      355,
+      603
+    ],
+    [
+      294,
+      589
+    ],
+    [
+      243,
+      570
+    ],
+    [
+      205,
+      545
+    ],
+    [
+      164,
+      506
+    ],
+    [
+      142,
+      410
+    ]
+  ],
+  "removed_generated_head_mask": [
+    [
+      149,
+      339
+    ],
+    [
+      652,
+      339
+    ],
+    [
+      652,
+      584
+    ],
+    [
+      632,
+      663
+    ],
+    [
+      603,
+      702
+    ],
+    [
+      555,
+      725
+    ],
+    [
+      464,
+      732
+    ],
+    [
+      392,
+      731
+    ],
+    [
+      282,
+      722
+    ],
+    [
+      218,
+      691
+    ],
+    [
+      165,
+      645
+    ],
+    [
+      148,
+      559
+    ]
+  ],
+  "body_preservation": "保留原身体y>=705和右肩x>=602,y>=459，以免头部圈定过宽切掉颈肩；未补画缺失像素。",
+  "restored_original_palms": [
+    [
+      [
+        247,
+        742
+      ],
+      [
+        259,
+        718
+      ],
+      [
+        298,
+        711
+      ],
+      [
+        339,
+        719
+      ],
+      [
+        371,
+        737
+      ],
+      [
+        382,
+        756
+      ],
+      [
+        371,
+        772
+      ],
+      [
+        333,
+        778
+      ],
+      [
+        285,
+        775
+      ],
+      [
+        257,
+        762
+      ]
+    ],
+    [
+      [
+        395,
+        750
+      ],
+      [
+        415,
+        727
+      ],
+      [
+        450,
+        719
+      ],
+      [
+        506,
+        718
+      ],
+      [
+        544,
+        734
+      ],
+      [
+        567,
+        755
+      ],
+      [
+        561,
+        773
+      ],
+      [
+        521,
+        783
+      ],
+      [
+        470,
+        785
+      ],
+      [
+        426,
+        781
+      ],
+      [
+        400,
+        767
+      ]
+    ]
+  ],
+  "inner_face_verified_pixels": 68480,
+  "inner_face_max_rgb_error_vs_transformed_approved_head": 0,
+  "processing_alpha_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked-alpha__v1.png",
+  "processed_file": "outputs/tree-nest-v1-delivery/T1-rest-identity-locked__v1.png",
+  "processed_sha256": "babdb75b7d68bdf76bcdff3483f9d3ff2fd34f971937a8ad6e1912cb129c9858",
+  "alpha_sha256": "46cfc06de46f460f730edb2d769f0047ae685c4cdcfa3409d6a3903ee8e12eaa",
+  "identity_result": "复用区域的脸形/耳眼嘴/纹样保持K3统一等比变换，内脸像素独立验证零残差；身体仍是新伏卧姿势，不以头部精确复用追認全身体自动验收通过。",
+  "source_r2_review": "生成稿头脸高宽比变扁，不作为整猫身份母版；只复用身体/掌部。",
+  "final_background_processing": {
+    "operation": "最终沿用normalize_magenta去近似背景，RGB背景统一FF00FF，匹配背景区域Alpha设0、其余原Alpha与前景不变",
+    "changed_background_pixels": 4795,
+    "foreground_unchanged": true
+  }
+}
