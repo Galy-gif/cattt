@@ -50,16 +50,20 @@ BOUNDS_MAX = np.array([0.16, 0.34, 0.44])
 TARGET_TRIANGLES = 18000
 
 TORSO = [  # (中心, 半轴)
-    ((0.0, 0.035, 0.165), (0.080, 0.140, 0.092)),
-    ((0.0, 0.1, 0.157), (0.084, 0.090, 0.089)),  # 收胯，腹线抬起
-    ((0.0, -0.037, 0.15), (0.070, 0.063, 0.073)),  # 胸廓收窄，让下颌和肩部各自可读
+    ((0.0, 0.035, 0.151), (0.080, 0.140, 0.092)),
+    ((0.0, 0.1, 0.143), (0.084, 0.090, 0.089)),  # 收胯，腹线抬起
+    ((0.0, -0.037, 0.136), (0.070, 0.063, 0.073)),  # 胸廓收窄，让下颌和肩部各自可读
+    ((0.0, -0.068, 0.114), (0.068, 0.062, 0.060)),  # 前胸：填在两条前腿之间并探到腿前，腿不再从下巴直通到地
 ]
-CRANIUM = ((0.0, -0.118, 0.249), (0.116, 0.097, 0.094))
-CHEEK = ((0.052, -0.144, 0.217), (0.056, 0.053, 0.047))  # 左侧，右侧镜像；下颊随头上提
+CRANIUM = ((0.0, -0.118, 0.235), (0.116, 0.097, 0.094))
+CHEEK = ((0.052, -0.144, 0.203), (0.056, 0.053, 0.047))  # 左侧，右侧镜像；下颊随头上提
 
-EAR_BASE = (0.062, -0.108, 0.302)
-EAR_TIP = (0.096, -0.102, 0.39)
-EAR_RADII = (0.051, 0.012)
+MUZZLE = ((0.0, -0.192, 0.181), (0.030, 0.017, 0.019))  # 口鼻处很浅的鼓包，鼻嘴不贴在一个光球上
+
+EAR_BASE = (0.062, -0.120, 0.286)
+EAR_TIP = (0.094, -0.115, 0.368)
+EAR_RADII = (0.052, 0.012)
+EAR_CUP_DEPTH = 0.008  # 压扁空间里的量，实际约 4 mm
 EAR_SQUASH = 2.0  # 耳朵前后方向压扁的倍数
 EAR_FACING = (0.4, -1.0, 0.0)  # 耳朵正面朝前偏外
 
@@ -67,24 +71,24 @@ EAR_FACING = (0.4, -1.0, 0.0)  # 耳朵正面朝前偏外
 LEGS = {
     "front": {
         "x": 0.052,
-        "joints": [(-0.09, 0.135), (-0.084, 0.078), (-0.098, 0.03), (-0.128, 0.012)],
-        "radii": [0.041, 0.035, 0.028],
+        "joints": [(-0.09, 0.121), (-0.084, 0.072), (-0.098, 0.03), (-0.128, 0.012)],
+        "radii": [0.041, 0.036, 0.031],
         "paw": (0.035, 0.037, 0.022),
     },
     "hind": {
         "x": 0.060,
-        "joints": [(0.125, 0.125), (0.113, 0.075), (0.127, 0.03), (0.097, 0.012)],
-        "radii": [0.044, 0.037, 0.029],
+        "joints": [(0.125, 0.111), (0.113, 0.069), (0.127, 0.03), (0.097, 0.012)],
+        "radii": [0.044, 0.038, 0.032],
         "paw": (0.035, 0.037, 0.022),
     },
 }
 PAW_Z = 0.019
 
-TAIL_CONTROL = [(0.13, 0.193), (0.218, 0.219), (0.281, 0.279), (0.29, 0.342), (0.267, 0.385), (0.22, 0.398)]  # (y, z)，舒展的大弯尾
+TAIL_CONTROL = [(0.13, 0.179), (0.218, 0.205), (0.281, 0.265), (0.29, 0.328), (0.267, 0.371), (0.22, 0.384)]  # (y, z)，舒展的大弯尾
 TAIL_RADII = (0.035, 0.025)
 
 EYE_X = 0.05
-EYE_Z = 0.219
+EYE_Z = 0.205
 EYE_RADII = (0.0098, 0.0125, 0.0042)  # 宽、高、厚
 EYE_PROTRUDE = 0.0022
 
@@ -93,7 +97,8 @@ COLOR_BODY = "#f8962a"
 COLOR_STRIPE = "#ef7e1a"
 COLOR_RING = "#ed7515"
 COLOR_EAR = "#fcab84"
-COLOR_MOUTH = "#d05d09"
+COLOR_MOUTH = "#5c2a0c"  # 和眼睛一族的深棕
+COLOR_NOSE = "#e8705a"
 COLOR_LINE = "#6d3006"
 COLOR_EYE = "#3a1c08"
 
@@ -195,12 +200,19 @@ def sd_ear(p, side):
     local, ear_length = ear_local(p, side)
     squashed = local * np.array([1.0, 1.0, EAR_SQUASH])
     ear = sd_round_cone(squashed, (0, 0, 0), (0, ear_length, 0), *EAR_RADII)
-    cup = sd_ear_cup(local)
-    return smax(ear, -cup, 0.003)
+    # 耳杯沿耳朵正面浅浅内凹，往耳根渐隐。整块椭球挖下去会在耳根留一条硬棱。
+    depth = EAR_CUP_DEPTH * smoothstep(0.014, 0.046, local[..., 1])
+    cup = smax(smax(sd_ear_cup(local), -(ear + depth), 0.006), -local[..., 2], 0.004)
+    return smax(ear, -cup, 0.006)
 
 
 def sd_ear_cup(local):
-    return sd_ellipsoid(local, (0.0, 0.042, 0.012), (0.034, 0.053, 0.009))
+    """耳杯在耳面上的轮廓（近似距离）：上窄下宽的卵形，不到耳根。"""
+    u = local[..., 1]
+    ear_length = math.dist(EAR_BASE, EAR_TIP)
+    width = EAR_RADII[0] + (EAR_RADII[1] - EAR_RADII[0]) * np.clip(u / ear_length, 0.0, 1.0)
+    q = np.sqrt((local[..., 0] / (0.6 * width)) ** 2 + ((u - 0.046) / 0.029) ** 2)
+    return (q - 1.0) * 0.025
 
 
 def leg_points(kind, side):
@@ -228,12 +240,14 @@ def sd_regions(p):
         torso = smin(torso, sd_ellipsoid(p, center, radii), 0.03)
 
     # 细颈承接抬高的后颅；保持连续体，不用切缝制造头身分离。
-    neck = sd_round_cone(p, (0, -0.065, 0.17), (0, -0.1, 0.231), 0.052, 0.046)
+    neck = sd_round_cone(p, (0, -0.065, 0.156), (0, -0.1, 0.217), 0.052, 0.046)
     torso = smin(torso, neck, 0.012)
     head = sd_ellipsoid(p, *CRANIUM)
     for side in (1, -1):
         c = (side * CHEEK[0][0], CHEEK[0][1], CHEEK[0][2])
         head = smin(head, sd_ellipsoid(p, c, CHEEK[1]), 0.045)
+
+    head = smin(head, sd_ellipsoid(p, *MUZZLE), 0.03)
 
     curve = tail_curve(14)
     radii = np.linspace(TAIL_RADII[0], TAIL_RADII[1], len(curve))
@@ -253,7 +267,7 @@ def sd_cat(p):
     r = sd_regions(p)
     d = smin(r["torso"], r["head"], 0.010)
     for suffix in ("L", "R"):
-        d = smin(d, r[f"ear_{suffix}"], 0.012)
+        d = smin(d, r[f"ear_{suffix}"], 0.024)
         d = smin(d, r[f"front_{suffix}"], 0.025)
         d = smin(d, r[f"hind_{suffix}"], 0.025)
     d = smin(d, r["tail"], 0.02)
@@ -332,10 +346,49 @@ def build_body_mesh():
     polish.factor = 0.3
     polish.iterations = 2
     apply_modifier(obj, "surface_polish")
+    fix_folds(obj)
     polish_forehead(obj)
     mesh.shade_smooth()
     print(f"[shape] 减面后三角面约 {sum(len(p.vertices) - 2 for p in mesh.polygons)}，顶点 {len(mesh.vertices)}")
     return obj
+
+
+def fix_folds(obj):
+    """对称减面会在中线上留下翻折的小三角面（法线朝里），高光打上去是两点亮斑。
+    把翻折面最短的那条边并成一点，直到没有翻折面。"""
+    import bmesh
+    eps = 0.0002
+    merged = 0
+    for _ in range(8):
+        bm = bmesh.new()
+        bm.from_mesh(obj.data)
+        bm.normal_update()
+        centers = np.array([f.calc_center_median()[:] for f in bm.faces])
+        normals = np.array([f.normal[:] for f in bm.faces])
+        gradient = np.stack([(sd_cat(centers + np.eye(3)[axis] * eps) - sd_cat(centers - np.eye(3)[axis] * eps)) / (2 * eps) for axis in range(3)], axis=1)
+        folded = np.flatnonzero(np.einsum("ij,ij->i", normals, gradient) < 0)
+        if len(folded) == 0:
+            bm.free()
+            break
+        bm.faces.ensure_lookup_table()
+        used = set()
+        # 先把要并的边取出来：并点之后面的索引表就失效了
+        shortest = [min(bm.faces[int(index)].edges, key=lambda e: e.calc_length()) for index in folded]
+        for edge in shortest:
+            if not edge.is_valid or any(v.index in used for v in edge.verts):
+                continue
+            used.update(v.index for v in edge.verts)
+            a, b = edge.verts
+            # 中线上的点留在中线上，模型保持对称
+            target = (a.co + b.co) / 2
+            if min(abs(a.co.x), abs(b.co.x)) < 0.0005:
+                target.x = 0.0
+            bmesh.ops.pointmerge(bm, verts=[a, b], merge_co=target)
+            merged += 1
+        bmesh.ops.dissolve_degenerate(bm, dist=1e-6, edges=bm.edges[:])
+        bm.to_mesh(obj.data)
+        bm.free()
+    print(f"[shape] 并掉翻折面 {merged} 处", flush=True)
 
 
 def polish_forehead(obj):
@@ -423,7 +476,14 @@ def build_eyes():
 # ---------------------------------------------------------------------------
 
 TEXTURE_SIZE = 2048
-MOUTH_Z = 0.191
+MOUTH_Z = 0.175  # 两道嘴弧交汇处
+NOSE_DROP = 0.0078  # 鼻底到嘴弧交汇的高差；中间留空，鼻和嘴不连
+NOSE_SIZE = (0.0105, 0.0064)  # 鼻宽、鼻高
+NOSE_ROUND = 0.0026
+MOUTH_HALF = 0.0105  # 单侧嘴弧宽：短而粗的"ω"
+MOUTH_DIP = 0.0037  # 嘴弧往下兜的深度
+MOUTH_END_LIFT = 0.0010  # 嘴角收到和中间差不多高
+MOUTH_STROKE = 0.0019  # 线的半宽；两头是圆的
 
 
 def unwrap(obj):
@@ -545,11 +605,11 @@ def paint_texture(position, normal, ao):
 
     # 背上两道宽软身纹：上端偏向头，下端偏向屁股，在体侧中部收尾
     torso = nearest == "torso"
-    lean = y + 0.33 * (z - 0.26) + wobble
+    lean = y + 0.33 * (z - 0.246) + wobble
     for center in (0.058, 0.0):
-        half = 0.011 + 0.004 * smoothstep(0.17, 0.26, z)
+        half = 0.011 + 0.004 * smoothstep(0.156, 0.246, z)
         band = 1 - smoothstep(half - 0.0015, half + 0.0015, np.abs(lean - center))
-        mix(band * smoothstep(0.172, 0.19, z) * torso, COLOR_STRIPE)
+        mix(band * smoothstep(0.158, 0.176, z) * torso, COLOR_STRIPE)
 
     # 三道额纹：在头顶朝前的一面，中间那道最长
     head = nearest == "head"
@@ -574,17 +634,27 @@ def paint_texture(position, normal, ao):
 
     # 耳朵内侧
     for side, suffix in ((1, "L"), (-1, "R")):
-        ear = nearest == f"ear_{suffix}"
+        # 粉色按耳杯轮廓柔边铺，往耳根渐隐；不按"最近部位"硬切，那样边缘跟着三角面起锯齿。
         local, _ = ear_local(P, side)
-        inner = 1 - smoothstep(-0.001, 0.003, sd_ear_cup(local))
-        mix(inner * (local[:, 2] > 0) * ear, COLOR_EAR)
+        near_ear = 1 - smoothstep(0.004, 0.010, regions[f"ear_{suffix}"])
+        inner = (1 - smoothstep(-0.003, 0.002, sd_ear_cup(local))) * smoothstep(0.0, 0.004, local[:, 2])
+        mix(inner * near_ear * smoothstep(0.012, 0.034, local[:, 1]), COLOR_EAR)
 
-    # 嘴：脸正前方一个小"^"
+    # 鼻和嘴：圆角小三角鼻；下面隔开一段，是一条短粗、两头圆的"ω"。鼻和嘴之间不画人中
     mouth_point, _ = surface_point((0.0, CRANIUM[0][1], MOUTH_Z), (0, -1, 0))
     rel = np.stack([x - mouth_point[0], z - mouth_point[2]], axis=1)
-    front = (N[:, 1] < -0.4) & (np.abs(y - mouth_point[1]) < 0.02)
-    stroke = distance_to_polyline(rel, [(-0.0105, -0.006), (0.0, 0.0018), (0.0105, -0.006)])
-    mix((1 - smoothstep(0.0016, 0.0026, stroke)) * front, COLOR_MOUTH)
+    front = (N[:, 1] < -0.4) & (np.abs(y - mouth_point[1]) < 0.03)
+    arc = [(0.0, 0.0)] + [(MOUTH_HALF * (0.5 - 0.5 * math.cos(math.pi * t)), -MOUTH_DIP * math.sin(math.pi * t) ** 0.8 + MOUTH_END_LIFT * t) for t in np.linspace(0.0, 1.0, 13)[1:]]
+    stroke = np.minimum(distance_to_polyline(rel, arc), distance_to_polyline(rel, [(-px, pz) for px, pz in arc]))
+    mix((1 - smoothstep(MOUTH_STROKE - 0.0004, MOUTH_STROKE + 0.0004, stroke)) * front, COLOR_MOUTH)
+    # 先缩一圈的三角形，再按到它的真实距离外扩 NOSE_ROUND，三个角才是圆的
+    nose_w, nose_h, nose_r = NOSE_SIZE[0] / 2 - NOSE_ROUND, NOSE_SIZE[1] - 2 * NOSE_ROUND, NOSE_ROUND
+    nz = rel[:, 1] - (NOSE_DROP + nose_r)
+    inside = np.maximum(nz - nose_h, (np.abs(rel[:, 0]) * nose_h - nz * nose_w) / math.hypot(nose_w, nose_h)) < 0
+    outline = [(0.0, NOSE_DROP + nose_r), (nose_w, NOSE_DROP + nose_r + nose_h), (-nose_w, NOSE_DROP + nose_r + nose_h), (0.0, NOSE_DROP + nose_r)]
+    edge = distance_to_polyline(rel, outline)
+    nose = np.where(inside, -edge, edge) - nose_r
+    mix((1 - smoothstep(-0.0004, 0.0004, nose)) * front, COLOR_NOSE)
 
     # 爪子上的两道趾缝
     for kind in LEGS:
@@ -618,9 +688,18 @@ def build_texture(body):
         # 网格和展 UV 都是确定性的，外形没改时可以直接用上次烘好的贴图
         print(f"[texture] 沿用 {TEXTURE_PATH}")
         return bpy.data.images.load(TEXTURE_PATH)
-    position = bake(body, "position")
-    normal = bake(body, "normal")
-    ao = bake(body, "ao")
+    # 位置／法线／遮蔽只跟外形有关。--repaint 在外形没改时沿用上次烘的，只重画纹样。
+    cache = os.path.join(RENDER_DIR, "bake-cache.npz")
+    if "--repaint" in ARGS and os.path.exists(cache):
+        layers = np.load(cache)
+        position, normal, ao = layers["position"], layers["normal"], layers["ao"]
+        print(f"[texture] 沿用烘焙 {cache}")
+    else:
+        position = bake(body, "position")
+        normal = bake(body, "normal")
+        ao = bake(body, "ao")
+        os.makedirs(RENDER_DIR, exist_ok=True)
+        np.savez_compressed(cache, position=position, normal=normal, ao=ao)
     pixels = paint_texture(position, normal, ao)
 
     os.makedirs(os.path.dirname(TEXTURE_PATH), exist_ok=True)
@@ -639,9 +718,9 @@ def build_texture(body):
 # ---------------------------------------------------------------------------
 
 FPS = 60
-SPINE = [(0.0, 0.12, 0.155), (0.0, 0.07, 0.16), (0.0, 0.02, 0.165), (0.0, -0.025, 0.168), (0.0, -0.07, 0.172)]
-NECK = [(0.0, -0.07, 0.172), (0.0, -0.088, 0.209), (0.0, -0.106, 0.238)]
-HEAD_TIP = (0.0, -0.106, 0.328)
+SPINE = [(0.0, 0.12, 0.141), (0.0, 0.07, 0.146), (0.0, 0.02, 0.151), (0.0, -0.025, 0.154), (0.0, -0.07, 0.158)]
+NECK = [(0.0, -0.07, 0.158), (0.0, -0.088, 0.195), (0.0, -0.106, 0.224)]
+HEAD_TIP = (0.0, -0.106, 0.314)
 TAIL_BONES = 10
 # 部位交界处权重过渡的宽度：头和身子之间要宽，转头时胸口才不会被扯出褶
 BLEND_WIDTH = {"torso": 0.012, "head": 0.03, "tail": 0.012, "ear": 0.008, "leg": 0.015}
@@ -802,8 +881,9 @@ WALK_SECONDS = 0.6
 DUTY = 0.62
 X_AXIS, Y_AXIS, Z_AXIS = Vector((1, 0, 0)), Vector((0, 1, 0)), Vector((0, 0, 1))
 LEG_NAMES = [f"{kind}_{suffix}" for kind in LEGS for suffix in ("L", "R")]
-SIT_HIP_DROP = 0.052
-SIT_HIP_TILT = -16.0
+SIT_HIP_DROP = 0.050
+SIT_HIP_TILT = -40.0
+SIT_FRONT_STEP = 0.012  # 坐下时前爪往回收的一小步；不收的话前腿斜撑着，像趴蹲
 
 
 def armature_rotation(pb, *turns):
@@ -927,10 +1007,17 @@ def sit_amount_body(arm, pose, amount, phase=0.0):
     spine = arm.pose.bones["spine_01"]
     pose["loc"]["spine_01"] = armature_offset(spine, (0.0, 0.004 * hips, -SIT_HIP_DROP * hips))
     pose["rot"]["spine_01"] = armature_rotation(spine, (X_AXIS, SIT_HIP_TILT * hips))
-    pose["rot"]["spine_04"] = armature_rotation(arm.pose.bones["spine_04"], (X_AXIS, 8.0 * hips))
-    pose["rot"]["neck_01"] = armature_rotation(arm.pose.bones["neck_01"], (X_AXIS, 6.0 * hips))
-    pose["rot"]["head"] = armature_rotation(arm.pose.bones["head"], (X_AXIS, 5.0 * hips + 0.8 * math.sin(2 * math.pi * phase)))
-    # 前爪保持承重点，不在地面上平移；坐下靠后腿折叠与骨盆下降。
+    # 骨盆后倾立起来，背沿脊柱逐节弓回去，头保持平视：坐姿的背线是一道弧，不是一块斜板。
+    # 前腿站着时已经伸直，肩不能再抬；所以抬的是后背，肩高靠后三节弓回来守住。
+    # 肩要比"刚好够得着"再低几毫米：腿绷直了，呼吸一起伏前爪就跟着离地。
+    for name, degrees in (("spine_02", 14.0), ("spine_03", 20.0), ("spine_04", 20.0), ("neck_01", -8.0)):
+        pose["rot"][name] = armature_rotation(arm.pose.bones[name], (X_AXIS, degrees * hips))
+    pose["rot"]["head"] = armature_rotation(arm.pose.bones["head"], (X_AXIS, -6.0 * hips + 0.8 * math.sin(2 * math.pi * phase)))
+    # 前爪一先一后各收一小步到肩下，抬脚走，不在地上拖。
+    for leg, (t0, t1) in (("front_L", (0.12, 0.52)), ("front_R", (0.46, 0.86))):
+        u = min(max((amount - t0) / (t1 - t0), 0.0), 1.0)
+        arc = math.sin(math.pi * u) ** 2
+        pose["feet"][leg] = ((0.0, SIT_FRONT_STEP * ease(u), 0.013 * arc), 10.0 * arc)
     return pose
 
 
