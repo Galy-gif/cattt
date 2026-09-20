@@ -5,6 +5,8 @@ interface Waypoint {
   position: THREE.Vector3;
   target: THREE.Vector3;
   fov: number;
+  /** 这一章的主体（团子和那一处地点）。窗口偏窄时文字块改放在画面下方，注视点要回到主体身上并把它抬到画面上半 */
+  focus?: THREE.Vector3;
 }
 
 /**
@@ -37,17 +39,17 @@ export class Rig {
       // 文字块在左的章节，主体放画面右半（注视点往主体左边偏）；文字在右的反过来。
       { position: v(-1.7, 0.95, 8.2), target: v(-1.6, 1.55, -0.6), fov: 36 },
       // 蘑菇屋（文字在左）：推近到门口
-      { position: house.clone().add(v(-0.3, 0.5, 3.0)), target: house.clone().add(v(-0.75, 0.42, 0)), fov: 34 },
+      { position: house.clone().add(v(-0.3, 0.5, 3.0)), target: house.clone().add(v(-0.75, 0.42, 0)), fov: 34, focus: house.clone().add(v(0, 0.4, 0)) },
       // 猫窝（文字在右）：平移过来，略低
-      { position: bed.clone().add(v(0.9, 0.42, 2.0)), target: bed.clone().add(v(0.55, 0.16, 0)), fov: 34 },
+      { position: bed.clone().add(v(0.9, 0.42, 2.0)), target: bed.clone().add(v(0.55, 0.16, 0)), fov: 34, focus: bed.clone().add(v(0, 0.15, 0)) },
       // 树屋（文字在左）：退后，吊窝、树冠和树下的团子都在画面里
-      { position: tree.clone().add(v(-1.2, 0.7, 4.6)), target: tree.clone().add(v(-1.35, 0.95, 0)), fov: 40 },
+      { position: tree.clone().add(v(-1.2, 0.7, 4.6)), target: tree.clone().add(v(-1.35, 0.95, 0)), fov: 40, focus: tree.clone().add(v(0, 0.9, 0)) },
       // 草丛（文字在右）：压低，前排草在近景
-      { position: grass.clone().add(v(0.7, 0.2, 1.7)), target: grass.clone().add(v(0.42, 0.17, 0)), fov: 32 },
+      { position: grass.clone().add(v(0.7, 0.2, 1.7)), target: grass.clone().add(v(0.42, 0.17, 0)), fov: 32, focus: grass.clone().add(v(0, 0.17, 0)) },
       // 池塘（文字在左）：拉开，看水面和天
-      { position: pond.clone().add(v(-1.6, 1.0, 3.8)), target: pond.clone().add(v(-1.5, 0.5, -1.2)), fov: 40 },
+      { position: pond.clone().add(v(-1.6, 1.0, 3.8)), target: pond.clone().add(v(-1.5, 0.5, -1.2)), fov: 40, focus: pond.clone().add(v(0, 0.3, 0)) },
       // 栅栏边（文字在右）：越过栅栏看远山
-      { position: fence.clone().add(v(-0.6, 0.5, 2.8)), target: fence.clone().add(v(0.55, 0.55, -3)), fov: 36 },
+      { position: fence.clone().add(v(-0.6, 0.5, 2.8)), target: fence.clone().add(v(0.55, 0.55, -3)), fov: 36, focus: fence.clone().add(v(0, 0.4, 0)) },
       // 结尾：回到全景，院子压在画面下半，上半留给天和那一句话
       { position: v(0.3, 2.3, 8.6), target: v(-0.2, 1.55, -0.8), fov: 36 },
     ];
@@ -83,6 +85,14 @@ export class Rig {
     // 窗口偏竖时往后退、放宽视角，免得左右被裁
     const narrow = THREE.MathUtils.clamp((1.62 - this.aspect) / 1.05, 0, 1);
     if (narrow > 0) {
+      // 宽屏时注视点故意偏到主体一侧，给旁边的文字块让位；窄屏时文字块在画面下方，
+      // 注视点回到主体上，再往下压一点，让主体落在画面上半、不被文字块挡住
+      const from = this.waypoints[i]!;
+      const to = this.waypoints[i + 1]!;
+      const focus = (from.focus ?? from.target).clone().lerp(to.focus ?? to.target, s - i);
+      const side = THREE.MathUtils.smoothstep(narrow, 0.25, 0.6);
+      target.lerp(focus, side * 0.85);
+      target.y -= (side * 0.42 * position.distanceTo(target)) / 3;
       const back = position.clone().sub(target).normalize();
       position.addScaledVector(back, narrow * 3.2);
       position.y += narrow * 0.4;
