@@ -17,6 +17,10 @@ xcuserdata/
 
 # Reproducible build products and Python caches
 build/
+# 网页版院子打给 iOS 的包（pnpm --dir web build:ios 生成）
+ios/Maomao/Resources/YardWeb/
+# 真机清晰度原始截图只留本地；仓库提交同尺寸压缩对照图
+outputs/ios-3d-probe/originals/
 DerivedData/
 __pycache__/
 *.py[cod]

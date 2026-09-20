@@ -1,0 +1,264 @@
+{
+  "sameCameraAndState": true,
+  "screenshots": [
+    {
+      "file": "iphone16promax-clarity-125.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 392404,
+      "sha256": "ee8812a7b5a8f221212255c0f3a64a9a190e913ab5fd21ba3931436f533f1e8a",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-125.png",
+        "bytes": 4952651,
+        "sha256": "97e6ca8fe6947abe02a96611cde2c694ed9a0eabae6de35cdbb4edb40be697b6",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-150.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 384694,
+      "sha256": "47937894ae1ff8f4c3178426569dc2e94666a0f8cd013f925999c8364bc71685",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-150.png",
+        "bytes": 5010690,
+        "sha256": "baf9837ce5c87300aab452a6b7057372d01be585e0c563fa9053157b9dd85821",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-200-fallback1.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 169025,
+      "sha256": "9cebf53bd445e86133ef44c068352679f9cd3e9a83cc15b914d53d8bbd4b89ad",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-200-fallback1.png",
+        "bytes": 572424,
+        "sha256": "efdcd4a0dd6aefc671403acec56ed9a8dc084d41c8ce8c5e0088b16eb4f02bb9",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-200-fallback2.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 412601,
+      "sha256": "b64a79870db254c4973a79e0525f489f1dc13cbb7f2f61814a26f788b168a4a2",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-200-fallback2.png",
+        "bytes": 5425464,
+        "sha256": "ac0cb3e533746d566aa834fd7315b01a440b5370be4180eefc7b08e54edb7152",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-200-fallback3.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 402439,
+      "sha256": "136040bf6c8de1e619c19e2807ca5dad7b685d247148e5646f2a5f6bd10c4b04",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-200-fallback3.png",
+        "bytes": 5385204,
+        "sha256": "4fd636b0f5c46bca0ec442161f7b76be9aa6c45e81990e4570b9dbcd281ace4b",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-200-fallback4.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 402396,
+      "sha256": "5f74a2e934dfb51c468fabc0339d1c277b11aeda102ace8d692386af3ee1aac0",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-200-fallback4.png",
+        "bytes": 5383284,
+        "sha256": "2d923c36b1a1f4c529d179ab91c364b76f7f6cc00bc021520501463119858cb2",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    },
+    {
+      "file": "iphone16promax-clarity-200.jpg",
+      "width": 1320,
+      "height": 2868,
+      "bytes": 407359,
+      "sha256": "183ae37247e797e6658856859464762b3a2f0087964aec09770013d7b96cbecd",
+      "sourceOriginal": {
+        "file": "iphone16promax-clarity-200.png",
+        "bytes": 5368822,
+        "sha256": "a1bc3aa6c9b2ad9617222f951543fa2c4cffeb5a2a9db152c661fff182dfae7e",
+        "retention": "local-only"
+      },
+      "state": {
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "facing": 0,
+        "camera": {
+          "focus": [
+            -2.388,
+            0.62,
+            -0.624
+          ],
+          "offset": 0,
+          "position": [
+            -2.388,
+            1.35,
+            2.776
+          ]
+        },
+        "slot": "day",
+        "weather": "clear",
+        "goal": "house"
+      }
+    }
+  ]
+}

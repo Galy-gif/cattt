@@ -10,6 +10,7 @@ import SwiftUI
 /// speed:倍数（世界时间慢放，0.25 = 四分之一速），
 /// 时段与情绪：time:小时（如 19.6，auto 恢复）、weather:rain|clear|auto、mood:calm|happy|sulk|sad|auto、bowl:fill|empty、drink（去喝水）、diary（现在写团子的日记）；
 /// 性格：temperament:slow|close|quiet|curious、trait:energy|initiative|directness|closeness=0|1|2、days:N（假装领养了 N 天）、greet（当成刚打开 App）；
+/// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
@@ -22,6 +23,7 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "yardProbe": store.yardProbeVisible = arg == "open"
                 case "depth": store.worldDepthEnabled = arg != "off"
                 case "moveCat": if let i = Int(arg) { store.moveCat(to: i) }
                 case "look": if let i = Int(arg) { store.look(at: i) }

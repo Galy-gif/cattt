@@ -172,6 +172,21 @@ export class Walker {
     this.settleIdle();
   }
 
+  /** App 内容进程恢复：重接当前位置到原目标的路线，不把猫传送到地点中心。 */
+  restore(goal: PlaceId, arrived: boolean) {
+    this.trip++;
+    this.path = [];
+    this.unseen = 0;
+    this.caughtUp = false;
+    this.goal = goal;
+    this.arrived = arrived;
+    if (arrived) this.settleIdle();
+    else {
+      const nodes = route(nearestNode(this.cat.position), place(goal).node).map(node => NODES[node]!);
+      this.walk(nodes.length ? nodes : [place(goal).point]);
+    }
+  }
+
   goTo(id: PlaceId) {
     if (id === this.goal) return;
     this.goal = id;

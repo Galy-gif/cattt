@@ -1,0 +1,247 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.012912666672491468,
+      "mb" : 37.221107482910156
+    },
+    {
+      "active" : true,
+      "at" : 1.0138662500030478,
+      "mb" : 42.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 2.0141758333338657,
+      "mb" : 43.643074035644531
+    },
+    {
+      "active" : true,
+      "at" : 3.0141806666724733,
+      "mb" : 45.643074035644531
+    },
+    {
+      "active" : true,
+      "at" : 4.0141126250018715,
+      "mb" : 45.705574035644531
+    },
+    {
+      "active" : true,
+      "at" : 5.0140995416732039,
+      "mb" : 45.721199035644531
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T04:08:56.281Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "c357c4bfc1644ea4e0cd582d2ed613ebcf1ac188d0c9333a0cc31610f09a4367"
+  },
+  "closedEarly" : false,
+  "device" : "simulator(iPhone18,1)",
+  "events" : [
+    {
+      "at" : 0.27845270833495306,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 1.1023977500008186,
+      "loadMs" : 200,
+      "pageId" : "35860460-1171-4754-B6AB-4A8D5144A8DA",
+      "runId" : "F5D0500F-32B0-45E2-B5E1-0CD29EDB6AEC",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 1.229600875005417,
+      "pageId" : "35860460-1171-4754-B6AB-4A8D5144A8DA",
+      "reason" : "initialize",
+      "runId" : "F5D0500F-32B0-45E2-B5E1-0CD29EDB6AEC",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 1.663036000005377,
+      "pageId" : "35860460-1171-4754-B6AB-4A8D5144A8DA",
+      "renderMs" : 769,
+      "runId" : "F5D0500F-32B0-45E2-B5E1-0CD29EDB6AEC",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "firstFrame"
+    }
+  ],
+  "failures" : [
+    "报告获取失败：timeout"
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 1663.0212500022026,
+  "isSimulator" : true,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        -1.8402921765944735,
+        0.62,
+        0.10437713351829198
+      ],
+      "offset" : 0,
+      "position" : [
+        -1.8402921765944735,
+        1.3500000000000001,
+        3.5043771335182918
+      ]
+    },
+    "facing" : 0.20706877562347437,
+    "goal" : "bed",
+    "next" : 2,
+    "position" : {
+      "x" : -1.8192312475496828,
+      "y" : 0,
+      "z" : 0.16040550819516997
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "slot" : "day",
+    "walking" : true,
+    "weather" : "clear"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.25",
+    "fallback" : "0",
+    "fault" : "report-timeout",
+    "fps" : "60",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "0",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "day",
+    "walk" : "1",
+    "weather" : "clear"
+  },
+  "pageReports" : {
+    "35860460-1171-4754-B6AB-4A8D5144A8DA" : {
+      "frames" : 356,
+      "hitches" : 2,
+      "longestFrameMs" : 132,
+      "low1Fps" : 31.300000000000001,
+      "medianFps" : 58.799999999999997,
+      "minScale" : 0.94999999999999996,
+      "pauses" : [
+
+      ],
+      "perSecond" : [
+        49.850448654037884,
+        60,
+        58.997050147492622,
+        59.055118110236222,
+        58.941058941058884,
+        59.11330049261089
+      ],
+      "seconds" : 6.1689999999999996,
+      "segments" : [
+        {
+          "endMs" : 7131,
+          "frames" : 356,
+          "startMs" : 962
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 200,
+  "runId" : "F5D0500F-32B0-45E2-B5E1-0CD29EDB6AEC",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 874,
+    "scale" : 3,
+    "width" : 402
+  },
+  "startedAt" : "2026-09-20T04:16:08Z",
+  "status" : "未通过",
+  "system" : "26.5",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.012904583338240627,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 8.8413142083372804,
+  "webContentFootprintMB" : null
+}

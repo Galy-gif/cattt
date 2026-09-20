@@ -6,7 +6,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 
 // 帧率不够时降渲染分辨率，下限 0.75（方案第 6、8 节）
 const MIN_SCALE = 0.75;
-const TARGET_FPS = 55;
+
 
 /**
  * 收尾一遍做完：暗角、很轻的颗粒、ACES 色调映射、sRGB 输出。
@@ -53,6 +53,8 @@ export class Renderer {
   readonly gl: THREE.WebGLRenderer;
   fps = 60;
   scale = 1;
+  /** 像素比封顶。不给就按视口大小取 1.25／1.5；App 里实测各档清晰度时从网址参数给 */
+  maxRatio: number | null = null;
 
   private composer: EffectComposer | null = null;
   private finish: ShaderPass | null = null;
@@ -60,10 +62,13 @@ export class Renderer {
   private frame = 0;
   private windowStart = performance.now();
   private fastWindows = 0;
+  targetFps = 60;
+  bloomEnabled = true;
+  private resizeListener = () => this.resize();
   private onResize: (width: number, height: number) => void = () => {};
 
   /** preserve：保留绘图缓冲，只给调试时取图用（平时不开，省一次拷贝） */
-  constructor(canvas: HTMLCanvasElement, post = true, preserve = false) {
+  constructor(canvas: HTMLCanvasElement, post = true, preserve = false, samples = 2) {
     this.gl = new THREE.WebGLRenderer({ canvas, antialias: !post, powerPreference: 'high-performance', preserveDrawingBuffer: preserve });
     this.gl.toneMapping = THREE.ACESFilmicToneMapping;
     this.gl.toneMappingExposure = 1.0;
@@ -72,10 +77,10 @@ export class Renderer {
     // 阴影隔一帧更新一次：院子里动得最快的是走路的团子（每秒 0.25 m），慢一帧看不出来，阴影那一遍省一半
     this.gl.shadowMap.autoUpdate = false;
     if (post) {
-      const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 2 });
+      const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples });
       this.composer = new EffectComposer(this.gl, target);
     }
-    addEventListener('resize', () => this.resize());
+    addEventListener('resize', this.resizeListener);
   }
 
   get width() {
@@ -91,7 +96,7 @@ export class Renderer {
     if (this.composer) {
       this.finish = new ShaderPass(FinishShader);
       this.composer.addPass(new RenderPass(scene, camera));
-      this.composer.addPass(new UnrealBloomPass(new THREE.Vector2(this.width, this.height), 0.26, 0.6, 1.15));
+      if (this.bloomEnabled) this.composer.addPass(new UnrealBloomPass(new THREE.Vector2(this.width, this.height), 0.26, 0.6, 1.15));
       this.composer.addPass(this.finish);
     }
     this.resize();
@@ -109,10 +114,23 @@ export class Renderer {
     this.govern();
   }
 
+  resetTiming() {
+    this.frames = 0;
+    this.windowStart = performance.now();
+    this.fastWindows = 0;
+  }
+
+  dispose() {
+    removeEventListener('resize', this.resizeListener);
+    for (const pass of this.composer?.passes ?? []) pass.dispose();
+    this.composer?.dispose();
+    this.gl.dispose();
+  }
+
   private resize() {
     const small = this.width * this.height < 620000;
     // 像素比封顶 1.5：视网膜屏按 2 倍渲染是 520 万像素，毛毡着色器撑不住；1.5 倍肉眼差别很小
-    const ratio = Math.min(devicePixelRatio, small ? 1.25 : 1.5) * this.scale;
+    const ratio = Math.min(devicePixelRatio, this.maxRatio ?? (small ? 1.25 : 1.5)) * this.scale;
     this.gl.setPixelRatio(ratio);
     this.gl.setSize(this.width, this.height, false);
     if (this.composer) {
@@ -131,11 +149,11 @@ export class Renderer {
     this.frames = 0;
     this.windowStart = now;
     if (document.hidden) return;
-    if (this.fps < TARGET_FPS && this.scale > MIN_SCALE) {
+    if (this.fps < this.targetFps * (55 / 60) && this.scale > MIN_SCALE) {
       this.scale = Math.max(MIN_SCALE, this.scale - 0.05);
       this.fastWindows = 0;
       this.resize();
-    } else if (this.fps > 58.5 && this.scale < 1) {
+    } else if (this.fps > this.targetFps * 0.975 && this.scale < 1) {
       if (++this.fastWindows >= 3) {
         this.scale = Math.min(1, this.scale + 0.05);
         this.fastWindows = 0;

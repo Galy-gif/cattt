@@ -13,11 +13,12 @@ struct RootView: View {
             ZStack {
                 Palette.bg.ignoresSafeArea()
 
-                screen
-                    .environment(\.screenInsets, proxy.safeAreaInsets)
+                if !store.yardProbeVisible {
+                    screen.environment(\.screenInsets, proxy.safeAreaInsets)
+                }
 
                 // 日记纸：从信箱里抽出来，盖在院子上。
-                if store.onboarding == nil {
+                if store.onboarding == nil && !store.yardProbeVisible {
                     PaperSheet(
                         isOpen: store.mailboxOpen,
                         anchor: store.mailboxAnchor,
@@ -58,13 +59,14 @@ struct RootView: View {
             MeView()
                 .environmentObject(store)
         }
+        .onChange(of: store.yardProbeVisible) { updateWorldVisibility() }
         .onChange(of: scenePhase) { updateWorldVisibility() }
         .onChange(of: store.screen) { updateWorldVisibility() }
         .onChange(of: store.onboarding) { updateWorldVisibility() }
         .onAppear {
             updateWorldVisibility()
             #if DEBUG
-            DebugScript.run(on: store)
+            if !store.yardProbeVisible { DebugScript.run(on: store) }
             #endif
         }
         // 全套令牌只有浅色一版，深色模式会把院子的地面色冲掉。
@@ -73,9 +75,9 @@ struct RootView: View {
     }
 
     private func updateWorldVisibility() {
-        store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active, enabled: store.onboarding == nil)
+        store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active, enabled: store.onboarding == nil && !store.yardProbeVisible)
         // 打开 App（或从后台回来）：按性格决定猫来不来门口。
-        if scenePhase == .active { store.greetOnOpen() } else if scenePhase == .background { store.greetedThisSession = false }
+        if scenePhase == .active && !store.yardProbeVisible { store.greetOnOpen() } else if scenePhase == .background { store.greetedThisSession = false }
     }
 
     @ViewBuilder

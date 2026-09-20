@@ -1,0 +1,27 @@
+{
+  "device": "iPhone 16 Pro Max",
+  "system": "26.6.2",
+  "formalTesting": {
+    "roomTemperature": "用户确认室温，未测摄氏度",
+    "brightness": "用户确认约一半；environment 样本可核对实际值",
+    "charging": "用户确认已拔线；environment 样本可核对 unplugged",
+    "connection": "CoreDevice localNetwork，已核对",
+    "simulator": "本任务 iPhone 17 Pro 已 shutdown",
+    "desktop3DPreview": "已导航 about:blank 停止渲染",
+    "instruments": "正式帧率采样期间未启用 Instruments/录屏/内存采样工具",
+    "reportCollection": "启动约20秒只检查新报告文件名；预计结束后只复制本轮新增 JSON，校验后归档。降级2曾发生整目录传输超时，新报告已完整接收并校验，此后改用单文件复制。"
+  },
+  "baselineDecision": "MSAA 关闭；两种模式均兼容，但关闭模式短测最低倍率 0.95，高于开启模式 0.80。其余默认渲染项保持基准。",
+  "compatibilityException": "compat-msaa 两份短测在 USB 充电时完成，不计入正式矩阵。",
+  "selectedConfiguration": {
+    "dpr": 1.5,
+    "msaa": 0,
+    "targetFps": 60,
+    "post": true,
+    "bloom": true,
+    "shadow": 2048,
+    "grassRatio": 1,
+    "fuzzLayers": 4,
+    "reason": "同机位原图比较与五分钟持续走动结果，兼顾边缘清晰度和完整画面效果；完整闸门未判通过。"
+  }
+}

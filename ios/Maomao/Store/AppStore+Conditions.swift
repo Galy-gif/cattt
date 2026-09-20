@@ -150,7 +150,7 @@ extension AppStore {
                                           lastDrinkAt: lastDrinkAt.map { ISO8601DateFormatter().string(from: $0) },
                                           placesToday: visitedPlacesToday))
         // 雨声：只在院子里、下雨时响
-        rainSound.set(on: w == .rain && rainSoundEnabled && screen == .home && !mailboxOpen && !showsMe)
+        rainSound.set(on: w == .rain && rainSoundEnabled && !yardProbeVisible && screen == .home && !mailboxOpen && !showsMe)
         // 团子的日记：夜晚开始时写，一天一条
         if hour >= CatDiary.writeHour, !(catDiaryDate.map { Calendar.current.isDate($0, inSameDayAs: now) } ?? false) {
             writeCatDiary(now: now)

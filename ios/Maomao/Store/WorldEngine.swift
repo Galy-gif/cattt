@@ -97,7 +97,7 @@ final class WorldEngine: ObservableObject {
     func writeSnapshot(label:String="world-metrics") {
         let intervals=tickIntervals.sorted()
         let p95=intervals.isEmpty ? 0:intervals[min(intervals.count-1,Int(Double(intervals.count)*0.95))]*1000
-        let data:[String:Any]=["ticks":tickCount,"worldSeconds":simulation.time,"meanSimulationMilliseconds":totalTickMilliseconds/Double(max(1,tickCount)),"maxSimulationMilliseconds":maxTickMilliseconds,"p95TimerIntervalMilliseconds":p95,"action":simulation.action,"phase":simulation.phase.rawValue,"x":simulation.point.x,"y":simulation.point.y,"target":simulation.target,"current":simulation.current,"paused":simulation.paused,"onHome":onHome,"foreground":foreground,"textureValidationError":loadError ?? ""]
+        let data:[String:Any]=["worldEnabled":worldEnabled,"displayLinkPaused":displayLink?.isPaused ?? true,"manuallyPaused":manuallyPaused,"ticks":tickCount,"worldSeconds":simulation.time,"meanSimulationMilliseconds":totalTickMilliseconds/Double(max(1,tickCount)),"maxSimulationMilliseconds":maxTickMilliseconds,"p95TimerIntervalMilliseconds":p95,"action":simulation.action,"phase":simulation.phase.rawValue,"x":simulation.point.x,"y":simulation.point.y,"target":simulation.target,"current":simulation.current,"paused":simulation.paused,"onHome":onHome,"foreground":foreground,"textureValidationError":loadError ?? ""]
         if let json=try? JSONSerialization.data(withJSONObject:data,options:.prettyPrinted),let dir=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask).first {
             let safe=label.filter{$0.isLetter || $0.isNumber || $0 == "-"}
             try? json.write(to:dir.appendingPathComponent((safe.isEmpty ? "world-metrics":safe)+".json"),options:.atomic)

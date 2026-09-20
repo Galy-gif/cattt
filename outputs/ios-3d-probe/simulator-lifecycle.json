@@ -1,0 +1,201 @@
+{
+  "appFootprintMB": [
+    {
+      "active": true,
+      "at": 0.02060229166818317,
+      "mb": 38.314788818359375
+    },
+    {
+      "active": true,
+      "at": 1.0217189583345316,
+      "mb": 36.12731170654297
+    },
+    {
+      "active": true,
+      "at": 2.020518916666333,
+      "mb": 40.98682403564453
+    },
+    {
+      "active": true,
+      "at": 3.021393833332695,
+      "mb": 41.04932403564453
+    },
+    {
+      "active": true,
+      "at": 4.021245749994705,
+      "mb": 40.40869903564453
+    },
+    {
+      "active": false,
+      "at": 5.037952999999106,
+      "mb": 40.54932403564453
+    },
+    {
+      "active": false,
+      "at": 6.021410708330222,
+      "mb": 40.48682403564453
+    },
+    {
+      "active": false,
+      "at": 7.021383666666225,
+      "mb": 40.36182403564453
+    },
+    {
+      "active": false,
+      "at": 8.020746916663484,
+      "mb": 40.34619903564453
+    }
+  ],
+  "build": {
+    "builtAt": "2026-09-20T03:58:00.540Z",
+    "commit": "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "514ec48d0cb4059971542dfe5c9f05bb3113e7f6e6458d620a829d74bf75388c"
+  },
+  "closedEarly": false,
+  "device": "simulator(iPhone18,1)",
+  "events": [
+    {
+      "at": 0.08147141666267999,
+      "type": "nativeActive"
+    },
+    {
+      "at": 1.9490865416664747,
+      "loadMs": 379,
+      "pageId": "B5555CE6-A4F7-4B26-BF93-5AB0AACF2FCB",
+      "runId": "52228239-1894-4821-9F1B-EFF7301C05F5",
+      "triangles": 45060,
+      "type": "ready"
+    },
+    {
+      "at": 1.9719582499965327,
+      "pageId": "B5555CE6-A4F7-4B26-BF93-5AB0AACF2FCB",
+      "reason": "initialize",
+      "runId": "52228239-1894-4821-9F1B-EFF7301C05F5",
+      "snapshot": {
+        "arrived": true,
+        "camera": {
+          "focus": [
+            0,
+            0,
+            0
+          ],
+          "offset": 0,
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing": 0,
+        "goal": "house",
+        "next": 1,
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "restSeconds": 0,
+        "shownSlot": "night",
+        "slot": "night",
+        "walking": true,
+        "weather": "rain"
+      },
+      "type": "resumed"
+    },
+    {
+      "at": 5.032655499999237,
+      "type": "nativeInactive"
+    },
+    {
+      "at": 8.25992949999636,
+      "message": "前后台同步失败：timeout",
+      "pageId": "B5555CE6-A4F7-4B26-BF93-5AB0AACF2FCB",
+      "runId": "52228239-1894-4821-9F1B-EFF7301C05F5",
+      "type": "error"
+    }
+  ],
+  "failures": [
+    "前后台同步失败：timeout",
+    "报告获取失败：timeout",
+    "没有首帧"
+  ],
+  "firstFrameDefinition": "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs": null,
+  "isSimulator": true,
+  "lastSnapshot": {
+    "arrived": true,
+    "camera": {
+      "focus": [
+        0,
+        0,
+        0
+      ],
+      "offset": 0,
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    "facing": 0,
+    "goal": "house",
+    "next": 1,
+    "position": {
+      "x": -2.388,
+      "y": 0,
+      "z": -0.624
+    },
+    "restSeconds": 0,
+    "shownSlot": "night",
+    "slot": "night",
+    "walking": true,
+    "weather": "rain"
+  },
+  "missing": [
+    "真机五分钟白天晴/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options": {
+    "dpr": "1.25",
+    "fps": "60",
+    "fuzz": "1",
+    "msaa": "0",
+    "post": "1",
+    "shadow": "2048",
+    "time": "night",
+    "walk": "1",
+    "weather": "rain"
+  },
+  "pageReports": {},
+  "resourceReadyMs": 379,
+  "runId": "52228239-1894-4821-9F1B-EFF7301C05F5",
+  "schemaVersion": 2,
+  "screen": {
+    "height": 874,
+    "scale": 3,
+    "width": 402
+  },
+  "startedAt": "2026-09-20T03:59:44Z",
+  "status": "未通过",
+  "system": "26.5",
+  "thermal": [
+    {
+      "active": true,
+      "at": 0.02054804166255053,
+      "state": "nominal"
+    }
+  ],
+  "wallSeconds": 11.46911366666609,
+  "webContentFootprintMB": null
+}

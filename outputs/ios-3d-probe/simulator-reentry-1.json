@@ -1,0 +1,271 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.0062042083445703611,
+      "mb" : 60.752494812011719
+    },
+    {
+      "active" : true,
+      "at" : 1.0080579583445797,
+      "mb" : 48.502540588378906
+    },
+    {
+      "active" : true,
+      "at" : 2.0075134583457839,
+      "mb" : 48.096290588378906
+    },
+    {
+      "active" : true,
+      "at" : 3.007504291672376,
+      "mb" : 47.924415588378906
+    },
+    {
+      "active" : true,
+      "at" : 4.0074906666704919,
+      "mb" : 47.924415588378906
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T06:14:31.276Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "158a2aa4a7ffa9d6e7c4fc76335b89d26a63eceec2836376fc7917d22f63bbdc"
+  },
+  "closedEarly" : false,
+  "device" : "simulator(iPhone18,1)",
+  "environment" : [
+    {
+      "active" : true,
+      "at" : 0.0062190416792873293,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 1.0080714583455119,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 2.0075403750088299,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 3.0075289583328413,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 4.007507958333008,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    }
+  ],
+  "events" : [
+    {
+      "at" : 0.57590870834246743,
+      "loadMs" : 90,
+      "pageId" : "A49D9D17-6542-4FDE-88E0-27F8C1A738A7",
+      "runId" : "0B4E590B-84C5-4818-BE35-6F8187991441",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.57680929166963324,
+      "pageId" : "A49D9D17-6542-4FDE-88E0-27F8C1A738A7",
+      "reason" : "initialize",
+      "runId" : "0B4E590B-84C5-4818-BE35-6F8187991441",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.96109745833382476,
+      "pageId" : "A49D9D17-6542-4FDE-88E0-27F8C1A738A7",
+      "renderMs" : 478,
+      "runId" : "0B4E590B-84C5-4818-BE35-6F8187991441",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "firstFrame"
+    }
+  ],
+  "failures" : [
+
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 961.07895833847579,
+  "isSimulator" : true,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        -2.2443554301894695,
+        0.62,
+        -0.4157560280542531
+      ],
+      "offset" : 0,
+      "position" : [
+        -2.2443554301894695,
+        1.3500000000000001,
+        2.9842439719457468
+      ]
+    },
+    "facing" : 0.67078224965525735,
+    "goal" : "bed",
+    "next" : 2,
+    "position" : {
+      "x" : -2.2071613036304156,
+      "y" : 0,
+      "z" : -0.3686852952826486
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "slot" : "day",
+    "walking" : true,
+    "weather" : "clear"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.5",
+    "fallback" : "0",
+    "fps" : "60",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "0",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "day",
+    "walk" : "1",
+    "weather" : "clear"
+  },
+  "pageReports" : {
+    "A49D9D17-6542-4FDE-88E0-27F8C1A738A7" : {
+      "frames" : 199,
+      "hitches" : 3,
+      "longestFrameMs" : 148,
+      "low1Fps" : 20,
+      "medianFps" : 58.799999999999997,
+      "minScale" : 0.94999999999999996,
+      "pauses" : [
+
+      ],
+      "perSecond" : [
+        48.37117472852912,
+        59.999999999999972,
+        60
+      ],
+      "seconds" : 3.5130000000000003,
+      "segments" : [
+        {
+          "endMs" : 4030.0000000000005,
+          "frames" : 199,
+          "startMs" : 517
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 90,
+  "runId" : "0B4E590B-84C5-4818-BE35-6F8187991441",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 874,
+    "scale" : 3,
+    "width" : 402
+  },
+  "startedAt" : "2026-09-20T06:26:19Z",
+  "status" : "缺测",
+  "system" : "26.5",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.0061956666759215295,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 4.4809172916720854,
+  "webContentFootprintMB" : null
+}

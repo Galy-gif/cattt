@@ -1,0 +1,530 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.0023210833332996117,
+      "mb" : 46.204185485839844
+    },
+    {
+      "active" : true,
+      "at" : 1.0033705416667544,
+      "mb" : 46.704185485839844
+    },
+    {
+      "active" : true,
+      "at" : 2.0033391249999113,
+      "mb" : 36.563560485839844
+    },
+    {
+      "active" : true,
+      "at" : 3.0033739583332135,
+      "mb" : 27.672935485839844
+    },
+    {
+      "active" : true,
+      "at" : 4.0033607499999562,
+      "mb" : 27.657310485839844
+    },
+    {
+      "active" : false,
+      "at" : 5.0025797083335419,
+      "mb" : 27.563560485839844
+    },
+    {
+      "active" : false,
+      "at" : 6.1021079583333631,
+      "mb" : 27.657310485839844
+    },
+    {
+      "active" : true,
+      "at" : 7.0033492916668365,
+      "mb" : 27.469810485839844
+    },
+    {
+      "active" : true,
+      "at" : 8.0034185416666332,
+      "mb" : 27.469810485839844
+    },
+    {
+      "active" : true,
+      "at" : 9.0027266666666037,
+      "mb" : 27.469810485839844
+    },
+    {
+      "active" : true,
+      "at" : 10.002878458333271,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 11.003357583333127,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 12.00336174999984,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 13.003356083333529,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 14.003357375000178,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 15.003358416666742,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 16.003358541666785,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 17.003355958333486,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 18.003339166666592,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 19.003402541666674,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 20.003369041666701,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 21.003361041666722,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 22.003312416666631,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 23.003377,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 24.003383374999885,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 25.003358874999776,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 26.003053291666674,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 27.003449041666499,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 28.002568625000094,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 29.003465374999905,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 30.003374999999778,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 31.00319487500019,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 32.003362958333128,
+      "mb" : 27.297935485839844
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T04:17:24.864Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "b8f7c3fce6c40903f989bee3cf1b2e6cecb6fd8e4b2cbf71a39b012a79b86301"
+  },
+  "closedEarly" : false,
+  "device" : "iPhone17,2",
+  "events" : [
+    {
+      "at" : 0.12425249999978405,
+      "loadMs" : 63,
+      "pageId" : "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4",
+      "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.12486829166664393,
+      "pageId" : "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4",
+      "reason" : "initialize",
+      "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.71552879166665662,
+      "pageId" : "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4",
+      "renderMs" : 654,
+      "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 4.6621985000001587,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 4.6694399166667608,
+      "pageId" : "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4",
+      "reason" : "native",
+      "report" : {
+        "frames" : 235,
+        "hitches" : 0,
+        "longestFrameMs" : 27,
+        "low1Fps" : 40,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 4623
+          }
+        ],
+        "perSecond" : [
+          60.276679841897234,
+          59.980334316617501,
+          59.940059940059939
+        ],
+        "seconds" : 3.9260000000000002,
+        "segments" : [
+          {
+            "endMs" : 4596,
+            "frames" : 235,
+            "startMs" : 670
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -2.1616829246980553,
+            0.62,
+            -0.31136765553070161
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.1616829246980553,
+            1.3500000000000001,
+            3.088632344469298
+          ]
+        },
+        "facing" : 0.67554904864863374,
+        "goal" : "bed",
+        "next" : 2,
+        "position" : {
+          "x" : -2.1241726956016365,
+          "y" : 0,
+          "z" : -0.26410390475916962
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 5.3422138750001977,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 5.877114999999776,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 6.180510458333174,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 6.1841065833332323,
+      "pageId" : "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4",
+      "reason" : "native",
+      "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -2.1616829246980553,
+            0.62,
+            -0.31136765553070161
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.1616829246980553,
+            1.3500000000000001,
+            3.088632344469298
+          ]
+        },
+        "facing" : 0.67554904864863374,
+        "goal" : "bed",
+        "next" : 2,
+        "position" : {
+          "x" : -2.1241726956016365,
+          "y" : 0,
+          "z" : -0.26410390475916962
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    }
+  ],
+  "failures" : [
+
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 715.51404166666543,
+  "isSimulator" : false,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        -0.84156433412785969,
+        0.62,
+        0.053615119964871581
+      ],
+      "offset" : 0,
+      "position" : [
+        -0.84156433412785969,
+        1.3500000000000001,
+        3.4536151199648719
+      ]
+    },
+    "facing" : -0.897784027948342,
+    "goal" : "grass",
+    "next" : 4,
+    "position" : {
+      "x" : -0.88033631761496134,
+      "y" : 0,
+      "z" : 0.098643728610205053
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "slot" : "day",
+    "walking" : true,
+    "weather" : "clear"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.25",
+    "fallback" : "0",
+    "fps" : "60",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "2",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "day",
+    "walk" : "1",
+    "weather" : "clear"
+  },
+  "pageReports" : {
+    "A92DE2DF-AA77-4731-BFDC-C5156EAA3AC4" : {
+      "frames" : 1757,
+      "hitches" : 2,
+      "longestFrameMs" : 53,
+      "low1Fps" : 43.5,
+      "medianFps" : 58.799999999999997,
+      "minScale" : 0.79999999999999982,
+      "pauses" : [
+        {
+          "endMs" : 6170,
+          "reason" : "native",
+          "startMs" : 4623
+        }
+      ],
+      "perSecond" : [
+        60.276679841897234,
+        59.980334316617501,
+        59.940059940059939,
+        58.764940239043824,
+        60.157790927021644,
+        59.82053838484552,
+        60,
+        60.157790927021694,
+        59.820538384845463,
+        59.980334316617501,
+        60,
+        60,
+        59.999999999999893,
+        60.039370078740262,
+        60,
+        58.941058941058941,
+        49.65920155793556,
+        50.949050949051134,
+        53.677932405566601,
+        54.455445544554458,
+        58.706467661691541,
+        56.943056943056945,
+        60,
+        59.940059940059939,
+        59,
+        55.944055944055947,
+        59.11330049261084,
+        60,
+        57.94205794205773
+      ],
+      "seconds" : 30.066000000000003,
+      "segments" : [
+        {
+          "endMs" : 4596,
+          "frames" : 235,
+          "startMs" : 670
+        },
+        {
+          "endMs" : 32310.000000000004,
+          "frames" : 1522,
+          "startMs" : 6170
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 63,
+  "runId" : "70E06E6D-F62F-4866-AA25-35CF932C3768",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 956,
+    "scale" : 3,
+    "width" : 440
+  },
+  "startedAt" : "2026-09-20T04:46:18Z",
+  "status" : "缺测",
+  "system" : "26.6.2",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.002317124999990483,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 32.367740291666451,
+  "webContentFootprintMB" : null
+}

@@ -68,6 +68,8 @@ export class Appearance {
   private eyeMaterials = new Map<THREE.Mesh, THREE.MeshPhysicalMaterial>();
   private outlines: THREE.SkinnedMesh[] = [];
   private shells: THREE.SkinnedMesh[] = [];
+  private fuzzEnabled = true;
+  private fuzzLayers: 2 | 4 = 4;
   /** 每个材质原本的颜色，乘色时从它算 */
   private readonly baseColors = new Map<THREE.Material & { color: THREE.Color }, THREE.Color>();
   private readonly tint = new THREE.Color(1, 1, 1);
@@ -87,6 +89,7 @@ export class Appearance {
       for (let layer = 1; layer <= 4; layer++) {
         const shell = shareSkin(mesh, makeShellMaterial(source.map, source.color, layer));
         shell.castShadow = false;
+        shell.userData.yardLayer = layer;
         this.shells.push(shell);
       }
     }
@@ -122,6 +125,12 @@ export class Appearance {
     }
   }
 
+  /** 第 0 轮性能对照用；保留第 2、4 层，毛长不变，默认仍为四层。 */
+  setFuzzLayers(count: 2 | 4) {
+    this.fuzzLayers = count;
+    for (const shell of this.shells) shell.visible = this.fuzzEnabled && (count === 4 || shell.userData.yardLayer % 2 === 0);
+  }
+
   apply(look: Look) {
     for (const material of this.bodyMaterials.values()) {
       if (look.surface === 'felt') {
@@ -141,7 +150,8 @@ export class Appearance {
       material.clearcoatRoughness = 0.22;
     }
     for (const outline of this.outlines) outline.visible = look.outline;
-    for (const shell of this.shells) shell.visible = look.fuzz && look.surface === 'felt';
+    this.fuzzEnabled = look.fuzz && look.surface === 'felt';
+    this.setFuzzLayers(this.fuzzLayers);
   }
 }
 

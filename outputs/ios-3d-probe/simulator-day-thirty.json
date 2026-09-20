@@ -1,0 +1,330 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.011453166662249714,
+      "mb" : 37.783607482910156
+    },
+    {
+      "active" : true,
+      "at" : 1.0122078749991488,
+      "mb" : 39.143051147460938
+    },
+    {
+      "active" : true,
+      "at" : 2.0122195833318983,
+      "mb" : 39.736801147460938
+    },
+    {
+      "active" : true,
+      "at" : 3.0122413333301665,
+      "mb" : 40.361824035644531
+    },
+    {
+      "active" : true,
+      "at" : 4.0122785416606348,
+      "mb" : 41.127449035644531
+    },
+    {
+      "active" : true,
+      "at" : 5.0122364583294257,
+      "mb" : 41.127449035644531
+    },
+    {
+      "active" : true,
+      "at" : 6.0122824583304464,
+      "mb" : 41.002449035644531
+    },
+    {
+      "active" : true,
+      "at" : 7.0122464999949443,
+      "mb" : 40.971199035644531
+    },
+    {
+      "active" : true,
+      "at" : 8.0122325416596141,
+      "mb" : 40.893074035644531
+    },
+    {
+      "active" : true,
+      "at" : 9.0121792499994626,
+      "mb" : 40.783699035644531
+    },
+    {
+      "active" : true,
+      "at" : 10.012184374994831,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 11.012156749995484,
+      "mb" : 40.768074035644531
+    },
+    {
+      "active" : true,
+      "at" : 12.012174374998722,
+      "mb" : 40.768074035644531
+    },
+    {
+      "active" : true,
+      "at" : 13.012164749998192,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 14.012173416660517,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 15.012282541661989,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 16.012182249993202,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 17.01217104166426,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 18.012164583327831,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 19.012163791659987,
+      "mb" : 40.736824035644531
+    },
+    {
+      "active" : true,
+      "at" : 20.012227083330799,
+      "mb" : 40.736824035644531
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T04:17:24.864Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "b8f7c3fce6c40903f989bee3cf1b2e6cecb6fd8e4b2cbf71a39b012a79b86301"
+  },
+  "closedEarly" : false,
+  "device" : "simulator(iPhone18,1)",
+  "events" : [
+    {
+      "at" : 0.46941091666667489,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 2.7290187083272031,
+      "loadMs" : 617,
+      "pageId" : "1F1C856D-DF38-47FB-94E9-EEB2EEBAB0A0",
+      "runId" : "02AF0BCD-5C77-4438-BC10-1FA08D3B833C",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 2.7637364999973215,
+      "pageId" : "1F1C856D-DF38-47FB-94E9-EEB2EEBAB0A0",
+      "reason" : "initialize",
+      "runId" : "02AF0BCD-5C77-4438-BC10-1FA08D3B833C",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 5.1516712083321181,
+      "pageId" : "1F1C856D-DF38-47FB-94E9-EEB2EEBAB0A0",
+      "renderMs" : 3030,
+      "runId" : "02AF0BCD-5C77-4438-BC10-1FA08D3B833C",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "firstFrame"
+    }
+  ],
+  "failures" : [
+
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 5151.6191249975236,
+  "isSimulator" : true,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        -1.8179999999967333,
+        0.62,
+        0.92399999993072357
+      ],
+      "offset" : 0,
+      "position" : [
+        -1.8179999999967333,
+        1.3500000000000001,
+        4.3239999999307219
+      ]
+    },
+    "facing" : 2.8965484266097885,
+    "goal" : "tree",
+    "next" : 3,
+    "position" : {
+      "x" : -1.8180000000000001,
+      "y" : 0,
+      "z" : 0.92400000000000004
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "slot" : "day",
+    "walking" : true,
+    "weather" : "clear"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.25",
+    "fallback" : "0",
+    "fps" : "30",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "0",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "day",
+    "walk" : "1",
+    "weather" : "clear"
+  },
+  "pageReports" : {
+    "1F1C856D-DF38-47FB-94E9-EEB2EEBAB0A0" : {
+      "frames" : 421,
+      "hitches" : 226,
+      "longestFrameMs" : 597.99999999999909,
+      "low1Fps" : 10.6,
+      "medianFps" : 29.399999999999999,
+      "minScale" : 0.89999999999999991,
+      "pauses" : [
+
+      ],
+      "perSecond" : [
+        3.8350910834132312,
+        27.750247770069375,
+        29.910269192422732,
+        30,
+        29.970029970029969,
+        30.067895247332686,
+        29.922779922779924,
+        29.850746268656717,
+        30.00968054211036,
+        30.185004868549171,
+        22.908366533864541,
+        30.155642023346303,
+        29.970029970029969,
+        29.910269192422732,
+        30.155642023346303
+      ],
+      "seconds" : 15.252000000000001,
+      "segments" : [
+        {
+          "endMs" : 18440,
+          "frames" : 421,
+          "startMs" : 3188
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 617,
+  "runId" : "02AF0BCD-5C77-4438-BC10-1FA08D3B833C",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 874,
+    "scale" : 3,
+    "width" : 402
+  },
+  "startedAt" : "2026-09-20T04:19:49Z",
+  "status" : "缺测",
+  "system" : "26.5",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.011429916659835726,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 20.407322999999451,
+  "webContentFootprintMB" : null
+}

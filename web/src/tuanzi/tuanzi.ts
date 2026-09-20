@@ -96,6 +96,19 @@ export class Tuanzi {
     return wrapAngle(this.yaw);
   }
 
+  /** 内容进程重建时恢复世界姿态，移动路线由调用方重新接续。 */
+  restorePose(position: THREE.Vector3Like, facing: number) {
+    this.settle(true);
+    this.route = null;
+    this.speed = 0;
+    this.wantSit = false;
+    this.state = 'idle';
+    this.yaw = facing;
+    this.root.position.copy(position);
+    this.root.rotation.y = facing;
+    this.play('idle', 0);
+  }
+
   get clipNames() {
     return [...this.actions.keys()];
   }

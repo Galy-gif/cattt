@@ -1,0 +1,43 @@
+{
+  "wirelessMemory": {
+    "status": "缺测",
+    "template": "Activity Monitor",
+    "plannedSeconds": 60,
+    "actualSeconds": 1.244954,
+    "endReason": "Device disconnected",
+    "validAppOrWebContentSamples": false,
+    "trace": "/tmp/maomao-memory.trace"
+  },
+  "wirelessEnergy": {
+    "status": "缺测",
+    "template": "Power Profiler",
+    "plannedSeconds": 30,
+    "error": "Cannot record until the device is connected",
+    "trace": "/tmp/maomao-power-wireless.trace"
+  },
+  "ordinaryCoreDeviceConnection": "同一时段仍 paired / localNetwork / connected，可取回 App 90 秒报告；不能把 Instruments 缺测解释为 App 白屏或进程终止。",
+  "usbMemoryAllProcesses": {
+    "status": "缺测",
+    "plannedSeconds": 60,
+    "reason": "到时停止后卡在保存阶段，SIGINT仍未完成；终止工具后轨迹无法导出（Document Missing Template Error）",
+    "trace": "/tmp/maomao-memory-usb.trace"
+  },
+  "usbPowerAllProcesses": {
+    "status": "缺测",
+    "reason": "Location Energy Model 不支持 All Processes；已改为定向采样。"
+  },
+  "attachByNameAndPid": {
+    "status": "缺测",
+    "reason": "CoreDevice 能看到 App 与唯一 WebContent，但 Instruments 按名称及已核实 PID 均报找不到进程。"
+  },
+  "usbMemoryLaunchApp": {
+    "status": "部分有效",
+    "summary": "memory-instruments-summary.json",
+    "reason": "由 Instruments 启动后有16个App样本，App峰值49.48MB；WebContent缺测，合计不能判定。"
+  },
+  "usbPowerLaunchApp": {
+    "status": "缺测",
+    "reason": "指定 App 并由 Instruments 启动，达到30秒后进程退出码1；轨迹导出仍报 Document Missing Template Error，无可用能耗值。",
+    "trace": "/tmp/maomao-power-launch-usb.trace"
+  }
+}

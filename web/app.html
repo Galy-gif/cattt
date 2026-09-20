@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <title>团子的院子 · App</title>
+    <style>
+      /* iOS App 里的院子：只有画布，界面都在 SwiftUI 那边。底色取白天的天色，免得 WebGL 起来之前白闪 */
+      html, body { margin: 0; height: 100%; background: #cfe3ea; overflow: hidden; overscroll-behavior: none; }
+      body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+      #hud { position: fixed; left: 8px; top: env(safe-area-inset-top, 8px); font: 11px/1.5 -apple-system, sans-serif; color: #fff;
+             background: rgb(0 0 0 / .45); padding: 4px 8px; border-radius: 6px; pointer-events: none; white-space: pre; }
+      #hud[hidden] { display: none; }
+    </style>
+  </head>
+  <body>
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div id="hud" hidden></div>
+    <script type="module" src="/src/app/main.ts"></script>
+  </body>
+</html>

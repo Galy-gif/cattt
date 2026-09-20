@@ -1,0 +1,93 @@
+{
+  "status": "缺测",
+  "app": {
+    "source": "Instruments Activity Monitor / memory-physical-footprint",
+    "pid": 1998,
+    "samples": [
+      {
+        "seconds": 0.0,
+        "physicalFootprintBytes": 65736
+      },
+      {
+        "seconds": 0.1231065,
+        "physicalFootprintBytes": 35193608
+      },
+      {
+        "seconds": 1.154481083,
+        "physicalFootprintBytes": 49480840
+      },
+      {
+        "seconds": 2.234751708,
+        "physicalFootprintBytes": 35669128
+      },
+      {
+        "seconds": 3.285282625,
+        "physicalFootprintBytes": 29688968
+      },
+      {
+        "seconds": 4.334678125,
+        "physicalFootprintBytes": 29738120
+      },
+      {
+        "seconds": 5.40141425,
+        "physicalFootprintBytes": 29459592
+      },
+      {
+        "seconds": 6.431085166,
+        "physicalFootprintBytes": 29394056
+      },
+      {
+        "seconds": 7.481264208,
+        "physicalFootprintBytes": 29394056
+      },
+      {
+        "seconds": 8.53882025,
+        "physicalFootprintBytes": 29394056
+      },
+      {
+        "seconds": 9.601610458,
+        "physicalFootprintBytes": 29394056
+      },
+      {
+        "seconds": 10.632040666,
+        "physicalFootprintBytes": 29394056
+      },
+      {
+        "seconds": 11.6826915,
+        "physicalFootprintBytes": 29410440
+      },
+      {
+        "seconds": 12.737364791,
+        "physicalFootprintBytes": 29410440
+      },
+      {
+        "seconds": 13.802445125,
+        "physicalFootprintBytes": 29410440
+      },
+      {
+        "seconds": 14.831090958,
+        "physicalFootprintBytes": 29410440
+      }
+    ],
+    "peakBytes": 49480840,
+    "peakMB": 49.48084,
+    "peakMiB": 47.18860626220703
+  },
+  "webContent": null,
+  "combined": null,
+  "condition": "独立 USB 工具采样，×1.5 夜雨；由 Instruments 启动 App，包含启动期，工具附加和充电影响不与正式性能组混用。",
+  "reason": "此轨迹仅采集目标 App（target-pid=SINGLE），没有 WebContent 样本；不能根据 App 自身内存判定450MB合计门槛。",
+  "trace": "/tmp/maomao-memory-launch-usb.trace",
+  "installedBuild": {
+    "builtAt": "2026-09-20T04:48:08.308Z",
+    "commit": "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "7db74703b67e21436994ce100b7532610066c15438633dd17ec1376da7d92588"
+  },
+  "buildAssociation": "USB采样沿用该已安装版本；期间未执行安装更新。"
+}

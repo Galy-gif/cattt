@@ -1,0 +1,218 @@
+{
+  "appFootprintMB": [
+    {
+      "active": true,
+      "at": 0.01411920833925251,
+      "mb": 36.720970153808594
+    },
+    {
+      "active": true,
+      "at": 1.0152914999998757,
+      "mb": 38.29914093017578
+    },
+    {
+      "active": true,
+      "at": 2.0149457500010612,
+      "mb": 38.26793670654297
+    },
+    {
+      "active": true,
+      "at": 3.0149689166719327,
+      "mb": 40.65867614746094
+    },
+    {
+      "active": true,
+      "at": 4.014978500003053,
+      "mb": 40.54930114746094
+    },
+    {
+      "active": true,
+      "at": 5.014945000002626,
+      "mb": 41.89305114746094
+    },
+    {
+      "active": true,
+      "at": 6.014949250005884,
+      "mb": 41.78367614746094
+    },
+    {
+      "active": true,
+      "at": 7.014961333334213,
+      "mb": 45.37742614746094
+    },
+    {
+      "active": true,
+      "at": 8.014952416669985,
+      "mb": 45.43992614746094
+    },
+    {
+      "active": true,
+      "at": 9.014830708336376,
+      "mb": 45.29930114746094
+    },
+    {
+      "active": true,
+      "at": 10.014977458333306,
+      "mb": 45.15867614746094
+    }
+  ],
+  "build": {
+    "builtAt": "2026-09-20T03:46:25.510Z",
+    "commit": "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "dfd1340556c5fd279d63a546357f72aa23bacb0869cff9b73134fccffaea23e6"
+  },
+  "closedEarly": false,
+  "device": "simulator(iPhone18,1)",
+  "events": [
+    {
+      "at": 0.38531866666744463,
+      "type": "nativeActive"
+    },
+    {
+      "at": 2.1957155833370052,
+      "loadMs": 366,
+      "pageId": "3F0CF01F-48E1-4FD3-868D-33C48ACBD304",
+      "runId": "CAB20F95-22D5-4596-B16E-C7307A9D3B1C",
+      "triangles": 45060,
+      "type": "ready"
+    },
+    {
+      "at": 2.2076454583366285,
+      "pageId": "3F0CF01F-48E1-4FD3-868D-33C48ACBD304",
+      "reason": "initialize",
+      "runId": "CAB20F95-22D5-4596-B16E-C7307A9D3B1C",
+      "snapshot": {
+        "arrived": true,
+        "camera": {
+          "focus": [
+            0,
+            0,
+            0
+          ],
+          "offset": 0,
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing": 0,
+        "goal": "house",
+        "next": 1,
+        "position": {
+          "x": -2.388,
+          "y": 0,
+          "z": -0.624
+        },
+        "restSeconds": 0,
+        "shownSlot": "day",
+        "slot": "day",
+        "walking": true,
+        "weather": "clear"
+      },
+      "type": "resumed"
+    }
+  ],
+  "failures": [
+    "回到前台后 10 秒没有渲染心跳",
+    "没有首帧"
+  ],
+  "firstFrameDefinition": "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs": null,
+  "isSimulator": true,
+  "lastSnapshot": {
+    "arrived": true,
+    "camera": {
+      "focus": [
+        0,
+        0,
+        0
+      ],
+      "offset": 0,
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    "facing": 0,
+    "goal": "house",
+    "next": 1,
+    "position": {
+      "x": -2.388,
+      "y": 0,
+      "z": -0.624
+    },
+    "restSeconds": 0,
+    "shownSlot": "day",
+    "slot": "day",
+    "walking": true,
+    "weather": "clear"
+  },
+  "missing": [
+    "真机五分钟白天晴/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options": {
+    "dpr": "1.25",
+    "fault": "no-first-frame",
+    "fps": "60",
+    "fuzz": "1",
+    "msaa": "0",
+    "post": "1",
+    "shadow": "2048",
+    "time": "day",
+    "walk": "1",
+    "weather": "clear"
+  },
+  "pageReports": {
+    "3F0CF01F-48E1-4FD3-868D-33C48ACBD304": {
+      "frames": 0,
+      "hitches": 0,
+      "longestFrameMs": 0,
+      "low1Fps": 0,
+      "medianFps": 0,
+      "minScale": null,
+      "pauses": [],
+      "perSecond": [],
+      "seconds": 0,
+      "segments": [],
+      "touch": {
+        "maxFrameDelay": null,
+        "maxMs": null,
+        "samples": 0
+      }
+    }
+  },
+  "resourceReadyMs": 366,
+  "runId": "CAB20F95-22D5-4596-B16E-C7307A9D3B1C",
+  "schemaVersion": 2,
+  "screen": {
+    "height": 874,
+    "scale": 3,
+    "width": 402
+  },
+  "startedAt": "2026-09-20T03:57:54Z",
+  "status": "未通过",
+  "system": "26.5",
+  "thermal": [
+    {
+      "active": true,
+      "at": 0.014097250001213979,
+      "state": "nominal"
+    }
+  ],
+  "wallSeconds": 11.009474250000494,
+  "webContentFootprintMB": null
+}

@@ -1,0 +1,259 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.00026237498968839645,
+      "mb" : 48.768165588378906
+    },
+    {
+      "active" : true,
+      "at" : 1.0020152916695224,
+      "mb" : 48.315040588378906
+    },
+    {
+      "active" : true,
+      "at" : 2.0013276249956107,
+      "mb" : 48.330665588378906
+    },
+    {
+      "active" : true,
+      "at" : 3.0029803333309246,
+      "mb" : 48.330665588378906
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T06:14:31.276Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "158a2aa4a7ffa9d6e7c4fc76335b89d26a63eceec2836376fc7917d22f63bbdc"
+  },
+  "closedEarly" : true,
+  "device" : "simulator(iPhone18,1)",
+  "environment" : [
+    {
+      "active" : true,
+      "at" : 0.00027112499810755253,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 1.0020274166599847,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 2.001344499993138,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 3.002996291659656,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false
+    }
+  ],
+  "events" : [
+    {
+      "at" : 0.48491329165699426,
+      "loadMs" : 89,
+      "pageId" : "BB90A633-F5A5-4BDD-8AF2-27FAC1E1AC43",
+      "runId" : "4EFD3261-BB86-42BB-8CA3-7F6048F216E0",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.48561941666412167,
+      "pageId" : "BB90A633-F5A5-4BDD-8AF2-27FAC1E1AC43",
+      "reason" : "initialize",
+      "runId" : "4EFD3261-BB86-42BB-8CA3-7F6048F216E0",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.84283062499889638,
+      "pageId" : "BB90A633-F5A5-4BDD-8AF2-27FAC1E1AC43",
+      "renderMs" : 447,
+      "runId" : "4EFD3261-BB86-42BB-8CA3-7F6048F216E0",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "day",
+        "slot" : "day",
+        "walking" : true,
+        "weather" : "clear"
+      },
+      "type" : "firstFrame"
+    }
+  ],
+  "failures" : [
+    "用户提前关闭"
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 842.81433332944289,
+  "isSimulator" : true,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        -2.3776030710624916,
+        0.62,
+        -0.59526300215762129
+      ],
+      "offset" : 0,
+      "position" : [
+        -2.3776030710624916,
+        1.3500000000000001,
+        2.8047369978423773
+      ]
+    },
+    "facing" : 0.62831853071795862,
+    "goal" : "bed",
+    "next" : 2,
+    "position" : {
+      "x" : -2.3600560462237947,
+      "y" : 0,
+      "z" : -0.56106995258922054
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "slot" : "day",
+    "walking" : true,
+    "weather" : "clear"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.5",
+    "fallback" : "0",
+    "fps" : "60",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "0",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "day",
+    "walk" : "1",
+    "weather" : "clear"
+  },
+  "pageReports" : {
+    "BB90A633-F5A5-4BDD-8AF2-27FAC1E1AC43" : {
+      "frames" : 165,
+      "hitches" : 6,
+      "longestFrameMs" : 166,
+      "low1Fps" : 20.800000000000001,
+      "medianFps" : 58.799999999999997,
+      "minScale" : 0.94999999999999996,
+      "pauses" : [
+
+      ],
+      "perSecond" : [
+        45.954045954045952,
+        60.098522167487687,
+        56.660039761431413
+      ],
+      "seconds" : 3.0459999999999998,
+      "segments" : [
+        {
+          "endMs" : 3533,
+          "frames" : 165,
+          "startMs" : 487
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 89,
+  "runId" : "4EFD3261-BB86-42BB-8CA3-7F6048F216E0",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 874,
+    "scale" : 3,
+    "width" : 402
+  },
+  "startedAt" : "2026-09-20T06:26:39Z",
+  "status" : "未通过",
+  "system" : "26.5",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.000259708336670883,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 3.9552022499992745,
+  "webContentFootprintMB" : null
+}

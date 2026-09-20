@@ -19,7 +19,7 @@ struct DebugChip: View {
                     .contentShape(Rectangle())
                     .onTapGesture { close() }
 
-                DebugPanel(onDismiss: close)
+                DebugPanel(onDismiss: close, onProbe: { close(); store.yardProbeVisible = true })
                     .environmentObject(store)
                     .frame(width: 272)
                     .frame(maxHeight: 520, alignment: .top)
@@ -31,6 +31,7 @@ struct DebugChip: View {
             handle
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+        .fullScreenCover(isPresented: $store.yardProbeVisible) { YardProbeView().environmentObject(store) }
     }
 
     /// 常驻的只是一枚小点：认得出、点得到、不抢画面。长按彻底收起，再点回来。
@@ -74,6 +75,7 @@ struct DebugChip: View {
 struct DebugPanel: View {
     @EnvironmentObject private var store: AppStore
     var onDismiss: () -> Void = {}
+    var onProbe: () -> Void = {}
 
     var body: some View {
         ScrollView {
@@ -111,6 +113,11 @@ struct DebugPanel: View {
                         action("重新连接、拉聊天记录") { store.connectBackend() }
                         note(store.backendStatus ?? "token 在 server/ 下跑 pnpm create-dev-user 生成。")
                     }
+                }
+
+                group("3D 院子（第 0 轮实测）") {
+                    action("打开 WKWebView 院子实测页") { onProbe() }
+                    note("量帧率、热状态、内存；结果存 Documents/yard-probe/。模拟器的数只能看功能，帧率以真机为准。")
                 }
 
                 group("世界") {

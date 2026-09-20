@@ -20,6 +20,13 @@ final class AppStore: ObservableObject {
         var stepNumber: Int { rawValue }
     }
 
+    @Published var yardProbeVisible: Bool = {
+        #if DEBUG
+        return ProcessInfo.processInfo.arguments.contains("-yardProbe")
+        #else
+        return false
+        #endif
+    }()
     @Published var screen: Screen = .home
     /// nil = 已经有猫了，走正常四屏。
     @Published var onboarding: OnboardingStep?

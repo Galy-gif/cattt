@@ -48,7 +48,7 @@ export class World {
   private leaves: Leaves;
   private time = 0;
 
-  constructor() {
+  constructor(grassRatio = 1) {
     this.scene.fog = new THREE.Fog('#cfe3ea', 16, 130);
     this.scene.add(this.fillLight);
 
@@ -71,7 +71,7 @@ export class World {
     this.scene.add(makeGround(), makePaths(), makeStones(), makeLilyPads(), makeHills());
     this.water = makeWater();
     this.scene.add(this.water);
-    this.scene.add(makeGrass(this.grassUniforms));
+    this.scene.add(makeGrass(this.grassUniforms, grassRatio));
     this.makeClouds();
     this.makeMist();
 
@@ -523,7 +523,7 @@ function makeLilyPads() {
  * 草：一片叶子是一条收尖的弯面片，实例化。随风摆在顶点着色器里算，CPU 不逐片更新。
  * 草丛那一处密、高，前后夹住团子；院子前沿一排给全景当近景；其余零星矮草。
  */
-function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number } }) {
+function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number } }, ratio = 1) {
   const blade = new THREE.PlaneGeometry(0.022, 1, 1, 4);
   blade.translate(0, 0.5, 0);
   const position = blade.attributes.position!;
@@ -597,10 +597,12 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
       // 背面不翻法线，两面受光一致
       .replace('#include <normal_fragment_begin>', '#include <normal_fragment_begin>\nnormal = normalize(vNormal);');
   };
-  const mesh = new THREE.InstancedMesh(blade, material, matrices.length);
-  matrices.forEach((m, i) => {
-    mesh.setMatrixAt(i, m);
-    mesh.setColorAt(i, tints[i]!);
+  // 取原有草叶的确定性子集，减半时不重新随机摆放，以便单变量对照。
+  const selected = matrices.map((_, index) => index).filter(index => ratio >= 1 || index % 2 === 0);
+  const mesh = new THREE.InstancedMesh(blade, material, selected.length);
+  selected.forEach((source, index) => {
+    mesh.setMatrixAt(index, matrices[source]!);
+    mesh.setColorAt(index, tints[source]!);
   });
   mesh.receiveShadow = true;
   mesh.frustumCulled = false;

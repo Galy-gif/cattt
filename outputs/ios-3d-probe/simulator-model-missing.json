@@ -1,0 +1,96 @@
+{
+  "appFootprintMB": [
+    {
+      "active": true,
+      "at": 0.014671208336949348,
+      "mb": 37.08036804199219
+    },
+    {
+      "active": true,
+      "at": 1.0154814999987138,
+      "mb": 38.017913818359375
+    },
+    {
+      "active": true,
+      "at": 2.0148424166691257,
+      "mb": 34.721038818359375
+    }
+  ],
+  "build": {
+    "builtAt": "2026-09-20T03:46:25.510Z",
+    "commit": "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "dfd1340556c5fd279d63a546357f72aa23bacb0869cff9b73134fccffaea23e6"
+  },
+  "closedEarly": false,
+  "device": "simulator(iPhone18,1)",
+  "events": [
+    {
+      "at": 0.44670083333039656,
+      "type": "nativeActive"
+    },
+    {
+      "at": 2.7621778750035446,
+      "message": "Error: 团子模型加载失败，本轮无效",
+      "pageId": "15B2D727-9C53-4EF1-9C3F-6EED6848A109",
+      "runId": "26E49A15-B8AF-4C34-BBB9-70703DFF264F",
+      "type": "error"
+    }
+  ],
+  "failures": [
+    "Error: 团子模型加载失败，本轮无效",
+    "报告获取失败：invalidResponse",
+    "没有首帧"
+  ],
+  "firstFrameDefinition": "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs": null,
+  "isSimulator": true,
+  "lastSnapshot": null,
+  "missing": [
+    "真机五分钟白天晴/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options": {
+    "dpr": "1.25",
+    "fault": "model-missing",
+    "fps": "60",
+    "fuzz": "1",
+    "msaa": "0",
+    "post": "1",
+    "shadow": "2048",
+    "time": "day",
+    "walk": "1",
+    "weather": "clear"
+  },
+  "pageReports": {},
+  "resourceReadyMs": null,
+  "runId": "26E49A15-B8AF-4C34-BBB9-70703DFF264F",
+  "schemaVersion": 2,
+  "screen": {
+    "height": 874,
+    "scale": 3,
+    "width": 402
+  },
+  "startedAt": "2026-09-20T03:57:43Z",
+  "status": "未通过",
+  "system": "26.5",
+  "thermal": [
+    {
+      "active": true,
+      "at": 0.014647374999185558,
+      "state": "nominal"
+    }
+  ],
+  "wallSeconds": 2.900030708333361,
+  "webContentFootprintMB": null
+}

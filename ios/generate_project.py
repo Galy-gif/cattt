@@ -45,10 +45,12 @@ def collect():
         rel_dir = "" if rel_dir == "." else rel_dir
 
         # Asset catalogs are a single opaque resource, don't descend into them.
+        # Resources/YardWeb (the web yard built by `pnpm --dir web build:ios`) goes in as one folder
+        # reference so the bundle keeps its directory layout for the maomao:// scheme handler.
         for name in sorted(dirnames):
-            if name.endswith(".xcassets"):
+            if name.endswith(".xcassets") or (rel_dir == "Resources" and name == "YardWeb"):
                 resources.append(os.path.join(rel_dir, name) if rel_dir else name)
-        dirnames[:] = [d for d in dirnames if not d.endswith(".xcassets")]
+        dirnames[:] = [d for d in dirnames if not d.endswith(".xcassets") and not (rel_dir == "Resources" and d == "YardWeb")]
 
         for name in sorted(filenames):
             if name.endswith(".png") and rel_dir.startswith("Resources/WorldTextures"):
@@ -123,7 +125,7 @@ def main():
     for path in resource_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "audio.m4a" if path.endswith(".m4a") else "image.png", pbx_str(name)))
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "folder" if name == "YardWeb" else "audio.m4a" if path.endswith(".m4a") else "image.png", pbx_str(name)))
     out("/* End PBXFileReference section */")
 
     # ---- PBXFrameworksBuildPhase

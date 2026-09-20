@@ -1,0 +1,38 @@
+{
+  "device": "iPhone 16 Pro Max",
+  "configuration": {
+    "bloom": "1",
+    "dpr": "1.5",
+    "fallback": "0",
+    "fps": "60",
+    "fuzz": "1",
+    "grass": "1",
+    "msaa": "0",
+    "post": "1",
+    "shadow": "2048",
+    "shells": "4",
+    "time": "night",
+    "walk": "1",
+    "weather": "rain"
+  },
+  "automaticBackgroundAndTenCycles": {
+    "status": "通过",
+    "foregroundSeconds": 180.53400000000002,
+    "segments": 12,
+    "pauseCount": 11,
+    "snapshotPairsEqual": 11,
+    "processTerminations": 0
+  },
+  "manualLockAndTouch": {
+    "status": "通过",
+    "report": "iphone16promax-lock-touch.json",
+    "snapshotPairsEqual": 2,
+    "touch": {
+      "maxFrameDelay": 1,
+      "maxMs": 12,
+      "samples": 219
+    },
+    "userVisualConfirmation": "用户确认在夜雨 3D 实测页锁屏/解锁并拖动后，没有白屏或镜头跳动，均正常。",
+    "methodBoundary": "触摸记录为网页收到 pointermove 到镜头更新的帧差，不是触屏硬件到光子的端到端延迟。"
+  }
+}

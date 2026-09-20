@@ -1,0 +1,4992 @@
+{
+  "appFootprintMB" : [
+    {
+      "active" : true,
+      "at" : 0.0027829583332277252,
+      "mb" : 52.063560485839844
+    },
+    {
+      "active" : true,
+      "at" : 1.0030463333332591,
+      "mb" : 52.719810485839844
+    },
+    {
+      "active" : true,
+      "at" : 2.0031089583335415,
+      "mb" : 36.594810485839844
+    },
+    {
+      "active" : true,
+      "at" : 3.0032261666665363,
+      "mb" : 28.219810485839844
+    },
+    {
+      "active" : true,
+      "at" : 4.0032764166662673,
+      "mb" : 27.563560485839844
+    },
+    {
+      "active" : true,
+      "at" : 5.0033610833334023,
+      "mb" : 27.469810485839844
+    },
+    {
+      "active" : true,
+      "at" : 6.0034773333336489,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 7.0035696249997272,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 8.0036610416664189,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 9.0037505416667045,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 10.00363170833316,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : false,
+      "at" : 11.003827249999631,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : false,
+      "at" : 12.070783333333566,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : false,
+      "at" : 42.160943791666796,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 43.00379837499986,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 44.003790833333369,
+      "mb" : 27.391685485839844
+    },
+    {
+      "active" : true,
+      "at" : 45.002887791666581,
+      "mb" : 27.391685485839844
+    },
+    {
+      "active" : false,
+      "at" : 46.003492583333355,
+      "mb" : 27.391685485839844
+    },
+    {
+      "active" : false,
+      "at" : 47.007810041666744,
+      "mb" : 27.282310485839844
+    },
+    {
+      "active" : true,
+      "at" : 48.003822541666523,
+      "mb" : 27.407310485839844
+    },
+    {
+      "active" : true,
+      "at" : 49.003471208333394,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : false,
+      "at" : 50.12225324999963,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : false,
+      "at" : 51.099809541666218,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 52.003880000000208,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : false,
+      "at" : 53.003853000000163,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : false,
+      "at" : 54.095415958333433,
+      "mb" : 27.266685485839844
+    },
+    {
+      "active" : true,
+      "at" : 55.0038101250002,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 56.003893625000273,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 57.007145499999751,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 58.003136583332889,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 59.003865291666443,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 60.007883333333666,
+      "mb" : 27.407310485839844
+    },
+    {
+      "active" : true,
+      "at" : 61.003810416666965,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 62.003755249999813,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 63.028882708333185,
+      "mb" : 27.407310485839844
+    },
+    {
+      "active" : false,
+      "at" : 64.089591625000139,
+      "mb" : 27.297935485839844
+    },
+    {
+      "active" : true,
+      "at" : 65.003886041666192,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 66.003872000000229,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 67.005776625000181,
+      "mb" : 27.407310485839844
+    },
+    {
+      "active" : true,
+      "at" : 68.003830249999737,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 69.003679541666315,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : false,
+      "at" : 70.192479166666999,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : false,
+      "at" : 71.097497833333364,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 72.00382666666701,
+      "mb" : 27.391685485839844
+    },
+    {
+      "active" : false,
+      "at" : 73.003120708332972,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : false,
+      "at" : 74.101912041666765,
+      "mb" : 27.407310485839844
+    },
+    {
+      "active" : true,
+      "at" : 75.003381874999832,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : false,
+      "at" : 76.002821625000252,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : false,
+      "at" : 77.050203249999868,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 78.003798291666499,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 79.003772125000069,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 80.003562208333278,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 81.003775500000302,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 82.003775791667067,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 83.003777625000112,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 84.003785833333495,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 85.003126583333142,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 86.003372541666977,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 87.00379466666709,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 88.003807291666817,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 89.003800916666478,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 90.00378716666637,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 91.003918083333701,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 92.003886958333169,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 93.003899708332938,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 94.003000708333275,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 95.003791083333454,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 96.003782291666539,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 97.003535166666552,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 98.0038234583335,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 99.003928875000383,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 100.00388008333357,
+      "mb" : 27.313560485839844
+    },
+    {
+      "active" : true,
+      "at" : 101.00383104166667,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 102.00322941666673,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 103.00381320833367,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 104.00392412499968,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 105.00394074999986,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 106.00382958333375,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 107.00382254166652,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 108.00306412499958,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 109.00381508333339,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 110.00367800000004,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 111.00383404166678,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 112.00383191666697,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 113.00382429166621,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 114.00391354166641,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 115.00431649999973,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 116.00380358333314,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 117.00400008333327,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 118.00399608333373,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 119.00383524999961,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 120.00288399999954,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 121.00380537500041,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 122.00379283333314,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 123.0038384999998,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 124.00384779166689,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 125.00379408333356,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 126.0037959166666,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 127.00381899999957,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 128.00377912499971,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 129.00378916666705,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 130.00400466666633,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 131.00412004166628,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 132.00406695833317,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 133.00419279166636,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 134.00400100000024,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 135.00380899999982,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 136.00288462499975,
+      "mb" : 27.329185485839844
+    },
+    {
+      "active" : true,
+      "at" : 137.0029731249997,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 138.00310133333369,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 139.00318470833372,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 140.00327191666656,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 141.00336404166683,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 142.00346337500014,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 143.00365950000014,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 144.00367650000044,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 145.00390241666628,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 146.00341866666622,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 147.00371612500021,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 148.00418187499963,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 149.00416770833363,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 150.00395149999986,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 151.00449404166648,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 152.00392137499966,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 153.0038546249998,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 154.00381366666625,
+      "mb" : 27.344810485839844
+    },
+    {
+      "active" : true,
+      "at" : 155.00382783333316,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 156.00333670833334,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 157.00380041666631,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 158.00382233333312,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 159.00380862499969,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 160.00381633333291,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 161.00386633333346,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 162.00380520833369,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 163.00381733333325,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 164.00309825000022,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 165.00384779166689,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 166.00381104166627,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 167.00379362500007,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 168.00382695833287,
+      "mb" : 27.360435485839844
+    },
+    {
+      "active" : true,
+      "at" : 169.00388220833338,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 170.00380995833348,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 171.00382733333299,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 172.00384141666655,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 173.0038129166669,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 174.00379745833288,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 175.00382933333367,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 176.00382925000031,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 177.0038251666665,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 178.00379962500028,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 179.00381954166642,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 180.00382999999965,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 181.00382433333289,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 182.00345566666692,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 183.00382474999969,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 184.00380604166639,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 185.00383545833301,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 186.00382304166669,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 187.00383095833331,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 188.0038275416664,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 189.00382254166652,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 190.00382308333337,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 191.00382491666642,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 192.00337145833328,
+      "mb" : 27.376060485839844
+    },
+    {
+      "active" : true,
+      "at" : 193.00382841666669,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 194.00289179166703,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 195.00382870833346,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 196.0033299166671,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 197.00382529166654,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 198.00377920833307,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 199.00381591666701,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 200.00381812500018,
+      "mb" : 27.422935485839844
+    },
+    {
+      "active" : true,
+      "at" : 201.00359079166628,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 202.00384099999974,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 203.00381091666623,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 204.00287191666666,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 205.00298262500019,
+      "mb" : 27.438560485839844
+    },
+    {
+      "active" : true,
+      "at" : 206.00300820833309,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 207.00314249999974,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 208.00380899999982,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 209.00339554166658,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 210.00341145833318,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 211.00363279166686,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 212.00361604166665,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 213.00366124999982,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 214.00402504166686,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 215.00325362500007,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 216.00382820833329,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 217.00383112500003,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 218.00382033333335,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 219.00382920833363,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 220.00380200000018,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 221.00384383333312,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 222.00380716666677,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 223.00383379166669,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 224.00381337500039,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 225.00382833333333,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 226.00382520833318,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 227.00384458333338,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 228.00342633333366,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 229.00377391666643,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 230.00383116666671,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 231.00381854166699,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 232.00382233333312,
+      "mb" : 27.454185485839844
+    },
+    {
+      "active" : true,
+      "at" : 233.00383262499963,
+      "mb" : 27.469810485839844
+    },
+    {
+      "active" : true,
+      "at" : 234.00309562500024,
+      "mb" : 27.469810485839844
+    }
+  ],
+  "build" : {
+    "builtAt" : "2026-09-20T04:48:08.308Z",
+    "commit" : "7735a54cdbf8064b191b5a821d4850db82abada7",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "7db74703b67e21436994ce100b7532610066c15438633dd17ec1376da7d92588"
+  },
+  "closedEarly" : false,
+  "device" : "iPhone17,2",
+  "environment" : [
+    {
+      "active" : true,
+      "at" : 0.0027917500001422013,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 1.0030850416669637,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 2.0031563749998895,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 3.0032664999998815,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 4.0033170416663779,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 5.0033951666664507,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 6.0035166666666555,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 7.0036059583335373,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 8.0037047499999971,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 9.0037890416670052,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 10.00366858333291,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 11.003860374999931,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 12.070832374999554,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 42.160994041666527,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 43.003831875000287,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 44.003817124999841,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 45.002929125000264,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 46.003528916666255,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 47.007847958333514,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 48.003842916667054,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 49.003498125000078,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 50.122266499999569,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 51.099861333333138,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 52.003935416666536,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 53.003900958333361,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 54.095458624999992,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 55.003850208333461,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 56.003970458333242,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 57.007180041666288,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 58.003211125000234,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 59.003908458333171,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 60.007915958332887,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 61.003825708333352,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 62.003765624999687,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 63.028897874999529,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 64.089637833333654,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 65.003935333333175,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 66.003944291666812,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 67.0058140000001,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 68.003858625000248,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 69.003720208333107,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 70.192492666667022,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 71.097546583333497,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 72.003869291666888,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 73.003167500000018,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 74.101933500000086,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 75.003409875000216,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 76.002864166666768,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : false,
+      "at" : 77.050248333333002,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 78.003816833333076,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 79.003794166666921,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 80.003588499999751,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 81.003799250000156,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 82.003801291666605,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 83.003799791667007,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 84.003807208333455,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 85.00315587499972,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 86.003404333333492,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 87.003818041666818,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 88.003836124999907,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 89.003828041666566,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 90.003810708333731,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 91.003982750000432,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 92.003919916666746,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 93.003966375000346,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 94.00302929166628,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 95.003814624999904,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 96.003805375000411,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 97.003576833333682,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 98.003862416666379,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 99.004005333333225,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 100.00392787500004,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 101.00386783333306,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 102.00327537500016,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 103.00384587499957,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 104.00396795833331,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 105.00402412499989,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 106.00386679166695,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 107.00386412500029,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 108.00310079166684,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 109.00385870833361,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 110.00374775,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 111.00387487500029,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 112.00387220833363,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 113.00386641666682,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 114.00403758333323,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 115.00435579166697,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 116.00384608333297,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 117.00404724999953,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 118.0040238749998,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 119.00388995833327,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 120.00291145833307,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 121.00384458333338,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 122.00382162499955,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 123.00388724999993,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 124.00389095833361,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 125.0038314166668,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 126.00382174999959,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 127.00392974999977,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 128.00380412499999,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 129.00382387500031,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 130.00403562500014,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 131.00416129166661,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 132.00411174999954,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 133.00423737500023,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 134.00404141666695,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 135.00386054166665,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 136.00292487499974,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 137.00300695833357,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 138.00313991666644,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 139.00322125000002,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 140.00331120833289,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 141.00339895833349,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 142.00350279166651,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 143.00368337500004,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 144.00370370833298,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 145.0039290416662,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 146.0034419583335,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 147.00375133333364,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 148.0042197916664,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 149.00421179166642,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 150.0039731249999,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 151.00453258333346,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 152.00399141666639,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 153.00390233333292,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 154.00384204166676,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 155.00387329166642,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 156.00337437500002,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 157.00383733333365,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 158.00386079166674,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 159.00384291666705,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 160.00385208333319,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 161.00393333333341,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 162.00384833333374,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 163.00385262500004,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 164.00313154166633,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 165.00388608333287,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 166.0038475416668,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 167.00381845833363,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 168.0038660416667,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 169.00394775000041,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 170.00383637499999,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 171.00387004166623,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 172.00388320833372,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 173.003854208333,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 174.00382508333314,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 175.0038699166671,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 176.00386845833327,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 177.00386312499995,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 178.00383445833359,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 179.00385491666657,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 180.0038606666667,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 181.00385987499976,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 182.00350358333344,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 183.0038599999998,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 184.00383175000024,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 185.00388008333357,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 186.0038572083331,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 187.00387304166634,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 188.00386704166704,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 189.00385833333348,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 190.00385791666668,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 191.00386199999957,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 192.00341025000034,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 193.00387024999964,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 194.0029303333331,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 195.00386579166661,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 196.00337404166658,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 197.00386437500038,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 198.00380462500016,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 199.0038492499998,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 200.00385424999968,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 201.00361566666652,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 202.00388204166666,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 203.00384891666636,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 204.00291329166703,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 205.0030234583337,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 206.00304383333332,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 207.00319024999953,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 208.00384949999989,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 209.00365558333306,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 210.00345470833327,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 211.00366829166705,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 212.00365895833329,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 213.00369574999968,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 214.00407737499972,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 215.00329566666642,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 216.00387362499987,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 217.00387374999991,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 218.00385862500025,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 219.00386558333321,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 220.00384291666705,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 221.00388187499993,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 222.00384379166644,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 223.00387349999983,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 224.00385437499972,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 225.00387029166632,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 226.00386187500044,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 227.00388600000042,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 228.00347799999963,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 229.00380537500041,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 230.00386787499974,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 231.00386304166659,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 232.00385970833304,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 233.00387129166666,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    },
+    {
+      "active" : true,
+      "at" : 234.00314212499961,
+      "batteryState" : "unplugged",
+      "brightness" : 0.44999998807907104,
+      "lowPowerMode" : false
+    }
+  ],
+  "events" : [
+    {
+      "at" : 0.011354416667018086,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 0.15702912500000821,
+      "loadMs" : 73,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "triangles" : 45060,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.15776254166667059,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "initialize",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            0,
+            0,
+            0
+          ],
+          "offset" : 0,
+          "position" : [
+            0,
+            0,
+            0
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.36843479166691395,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "renderMs" : 284,
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -2.3879999999999999,
+            0.62,
+            -0.624
+          ],
+          "offset" : 0,
+          "position" : [
+            -2.3879999999999999,
+            1.3500000000000001,
+            2.7759999999999998
+          ]
+        },
+        "facing" : 0,
+        "goal" : "house",
+        "next" : 1,
+        "position" : {
+          "x" : -2.3879999999999999,
+          "y" : 0,
+          "z" : -0.624
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 10.376577791666932,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 10.378751458333682,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 600,
+        "hitches" : 0,
+        "longestFrameMs" : 26,
+        "low1Fps" : 47.600000000000001,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 10319
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60
+        ],
+        "seconds" : 10.007,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -1.8179148501164204,
+            0.62,
+            0.92216907498592404
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179148501164204,
+            1.3500000000000001,
+            4.322169074985923
+          ]
+        },
+        "facing" : -0.0006479471417755178,
+        "goal" : "bed",
+        "next" : 2,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0.71600000000000052,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 11.164058375000423,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 42.177898750000168,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 42.610494624999774,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 42.613944749999973,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : true,
+        "camera" : {
+          "focus" : [
+            -1.8179148501164204,
+            0.62,
+            0.92216907498592404
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179148501164204,
+            1.3500000000000001,
+            4.322169074985923
+          ]
+        },
+        "facing" : -0.0006479471417755178,
+        "goal" : "bed",
+        "next" : 2,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0.71600000000000052,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 45.706898374999582,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 45.709011791666853,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 782,
+        "hitches" : 1,
+        "longestFrameMs" : 39,
+        "low1Fps" : 45.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 45649
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234
+        ],
+        "seconds" : 13.071,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8179999996246248,
+            0.62,
+            0.92399999192856042
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179999996246248,
+            1.3500000000000001,
+            4.3239999919285594
+          ]
+        },
+        "facing" : 1.1523165567256779,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 46.525296583333329,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 47.503510833333166,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 47.945989458333315,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 47.950639499999852,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8179999996246248,
+            0.62,
+            0.92399999192856042
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179999996246248,
+            1.3500000000000001,
+            4.3239999919285594
+          ]
+        },
+        "facing" : 1.1523165567256779,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 49.102772375000313,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 49.106868208333253,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 848,
+        "hitches" : 1,
+        "longestFrameMs" : 39,
+        "low1Fps" : 45.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 49046
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59
+        ],
+        "seconds" : 14.193,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8179999999961345,
+            0.62,
+            0.92399999991689685
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179999999961345,
+            1.3500000000000001,
+            4.3239999999168957
+          ]
+        },
+        "facing" : 2.9493075545790415,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 49.917643541666621,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 50.74931583333364,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 51.183307166666964,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 51.187275541667077,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8179999999961345,
+            0.62,
+            0.92399999991689685
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8179999999961345,
+            1.3500000000000001,
+            4.3239999999168957
+          ]
+        },
+        "facing" : 2.9493075545790415,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.8180000000000001,
+          "y" : 0,
+          "z" : 0.92400000000000004
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 52.433724166666252,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 52.437798375000057,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 918,
+        "hitches" : 2,
+        "longestFrameMs" : 41,
+        "low1Fps" : 45.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 52377
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144
+        ],
+        "seconds" : 15.400000000000007,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8064343192861174,
+            0.62,
+            0.73320986102673436
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8064343192861174,
+            1.3500000000000001,
+            4.1332098610267343
+          ]
+        },
+        "facing" : 3.0810703871945986,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.802853653788979,
+          "y" : 0,
+          "z" : 0.67411680723445033
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 53.233026791666816,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 54.152654124999572,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 54.566611708332857,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 54.570811374999721,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.8064343192861174,
+            0.62,
+            0.73320986102673436
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.8064343192861174,
+            1.3500000000000001,
+            4.1332098610267343
+          ]
+        },
+        "facing" : 3.0810703871945986,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.802853653788979,
+          "y" : 0,
+          "z" : 0.67411680723445033
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 55.715911708332897,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 55.719298708333554,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 984,
+        "hitches" : 2,
+        "longestFrameMs" : 41,
+        "low1Fps" : 43.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 55659
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796
+        ],
+        "seconds" : 16.515000000000008,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.7893583743748107,
+            0.62,
+            0.45142414385306723
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.7893583743748107,
+            1.3500000000000001,
+            3.8514241438530661
+          ]
+        },
+        "facing" : 3.0810624811722835,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.785704728741627,
+          "y" : 0,
+          "z" : 0.39113595210583496
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 56.526033500000267,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 57.334491458333105,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 57.775837250000222,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 57.779451374999553,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.7893583743748107,
+            0.62,
+            0.45142414385306723
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.7893583743748107,
+            1.3500000000000001,
+            3.8514241438530661
+          ]
+        },
+        "facing" : 3.0810624811722835,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.785704728741627,
+          "y" : 0,
+          "z" : 0.39113595210583496
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 58.824345500000163,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 58.82781841666656,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1043,
+        "hitches" : 4,
+        "longestFrameMs" : 41,
+        "low1Fps" : 43.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 58767
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751
+        ],
+        "seconds" : 17.532000000000007,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.7738014751057272,
+            0.62,
+            0.1947262773532957
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.7738014751057272,
+            1.3500000000000001,
+            3.5947262773532951
+          ]
+        },
+        "facing" : 3.0810624811722764,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.7704845803620151,
+          "y" : 0,
+          "z" : 0.13999582059317436
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 59.640187208333373,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 60.366926499999863,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 60.809002416666772,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 60.813651666666374,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.7738014751057272,
+            0.62,
+            0.1947262773532957
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.7738014751057272,
+            1.3500000000000001,
+            3.5947262773532951
+          ]
+        },
+        "facing" : 3.0810624811722764,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.7704845803620151,
+          "y" : 0,
+          "z" : 0.13999582059317436
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 62.000798875000328,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 62.00460270833355,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1112,
+        "hitches" : 4,
+        "longestFrameMs" : 41,
+        "low1Fps" : 43.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : 60780,
+            "reason" : "native",
+            "startMs" : 58767
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 61944
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751,
+          59.820538384845463
+        ],
+        "seconds" : 18.692000000000014,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          },
+          {
+            "endMs" : 61940.000000000007,
+            "frames" : 69,
+            "startMs" : 60780
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.767718960328736,
+            0.62,
+            0.12548534167557476
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.767718960328736,
+            1.3500000000000001,
+            3.5254853416755734
+          ]
+        },
+        "facing" : 1.2687125859013619,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.7666898251666407,
+          "y" : 0,
+          "z" : 0.12510825132073167
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 62.812602208333374,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 64.125050124999689,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 64.560622583333497,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 64.564069583333549,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.767718960328736,
+            0.62,
+            0.12548534167557476
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.767718960328736,
+            1.3500000000000001,
+            3.5254853416755734
+          ]
+        },
+        "facing" : 1.2687125859013619,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.7666898251666407,
+          "y" : 0,
+          "z" : 0.12510825132073167
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 65.890907208333374,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 65.893379125000138,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1188,
+        "hitches" : 6,
+        "longestFrameMs" : 41,
+        "low1Fps" : 38.5,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : 60780,
+            "reason" : "native",
+            "startMs" : 58767
+          },
+          {
+            "endMs" : 64530,
+            "reason" : "native",
+            "startMs" : 61944
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 65833
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751,
+          59.820538384845463,
+          58.013765978367751
+        ],
+        "seconds" : 19.992000000000015,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          },
+          {
+            "endMs" : 61940.000000000007,
+            "frames" : 69,
+            "startMs" : 60780
+          },
+          {
+            "endMs" : 65830,
+            "frames" : 76,
+            "startMs" : 64530
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.5386928351223754,
+            0.62,
+            0.19526942616962834
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.5386928351223754,
+            1.3500000000000001,
+            3.5952694261696285
+          ]
+        },
+        "facing" : 1.3827500469521681,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.4805034153508405,
+          "y" : 0,
+          "z" : 0.20918786101164483
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 66.705890666667074,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 67.541681583333229,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 67.973005583333361,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 67.976946458333259,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.5386928351223754,
+            0.62,
+            0.19526942616962834
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.5386928351223754,
+            1.3500000000000001,
+            3.5952694261696285
+          ]
+        },
+        "facing" : 1.3827500469521681,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.4805034153508405,
+          "y" : 0,
+          "z" : 0.20918786101164483
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 69.174228041666538,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 69.178510124999775,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1255,
+        "hitches" : 6,
+        "longestFrameMs" : 41,
+        "low1Fps" : 35.700000000000003,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : 60780,
+            "reason" : "native",
+            "startMs" : 58767
+          },
+          {
+            "endMs" : 64530,
+            "reason" : "native",
+            "startMs" : 61944
+          },
+          {
+            "endMs" : 67947,
+            "reason" : "native",
+            "startMs" : 65833
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 69118
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751,
+          59.820538384845463,
+          58.013765978367751,
+          58.185404339250496
+        ],
+        "seconds" : 21.144000000000016,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          },
+          {
+            "endMs" : 61940.000000000007,
+            "frames" : 69,
+            "startMs" : 60780
+          },
+          {
+            "endMs" : 65830,
+            "frames" : 76,
+            "startMs" : 64530
+          },
+          {
+            "endMs" : 69099,
+            "frames" : 67,
+            "startMs" : 67947
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.2500710815422333,
+            0.62,
+            0.22908083133694571
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.2500710815422333,
+            1.3500000000000001,
+            3.6290808313369451
+          ]
+        },
+        "facing" : 1.7049138581633905,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.189983729193713,
+          "y" : 0,
+          "z" : 0.22602828984069601
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 69.993971458333363,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 70.74204541666677,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 71.176102666666338,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 71.180217083333446,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -1.2500710815422333,
+            0.62,
+            0.22908083133694571
+          ],
+          "offset" : 0,
+          "position" : [
+            -1.2500710815422333,
+            1.3500000000000001,
+            3.6290808313369451
+          ]
+        },
+        "facing" : 1.7049138581633905,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -1.189983729193713,
+          "y" : 0,
+          "z" : 0.22602828984069601
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 72.328519291666453,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 72.336641333333318,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1321,
+        "hitches" : 7,
+        "longestFrameMs" : 41,
+        "low1Fps" : 35.700000000000003,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : 60780,
+            "reason" : "native",
+            "startMs" : 58767
+          },
+          {
+            "endMs" : 64530,
+            "reason" : "native",
+            "startMs" : 61944
+          },
+          {
+            "endMs" : 67947,
+            "reason" : "native",
+            "startMs" : 65833
+          },
+          {
+            "endMs" : 71150,
+            "reason" : "native",
+            "startMs" : 69118
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 72275
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751,
+          59.820538384845463,
+          58.013765978367751,
+          58.185404339250496,
+          58.939096267190571
+        ],
+        "seconds" : 22.262000000000015,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          },
+          {
+            "endMs" : 61940.000000000007,
+            "frames" : 69,
+            "startMs" : 60780
+          },
+          {
+            "endMs" : 65830,
+            "frames" : 76,
+            "startMs" : 64530
+          },
+          {
+            "endMs" : 69099,
+            "frames" : 67,
+            "startMs" : 67947
+          },
+          {
+            "endMs" : 72268,
+            "frames" : 66,
+            "startMs" : 71150
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -0.97635680924695867,
+            0.62,
+            0.16666725441857436
+          ],
+          "offset" : 0,
+          "position" : [
+            -0.97635680924695867,
+            1.3500000000000001,
+            3.566667254418574
+          ]
+        },
+        "facing" : 2.2359938077221209,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -0.92331527461140528,
+          "y" : 0,
+          "z" : 0.13927170034531247
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 73.122861416666638,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 74.014853166666398,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 74.441068750000341,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 74.444917750000059,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -0.97635680924695867,
+            0.62,
+            0.16666725441857436
+          ],
+          "offset" : 0,
+          "position" : [
+            -0.97635680924695867,
+            1.3500000000000001,
+            3.566667254418574
+          ]
+        },
+        "facing" : 2.2359938077221209,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -0.92331527461140528,
+          "y" : 0,
+          "z" : 0.13927170034531247
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    },
+    {
+      "at" : 75.607617833333279,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 75.611429916666566,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "report" : {
+        "frames" : 1388,
+        "hitches" : 8,
+        "longestFrameMs" : 41,
+        "low1Fps" : 35.700000000000003,
+        "medianFps" : 58.799999999999997,
+        "minScale" : 0.94999999999999996,
+        "pauses" : [
+          {
+            "endMs" : 42580,
+            "reason" : "native",
+            "startMs" : 10319
+          },
+          {
+            "endMs" : 47920,
+            "reason" : "native",
+            "startMs" : 45649
+          },
+          {
+            "endMs" : 51154,
+            "reason" : "native",
+            "startMs" : 49046
+          },
+          {
+            "endMs" : 54540,
+            "reason" : "native",
+            "startMs" : 52377
+          },
+          {
+            "endMs" : 57746,
+            "reason" : "native",
+            "startMs" : 55659
+          },
+          {
+            "endMs" : 60780,
+            "reason" : "native",
+            "startMs" : 58767
+          },
+          {
+            "endMs" : 64530,
+            "reason" : "native",
+            "startMs" : 61944
+          },
+          {
+            "endMs" : 67947,
+            "reason" : "native",
+            "startMs" : 65833
+          },
+          {
+            "endMs" : 71150,
+            "reason" : "native",
+            "startMs" : 69118
+          },
+          {
+            "endMs" : 74411,
+            "reason" : "native",
+            "startMs" : 72275
+          },
+          {
+            "endMs" : null,
+            "reason" : "native",
+            "startMs" : 75550
+          }
+        ],
+        "perSecond" : [
+          59.760956175298801,
+          59.642147117296226,
+          60.276679841897234,
+          60.098522167487687,
+          59.760956175298801,
+          59.582919563058589,
+          60.515873015873019,
+          60,
+          60,
+          57.768924302788847,
+          60.157790927021694,
+          60.276679841897234,
+          59,
+          57.884231536926144,
+          59.055118110235796,
+          58.013765978367751,
+          59.820538384845463,
+          58.013765978367751,
+          58.185404339250496,
+          58.939096267190571,
+          58.823529411764703
+        ],
+        "seconds" : 23.395000000000014,
+        "segments" : [
+          {
+            "endMs" : 10315,
+            "frames" : 600,
+            "startMs" : 308
+          },
+          {
+            "endMs" : 45644,
+            "frames" : 182,
+            "startMs" : 42580
+          },
+          {
+            "endMs" : 49042,
+            "frames" : 66,
+            "startMs" : 47920
+          },
+          {
+            "endMs" : 52361.000000000007,
+            "frames" : 70,
+            "startMs" : 51154
+          },
+          {
+            "endMs" : 55655,
+            "frames" : 66,
+            "startMs" : 54540
+          },
+          {
+            "endMs" : 58763,
+            "frames" : 59,
+            "startMs" : 57746
+          },
+          {
+            "endMs" : 61940.000000000007,
+            "frames" : 69,
+            "startMs" : 60780
+          },
+          {
+            "endMs" : 65830,
+            "frames" : 76,
+            "startMs" : 64530
+          },
+          {
+            "endMs" : 69099,
+            "frames" : 67,
+            "startMs" : 67947
+          },
+          {
+            "endMs" : 72268,
+            "frames" : 66,
+            "startMs" : 71150
+          },
+          {
+            "endMs" : 75544,
+            "frames" : 67,
+            "startMs" : 74411
+          }
+        ],
+        "touch" : {
+          "maxFrameDelay" : null,
+          "maxMs" : null,
+          "samples" : 0
+        }
+      },
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -0.80384130678870958,
+            0.62,
+            -0.049613179322623935
+          ],
+          "offset" : 0,
+          "position" : [
+            -0.80384130678870958,
+            1.3500000000000001,
+            3.3503868206773761
+          ]
+        },
+        "facing" : 2.8259267769085064,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -0.78170697401151668,
+          "y" : 0,
+          "z" : -0.10542642060018616
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "paused"
+    },
+    {
+      "at" : 76.402672125000208,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 77.184131125000022,
+      "type" : "nativeInactive"
+    },
+    {
+      "at" : 77.607900166666695,
+      "type" : "nativeActive"
+    },
+    {
+      "at" : 77.612142791666884,
+      "pageId" : "98A97875-1EAF-4885-9131-D7F429E3E729",
+      "reason" : "native",
+      "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+      "snapshot" : {
+        "arrived" : false,
+        "camera" : {
+          "focus" : [
+            -0.80384130678870958,
+            0.62,
+            -0.049613179322623935
+          ],
+          "offset" : 0,
+          "position" : [
+            -0.80384130678870958,
+            1.3500000000000001,
+            3.3503868206773761
+          ]
+        },
+        "facing" : 2.8259267769085064,
+        "goal" : "tree",
+        "next" : 3,
+        "position" : {
+          "x" : -0.78170697401151668,
+          "y" : 0,
+          "z" : -0.10542642060018616
+        },
+        "restSeconds" : 0,
+        "shownSlot" : "night",
+        "slot" : "night",
+        "walking" : true,
+        "weather" : "rain"
+      },
+      "type" : "resumed"
+    }
+  ],
+  "failures" : [
+
+  ],
+  "firstFrameDefinition" : "render返回并由Swift收到消息，非合成器显示时间；图标到首帧需录屏",
+  "hostToFirstRenderMs" : 368.42070833336038,
+  "isSimulator" : false,
+  "lastSnapshot" : {
+    "arrived" : false,
+    "camera" : {
+      "focus" : [
+        1.9567098127701155,
+        0.62,
+        0.15822847995117467
+      ],
+      "offset" : 0,
+      "position" : [
+        1.9567098127701155,
+        1.3500000000000001,
+        3.5582284799511745
+      ]
+    },
+    "facing" : -2.772526389070153,
+    "goal" : "pond",
+    "next" : 11,
+    "position" : {
+      "x" : 1.9348552862499477,
+      "y" : 0,
+      "z" : 0.10191897808531254
+    },
+    "restSeconds" : 0,
+    "shownSlot" : "night",
+    "slot" : "night",
+    "walking" : true,
+    "weather" : "rain"
+  },
+  "missing" : [
+    "真机五分钟白天晴\/夜晚雨矩阵",
+    "连续十分钟热状态",
+    "网页内容进程内存及两进程合计",
+    "能耗",
+    "图标到首帧录屏",
+    "前后台十次\/锁屏人工复核",
+    "清晰度三档人工选择"
+  ],
+  "options" : {
+    "bloom" : "1",
+    "dpr" : "1.5",
+    "fallback" : "0",
+    "fps" : "60",
+    "fuzz" : "1",
+    "grass" : "1",
+    "msaa" : "0",
+    "post" : "1",
+    "shadow" : "2048",
+    "shells" : "4",
+    "time" : "night",
+    "walk" : "1",
+    "weather" : "rain"
+  },
+  "pageReports" : {
+    "98A97875-1EAF-4885-9131-D7F429E3E729" : {
+      "frames" : 10567,
+      "hitches" : 22,
+      "longestFrameMs" : 44,
+      "low1Fps" : 45.5,
+      "medianFps" : 58.799999999999997,
+      "minScale" : 0.89999999999999991,
+      "pauses" : [
+        {
+          "endMs" : 42580,
+          "reason" : "native",
+          "startMs" : 10319
+        },
+        {
+          "endMs" : 47920,
+          "reason" : "native",
+          "startMs" : 45649
+        },
+        {
+          "endMs" : 51154,
+          "reason" : "native",
+          "startMs" : 49046
+        },
+        {
+          "endMs" : 54540,
+          "reason" : "native",
+          "startMs" : 52377
+        },
+        {
+          "endMs" : 57746,
+          "reason" : "native",
+          "startMs" : 55659
+        },
+        {
+          "endMs" : 60780,
+          "reason" : "native",
+          "startMs" : 58767
+        },
+        {
+          "endMs" : 64530,
+          "reason" : "native",
+          "startMs" : 61944
+        },
+        {
+          "endMs" : 67947,
+          "reason" : "native",
+          "startMs" : 65833
+        },
+        {
+          "endMs" : 71150,
+          "reason" : "native",
+          "startMs" : 69118
+        },
+        {
+          "endMs" : 74411,
+          "reason" : "native",
+          "startMs" : 72275
+        },
+        {
+          "endMs" : 77578,
+          "reason" : "native",
+          "startMs" : 75550
+        }
+      ],
+      "perSecond" : [
+        59.760956175298801,
+        59.642147117296226,
+        60.276679841897234,
+        60.098522167487687,
+        59.760956175298801,
+        59.582919563058589,
+        60.515873015873019,
+        60,
+        60,
+        57.768924302788847,
+        60.157790927021694,
+        60.276679841897234,
+        59,
+        57.884231536926144,
+        59.055118110235796,
+        58.013765978367751,
+        59.820538384845463,
+        58.013765978367751,
+        58.185404339250496,
+        58.939096267190571,
+        58.823529411764703,
+        60.157790927021694,
+        59.940059940059939,
+        60,
+        60,
+        59.940059940059072,
+        60,
+        60.098522167488547,
+        59.921414538310415,
+        60,
+        60,
+        60,
+        60,
+        58,
+        60.276679841897234,
+        59.760956175298801,
+        60,
+        59.921414538310415,
+        60,
+        58.531746031746032,
+        53.254437869822482,
+        53.307008884501478,
+        58.185404339249658,
+        59.760956175299668,
+        59.582919563058589,
+        60.396039603959522,
+        55,
+        59.230009871669161,
+        59.171597633136095,
+        59.940059940059939,
+        56.943056943056945,
+        57.596822244289967,
+        56.268509378084893,
+        56.943056943056945,
+        56.379821958456972,
+        55.721393034825873,
+        59.880239520958085,
+        58.185404339250496,
+        58.941058941058941,
+        58.997050147492622,
+        58.941058941058081,
+        58.242843040474675,
+        58.823529411764703,
+        58.185404339249658,
+        58.589870903675127,
+        58.415841584158414,
+        58,
+        59.820538384845463,
+        58.997050147492622,
+        59.171597633136095,
+        59.820538384845463,
+        60.039370078739296,
+        60,
+        60.098522167488547,
+        60,
+        60,
+        59.940059940059939,
+        60.098522167487687,
+        60,
+        59.921414538310415,
+        60,
+        60,
+        60,
+        60,
+        59.055118110236222,
+        59.940059940059939,
+        60,
+        60,
+        60,
+        59,
+        59.880239520958085,
+        59.940059940059939,
+        58,
+        57.030481809242872,
+        56.943056943056945,
+        57.142857142857146,
+        58.941058941058941,
+        59.055118110234531,
+        57.826520438685627,
+        55.063913470993114,
+        54.29417571569595,
+        55.445544554455445,
+        54.890219560878243,
+        58.823529411764703,
+        59.940059940059939,
+        59,
+        53.838484546360917,
+        59.11330049261084,
+        59.11330049261084,
+        59.940059940059939,
+        57.82652043868395,
+        59.230009871668315,
+        60,
+        59.880239520956344,
+        58.070866141733944,
+        57.82652043868395,
+        57.142857142857146,
+        59.055118110236222,
+        58.070866141730619,
+        57.086614173229982,
+        54.240631163708088,
+        59.642147117296226,
+        59.171597633136095,
+        59,
+        54.027504911591357,
+        58,
+        59.940059940059939,
+        59.940059940059939,
+        58.422590068159685,
+        53.254437869822482,
+        58.64811133200795,
+        59.880239520956344,
+        59.405940594061114,
+        56.60377358490566,
+        57.312252964426875,
+        53.838484546360917,
+        57.942057942057943,
+        59.880239520958085,
+        59.230009871668315,
+        59.230009871668315,
+        56.772908366532221,
+        58.070866141733944,
+        57.086614173228348,
+        56.772908366532221,
+        56.157635467981905,
+        53.658536585365852,
+        58.473736372646187,
+        58.941058941058941,
+        59.11330049261084,
+        58.185404339250496,
+        56.71641791044776,
+        56.886227544910177,
+        57.086614173228348,
+        59.171597633136095,
+        56.829511465601541,
+        57.199211045366532,
+        57.482656095143703,
+        56.974459724950883,
+        51.909892262487759,
+        59.880239520958085,
+        59.940059940059939,
+        60.098522167487687,
+        57.596822244289967,
+        53.838484546360917,
+        57.482656095143703,
+        60.098522167487687,
+        59.940059940059939,
+        58.941058941058941,
+        58.589870903674282,
+        58.531746031744341,
+        59.94005994006168,
+        59.940059940059939,
+        58.941058941058941,
+        58.415841584158414,
+        59.582919563058589,
+        57.884231536926144,
+        58.589870903674282
+      ],
+      "seconds" : 180.53400000000002,
+      "segments" : [
+        {
+          "endMs" : 10315,
+          "frames" : 600,
+          "startMs" : 308
+        },
+        {
+          "endMs" : 45644,
+          "frames" : 182,
+          "startMs" : 42580
+        },
+        {
+          "endMs" : 49042,
+          "frames" : 66,
+          "startMs" : 47920
+        },
+        {
+          "endMs" : 52361.000000000007,
+          "frames" : 70,
+          "startMs" : 51154
+        },
+        {
+          "endMs" : 55655,
+          "frames" : 66,
+          "startMs" : 54540
+        },
+        {
+          "endMs" : 58763,
+          "frames" : 59,
+          "startMs" : 57746
+        },
+        {
+          "endMs" : 61940.000000000007,
+          "frames" : 69,
+          "startMs" : 60780
+        },
+        {
+          "endMs" : 65830,
+          "frames" : 76,
+          "startMs" : 64530
+        },
+        {
+          "endMs" : 69099,
+          "frames" : 67,
+          "startMs" : 67947
+        },
+        {
+          "endMs" : 72268,
+          "frames" : 66,
+          "startMs" : 71150
+        },
+        {
+          "endMs" : 75544,
+          "frames" : 67,
+          "startMs" : 74411
+        },
+        {
+          "endMs" : 234717,
+          "frames" : 9179,
+          "startMs" : 77578
+        }
+      ],
+      "touch" : {
+        "maxFrameDelay" : null,
+        "maxMs" : null,
+        "samples" : 0
+      }
+    }
+  },
+  "resourceReadyMs" : 73,
+  "runId" : "3E7AAC1D-A327-458F-A672-EB90FEBD3848",
+  "schemaVersion" : 2,
+  "screen" : {
+    "height" : 956,
+    "scale" : 3,
+    "width" : 440
+  },
+  "startedAt" : "2026-09-20T06:05:09Z",
+  "status" : "缺测",
+  "system" : "26.6.2",
+  "thermal" : [
+    {
+      "active" : true,
+      "at" : 0.002777333333142451,
+      "state" : "nominal"
+    }
+  ],
+  "wallSeconds" : 234.79141875000005,
+  "webContentFootprintMB" : null
+}
