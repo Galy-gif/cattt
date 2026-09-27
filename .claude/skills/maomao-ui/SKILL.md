@@ -5,6 +5,8 @@ description: "猫猫 App 改界面怎么一次过：页面、控件、配色令�
 
 # 猫猫 App · 改界面一次过
 
+> **院子/世界层不在本文范围。** 2026-09-27 起世界层以 3D 为准线（`web/` 的院子与 3D 团子，见 `docs/决策/2026-09-27-3D为准线.md`），院子与团子的视觉改动走 3D 那侧。本文的检查表管聊天、日记、我的、创建流程这些 SwiftUI 界面。
+
 **本文不写规格。** 色值在 `ios/Maomao/DesignSystem/Palette.swift`，尺寸在 `Metrics.swift`，字体在 `Typography.swift`，图标在 `Icons.swift`，控件在 `Features/Shell/Components.swift`，定了什么在 `docs/决策/*.md`（从新往旧读），规矩在 `docs/工作约定.md`。那些地方有的，这里一个字都不重复。
 
 本文只写一件事：**界面改动为什么一次次返工，以及怎么不返工。** 全部从真实记录里提出来。

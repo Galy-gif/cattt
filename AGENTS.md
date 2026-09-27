@@ -9,13 +9,14 @@
 ## 硬规矩
 
 - 方案只在用户要求时写（`docs/方案/`）；平时直接改代码、跑验证，不必每次都先出 spec。
+- 世界层以 3D 为准线（`web/` 的院子与 3D 团子、`assets/yard-3d/`、`assets/tuanzi-3d/`）；Swift 2D 世界层与逐帧素材已冻结，只修阻断性 bug，不加功能、不出新帧（[决策](docs/决策/2026-09-27-3D为准线.md)）。
 - 只在用户要求时提交、推送；删除和其它不好撤回的动作先确认。
 - 你的会话记忆、用户的个人笔记都不是真相源。有价值的结论写进仓库，登记到文档索引。
 - 出图委托与收图验收按工作约定的六条和五道关；验收先跑哈希、先量数再看图。
 - 工程文件用 `ios/generate_project.py` 生成；场景配置用原地修改的脚本，不要重跑 `configure_world_v4.py`。
 - 界面文案和文档用中文；没有打卡、等级、任务、连续天数这类措辞。
 - 改界面（页面、控件、配色令牌、圆角尺寸、图标、导航）前，先读 [.claude/skills/maomao-ui/SKILL.md](.claude/skills/maomao-ui/SKILL.md)（也是 `maomao-ui` 技能）：那里记的是历次返工的真实原因和动手前的检查表，不是规格。
-- 加背景、加场景物件、加猫的动作帧或动图前，先读 [.claude/skills/maomao-assets/SKILL.md](.claude/skills/maomao-assets/SKILL.md)（也是 `maomao-assets` 技能）：出图前量什么、判据怎么写、收图先问加工能不能吸收、三条接入清单。
+- 加背景、加场景物件、加猫的动作帧或动图前，先读 [.claude/skills/maomao-assets/SKILL.md](.claude/skills/maomao-assets/SKILL.md)（也是 `maomao-assets` 技能）：出图前量什么、判据怎么写、收图先问加工能不能吸收、三条接入清单。**这条只管 2D 世界层，而它已冻结——新素材走 3D。**
 
 ## 常用命令
 

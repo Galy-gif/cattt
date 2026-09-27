@@ -1,9 +1,11 @@
 ---
 name: maomao-assets
-description: "猫猫 App 世界层素材怎么一次过：加背景、加场景物件、加猫的动作帧、加动图。覆盖出图前的量、委托单怎么写判据、收图怎么判要不要重出、接入院子的三条产线清单。Use when adding or replacing any world-layer art in this repo (backgrounds, props, cat frames, animations), writing a 出图委托单/brief, reviewing delivered images, or wiring new art into scene.json / the action catalog. 界面层（页面、控件、图标）走 maomao-ui。"
+description: "猫猫 App **2D 世界层**素材怎么一次过：加背景、加场景物件、加猫的动作帧、加动图。**2026-09-27 起 2D 世界层冻结、3D 为准线：本技能只在用户明确要求动 2D 素材时用，新素材走 assets/yard-3d 与 assets/tuanzi-3d。**覆盖出图前的量、委托单怎么写判据、收图怎么判要不要重出、接入院子的三条产线清单。Use when the user explicitly asks to add or replace 2D world-layer art (backgrounds, props, cat frames, animations) or to review 2D deliveries. For the new 3D yard and cat, use the 3D pipeline instead. 界面层（页面、控件、图标）走 maomao-ui。"
 ---
 
 # 猫猫 App · 素材一次过
+
+> **2026-09-27 起 2D 世界层冻结。** 世界层开发准线是 3D：`web/` 的院子与团子、`assets/yard-3d/`（院子）、`assets/tuanzi-3d/`（团子）。**不要再为 2D 出新帧、重渲场景或按旧委托单出图**，除非用户明确要求；冻结范围与理由见 `docs/决策/2026-09-27-3D为准线.md`。本文以下内容仍然有效的地方在于：它记的是历轮 2D 素材返工的真实原因，动 2D 时照旧适用。
 
 过去五轮出图（`frames-v5`、`rig-v1`、`frames-v6`、`atmosphere-v1`、`ui-style-v1`）的验收报告摆在一起，**返工的根源几乎从来不是模型画得差**，而是三件事：
 
