@@ -20,12 +20,12 @@
 ## 常用命令
 
 ```bash
-# 世界层逻辑测试（仓库根目录）
-d=$(mktemp -d); for t in ios/Tests/*.swift; do swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift ios/Maomao/Model/WorldMood.swift ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break; done
+# 本机能跑的全部检查（仓库内容 + 跨端规则 + iOS 世界层 + 网页 + 后端类型检查）
+sh tools/check_all.sh
 # 模拟器构建
 xcodebuild -project ios/Maomao.xcodeproj -scheme Maomao -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/maomao-build build
-# 后端
-cd server && pnpm typecheck && pnpm test
+# 后端集成测试（要本机 PG/Redis）
+cd server && pnpm test
 # 提交前检查（钩子会自动跑；每台机器先设一次 git config core.hooksPath .githooks）
 python3 tools/repo_check.py
 ```

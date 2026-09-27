@@ -4,6 +4,8 @@ import Foundation
 /// 依据 docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md 第 2、4 节。
 
 /// 一天五段。第一版按固定钟点，第二版换当地日出日落。
+/// 这里是行为用的粗分类（几点算傍晚，团子的作息和日记按它走）；画面明暗走 `Atmosphere.keyframes`，
+/// 那张表和网页的 `KEYFRAMES` 是同一张，两边由 `tools/check_shared_rules.py` 比对。
 enum DayPhase: String, CaseIterable {
     case dawn, day, dusk, evening, night
 

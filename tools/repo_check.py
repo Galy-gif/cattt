@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """提交前检查：让仓库只进该进的东西。规则见 docs/工作约定.md「提交」「落盘规矩」。
 
-默认检查暂存区（git pre-commit 钩子调用）；--all 只报告当前跟踪文件里超标的，不拦。
+默认检查暂存区（git pre-commit 钩子调用）；--all 检查全部跟踪文件（CI 与 tools/check_all.sh 调用），超标同样返回 1。
 拦下：单个超过 3MB 且不在 .repo-allow-large 里的文件；日志、录屏、构建产物；
 新增的 docs/决策/*.md、docs/方案/*.md 没有登记到 docs/README.md。
 绕过：git commit --no-verify，并在提交信息里写原因。
@@ -36,7 +36,7 @@ def main():
                 and os.path.getsize(os.path.join(ROOT, p)) > LIMIT and not any(fnmatch.fnmatch(p, g) for g in patterns)]
         print(f'跟踪中超过 3MB 且不在白名单的文件：{len(over)} 个')
         for p in over[:50]: print('  ', p)
-        return 0
+        return 1 if over else 0
     changed = [p for p in git('diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z').split('\0') if p]
     added = set(p for p in git('diff', '--cached', '--name-only', '--diff-filter=A', '-z').split('\0') if p)
     errors = []

@@ -1,3 +1,4 @@
 #!/bin/sh
 # 启用：git config core.hooksPath .githooks（每台机器设一次）
-exec python3 "$(git rev-parse --show-toplevel)/tools/repo_check.py"
+root=$(git rev-parse --show-toplevel)
+python3 "$root/tools/repo_check.py" && python3 "$root/tools/check_shared_rules.py"

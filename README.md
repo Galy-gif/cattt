@@ -58,18 +58,15 @@ pnpm --dir web typecheck && pnpm --dir web build
 
 改了院子物件或落点要重新生成：`python3 assets/yard-3d/make_paths.py`、`blender -b --factory-startup -P assets/yard-3d/build_yard.py`（见 [`assets/yard-3d/README.md`](assets/yard-3d/README.md)）。
 
-**测试**：
+**测试**：一把跑完本机能跑的全部检查：
 
 ```bash
-# 世界层逻辑测试（在仓库根目录跑）
-d=$(mktemp -d); for t in ios/Tests/*.swift; do
-  swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift ios/Maomao/Model/WorldCamera.swift ios/Maomao/Model/WorldMood.swift ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift "$t" -o "$d/$(basename "$t" .swift)" && "$d/$(basename "$t" .swift)" assets/scenes/courtyard-v4/scene.json || break
-done
-# 资源校验（传入构建好的 .app）
-python3 assets/tools/validate_world_v4.py <Maomao.app 路径>
-# 后端
-cd server && pnpm typecheck && pnpm test
+sh tools/check_all.sh
 ```
+
+它依次跑：`tools/repo_check.py --all`（大文件、日志、文档登记）、`tools/check_shared_rules.py`（行为表与关键帧等跨端规则、生成物是否与源同步）、`tools/check_world_logic.sh`（iOS 世界层逻辑测试）、网页 typecheck 与 `test:app`、后端 typecheck。`tools/repo_check.py` 和 `tools/check_shared_rules.py` 也挂在 pre-commit 钩子上。
+
+分开跑：`sh tools/check_world_logic.sh`、`pnpm --dir web test:app`、`cd server && pnpm test`（要本机 PG/Redis）。资源校验传入构建好的 .app：`python3 assets/tools/validate_world_v4.py <Maomao.app 路径>`。
 
 ## 仓库地图
 

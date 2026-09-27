@@ -1,0 +1,42 @@
+name: checks
+
+on:
+  push:
+    branches: [main, web-desktop]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  repo-web-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 仓库内容（大文件、日志、文档登记）
+        run: python3 tools/repo_check.py --all
+      - name: 网页：安装、类型检查、测试
+        run: |
+          pnpm --dir web install --frozen-lockfile
+          pnpm --dir web typecheck
+          pnpm --dir web test:app
+      - name: 后端：安装与类型检查（集成测试要 PG/Redis，不在 CI 跑）
+        run: |
+          pnpm --dir server install --frozen-lockfile
+          pnpm --dir server typecheck
+
+  swift-and-shared-rules:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 跨端规则（行为表、氛围关键帧、地点、场景版本、生成物）
+        run: python3 tools/check_shared_rules.py
+      - name: iOS 世界层逻辑测试
+        run: sh tools/check_world_logic.sh
