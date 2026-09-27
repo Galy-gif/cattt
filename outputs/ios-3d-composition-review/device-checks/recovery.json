@@ -1,0 +1,295 @@
+{
+  "bounds" : {
+    "max" : [
+      3.0567109832812775,
+      2.5268000364303589,
+      1.54
+    ],
+    "min" : [
+      -3.0781205206562907,
+      -0.15999999642372131,
+      -2.3131206176925363
+    ]
+  },
+  "build" : {
+    "builtAt" : "2026-09-26T13:38:13.137Z",
+    "commit" : "6f3a2875105ac2bab845c40d69b657de605fef96",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "ad1242eb23fe50daf373440c56038b2d80c684a8fcef71fea3de3073c3d77e4a",
+    "sourceHashScope" : "web\/src + ios\/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera" : {
+    "centerX" : -0.17554777698449836,
+    "centerZ" : 0.5450105277939421,
+    "distance" : 14.193281368239523,
+    "focus" : [
+      -0.17554777698449836,
+      1.1832179105267571,
+      0.5450105277939421
+    ],
+    "mode" : "browsing",
+    "offset" : 0,
+    "place" : null,
+    "position" : [
+      -0.17554777698449836,
+      6.1276115731281928,
+      13.849228178871435
+    ],
+    "shownDistance" : 14.193281368239523,
+    "targetY" : 1.1832179105267571,
+    "velocity" : 0
+  },
+  "cat" : {
+    "height" : 34.714511863190161,
+    "inFront" : true,
+    "width" : 25.062979264220782,
+    "x" : 79.62879031018791,
+    "y" : 461.1958763423483
+  },
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 325.66666666666669,
+      "y" : 852
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 72,
+      "y" : 852
+    },
+    "overview" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 852
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 380,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 179,
+      "x" : 130.5,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 408,
+      "x" : 16,
+      "y" : 780
+    }
+  },
+  "device" : "iPhone",
+  "elapsed" : 9.2875339984893799,
+  "events" : [
+    {
+      "at" : 0.16774201393127441,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.16863298416137695,
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.43025803565979004,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 0.44648194313049316,
+      "type" : "visualReady"
+    },
+    {
+      "at" : 6.7830990552902222,
+      "type" : "snapshot"
+    },
+    {
+      "at" : 6.7832299470901489,
+      "type" : "processTerminated"
+    },
+    {
+      "at" : 6.8953089714050293,
+      "type" : "ready"
+    },
+    {
+      "at" : 6.8967599868774414,
+      "type" : "resumed"
+    },
+    {
+      "at" : 7.211279034614563,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 7.2113369703292847,
+      "type" : "restored"
+    },
+    {
+      "at" : 7.2282589673995972,
+      "type" : "visualReady"
+    },
+    {
+      "at" : 9.249210000038147,
+      "type" : "snapshot"
+    }
+  ],
+  "head" : {
+    "x" : 91.692469482881776,
+    "y" : 478.97031445260626
+  },
+  "isSimulator" : false,
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 22.713526712995076,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "recovery" : {
+    "after" : {
+      "arrived" : true,
+      "camera" : {
+        "centerX" : -0.17554777698449836,
+        "centerZ" : 0.5450105277939421,
+        "distance" : 14.193281368239523,
+        "focus" : [
+          -0.17554777698449836,
+          1.1832179105267571,
+          0.5450105277939421
+        ],
+        "mode" : "browsing",
+        "offset" : 0,
+        "place" : null,
+        "position" : [
+          -0.17554777698449836,
+          6.1276115731281928,
+          13.849228178871435
+        ],
+        "shownDistance" : 14.193281368239523,
+        "targetY" : 1.1832179105267571,
+        "velocity" : 0
+      },
+      "facing" : 0.25,
+      "goal" : "house",
+      "next" : 1,
+      "position" : {
+        "x" : -2.3879999999999999,
+        "y" : 0,
+        "z" : -0.624
+      },
+      "restSeconds" : 0,
+      "shownSlot" : "day",
+      "slot" : "day",
+      "walking" : false,
+      "weather" : "clear"
+    },
+    "before" : {
+      "arrived" : true,
+      "camera" : {
+        "centerX" : -0.17554777698449836,
+        "centerZ" : 0.5450105277939421,
+        "distance" : 14.193281368239523,
+        "focus" : [
+          -0.17554777698449836,
+          1.1832179105267571,
+          0.5450105277939421
+        ],
+        "mode" : "browsing",
+        "offset" : 0,
+        "place" : null,
+        "position" : [
+          -0.17554777698449836,
+          6.1276115731281928,
+          13.849228178871435
+        ],
+        "shownDistance" : 14.193281368239523,
+        "targetY" : 1.1832179105267571,
+        "velocity" : 0
+      },
+      "facing" : 0.25,
+      "goal" : "house",
+      "next" : 1,
+      "position" : {
+        "x" : -2.3879999999999999,
+        "y" : 0,
+        "z" : -0.624
+      },
+      "restSeconds" : 0,
+      "shownSlot" : "day",
+      "slot" : "day",
+      "walking" : false,
+      "weather" : "clear"
+    },
+    "kind" : "原生内容进程终止回调注入；非系统真实杀进程"
+  },
+  "report" : {
+    "frames" : 95,
+    "hitches" : 1,
+    "longestFrameMs" : 35,
+    "low1Fps" : 28.600000000000001,
+    "medianFps" : 58.799999999999997,
+    "minScale" : 1,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      59.11330049261084
+    ],
+    "resolutionEvents" : [
+
+    ],
+    "seconds" : 1.5970000000000002,
+    "segments" : [
+      {
+        "endMs" : 2022.0000000000002,
+        "frames" : 95,
+        "startMs" : 425
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.12459312681028667,
+      "violations" : 0
+    }
+  },
+  "runId" : "C75B8E10-5AFE-479F-BC43-E7086365819F",
+  "startedAt" : "2026-09-26T13:42:17Z",
+  "system" : "26.6.2",
+  "thermal" : 0,
+  "time" : "day",
+  "view" : "house",
+  "viewport" : {
+    "height" : 956,
+    "width" : 440
+  },
+  "yard" : {
+    "height" : 273.15656666502849,
+    "inFront" : true,
+    "width" : 514.86071022961926,
+    "x" : -0.59604063140408226,
+    "y" : 294.91271127755346
+  }
+}

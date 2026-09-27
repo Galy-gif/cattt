@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-26T19:44:18.200+08:00",
+  "device": "iPhone 16 Pro Max (iPhone17,2)",
+  "system": "iOS 26.6.2 (23G90)",
+  "tool": "Instruments Activity Monitor via xctrace 27.0 (27A266a)",
+  "conditions": {
+    "connection": "USB",
+    "configuration": "×1.5、MSAA关、完整效果、60fps目标、自动走动",
+    "traceDurationSeconds": 11.072859,
+    "measurementPhase": "3D院子稳定运行后",
+    "toolImpact": "全进程Activity Monitor；与正式无线帧率组分开采样"
+  },
+  "processes": {
+    "app": {
+      "pid": 1974,
+      "samples": 11,
+      "physicalFootprintPeakBytes": 29525104
+    },
+    "webContent": {
+      "pid": 1975,
+      "samples": 11,
+      "physicalFootprintPeakBytes": 251790304
+    },
+    "webKitGPU": {
+      "pid": 1976,
+      "samples": 11,
+      "physicalFootprintPeakBytes": 103089144
+    },
+    "webKitNetworking": {
+      "pid": 1977,
+      "samples": 5,
+      "physicalFootprintPeakBytes": 5718744
+    }
+  },
+  "gate": {
+    "metric": "App与WebContent同一时刻physical footprint合计峰值",
+    "peakBytes": 281266256,
+    "limitBytes": 471859200,
+    "result": "通过"
+  },
+  "conservativeChecks": {
+    "appWebContentAndGPUCombinedPeakBytes": 384322632,
+    "previousLongRunAppPeakPlusCurrentWebContentPeakBytes": 307571312,
+    "previousLongRunAppPeakPlusCurrentWebContentAndGPUPeaksBytes": 410660456,
+    "allBelowLimit": true
+  },
+  "evidence": {
+    "traceLocation": "/tmp/maomao-activity-short-20260926.trace",
+    "exportedSysmonSha256": "34277bd2a10c82f94b6c29e6a91694017c9055f3b275b7cac898c29f4a491810",
+    "rawTraceCommitted": false
+  },
+  "notes": [
+    "App与WebContent在同一批11个约1秒间隔样本中同时出现；合计峰值取同一时间点，不把不同时间点峰值相加冒充同步峰值。",
+    "WebKit GPU和Networking不属于已评审的App加WebContent门槛；仍额外给出包含GPU的保守检查。",
+    "长时正常运行报告中的App峰值为55.78MB；与本次WebContent/GPU峰值交叉相加后仍低于450MiB。"
+  ]
+}

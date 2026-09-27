@@ -19,6 +19,13 @@ struct YardProbeSupportTests {
         assert(!identity.accepts(["runId": "old", "pageId": "page2"]))
         assert(!identity.accepts(["runId": "new", "pageId": "page1"]))
         assert(identity.accepts(["runId": "new", "pageId": "page2"]))
+        var visual = YardVisualGate()
+        visual.begin(pageID: "page2")
+        assert(visual.isVisible)
+        assert(!visual.reveal(pageID: "page1") && visual.isVisible)
+        assert(visual.reveal(pageID: "page2") && !visual.isVisible)
+        visual.cover(pageID: "page2")
+        assert(visual.isVisible)
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
         enum DiskFailure: Error { case full }
@@ -30,6 +37,6 @@ struct YardProbeSupportTests {
         let file = try YardProbeArchive.save(["status":"缺测", "missing": ["webContentMemory"]], directory: directory, name: "success")
         let saved = try JSONSerialization.jsonObject(with: Data(contentsOf: file)) as! [String: Any]
         assert(saved["status"] as? String == "缺测")
-        print("PASS: timeout, late/duplicate callbacks, run/page isolation, save failure, atomic save (6 scenarios)")
+        print("PASS: timeout, late/duplicate callbacks, run/page/visual isolation, save failure, atomic save (7 scenarios)")
     }
 }

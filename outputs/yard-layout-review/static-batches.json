@@ -1,0 +1,26 @@
+[
+  {
+    "name": "bench",
+    "before": 10,
+    "after": 2,
+    "boundsError": 3.725290298461914e-9
+  },
+  {
+    "name": "rocks",
+    "before": 3,
+    "after": 2,
+    "boundsError": 9.379818024494714e-9
+  },
+  {
+    "name": "flowerbed",
+    "before": 77,
+    "after": 3,
+    "boundsError": 2.6694686960900024e-8
+  },
+  {
+    "name": "fence",
+    "before": 169,
+    "after": 6,
+    "boundsError": 3.1758498799947315e-7
+  }
+]

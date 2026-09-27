@@ -1,0 +1,187 @@
+{
+  "bounds" : {
+    "max" : [
+      3.0567109832812775,
+      2.5268000364303589,
+      1.54
+    ],
+    "min" : [
+      -3.0781205206562907,
+      -0.15999999642372131,
+      -2.3131206176925363
+    ]
+  },
+  "build" : {
+    "builtAt" : "2026-09-26T13:33:38.206Z",
+    "commit" : "6f3a2875105ac2bab845c40d69b657de605fef96",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "54d88528805468ab3505796faf180efd6851ac7758a6293cfa9b9d77a9f00fd4",
+    "sourceHashScope" : "web\/src + ios\/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera" : {
+    "centerX" : -2.3879999999999999,
+    "centerZ" : -0.624,
+    "distance" : 3.8470768123342687,
+    "focus" : [
+      -2.3879999999999999,
+      0.38,
+      -0.624
+    ],
+    "mode" : "browsing",
+    "offset" : 0,
+    "place" : "house",
+    "position" : [
+      -2.3879999999999999,
+      1.4403980801767076,
+      3.0740475810294208
+    ],
+    "shownDistance" : 3.8470768123342687,
+    "targetY" : 0.38,
+    "velocity" : 0
+  },
+  "cat" : {
+    "height" : 138.37875606394729,
+    "inFront" : true,
+    "width" : 77.38498700761518,
+    "x" : 188.09103069368467,
+    "y" : 374.63994259270117
+  },
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 287.66666666666669,
+      "y" : 770
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 72,
+      "y" : 770
+    },
+    "overview" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 770
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 342,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 179,
+      "x" : 111.5,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 370,
+      "x" : 16,
+      "y" : 698
+    }
+  },
+  "device" : "iPhone18,1",
+  "elapsed" : 4.1328780651092529,
+  "events" : [
+    {
+      "at" : 0.66129601001739502,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.66204309463500977,
+      "type" : "resumed"
+    },
+    {
+      "at" : 1.040411114692688,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 1.0711580514907837,
+      "type" : "visualReady"
+    }
+  ],
+  "head" : {
+    "x" : 230.78438967941943,
+    "y" : 447.40683372415111
+  },
+  "isSimulator" : true,
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 23.321552002680942,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "report" : {
+    "frames" : 133,
+    "hitches" : 3,
+    "longestFrameMs" : 221.00000000000011,
+    "low1Fps" : 26.300000000000001,
+    "medianFps" : 58.799999999999997,
+    "minScale" : 1,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      43.564356435643568,
+      60
+    ],
+    "resolutionEvents" : [
+
+    ],
+    "seconds" : 2.4920000000000004,
+    "segments" : [
+      {
+        "endMs" : 3030.0000000000005,
+        "frames" : 133,
+        "startMs" : 538
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.12459312681028667,
+      "violations" : 0
+    }
+  },
+  "runId" : "69BF6274-8EB0-4FEF-AA1F-3F105EE2A87A",
+  "startedAt" : "2026-09-26T13:34:25Z",
+  "system" : "26.5",
+  "thermal" : 0,
+  "time" : "day",
+  "view" : "house",
+  "viewport" : {
+    "height" : 874,
+    "width" : 402
+  },
+  "yard" : {
+    "height" : 1796.9394803410128,
+    "inFront" : true,
+    "width" : 5123.9030230470325,
+    "x" : -352.39898011672335,
+    "y" : -823.89180781180141
+  }
+}

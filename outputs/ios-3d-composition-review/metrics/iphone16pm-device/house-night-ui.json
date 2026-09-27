@@ -1,0 +1,190 @@
+{
+  "bounds" : {
+    "max" : [
+      3.0567109832812775,
+      2.5268000364303589,
+      1.54
+    ],
+    "min" : [
+      -3.0781205206562907,
+      -0.15999999642372131,
+      -2.3131206176925363
+    ]
+  },
+  "build" : {
+    "builtAt" : "2026-09-26T13:44:07.326Z",
+    "commit" : "6f3a2875105ac2bab845c40d69b657de605fef96",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "52663e6001c4543e4f5ac0d20cf64d449c5be1ef06c97925e4d4ec66c1431434",
+    "sourceHashScope" : "web\/src + ios\/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera" : {
+    "centerX" : -2.3879999999999999,
+    "centerZ" : -0.624,
+    "distance" : 3.8470768123342687,
+    "focus" : [
+      -2.3879999999999999,
+      0.38,
+      -0.624
+    ],
+    "mode" : "browsing",
+    "offset" : 0,
+    "place" : "house",
+    "position" : [
+      -2.3879999999999999,
+      1.4403980801767076,
+      3.0740475810294208
+    ],
+    "shownDistance" : 3.8470768123342687,
+    "targetY" : 0.38,
+    "velocity" : 0
+  },
+  "cat" : {
+    "height" : 151.27431058292282,
+    "inFront" : true,
+    "width" : 84.612021454652975,
+    "x" : 203.72190800190847,
+    "y" : 413.20691189315113
+  },
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 325.66666666666669,
+      "y" : 852
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 72,
+      "y" : 852
+    },
+    "overview" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 852
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 380,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 179,
+      "x" : 130.5,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 408,
+      "x" : 16,
+      "y" : 780
+    }
+  },
+  "device" : "iPhone",
+  "elapsed" : 3.6305249929428101,
+  "events" : [
+    {
+      "at" : 0.17244100570678711,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.1733250617980957,
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.44028198719024658,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 0.45675301551818848,
+      "type" : "visualReady"
+    }
+  ],
+  "head" : {
+    "x" : 250.42125392986327,
+    "y" : 492.73127915906844
+  },
+  "isSimulator" : false,
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 22.713526712995076,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "recovery" : {
+
+  },
+  "report" : {
+    "frames" : 158,
+    "hitches" : 0,
+    "longestFrameMs" : 24,
+    "low1Fps" : 41.700000000000003,
+    "medianFps" : 58.799999999999997,
+    "minScale" : 1,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      59.760956175298801,
+      60.157790927021694
+    ],
+    "resolutionEvents" : [
+
+    ],
+    "seconds" : 2.6360000000000001,
+    "segments" : [
+      {
+        "endMs" : 3013,
+        "frames" : 158,
+        "startMs" : 377
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.12459312681028667,
+      "violations" : 0
+    }
+  },
+  "runId" : "0E275FAB-597E-49CC-B912-053620C2530B",
+  "startedAt" : "2026-09-26T13:44:11Z",
+  "system" : "26.6.2",
+  "thermal" : 0,
+  "time" : "night",
+  "view" : "house",
+  "viewport" : {
+    "height" : 956,
+    "width" : 440
+  },
+  "yard" : {
+    "height" : 1965.5310562997806,
+    "inFront" : true,
+    "width" : 5604.6353432871429,
+    "x" : -387.47760296520306,
+    "y" : -897.85991792686741
+  }
+}

@@ -15,5 +15,18 @@
     "observation": "曾显示iPhone屏幕，随后采集预览黑屏；重新创建录制窗口后仍无视频，实际开始/停止录制提示“无法录制，请重新录制”。",
     "appCheck": "同一时段 CoreDevice 原生截图显示正常3D院子与持续帧率，不能把QuickTime黑屏计为App白屏。",
     "nextEvidenceNeeded": "手机自带录屏或外部录像，必须覆盖进程冷启动到可见3D首帧；初次运行3.96秒的风险仍待核查。"
+  },
+  "userScreenRecording": {
+    "file": "ScreenRecording_09-20-2026 17.MP4",
+    "retention": "local-only; video and extracted frames are not committed",
+    "sha256": "4065a716ec1c128a804340e43e4aae94311ef971cd549d2f40d12c86e66ed09f",
+    "durationSeconds": 54.68834467120181,
+    "dimensions": [1320, 2868],
+    "codec": ["HEVC", "MPEG-4 AAC"],
+    "status": "不计入冷启动",
+    "observation": "0.00–0.50秒为主屏幕；0.75秒已出现系统启动缩放中的旧3D快照，HUD为1216秒/fair/29MB；1.25秒切到实时画面，HUD为4057秒/nominal/30MB。之后持续渲染正常，无白闪。",
+    "reason": "YardProbeView 的秒数来自当前实测控制器创建后的系统运行时差。进入后已有4057秒，且启动动画先显示另一张旧HUD快照，证明这是后台已有进程/页面的恢复，不是终止进程后的冷启动。",
+    "usableEvidence": "可证明这次后台恢复约0.75秒内回到实时3D且未观察到白闪；不能用于≤2.5秒冷启动门槛。",
+    "nextEvidenceNeeded": "先从多任务界面向上划掉猫猫实测，确认卡片消失；开始系统录屏后从主屏幕点击猫猫实测，保留到3D稳定至少3秒。"
   }
 }

@@ -1,0 +1,26 @@
+{
+  "before": {
+    "activeNodes": 22,
+    "edges": 21,
+    "pathLengthM": 10.765221984903953,
+    "routeHullAreaM2": 9.810071999999998,
+    "minimumClearanceM": 0.006065753936380487
+  },
+  "after": {
+    "activeNodes": 31,
+    "edges": 34,
+    "pathLengthM": 31.589237280898683,
+    "routeHullAreaM2": 26.97815,
+    "minimumClearanceM": 0.000613993070621717
+  },
+  "courtyardBoundaryAreaM2": 52.918749999999996,
+  "metricNotes": "routeHullAreaM2 是可达路网覆盖的凸包，不是可自由走入的全部地面面积；旧版没有院界多边形，不能伪造院界面积倍数。",
+  "mountainsUnchanged": true,
+  "catSHA256": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+  "addedProps": [
+    "木长凳1张",
+    "天然山石3块",
+    "低花丛1小片"
+  ],
+  "layoutVersion": "open-yard-v2"
+}

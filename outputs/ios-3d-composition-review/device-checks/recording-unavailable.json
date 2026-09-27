@@ -1,0 +1,5 @@
+{
+  "status": "缺测",
+  "reason": "devicectl: Screen Recording capability not supported (CoreDeviceError 1001)",
+  "substitute": "iPhone 17 Pro 模拟器程序驱动录屏，不作为真机帧率、手感或逐帧白闪证据"
+}

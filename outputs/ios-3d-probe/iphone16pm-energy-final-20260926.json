@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-26T20:27:20.677+08:00",
+  "result": "采样完成",
+  "device": "iPhone 16 Pro Max (iPhone17,2)",
+  "system": "iOS 26.6.2 (23G90)",
+  "tool": "Instruments Power Profiler via xctrace 27.0 (27A266a)",
+  "build": {
+    "referenceReport": "iphone16pm-fix-normal-20260920.json",
+    "commit": "6f3a2875105ac2bab845c40d69b657de605fef96",
+    "dirty": true,
+    "sourceHash": "ff09fae324990e29f78b9b5a84d3e0265bb89942a7a304a1fd694b0626f71117",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "53eae8cadcebbd7ae8a35a54218f809e8454a61c2b59e7e937d23db02c8735e6"
+    }
+  },
+  "options": {
+    "dpr": 1.5,
+    "msaa": false,
+    "time": "night",
+    "weather": "rain",
+    "post": true,
+    "bloom": true,
+    "shadow": 2048,
+    "grass": "full",
+    "fuzzShells": 4,
+    "targetFps": 60,
+    "walk": true,
+    "fallback": 0
+  },
+  "conditions": {
+    "connection": "localNetwork",
+    "charging": false,
+    "chargingStateCode": 0,
+    "brightnessPercent": 52,
+    "roomTemperature": "用户确认室温",
+    "traceDurationSeconds": 11.938142,
+    "powerSampleDurationSeconds": 10.927733669,
+    "samples": 11,
+    "endReason": "Time limit reached",
+    "measurementPhase": "3D院子稳定运行后",
+    "toolImpact": "全进程Power Profiler单独采样；不与正式无线帧率组混算"
+  },
+  "systemPowerPercentPerHour": {
+    "minimum": 11.499259075,
+    "median": 12.23329108,
+    "mean": 14.174289208545455,
+    "durationWeightedMean": 14.254402312570463,
+    "maximum": 29.36929782
+  },
+  "instrumentObservedFrameRate": {
+    "minimum": 51.1475,
+    "median": 54.0,
+    "maximum": 56.9492,
+    "usedForPerformanceGate": false
+  },
+  "thermal": {
+    "state": "fair",
+    "profilerCode": 10,
+    "acceptanceLimit": "fair",
+    "result": "通过"
+  },
+  "gate": {
+    "powerThresholdSpecified": false,
+    "measurementResult": "完成",
+    "roundZeroContribution": "能耗缺测关闭"
+  },
+  "evidence": {
+    "traceLocation": "/tmp/maomao-power-wireless-3d-msaa-off-final-20260926.trace",
+    "rawTraceCommitted": false,
+    "exportedXmlSha256": {
+      "toc": "7bda8c31cd1dd418c7b2f2be6dd148b370164fa6daae915c6a7979faa21ef229",
+      "power": "d907d325951a00846111b68f46da5a0f3f0c355238e908165e95f9a080f36641",
+      "charging": "cc12bae241c453f8d22c9296acb8d2182b0d1933c8341f455b8b61250edfcb49",
+      "brightness": "8d3015472fd42e8fa4b941d9ccf7b60ef55b5591644594d554af70b4e7b6f8ed",
+      "thermal": "ce7a51301a97108b0f7cc48ffd48fa1a26e609bfd25f540a1c6aa28302a18ee9",
+      "signpost": "b8c4cd1e9f3fd8e6005ff67e2e3c041bb5d467a91f093a0f7256e3f610820fc8"
+    }
+  },
+  "notes": [
+    "原计划未规定能耗数值上限，因此这里只记录可导出的未充电实测值，不临时编造通过阈值。",
+    "正式十分钟夜雨热测试一直为nominal；本次独立工具采样为fair，仍满足不超过fair的门槛。",
+    "首次无线尝试在1.946秒因设备断开结束；另一次误用MSAA开配置的样本已排除，均未进入本结果。",
+    "Power Profiler会增加额外系统负载；其帧率只作环境记录，不替代无工具的五分钟和十分钟性能报告。"
+  ]
+}

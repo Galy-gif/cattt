@@ -10,6 +10,7 @@ struct DebugChip: View {
     @EnvironmentObject private var store: AppStore
     @AppStorage("debug.chipVisible") private var chipVisible = true
     @State private var showPanel = false
+    @State private var compositionPreview = ProcessInfo.processInfo.arguments.contains("-yardComposition")
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -19,7 +20,7 @@ struct DebugChip: View {
                     .contentShape(Rectangle())
                     .onTapGesture { close() }
 
-                DebugPanel(onDismiss: close, onProbe: { close(); store.yardProbeVisible = true })
+                DebugPanel(onDismiss: close, onProbe: { compositionPreview = false; close(); store.yardProbeVisible = true }, onComposition: { compositionPreview = true; close(); store.yardProbeVisible = true })
                     .environmentObject(store)
                     .frame(width: 272)
                     .frame(maxHeight: 520, alignment: .top)
@@ -31,7 +32,9 @@ struct DebugChip: View {
             handle
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-        .fullScreenCover(isPresented: $store.yardProbeVisible) { YardProbeView().environmentObject(store) }
+        .fullScreenCover(isPresented: $store.yardProbeVisible) {
+            if compositionPreview { YardCompositionView() } else { YardProbeView().environmentObject(store) }
+        }
     }
 
     /// 常驻的只是一枚小点：认得出、点得到、不抢画面。长按彻底收起，再点回来。
@@ -76,10 +79,13 @@ struct DebugPanel: View {
     @EnvironmentObject private var store: AppStore
     var onDismiss: () -> Void = {}
     var onProbe: () -> Void = {}
+    var onComposition: () -> Void = {}
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
+                Button("3D 构图预览", action: onComposition)
+                    .font(Typo.sans(12))
                 HStack(spacing: 0) {
                     Text(store.backend.isRemote ? "DEBUG · 本机后端" : "DEBUG · MOCK")
                         .font(Typo.mono(10))

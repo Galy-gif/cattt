@@ -3,9 +3,17 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { AdaptiveScaleGovernor, type ScaleDecision } from './adaptive-scale';
 
 // 帧率不够时降渲染分辨率，下限 0.75（方案第 6、8 节）
 const MIN_SCALE = 0.75;
+
+export interface ResolutionScaleEvent {
+  phase: 'queued' | 'applied' | 'rendered';
+  scale: number;
+  reason: ScaleDecision['reason'];
+  at: number;
+}
 
 
 /**
@@ -61,9 +69,12 @@ export class Renderer {
   private frames = 0;
   private frame = 0;
   private windowStart = performance.now();
-  private fastWindows = 0;
+  private governor = new AdaptiveScaleGovernor(MIN_SCALE);
+  private pendingScale: ScaleDecision | null = null;
+  private appliedScale: ScaleDecision | null = null;
   targetFps = 60;
   bloomEnabled = true;
+  onScaleEvent: (event: ResolutionScaleEvent) => void = () => {};
   private resizeListener = () => this.resize();
   private onResize: (width: number, height: number) => void = () => {};
 
@@ -103,6 +114,15 @@ export class Renderer {
   }
 
   render(scene: THREE.Scene, camera: THREE.Camera, time = 0) {
+    // 自适应倍率只能在绘制开头应用。resize 重建完后，本次调用继续 render，
+    // WebKit 不会合成到一个要等下一帧才有内容的后备存储。
+    if (this.pendingScale) {
+      this.scale = this.pendingScale.scale;
+      this.appliedScale = this.pendingScale;
+      this.pendingScale = null;
+      this.resize();
+      this.emitScale('applied', this.appliedScale);
+    }
     this.gl.shadowMap.needsUpdate = this.frame++ % 2 === 0;
     if (this.composer && this.finish) {
       this.finish.uniforms.uTime!.value = time % 100;
@@ -111,13 +131,25 @@ export class Renderer {
     } else {
       this.gl.render(scene, camera);
     }
+    if (this.appliedScale) {
+      this.emitScale('rendered', this.appliedScale);
+      this.appliedScale = null;
+    }
     this.govern();
+  }
+
+  /** Debug 实测用：让录屏能覆盖多次倍率重建，不改变正式治理阈值。 */
+  requestScale(scale: number, reason: ScaleDecision['reason'] = 'slow') {
+    const next = Math.max(MIN_SCALE, Math.min(1, Math.round(scale * 100) / 100));
+    if (next === this.scale || this.pendingScale) return;
+    this.pendingScale = { scale: next, reason };
+    this.emitScale('queued', this.pendingScale);
   }
 
   resetTiming() {
     this.frames = 0;
     this.windowStart = performance.now();
-    this.fastWindows = 0;
+    this.governor.reset();
   }
 
   dispose() {
@@ -149,18 +181,14 @@ export class Renderer {
     this.frames = 0;
     this.windowStart = now;
     if (document.hidden) return;
-    if (this.fps < this.targetFps * (55 / 60) && this.scale > MIN_SCALE) {
-      this.scale = Math.max(MIN_SCALE, this.scale - 0.05);
-      this.fastWindows = 0;
-      this.resize();
-    } else if (this.fps > this.targetFps * 0.975 && this.scale < 1) {
-      if (++this.fastWindows >= 3) {
-        this.scale = Math.min(1, this.scale + 0.05);
-        this.fastWindows = 0;
-        this.resize();
-      }
-    } else {
-      this.fastWindows = 0;
-    }
+    if (this.pendingScale) return;
+    const decision = this.governor.sample(this.fps, this.targetFps, this.scale);
+    if (!decision || decision.scale === this.scale) return;
+    this.pendingScale = decision;
+    this.emitScale('queued', decision);
+  }
+
+  private emitScale(phase: ResolutionScaleEvent['phase'], decision: ScaleDecision) {
+    this.onScaleEvent({ phase, scale: decision.scale, reason: decision.reason, at: performance.now() });
   }
 }

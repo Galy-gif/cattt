@@ -39,6 +39,28 @@ struct YardProbeIdentity {
     }
 }
 
+struct YardVisualGate {
+    private(set) var pageID = ""
+    private(set) var isVisible = true
+
+    mutating func begin(pageID: String) {
+        self.pageID = pageID
+        isVisible = true
+    }
+
+    mutating func cover(pageID: String) {
+        guard pageID == self.pageID else { return }
+        isVisible = true
+    }
+
+    @discardableResult
+    mutating func reveal(pageID: String) -> Bool {
+        guard pageID == self.pageID else { return false }
+        isVisible = false
+        return true
+    }
+}
+
 enum YardProbeArchive {
     /// 抛出失败，不允许调用者在失败路径宣称已保存。
     static func save(_ record: [String: Any], directory: URL, name: String,

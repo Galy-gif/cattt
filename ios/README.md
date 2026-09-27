@@ -147,3 +147,16 @@ Maomao/
 - **聊天头像**用的是全身图缩到 34pt，效果偏「橘色团块」。建议补一版头部裁切图，
   换掉 `MessageRow.avatarSlot` 里的图名就行。
 - **App 图标**是空的占位 `AppIcon.appiconset`。
+
+## 第 1 轮独立构图预览（09-26）
+
+Debug 面板 → **3D 构图预览**；或启动参数 `-yardComposition`。场景是打包内的 3D 院子，保留原 2D 首页；首次设置截图机位，之后地点轨、全景与找团子只改变镜头。
+
+- `-yardCompositionView house|bed|tree|grass|pond|fence|overview`：首次机位及截图猫位置。
+- `-yardCompositionTime day|night`：白天晴或夜雨；`-yardCompositionUI YES|NO`：显示/隐藏评审控件。
+- `-yardCompositionDemo YES`：程序驱动镜头演示，不是人工触摸证据。
+- `-yardCompositionRecovery YES`：缩放浏览后的原生内容进程终止回调注入，不是真实系统杀进程。
+- `-yardCompositionDuration 60`：60 秒渲染后自动保存量测并暂停；0 为不自动暂停。
+- 量测写入 App 的 `Documents/yard-composition/`，失败会显示错误。真机截图、报告与边界见 [构图验收](../outputs/ios-3d-composition-review/验收报告.md)。
+
+扩院预览（09-26）：新增 `-yardCompositionView comparison` 固定旧机位作前后比较；`-yardCompositionStroll YES` 以正常步速走扩展路线，也可从头像菜单启动。`tools/check_yard_expansion.py` 收集真机近景、夜雨全景、散步及回调恢复证据；截图脚本通过 `--output outputs/yard-expansion-review` 指定新目录。第二次布局图使用 `--output outputs/yard-layout-review`；详见 [最新布局验收](../outputs/yard-layout-review/验收报告.md)，原2D首页保留。

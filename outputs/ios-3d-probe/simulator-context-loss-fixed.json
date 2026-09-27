@@ -1,0 +1,17 @@
+{
+  "blankCanvasEvents" : [
+    {
+      "at" : 20.453333333333333,
+      "duration" : 0.05833333333333357,
+      "frames" : 4
+    }
+  ],
+  "detector" : "画面中央 4%–96% × 8%–83% 网格中，≥92% 像素接近院子淡蓝露底色且上下色差 <18，或 ≥96% 接近白色；有明确上下渐变的原生天空不计露底",
+  "duration" : 36.711666666666666,
+  "file" : "maomao-final-context-loss.mov",
+  "frames" : 965,
+  "schemaVersion" : 2,
+  "whiteCanvasEvents" : [
+
+  ]
+}

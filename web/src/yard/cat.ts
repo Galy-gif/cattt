@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { WalkResult } from '../tuanzi';
-import { NODES, distance, nearestNode, place, route, type Ground, type PlaceId } from './layout';
+import { NODES, STROLL, distance, nearestNode, place, route, type Ground, type PlaceId } from './layout.ts';
 
 /** 院子用到的团子接口（和团子那边约定的那一份，见方案第 7 节）。真团子和占位体都满足它。 */
 export interface YardCat {
@@ -143,7 +143,9 @@ export class Walker {
   private sphere = new THREE.Sphere();
   private point = new THREE.Vector3();
 
-  constructor(readonly cat: YardCat) {
+  readonly cat: YardCat;
+  constructor(cat: YardCat) {
+    this.cat = cat;
     const start = place('house').point;
     cat.root.position.set(start.x, 0, start.z);
   }
@@ -199,6 +201,30 @@ export class Walker {
     this.cat.stand();
     this.caughtUp = false;
     this.walk(nodes);
+  }
+
+  /** 扩院预览：沿真实路网走过中央草地、池边、树下，保留正常步速。 */
+  stroll() {
+    const trip = ++this.trip;
+    this.goal = 'house'; this.arrived = false; this.cat.stand();
+    this.caughtUp = true;
+    // 支路往返不能放在同一条重叠折线里：投影会把返程误认为来路，卡在尽头。
+    // 每个停留点独立到达，再开始下一段；新操作仍通过 trip 取消剩余行程。
+    void (async () => {
+      let from = nearestNode(this.cat.position);
+      for (const target of STROLL) {
+        const ids = route(from, target);
+        if (ids.length) {
+          const nodes = ids.map(id => NODES[id]!);
+          this.path = [{ x: this.cat.position.x, z: this.cat.position.z }, ...nodes];
+          const result = await this.cat.walkAlong(nodes.map(p => ({ x: p.x, y: 0, z: p.z })));
+          if (result.interrupted || trip !== this.trip) return;
+        }
+        from = target;
+      }
+      if (trip !== this.trip) return;
+      this.arrived = true; this.path = []; this.settleIdle();
+    })();
   }
 
   /**

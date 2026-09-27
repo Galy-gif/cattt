@@ -1,0 +1,134 @@
+$ node --experimental-strip-types --test tests/*.test.mjs
+TAP version 13
+# (node:79283) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: 倍率降档需要连续低帧窗口，决定不会在当前绘制中直接执行
+ok 1 - 倍率降档需要连续低帧窗口，决定不会在当前绘制中直接执行
+  ---
+  duration_ms: 0.696416
+  ...
+# Subtest: 倍率升档需要三个稳定窗口，阈值抖动会清空累计
+ok 2 - 倍率升档需要三个稳定窗口，阈值抖动会清空累计
+  ---
+  duration_ms: 0.074584
+  ...
+# Subtest: 30fps 使用自己的目标阈值，不会因主动限帧错误降清晰度
+ok 3 - 30fps 使用自己的目标阈值，不会因主动限帧错误降清晰度
+  ---
+  duration_ms: 0.116292
+  ...
+# Subtest: 横拖进入浏览态，松手三秒后不会跟团子回弹
+ok 4 - 横拖进入浏览态，松手三秒后不会跟团子回弹
+  ---
+  duration_ms: 4.482458
+  ...
+# Subtest: 找团子恢复平滑跟随；浏览模式和位置可从快照恢复
+ok 5 - 找团子恢复平滑跟随；浏览模式和位置可从快照恢复
+  ---
+  duration_ms: 2.128583
+  ...
+# Subtest: 浏览边界会计入当前竖屏可见宽度
+ok 6 - 浏览边界会计入当前竖屏可见宽度
+  ---
+  duration_ms: 0.624334
+  ...
+# Subtest: 六处目的地和全部 3D 路段保留非负实体净距
+ok 7 - 六处目的地和全部 3D 路段保留非负实体净距
+  ---
+  duration_ms: 5.802833
+  ...
+# (node:79284) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: 全景真实物件边界在两种竖屏可用区内，尺寸变化后仍完整
+ok 8 - 全景真实物件边界在两种竖屏可用区内，尺寸变化后仍完整
+  ---
+  duration_ms: 20.565125
+  ...
+# Subtest: 双指缩放夹住远近边界，固定FOV；结束后不随猫回弹
+ok 9 - 双指缩放夹住远近边界，固定FOV；结束后不随猫回弹
+  ---
+  duration_ms: 6.651875
+  ...
+# Subtest: 非边界缩放以手势中心的地面点为锚
+ok 10 - 非边界缩放以手势中心的地面点为锚
+  ---
+  duration_ms: 1.468041
+  ...
+# Subtest: 双指转单指以残留指坐标继续，取消/第三指不污染下一次手势
+ok 11 - 双指转单指以残留指坐标继续，取消/第三指不污染下一次手势
+  ---
+  duration_ms: 2.235083
+  ...
+# Subtest: 轻点不退出跟随；全景/取景/找团子只改变相机
+ok 12 - 轻点不退出跟随；全景/取景/找团子只改变相机
+  ---
+  duration_ms: 5.663583
+  ...
+# Subtest: 缩放与全景快照恢复；旧快照落到日常倍率；非法缩放拒绝
+ok 13 - 缩放与全景快照恢复；旧快照落到日常倍率；非法缩放拒绝
+  ---
+  duration_ms: 2.722834
+  ...
+# Subtest: 减少动态效果取消过渡与惯性，近裁面不进入实体
+ok 14 - 减少动态效果取消过渡与惯性，近裁面不进入实体
+  ---
+  duration_ms: 2.414792
+  ...
+# (node:79285) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: 前台 2 秒卡顿不能被丢弃；首帧不计间隔
+ok 15 - 前台 2 秒卡顿不能被丢弃；首帧不计间隔
+  ---
+  duration_ms: 1.57775
+  ...
+# Subtest: 后台时间隔离、恢复第一帧不计卡顿、重复暂停幂等
+ok 16 - 后台时间隔离、恢复第一帧不计卡顿、重复暂停幂等
+  ---
+  duration_ms: 0.259167
+  ...
+# Subtest: 30fps 在 60、90、120Hz 回调下相同，长停顿不追赶爆帧
+ok 17 - 30fps 在 60、90、120Hz 回调下相同，长停顿不追赶爆帧
+  ---
+  duration_ms: 0.584167
+  ...
+# Subtest: 无数据和触摸缺测不能伪造合格值；报告是独立快照
+ok 18 - 无数据和触摸缺测不能伪造合格值；报告是独立快照
+  ---
+  duration_ms: 0.192375
+  ...
+# (node:79286) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: 扩院散步经过新增草地和池边；路线连通、全部落在平缓活动面
+ok 19 - 扩院散步经过新增草地和池边；路线连通、全部落在平缓活动面
+  ---
+  duration_ms: 37.333084
+  ...
+# Subtest: 旧布局恢复按同名地点安全迁移；同版本不改坐标
+ok 20 - 旧布局恢复按同名地点安全迁移；同版本不改坐标
+  ---
+  duration_ms: 0.653416
+  ...
+# Subtest: 分物件总览避开真实控件，同时允许院内草地从地点轨后延伸
+ok 21 - 分物件总览避开真实控件，同时允许院内草地从地点轨后延伸
+  ---
+  duration_ms: 13.811625
+  ...
+# Subtest: 静态物件合批保留世界边界、三角面数及材质，实际减少绘制对象
+ok 22 - 静态物件合批保留世界边界、三角面数及材质，实际减少绘制对象
+  ---
+  duration_ms: 7.423375
+  ...
+# Subtest: 散步在支路终点结束一段再返程，重叠路径不会锁住；新操作取消余下行程
+ok 23 - 散步在支路终点结束一段再返程，重叠路径不会锁住；新操作取消余下行程
+  ---
+  duration_ms: 3.466459
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 197.864584

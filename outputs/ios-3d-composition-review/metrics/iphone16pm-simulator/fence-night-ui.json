@@ -1,0 +1,173 @@
+{
+  "bounds" : {
+    "max" : [
+      3.0567109832812775,
+      2.5268000364303589,
+      1.54
+    ],
+    "min" : [
+      -3.0781205206562907,
+      -0.15999999642372131,
+      -2.3131206176925363
+    ]
+  },
+  "camera" : {
+    "centerX" : 2.25,
+    "centerZ" : -1.1399999999999999,
+    "distance" : 3.8470768123342687,
+    "focus" : [
+      2.25,
+      0.38,
+      -1.1399999999999999
+    ],
+    "mode" : "browsing",
+    "offset" : 0,
+    "place" : "fence",
+    "position" : [
+      2.25,
+      1.4403980801767076,
+      2.5580475810294212
+    ],
+    "shownDistance" : 3.8470768123342687,
+    "targetY" : 0.38,
+    "velocity" : 0
+  },
+  "cat" : {
+    "height" : 151.29310206625851,
+    "inFront" : true,
+    "width" : 84.644676762186407,
+    "x" : 203.72202334413697,
+    "y" : 413.18844585427365
+  },
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 325.66666666666669,
+      "y" : 852
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 72,
+      "y" : 852
+    },
+    "overview" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 852
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 380,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 179,
+      "x" : 130.5,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 408,
+      "x" : 16,
+      "y" : 780
+    }
+  },
+  "device" : "iPhone17,2",
+  "elapsed" : 3.989021897315979,
+  "events" : [
+    {
+      "at" : 0.51239895820617676,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.51311492919921875,
+      "type" : "resumed"
+    },
+    {
+      "at" : 0.88074100017547607,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 0.89574694633483887,
+      "type" : "visualReady"
+    }
+  ],
+  "head" : {
+    "x" : 250.4209181941292,
+    "y" : 492.71422561401732
+  },
+  "isSimulator" : true,
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 22.713526712995076,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "report" : {
+    "frames" : 152,
+    "hitches" : 1,
+    "longestFrameMs" : 38,
+    "low1Fps" : 45.5,
+    "medianFps" : 58.799999999999997,
+    "minScale" : 1,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      59.405940594059416,
+      60
+    ],
+    "resolutionEvents" : [
+
+    ],
+    "seconds" : 2.5440000000000005,
+    "segments" : [
+      {
+        "endMs" : 3018.0000000000005,
+        "frames" : 152,
+        "startMs" : 474.00000000000006
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.050000000000000162,
+      "violations" : 0
+    }
+  },
+  "system" : "26.5",
+  "thermal" : 0,
+  "time" : "night",
+  "view" : "fence",
+  "viewport" : {
+    "height" : 956,
+    "width" : 440
+  },
+  "yard" : {
+    "height" : 3045.574132999991,
+    "inFront" : true,
+    "width" : 9697.8865859604921,
+    "x" : -8179.64510320923,
+    "y" : -1651.9351304211302
+  }
+}

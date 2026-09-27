@@ -2,6 +2,21 @@ import Combine
 import SwiftUI
 import WebKit
 
+struct YardBackdrop {
+    let top: UIColor
+    let horizon: UIColor
+
+    static func forSlot(_ slot: String?) -> YardBackdrop {
+        switch slot {
+        case "dawn": return YardBackdrop(top: UIColor(red: 0.52, green: 0.72, blue: 0.84, alpha: 1), horizon: UIColor(red: 0.91, green: 0.78, blue: 0.66, alpha: 1))
+        case "dusk": return YardBackdrop(top: UIColor(red: 0.38, green: 0.49, blue: 0.67, alpha: 1), horizon: UIColor(red: 0.92, green: 0.62, blue: 0.47, alpha: 1))
+        case "evening": return YardBackdrop(top: UIColor(red: 0.18, green: 0.27, blue: 0.44, alpha: 1), horizon: UIColor(red: 0.54, green: 0.45, blue: 0.55, alpha: 1))
+        case "night": return YardBackdrop(top: UIColor(red: 0.06, green: 0.12, blue: 0.23, alpha: 1), horizon: UIColor(red: 0.20, green: 0.31, blue: 0.43, alpha: 1))
+        default: return YardBackdrop(top: UIColor(red: 0.54, green: 0.76, blue: 0.89, alpha: 1), horizon: UIColor(red: 0.81, green: 0.89, blue: 0.92, alpha: 1))
+        }
+    }
+}
+
 /// 弱引用脚本入口，避免 WKUserContentController -> host -> WKWebView 循环持有。
 @MainActor
 private final class YardMessageProxy: NSObject, WKScriptMessageHandler {
@@ -17,7 +32,9 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     let webView: WKWebView
     let messages = PassthroughSubject<[String: Any], Never>()
     @Published private(set) var ready = false
+    @Published private(set) var surfaceReady = false
     @Published private(set) var failure: String?
+    @Published private(set) var backdrop = YardBackdrop.forSlot("day")
     private(set) var identity = YardProbeIdentity(runID: "", pageID: "")
     private(set) var snapshot: [String: Any]?
     private var query: [String: String] = [:]
@@ -25,6 +42,7 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     private var lifecycleRevision = 0
     private var stopped = true
     private var restoring = false
+    private var visualGate = YardVisualGate()
     private let proxy = YardMessageProxy()
 
     override init() {
@@ -38,8 +56,10 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
         webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.contentInsetAdjustmentBehavior = .never
-        webView.isOpaque = true
-        webView.backgroundColor = UIColor(red: 0.81, green: 0.89, blue: 0.92, alpha: 1)
+        webView.isOpaque = false
+        webView.backgroundColor = backdrop.horizon
+        webView.scrollView.backgroundColor = backdrop.horizon
+        webView.underPageBackgroundColor = backdrop.horizon
         #if DEBUG
         webView.isInspectable = true
         #endif
@@ -47,14 +67,17 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
 
     func load(runID: String, query: [String: String], active: Bool) {
         self.query = query; self.active = active; snapshot = nil
+        backdrop = YardBackdrop.forSlot(query["time"])
+        applyBackdrop()
         stopped = false; restoring = false
         identity.runID = runID
         loadPage()
     }
 
     private func loadPage() {
-        ready = false; failure = nil
+        ready = false; surfaceReady = false; failure = nil
         identity.pageID = UUID().uuidString
+        visualGate.begin(pageID: identity.pageID)
         var items = query
         items["runId"] = identity.runID; items["pageId"] = identity.pageID
         var components = URLComponents()
@@ -106,7 +129,7 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     }
 
     func stop() {
-        stopped = true; ready = false
+        stopped = true; ready = false; surfaceReady = false
         // 不等待失去响应的 JS。页面卸载会释放 GL；正常结束另行发送 dispose。
         identity.pageID = UUID().uuidString
         webView.stopLoading()
@@ -121,6 +144,12 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
         if let state = object["snapshot"] as? [String: Any] { snapshot = state }
         let type = object["type"] as? String
         if type == "error" { failure = object["message"] as? String }
+        if type == "contextLost" {
+            visualGate.cover(pageID: identity.pageID)
+            surfaceReady = false
+        } else if type == "visualReady", visualGate.reveal(pageID: identity.pageID) {
+            surfaceReady = true
+        }
         messages.send(object)
         if type == "ready" {
             ready = true
@@ -141,6 +170,12 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
         messages.send(message)
     }
 
+    private func applyBackdrop() {
+        webView.backgroundColor = backdrop.horizon
+        webView.scrollView.backgroundColor = backdrop.horizon
+        webView.underPageBackgroundColor = backdrop.horizon
+    }
+
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { navigationFailed(error) }
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { navigationFailed(error) }
     private func navigationFailed(_ error: Error) {
@@ -155,6 +190,13 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
         restoring = true
         loadPage()
     }
+
+    #if DEBUG
+    /// 走与系统内容进程终止完全相同的原生恢复路径；用于可重复的模拟器回归。
+    func simulateContentProcessTermination() {
+        webViewWebContentProcessDidTerminate(webView)
+    }
+    #endif
 }
 
 /// 把 `maomao://yard/<路径>` 对到包里 `YardWeb/<路径>`。
@@ -192,4 +234,25 @@ struct YardWebView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView { controller.webView }
     func updateUIView(_ uiView: WKWebView, context: Context) {}
+}
+
+/// WebKit 导航、内容进程重载和 WebGL 上下文恢复期间始终有原生天空兜底。
+struct YardWebSurface: View {
+    @ObservedObject var controller: YardWebController
+
+    var body: some View {
+        ZStack {
+            sky
+            YardWebView(controller: controller)
+            sky
+                .opacity(controller.surfaceReady ? 0 : 1)
+                .allowsHitTesting(false)
+        }
+        .animation(.easeOut(duration: 0.16), value: controller.surfaceReady)
+    }
+
+    private var sky: some View {
+        LinearGradient(colors: [Color(uiColor: controller.backdrop.top), Color(uiColor: controller.backdrop.horizon)],
+                       startPoint: .top, endPoint: .bottom)
+    }
 }

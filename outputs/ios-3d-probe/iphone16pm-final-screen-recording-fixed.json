@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "file": "ScreenRecording_09-20-2026 18-59-21_1.mov",
+  "sha256": "ea9ff0c14c640562ed14d2c59f61e4428cecc226060314850418433a9b6740e2",
+  "bytes": 431460423,
+  "duration": 228.00166666666667,
+  "frames": 13638,
+  "resolution": {
+    "width": 1320,
+    "height": 2868
+  },
+  "codec": "HEVC",
+  "recordedAt": "2026-09-20",
+  "analyzedAt": "2026-09-26",
+  "device": "iPhone 16 Pro Max (iPhone17,2)",
+  "system": "iOS 26.6.2",
+  "automaticDetector": {
+    "whiteCanvasEvents": [],
+    "rawBlankCanvasEvents": [
+      {
+        "at": 134.02833333333334,
+        "frames": 2,
+        "duration": 0.03333333333333144
+      }
+    ],
+    "unexpectedRuntimeBlankCanvasEvents": [],
+    "classification": "唯一原始候选位于注入内容进程终止后的原生天空遮罩起点；前后逐帧为3D→蓝色原生遮罩→3D淡入，不是倍率循环中的WebGL画布闪空。"
+  },
+  "nativeCoverIntervals": [
+    {
+      "reason": "cold-start",
+      "start": 30.487,
+      "end": 31.27,
+      "duration": 0.8
+    },
+    {
+      "reason": "scale-cycle-entry",
+      "start": 78.332,
+      "end": 79.073,
+      "duration": 0.758
+    },
+    {
+      "reason": "process-test-entry",
+      "start": 132.82,
+      "end": 133.578,
+      "duration": 0.775
+    },
+    {
+      "reason": "content-process-recovery",
+      "start": 134.028,
+      "end": 134.445,
+      "duration": 0.433
+    },
+    {
+      "reason": "reopen-1",
+      "start": 171.94,
+      "end": 172.7,
+      "duration": 0.777
+    },
+    {
+      "reason": "reopen-2",
+      "start": 184.05,
+      "end": 184.783,
+      "duration": 0.75
+    },
+    {
+      "reason": "reopen-3",
+      "start": 195.793,
+      "end": 196.535,
+      "duration": 0.758
+    }
+  ],
+  "groups": {
+    "coldStart": {
+      "launchAnimationFirstVisible": 30.453,
+      "first3DVisible": 31.236,
+      "stable3D": 31.37,
+      "toFirst3DSeconds": 0.783,
+      "toStable3DSeconds": 0.917,
+      "whiteEvents": 0,
+      "unexpectedBlankEvents": 0,
+      "result": "通过"
+    },
+    "scaleCycle": {
+      "continuous3DStart": 79.173,
+      "continuous3DEnd": 132.786,
+      "continuousSeconds": 53.613,
+      "hudScalesObserved": [
+        0.8,
+        1.0
+      ],
+      "whiteEvents": 0,
+      "unexpectedBlankEvents": 0,
+      "result": "通过"
+    },
+    "contentProcessRecovery": {
+      "coverStart": 134.028,
+      "first3DVisible": 134.411,
+      "stable3D": 134.545,
+      "toFirst3DSeconds": 0.383,
+      "toStable3DSeconds": 0.517,
+      "whiteEvents": 0,
+      "unexpectedBlankEvents": 0,
+      "reportResult": "未通过：网页内容进程被系统结束（符合硬规则）",
+      "visualRecoveryResult": "通过"
+    },
+    "reopenThreeTimes": {
+      "runs": [
+        {
+          "launchAnimationFirstVisible": 171.906,
+          "first3DVisible": 172.666,
+          "stable3D": 172.8,
+          "toFirst3DSeconds": 0.76,
+          "toStable3DSeconds": 0.894
+        },
+        {
+          "launchAnimationFirstVisible": 184.016,
+          "first3DVisible": 184.749,
+          "stable3D": 184.883,
+          "toFirst3DSeconds": 0.733,
+          "toStable3DSeconds": 0.867
+        },
+        {
+          "launchAnimationFirstVisible": 195.759,
+          "first3DVisible": 196.501,
+          "stable3D": 196.635,
+          "toFirst3DSeconds": 0.742,
+          "toStable3DSeconds": 0.876
+        }
+      ],
+      "whiteEvents": 0,
+      "unexpectedBlankEvents": 0,
+      "result": "通过"
+    }
+  },
+  "videoScopeResult": "通过",
+  "remainingRoundZeroMissing": [
+    "网页内容进程内存及两进程合计",
+    "有效能耗"
+  ],
+  "notes": [
+    "录屏开始后约30秒等待远程触发，不计入冷启动时长。",
+    "所有时刻按约60fps逐帧读取，启动动画首帧和淡入完成时刻为人工逐帧边界，精度约1帧。",
+    "原始MOV仅本地保留，仓库只记录哈希、元数据和结论。"
+  ]
+}

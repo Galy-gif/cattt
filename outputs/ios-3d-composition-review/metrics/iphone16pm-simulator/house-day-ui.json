@@ -1,0 +1,174 @@
+{
+  "bounds" : {
+    "max" : [
+      3.0567109832812775,
+      2.5268000364303589,
+      1.54
+    ],
+    "min" : [
+      -3.0781205206562907,
+      -0.15999999642372131,
+      -2.3131206176925363
+    ]
+  },
+  "camera" : {
+    "centerX" : -2.3879999999999999,
+    "centerZ" : -0.624,
+    "distance" : 3.8470768123342687,
+    "focus" : [
+      -2.3879999999999999,
+      0.38,
+      -0.624
+    ],
+    "mode" : "browsing",
+    "offset" : 0,
+    "place" : "house",
+    "position" : [
+      -2.3879999999999999,
+      1.4403980801767076,
+      3.0740475810294208
+    ],
+    "shownDistance" : 3.8470768123342687,
+    "targetY" : 0.38,
+    "velocity" : 0
+  },
+  "cat" : {
+    "height" : 151.26789845078844,
+    "inFront" : true,
+    "width" : 84.594197542878462,
+    "x" : 203.72186074421361,
+    "y" : 413.21311571394449
+  },
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 325.66666666666669,
+      "y" : 852
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 72,
+      "y" : 852
+    },
+    "overview" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 852
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 380,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 179,
+      "x" : 130.5,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 408,
+      "x" : 16,
+      "y" : 780
+    }
+  },
+  "device" : "iPhone17,2",
+  "elapsed" : 4.8110970258712769,
+  "events" : [
+    {
+      "at" : 0.99740302562713623,
+      "type" : "ready"
+    },
+    {
+      "at" : 0.99829602241516113,
+      "type" : "resumed"
+    },
+    {
+      "at" : 1.603816032409668,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 1.6331859827041626,
+      "type" : "visualReady"
+    }
+  ],
+  "head" : {
+    "x" : 250.42143691051655,
+    "y" : 492.74058011040859
+  },
+  "isSimulator" : true,
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 22.713526712995076,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "report" : {
+    "frames" : 183,
+    "hitches" : 1,
+    "longestFrameMs" : 41.999999999999886,
+    "low1Fps" : 32.299999999999997,
+    "medianFps" : 58.799999999999997,
+    "minScale" : 1,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      56.943056943056945,
+      60.039370078740127,
+      60
+    ],
+    "resolutionEvents" : [
+
+    ],
+    "seconds" : 3.1040000000000005,
+    "segments" : [
+      {
+        "endMs" : 4028.0000000000005,
+        "frames" : 183,
+        "startMs" : 924
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.12459312681028667,
+      "violations" : 0
+    }
+  },
+  "system" : "26.5",
+  "thermal" : 0,
+  "time" : "day",
+  "view" : "house",
+  "viewport" : {
+    "height" : 956,
+    "width" : 440
+  },
+  "yard" : {
+    "height" : 1965.5310562997806,
+    "inFront" : true,
+    "width" : 5604.6353432871429,
+    "x" : -387.47760296520306,
+    "y" : -897.85991792686741
+  }
+}

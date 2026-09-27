@@ -30,7 +30,7 @@ from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from layout import ANCHORS, NEST_PIVOT_HEIGHT, NEST_SEAT_HEIGHT, REPO, load_scene, to_world  # noqa: E402
+from layout import ANCHORS, NEST_PIVOT_HEIGHT, NEST_SEAT_HEIGHT, REPO, load_scene, to_world, build_layout  # noqa: E402
 
 BLEND_PATH = os.path.join(HERE, "yard.blend")
 MANIFEST_PATH = os.path.join(HERE, "build-manifest.json")
@@ -107,9 +107,12 @@ def mat(name):
     return material(name, srgb(PALETTE[name]))
 
 
+LAYOUT = build_layout()
+
+
 def at(name):
     """落点 → Blender 坐标（地面）。"""
-    x, z = to_world(*ANCHORS[name])
+    x, z = LAYOUT["anchors"][name].values()
     return Vector((x, -z, 0))
 
 
@@ -232,8 +235,7 @@ def rnd():
 
 def build_house(scene):
     root = empty("house", at("house"))
-    door_node = next(n for n in scene["nodes"] if n["id"] == "m0")["point"]
-    dx, dz = to_world(door_node["x"], door_node["y"])
+    dx, dz = LAYOUT["nodes"]["m0"].values()
     o = root.location
 
     # 菌柄：略鼓的矮柱，奶油色
@@ -453,6 +455,37 @@ def build_flower():
     return root
 
 
+def build_garden_details():
+    """少量添景：一张木凳、三块山石、一小簇花；沿用邻物的木与石材质。"""
+    root = empty("bench", at("bench"))
+    o = root.location
+    for i in range(3):
+        box(f"bench_seat_{i}", o + Vector((0, -0.12 + i * 0.12, 0.27)),
+            (0.94, 0.095, 0.065), mat("wood_light"), root, bevel=0.025)
+    for x in (-0.34, 0.34):
+        for y in (-0.11, 0.11):
+            cylinder("bench_leg", o + Vector((x, y, 0)), 0.035, 0.25, mat("wood"), root, bevel=0.008)
+    for x in (-0.36, 0.36):
+        cylinder("bench_back_post", o + Vector((x, 0.14, 0.20)), 0.028, 0.37, mat("wood"), root)
+    box("bench_back", o + Vector((0, 0.15, 0.47)), (0.96, 0.055, 0.16), mat("wood_light"), root, bevel=0.025)
+    rocks = empty("rocks", at("rocks"))
+    for i, (x, y, h, r) in enumerate(((0, 0, .27, .28), (.24, .06, .16, .19), (-.17, -.13, .11, .15))):
+        sphere(f"garden_stone_{i}", rocks.location + Vector((x, y, h * .37)),
+               (r, r * .72, h * .62), mat("stone" if i == 0 else "stone_light"), rocks, segments=14)
+    flowers = empty("flowerbed", at("flowerbed"))
+    for i in range(11):
+        a = i * 2.4
+        r = .12 + .02 * (i % 4)
+        p = flowers.location + Vector((math.cos(a) * r * 2, math.sin(a) * r, 0))
+        h = .10 + .018 * (i % 3)
+        rod(f"garden_flower_stem_{i}", p, p + Vector((0, 0, h)), .005, mat("leaf_mid"), flowers, vertices=6)
+        sphere(f"garden_flower_heart_{i}", p + Vector((0, 0, h)), .012, mat("petal_yellow"), flowers, segments=8)
+        for j in range(5):
+            a = j * math.tau / 5
+            sphere(f"garden_flower_petal_{i}_{j}", p + Vector((math.cos(a) * .019, math.sin(a) * .019, h)),
+                   (.015, .015, .007), mat("petal_white"), flowers, segments=8)
+
+
 # ── 渲染（自检用）────────────────────────────────────────────────────────
 
 
@@ -503,14 +536,15 @@ def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = load_scene()
 
-    build_house(scene)
+    house = build_house(scene)
+    house.scale = (LAYOUT["houseScale"],) * 3
     build_bowls()
     build_mailbox()
     build_bed()
     build_tree()
-    build_board()
     build_fence()
     build_flower()
+    build_garden_details()
     bpy.context.view_layer.update()
 
     if RENDER:

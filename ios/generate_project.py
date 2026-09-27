@@ -57,6 +57,8 @@ def collect():
                 resources.append(os.path.join(rel_dir, name))
             if name.endswith(".m4a") and rel_dir.startswith("Resources/Audio"):
                 resources.append(os.path.join(rel_dir, name))
+            if name.endswith(".storyboard"):
+                resources.append(os.path.join(rel_dir, name) if rel_dir else name)
             if name.endswith((".swift", ".metal")):
                 swift.append(os.path.join(rel_dir, name) if rel_dir else name)
     return sorted(swift), sorted(resources)
@@ -125,7 +127,7 @@ def main():
     for path in resource_files:
         name = os.path.basename(path)
         out('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = %s; '
-            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "folder" if name == "YardWeb" else "audio.m4a" if path.endswith(".m4a") else "image.png", pbx_str(name)))
+            'path = %s; sourceTree = "<group>"; };' % (oid("file:" + path), name, "folder.assetcatalog" if path.endswith(".xcassets") else "file.storyboard" if path.endswith(".storyboard") else "folder" if name == "YardWeb" else "audio.m4a" if path.endswith(".m4a") else "image.png", pbx_str(name)))
     out("/* End PBXFileReference section */")
 
     # ---- PBXFrameworksBuildPhase
@@ -315,7 +317,8 @@ def main():
         ("GENERATE_INFOPLIST_FILE", "YES"),
         ("INFOPLIST_KEY_UIApplicationSceneManifest_Generation", "YES"),
         ("INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents", "YES"),
-        ("INFOPLIST_KEY_UILaunchScreen_Generation", "YES"),
+        # 冷启动先显示与 3D 院子原生兜底相同的天空色，避免 SwiftUI 首帧前闪白。
+        ("INFOPLIST_KEY_UILaunchStoryboardName", "LaunchScreen"),
         # 院子「跟着真实天气」只要大致位置（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
         ("INFOPLIST_KEY_NSLocationWhenInUseUsageDescription", '"用大致位置让院子跟着你那里的天气下雨或放晴。"'),
         # 竖屏专用。整套设计都是 390 × 844 的竖屏。

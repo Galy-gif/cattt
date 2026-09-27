@@ -2,7 +2,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import type { Atmosphere } from './atmosphere';
 import { feltMaterial, feltify } from './felt';
-import { ANCHORS, NODES, POND, type Ground } from './layout';
+import { ANCHORS, NODES, POND, PATHS, EDGES, YARD_BOUNDARY, type Ground } from './layout';
+import { groundHeight } from './terrain';
+import { batchStaticProps } from './static-props';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 /**
  * 院子：Blender 出的物件 + 这里程序生成的地面、石子路、池塘、草、远山、云、天、雨、落叶、雾。
@@ -30,6 +33,10 @@ export class World {
   readonly sunLight = new THREE.DirectionalLight('#ffffff', 2.4);
   readonly fillLight = new THREE.HemisphereLight('#ffffff', '#888888', 1.4);
   triangles = 0;
+  /** 只含院子实体、路网与水面，供手机全景取景；不含远山/天空。 */
+  readonly compositionBounds = new THREE.Box3();
+  readonly cameraObstacles: THREE.Box3[] = [];
+  readonly compositionParts: { id: string; box: THREE.Box3 }[] = [];
 
   private sky: THREE.Mesh<THREE.SphereGeometry, THREE.ShaderMaterial>;
   private clouds: { group: THREE.Group; speed: number }[] = [];
@@ -55,10 +62,10 @@ export class World {
     this.sunLight.castShadow = true;
     this.sunLight.shadow.mapSize.set(2048, 2048);
     const shadowCamera = this.sunLight.shadow.camera;
-    shadowCamera.left = -4.4;
-    shadowCamera.right = 4.4;
-    shadowCamera.top = 3.6;
-    shadowCamera.bottom = -3.6;
+    shadowCamera.left = -6.2;
+    shadowCamera.right = 6.2;
+    shadowCamera.top = 5.8;
+    shadowCamera.bottom = -5.8;
     shadowCamera.near = 1;
     shadowCamera.far = 26;
     this.sunLight.shadow.radius = 5;
@@ -115,6 +122,21 @@ export class World {
     feltify(gltf.scene, ['window_glow', 'water']);
     this.scene.add(gltf.scene);
     this.scene.updateMatrixWorld(true);
+    this.compositionBounds.setFromObject(gltf.scene);
+    for (const p of [...Object.values(NODES), ...POND, ...YARD_BOUNDARY]) this.compositionBounds.expandByPoint(new THREE.Vector3(p.x, 0, p.z));
+    gltf.scene.traverse(object => {
+      const mesh = object as THREE.Mesh;
+      if (mesh.isMesh) this.cameraObstacles.push(new THREE.Box3().setFromObject(mesh));
+    });
+    for (const object of gltf.scene.children) {
+      const box = new THREE.Box3().setFromObject(object);
+      if (!box.isEmpty()) this.compositionParts.push({ id: object.name, box });
+    }
+    this.compositionParts.push({ id: 'pond', box: new THREE.Box3().setFromPoints(POND.map(p => new THREE.Vector3(p.x, .08, p.z))).expandByScalar(.13) });
+    for (const name of ['bench', 'rocks', 'flowerbed', 'fence']) {
+      const root = gltf.scene.getObjectByName(name);
+      if (root) batchStaticProps(root);
+    }
     this.nestPivot = gltf.scene.getObjectByName('nest_pivot') ?? null;
     this.crown = gltf.scene.getObjectByName('tree_crown') ?? null;
     this.flag = gltf.scene.getObjectByName('mailbox_flag') ?? null;
@@ -318,10 +340,7 @@ function makeGround() {
   for (let i = 0; i < position.count; i++) {
     const x = position.getX(i);
     const z = position.getZ(i) - 10; // 网格整体后移 10 m，这里换回世界坐标
-    const outside = Math.max(0, Math.hypot(x * 0.7, z + 0.2) - 4.2);
-    const rise = z < 0 ? Math.min(2.4, outside * outside * 0.03) : 0;
-    const roll = outside > 0 ? Math.sin(x * 0.5) * Math.cos(z * 0.4) * 0.14 * Math.min(1, outside) : 0;
-    position.setY(i, rise + roll);
+    position.setY(i, groundHeight(x, z));
   }
   geometry.computeVertexNormals();
   const ground = new THREE.Mesh(geometry, feltMaterial(COLORS.lawn, { scale: 55, mottle: 0.22, bump: 0.45, patch: COLORS.lawnPatch, sheen: 0 }));
@@ -330,43 +349,41 @@ function makeGround() {
   return ground;
 }
 
-const MAIN_PATH = ['m0', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12', 'm13', 'm14', 'm15'];
-const BRANCHES: string[][] = [
-  ['m5', 'd1-0', 'd1-1', 'd1-2'], ['m3', 'd2-0'], ['m6', 'd3-0', 'd3-1'], ['m15', 'fence-contact'], ['m12', 'd4-0'], ['m0', 'bowl'],
-];
-
 /** 石子路：路网每条边上铺一层浅色路基，上面排一粒粒压扁的石子（iOS 院子的石子路） */
 function makePaths() {
   const group = new THREE.Group();
   const bed = feltMaterial(COLORS.pathBed, { scale: 70, mottle: 0.12, sheen: 0 });
-  const runs: { points: Ground[]; width: number }[] = [
-    { points: MAIN_PATH.map((id) => NODES[id]!), width: 0.36 },
-    ...BRANCHES.map((ids) => ({ points: ids.map((id) => NODES[id]!), width: 0.24 })),
-  ];
+  // 一条曲线一路铺装；采样节点与导航共用，石块间距按整段弧长统一。
+  const runs = PATHS.map(run => ({points: run.nodes.map(id => NODES[id]!), width: run.width}));
+  const beds: THREE.BufferGeometry[] = [];
   const rand = lcg(77);
   const stones: THREE.Matrix4[] = [];
   const tints: THREE.Color[] = [];
   for (const { points, width } of runs) {
-    const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(p.x, 0, p.z)), false, 'centripetal');
-    group.add(ribbon(curve, width, bed));
+    const curve = new THREE.CurvePath<THREE.Vector3>();
+    for (let i=1; i<points.length; i++) {
+      const a=points[i-1]!, b=points[i]!;
+      curve.add(new THREE.LineCurve3(new THREE.Vector3(a.x,0,a.z),new THREE.Vector3(b.x,0,b.z)));
+    }
+    beds.push(ribbon(curve, width, bed).geometry);
     const length = curve.getLength();
-    const rows = Math.max(2, Math.round(length / 0.085));
-    const across = width > 0.3 ? 3 : 2;
+    const rows = Math.max(2, Math.round(length / 0.12));
+    const across = 2;
     for (let i = 0; i <= rows; i++) {
       const u = i / rows;
       const p = curve.getPointAt(u);
       const tangent = curve.getTangentAt(u);
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
       for (let j = 0; j < across; j++) {
-        const offset = ((j + 0.5) / across - 0.5) * width * 0.82 + (rand() - 0.5) * 0.03;
-        const r = 0.036 + rand() * 0.016;
+        const offset = ((j + 0.5) / across - 0.5) * width * 0.92 + (rand() - 0.5) * 0.006;
+        const r = 0.058 + rand() * 0.004;
         const m = new THREE.Matrix4().compose(
-          new THREE.Vector3(p.x + side.x * offset + tangent.x * (j % 2) * 0.04, 0.008, p.z + side.z * offset + tangent.z * (j % 2) * 0.04),
-          new THREE.Quaternion().setFromEuler(new THREE.Euler(0, rand() * 6, 0)),
-          new THREE.Vector3(r * (1 + rand() * 0.35), 0.012 + rand() * 0.006, r),
+          new THREE.Vector3(p.x + side.x * offset, 0.009, p.z + side.z * offset),
+          new THREE.Quaternion().setFromEuler(new THREE.Euler(0, -Math.atan2(tangent.z, tangent.x) + (rand() - .5) * .12, 0)),
+          new THREE.Vector3(r, 0.013 + rand() * 0.002, width * .21),
         );
         stones.push(m);
-        tints.push(new THREE.Color(COLORS.cobble).offsetHSL(0, 0, (rand() - 0.5) * 0.09));
+        tints.push(new THREE.Color(COLORS.cobble).offsetHSL(0, 0, (rand() - 0.5) * 0.04));
       }
     }
   }
@@ -376,14 +393,18 @@ function makePaths() {
     mesh.setColorAt(i, tints[i]!);
   });
   mesh.receiveShadow = true;
-  group.add(mesh);
+  const pathBed = new THREE.Mesh(mergeGeometries(beds), bed);
+  pathBed.receiveShadow = true;
+  beds.forEach(geometry => geometry.dispose());
+  group.add(pathBed, mesh);
   return group;
 }
 
-function ribbon(curve: THREE.CatmullRomCurve3, width: number, material: THREE.Material) {
+function ribbon(curve: THREE.Curve<THREE.Vector3>, width: number, material: THREE.Material) {
   const steps = Math.max(12, Math.round(curve.getLength() / 0.06));
   const vertices: number[] = [];
   const indices: number[] = [];
+  const closed = curve.getPointAt(0).distanceTo(curve.getPointAt(1)) < .001;
   for (let i = 0; i <= steps; i++) {
     const u = i / steps;
     const p = curve.getPointAt(u);
@@ -391,7 +412,7 @@ function ribbon(curve: THREE.CatmullRomCurve3, width: number, material: THREE.Ma
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize().multiplyScalar(width / 2);
     // 两头收圆
     const end = Math.min(u, 1 - u) * curve.getLength();
-    const taper = Math.sqrt(Math.min(1, end / (width * 0.5)) * 0.9 + 0.1);
+    const taper = closed ? 1 : Math.sqrt(Math.min(1, end / (width * 0.5)) * 0.9 + 0.1);
     vertices.push(p.x - side.x * taper, 0.005, p.z - side.z * taper, p.x + side.x * taper, 0.005, p.z + side.z * taper);
     if (i < steps) {
       const a = i * 2;
@@ -539,7 +560,7 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
   const tints: THREE.Color[] = [];
   const add = (x: number, z: number, height: number, width = 1) => {
     matrices.push(new THREE.Matrix4().compose(
-      new THREE.Vector3(x, 0, z),
+      new THREE.Vector3(x, groundHeight(x, z), z),
       new THREE.Quaternion().setFromEuler(new THREE.Euler((rand() - 0.5) * 0.25, rand() * 6.28, 0)),
       new THREE.Vector3(width * (0.8 + rand() * 0.6), height, 1),
     ));
@@ -557,20 +578,26 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
   // 放在所有章节机位的前面（最靠前的机位 z≈2.4），只给首屏和结尾的全景当近景
   for (let i = 0; i < 4200; i++) {
     const x = -6 + rand() * 12;
-    add(x, 2.8 + rand() * 1.1 + Math.abs(x) * 0.05, 0.08 + rand() * 0.14, 1.3);
+    add(x, 4.3 + rand() * 0.8 + Math.abs(x) * 0.025, 0.08 + rand() * 0.14, 1.3);
   }
   // 院子里零星的矮草，避开路和池塘
   const pond = POND.map((p) => new THREE.Vector2(p.x, p.z));
-  const pathPoints = [...MAIN_PATH, ...BRANCHES.flat()].map((id) => NODES[id]!);
+  const paths = EDGES.map(edge => [NODES[edge.a]!, NODES[edge.b]!] as const);
+  const nearPath = (x: number, z: number) => paths.some(([a, b]) => {
+    const dx = b.x - a.x, dz = b.z - a.z;
+    const t = THREE.MathUtils.clamp(((x - a.x) * dx + (z - a.z) * dz) / (dx * dx + dz * dz || 1), 0, 1);
+    return Math.hypot(x - a.x - dx * t, z - a.z - dz * t) < .22;
+  });
   for (let i = 0; i < 9000; i++) {
     const x = -7 + rand() * 14;
-    const z = -5 + rand() * 8.4;
+    const z = -4.8 + rand() * 9.0;
     // 越往外越稀，边缘自然散开，不出现一块矩形的"草毯"
     const falloff = Math.hypot(x / 6.5, (z + 0.6) / 4.2);
     if (rand() < falloff * falloff) continue;
-    if (pathPoints.some((p) => Math.hypot(p.x - x, p.z - z) < 0.3)) continue;
+    if (nearPath(x, z)) continue;
     if (insidePolygon(x, z, pond, 0.12)) continue;
-    add(x, z, 0.04 + rand() * 0.06, 1);
+    // 院中只留低矮草叶，中央空地与猫的轮廓都能读清。
+    add(x, z, 0.022 + rand() * 0.035, 1);
   }
 
   // 草叶片数多、近景重叠多，用最便宜的漫反射材质

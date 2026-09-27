@@ -1,0 +1,937 @@
+{
+  "images": [
+    {
+      "name": "bed-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/bed-day-clean.png",
+      "sha256": "69785bace703a15f256ec7c46b806b60421b89ec883f78d6de3b706e1a985fef",
+      "bytes": 161699
+    },
+    {
+      "name": "bed-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/bed-day-ui.png",
+      "sha256": "ea9f950786bffbf8f6e09a3ca4860c60e92d2905c43838eecb15def1cc8b4835",
+      "bytes": 164038
+    },
+    {
+      "name": "bed-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/bed-night-ui.png",
+      "sha256": "ae23f1732c92b27c39d5cd8d7b758065de3a3f87e63ae3ae931a8953279a0fb0",
+      "bytes": 112212
+    },
+    {
+      "name": "fence-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/fence-day-clean.png",
+      "sha256": "4c8979ccacfa6d6c80ac4b2c8fa43ec3acea5f5552b67a668f0f5c16776e74a9",
+      "bytes": 139629
+    },
+    {
+      "name": "fence-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/fence-day-ui.png",
+      "sha256": "107b65ae7a9a3eb43cdeec7e21bd7cbf6a071259c9947f4c0dde0bed9249532e",
+      "bytes": 147464
+    },
+    {
+      "name": "fence-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/fence-night-ui.png",
+      "sha256": "b445930c3df457f577be383751783773c54a86781ae9c42f6d49255959be2c11",
+      "bytes": 99768
+    },
+    {
+      "name": "grass-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/grass-day-clean.png",
+      "sha256": "1995f6b6a714bb03aa1b82d1b6312878f0747661852f6aa51d8cf3fa9d66fc06",
+      "bytes": 150303
+    },
+    {
+      "name": "grass-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/grass-day-ui.png",
+      "sha256": "af670a24fdfcb5165640372c0aa4bf19a37bdf7ce895547bfc8772800bd4b0dc",
+      "bytes": 156564
+    },
+    {
+      "name": "grass-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/grass-night-ui.png",
+      "sha256": "fea79d3eeb2fe8be88fd15cfc8b4ed84a00b586470b0e4b7aeb66bf6af8996a5",
+      "bytes": 97435
+    },
+    {
+      "name": "house-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/house-day-clean.png",
+      "sha256": "ff78b4ab099757e256227c6eebd4ee1667a63b633cec0965dd9b08ab5db53ab8",
+      "bytes": 136053
+    },
+    {
+      "name": "house-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/house-day-ui.png",
+      "sha256": "a7970e01ac47c5dbcda9452ddd415f2c150e625b36ef80e665562606f7862a6c",
+      "bytes": 143681
+    },
+    {
+      "name": "house-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/house-night-ui.png",
+      "sha256": "47a77a0a20a0b4482cd81d51de1e40a93e99444f19858ff6168be3901ac3a9a7",
+      "bytes": 117900
+    },
+    {
+      "name": "overview-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/overview-day-clean.png",
+      "sha256": "a737f26bf81cbc0be34691f167a0a1b40342c408900b08028b5db6278b5dd2a9",
+      "bytes": 127063
+    },
+    {
+      "name": "overview-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/overview-day-ui.png",
+      "sha256": "9bbdfc8dd9cb6ed89eb54c6d615681f95edec2187c4846fef382f5497b77625c",
+      "bytes": 136964
+    },
+    {
+      "name": "overview-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/overview-night-ui.png",
+      "sha256": "33443ff0d9f6c69d261f6827d2115b8b8ee2102aaf11fa785669136af0e21938",
+      "bytes": 90509
+    },
+    {
+      "name": "pond-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/pond-day-clean.png",
+      "sha256": "b7cbe0906afdc44415b80952a5821b1a9e2fdef2c42f9eead61116d7bfb7186c",
+      "bytes": 135639
+    },
+    {
+      "name": "pond-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/pond-day-ui.png",
+      "sha256": "f8fce9601961a09ccce6482dfe54dfb8b0cc69e1080ec026eb86a01be9d84a9d",
+      "bytes": 143769
+    },
+    {
+      "name": "pond-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/pond-night-ui.png",
+      "sha256": "9527d69cd28d55dcf42daf0c939fc014c87b40b73959a1a1154ab45523aeb8b1",
+      "bytes": 95738
+    },
+    {
+      "name": "tree-day-clean.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/tree-day-clean.png",
+      "sha256": "c6e97b89f2e078a5d463056afd166b1874042de4cd9f57b13172d7b42573615d",
+      "bytes": 147358
+    },
+    {
+      "name": "tree-day-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/tree-day-ui.png",
+      "sha256": "b947f85dcbf8e11b70c438812c5bfdea5ba0cab205db37ee452bc3708a9bec77",
+      "bytes": 154771
+    },
+    {
+      "name": "tree-night-ui.jpg",
+      "source": "outputs/ios-3d-composition-review/originals/iphone16pm-device/tree-night-ui.png",
+      "sha256": "80bfc50bfdaaae217ff6807ea5f40e15c7a7feb86625ac631b55237a54b44f24",
+      "bytes": 100893
+    }
+  ],
+  "measurements": [
+    {
+      "device": "iphone16pm-device",
+      "view": "bed",
+      "time": "day",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.22,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -1.818,
+        "centerZ": 1.54,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -1.818,
+          0.38,
+          1.54
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "bed",
+        "position": [
+          -1.818,
+          1.4403980801767076,
+          5.238047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "bed",
+      "time": "night",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -1.818,
+        "centerZ": 1.54,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -1.818,
+          0.38,
+          1.54
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "bed",
+        "position": [
+          -1.818,
+          1.4403980801767076,
+          5.238047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "fence",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.25,
+        "centerZ": -1.14,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.25,
+          0.38,
+          -1.14
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "fence",
+        "position": [
+          2.25,
+          1.4403980801767076,
+          2.558047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "fence",
+      "time": "night",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.25,
+        "centerZ": -1.14,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.25,
+          0.38,
+          -1.14
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "fence",
+        "position": [
+          2.25,
+          1.4403980801767076,
+          2.558047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "grass",
+      "time": "day",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.23,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.306,
+        "centerZ": 0.648,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.306,
+          0.38,
+          0.6479999999999999
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "grass",
+        "position": [
+          -0.306,
+          1.4403980801767076,
+          4.346047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "grass",
+      "time": "night",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.23,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.306,
+        "centerZ": 0.648,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.306,
+          0.38,
+          0.6479999999999999
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "grass",
+        "position": [
+          -0.306,
+          1.4403980801767076,
+          4.346047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "house",
+      "time": "day",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.23,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -2.388,
+        "centerZ": -0.624,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -2.388,
+          0.38,
+          -0.624
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "house",
+        "position": [
+          -2.388,
+          1.4403980801767076,
+          3.0740475810294208
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "house",
+      "time": "night",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.23,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -2.388,
+        "centerZ": -0.624,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -2.388,
+          0.38,
+          -0.624
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "house",
+        "position": [
+          -2.388,
+          1.4403980801767076,
+          3.0740475810294208
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "overview",
+      "time": "day",
+      "catHeightPct": 3.06,
+      "catWidthPct": 3.23,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.010704768687506583,
+        "centerZ": -0.38656030884626813,
+        "distance": 22.713526712995076,
+        "focus": [
+          -0.010704768687506583,
+          1.1834000200033188,
+          -0.38656030884626813
+        ],
+        "mode": "overview",
+        "offset": 0,
+        "place": null,
+        "position": [
+          -0.010704768687506583,
+          10.421823627659451,
+          20.36327884685426
+        ],
+        "shownDistance": 22.713526712995076,
+        "targetY": 1.1834000200033188,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "overview",
+      "time": "night",
+      "catHeightPct": 3.06,
+      "catWidthPct": 3.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.010704768687506583,
+        "centerZ": -0.38656030884626813,
+        "distance": 22.713526712995076,
+        "focus": [
+          -0.010704768687506583,
+          1.1834000200033188,
+          -0.38656030884626813
+        ],
+        "mode": "overview",
+        "offset": 0,
+        "place": null,
+        "position": [
+          -0.010704768687506583,
+          10.421823627659451,
+          20.36327884685426
+        ],
+        "shownDistance": 22.713526712995076,
+        "targetY": 1.1834000200033188,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "pond",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.3,
+        "centerZ": 0.48,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.3,
+          0.38,
+          0.48
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "pond",
+        "position": [
+          2.3,
+          1.4403980801767076,
+          4.178047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "pond",
+      "time": "night",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.3,
+        "centerZ": 0.48,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.3,
+          0.38,
+          0.48
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "pond",
+        "position": [
+          2.3,
+          1.4403980801767076,
+          4.178047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "tree",
+      "time": "day",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.22,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.822,
+        "centerZ": 0.132,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.8219999999999998,
+          0.38,
+          0.132
+        ],
+        "mode": "browsing",
+        "offset": -1.1102230246251565e-16,
+        "place": "tree",
+        "position": [
+          -0.8219999999999998,
+          1.4403980801767076,
+          3.830047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone16pm-device",
+      "view": "tree",
+      "time": "night",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.22,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.822,
+        "centerZ": 0.132,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.8219999999999998,
+          0.38,
+          0.132
+        ],
+        "mode": "browsing",
+        "offset": -1.1102230246251565e-16,
+        "place": "tree",
+        "position": [
+          -0.8219999999999998,
+          1.4403980801767076,
+          3.830047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 22.713526712995076,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "bed",
+      "time": "day",
+      "catHeightPct": 15.82,
+      "catWidthPct": 19.24,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -1.818,
+        "centerZ": 1.54,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -1.818,
+          0.38,
+          1.54
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "bed",
+        "position": [
+          -1.818,
+          1.4403980801767076,
+          5.238047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "fence",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.25,
+        "centerZ": -1.14,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.25,
+          0.38,
+          -1.14
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "fence",
+        "position": [
+          2.25,
+          1.4403980801767076,
+          2.558047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "grass",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.306,
+        "centerZ": 0.648,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.306,
+          0.38,
+          0.6479999999999999
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "grass",
+        "position": [
+          -0.306,
+          1.4403980801767076,
+          4.346047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "house",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -2.388,
+        "centerZ": -0.624,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -2.388,
+          0.38,
+          -0.624
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "house",
+        "position": [
+          -2.388,
+          1.4403980801767076,
+          3.0740475810294208
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "house",
+      "time": "night",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -2.388,
+        "centerZ": -0.624,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -2.388,
+          0.38,
+          -0.624
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "house",
+        "position": [
+          -2.388,
+          1.4403980801767076,
+          3.0740475810294208
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "overview",
+      "time": "day",
+      "catHeightPct": 2.98,
+      "catWidthPct": 3.15,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.010704768687506583,
+        "centerZ": -0.38656030884626813,
+        "distance": 23.321552002680942,
+        "focus": [
+          -0.010704768687506583,
+          1.1834000200033188,
+          -0.38656030884626813
+        ],
+        "mode": "overview",
+        "offset": 0,
+        "place": null,
+        "position": [
+          -0.010704768687506583,
+          10.669129792891471,
+          20.918737588378608
+        ],
+        "shownDistance": 23.321552002680942,
+        "targetY": 1.1834000200033188,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "overview",
+      "time": "night",
+      "catHeightPct": 2.98,
+      "catWidthPct": 3.15,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.010704768687506583,
+        "centerZ": -0.38656030884626813,
+        "distance": 23.321552002680942,
+        "focus": [
+          -0.010704768687506583,
+          1.1834000200033188,
+          -0.38656030884626813
+        ],
+        "mode": "overview",
+        "offset": 0,
+        "place": null,
+        "position": [
+          -0.010704768687506583,
+          10.669129792891471,
+          20.918737588378608
+        ],
+        "shownDistance": 23.321552002680942,
+        "targetY": 1.1834000200033188,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "pond",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": 2.3,
+        "centerZ": 0.48,
+        "distance": 3.8470768123342687,
+        "focus": [
+          2.3,
+          0.38,
+          0.48
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "pond",
+        "position": [
+          2.3,
+          1.4403980801767076,
+          4.178047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    },
+    {
+      "device": "iphone17pro-simulator",
+      "view": "tree",
+      "time": "day",
+      "catHeightPct": 15.83,
+      "catWidthPct": 19.25,
+      "controlOverlapPt2": 0.0,
+      "catInViewport": true,
+      "camera": {
+        "centerX": -0.822,
+        "centerZ": 0.132,
+        "distance": 3.8470768123342687,
+        "focus": [
+          -0.822,
+          0.38,
+          0.132
+        ],
+        "mode": "browsing",
+        "offset": 0,
+        "place": "tree",
+        "position": [
+          -0.822,
+          1.4403980801767076,
+          3.830047581029421
+        ],
+        "shownDistance": 3.8470768123342687,
+        "targetY": 0.38,
+        "velocity": 0
+      },
+      "limits": {
+        "daily": 3.8470768123342687,
+        "max": 23.321552002680942,
+        "min": 2.8
+      }
+    }
+  ]
+}

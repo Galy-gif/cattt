@@ -13,7 +13,7 @@ struct YardProbeView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            YardWebView(controller: probe.web)
+            YardWebSurface(controller: probe.web)
                 .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 6) {
@@ -54,6 +54,7 @@ struct YardProbeView: View {
             if probe.running {
                 HStack {
                     Button(probe.finishing ? "正在保存…" : "结束并保存") { Task { await probe.finish() } }.disabled(probe.finishing)
+                    Button("找团子") { probe.findCat() }.disabled(probe.finishing)
                     Spacer()
                     Button("关闭") { probe.close(); dismiss() }
                 }
@@ -153,6 +154,7 @@ final class YardProbe: ObservableObject {
     private var subscription: AnyCancellable?
     private var pendingRecord: [String: Any]?
     private var closed = false
+    private var processFaultInjected = false
 
     init() {
         let ud = UserDefaults.standard
@@ -175,6 +177,7 @@ final class YardProbe: ObservableObject {
         closed = false; running = true; summary = nil; pendingRecord = nil
         runID = UUID().uuidString; started = Date(); uptime = ProcessInfo.processInfo.systemUptime
         firstFrameMs = nil; loadMs = nil; pages = [:]; failures = []; events = []; thermalSamples = []; footprintSamples = []; environmentSamples = []
+        processFaultInjected = false
         options = ["walk": walk ? "1" : "0", "dpr": String(dpr), "shadow": String(shadow), "weather": weather,
                    "post": post ? "1" : "0", "fuzz": fuzz ? "1" : "0", "msaa": msaa ? "2" : "0", "fps": lock30 ? "30" : "60"]
         options["fallback"] = String(fallback)
@@ -184,7 +187,7 @@ final class YardProbe: ObservableObject {
         if fallback >= 2 { options["shadow"] = "1024" }
         if fallback >= 5 { options["fps"] = "30" }
         if slot != "auto" { options["time"] = slot }
-        if let fault = UserDefaults.standard.string(forKey: "yardProbeFault"), ["model-missing", "no-first-frame", "save-failed", "report-timeout", "context-loss"].contains(fault) { options["fault"] = fault }
+        if let fault = UserDefaults.standard.string(forKey: "yardProbeFault"), ["model-missing", "no-first-frame", "save-failed", "report-timeout", "context-loss", "scale-cycle", "process-termination"].contains(fault) { options["fault"] = fault }
         subscription = web.messages.sink { [weak self] in self?.receive($0) }
         web.load(runID: runID, query: options, active: active)
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in self?.sample() }
@@ -199,6 +202,11 @@ final class YardProbe: ObservableObject {
         if !value { deadline?.cancel() }
         else { armDeadline(reason: firstFrameMs == nil ? "启动后 10 秒没有首帧" : "回到前台后 10 秒没有渲染心跳") }
         Task { await web.setActive(value) }
+    }
+
+    func findCat() {
+        guard running, !finishing else { return }
+        Task { _ = try? await web.send(["type": "findCat"]) }
     }
 
     func close() {
@@ -253,6 +261,17 @@ final class YardProbe: ObservableObject {
         case "firstFrame":
             if firstFrameMs == nil { firstFrameMs = elapsed * 1000 }
             armDeadline(reason: "前台 10 秒没有渲染心跳")
+        case "visualReady":
+            armDeadline(reason: "前台 10 秒没有渲染心跳")
+            #if DEBUG
+            if options["fault"] == "process-termination", !processFaultInjected {
+                processFaultInjected = true
+                Task { [weak self] in
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    self?.web.simulateContentProcessTermination()
+                }
+            }
+            #endif
         case "perf":
             armDeadline(reason: "前台 10 秒没有渲染心跳")
             let fps = message["fps"] as? Double ?? 0
@@ -326,6 +345,7 @@ final class YardProbe: ObservableObject {
             if (report["minScale"] as? Double ?? 0) <= 0.75 { fail("自适应倍率触底") }
         }
         if let touch = report["touch"] as? [String: Any], (touch["maxFrameDelay"] as? Int ?? 0) > 1 { fail("触摸到镜头更新超过 1 帧") }
+        if let trajectory = report["trajectoryClearance"] as? [String: Any], (trajectory["violations"] as? Int ?? 0) > 0 { fail("3D 实际行走轨迹发生实体穿透") }
         let missing = ["真机五分钟白天晴/夜晚雨矩阵", "连续十分钟热状态", "网页内容进程内存及两进程合计", "能耗", "图标到首帧录屏", "前后台十次/锁屏人工复核", "清晰度三档人工选择"]
         return ["schemaVersion": 2, "runId": runID, "status": failures.isEmpty ? "缺测" : "未通过", "failures": failures,
                 "device": Self.deviceModel, "system": UIDevice.current.systemVersion, "isSimulator": Self.isSimulator,

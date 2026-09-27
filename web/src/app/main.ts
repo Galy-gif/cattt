@@ -3,11 +3,15 @@ import { Renderer } from '../render/renderer';
 import { loadTuanzi } from '../tuanzi';
 import { Atmosphere, type TimeSlot, type Weather } from '../yard/atmosphere';
 import { Walker, applyCatGlow } from '../yard/cat';
-import { PLACE_ORDER, type PlaceId } from '../yard/layout';
+import { minimumClearance } from '../yard/collision';
+import { PLACE_ORDER, LAYOUT_VERSION, YARD_BOUNDARY, NODES, type PlaceId } from '../yard/layout';
 import { World } from '../yard/world';
 import { identity, inApp, post } from './bridge';
 import { FramePacer, PerfRecorder } from './performance';
 import { FollowCamera } from './follow';
+import { CameraGestures } from './gestures';
+import { projectBox, type ScreenRect, type Insets } from './composition';
+import { layoutRestorePoint } from './layout-snapshot';
 
 // 参数由 Debug 实测页限定；与桌面共用资源，独立生命周期。
 const params = new URLSearchParams(location.search);
@@ -39,9 +43,21 @@ async function boot() {
   world.scene.add(cat.root);
   const walker = new Walker(cat);
   cat.lookAt(null);
-  const follow = new FollowCamera();
-  renderer.bind(world.scene, follow.camera, (width, height) => follow.resize(width, height));
+  const composition = params.get('composition') === '1';
+  const follow = new FollowCamera(composition);
+  const occlusion: Insets = { top: Number(params.get('top') ?? 0), bottom: Number(params.get('bottom') ?? 0),
+    left: Number(params.get('left') ?? 0), right: Number(params.get('right') ?? 0) };
+  if (composition) {
+    follow.setBounds(world.compositionBounds, world.cameraObstacles, world.compositionParts.map(part => part.box), YARD_BOUNDARY.map(p => new THREE.Vector3(p.x, 0, p.z)));
+  }
+  renderer.bind(world.scene, follow.camera, (width, height) => follow.resize(width, height, occlusion));
   renderer.gl.info.autoReset = false;
+  if (composition) {
+    const view = params.get('view') === 'comparison' ? 'overview' : params.get('view') ?? 'house';
+    walker.teleport(view === 'overview' ? 'grass' : placeValue(view));
+    cat.restorePose(cat.position, 0.25);
+    if (view === 'overview') follow.overview(true); else follow.lookAtPlace(placeValue(view), true);
+  }
 
   const recorder = new PerfRecorder();
   const pacer = new FramePacer(renderer.targetFps);
@@ -50,12 +66,44 @@ async function boot() {
   let next = 1, restSeconds = 0;
   let initialized = false, appActive = !inApp(), contextOK = true, disposed = false;
   let raf = 0, running = false, previous: number | null = null;
-  let firstFrame = false, frameIndex = 0, reportAt = 0;
+  let firstFrame = false, visualReady = false, visualReadyPending = false, frameIndex = 0, reportAt = 0;
   let contextTestTimer: ReturnType<typeof setTimeout> | undefined;
+  let scaleTestTimer: ReturnType<typeof setInterval> | undefined;
+  const resolutionEvents: { phase: string; scale: number; reason: string; at: number }[] = [];
+  const visitedNodes = new Set<string>();
+  let trajectoryMinClearance = Infinity, trajectoryViolations = 0, colliding = false;
+  renderer.onScaleEvent = event => {
+    const record = { ...event, at: event.at - started };
+    resolutionEvents.push(record);
+    post({ type: 'resolutionScale', event: record });
+  };
   let pendingTouches: { at: number; frame: number }[] = [];
-  let pointerId: number | null = null, lastX = 0;
+  let pointerId: number | null = null, lastX = 0, lastPointerAt = 0;
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  follow.reduceMotion = motionPreference.matches;
+  const gestures = new CameraGestures(follow, () => renderer.width);
+  motionPreference.addEventListener('change', event => { follow.reduceMotion = event.matches; }, { signal: listeners.signal });
   let restored = false;
+  const report = () => ({ ...recorder.report(), resolutionEvents,
+    visitedNodes: [...visitedNodes], journey: { arrived: walker.arrived, goal: walker.goal, position: cat!.position.toArray() },
+    trajectoryClearance: { minimum: Number.isFinite(trajectoryMinClearance) ? trajectoryMinClearance : null, violations: trajectoryViolations } });
+  const compositionMetrics = () => {
+    const catBox = new THREE.Box3().setFromObject(cat.root, true);
+    const head = cat.model.bones.get('head');
+    const point = head?.getWorldPosition(new THREE.Vector3()).project(follow.camera);
+    return { viewport: { width: renderer.width, height: renderer.height }, occlusion,
+      camera: follow.snapshot(), limits: follow.limits,
+      cat: projectBox(catBox, follow.camera, renderer.width, renderer.height),
+      head: point ? { x: (point.x + 1) * renderer.width / 2, y: (1 - point.y) * renderer.height / 2 } : null,
+      yard: projectBox(world.compositionBounds, follow.camera, renderer.width, renderer.height),
+      layoutVersion: LAYOUT_VERSION, boundary: YARD_BOUNDARY,
+      parts: world.compositionParts.map(part => ({ id: part.id, rect: projectBox(part.box, follow.camera, renderer.width, renderer.height) })),
+      viewMatrix: follow.camera.matrixWorld.toArray(), projectionMatrix: follow.camera.projectionMatrix.toArray(),
+      comparison: params.get('view') === 'comparison',
+      bounds: { min: world.compositionBounds.min.toArray(), max: world.compositionBounds.max.toArray() } };
+  };
   const snapshot = () => ({
+    layoutVersion: LAYOUT_VERSION,
     position: { x: cat.position.x, y: cat.position.y, z: cat.position.z }, facing: cat.facing,
     goal: walker.goal, arrived: walker.arrived, camera: follow.snapshot(),
     slot: atmosphere.slot, shownSlot: atmosphere.slotShown, weather: atmosphere.weather,
@@ -64,11 +112,19 @@ async function boot() {
   type Snapshot = ReturnType<typeof snapshot>;
   function restore(s: Snapshot) {
     const goal = placeValue(s.goal);
-    const numbers = [s.position.x, s.position.y, s.position.z, s.facing, s.camera.offset, ...s.camera.focus, ...s.camera.position];
+    const numbers = [s.position.x, s.position.y, s.position.z, s.facing, ...s.camera.focus, ...s.camera.position];
+    if ('centerX' in s.camera) numbers.push(s.camera.centerX);
+    if ('centerZ' in s.camera) numbers.push(s.camera.centerZ);
+    if ('velocity' in s.camera) numbers.push(s.camera.velocity);
     if (!numbers.every(Number.isFinite)) throw new Error('恢复快照坐标无效');
-    cat!.restorePose(s.position, s.facing);
-    walker.restore(goal, s.arrived);
-    follow.restore(s.camera);
+    const migrated = layoutRestorePoint(s.layoutVersion, goal);
+    cat!.restorePose(migrated ?? s.position, s.facing);
+    walker.restore(goal, migrated ? true : s.arrived);
+    if (migrated) {
+      if (s.camera.mode === 'overview') follow.overview(true);
+      else if (s.camera.mode === 'following') follow.findCat();
+      else follow.lookAtPlace(goal, true);
+    } else follow.restore(s.camera);
     // 先恢复离开时天色；自动时钟在后续更新继续跟随。
     atmosphere.choose(s.shownSlot, s.weather, true);
     atmosphere.slot = s.slot;
@@ -85,8 +141,8 @@ async function boot() {
       cancelAnimationFrame(raf); raf = 0;
       recorder.pause(performance.now(), reason);
       previous = null; pacer.reset(); pendingTouches = [];
-      follow.dragging = false; pointerId = null;
-      post({ type: 'paused', reason, snapshot: snapshot(), report: recorder.report() });
+      follow.endBrowse(true); gestures.cancel(); pointerId = null;
+      post({ type: 'paused', reason, snapshot: snapshot(), report: report() });
     } else {
       renderer.resetTiming(); previous = null; pacer.reset();
       post({ type: 'resumed', reason, snapshot: snapshot() });
@@ -103,8 +159,27 @@ async function boot() {
     const dt = previous === null ? 0 : Math.min(0.05, (now - previous) / 1000);
     previous = now;
     atmosphere.update(dt);
-    walker.update(follow.camera, dt);
+    // 桌面章节的离屏追赶会传送猫；手机浏览镜头不应触发这个机制。
+    if (!composition) walker.update(follow.camera, dt);
     cat!.update(dt);
+    if (composition && !firstFrame) {
+      cat!.root.updateMatrixWorld(true);
+      cat!.root.traverse(object => { const mesh = object as THREE.SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.update(); });
+      follow.setSubjectSize(new THREE.Box3().setFromObject(cat!.root, true).getSize(new THREE.Vector3()));
+    }
+    for (const [id, p] of Object.entries(NODES)) if (Math.hypot(p.x - cat!.position.x, p.z - cat!.position.z) < .09) visitedNodes.add(id);
+    const gap = minimumClearance(cat!.position);
+    trajectoryMinClearance = Math.min(trajectoryMinClearance, gap.clearance);
+    if (gap.clearance < 0 && !colliding) {
+      trajectoryViolations++;
+      post({ type: 'collision', collider: gap.id, clearance: gap.clearance, position: { x: cat!.position.x, z: cat!.position.z } });
+    }
+    colliding = gap.clearance < 0;
+    if (composition && !firstFrame && params.get('view') === 'comparison') {
+      // 与第一版真机总览完全相同的相机外参；禁止为对照缩放物件。
+      follow.compareAt([-.010704768687506583, 1.1834000200033188, -.38656030884626813],
+        [-.010704768687506583, 10.421823627659451, 20.363278846854261]);
+    }
     follow.update(cat!.position, dt);
     frameIndex++;
     for (const touch of pendingTouches) recorder.touch(frameIndex - touch.frame, performance.now() - touch.at);
@@ -137,11 +212,21 @@ async function boot() {
         }, 1500);
       }
     }
+    // render 返回只表示命令提交。再等一轮 RAF，才通知原生层淡出启动／重载遮罩。
+    if (!visualReady && !visualReadyPending) {
+      visualReadyPending = true;
+      requestAnimationFrame(() => {
+        visualReadyPending = false;
+        if (!running || disposed || !contextOK || visualReady) return;
+        visualReady = true;
+        post({ type: 'visualReady', renderMs: performance.now() - started, snapshot: snapshot() });
+      });
+    }
     if (finished - reportAt >= 1000) {
       reportAt = finished;
       const info = renderer.gl.info.render;
-      post({ type: 'perf', report: recorder.report(), snapshot: snapshot(), fps: renderer.fps, scale: renderer.scale,
-        calls: info.calls, triangles: info.triangles });
+      post({ type: 'perf', report: report(), snapshot: snapshot(), fps: renderer.fps, scale: renderer.scale,
+        nearest: walker.nearest, calls: info.calls, triangles: info.triangles });
       if (!hud.hidden) hud.textContent = `${renderer.fps.toFixed(0)} fps · ×${renderer.scale.toFixed(2)} · ${walker.nearest}`;
     }
   }
@@ -150,6 +235,7 @@ async function boot() {
     if (disposed) return;
     disposed = true;
     clearTimeout(contextTestTimer);
+    clearInterval(scaleTestTimer);
     syncRunning('dispose');
     listeners.abort();
     world.scene.traverse(object => {
@@ -168,21 +254,34 @@ async function boot() {
   const eventOptions = { signal: listeners.signal };
   canvas.addEventListener('pointerdown', event => {
     if (!running) return;
-    pointerId = event.pointerId; lastX = event.clientX; follow.dragging = true;
+    if (composition) {
+      gestures.down(event.pointerId, event.clientX, event.clientY, performance.now());
+      canvas.setPointerCapture(event.pointerId); return;
+    }
+    pointerId = event.pointerId; lastX = event.clientX; lastPointerAt = performance.now(); follow.beginBrowse();
     canvas.setPointerCapture(event.pointerId);
   }, eventOptions);
   canvas.addEventListener('pointermove', event => {
-    if (!running || event.pointerId !== pointerId) return;
-    follow.offset -= ((event.clientX - lastX) / renderer.width) * follow.visibleWidth;
-    lastX = event.clientX;
+    if (!running) return;
+    if (composition) {
+      if (gestures.move(event.pointerId, event.clientX, event.clientY, performance.now())) pendingTouches.push({ at: performance.now(), frame: frameIndex });
+      return;
+    }
+    if (event.pointerId !== pointerId) return;
+    const now = performance.now();
+    const delta = -((event.clientX - lastX) / renderer.width) * follow.visibleWidth;
+    follow.dragBy(delta, Math.max(0.001, (now - lastPointerAt) / 1000));
+    lastX = event.clientX; lastPointerAt = now;
     pendingTouches.push({ at: performance.now(), frame: frameIndex });
   }, eventOptions);
   for (const name of ['pointerup', 'pointercancel'] as const) canvas.addEventListener(name, event => {
-    if (event.pointerId === pointerId) { pointerId = null; follow.dragging = false; }
+    if (composition) { if (name === 'pointercancel') gestures.cancel(); else gestures.up(event.pointerId, performance.now()); return; }
+    if (event.pointerId === pointerId) { pointerId = null; follow.endBrowse(follow.reduceMotion || name === 'pointercancel'); }
   }, eventOptions);
+  canvas.addEventListener('lostpointercapture', event => { gestures.lost(event.pointerId); }, eventOptions);
   document.addEventListener('visibilitychange', () => syncRunning('visibility'), eventOptions);
   canvas.addEventListener('webglcontextlost', event => {
-    event.preventDefault(); contextOK = false;
+    event.preventDefault(); contextOK = false; visualReady = false; visualReadyPending = false;
     post({ type: 'contextLost', snapshot: snapshot() }); syncRunning('contextLost');
   }, eventOptions);
   canvas.addEventListener('webglcontextrestored', () => {
@@ -200,12 +299,35 @@ async function boot() {
         appActive = message.active === true; initialized = true; syncRunning('initialize'); break;
       case 'active': appActive = message.on === true; syncRunning('native'); break;
       case 'snapshot': sendSnapshot(); return JSON.stringify(snapshot());
-      case 'report': return JSON.stringify(recorder.report());
+      case 'report': return JSON.stringify(report());
       case 'dispose': dispose(); break;
       case 'atmosphere': atmosphere.choose(slotValue(message.slot), message.weather === 'rain' ? 'rain' : 'clear', message.instant === true); break;
       case 'goTo': walking = false; walker.goTo(placeValue(message.place)); break;
       case 'teleport': walking = false; walker.teleport(placeValue(message.place)); break;
       case 'walk': walking = message.on === true; restSeconds = 0; break;
+      case 'stroll': walking = false; walker.stroll(); break;
+      case 'controls': {
+        const rects = message.rects as ScreenRect[];
+        if (!Array.isArray(rects) || rects.some(r => ![r.x, r.y, r.width, r.height].every(Number.isFinite) || r.width < 0 || r.height < 0)) throw new Error('控件矩形无效');
+        follow.setControls(rects); break;
+      }
+      case 'findCat': gestures.cancel(); follow.findCat(); break;
+      case 'overview': gestures.cancel(); follow.overview(message.instant === true); break;
+      case 'look': gestures.cancel(); follow.lookAtPlace(placeValue(message.place), message.instant === true); break;
+      case 'viewport': {
+        const next = message.insets as Insets;
+        if (!next || !['top', 'bottom', 'left', 'right'].every(key => Number.isFinite(next[key as keyof Insets]) && next[key as keyof Insets] >= 0)) throw new Error('安全区参数无效');
+        Object.assign(occlusion, next); follow.resize(renderer.width, renderer.height, occlusion); break;
+      }
+      case 'compositionMetrics': return JSON.stringify(compositionMetrics());
+      // 独立预览的录屏与回归入口，不作为正式用户控件。
+      case 'previewZoom':
+        if (!composition) throw new Error('仅构图预览可用');
+        follow.zoomBy(Number(message.ratio), renderer.width / 2, renderer.height / 2); follow.endBrowse(true); break;
+      case 'previewMotion':
+        if (!composition) throw new Error('仅构图预览可用');
+        follow.reduceMotion = message.on === true; break;
+      case 'scale': renderer.requestScale(Number(message.scale), Number(message.scale) < renderer.scale ? 'slow' : 'fast'); break;
       case 'sit': cat!.sit(); break;
       case 'stand': cat!.stand(); break;
       default: return JSON.stringify({ error: `不认识的命令：${String(message.type)}` });
@@ -213,6 +335,13 @@ async function boot() {
     return '{}';
   } };
   post({ type: 'ready', loadMs: performance.now() - started, triangles: world.triangles });
+  if (params.get('fault') === 'scale-cycle') {
+    let low = true;
+    scaleTestTimer = setInterval(() => {
+      renderer.requestScale(low ? 0.8 : 1, low ? 'slow' : 'fast');
+      low = !low;
+    }, 800);
+  }
   if (!inApp()) { initialized = true; syncRunning('browser'); }
 }
 void boot().catch(error => post({ type: 'error', message: String(error) }));

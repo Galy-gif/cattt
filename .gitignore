@@ -62,3 +62,11 @@ outputs/world-depth/review/*.png
 outputs/nest-style/review/*.png
 outputs/personality-review/*.png
 !outputs/personality-review/*-small.png
+
+# 第一轮构图评审的原尺寸截图仅留本地
+outputs/ios-3d-composition-review/originals/
+
+# 院子扩展的原尺寸对照与可恢复源备份
+outputs/yard-expansion-review/originals/
+
+outputs/yard-layout-review/originals/

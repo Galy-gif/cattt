@@ -22,7 +22,7 @@ final class AppStore: ObservableObject {
 
     @Published var yardProbeVisible: Bool = {
         #if DEBUG
-        return ProcessInfo.processInfo.arguments.contains("-yardProbe")
+        return ProcessInfo.processInfo.arguments.contains("-yardProbe") || ProcessInfo.processInfo.arguments.contains("-yardComposition")
         #else
         return false
         #endif

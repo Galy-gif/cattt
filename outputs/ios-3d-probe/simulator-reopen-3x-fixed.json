@@ -1,0 +1,27 @@
+{
+  "blankCanvasEvents" : [
+    {
+      "at" : 22.991666666666667,
+      "duration" : 0.09666666666666757,
+      "frames" : 7
+    },
+    {
+      "at" : 29.43166666666667,
+      "duration" : 0.1233333333333313,
+      "frames" : 8
+    },
+    {
+      "at" : 35.89,
+      "duration" : 0.12333333333333485,
+      "frames" : 8
+    }
+  ],
+  "detector" : "画面中央 4%–96% × 8%–83% 网格中，≥92% 像素接近院子淡蓝露底色且上下色差 <18，或 ≥96% 接近白色；有明确上下渐变的原生天空不计露底",
+  "duration" : 49.51,
+  "file" : "maomao-final-reopen-3x.mov",
+  "frames" : 1490,
+  "schemaVersion" : 2,
+  "whiteCanvasEvents" : [
+
+  ]
+}

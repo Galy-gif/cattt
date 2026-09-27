@@ -1,4 +1,4 @@
-import { LAYOUT } from './layout.generated';
+import { LAYOUT } from './layout.generated.ts';
 
 export type NodeId = keyof typeof LAYOUT.nodes;
 export type PlaceId = (typeof LAYOUT.destinations)[number]['id'];
@@ -15,6 +15,13 @@ export const NODES = LAYOUT.nodes as Record<string, Ground>;
 export const ANCHORS = LAYOUT.anchors;
 export const POND = LAYOUT.pond as readonly Ground[];
 export const EDGES = LAYOUT.edges;
+export const PATHS = LAYOUT.paths;
+export const YARD_BOUNDARY = LAYOUT.boundary;
+export const LAYOUT_VERSION = LAYOUT.version;
+export const STROLL = LAYOUT.stroll;
+export const COLLIDERS = LAYOUT.colliders;
+export const CAT_FOOTPRINT_RADIUS = LAYOUT.catFootprintRadius;
+export const PATH_SAFETY_MARGIN = LAYOUT.pathSafetyMargin;
 
 export function place(id: PlaceId) {
   const found = LAYOUT.destinations.find((d) => d.id === id);
