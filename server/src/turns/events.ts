@@ -6,7 +6,7 @@ import { turns } from '../db/schema.ts';
 
 /**
  * 发给 iOS 的 SSE 事件。格式是我们自己定的，不用 AI SDK 的流协议，
- * 这样 SDK 升级不会牵连 iOS 发版。见 docs/specs/后端-开发者版-2026-09-11.md 第 7 节。
+ * 这样 SDK 升级不会牵连 iOS 发版。见 docs/方案/后端-开发者版-方案-2026-09-11.md 第 7 节。
  */
 export type TurnEvent =
   | { event: 'accepted'; data: { turn_id: string; user_message_id: string } }

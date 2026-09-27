@@ -5,7 +5,7 @@
 - [前后对照](01-轻巧体态前后对照.jpg)：侧面、四分之三与坐姿，统一机位、标尺、灯光。
 - [新体态](02-团子新体态.jpg)；`团子动作预览.mp4` 是本机原地片段视频，世界移动与转向另在网页验证。
 - [网页实物](http://localhost:5173/tuanzi.html)：默认柔软短绒、细密绒毛开启、描边关闭。
-- [方案与实施](../../docs/specs/网页版-团子灵动短绒-2026-09-17.md)、[源文件](../../assets/tuanzi-3d/tuanzi.blend)、[运行模型](../../web/public/models/tuanzi.glb)。
+- 方案与实施（2026-09-27 从当前版本删除，原件在 git 历史）、[源文件](../../assets/tuanzi-3d/tuanzi.blend)、[运行模型](../../web/public/models/tuanzi.glb)。
 
 ## 造型与材质
 

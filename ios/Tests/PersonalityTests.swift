@@ -1,6 +1,6 @@
 import Foundation
 /// 性格系统：四种气质在院子里作息、去处、看你、来门口、喝水时机、情绪时长都不一样。
-/// 判据来自 docs/specs/性格系统优化-2026-09-12.md 第 3 节。
+/// 判据来自 docs/方案/性格系统优化-方案-2026-09-12.md 第 3 节。
 /// 运行目录须是仓库根。
 @main struct PersonalityTests {
     struct Log {

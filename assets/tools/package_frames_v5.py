@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """frames-v5 切帧打包：去底 → 调色到保留的侧面走 → 描边柔化 → 按张统一到 40pt 头宽 → 按接触点放进各动作的公共画布 → 写资源与动作目录。
 
-依据 docs/specs/逐帧v5-出图与播放规则-2026-09-11.md 与 outputs/frames-v5-review/验收报告.md。
+依据 docs/方案/逐帧v5-出图与播放规则-方案-2026-09-11.md 与 outputs/frames-v5-review/验收报告.md。
 只读 outputs/frames-v5-delivery/ 与验收数值；写 ios/Maomao/Assets.xcassets/world-v5/、动作目录 cat-actions-v2，
 以及 Resources/WorldTextures 下的绳子与绳结贴图。可重复运行，结果确定。
 
@@ -190,7 +190,7 @@ def rear_ground_runs(hard, rear=0.40):
 
     `ground_runs` 从**整只猫的最低行**往上取 8px 的带。低头喝水这种姿势下巴比后脚低，
     后脚会掉出这条带，`runs[0]` 就换成了前面的接触段，锚点在帧之间来回跳 43pt
-    （见 docs/specs/世界层动画连贯性-诊断与方案-2026-09-12.md 第 2.1 节）。
+    （原文 2026-09-27 从当前版本删除，原件在 git 历史）。
     """
     ys, xs = np.nonzero(hard)
     cut = xs.min() + rear * (xs.max() - xs.min())

@@ -1,6 +1,6 @@
 # frames-v5 素材锁定记录
 
-委托单 `brief.md`；规则 `docs/specs/逐帧v5-出图与播放规则-2026-09-11.md`；验收报告 `outputs/frames-v5-review/验收报告.md`。
+委托单 `brief.md`；规则 `docs/方案/逐帧v5-出图与播放规则-方案-2026-09-11.md`；验收报告 `outputs/frames-v5-review/验收报告.md`。
 原始交付保留在 `outputs/frames-v5-delivery/`，不改动。
 
 ## 已锁定（2026-09-12，第 1 轮）

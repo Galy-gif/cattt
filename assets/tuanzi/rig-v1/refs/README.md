@@ -1,6 +1,6 @@
 # rig-v1 参考图
 
-2026-09-11。委托单见 `../brief.md`，方案见 `docs/specs/团子分件动画与场景融合-出图识别接入-2026-09-11.md`。
+2026-09-11。委托单见 `../brief.md`，方案 2026-09-27 从当前版本删除，原件在 git 历史。
 
 - `R1-cat-identity.png`：复制自 `felt-world-pack-v1/character/02-single-cat-material-preview.png`，世界层团子身份与材质基准。
 - `R2-cat-walk-side.png`：复制自 `felt-world-pack-v1/actions/01-walk-felt.png`，侧面角度与比例。

@@ -319,7 +319,7 @@ def main():
         ("INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents", "YES"),
         # 冷启动先显示与 3D 院子原生兜底相同的天空色，避免 SwiftUI 首帧前闪白。
         ("INFOPLIST_KEY_UILaunchStoryboardName", "LaunchScreen"),
-        # 院子「跟着真实天气」只要大致位置（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
+        # 院子「跟着真实天气」只要大致位置（docs/方案/院子天气-真实与手动切换-方案-2026-09-16.md）。
         ("INFOPLIST_KEY_NSLocationWhenInUseUsageDescription", '"用大致位置让院子跟着你那里的天气下雨或放晴。"'),
         # 竖屏专用。整套设计都是 390 × 844 的竖屏。
         ("INFOPLIST_KEY_UISupportedInterfaceOrientations", "UIInterfaceOrientationPortrait"),

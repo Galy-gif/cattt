@@ -1,6 +1,6 @@
 # frames-v6 素材锁定记录
 
-委托单 `brief.md`；方案 `docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md`；验收报告 `outputs/frames-v6-review/验收报告.md`（含 Claude 的独立复核）。
+委托单 `brief.md`；方案 `docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md`；验收报告 `outputs/frames-v6-review/验收报告.md`（含 Claude 的独立复核）。
 原始交付保留在 `outputs/frames-v6-delivery/`，不改动。用户 2026-09-12 看过 `outputs/frames-v6-review/sheets/frames-v6-overview.jpg` 后批准锁定。
 
 ## 已锁定（2026-09-12，第 1 轮）
@@ -24,7 +24,7 @@
 
 ## 已接入（2026-09-12）
 
-`assets/tools/package_frames_v6.py` 切帧打包进 `Assets.xcassets/world-v6/`，动作目录 13 个 v6 动作（另外三个是过渡：`moodSadOut` 用 M3 第 2、1 格倒放，`sitToStand` / `standToSit` 用 v5 交付 N4 的第 1–3 格）；记录见 `docs/specs/情绪-喝水-时段与雨天-实施与验收.md`。
+`assets/tools/package_frames_v6.py` 切帧打包进 `Assets.xcassets/world-v6/`，动作目录 13 个 v6 动作（另外三个是过渡：`moodSadOut` 用 M3 第 2、1 格倒放，`sitToStand` / `standToSit` 用 v5 交付 N4 的第 1–3 格）；记录原文（原文 2026-09-27 从当前版本删除，原件在 git 历史）；本轮验收报告在 `outputs/frames-v6-review/验收报告.md`。
 
 ## 加工时做的
 

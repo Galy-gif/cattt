@@ -10,7 +10,7 @@ import { TEMPERAMENTS, type Temperament } from './persona.ts';
  * 团子每天自己写的那一条。模型只从事实表里写，不许编事。
  * 事实表和 App 本地模板（ios/Maomao/Model/CatDiary.swift）是同一张；
  * 这个接口不通时 App 用本地模板兜底。
- * 依据 docs/specs/性格系统优化-2026-09-12.md 第 2.3 节。
+ * 依据 docs/方案/性格系统优化-方案-2026-09-12.md 第 2.3 节。
  */
 export type DiaryFacts = {
   date: string;

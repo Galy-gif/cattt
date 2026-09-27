@@ -7,7 +7,7 @@ import UIKit
 /// 按团子所在地点的 `cameraX` 左右取景：团子在蘑菇屋，身后就是蘑菇屋；它走去池塘，背景跟着慢慢移过去。
 /// 调色、雨丝和院子共用 `AtmosphereGrade`、`RainStreaks`；月亮、星星、夕阳、雨云用院子同一批毛毡件，
 /// 按这一屏的构图摆，跟底图一样虚着。上下两层雾托住顶栏和输入框，颜色随明暗换。
-/// 方案见 `docs/specs/聊天页院子底-实现方案-2026-09-16.md`。
+/// 方案见 `docs/方案/聊天页院子底-方案-2026-09-16.md`。
 struct ChatBackground: View {
     let atmosphere: AtmosphereParams
     let tone: ChatTone

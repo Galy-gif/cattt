@@ -198,7 +198,7 @@ struct WorldSimulation {
     private var arrivalTurn=false
     private var nextFenceFlowers=false
     private var heading=WorldPoint(x:1,y:0)
-    // 情绪、时段、天气、水碗（docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md）
+    // 情绪、时段、天气、水碗（docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md）
     private(set) var mood: Mood = .calm
     private(set) var night = false
     private(set) var allowed: Set<Int> = [0,1,2,3,4,5]

@@ -1,7 +1,7 @@
 import Foundation
 
 /// 时段、天气、情绪：纯逻辑，没有 SwiftUI，世界层测试直接编译它。
-/// 依据 docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md 第 2、4 节。
+/// 依据 docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md 第 2、4 节。
 
 /// 一天五段。第一版按固定钟点，第二版换当地日出日落。
 enum DayPhase: String, CaseIterable {
@@ -27,7 +27,7 @@ enum DayPhase: String, CaseIterable {
     var isNight: Bool { self == .night }
 }
 
-/// 天气。院子只分晴和雨；雪、雾不做（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
+/// 天气。院子只分晴和雨；雪、雾不做（docs/方案/院子天气-真实与手动切换-方案-2026-09-16.md）。
 enum Weather: String {
     case clear, rain
 

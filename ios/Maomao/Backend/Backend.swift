@@ -58,7 +58,7 @@ struct APITurn: Decodable {
     let remembered: Bool
 }
 
-/// SSE 事件的 data。见 docs/specs/后端-开发者版-2026-09-11.md 第 7 节。
+/// SSE 事件的 data。见 docs/方案/后端-开发者版-方案-2026-09-11.md 第 7 节。
 enum TurnEventData {
     struct Accepted: Decodable { let turnId: String; let userMessageId: String }
     struct Delta: Decodable { let text: String }

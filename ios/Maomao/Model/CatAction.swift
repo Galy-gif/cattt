@@ -4,9 +4,9 @@ import SwiftUI
 /// Versioned atlas import lives in assets/tools/package_world_v3.swift.
 enum CatAction: String, Codable, CaseIterable {
     case walk, sleepyNod, blinkLook, stretch, treeScratch, tailChase, run, sleepBreathe, walkToward, walkAway, scratchEnter, scratchExit, jumpPrepare, jumpUp, climbIn, climbOut, jumpDown, land, perchLook, perchSleep, flowerPlay, turn, nestLook, nestSleep, railReach, railClimb, railSettle, waterLook, waterReach, waterTap, waterWatch, waterShake, waterRest, waterRecover
-    // v5 树窝整段（逐帧 v5，见 docs/specs/逐帧v5-出图与播放规则-2026-09-11.md）
+    // v5 树窝整段（逐帧 v5，见 docs/方案/逐帧v5-出图与播放规则-方案-2026-09-11.md）
     case v5Prepare, v5Air, v5Grip, v5Enter, v5Look, v5Sleep, v5Out, v5Leap, v5Fall, v5Land
-    // v6 门口待机、情绪、喝水（frames-v6，见 docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md）
+    // v6 门口待机、情绪、喝水（frames-v6，见 docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md）
     case sitLook, headTilt, groom, moodHappy, moodSulk, moodSadIn, moodSad, moodSadOut, drinkDown, drinkLap, drinkUp, sitToStand, standToSit
 
     var spec: CatActionSpec { CatActionCatalog.shared.spec(for: self) }

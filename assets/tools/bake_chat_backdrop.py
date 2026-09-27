@@ -4,7 +4,7 @@
 亮窗、碗里的水这类随状态出现的件不烘进去；猫也不烘。
 
 院子美术换版后重跑：python3 assets/tools/bake_chat_backdrop.py
-方案见 docs/specs/聊天页院子底-实现方案-2026-09-16.md。雾层不在这里，在 ChatBackground.swift。
+方案见 docs/方案/聊天页院子底-方案-2026-09-16.md。雾层不在这里，在 ChatBackground.swift。
 """
 import json
 import pathlib

@@ -183,7 +183,7 @@ struct MeView: View {
                 .accessibilityAddTraits(.isButton)
 
                 ListDivider()
-                // 院子的天气：跟着真实天气，或者一直晴 / 一直下雨（docs/specs/院子天气-真实与手动切换-2026-09-16.md）。
+                // 院子的天气：跟着真实天气，或者一直晴 / 一直下雨（docs/方案/院子天气-真实与手动切换-方案-2026-09-16.md）。
                 Menu {
                     Picker("院子的天气", selection: $store.weatherMode) {
                         ForEach(WeatherMode.allCases, id: \.self) { Text($0.title).tag($0) }

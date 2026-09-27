@@ -1,6 +1,6 @@
 /**
  * Fluid Hover 的原生实现（规则借 Fluid Functionalism 的 use-fluid-hover，不搬代码、不引 React）。
- * 方案：docs/specs/网页版-控件细节借鉴Fluid-方案-2026-09-17.md 第 4 节。
+ * 方案：docs/方案/网页版-控件细节借鉴Fluid-方案-2026-09-17.md 第 4 节。
  *
  * 一块高亮在各项之间移动：
  * - 光标在某项里面 → 那项；在缝隙、内边距里 → 离中心最近那项，所以高亮不会在项之间闪没。

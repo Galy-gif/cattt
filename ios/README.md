@@ -20,7 +20,7 @@ open ios/Maomao.xcodeproj
 - 竖屏专用
 - Swift 5 语言模式
 
-陪伴世界最近一次在 iPhone 17 Pro / iOS 26.5 Simulator 构建并运行验证是 2026-09-12（逐帧 v5 树窝与走路换向），记录见 `docs/specs/逐帧v5-实施与验收.md`；更早的 v4 记录在 `docs/archive/specs/`。尚未完成 iOS 17 真机验收。
+陪伴世界最近一次在 iPhone 17 Pro / iOS 26.5 Simulator 构建并运行验证是 2026-09-12（逐帧 v5 树窝与走路换向），记录原文（原文 2026-09-27 从当前版本删除，原件在 git 历史）；更早的 v4/v3/v2 记录同样已删。尚未完成 iOS 17 真机验收。
 
 ### 文件列表变了怎么办
 
@@ -121,7 +121,7 @@ Maomao/
 **聊天已经能接本机后端（09-12）。** 后端在仓库根目录的 `server/`，怎么跑见 `server/README.md`。
 调试面板最上面的「后端」切到「本机后端 localhost:8787」，填上 `pnpm create-dev-user` 生成的 token 就行；
 不切就还是本地 mock。网络层在 `Backend/Backend.swift`，聊天接后端的逻辑在 `Store/AppStore+Remote.swift`，
-气泡状态和服务端事件的对应见 `docs/specs/后端-开发者版-2026-09-11.md` 第 8 节。
+气泡状态和服务端事件的对应见 `docs/方案/后端-开发者版-方案-2026-09-11.md` 第 8 节。
 
 已接：发送、流式、停止、重试、断线续传、「记下了」、「不要再提」、「我的」页的记忆数和边界数、创建流程写猫的设定。
 还是本地 mock 的（代码里标了 `TODO: 后端`）：

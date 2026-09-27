@@ -1,5 +1,5 @@
 import Foundation
-/// 情绪、时段、天气的规则测试（docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md 第 2.2、4.1、4.3 节）。
+/// 情绪、时段、天气的规则测试（docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md 第 2.2、4.1、4.3 节）。
 @main struct WorldMoodTests {
     static func main() throws {
         var cal=Calendar(identifier:.gregorian); cal.timeZone=TimeZone(identifier:"Asia/Shanghai")!

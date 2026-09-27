@@ -2,7 +2,7 @@ import Foundation
 
 /// 性格：气质、四条特征，和它们编译出来的一份行为参数表。
 /// 纯 Foundation，没有 SwiftUI —— 世界层测试直接编译它。
-/// 依据 docs/specs/性格系统优化-2026-09-12.md 第 2.1 节。院子和聊天都从这张表取值，不互相传参数。
+/// 依据 docs/方案/性格系统优化-方案-2026-09-12.md 第 2.1 节。院子和聊天都从这张表取值，不互相传参数。
 
 /// 猫的气质预设。决定它主不主动、话多不多、多久才跟你熟。
 enum Temperament: String, CaseIterable, Identifiable {

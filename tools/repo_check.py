@@ -3,7 +3,7 @@
 
 默认检查暂存区（git pre-commit 钩子调用）；--all 只报告当前跟踪文件里超标的，不拦。
 拦下：单个超过 3MB 且不在 .repo-allow-large 里的文件；日志、录屏、构建产物；
-新增的 docs/决策-*.md、docs/specs/*.md 没有登记到 docs/README.md。
+新增的 docs/决策/*.md、docs/方案/*.md 没有登记到 docs/README.md。
 绕过：git commit --no-verify，并在提交信息里写原因。
 """
 import fnmatch, os, subprocess, sys
@@ -48,7 +48,7 @@ def main():
         n = size_in_index(p)
         if n > LIMIT and not any(fnmatch.fnmatch(p, g) for g in patterns):
             errors.append(f'文件 {n / 1e6:.1f}MB 超过 3MB：{p}（验收图请压缩到 1MB 内；确需原尺寸就登记到 .repo-allow-large）')
-    docs = [p for p in added if (fnmatch.fnmatch(p, 'docs/决策-*.md') or fnmatch.fnmatch(p, 'docs/specs/*.md'))]
+    docs = [p for p in added if (fnmatch.fnmatch(p, 'docs/决策/*.md') or fnmatch.fnmatch(p, 'docs/方案/*.md'))]
     if docs:
         try: index = git('show', ':docs/README.md')
         except subprocess.CalledProcessError: index = ''

@@ -4,7 +4,7 @@ import type { Temperament } from './persona.ts';
 /**
  * 行为参数表。和 iOS 的 ios/Maomao/Model/Personality.swift 是同一张表：
  * 两边各自从气质 + 四条特征算，算出来必须一样，不互相传参数。
- * 依据 docs/specs/性格系统优化-2026-09-12.md 第 2.1 节。
+ * 依据 docs/方案/性格系统优化-方案-2026-09-12.md 第 2.1 节。
  */
 export type BehaviorParams = {
   /** 每个地点停留时长的倍数 */

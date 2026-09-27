@@ -1,6 +1,6 @@
 # atmosphere-v1 素材锁定记录
 
-委托单 `brief.md`；方案 `docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md` 第 4 节；验收报告 `outputs/atmosphere-v1-review/验收报告.md`（含 Claude 的独立复核与叠图测试）。
+委托单 `brief.md`；方案 `docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md` 第 4 节；验收报告 `outputs/atmosphere-v1-review/验收报告.md`（含 Claude 的独立复核与叠图测试）。
 原始交付保留在 `outputs/atmosphere-v1-delivery/`，不改动。用户 2026-09-12 看过 `sheets/atmosphere-directions.jpg`、`sheets/atmosphere-props.jpg` 与两张叠图对照后批准锁定。
 
 ## 已锁定（2026-09-12，第 1 轮）
@@ -22,7 +22,7 @@
 
 ## 已接入（2026-09-12）
 
-`assets/tools/configure_world_v6.py` 生成水面、亮窗、日月星雨云贴图并改场景配置；分级参数在 `ios/Maomao/Model/Atmosphere.swift`。记录见 `docs/specs/情绪-喝水-时段与雨天-实施与验收.md`。
+`assets/tools/configure_world_v6.py` 生成水面、亮窗、日月星雨云贴图并改场景配置；分级参数在 `ios/Maomao/Model/Atmosphere.swift`。记录原文（原文 2026-09-27 从当前版本删除，原件在 git 历史）；本轮验收报告在 `outputs/atmosphere-v1-review/验收报告.md`。
 
 ## 加工时做的
 

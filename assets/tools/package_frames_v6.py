@@ -3,7 +3,7 @@
 
 做法沿用 package_frames_v5.py（去底 → Lab 调色到保留的侧面走 → 描边柔化 → 统一到 40pt 头宽 → 按接触点放进公共画布），
 本脚本只定义 v6 的帧表与锚点规则，切图、调色、缩放都直接调用 v5 的函数。
-依据 docs/specs/情绪-喝水-时段与雨天-方案-2026-09-12.md 与 assets/tuanzi/frames-v6/README.md。
+依据 docs/方案/情绪-喝水-时段与雨天-方案-2026-09-12.md 与 assets/tuanzi/frames-v6/README.md。
 
 写 ios/Maomao/Assets.xcassets/world-v6/ 与动作目录 cat-actions-v2 里的 v6 条目。可重复运行，结果确定。
 
