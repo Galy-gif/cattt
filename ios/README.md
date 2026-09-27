@@ -4,7 +4,7 @@
 早期交接文档中的 `project/Maomao iOS MVP.dc.html` 与 `project/design_handoff_ios_mvp/README.md` 路径不在当前资料包中；构建不依赖它们。
 覆盖核心闭环：创建流程（5 屏）、陪伴主页（毛毡小院世界层）、专注聊天、日记（院子信箱里抽出的纸）、我的（右上角头像 sheet）。2026-09-10 起没有底部 Tab 栏。
 
-**2026-09-27 起：世界层以 3D 为准线**（`web/` 的院子与 3D 团子，WKWebView 内嵌，见 [决策](../docs/决策/2026-09-27-3D为准线.md)）。本工程的 2D 世界层（`Model/WorldScene|WorldInteraction|WorldDepth|WorldCamera` 与逐帧素材）**冻结**：只修阻断性 bug，不再加功能、不出新帧、不重渲；首页还没切到 3D，所以它现在仍然是 App 的院子。
+**2026-09-27 起：世界层以 3D 为准线**（`web/` 的院子与 3D 团子，WKWebView 内嵌，见 [决策](../docs/决策/2026-09-27-3D为准线.md)）。本工程的 2D 世界层（`Model/WorldScene|WorldInteraction|WorldDepth|WorldCamera` 与逐帧素材）**冻结**：只修阻断性 bug，不再加功能、不出新帧、不重渲。迁移进行中：3D 已经在 App 里跑（`Features/Yard3D/YardWebHost.swift`，调试面板的「3D 院子」「3D 构图预览」），只差把首页从 `WorldView` 换成它。
 
 产品要旨没有变：**没有打卡、没有等级金币、没有喂养任务、没有连续天数**。
 用户几天不来，猫不掉状态、不催、不怪。任何带「任务」「进度」「坚持」意味的措辞都不要往里加。
