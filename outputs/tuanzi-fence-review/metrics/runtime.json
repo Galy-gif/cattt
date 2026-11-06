@@ -1,0 +1,33 @@
+{
+  "clips": 60,
+  "plantedSlip": 0.0016023166774720048,
+  "maximumStepLift": 0.024872825369177343,
+  "preservedClips": 48,
+  "maxPerchPenetration": 0,
+  "restMinSurface": 0.5001353888293856,
+  "recovered": [
+    "fence_reach",
+    "fence_jump",
+    "fence_grip",
+    "fence_climb",
+    "fence_turn",
+    "fence_down",
+    "fence_rest"
+  ],
+  "homeRouteAndExitRecovery": true,
+  "states": [
+    "fence_reach",
+    "fence_jump",
+    "fence_grip",
+    "fence_climb",
+    "fence_turn",
+    "fence_down",
+    "fence_rest",
+    "fence_wake",
+    "fence_turn_out",
+    "fence_out",
+    "fence_drop",
+    "fence_land",
+    "idle"
+  ]
+}

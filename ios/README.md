@@ -4,7 +4,7 @@
 早期交接文档中的 `project/Maomao iOS MVP.dc.html` 与 `project/design_handoff_ios_mvp/README.md` 路径不在当前资料包中；构建不依赖它们。
 覆盖核心闭环：创建流程（5 屏）、陪伴主页（毛毡小院世界层）、专注聊天、日记（院子信箱里抽出的纸）、我的（右上角头像 sheet）。2026-09-10 起没有底部 Tab 栏。
 
-**2026-09-27 起：世界层以 3D 为准线**（`web/` 的院子与 3D 团子，WKWebView 内嵌，见 [决策](../docs/决策/2026-09-27-3D为准线.md)）。本工程的 2D 世界层（`Model/WorldScene|WorldInteraction|WorldDepth|WorldCamera` 与逐帧素材）**冻结**：只修阻断性 bug，不再加功能、不出新帧、不重渲。迁移进行中：3D 已经在 App 里跑（`Features/Yard3D/YardWebHost.swift`，调试面板的「3D 院子」「3D 构图预览」），只差把首页从 `WorldView` 换成它。
+**2026-09-27 起：世界层以 3D 为准线**（`web/` 的院子与 3D 团子，WKWebView 内嵌，见 [决策](../docs/决策/2026-09-27-3D为准线.md)）。本工程的 2D 世界层（`Model/WorldScene|WorldInteraction|WorldDepth|WorldCamera` 与逐帧素材）**冻结**：只修阻断性 bug，不再加功能、不出新帧、不重渲。正式首页已于10-05默认接入3D；10-13聊天底、头像和原生页面配套已接入，见文末最新记录。
 
 产品要旨没有变：**没有打卡、没有等级金币、没有喂养任务、没有连续天数**。
 用户几天不来，猫不掉状态、不催、不怪。任何带「任务」「进度」「坚持」意味的措辞都不要往里加。
@@ -129,7 +129,7 @@ Maomao/
 还是本地 mock 的（代码里标了 `TODO: 后端`）：
 
 - **世界状态** —— 猫位置 + 状态句（`moveCat`）
-- **日记碎片** —— 列表与团子访问状态（`entries` / `advanceVisit` / `saveCapture`）
+- **日记碎片** —— 文字与猫日记本机按日落盘、日期回看、失败保留草稿；后端模式接账号同步/逐条读取许可/读取留言/来源聊天/撤回，私密不进模型。`advanceVisit` 仅调试，正常页面不展示演示记录。
 - **记忆条目的查看、修改** —— 二级页还没做；后端已有 `GET /v1/memories`、`DELETE /v1/memories/:id`
 - **消息的删除、反馈**
 
@@ -162,3 +162,11 @@ Debug 面板 → **3D 构图预览**；或启动参数 `-yardComposition`。场�
 - 量测写入 App 的 `Documents/yard-composition/`，失败会显示错误。真机截图、报告与边界见 [构图验收](../outputs/ios-3d-composition-review/验收报告.md)。
 
 扩院预览（09-26）：新增 `-yardCompositionView comparison` 固定旧机位作前后比较；`-yardCompositionStroll YES` 以正常步速走扩展路线，也可从头像菜单启动。`tools/check_yard_expansion.py` 收集真机近景、夜雨全景、散步及回调恢复证据；截图脚本通过 `--output outputs/yard-expansion-review` 指定新目录。第二次布局图使用 `--output outputs/yard-layout-review`；详见 [最新布局验收](../outputs/yard-layout-review/验收报告.md)，原2D首页保留。
+
+## 正式 3D 首页（2026-10-05）
+
+普通入口默认3D；`YardIntent` 选择活动，`YardRuntime` 连接共享网页宿主，网页回传真正的位置/姿势/到达。聊天保持同一世界活跃；后台暂停。`-world 2d` 为保留回退。构建前先 `pnpm --dir web build:ios`；详见[本轮验收](../outputs/yard-home-review/验收报告.md)。
+
+## 原生页面与3D配套（2026-10-13）
+
+聊天使用60张正式3D场景取景，头像及创建预览由同一GLB渲染；`PageBackground`统一原生米白毛毡与淡蓝光晕，纯色控件使用`Palette.inset/card`。键盘与长草稿在模拟器复核，真机暂缓；本轮页面观感已获用户确认，头像歪头动画已获确认，大头照图标方向已否决，小窗方向亦被否决；已选定第三款手绘趴姿符号并接入常规图标，模拟器主屏幕与四种图标外观已复核。上文旧头像、聊天背景和假入口描述仅对应历史版本。素材复现与验收见[报告](../outputs/native-ui-review/验收报告.md)。

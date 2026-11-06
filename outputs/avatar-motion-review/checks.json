@@ -1,0 +1,8 @@
+{
+  "frames": 83,
+  "size": 256,
+  "bytes": 5131548,
+  "decodedRGBAUpperBoundMiB": 20.75,
+  "seam": "首尾与两动作待机像素一致",
+  "headCrop": "所有帧头顶/左右透明边界通过"
+}

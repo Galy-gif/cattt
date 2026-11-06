@@ -33,10 +33,14 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     let messages = PassthroughSubject<[String: Any], Never>()
     @Published private(set) var ready = false
     @Published private(set) var surfaceReady = false
+    @Published private(set) var coverImage: UIImage?
     @Published private(set) var failure: String?
     @Published private(set) var backdrop = YardBackdrop.forSlot("day")
     private(set) var identity = YardProbeIdentity(runID: "", pageID: "")
     private(set) var snapshot: [String: Any]?
+    var homeIntent: [String: Any]?
+    var homeConfiguration: [String: [String: Any]] = [:]
+    var initialSnapshot: [String: Any]?
     private var query: [String: String] = [:]
     private var active = true
     private var lifecycleRevision = 0
@@ -44,6 +48,34 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     private var restoring = false
     private var visualGate = YardVisualGate()
     private let proxy = YardMessageProxy()
+    private static var coverDirectory: URL {
+        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("YardCovers", isDirectory: true)
+    }
+    private var coverKey = "day-clear-house"
+    func updateCoverContext(slot: String, weather: String, place: String) {
+        coverKey = "\(slot)-\(weather)-\(place)"
+    }
+    func captureCover(exportName: String? = nil) {
+        guard surfaceReady, !stopped else { return }
+        let page = identity.pageID, key = coverKey
+        let configuration = WKSnapshotConfiguration()
+        configuration.snapshotWidth = 240
+        webView.takeSnapshot(with: configuration) { [weak self] image, error in
+            guard let self, let image, error == nil, page == identity.pageID, surfaceReady else { return }
+            let format = UIGraphicsImageRendererFormat(); format.scale = 1
+            let size = CGSize(width: 600, height: image.size.height / image.size.width * 600)
+            let scaled = UIGraphicsImageRenderer(size: size, format: format).image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
+            coverImage = scaled
+            guard let data = scaled.jpegData(compressionQuality: 0.84) else { return }
+            try? FileManager.default.createDirectory(at: Self.coverDirectory, withIntermediateDirectories: true)
+            try? data.write(to: Self.coverDirectory.appendingPathComponent(key + ".jpg"), options: .atomic)
+            #if DEBUG
+            if let exportName, let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                try? data.write(to: dir.appendingPathComponent(exportName + ".jpg"), options: .atomic)
+            }
+            #endif
+        }
+    }
 
     override init() {
         let configuration = WKWebViewConfiguration()
@@ -66,10 +98,15 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
     }
 
     func load(runID: String, query: [String: String], active: Bool) {
-        self.query = query; self.active = active; snapshot = nil
+        self.query = query; self.active = active; snapshot = initialSnapshot; restoring = initialSnapshot != nil
+        let camera = snapshot?["camera"] as? [String: Any]
+        updateCoverContext(slot: query["time"] ?? "day", weather: query["weather"] ?? "clear",
+                           place: camera?["place"] as? String ?? snapshot?["goal"] as? String ?? "house")
+        coverImage = UIImage(contentsOfFile: Self.coverDirectory.appendingPathComponent(coverKey + ".jpg").path)
+            ?? UIImage(named: "yard-start-" + coverKey)
         backdrop = YardBackdrop.forSlot(query["time"])
         applyBackdrop()
-        stopped = false; restoring = false
+        stopped = false
         identity.runID = runID
         loadPage()
     }
@@ -128,6 +165,17 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
         }
     }
 
+    func markUnavailable(_ reason: String, detail: String = "") {
+        failure = reason
+        // 原生超时也进入同一条证据链，不能只留下屏幕上的提示。
+        emit("unavailable", ["message": reason, "detail": detail, "ready": ready, "surfaceReady": surfaceReady, "loading": webView.isLoading])
+    }
+
+    func retry() {
+        guard !stopped else { return }
+        restoring = snapshot != nil; loadPage()
+    }
+
     func stop() {
         stopped = true; ready = false; surfaceReady = false
         // 不等待失去响应的 JS。页面卸载会释放 GL；正常结束另行发送 dispose。
@@ -157,7 +205,9 @@ final class YardWebController: NSObject, ObservableObject, WKNavigationDelegate 
             Task { [weak self] in
                 guard let self, !stopped, expected == identity.pageID else { return }
                 var command: [String: Any] = ["type": "initialize", "active": active]
+                command["configuration"] = ["viewport", "controls", "previewMotion", "facts"].compactMap { homeConfiguration[$0] }
                 if restoring, let snapshot { command["snapshot"] = snapshot }
+                if let homeIntent { command["intent"] = homeIntent }
                 do { try await send(command) }
                 catch { if !stopped && expected == identity.pageID { emit("error", ["message": "网页初始化失败：\(error)"]) } }
             }
@@ -248,11 +298,18 @@ struct YardWebSurface: View {
                 .opacity(controller.surfaceReady ? 0 : 1)
                 .allowsHitTesting(false)
         }
-        .animation(.easeOut(duration: 0.16), value: controller.surfaceReady)
+        // 内容进程消失后必须立即盖住；淡入会先露出 WebKit 的纯色底。
+        // 只有新画面准备好后的揭开保留过渡。
+        .animation(controller.surfaceReady ? .easeOut(duration: 0.16) : nil, value: controller.surfaceReady)
     }
 
-    private var sky: some View {
-        LinearGradient(colors: [Color(uiColor: controller.backdrop.top), Color(uiColor: controller.backdrop.horizon)],
+    @ViewBuilder private var sky: some View {
+        if let image = controller.coverImage {
+            GeometryReader { proxy in
+                Image(uiImage: image).resizable().scaledToFill().frame(width: proxy.size.width, height: proxy.size.height).clipped()
+            }
+        } else { LinearGradient(colors: [Color(uiColor: controller.backdrop.top), Color(uiColor: controller.backdrop.horizon)],
                        startPoint: .top, endPoint: .bottom)
+        }
     }
 }

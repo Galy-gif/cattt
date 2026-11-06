@@ -1,0 +1,142 @@
+[
+  {
+    "name": "dawn-clear",
+    "runId": "B80B103A-F014-4473-B00F-A21DA0D08215",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "fe65b19c98de52cf78fe162f7c0d589c3f15e5b11a797069a557bfb81db526ab",
+    "launchAtUnix": 1790942667.792335,
+    "captureAtUnix": 1790942674.7500958,
+    "hostToFirstRenderMs": 472.0772499567829,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "dawn-rain",
+    "runId": "7ADBAF4D-7441-49D7-B9A6-7EAA7B0C25D9",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "ccd2702e654c80809c24784865abe721ca50ce7d4dc1b06afd14b99fc960a5a6",
+    "launchAtUnix": 1790942683.623481,
+    "captureAtUnix": 1790942690.57883,
+    "hostToFirstRenderMs": 460.96850000321865,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "day-clear",
+    "runId": "BA7ECC88-A7AB-4494-9383-6BE99BF2D69F",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "ee080a753e335cb6d1330f06b00cf2e36558e765d076377f5b5e93a9768119dd",
+    "launchAtUnix": 1790942699.370612,
+    "captureAtUnix": 1790942706.268733,
+    "hostToFirstRenderMs": 468.2345000328496,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "day-rain",
+    "runId": "4979FABD-B4D9-4B22-8FAA-38E8726A442A",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "8acf57ce23782690bee806a79988111bb658736b70dee2cf1241d61afb0f4f24",
+    "launchAtUnix": 1790942715.0788422,
+    "captureAtUnix": 1790942722.0829718,
+    "hostToFirstRenderMs": 463.55370833771303,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "dusk-clear",
+    "runId": "0C73F3AB-020E-47BE-B8E4-A47659C864A8",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "cb84631577fcd23a534f4ac0b23399eef14f29480f1246beaea188874b552f5c",
+    "launchAtUnix": 1790942730.826101,
+    "captureAtUnix": 1790942737.882585,
+    "hostToFirstRenderMs": 462.9852916114032,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "dusk-rain",
+    "runId": "07733A88-D5AE-4C74-B8F1-C94D8A797322",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "46fc039743f682d1e8a6f30c4bc0b2dfd54add71f09051cafdb0e33324f1295c",
+    "launchAtUnix": 1790942746.547363,
+    "captureAtUnix": 1790942753.37602,
+    "hostToFirstRenderMs": 463.82762503344566,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "evening-clear",
+    "runId": "EA180A28-E9D0-4E89-B4F8-BD922AF902D3",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "a6251ea2eb9d7c19128d054f37bc41a2ff2677f7a5d96a275ae0d234f68e25f7",
+    "launchAtUnix": 1790942762.2659252,
+    "captureAtUnix": 1790942769.5597901,
+    "hostToFirstRenderMs": 450.63237502472475,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "evening-rain",
+    "runId": "649764C7-39F3-4A69-A354-68C641A1F8F1",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "d895eb8e13c65ac2614a221159e5507491753eb8634a73182511d1bb68dea0ef",
+    "launchAtUnix": 1790942775.9387321,
+    "captureAtUnix": 1790942782.934342,
+    "hostToFirstRenderMs": 460.41420835535973,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "night-clear",
+    "runId": "FFAB62A4-48EC-40F4-AEA7-3C94ED4F4E2D",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "543d70f83c4e8d28e8f4d84b5319e24691ce9129aa434a8cc7fa879df808adfe",
+    "launchAtUnix": 1790942791.6460748,
+    "captureAtUnix": 1790942798.6738849,
+    "hostToFirstRenderMs": 451.23716664966196,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  },
+  {
+    "name": "night-rain",
+    "runId": "9FC3C669-7913-4976-BB9D-742AF6ED4227",
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "pngSha256": "4bf707e7847b1d48f08bbaafddc88905e3e0630e41adeecebb71e1d0991293f6",
+    "launchAtUnix": 1790942804.756026,
+    "captureAtUnix": 1790942811.680105,
+    "hostToFirstRenderMs": 459.2952916282229,
+    "purpose": "5时段×晴雨光色快检，实测页截图，不作为持续性能或正式首页证据"
+  }
+]

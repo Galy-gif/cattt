@@ -1,0 +1,267 @@
+{
+  "ready": true,
+  "events": [
+    {
+      "uptime": 369990.766438,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "type": "resumed",
+      "reason": "initialize"
+    },
+    {
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "fallback": false,
+      "cameraMode": "following",
+      "id": "3F563715-1C16-4360-92CD-D3D9FB609801",
+      "uptime": 369990.79731733334,
+      "action": "stand_up",
+      "moving": false,
+      "type": "cat",
+      "offscreen": false,
+      "settled": false,
+      "nearest": "house",
+      "activity": "watch"
+    },
+    {
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "uptime": 369991.04196370835,
+      "type": "firstFrame",
+      "renderMs": 453
+    },
+    {
+      "type": "visualReady",
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "renderMs": 467,
+      "uptime": 369991.0545006667
+    },
+    {
+      "fallback": true,
+      "action": "stand_up",
+      "cameraMode": "following",
+      "uptime": 369991.0746242917,
+      "settled": false,
+      "moving": false,
+      "activity": "rest",
+      "offscreen": false,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "nearest": "house",
+      "type": "cat",
+      "id": "BA59BA4F-0C09-4EB3-9B3C-FAD6E4E9FEB3"
+    },
+    {
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "cameraMode": "following",
+      "fallback": true,
+      "offscreen": false,
+      "nearest": "house",
+      "uptime": 369992.05955483334,
+      "action": "idle",
+      "moving": false,
+      "id": "BA59BA4F-0C09-4EB3-9B3C-FAD6E4E9FEB3",
+      "settled": true,
+      "type": "cat",
+      "activity": "rest"
+    },
+    {
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "offscreen": false,
+      "fallback": true,
+      "id": "BA59BA4F-0C09-4EB3-9B3C-FAD6E4E9FEB3",
+      "settled": false,
+      "nearest": "house",
+      "type": "cat",
+      "activity": "rest",
+      "action": "sit_down",
+      "uptime": 369992.07565120835,
+      "moving": false,
+      "cameraMode": "following"
+    },
+    {
+      "fallback": true,
+      "action": "stand_up",
+      "moving": false,
+      "offscreen": false,
+      "cameraMode": "following",
+      "type": "cat",
+      "nearest": "house",
+      "settled": false,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "activity": "rest",
+      "uptime": 369993.0640734584,
+      "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05"
+    },
+    {
+      "offscreen": false,
+      "activity": "rest",
+      "fallback": true,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "nearest": "house",
+      "action": "idle",
+      "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+      "moving": false,
+      "type": "cat",
+      "cameraMode": "following",
+      "settled": true,
+      "uptime": 369994.0984065417
+    },
+    {
+      "type": "cat",
+      "activity": "rest",
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "cameraMode": "following",
+      "nearest": "house",
+      "action": "sit_down",
+      "offscreen": false,
+      "fallback": true,
+      "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+      "moving": false,
+      "settled": false,
+      "uptime": 369994.1133905
+    },
+    {
+      "uptime": 369995.35959787504,
+      "activity": "rest",
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "action": "sit_idle",
+      "offscreen": false,
+      "fallback": true,
+      "moving": false,
+      "nearest": "house",
+      "type": "cat",
+      "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+      "settled": true,
+      "cameraMode": "following"
+    },
+    {
+      "target": "cat",
+      "uptime": 369999.4563054583,
+      "y": 520.5380574888769,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "type": "tap",
+      "x": 247.66945940761747
+    },
+    {
+      "moving": false,
+      "action": "sit_idle",
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "activity": "rest",
+      "settled": true,
+      "nearest": "house",
+      "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+      "type": "cat",
+      "fallback": true,
+      "cameraMode": "overview",
+      "offscreen": false,
+      "uptime": 370001.59887520835
+    },
+    {
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "y": 464.4293350017944,
+      "target": "bowl",
+      "x": 153.77103142539707,
+      "type": "tap",
+      "uptime": 370003.3224632917
+    },
+    {
+      "y": 462.1405883982839,
+      "type": "tap",
+      "x": 78.63183302434858,
+      "pageId": "99CE9A83-3C4E-4B25-B4CA-11FA02C69397",
+      "target": "mailbox",
+      "uptime": 370007.1915080834
+    }
+  ],
+  "business": {
+    "activity": "rest",
+    "mood": "happy",
+    "destinationIds": [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ],
+    "sceneVersion": 4,
+    "stateVersion": 1,
+    "action": "sit_idle",
+    "lastDrinkAt": "2026-09-20T10:30:34Z",
+    "weather": "clear",
+    "bowlFilledToday": true,
+    "runnable": true,
+    "moodReason": "今天的水是满的，团子心情不错",
+    "targetDestinationId": "house",
+    "placesToday": [
+      "蘑菇屋"
+    ],
+    "activityFallback": true,
+    "dayPhase": "day",
+    "currentDestinationId": "house",
+    "phase": "idle",
+    "paused": false
+  },
+  "failure": "",
+  "action": "sit_idle",
+  "recovery": [],
+  "webSurfaceReady": true,
+  "runnable": true,
+  "target": 0,
+  "webReady": true,
+  "activity": "rest",
+  "snapshot": {
+    "home": {
+      "settled": true,
+      "intent": {
+        "id": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+        "place": "house",
+        "activity": "rest"
+      }
+    },
+    "camera": {
+      "shownDistance": 30.19479103381194,
+      "velocity": 0,
+      "position": [
+        -9.519384412594755,
+        19.352197701066654,
+        21.562038374966008
+      ],
+      "targetY": 0.35,
+      "mode": "overview",
+      "centerX": 0.02499999999999991,
+      "velocityZ": 0,
+      "offset": 0,
+      "focus": [
+        0.02499999999999991,
+        0.35,
+        0.125
+      ],
+      "centerZ": 0.125,
+      "distance": 30.19479103381194,
+      "place": null
+    },
+    "facing": 0.25,
+    "layoutVersion": "open-yard-v3",
+    "position": {
+      "x": -2.35,
+      "y": 0,
+      "z": -0.55
+    },
+    "goal": "house",
+    "walking": false,
+    "shownSlot": "day",
+    "slot": null,
+    "next": 1,
+    "hour": 12,
+    "arrived": true,
+    "restSeconds": 0,
+    "weather": "clear"
+  },
+  "legacyTicks": 0,
+  "webLoading": false,
+  "requestID": "59D2EEEE-BB04-437D-B7CC-FAB5B2948B05",
+  "uses3D": true,
+  "current": 0,
+  "webSize": "{{0, 0}, {440, 956}}",
+  "moving": false,
+  "webURL": "maomao://yard/app.html?composition=1&dpr=1.5&fps=60&home=1&msaa=0&pageId=99CE9A83-3C4E-4B25-B4CA-11FA02C69397&review=1&runId=C0FCD3FD-52A9-41CD-A718-52197DE90DEB&time=day&weather=clear",
+  "evidenceNote": "修复前真机样本：已验证点选/行走；最远镜头重载会被默认安全区夹近，不能据此宣称恢复通过。"
+}

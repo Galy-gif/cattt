@@ -1,0 +1,9 @@
+# 小窗里的日常 · 图标方向
+
+使用内置 imagegen 新生成。用户否决大头照方向，要求符合产品理念；本稿以低压力陪伴、猫有自己的生活和共享小世界为出发点。不是既有GLB渲染，也不作为新的角色设定。
+
+完整提示词：
+
+Create ONE refined production-quality app icon for a Chinese low-pressure AI cat companionship app. Concept: "a small shared world, quietly inhabited" — a cat with its own everyday life, a place you can drop into without obligation. This is a new conceptual icon, NOT a mascot headshot, not a pet-care game icon.
+Square full-bleed 1024x1024 artwork, no outer rounded-square border or pre-rounded corners, no text, no labels, no mockup sheet.
+Design a single strong iconic sculpture: a broad softly rounded arched nook/window, like a tiny comforting opening into another world. A small simplified warm apricot-orange cat is peacefully curled into a crescent at its base, seen slightly from above, with two subtly pointed ears and a tail curling inward. The cat occupies only about the lower third of the arch; no oversized face, no detailed anatomy, no huge eyes. It is a symbolic sculptural cat, not a realistic cat. The arch and curled cat read together as ONE memorable silhouette, balanced generous negative space. The opening is muted deep sage / blue-green; a thick warm ivory wool-felt rim subtly frames it. Full-bleed off-white background with extremely subtle cool morning light. Tactile fine felt / soft sculpted ceramic-like volumes consistent with a premium 3D felt garden app, delicately softened edges, beautiful controlled contact shadows, no noise or shaggy fur. Keep contrast sufficient at tiny home-screen sizes, silhouette clean and confident, large central motif using about 76% of image. Quiet, intimate, original, adult and gentle, not childish or saccharine. Near-frontal view, very subtle depth. No full yard landscape, no house roof, no leaves, no flowers, no sparkles, no hearts, no speech bubble, no letters, no generic AI symbols, no glossy plastic. Highest quality intentional art direction. Render only the finished icon artwork.

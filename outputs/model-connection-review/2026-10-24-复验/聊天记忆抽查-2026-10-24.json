@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "input": "记住，我不喝咖啡。",
+      "status": "completed",
+      "error": null,
+      "reply": "嗯，记下了，你不喝咖啡。",
+      "stored": [
+        {
+          "value": "咖啡",
+          "predicate": "不喝的饮料",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "input": "更正一下，我现在只喝无咖啡因咖啡，旧的偏好改成这个。",
+      "status": "completed",
+      "error": null,
+      "reply": "改好了，只喝无咖啡因咖啡。",
+      "stored": [
+        {
+          "value": "只喝无咖啡因咖啡",
+          "predicate": "不喝的饮料",
+          "status": "active"
+        },
+        {
+          "value": "咖啡",
+          "predicate": "不喝的饮料",
+          "status": "superseded"
+        }
+      ]
+    },
+    {
+      "input": "更正一下，那个不是这样的。",
+      "status": "completed",
+      "error": null,
+      "reply": "那你说，应该改成什么？我这次不瞎猜。",
+      "stored": [
+        {
+          "value": "只喝无咖啡因咖啡",
+          "predicate": "不喝的饮料",
+          "status": "active"
+        },
+        {
+          "value": "咖啡",
+          "predicate": "不喝的饮料",
+          "status": "superseded"
+        }
+      ]
+    },
+    {
+      "input": "记住，我喜欢周末去图书馆。",
+      "status": "completed",
+      "error": null,
+      "reply": "这次没存进长期记忆，所以不能替你记着。不过你说的话我听见了：喜欢周末去图书馆。",
+      "stored": [
+        {
+          "value": "只喝无咖啡因咖啡",
+          "predicate": "不喝的饮料",
+          "status": "active"
+        },
+        {
+          "value": "咖啡",
+          "predicate": "不喝的饮料",
+          "status": "superseded"
+        }
+      ]
+    }
+  ],
+  "exitCode": 0
+}

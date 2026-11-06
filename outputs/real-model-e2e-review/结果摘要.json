@@ -1,0 +1,14 @@
+{
+  "appCasesPassed": 8,
+  "longConversationCompleted": 30,
+  "temperamentSamplesCompleted": 8,
+  "frozenInputsUnchanged": true,
+  "longConversationTotalReplyMs": {
+    "median": 4214.5,
+    "p95NearestRank": 13397,
+    "max": 14984
+  },
+  "longConversationStreamResumes": 4,
+  "runtimeVerdict": "本轮本机链路通过",
+  "qualityScope": "人工核对列出的30轮及8条气质样本，不代表总体人格质量或所有安全场景通过"
+}

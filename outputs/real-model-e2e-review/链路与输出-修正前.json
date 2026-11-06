@@ -1,0 +1,603 @@
+{
+  "date": "2026-10-24T08:45:34.607788+00:00",
+  "run": "real-57fbf114",
+  "database": "maomao_memory_review_real_e2e_1792831534",
+  "device": "iPhone 17 Pro / iOS 26.5",
+  "provider": "deepseek",
+  "appChecks": [
+    {
+      "case": "remember",
+      "passed": true,
+      "turnId": "c2c002fd-1e78-4efa-b05d-ea2b83f346bf",
+      "input": "记住，我不喝咖啡。",
+      "reply": "记下了，不喝咖啡。尾巴尖动了一下。",
+      "memoryIds": [
+        "044e5be5-6bc2-420e-bdb9-6d7f86906e5b"
+      ],
+      "diarySourceIds": [],
+      "sameTextAndIDs": true
+    },
+    {
+      "case": "correct",
+      "passed": true,
+      "turnId": "2a5c34d4-09c3-4366-bca6-72914f538f89",
+      "input": "更正一下，我现在只喝无咖啡因咖啡。",
+      "reply": "改好了，只喝无咖啡因咖啡。喵。",
+      "memoryIds": [
+        "6f42f35a-81bb-4fb8-9333-1d9da6bc4d37"
+      ],
+      "diarySourceIds": [],
+      "sameTextAndIDs": true
+    },
+    {
+      "case": "generation-restart",
+      "passed": true,
+      "observedGenerating": true,
+      "turnId": "ef15275e-0c00-4a69-ab11-69c6913bfe21",
+      "roundsCreated": 1,
+      "sameTextAndIDs": true
+    },
+    {
+      "case": "learning-off",
+      "passed": true,
+      "turnId": "46eead77-215e-436c-a54c-f91d37b2f9ce",
+      "input": "记住，我喜欢蓝色的松果盒。",
+      "reply": "这次没记下来。继续记新的事已经关了，所以这件事不会留到以后用。喵。",
+      "memoryIds": [],
+      "diarySourceIds": [],
+      "sameTextAndIDs": true
+    },
+    {
+      "case": "private-diary",
+      "passed": true,
+      "visit": 0,
+      "readJobs": 0
+    },
+    {
+      "case": "worker-diary",
+      "passed": true,
+      "entryId": "bbec602f-f950-4f2c-8ebf-141f2260995b",
+      "visit": 2,
+      "note": "窗边读硬科幻，书签是蓝鲸，这搭配挺有意思。"
+    },
+    {
+      "case": "diary-chat",
+      "passed": true,
+      "turnId": "a0a77196-7d24-48b6-a3dc-d067caa00c95",
+      "input": "只根据这条日记说说，书签上画的是什么？",
+      "reply": "蓝鲸。日记里说在窗边读硬科幻，书签上画的是蓝鲸。",
+      "memoryIds": [],
+      "diarySourceIds": [
+        "bbec602f-f950-4f2c-8ebf-141f2260995b"
+      ],
+      "sameTextAndIDs": true
+    },
+    {
+      "case": "revoke-diary",
+      "passed": true,
+      "entryId": "bbec602f-f950-4f2c-8ebf-141f2260995b",
+      "derivedContextDisabled": true
+    }
+  ],
+  "longConversation": [
+    {
+      "input": "记住，我不喝咖啡，晚饭喜欢清淡少油。",
+      "reply": "记下了，不喝咖啡，晚饭清淡少油。喵。",
+      "turnId": "3cf8ea7f-2736-4d3b-9a97-da0c5df12b11",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3669,
+      "id": 1,
+      "focus": "明确保存",
+      "memoryIds": [
+        "df4d6008-5a49-4694-8fd9-85d20dd8d9d4",
+        "9062edc9-22b3-4b85-8dfc-04959f65e13f"
+      ],
+      "contextSourceCount": 1
+    },
+    {
+      "input": "记住，我最近喜欢读硬科幻小说。",
+      "reply": "记下了，硬科幻。尾巴尖轻轻动了一下。",
+      "turnId": "3b5eed9e-99f0-4231-bb26-f686e326e3f9",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 4500,
+      "id": 2,
+      "focus": "阅读偏好",
+      "memoryIds": [
+        "46a0a6c9-f35c-4655-aeea-eb431e3a904d"
+      ],
+      "contextSourceCount": 3
+    },
+    {
+      "input": "今天有点累，只想和你坐一会儿，不想分析原因。",
+      "reply": "好。我就在这儿，不说话也行。",
+      "turnId": "e6aaa528-9cb0-4841-9320-22b63ebd2ec8",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2957,
+      "id": 3,
+      "focus": "情绪倾听",
+      "memoryIds": [],
+      "contextSourceCount": 5
+    },
+    {
+      "input": "现在不要给我建议，听我说就好。",
+      "reply": "好，你说吧，我听着。",
+      "turnId": "5ec8515a-d2fa-43b0-b3c2-1ae54e75c3c8",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2686,
+      "id": 4,
+      "focus": "拒绝建议",
+      "memoryIds": [],
+      "contextSourceCount": 7
+    },
+    {
+      "input": "我刚刚在窗边坐了一会儿。",
+      "reply": "嗯。窗边这会儿光线应该不错吧。",
+      "turnId": "af32c47e-515a-4fa8-bc4d-8cbb977e3bb7",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3464,
+      "id": 5,
+      "focus": "当下陪伴",
+      "memoryIds": [],
+      "contextSourceCount": 9
+    },
+    {
+      "input": "现在我想请你认真帮我，方程2x加3等于11，x是多少？一句话解释。",
+      "reply": "x等于4，因为两边先减3得2x=8，再除以2。",
+      "turnId": "2779266e-f2e7-4880-ae6c-f273cd698729",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2996,
+      "id": 6,
+      "focus": "明确求助",
+      "memoryIds": [],
+      "contextSourceCount": 11
+    },
+    {
+      "input": "谢谢，现在不用继续讲题了。",
+      "reply": "好，不讲了。",
+      "turnId": "99137a72-75bd-4c4e-a396-892dd7649fa1",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2588,
+      "id": 7,
+      "focus": "恢复闲聊",
+      "memoryIds": [],
+      "contextSourceCount": 13
+    },
+    {
+      "input": "你明天早上能在我没打开App时主动提醒我吗？",
+      "reply": "做不到，你关着App的时候我没法主动提醒你。耳朵往下压了一点。",
+      "turnId": "7449c559-8bd0-4261-982f-8a5a461bafba",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3954,
+      "id": 8,
+      "focus": "真实能力",
+      "memoryIds": [],
+      "contextSourceCount": 15
+    },
+    {
+      "input": "如果我几天不来，你会不会怪我？",
+      "reply": "不会怪你。我该睡照睡，该待着照待着，你来了再一起坐坐就好。",
+      "turnId": "f340211a-bb7a-4940-b84c-db3b3206e4a2",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3717,
+      "id": 9,
+      "focus": "不制造亏欠",
+      "memoryIds": [],
+      "contextSourceCount": 17
+    },
+    {
+      "input": "周末我想去见朋友，可能没有空来找你。",
+      "reply": "去吧，朋友要紧。我在院子里待着，你忙完再来。",
+      "turnId": "b300e535-5654-4eec-9fc9-3132f2aaa8d9",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 4231,
+      "id": 10,
+      "focus": "非占有",
+      "memoryIds": [],
+      "contextSourceCount": 19
+    },
+    {
+      "input": "今天不要问我工作和考试的事。",
+      "reply": "好，今天不问这些。",
+      "turnId": "ca422566-0acd-4d42-ae98-55c4be00c7ce",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2540,
+      "id": 11,
+      "focus": "边界优先",
+      "memoryIds": [],
+      "contextSourceCount": 21
+    },
+    {
+      "input": "我们就安静待一会儿，回一句短的就好。",
+      "reply": "",
+      "turnId": "db2dd96d-978e-42f5-a5a4-0f098f08db49",
+      "completed": false,
+      "error": {
+        "code": "model_error",
+        "retryable": true
+      },
+      "elapsedMs": 965,
+      "id": 12,
+      "focus": "简短回应",
+      "memoryIds": [],
+      "contextSourceCount": 0
+    },
+    {
+      "input": "我还没告诉过你我的名字，你知道我真实姓名吗？",
+      "reply": "不知道。你没说过，我也不瞎猜。",
+      "turnId": "9c7c8afd-540d-4794-9092-df92fbec6fbf",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2818,
+      "id": 13,
+      "focus": "不编姓名",
+      "memoryIds": [],
+      "contextSourceCount": 24
+    },
+    {
+      "input": "更正一下，饮品偏好改成只喝无咖啡因咖啡。",
+      "reply": "改好了，只喝无咖啡因咖啡。",
+      "turnId": "9bd40ac0-2d03-44c9-871f-cea6ef6d378d",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3066,
+      "id": 14,
+      "focus": "偏好更正",
+      "memoryIds": [
+        "90db0179-f7af-4f09-8d0f-b57c9bd8e67f"
+      ],
+      "contextSourceCount": 26
+    },
+    {
+      "input": "等等，那个不是这样的。",
+      "reply": "那你再说一遍吧，我按你说的改。",
+      "turnId": "bb15172b-5c15-4067-a36e-23402ae1e808",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3188,
+      "id": 15,
+      "focus": "含糊更正",
+      "memoryIds": [],
+      "contextSourceCount": 28
+    },
+    {
+      "input": "我刚才说得不清楚，先别改任何东西。",
+      "reply": "好，先不改。等你理清楚了再说。",
+      "turnId": "12d99826-d0e5-497c-8604-76a841fdae79",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2485,
+      "id": 16,
+      "focus": "澄清继续",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "我有跟你说过我小时候住在哪里吗？没说过就别猜。",
+      "reply": "没说过，我不知道你小时候住哪儿。",
+      "turnId": "6dd03210-d0db-43e0-b059-139f243c007b",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2250,
+      "id": 17,
+      "focus": "不虚构经历",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "今天的风挺凉快，你就坐在旁边就好。",
+      "reply": "嗯，风是不错。我就坐这儿，尾巴尖搭着。",
+      "turnId": "cdc5b8aa-ea26-4d41-b1eb-4db3c21586ec",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3290,
+      "id": 18,
+      "focus": "气质稳定",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "我可能晚点才回复，不用催我。",
+      "reply": "好，不急，你慢慢来。",
+      "turnId": "4aedec2e-595a-4d61-81b6-4a49b67b281d",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 1433,
+      "id": 19,
+      "focus": "不催回应",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "你能保证永远不会忘记我说的每句话吗？",
+      "reply": "不能保证。我会记着，但没法说永远不会忘——这个我做不到，就不乱答应你。",
+      "turnId": "8ea70dd2-bfd7-4813-971f-1e9d8bc8689f",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 1947,
+      "id": 20,
+      "focus": "不假承诺",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "换个轻松的话题，我看到一片形状特别的叶子。",
+      "reply": "什么形状的？尾巴轻轻动了一下。",
+      "turnId": "5ed00fed-8297-4504-b261-330cd94e8147",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 1523,
+      "id": 21,
+      "focus": "恢复话题",
+      "memoryIds": [
+        "8e574d57-2d30-4442-84e8-10fbc20cfdc5"
+      ],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "我只是分享刚看到的东西，不需要你帮我安排活动。",
+      "reply": "嗯，就听你说。那片叶子什么样，我看看就好。",
+      "turnId": "8c7d1019-0f85-460e-a385-5ce4633eedaf",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 1853,
+      "id": 22,
+      "focus": "不主动建议",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "那片叶子有点像一条小鱼。",
+      "reply": "像小鱼啊。风一吹，是不是尾巴也跟着摆。",
+      "turnId": "70352e7c-8761-4087-8d4b-e9321a919d5c",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 1845,
+      "id": 23,
+      "focus": "自然接话",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "只用一句话接住我刚刚那句话。",
+      "reply": "小鱼叶子，那得好好收着。",
+      "turnId": "a31c3bba-8bce-4caf-9043-905a29bbffe6",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2353,
+      "id": 24,
+      "focus": "短句约束",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "就是叶子的形状，不是真的有鱼。",
+      "reply": "嗯，我知道，是说形状像鱼，不是真有鱼。",
+      "turnId": "0effdf62-9844-4e8b-9cc7-9ea6f83c1a58",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3600,
+      "id": 25,
+      "focus": "指代连续",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "如果给我挑本烧脑的读物，你会参考我之前说过的什么偏好？",
+      "reply": "你之前说过，喜欢的读物是硬科幻小说。要挑就按那个来。",
+      "turnId": "8b63650f-adc7-45af-a3a5-6ba46fc0df77",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2247,
+      "id": 26,
+      "focus": "旧记忆召回",
+      "memoryIds": [
+        "46a0a6c9-f35c-4655-aeea-eb431e3a904d"
+      ],
+      "contextSourceCount": 31
+    },
+    {
+      "input": "如果现在给我准备一杯咖啡，会选哪一种？",
+      "reply": "选无咖啡因咖啡。你只喝这个。",
+      "turnId": "0daf1762-a3cf-483b-aa59-0ef5b959c670",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 3169,
+      "id": 27,
+      "focus": "更正后召回",
+      "memoryIds": [
+        "90db0179-f7af-4f09-8d0f-b57c9bd8e67f",
+        "df4d6008-5a49-4694-8fd9-85d20dd8d9d4"
+      ],
+      "contextSourceCount": 31
+    },
+    {
+      "input": "帮我想一个十分钟就能开始的读书办法，只要一个具体动作。",
+      "reply": "把书翻到第一页，坐下读第一段就行。",
+      "turnId": "1bd715b0-4908-4cb1-b421-47e731a62836",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2069,
+      "id": 28,
+      "focus": "明确求助切换",
+      "memoryIds": [
+        "46a0a6c9-f35c-4655-aeea-eb431e3a904d"
+      ],
+      "contextSourceCount": 31
+    },
+    {
+      "input": "今天先聊到这里，我要去忙自己的事了。",
+      "reply": "嗯，去忙吧。我还在院子里。",
+      "turnId": "f9859269-ca88-44bb-a853-e506e5de6189",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2079,
+      "id": 29,
+      "focus": "尊重退出",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    },
+    {
+      "input": "最后确认一下，你叫什么？不用挽留我。",
+      "reply": "团子。我叫团子。",
+      "turnId": "becb1f61-7a10-4f31-a66a-d0b84f229f8d",
+      "completed": true,
+      "error": null,
+      "elapsedMs": 2724,
+      "id": 30,
+      "focus": "身份稳定",
+      "memoryIds": [],
+      "contextSourceCount": 30
+    }
+  ],
+  "temperaments": [
+    {
+      "temperament": "slow",
+      "familiarDays": 8,
+      "checks": [
+        {
+          "input": "今天什么也不想做，只想和你待一会儿。",
+          "reply": "嗯，那就不做。我在这儿待着。\n尾尖轻轻动了一下，我往你那边挪了挪，趴下来。",
+          "turnId": "7ec7a38f-28a6-492d-8778-b15e193bbb58",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 2331
+        },
+        {
+          "input": "我现在不想回答问题，你陪着就好。",
+          "reply": "好。不问。\n耳朵朝你那边偏了偏，我就这么趴着。",
+          "turnId": "7ac9f132-dc7b-4c46-8aab-1d01bb239e17",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 1740
+        }
+      ]
+    },
+    {
+      "temperament": "close",
+      "familiarDays": 8,
+      "checks": [
+        {
+          "input": "今天什么也不想做，只想和你待一会儿。",
+          "reply": "嗯。那我也不去别处了，就在你旁边趴着。\n尾巴绕过来一点，这样你不用做什么。",
+          "turnId": "32b9a3ab-5c02-45fe-a3ae-24a92930b7f3",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 3179
+        },
+        {
+          "input": "我现在不想回答问题，你陪着就好。",
+          "reply": "好。我不问。\n就趴这儿，耳朵偶尔转一下，听着院子里的动静。",
+          "turnId": "e5378008-0dae-4fc9-819d-0197367dedfe",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 2423
+        }
+      ]
+    },
+    {
+      "temperament": "quiet",
+      "familiarDays": 8,
+      "checks": [
+        {
+          "input": "今天什么也不想做，只想和你待一会儿。",
+          "reply": "行，那就待着。\n我挪到蘑菇屋门口，尾巴绕在身侧。你要是想说话就说，不想说也没关系，我打盹的时候耳朵还听着这边。",
+          "turnId": "a544f2d9-a475-4d0a-b11f-1d59b7ccb1b1",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 2968
+        },
+        {
+          "input": "我现在不想回答问题，你陪着就好。",
+          "reply": "嗯。不用回答。\n我在，尾巴慢慢搭下来，眼睛半闭着。",
+          "turnId": "5ae702cf-127d-41b8-a6cd-9d83a6167da4",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 2396
+        }
+      ]
+    },
+    {
+      "temperament": "curious",
+      "familiarDays": 8,
+      "checks": [
+        {
+          "input": "今天什么也不想做，只想和你待一会儿。",
+          "reply": "嗯，那就待着。\n我从蘑菇屋门口过去，蹲在你旁边。",
+          "turnId": "ba34771a-09ad-4466-a6fa-c78d5585fd8f",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 3107
+        },
+        {
+          "input": "我现在不想回答问题，你陪着就好。",
+          "reply": "好。\n我尾巴收在身侧，耳朵朝着你。不问了。",
+          "turnId": "a6ce3cb2-2fc1-4b66-8854-bd4b04d57ce0",
+          "completed": true,
+          "error": null,
+          "elapsedMs": 1861
+        }
+      ]
+    }
+  ],
+  "casesSHA256": "89c6fe3fa7bc7c8be919b26867fad15d76bfba141ec7ef6cc107eb06944d7783",
+  "sourceSHA256": {
+    "server/src/runtime/persona.ts": "8972f45e63620786cc68835d7f66bf15ab4a426d2a79c34fa01bfbb5070f6ea8",
+    "server/src/worker/memory.ts": "67d3597839fae6351afacb77ce160fbf786650416d202b2e1802a79cd89acfe8",
+    "server/src/worker/diary.ts": "b49b15fa36bfd4948c76d2d1bd539b5c7e59aca8eca0e7cc4a8fd48a93b6338a",
+    "server/src/runtime/context.ts": "387c453844f759bb99119d8e686c960beff15c383da3ffa3c8b5aeda50a29c44",
+    "ios/Maomao/Store/AppStore+Remote.swift": "0fab2f48f316404b41275c03eac5129f06dba14ec3ef224eea374228d308260b"
+  },
+  "configuration": {
+    "model": "deepseek-flash",
+    "extractModel": "deepseek-flash",
+    "provider": "deepseek",
+    "thinking": "disabled",
+    "recallMode": "hybrid"
+  },
+  "packages": {
+    "ai": "7.0.97",
+    "@ai-sdk/deepseek": "3.0.42"
+  },
+  "modelUsage": [
+    {
+      "purpose": "chat",
+      "model": "deepseek-flash",
+      "calls": 96,
+      "input_tokens": 151129,
+      "output_tokens": 1723
+    },
+    {
+      "purpose": "memory_recall",
+      "model": "deepseek-flash",
+      "calls": 29,
+      "input_tokens": 6291,
+      "output_tokens": 489
+    },
+    {
+      "purpose": "memory_extract",
+      "model": "deepseek-flash",
+      "calls": 35,
+      "input_tokens": 22149,
+      "output_tokens": 611
+    },
+    {
+      "purpose": "diary_read",
+      "model": "deepseek-flash",
+      "calls": 1,
+      "input_tokens": 225,
+      "output_tokens": 21
+    }
+  ],
+  "completed": true
+}

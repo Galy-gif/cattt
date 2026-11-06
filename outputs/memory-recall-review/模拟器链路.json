@@ -1,0 +1,40 @@
+{
+  "evidence": "实际模拟器客户端→HTTP/SSE→正式回复执行器→真实PG/Redis；回复模型与扩词模型均为mock；中文问题由调试启动脚本发送",
+  "passed": 3,
+  "checks": [
+    {
+      "query": "[recall] 帮我想想晚饭吃什么",
+      "status": "completed",
+      "memoryIds": [
+        "0ac29361-c058-4cc8-8f25-0540a78ef9d4",
+        "482457f4-8c9d-4f50-bc5a-8be9d1879b7a"
+      ],
+      "expected": [
+        "忌口",
+        "口味"
+      ],
+      "oldSourcesOutsideRecent30": true,
+      "reply": "合成验收：本轮可参考的长期记忆如下。\n- 用户的忌口：不吃香菜\n- 用户的口味：偏爱清淡少油"
+    },
+    {
+      "query": "[recall] 明天天气怎么样",
+      "status": "completed",
+      "memoryIds": [],
+      "expected": [],
+      "oldSourcesOutsideRecent30": true,
+      "reply": "合成验收：本轮可参考的长期记忆为空。"
+    },
+    {
+      "query": "[recall] 找本烧脑的读物",
+      "status": "completed",
+      "memoryIds": [
+        "323246bb-faf0-45ed-8797-5ade46371537"
+      ],
+      "expected": [
+        "阅读偏好"
+      ],
+      "oldSourcesOutsideRecent30": true,
+      "reply": "合成验收：本轮可参考的长期记忆如下。\n- 用户的阅读偏好：喜欢硬科幻小说"
+    }
+  ]
+}

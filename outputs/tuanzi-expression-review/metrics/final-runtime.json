@@ -1,0 +1,169 @@
+{
+  "sittingTailRotationErrorRadians": 0,
+  "seatedEarFlickPawDrift": 0.0007071041962696906,
+  "routes": {
+    "straight": {
+      "maxWalkSlipFraction": 0.0009379997506671694,
+      "maxTurnSlipFraction": 0,
+      "maxTransitionSpeedRatio": 0.2467391557578538
+    },
+    "turn180": {
+      "maxWalkSlipFraction": 0.00346990335723293,
+      "maxTurnSlipFraction": 0.0037273146676563068,
+      "maxTransitionSpeedRatio": 0.29745670691386333
+    },
+    "corner90": {
+      "maxWalkSlipFraction": 0.005880421258847717,
+      "maxTurnSlipFraction": 0.004892031229442928,
+      "maxTransitionSpeedRatio": 0.2467391557578538
+    },
+    "curve": {
+      "maxWalkSlipFraction": 0.003642015366787223,
+      "maxTurnSlipFraction": 0,
+      "maxTransitionSpeedRatio": 0.246739139034198
+    }
+  },
+  "interruptedWalkAndSit": "passed",
+  "triangles": 18870,
+  "glbBytes": 3136032,
+  "life": {
+    "sleep": "passed",
+    "doze": "passed",
+    "drink": "passed",
+    "interruptedDrink": "passed",
+    "bedTurnRecovery": "转身中恢复仍横躺，未提前入睡",
+    "reviewTeleport": "验收跳转清除旧起落/窝内状态，不绕回猫窝",
+    "recovery": "饮水三阶段与半空起落恢复通过"
+  },
+  "doze": {
+    "state": "doze_idle",
+    "facing": 0,
+    "position": [
+      -2.35,
+      0,
+      -0.55
+    ]
+  },
+  "bed": {
+    "pawGaps": {
+      "front_R_paw": 0.0002585503151635721,
+      "front_L_paw": -0.00010842323595387782,
+      "hind_R_paw": -0.004627792638308689,
+      "hind_L_paw": -0.0033695832267938847
+    },
+    "perState": {
+      "bed_hop": 0,
+      "idle": 0,
+      "turn": 0,
+      "sleep_down": 0,
+      "sleep_idle": 0
+    },
+    "rimPenetration": 0,
+    "cushionPenetration": 0.004627792638308689,
+    "worstFrame": {},
+    "state": "sleep_idle",
+    "position": [
+      -2.6,
+      0.072,
+      1.35
+    ],
+    "settled": true,
+    "exitRimPenetration": 0
+  },
+  "drinking": {
+    "touches": 288,
+    "lowest": 0.043436869524924225,
+    "minRadius": 0.07689613541912883,
+    "states": [
+      {
+        "frame": 0,
+        "state": "idle"
+      },
+      {
+        "frame": 1,
+        "state": "stand_up"
+      },
+      {
+        "frame": 64,
+        "state": "idle"
+      },
+      {
+        "frame": 65,
+        "state": "turn"
+      },
+      {
+        "frame": 147,
+        "state": "walk"
+      },
+      {
+        "frame": 383,
+        "state": "turn"
+      },
+      {
+        "frame": 385,
+        "state": "idle"
+      },
+      {
+        "frame": 386,
+        "state": "drink_down"
+      },
+      {
+        "frame": 482,
+        "state": "drink_lap"
+      },
+      {
+        "frame": 915,
+        "state": "drink_up"
+      },
+      {
+        "frame": 998,
+        "state": "idle"
+      }
+    ],
+    "position": [
+      -1.636287123300813,
+      0,
+      -1.105110015210479
+    ],
+    "facing": 2.1591225925744197,
+    "done": true,
+    "count": 1
+  },
+  "expressions": {
+    "tilt": {
+      "minGround": -0.0004029523797205402,
+      "headTravel": 0.000560179161731289,
+      "recovery": true,
+      "interruption": true
+    },
+    "groom": {
+      "minGround": -0.0004029523797205402,
+      "headTravel": 0.00038265218766431186,
+      "recovery": true,
+      "interruption": true,
+      "contact": {
+        "mouthPawMin": 0.007586647406766272,
+        "mouthPawMax": 0.01139522117179799,
+        "lickFrames": 75
+      }
+    },
+    "happy": {
+      "minGround": -0.0004029523797205402,
+      "headTravel": 0.0005597753864142463,
+      "recovery": true,
+      "interruption": true
+    },
+    "sulk": {
+      "minGround": -0.0004029523797205402,
+      "headTravel": 0.0005629252461246126,
+      "recovery": true,
+      "interruption": true
+    },
+    "sad": {
+      "minGround": -0.0004029523797205402,
+      "headTravel": 0.0007314502824180558,
+      "recovery": true,
+      "interruption": true
+    }
+  }
+}

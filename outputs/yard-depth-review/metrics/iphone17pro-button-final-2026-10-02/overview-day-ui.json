@@ -1,0 +1,552 @@
+{
+  "boundary" : [
+    {
+      "x" : -4.25,
+      "z" : -3.6000000000000001
+    },
+    {
+      "x" : -0.80000000000000004,
+      "z" : -3.6000000000000001
+    },
+    {
+      "x" : 4.25,
+      "z" : -3.6000000000000001
+    },
+    {
+      "x" : 4.4500000000000002,
+      "z" : -1.3999999999999999
+    },
+    {
+      "x" : 4.5,
+      "z" : 1.3999999999999999
+    },
+    {
+      "x" : 4.2000000000000002,
+      "z" : 3.6499999999999999
+    },
+    {
+      "x" : 1.8,
+      "z" : 3.8500000000000001
+    },
+    {
+      "x" : -1.6000000000000001,
+      "z" : 3.4500000000000002
+    },
+    {
+      "x" : -3.8500000000000001,
+      "z" : 2.25
+    },
+    {
+      "x" : -4.4500000000000002,
+      "z" : 0.10000000000000001
+    }
+  ],
+  "bounds" : {
+    "max" : [
+      4.5,
+      2.5268000364303589,
+      3.8500000000000001
+    ],
+    "min" : [
+      -4.4500000000000002,
+      -0.21599999898672095,
+      -3.6000000000000001
+    ]
+  },
+  "build" : {
+    "builtAt" : "2026-10-02T10:46:28.039Z",
+    "commit" : "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty" : true,
+    "modelHashes" : {
+      "tuanzi" : "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard" : "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "schemaVersion" : 2,
+    "sourceHash" : "baca2af466249c60882ef22b15b1bc7d2319bec4eed10cfe160e435b0dd80661",
+    "sourceHashScope" : "web\/src + ios\/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera" : {
+    "centerX" : 0.024999999999999911,
+    "centerZ" : 0.125,
+    "distance" : 32.310842177219783,
+    "focus" : [
+      0.024999999999999911,
+      0.34999999999999998,
+      0.125
+    ],
+    "mode" : "overview",
+    "offset" : 0,
+    "place" : null,
+    "position" : [
+      -10.188254931578619,
+      20.683871834117536,
+      23.064346157584168
+    ],
+    "shownDistance" : 32.310842177219783,
+    "targetY" : 0.34999999999999998,
+    "velocity" : 0,
+    "velocityZ" : 0
+  },
+  "cat" : {
+    "height" : 22.348952330746197,
+    "inFront" : true,
+    "width" : 15.484139027181142,
+    "x" : 213.57957861005119,
+    "y" : 433.14654483836591
+  },
+  "comparison" : false,
+  "controls" : {
+    "chat" : {
+      "height" : 46,
+      "width" : 96.333333333333314,
+      "x" : 287.66666666666669,
+      "y" : 770
+    },
+    "findCat" : {
+      "height" : 46,
+      "width" : 46,
+      "x" : 18,
+      "y" : 770
+    },
+    "profile" : {
+      "height" : 44,
+      "width" : 44,
+      "x" : 342,
+      "y" : 59
+    },
+    "rail" : {
+      "height" : 284,
+      "width" : 44,
+      "x" : 7,
+      "y" : 191
+    },
+    "status" : {
+      "height" : 27,
+      "width" : 165.66666666666663,
+      "x" : 118.16666666666667,
+      "y" : 67
+    },
+    "topic" : {
+      "height" : 56,
+      "width" : 370,
+      "x" : 16,
+      "y" : 698
+    }
+  },
+  "device" : "simulator(iPhone18,1)",
+  "elapsed" : 10.242437958717346,
+  "environment" : [
+    {
+      "active" : true,
+      "appFootprintMiB" : 36.861686706542969,
+      "at" : 0.00046896934509277344,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 36.89300537109375,
+      "at" : 1.0015649795532227,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 40.939926147460938,
+      "at" : 2.0019700527191162,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.111801147460938,
+      "at" : 3.0011320114135742,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.002449035644531,
+      "at" : 4.0019769668579102,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.064949035644531,
+      "at" : 5.0014820098876953,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.033699035644531,
+      "at" : 6.0020240545272827,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.002449035644531,
+      "at" : 7.0222140550613403,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 42.049324035644531,
+      "at" : 8.0020560026168823,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 41.908699035644531,
+      "at" : 9.0019570589065552,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    },
+    {
+      "active" : true,
+      "appFootprintMiB" : 41.846199035644531,
+      "at" : 10.002254962921143,
+      "batteryState" : "unknown",
+      "brightness" : 0.5,
+      "lowPowerMode" : false,
+      "thermal" : "nominal"
+    }
+  ],
+  "events" : [
+    {
+      "at" : 4.6920959949493408,
+      "type" : "ready"
+    },
+    {
+      "at" : 4.7192909717559814,
+      "type" : "resumed"
+    },
+    {
+      "at" : 6.9853110313415527,
+      "type" : "firstFrame"
+    },
+    {
+      "at" : 7.0487890243530273,
+      "type" : "visualReady"
+    },
+    {
+      "at" : 8.0259120464324951,
+      "type" : "resolutionScale"
+    },
+    {
+      "at" : 8.0472160577774048,
+      "type" : "resolutionScale"
+    },
+    {
+      "at" : 8.0498570203781128,
+      "type" : "resolutionScale"
+    }
+  ],
+  "head" : {
+    "x" : 223.72221937359495,
+    "y" : 446.52920458891253
+  },
+  "isSimulator" : true,
+  "layoutVersion" : "open-yard-v3",
+  "limits" : {
+    "daily" : 3.8470768123342687,
+    "max" : 32.310842177219783,
+    "min" : 2.7999999999999998
+  },
+  "occlusion" : {
+    "bottom" : 182,
+    "left" : 62,
+    "right" : 16,
+    "top" : 111
+  },
+  "overlay" : true,
+  "parts" : [
+    {
+      "id" : "bed",
+      "rect" : {
+        "height" : 20.051706012958039,
+        "inFront" : true,
+        "width" : 26.205509852532533,
+        "x" : 127.37704228938416,
+        "y" : 442.82811396539176
+      }
+    },
+    {
+      "id" : "bench",
+      "rect" : {
+        "height" : 39.118785773568973,
+        "inFront" : true,
+        "width" : 36.246024977104128,
+        "x" : 72.697722591024132,
+        "y" : 417.17312938809658
+      }
+    },
+    {
+      "id" : "bowl",
+      "rect" : {
+        "height" : 8.4868708114984841,
+        "inFront" : true,
+        "width" : 14.459039550602713,
+        "x" : 133.60382371994427,
+        "y" : 393.02045266665908
+      }
+    },
+    {
+      "id" : "fence",
+      "rect" : {
+        "height" : 105.7064510210259,
+        "inFront" : true,
+        "width" : 239.79206020453736,
+        "x" : 58.000000017741392,
+        "y" : 317.35477043399277
+      }
+    },
+    {
+      "id" : "flower",
+      "rect" : {
+        "height" : 6.1407245340884895,
+        "inFront" : true,
+        "width" : 3.3426553554754603,
+        "x" : 238.47805256847812,
+        "y" : 339.86587062012421
+      }
+    },
+    {
+      "id" : "flowerbed",
+      "rect" : {
+        "height" : 15.54702242278319,
+        "inFront" : true,
+        "width" : 21.843574864702383,
+        "x" : 313.74641271906449,
+        "y" : 435.36740137747353
+      }
+    },
+    {
+      "id" : "house",
+      "rect" : {
+        "height" : 86.641530934328188,
+        "inFront" : true,
+        "width" : 77.671224588221179,
+        "x" : 73.527443366186148,
+        "y" : 337.61965426187373
+      }
+    },
+    {
+      "id" : "mailbox",
+      "rect" : {
+        "height" : 22.911789418138675,
+        "inFront" : true,
+        "width" : 12.193126067572869,
+        "x" : 72.16093693109886,
+        "y" : 386.54096645098809
+      }
+    },
+    {
+      "id" : "rocks",
+      "rect" : {
+        "height" : 21.976439963279741,
+        "inFront" : true,
+        "width" : 27.663621350318348,
+        "x" : 336.07591505781755,
+        "y" : 420.19254126195841
+      }
+    },
+    {
+      "id" : "tree",
+      "rect" : {
+        "height" : 100.08222511509572,
+        "inFront" : true,
+        "width" : 79.470141321003695,
+        "x" : 157.86231473676997,
+        "y" : 292.38272328658962
+      }
+    },
+    {
+      "id" : "pond",
+      "rect" : {
+        "height" : 74.742447556149415,
+        "inFront" : true,
+        "width" : 114.33647223183478,
+        "x" : 210.08451516572592,
+        "y" : 371.89851673037606
+      }
+    }
+  ],
+  "projectionMatrix" : [
+    4.8831744785877733,
+    0,
+    0,
+    0,
+    0,
+    2.246036773904216,
+    0,
+    0,
+    0,
+    -0.081235697940503462,
+    -1.001000500250125,
+    -1,
+    0,
+    0,
+    -0.20010005002501249,
+    0
+  ],
+  "recovery" : {
+
+  },
+  "renderSamples" : [
+    {
+      "at" : 6.9859540462493896,
+      "calls" : 148,
+      "fps" : 0.44014084507042234,
+      "scale" : 1,
+      "triangles" : 487378
+    },
+    {
+      "at" : 8.0260930061340332,
+      "calls" : 148,
+      "fps" : 32.913843175217842,
+      "scale" : 1,
+      "triangles" : 487378
+    },
+    {
+      "at" : 9.0347700119018555,
+      "calls" : 99,
+      "fps" : 36.381514257620452,
+      "scale" : 0.94999999999999996,
+      "triangles" : 368664
+    },
+    {
+      "at" : 10.035711050033569,
+      "calls" : 99,
+      "fps" : 35.964035964035965,
+      "scale" : 0.94999999999999996,
+      "triangles" : 368664
+    }
+  ],
+  "report" : {
+    "frames" : 107,
+    "hitches" : 16,
+    "journey" : {
+      "arrived" : true,
+      "goal" : "grass",
+      "position" : [
+        -0.20000000000000001,
+        0,
+        2.2200000000000002
+      ]
+    },
+    "longestFrameMs" : 143.99999999999909,
+    "low1Fps" : 12.300000000000001,
+    "medianFps" : 38.5,
+    "minScale" : 0.94999999999999996,
+    "pauses" : [
+
+    ],
+    "perSecond" : [
+      32.913843175217842,
+      36.381514257620452,
+      35.964035964035965
+    ],
+    "resolutionEvents" : [
+      {
+        "at" : 5147,
+        "phase" : "queued",
+        "reason" : "slow",
+        "scale" : 0.94999999999999996
+      },
+      {
+        "at" : 5177,
+        "phase" : "applied",
+        "reason" : "slow",
+        "scale" : 0.94999999999999996
+      },
+      {
+        "at" : 5180,
+        "phase" : "rendered",
+        "reason" : "slow",
+        "scale" : 0.94999999999999996
+      }
+    ],
+    "seconds" : 3.0509999999999993,
+    "segments" : [
+      {
+        "endMs" : 7337,
+        "frames" : 107,
+        "startMs" : 4286.0000000000009
+      }
+    ],
+    "touch" : {
+      "maxFrameDelay" : null,
+      "maxMs" : null,
+      "samples" : 0
+    },
+    "trajectoryClearance" : {
+      "minimum" : 0.90565437710669316,
+      "violations" : 0
+    },
+    "visitedNodes" : [
+      "d3-1",
+      "curve-3-0-7"
+    ]
+  },
+  "runId" : "E9A212DF-EE8E-40CF-85E8-416A8D63EAB2",
+  "startedAt" : "2026-10-02T10:56:25Z",
+  "system" : "26.5",
+  "thermal" : 0,
+  "time" : "day",
+  "view" : "overview",
+  "viewMatrix" : [
+    0.91354545764260087,
+    2.7755575615628914e-17,
+    0.40673664307580021,
+    0,
+    0.25596766327476073,
+    0.7771459614569709,
+    -0.57491278464544426,
+    0,
+    -0.31609373954292358,
+    0.6293203910498375,
+    0.70995816301430748,
+    0,
+    -10.188254931578619,
+    20.683871834117536,
+    23.064346157584168,
+    1
+  ],
+  "viewport" : {
+    "height" : 874,
+    "width" : 402
+  },
+  "webContentFootprintMiB" : null,
+  "yard" : {
+    "height" : 267.48558024917241,
+    "inFront" : true,
+    "width" : 356.05629409492292,
+    "x" : 30.049463788746063,
+    "y" : 261.88075129277826
+  }
+}

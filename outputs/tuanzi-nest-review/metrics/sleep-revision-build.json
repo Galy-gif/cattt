@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 2,
+  "builtAt": "2026-10-10T13:18:48.420Z",
+  "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+  "dirty": true,
+  "sourceHash": "1d65d6c16f85217057ea91e04dc12c3fc7aad42a1d0ea63c8a91605378fd2743",
+  "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+  "modelHashes": {
+    "yard": "206abc2817b7736181f086fe4acb24fd2aaaf2a020620c0d13e190ee4f92dabf",
+    "tuanzi": "1cf5c266debf38aa38b6aec9550464a2c6e27055192813763868f51512b4ad68"
+  }
+}

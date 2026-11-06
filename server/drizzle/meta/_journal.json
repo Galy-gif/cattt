@@ -36,6 +36,20 @@
       "when": 1789201196801,
       "tag": "0004_memory_block_watermark",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792044662193,
+      "tag": "0005_military_veda",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792378543614,
+      "tag": "0006_last_charles_xavier",
+      "breakpoints": true
     }
   ]
 }

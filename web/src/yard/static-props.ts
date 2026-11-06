@@ -5,14 +5,21 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 export function batchStaticProps(root: THREE.Object3D) {
   root.updateWorldMatrix(true, true);
   const inverse = root.matrixWorld.clone().invert();
-  const batches = new Map<THREE.Material, THREE.Mesh[]>();
+  const batches = new Map<THREE.Material, Map<string, THREE.Mesh[]>>();
   root.traverse(object => {
     const mesh = object as THREE.Mesh;
     if (!mesh.isMesh || Array.isArray(mesh.material)) return;
-    const batch = batches.get(mesh.material) ?? [];
-    batch.push(mesh); batches.set(mesh.material, batch);
+    const attributes = Object.entries(mesh.geometry.attributes)
+      .map(([name, attribute]) => `${name}:${attribute.itemSize}:${attribute.normalized}:${attribute.array.constructor.name}`)
+      .sort().join('|');
+    const signature = `${mesh.geometry.index ? 'indexed' : 'plain'}|${attributes}`;
+    const byGeometry = batches.get(mesh.material) ?? new Map<string, THREE.Mesh[]>();
+    const batch = byGeometry.get(signature) ?? [];
+    batch.push(mesh);
+    byGeometry.set(signature, batch);
+    batches.set(mesh.material, byGeometry);
   });
-  for (const [material, meshes] of batches) {
+  for (const [material, byGeometry] of batches) for (const meshes of byGeometry.values()) {
     if (meshes.length < 2) continue;
     const geometries = meshes.map(mesh => mesh.geometry.clone().applyMatrix4(inverse.clone().multiply(mesh.matrixWorld)));
     const geometry = mergeGeometries(geometries);

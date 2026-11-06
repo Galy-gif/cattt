@@ -50,7 +50,7 @@ struct PickAppearanceStep: View {
         return HStack(spacing: 14) {
             ZStack {
                 if appearance.ready {
-                    Image("tuanzi-canonical")
+                    Image("tuanzi-ui-full")
                         .resizable()
                         .scaledToFit()
                 } else {

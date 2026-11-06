@@ -39,6 +39,10 @@ export const cats = pgTable('cats', {
   traits: jsonb('traits').$type<Traits>().notNull(),
   /** 改性格时 +1，只影响之后的表达 */
   personaVersion: integer('persona_version').notNull().default(1),
+  learnMemories: boolean('learn_memories').notNull().default(true),
+  useMemories: boolean('use_memories').notNull().default(true),
+  memoryRevision: integer('memory_revision').notNull().default(0),
+  learnAfterSeq: integer('learn_after_seq').notNull().default(0),
   createdAt: createdAt(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });
@@ -65,10 +69,13 @@ export const messages = pgTable(
       .notNull()
       .references(() => conversations.id, { onDelete: 'cascade' }),
     role: messageRole('role').notNull(),
+    contextAllowed: boolean('context_allowed').notNull().default(true),
+    memoryEligible: boolean('memory_eligible').notNull().default(true),
     text: text('text').notNull(),
     status: messageStatus('status').notNull().default('done'),
     /** 客户端生成的 id，发送失败重试不会存两条；猫的消息为空 */
     clientMessageId: text('client_message_id'),
+    diaryEntryId: uuid('diary_entry_id'),
     /** 猫的消息属于哪一轮 */
     turnId: uuid('turn_id'),
     createdAt: createdAt(),
@@ -108,6 +115,9 @@ export const turns = pgTable(
       .array()
       .notNull()
       .default(sql`'{}'::uuid[]`),
+    contextSourceIds: uuid('context_source_ids').array(),
+    contextRevision: integer('context_revision'),
+    diarySourceIds: uuid('diary_source_ids').array().notNull().default(sql`'{}'::uuid[]`),
     model: text('model'),
     error: text('error'),
     startedAt: timestamp('started_at', { withTimezone: true }),
@@ -161,6 +171,8 @@ export const memories = pgTable(
     fingerprint: text('fingerprint').notNull(),
     sourceMessageId: uuid('source_message_id').notNull(),
     extractorVersion: text('extractor_version').notNull(),
+    editedThroughSeq: integer('edited_through_seq').notNull().default(0),
+    revision: integer('revision').notNull().default(0),
     createdAt: createdAt(),
     lastConfirmedAt: timestamp('last_confirmed_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -221,6 +233,27 @@ export const memoryReceipts = pgTable('memory_receipts', {
   fingerprint: text('fingerprint').notNull(),
   accepted: boolean('accepted').notNull(),
 }, (t) => [uniqueIndex('memory_receipts_source_fingerprint').on(t.sourceMessageId, t.fingerprint)]);
+
+/** 同步保存与模型读取是两种许可；private 记录可同步但不能进入模型。 */
+export const diaryEntries = pgTable('diary_entries', {
+  id: id(),
+  seq: bigserial('seq', { mode: 'number' }).notNull().unique(),
+  catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
+  clientId: text('client_id').notNull(),
+  kind: text('kind').notNull(),
+  text: text('text').notNull(),
+  recordedAt: timestamp('recorded_at', { withTimezone: true }).notNull(),
+  timeZone: text('time_zone').notNull(),
+  day: text('day').notNull(),
+  time: text('time').notNull(),
+  catAllowed: boolean('cat_allowed').notNull().default(false),
+  revision: integer('revision').notNull().default(1),
+  mutationId: uuid('mutation_id').notNull(),
+  visit: integer('visit').notNull().default(0),
+  note: text('note').notNull().default(''),
+  createdAt: createdAt(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+}, t => [uniqueIndex('diary_cat_client').on(t.catId, t.clientId), index('diary_cat_seq').on(t.catId, t.seq)]);
 
 export * from './schema-world.ts';
 export * from './schema-soul.ts';

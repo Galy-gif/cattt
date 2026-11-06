@@ -1,0 +1,248 @@
+{
+  "action": "idle",
+  "ready": true,
+  "failure": "",
+  "snapshot": {
+    "shownSlot": "day",
+    "restSeconds": 0,
+    "activity": {
+      "target": null,
+      "hop": null,
+      "time": 1.9339998092651258,
+      "completions": 2,
+      "seconds": 7.213000000000035,
+      "eligible": false,
+      "clip": "idle",
+      "state": "idle",
+      "closure": 6.542614115127366e-39
+    },
+    "camera": {
+      "shownDistance": 3.8470768123342687,
+      "velocity": 0,
+      "position": [
+        -1.636287123300813,
+        1.4403980801767076,
+        2.592937565818943
+      ],
+      "targetY": 0.38,
+      "mode": "following",
+      "centerX": 0.02499999999999991,
+      "velocityZ": 0,
+      "offset": 1.6612871233008129,
+      "focus": [
+        -1.636287123300813,
+        0.38,
+        -1.105110015210478
+      ],
+      "centerZ": 0.125,
+      "distance": 3.8470768123342687,
+      "place": null
+    },
+    "facing": 2.159236961518701,
+    "position": {
+      "x": -1.636287123300813,
+      "y": 0,
+      "z": -1.105110015210479
+    },
+    "layoutVersion": "open-yard-v3",
+    "home": {
+      "drinkDone": true,
+      "settled": true,
+      "execution": {
+        "onBed": false,
+        "degraded": false,
+        "drinkStart": 1,
+        "applied": true,
+        "stage": "active"
+      },
+      "intent": {
+        "runId": "A3BB64AA-97C1-4586-A90B-BD3535DDF66E",
+        "place": "house",
+        "activity": "drink",
+        "id": "BA62AA4C-DD18-4BA1-8F19-83F27B783CAB",
+        "pageId": "C406FCBE-D217-45A2-AFD8-A0FD6DE700E0",
+        "type": "intent"
+      }
+    },
+    "slot": null,
+    "goal": "house",
+    "next": 1,
+    "arrived": true,
+    "walking": false,
+    "weather": "clear",
+    "hour": 14.886944444444444
+  },
+  "recovery": [
+    {
+      "after": {
+        "shownSlot": "day",
+        "home": {
+          "drinkDone": false,
+          "settled": false,
+          "execution": {
+            "onBed": false,
+            "degraded": false,
+            "drinkStart": 1,
+            "applied": true,
+            "stage": "active"
+          },
+          "intent": {
+            "runId": "A3BB64AA-97C1-4586-A90B-BD3535DDF66E",
+            "place": "house",
+            "activity": "drink",
+            "id": "BA62AA4C-DD18-4BA1-8F19-83F27B783CAB",
+            "pageId": "C406FCBE-D217-45A2-AFD8-A0FD6DE700E0",
+            "type": "intent"
+          }
+        },
+        "goal": "house",
+        "next": 1,
+        "hour": 14.883333333333333,
+        "weather": "clear",
+        "restSeconds": 0,
+        "walking": false,
+        "camera": {
+          "shownDistance": 3.8470768123342687,
+          "velocity": 0,
+          "position": [
+            -1.636287123301027,
+            1.4403980801767076,
+            2.59293756581911
+          ],
+          "targetY": 0.38,
+          "mode": "following",
+          "centerX": 0.02499999999999991,
+          "velocityZ": 0,
+          "offset": 1.661287123301027,
+          "focus": [
+            -1.636287123301027,
+            0.38,
+            -1.1051100152103108
+          ],
+          "centerZ": 0.125,
+          "distance": 3.8470768123342687,
+          "place": null
+        },
+        "layoutVersion": "open-yard-v3",
+        "arrived": true,
+        "activity": {
+          "target": "drink",
+          "hop": null,
+          "time": 2.3339999046325604,
+          "completions": 1,
+          "seconds": 4.734000000000001,
+          "eligible": true,
+          "clip": "drink_lap",
+          "state": "drink_lap",
+          "closure": 1.6706621260451455e-20
+        },
+        "slot": null,
+        "facing": 2.159236961518701,
+        "position": {
+          "x": -1.636287123300813,
+          "y": 0,
+          "z": -1.105110015210479
+        }
+      },
+      "before": {
+        "weather": "clear",
+        "shownSlot": "day",
+        "next": 1,
+        "hour": 14.883333333333333,
+        "goal": "house",
+        "facing": 2.159236961518701,
+        "camera": {
+          "shownDistance": 3.8470768123342687,
+          "velocity": 0,
+          "position": [
+            -1.636287123301027,
+            1.4403980801767076,
+            2.59293756581911
+          ],
+          "targetY": 0.38,
+          "mode": "following",
+          "centerX": 0.02499999999999991,
+          "velocityZ": 0,
+          "offset": 1.661287123301027,
+          "focus": [
+            -1.636287123301027,
+            0.38,
+            -1.1051100152103108
+          ],
+          "centerZ": 0.125,
+          "distance": 3.8470768123342687,
+          "place": null
+        },
+        "position": {
+          "x": -1.636287123300813,
+          "y": 0,
+          "z": -1.105110015210479
+        },
+        "layoutVersion": "open-yard-v3",
+        "slot": null,
+        "walking": false,
+        "activity": {
+          "target": "drink",
+          "hop": null,
+          "time": 2.3339999046325604,
+          "completions": 1,
+          "seconds": 4.734000000000001,
+          "eligible": true,
+          "clip": "drink_lap",
+          "state": "drink_lap",
+          "closure": 1.6706621260451455e-20
+        },
+        "restSeconds": 0,
+        "arrived": true,
+        "home": {
+          "drinkDone": false,
+          "settled": false,
+          "execution": {
+            "onBed": false,
+            "degraded": false,
+            "drinkStart": 1,
+            "applied": true,
+            "stage": "active"
+          },
+          "intent": {
+            "runId": "A3BB64AA-97C1-4586-A90B-BD3535DDF66E",
+            "place": "house",
+            "activity": "drink",
+            "id": "BA62AA4C-DD18-4BA1-8F19-83F27B783CAB",
+            "pageId": "C406FCBE-D217-45A2-AFD8-A0FD6DE700E0",
+            "type": "intent"
+          }
+        }
+      }
+    }
+  ],
+  "business": {
+    "activity": "drink",
+    "placesToday": [
+      "蘑菇屋"
+    ],
+    "phase": "idle",
+    "destinationIds": [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ],
+    "runnable": true,
+    "weather": "clear",
+    "lastDrinkAt": "2026-10-05T06:53:17Z",
+    "sceneVersion": 4,
+    "mood": "happy",
+    "bowlFilledToday": true,
+    "stateVersion": 1,
+    "moodReason": "团子刚喝过水，心情不错",
+    "paused": false,
+    "action": "idle",
+    "activityFallback": false,
+    "dayPhase": "day",
+    "targetDestinationId": "house",
+    "currentDestinationId": "house"
+  }
+}

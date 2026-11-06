@@ -1,0 +1,32 @@
+[
+  {
+    "file": "A-peep.png",
+    "sha256": "6acda8b63c3a9d42fd4e6168066d3fd053ce41658397643098e1d8a1acab286d",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待挑选"
+  },
+  {
+    "file": "B-wrap.png",
+    "sha256": "7996077061c98fced17da04b66279b072575e4def7f5f5e37ca4e08b6d3e7d85",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待挑选"
+  },
+  {
+    "file": "C-rest.png",
+    "sha256": "f7b2b6991524fa6dfecf3863523f2a80fb1efd87cc8876e14ff0207d952de2e5",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待挑选"
+  }
+]

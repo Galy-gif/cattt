@@ -1,0 +1,35 @@
+[
+  {
+    "sample": "fence-rhythm-final-land",
+    "action": "walk",
+    "settled": false,
+    "moving": true,
+    "position": {
+      "x": 2.960170556361063,
+      "y": 0,
+      "z": -2.3742985658814826
+    }
+  },
+  {
+    "sample": "fence-rhythm-final-out",
+    "action": "fence_turn_out",
+    "settled": false,
+    "moving": true,
+    "position": {
+      "x": 3.15,
+      "y": 0.501,
+      "z": -3.1
+    }
+  },
+  {
+    "sample": "fence-rhythm-final-rest",
+    "action": "fence_rest",
+    "settled": true,
+    "moving": false,
+    "position": {
+      "x": 3.15,
+      "y": 0.501,
+      "z": -3.1
+    }
+  }
+]

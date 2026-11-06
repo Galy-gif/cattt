@@ -91,12 +91,12 @@ def srgb(hex_color):
 # 配色（第二轮）：取自 iOS 院子现行素材（world-v2 的屋、树、栅栏，v4 吊窝，v5 信箱）。
 # 材质名是和网页端的约定：网页端按名字换成毛毡材质；window_glow、water 另有用途。
 PALETTE = {
-    "cap": "#d8422b", "cream": "#f2e2c4", "spot": "#f6ead2",
+    "cap": "#cd5946", "gill": "#d3bb91", "cream": "#f2e2c4", "spot": "#f6ead2",
     "wood": "#9a5a2e", "wood_dark": "#73421f", "wood_light": "#b5763e",
     "stone": "#bfb3a0", "stone_light": "#d6ccba",
     "window_glow": "#f6d28a", "water": "#6ec3e0",
     "bowl_orange": "#e2622e", "bowl_teal": "#2fa7a8", "kibble": "#a9693a",
-    "leaf_dark": "#2f7d3a", "leaf_mid": "#4e9a3a", "leaf_light": "#8dbf3f",
+    "leaf_dark": "#426d45", "leaf_mid": "#66884f", "leaf_light": "#8ea25e",
     "rope": "#e6cfa6", "cushion": "#8fa070", "tan": "#d9b98a",
     "coral": "#c25a3e", "slot": "#4a3b30",
     "petal_white": "#f7f3e8", "petal_yellow": "#f0c23b",
@@ -241,6 +241,10 @@ def build_house(scene):
     # 菌柄：略鼓的矮柱，奶油色
     sphere("house_stem", o + Vector((0, 0, 0.30)), (0.46, 0.46, 0.46), mat("cream"), root)
     cylinder("house_stem_base", o, 0.44, 0.34, mat("cream"), root, top_radius=0.46, bevel=0.03)
+    # 墙脚收边和伞盖底面：保持原有体量，补足从屋檐到墙的厚度。
+    torus("house_footing", o + Vector((0, 0, .045)), .431, .032, mat("stone"), root, scale=(1, 1, .7))
+    sphere("house_eave_under", o + Vector((0, 0, .455)), (.695, .695, .052), mat("gill"), root)
+    torus("house_eave_edge", o + Vector((0, 0, .474)), .681, .025, mat("cap"), root, scale=(1, 1, .75))
     # 伞盖：红，奶油圆斑
     dome("house_cap", o + Vector((0, 0, 0.50)), (0.72, 0.72, 0.52), mat("cap"), root)
     spots = [(0.2, 0.88, 0.11), (1.3, 0.74, 0.09), (2.4, 0.90, 0.10), (3.4, 0.70, 0.085), (4.3, 0.86, 0.11), (5.3, 0.72, 0.09), (4.75, 0.99, 0.07)]
@@ -256,6 +260,9 @@ def build_house(scene):
         box(f"house_door_plank_{i}", o + Vector((x, -0.468, 0.20)), (0.006, 0.01, 0.40 - abs(x) * 1.6), mat("wood_dark"), root, bevel=0.002)
     sphere("house_door_knob", o + Vector((0.10, -0.475, 0.19)), 0.016, mat("wood_dark"), root, segments=12)
     sphere("house_doorstep", o + Vector((0, -0.56, 0.0)), (0.24, 0.15, 0.025), mat("stone_light"), root, segments=20)
+    sphere("house_threshold", o + Vector((0, -.51, .022)), (.19, .06, .026), mat("stone"), root, segments=16)
+    for z in (.12, .29):
+        box("house_door_hinge", o + Vector((-.115, -.474, z)), (.035, .014, .016), mat("wood_dark"), root, bevel=.005)
     # 圆窗：发光的窗面 + 木框 + 十字
     wa = math.radians(36)
     wx, wy = math.sin(wa) * 0.455, -math.cos(wa) * 0.455
@@ -267,12 +274,20 @@ def build_house(scene):
     torus("house_window_frame", wo, 0.10, 0.02, mat("wood"), window_root, rotation=(math.pi / 2, 0, 0))
     box("house_window_bar_v", wo + Vector((0, -0.028, 0)), (0.016, 0.014, 0.20), mat("wood"), window_root, bevel=0.004)
     box("house_window_bar_h", wo + Vector((0, -0.028, 0)), (0.20, 0.014, 0.016), mat("wood"), window_root, bevel=0.004)
+    torus("house_window_reveal", wo + Vector((0, .006, 0)), .111, .018, mat("gill"), window_root, rotation=(math.pi / 2, 0, 0))
+    box("house_window_sill", wo + Vector((0, -.035, -.112)), (.255, .105, .035), mat("wood_light"), window_root, bevel=.012)
     for child in list(window_root.children):
         child.rotation_euler.z += wa
         child.location = wo + (child.location - wo)
     # 石烟囱：三块石头摞起来
     for i in range(3):
         box(f"house_chimney_{i}", o + Vector((-0.30 + (i % 2) * 0.012, 0.16, 0.86 + i * 0.075)), (0.16 - i * 0.006, 0.14, 0.075), mat("stone"), root, bevel=0.022)
+    # 烟囱顶部暗口与四边压顶，无需布尔或额外实时灯光。
+    chimney = o + Vector((-.30, .16, 1.044))
+    box("house_chimney_opening", chimney, (.095, .083, .015), mat("slot"), root, bevel=.009)
+    for x, y, size in [(-.067, 0, (.028, .16, .035)), (.067, 0, (.028, .16, .035)),
+                       (0, -.065, (.12, .03, .035)), (0, .065, (.12, .03, .035))]:
+        box("house_chimney_rim", chimney + Vector((x, y, .014)), size, mat("stone_light"), root, bevel=.01)
     # 柴堆：靠在屋子左前
     for i in range(5):
         base = o + Vector((-0.50 + i * 0.035, -0.30 - i * 0.02, 0.0))
@@ -282,11 +297,31 @@ def build_house(scene):
     return root
 
 
+def water_bowl_mesh():
+    """真实敞口剖面：外壁、圆润盆沿、内壁和盆底，水面上方没有实心顶盖。"""
+    profile=[(0,0),(.069,0),(.081,.009),(.099,.037),(.1,.043),(.097,.049),(.092,.05),(.086,.049),(.083,.044),(.076,.016),(.069,.009),(0,.009)]
+    vertices=[];rings=[];faces=[];segments=48
+    for radius,z in profile:
+        ring=[]
+        for i in range(1 if radius==0 else segments):
+            angle=2*math.pi*i/segments;ring.append(len(vertices));vertices.append((radius*math.cos(angle),radius*math.sin(angle),z))
+        rings.append(ring)
+    for a,c in zip(rings,rings[1:]):
+        for i in range(segments):
+            j=(i+1)%segments
+            if len(a)==1:faces.append((a[0],c[j],c[i]))
+            elif len(c)==1:faces.append((a[i],a[j],c[0]))
+            else:faces.append((a[i],a[j],c[j],c[i]))
+    mesh=bpy.data.meshes.new('bowl_body_open');mesh.from_pydata(vertices,[],faces);mesh.update()
+    return mesh
+
+
 def build_bowls():
     """水盆（蓝绿）和食盆（橙）。节点名 bowl 是水盆，团子喝水的那个。"""
     root = empty("bowl", at("bowl"))
     o = root.location
-    cylinder("bowl_body", o, 0.082, 0.05, mat("bowl_teal"), root, top_radius=0.10, bevel=0.014)
+    body=bpy.data.objects.new("bowl_body",water_bowl_mesh());bpy.context.collection.objects.link(body);body.location=o
+    finish(body,"bowl_body",mat("bowl_teal"),root)
     cylinder("bowl_water", o + Vector((0, 0, 0.043)), 0.084, 0.004, mat("water"), root)
     f = o + Vector((-0.24, 0.03, 0))
     cylinder("food_bowl_body", f, 0.082, 0.05, mat("bowl_orange"), root, top_radius=0.10, bevel=0.014)
@@ -323,7 +358,7 @@ def teardrop(name, center, radius, height, material_, parent):
     for v in obj.data.vertices:
         if v.co.z > 0:
             t = v.co.z
-            squeeze = (1 - t) ** 0.55 * (1 - 0.25 * t)
+            squeeze = (1 - t) ** 0.28
             r = math.hypot(v.co.x, v.co.y)
             if r > 1e-6:
                 flat = math.sqrt(max(0.0, 1 - t * t))
@@ -333,19 +368,21 @@ def teardrop(name, center, radius, height, material_, parent):
             v.co.z = t * height / radius
     obj.scale = (radius, radius, radius)
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    # 先做中空壳再挖口；对实心球挖口后加厚会留下堵住猫身体的内凹盖。
+    solid = obj.modifiers.new("shell", "SOLIDIFY")
+    solid.thickness = .018
+    solid.offset = -1
+    bpy.ops.object.modifier_apply(modifier="shell")
     # 挖口
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=16, location=Vector(center) + Vector((0, -radius * 0.95, radius * 0.18)))
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=16, location=Vector(center) + Vector((0, -.285, .085)))
     cutter = bpy.context.object
-    cutter.scale = (radius * 0.62, radius * 0.7, radius * 0.66)
+    cutter.scale = (.31, .30, .25)
     mod = obj.modifiers.new("hole", "BOOLEAN")
     mod.operation = "DIFFERENCE"
     mod.object = cutter
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.modifier_apply(modifier="hole")
     bpy.data.objects.remove(cutter, do_unlink=True)
-    solid = obj.modifiers.new("shell", "SOLIDIFY")
-    solid.thickness = radius * 0.12
-    solid.offset = -1
     return finish(obj, name, material_, parent)
 
 
@@ -353,20 +390,40 @@ def build_tree():
     root = empty("tree", at("tree"))
     o = root.location
     wood, wood_dark = mat("wood"), mat("wood_dark")
-    cylinder("tree_trunk", o, 0.20, 1.20, wood, root, top_radius=0.13, bevel=0.03)
-    # 根：五条伸出去的板根
+    wood_root = empty("tree_wood", o, root)
+    # 连续弯曲的截面代替直圆柱，根部从地面渐收，所有根尖留在既有碰撞圈内。
+    rings = [(0, 0, .0, .22), (0, 0, .12, .195), (.022, .005, .43, .16),
+             (.036, .012, .78, .135), (.005, .018, 1.12, .11), (-.03, .018, 1.30, .075)]
+    verts, faces = [], []
+    for x, y, z, r in rings:
+        for j in range(16):
+            a = j * math.tau / 16
+            rr = r * (1 + .045 * math.sin(a * 3 + z))
+            verts.append(tuple(o + Vector((x + math.cos(a) * rr, y + math.sin(a) * rr, z))))
+    for i in range(len(rings) - 1):
+        for j in range(16):
+            k = i * 16 + j; n = i * 16 + (j + 1) % 16
+            faces.append((k, n, n + 16, k + 16))
+    faces.extend([tuple(reversed(range(16))), tuple(range((len(rings)-1)*16, len(rings)*16))])
+    mesh = bpy.data.meshes.new("tree_trunk"); mesh.from_pydata(verts, [], faces); mesh.update()
+    trunk = bpy.data.objects.new("tree_trunk", mesh); bpy.context.collection.objects.link(trunk)
+    finish(trunk, "tree_trunk", wood, wood_root)
     for i in range(5):
-        a = i * math.tau / 5 + 0.4
-        tip = o + Vector((math.cos(a) * 0.36, math.sin(a) * 0.36, 0.0))
-        rod(f"tree_root_{i}", o + Vector((math.cos(a) * 0.10, math.sin(a) * 0.10, 0.34)), tip, 0.075, wood, root, end_radius=0.03)
+        a = i * math.tau / 5 + .4
+        start = o + Vector((math.cos(a) * .07, math.sin(a) * .07, .19))
+        mid = o + Vector((math.cos(a) * .21, math.sin(a) * .21, .055))
+        tip = o + Vector((math.cos(a) * .32, math.sin(a) * .32, .003))
+        rod(f"tree_root_{i}", start, mid, .062, wood, wood_root, end_radius=.038)
+        rod(f"tree_root_tip_{i}", mid, tip, .038, wood, wood_root, end_radius=.015)
+        sphere(f"tree_root_joint_{i}", mid, (.04, .04, .04), wood, wood_root, segments=12)
     # 分叉
     forks = [((0.34, 0.05, 0.62), 0.085), ((-0.30, 0.10, 0.58), 0.08), ((0.05, -0.22, 0.66), 0.075)]
     top = o + Vector((0, 0, 1.12))
     for i, (offset, r) in enumerate(forks):
-        rod(f"tree_fork_{i}", top, top + Vector(offset), r, wood, root, end_radius=r * 0.6)
+        rod(f"tree_fork_{i}", top, top + Vector(offset), r, wood, wood_root, end_radius=r * 0.6)
     # 伸向左前方、挂吊窝的那根枝
     pivot_pos = at("nest") + Vector((0, 0, NEST_PIVOT_HEIGHT))
-    rod("tree_branch", o + Vector((0, 0, 1.05)), pivot_pos + Vector((-0.14, 0, 0.035)), 0.06, wood, root, end_radius=0.035)
+    rod("tree_branch", o + Vector((0, 0, 1.05)), pivot_pos + Vector((-0.14, 0, 0.035)), 0.06, wood, wood_root, end_radius=0.035)
 
     # 树冠：三种绿的圆团，大团打底、小团提亮
     crown = empty("tree_crown", o + Vector((0, 0, 1.25)), root)
@@ -375,30 +432,37 @@ def build_tree():
            ((0.26, -0.26, 0.62), 0.43), ((0.04, -0.08, 0.95), 0.38), ((-0.80, -0.08, 0.06), 0.30), ((0.82, 0.0, 0.10), 0.31)]
     for i, (offset, r) in enumerate(big):
         sphere(f"tree_crown_{i}", c + Vector(offset), (r, r, r * 0.86), mat("leaf_dark" if i % 3 == 0 else "leaf_mid"), crown, segments=24)
-    for i in range(16):
+    for i in range(9):
         a = rnd() * math.tau
         elevation = 0.15 + rnd() * 1.2
         reach = 0.62 + rnd() * 0.12
         p = Vector((math.cos(a) * math.cos(elevation) * reach * 1.25, math.sin(a) * math.cos(elevation) * reach * 0.9, 0.45 + math.sin(elevation) * reach * 0.8))
-        r = 0.16 + rnd() * 0.10
-        sphere(f"tree_tuft_{i}", c + p, (r, r, r * 0.8), mat("leaf_light" if i % 2 else "leaf_mid"), crown, segments=16)
+        r = 0.20 + rnd() * 0.12
+        sphere(f"tree_tuft_{i}", c + p, (r, r, r * 0.8), mat("leaf_light" if i % 3 == 0 else "leaf_mid"), crown, segments=16)
 
     # 吊窝：绕挂点晃。绳圈 + 水滴形编织窝 + 绿垫
+    build_nest(root, pivot_pos)
+    return root
+
+
+def build_nest(root, pivot_pos):
+    """按真实团子尺寸保留水滴外形，开口和软垫可容纳蜷卧。"""
     pivot = empty("nest_pivot", pivot_pos, root)
-    radius = 0.21
-    height = 0.40
-    center = Vector((pivot_pos.x, pivot_pos.y, NEST_SEAT_HEIGHT + radius * 0.9))
+    radius = 0.34
+    height = 0.34
+    center = Vector((pivot_pos.x, pivot_pos.y, NEST_SEAT_HEIGHT + .27))
     tip = center + Vector((0, 0, height))
     rod("nest_rope", tip, pivot_pos, 0.013, mat("rope"), pivot)
     torus("nest_loop", pivot_pos + Vector((0, 0, 0.0)), 0.035, 0.012, mat("rope"), pivot, rotation=(math.pi / 2, 0, 0))
     teardrop("nest_shell", center, radius, height, mat("rope"), pivot)
-    sphere("nest_cushion", center + Vector((0, 0, -radius * 0.55)), (radius * 0.78, radius * 0.78, radius * 0.22), mat("cushion"), pivot, segments=20)
+    sphere("nest_cushion", center + Vector((0, 0, -.165)), (.234, .234, .066), mat("cushion"), pivot, segments=20)
+    torus("nest_opening_rim", center + Vector((0, -.27, .085)),
+          .30, .012, mat("rope"), pivot, scale=(1, .80, 1), rotation=(math.pi / 2, 0, 0))
     # 编织的横箍
     for i, (z, k) in enumerate(((-0.10, 0.93), (0.0, 1.0), (0.10, 0.80), (0.20, 0.52))):
         if i == 1 or i == 2:
             continue  # 开口的高度不箍
         torus(f"nest_band_{i}", center + Vector((0, 0, z)), radius * k + 0.004, 0.012, mat("rope"), pivot)
-    return root
 
 
 def build_board():
@@ -408,6 +472,11 @@ def build_board():
     box("board_plank", o + Vector((0, -0.012, 0.30)), (0.30, 0.03, 0.15), mat("wood_light"), root, bevel=0.02)
     root.rotation_euler.z = math.radians(-12)
     return root
+
+
+def build_fence_perch(root):
+    # 圆角宽横木盖住局部尖顶，供团子横向趴卧；挂在原栅栏上。
+    box("fence_perch", Vector((3.15, 3.10, .475)), (.90, .28, .05), mat("wood_light"), root, bevel=.018)
 
 
 def build_fence():
@@ -435,12 +504,15 @@ def build_fence():
         inward = Vector((-along.y, along.x, 0)) * (-1 if run == 0 else 1)
         bushes = max(3, round(span.length / 0.32))
         for i in range(bushes):
+            if i % 7 in (3, 4):
+                continue
             p = start + span * ((i + 0.5) / bushes) + inward * (0.07 + rnd() * 0.05)
             r = 0.10 + rnd() * 0.07
             sphere(f"fence_bush_{run}_{i}", p + Vector((0, 0, r * 0.55)), (r * 1.25, r, r * 0.8), mat("leaf_dark" if i % 2 else "leaf_mid"), root, segments=14)
             if i % 2 == 0:
                 q = p + inward * (r * 0.75) + Vector((0, 0, r * 0.9))
                 sphere(f"fence_flower_{run}_{i}", q, (0.028, 0.028, 0.018), mat("petal_white" if i % 4 else "petal_yellow"), root, segments=10)
+    build_fence_perch(root)
     return root
 
 
@@ -468,6 +540,8 @@ def build_garden_details():
     for x in (-0.36, 0.36):
         cylinder("bench_back_post", o + Vector((x, 0.14, 0.20)), 0.028, 0.37, mat("wood"), root)
     box("bench_back", o + Vector((0, 0.15, 0.47)), (0.96, 0.055, 0.16), mat("wood_light"), root, bevel=0.025)
+    # 木凳朝向左侧谷地，保留原落点及碰撞范围。
+    facing_z(root, (-12, -6))
     rocks = empty("rocks", at("rocks"))
     for i, (x, y, h, r) in enumerate(((0, 0, .27, .28), (.24, .06, .16, .19), (-.17, -.13, .11, .15))):
         sphere(f"garden_stone_{i}", rocks.location + Vector((x, y, h * .37)),
@@ -579,4 +653,5 @@ def main():
     print("yard:", manifest)
 
 
-main()
+if __name__ == "__main__":
+    main()

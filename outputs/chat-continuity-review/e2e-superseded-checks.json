@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-14T06:44:13.454Z",
+  "model": "mock",
+  "transport": "真实Hono HTTP/SSE",
+  "database": "独立PostgreSQL + Redis",
+  "device": "iPhone 17 Pro simulator",
+  "results": [
+    {
+      "scenario": "superseded",
+      "turns": 2,
+      "messages": 3,
+      "passed": true
+    }
+  ]
+}

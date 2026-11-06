@@ -1,0 +1,671 @@
+{
+  "fps": 30,
+  "size": 256,
+  "modelSHA256": "d53b4f15d78acab349a302c4c57f8b23099fcc0dd002fc78643f2438efded23c",
+  "files": [
+    {
+      "name": "avatar-motion-blink-00",
+      "kind": "blink",
+      "frame": 0,
+      "time": 0,
+      "bytes": 61509,
+      "sha256": "468c275af9357a23576aba4d7a65bb8049c448eaa854faca26cc0f0f9b281d7b"
+    },
+    {
+      "name": "avatar-motion-blink-01",
+      "kind": "blink",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "bytes": 61444,
+      "sha256": "88b515a590dc3b18cf57c0f46b4158ecf7244f11e418a1fb5d4f280e16f1972c"
+    },
+    {
+      "name": "avatar-motion-blink-02",
+      "kind": "blink",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "bytes": 61152,
+      "sha256": "3c7c539e1f1c63ca4694674ca67c1d5320253c045c31b71af487db57fc4e3883"
+    },
+    {
+      "name": "avatar-motion-blink-03",
+      "kind": "blink",
+      "frame": 3,
+      "time": 0.1,
+      "bytes": 60992,
+      "sha256": "4acb66226cf423c249b47a6c36525a3c81d522f0c02ce1579ba3642c01eccb2d"
+    },
+    {
+      "name": "avatar-motion-blink-04",
+      "kind": "blink",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "bytes": 60982,
+      "sha256": "34b1e6fec956fd54e6b73edc42d5a46e3007b71b92a644c42c204ba7c0cfe9cc"
+    },
+    {
+      "name": "avatar-motion-blink-05",
+      "kind": "blink",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "bytes": 61075,
+      "sha256": "da4d1206dff77c4246674d8c20be4b717e0711904f73fd8e1b6160a6928c5692"
+    },
+    {
+      "name": "avatar-motion-blink-06",
+      "kind": "blink",
+      "frame": 6,
+      "time": 0.2,
+      "bytes": 61246,
+      "sha256": "25fc07cb02de848249fa9f447cee467e143882d326b8f1f58ec16f040911bbca"
+    },
+    {
+      "name": "avatar-motion-blink-07",
+      "kind": "blink",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "bytes": 61407,
+      "sha256": "9f75f5d054b41440fc0c013a7a5dc85812c76b068c93961991c68cbec972ad02"
+    },
+    {
+      "name": "avatar-motion-blink-08",
+      "kind": "blink",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "bytes": 61499,
+      "sha256": "1b588b6b14e4d1d3ca3d9dfb4b104a7cb1df3a95951d816e5bf73db6d8eb1a01"
+    },
+    {
+      "name": "avatar-motion-blink-09",
+      "kind": "blink",
+      "frame": 9,
+      "time": 0.3,
+      "bytes": 61509,
+      "sha256": "468c275af9357a23576aba4d7a65bb8049c448eaa854faca26cc0f0f9b281d7b"
+    },
+    {
+      "name": "avatar-motion-look-00",
+      "kind": "look",
+      "frame": 0,
+      "time": 0,
+      "bytes": 61509,
+      "sha256": "468c275af9357a23576aba4d7a65bb8049c448eaa854faca26cc0f0f9b281d7b"
+    },
+    {
+      "name": "avatar-motion-look-01",
+      "kind": "look",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "bytes": 61419,
+      "sha256": "72fed7f6ea52cb23b90733766eed41bcaa89ad4d968dfcefb4cde82d6ae3b6d9"
+    },
+    {
+      "name": "avatar-motion-look-02",
+      "kind": "look",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "bytes": 61577,
+      "sha256": "dffce583d02881f738b171ae8d15ddb42b6797b70e5ef399792a18e0d41ba5b4"
+    },
+    {
+      "name": "avatar-motion-look-03",
+      "kind": "look",
+      "frame": 3,
+      "time": 0.1,
+      "bytes": 61539,
+      "sha256": "ea64a96455be963c72f8041a102f2d1a665f41884bd4668353f65378f5fc2cc0"
+    },
+    {
+      "name": "avatar-motion-look-04",
+      "kind": "look",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "bytes": 61432,
+      "sha256": "a1689335d10b73ea9c92feae5f23b65814f6d24d2e4a70bbba3ed159e3dda283"
+    },
+    {
+      "name": "avatar-motion-look-05",
+      "kind": "look",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "bytes": 61507,
+      "sha256": "a45d7b3248d6cab21e9e4bb101babb2a7137cde8a97af5915b2ed997894f0a9b"
+    },
+    {
+      "name": "avatar-motion-look-06",
+      "kind": "look",
+      "frame": 6,
+      "time": 0.2,
+      "bytes": 61512,
+      "sha256": "70c7f8ad4fc6744e6cdb9d205530e9b18b17cbc9463c261d714f3fc715e2eb08"
+    },
+    {
+      "name": "avatar-motion-look-07",
+      "kind": "look",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "bytes": 61581,
+      "sha256": "be6c415e7e2ee4c257936982be31cb951ee6f33b9366620fbc63dca2869ad17f"
+    },
+    {
+      "name": "avatar-motion-look-08",
+      "kind": "look",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "bytes": 61212,
+      "sha256": "0feb901f53e431c55f01656e1a39c52e3bce19b7b9fc41200034ee528e681f28"
+    },
+    {
+      "name": "avatar-motion-look-09",
+      "kind": "look",
+      "frame": 9,
+      "time": 0.3,
+      "bytes": 61220,
+      "sha256": "2d51c676d469dc19730be9c70e9a0c85038f54b96020732f26940f42f3b22f67"
+    },
+    {
+      "name": "avatar-motion-look-10",
+      "kind": "look",
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "bytes": 61082,
+      "sha256": "7bd9af50ba00c585147c2490646fac9a7a1dde9d31658466d0a1924127155d97"
+    },
+    {
+      "name": "avatar-motion-look-11",
+      "kind": "look",
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "bytes": 61317,
+      "sha256": "4d457c73047be9bb92491e7736b2e403ed0193f197a08adef1aedc393303e0a6"
+    },
+    {
+      "name": "avatar-motion-look-12",
+      "kind": "look",
+      "frame": 12,
+      "time": 0.4,
+      "bytes": 61423,
+      "sha256": "3d1341c6d2ea96eb071abb3207860c074051afecfab0f0adc669ee0826b48a24"
+    },
+    {
+      "name": "avatar-motion-look-13",
+      "kind": "look",
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "bytes": 61674,
+      "sha256": "820d90679cd88ed3b1f24c815e5ee224ebfe8358dc598377978ddb6a1f59a903"
+    },
+    {
+      "name": "avatar-motion-look-14",
+      "kind": "look",
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "bytes": 61836,
+      "sha256": "e782a5a60818ebebfa250601e5caa8a314569894a54ed35c1b9be6035b495b01"
+    },
+    {
+      "name": "avatar-motion-look-15",
+      "kind": "look",
+      "frame": 15,
+      "time": 0.5,
+      "bytes": 61998,
+      "sha256": "0e46c148c5242cebad75bb872ae08158848cdfff70a16a5480b6c55d8a9252bd"
+    },
+    {
+      "name": "avatar-motion-look-16",
+      "kind": "look",
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "bytes": 62093,
+      "sha256": "9f2e33f8ecfa3aa683a571114c2463120bfc72f332b8a305ccf10bdee1657599"
+    },
+    {
+      "name": "avatar-motion-look-17",
+      "kind": "look",
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "bytes": 61867,
+      "sha256": "7f29f1ae3090d468e87a264a7241c45bc5d3b08e15b4d62dc5004f9f760ddf3b"
+    },
+    {
+      "name": "avatar-motion-look-18",
+      "kind": "look",
+      "frame": 18,
+      "time": 0.6,
+      "bytes": 62166,
+      "sha256": "8350d00b3ba31807c4f9672ccb5f417b7bf7c50730e6b7c9ac970b682935dc4b"
+    },
+    {
+      "name": "avatar-motion-look-19",
+      "kind": "look",
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "bytes": 62138,
+      "sha256": "3c0874cb29c25982296ba6121e419983281e90de41eeb62720b9d9bf1036a526"
+    },
+    {
+      "name": "avatar-motion-look-20",
+      "kind": "look",
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "bytes": 62163,
+      "sha256": "2835d24d39dd8dc38a74707b30d18a9034b0fc73fa53aef4ea7914695c3faa5b"
+    },
+    {
+      "name": "avatar-motion-look-21",
+      "kind": "look",
+      "frame": 21,
+      "time": 0.7,
+      "bytes": 62211,
+      "sha256": "2dd32cdc46b52f5e1fdc55f20d6049e1e3aa75ed2dcd43322ddd6875780f492c"
+    },
+    {
+      "name": "avatar-motion-look-22",
+      "kind": "look",
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "bytes": 62161,
+      "sha256": "5f26c029844d06867cc83bd19d13a10e5cb3d873cc1908c9c1090ff30193e45d"
+    },
+    {
+      "name": "avatar-motion-look-23",
+      "kind": "look",
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "bytes": 62169,
+      "sha256": "ff619cc11e01022b3c5d8981299b1e64319cbb7c21296eb8125771170b8754a8"
+    },
+    {
+      "name": "avatar-motion-look-24",
+      "kind": "look",
+      "frame": 24,
+      "time": 0.8,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-25",
+      "kind": "look",
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-26",
+      "kind": "look",
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-27",
+      "kind": "look",
+      "frame": 27,
+      "time": 0.9,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-28",
+      "kind": "look",
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-29",
+      "kind": "look",
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-30",
+      "kind": "look",
+      "frame": 30,
+      "time": 1,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-31",
+      "kind": "look",
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-32",
+      "kind": "look",
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-33",
+      "kind": "look",
+      "frame": 33,
+      "time": 1.1,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-34",
+      "kind": "look",
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-35",
+      "kind": "look",
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-36",
+      "kind": "look",
+      "frame": 36,
+      "time": 1.2,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-37",
+      "kind": "look",
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-38",
+      "kind": "look",
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-39",
+      "kind": "look",
+      "frame": 39,
+      "time": 1.3,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-40",
+      "kind": "look",
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-41",
+      "kind": "look",
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-42",
+      "kind": "look",
+      "frame": 42,
+      "time": 1.4,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-43",
+      "kind": "look",
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "bytes": 62286,
+      "sha256": "20cb9004382e6f7d836d2991e59033e19f7a8b3e34c85825425ce65a007ca3a3"
+    },
+    {
+      "name": "avatar-motion-look-44",
+      "kind": "look",
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "bytes": 62273,
+      "sha256": "1896a2691491dd91e6b3d7f0de7b9400d07688eb9e0ebd685a2df64c64929a4e"
+    },
+    {
+      "name": "avatar-motion-look-45",
+      "kind": "look",
+      "frame": 45,
+      "time": 1.5,
+      "bytes": 62243,
+      "sha256": "15882c9de8ac530fa75603459afecb4138672e487542230707b4624bd9883057"
+    },
+    {
+      "name": "avatar-motion-look-46",
+      "kind": "look",
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "bytes": 62100,
+      "sha256": "edc18d9383d5376f5f7e0a4cd2f24837f880e6810b25df8fd159a4675e94978d"
+    },
+    {
+      "name": "avatar-motion-look-47",
+      "kind": "look",
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "bytes": 62076,
+      "sha256": "8d1afbe393bc58bf32f2ea3cffec4d57073b6196caaad21253a97c2e3c009c71"
+    },
+    {
+      "name": "avatar-motion-look-48",
+      "kind": "look",
+      "frame": 48,
+      "time": 1.6,
+      "bytes": 62232,
+      "sha256": "33edacedff66670a2514169f39e120f6d2f565d98c942e373db783f4317bdc71"
+    },
+    {
+      "name": "avatar-motion-look-49",
+      "kind": "look",
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "bytes": 62085,
+      "sha256": "317d092c5fa54ace2a7ac27ad27a6991ab44932440e2f7ad803403c4e465c746"
+    },
+    {
+      "name": "avatar-motion-look-50",
+      "kind": "look",
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "bytes": 61972,
+      "sha256": "081f35a7c4d2861fb0c6f47faa80ff52e2a3feb9562c0d635d972a56deede5bc"
+    },
+    {
+      "name": "avatar-motion-look-51",
+      "kind": "look",
+      "frame": 51,
+      "time": 1.7,
+      "bytes": 62026,
+      "sha256": "47f18f30d560147422de270ccbe5775e4d3795cbc15f02e51bff47904ea67e9a"
+    },
+    {
+      "name": "avatar-motion-look-52",
+      "kind": "look",
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "bytes": 62053,
+      "sha256": "d81e38a95b0e12f0e4674dea1def5556068548f680d32418060a2a9a0e5ae1f6"
+    },
+    {
+      "name": "avatar-motion-look-53",
+      "kind": "look",
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "bytes": 62093,
+      "sha256": "9f2e33f8ecfa3aa683a571114c2463120bfc72f332b8a305ccf10bdee1657599"
+    },
+    {
+      "name": "avatar-motion-look-54",
+      "kind": "look",
+      "frame": 54,
+      "time": 1.8,
+      "bytes": 61955,
+      "sha256": "7aa947a2e8b733306f134ade8eb933be6e080a9c1ff700d06737afe3ccdccf17"
+    },
+    {
+      "name": "avatar-motion-look-55",
+      "kind": "look",
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "bytes": 61780,
+      "sha256": "162a3d7d79194895eb4c78eaaf41996e1b28c40f880511f7b916da04fd255bf7"
+    },
+    {
+      "name": "avatar-motion-look-56",
+      "kind": "look",
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "bytes": 61774,
+      "sha256": "6951cb7632c13c9bc80f77ced136ec51d4408acb88f2a5827e842423fe4a6ba3"
+    },
+    {
+      "name": "avatar-motion-look-57",
+      "kind": "look",
+      "frame": 57,
+      "time": 1.9,
+      "bytes": 61726,
+      "sha256": "09217bc8a7e9246e4de608719fb4a6501a939e0ef76c5138b15151b54b89a170"
+    },
+    {
+      "name": "avatar-motion-look-58",
+      "kind": "look",
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "bytes": 61511,
+      "sha256": "2e5de813cbdc90c859d74a21a1d8237bbcfc4453d25866a746432cc5f87be3fd"
+    },
+    {
+      "name": "avatar-motion-look-59",
+      "kind": "look",
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "bytes": 61872,
+      "sha256": "a8a132b6d00f5d36847fe43ec0a15fdccaf1563689a987fc0cc466e878736e80"
+    },
+    {
+      "name": "avatar-motion-look-60",
+      "kind": "look",
+      "frame": 60,
+      "time": 2,
+      "bytes": 61706,
+      "sha256": "de073828d548903b6cfee692ad69fc426b29733ebd52d56bb0263968f61cdfba"
+    },
+    {
+      "name": "avatar-motion-look-61",
+      "kind": "look",
+      "frame": 61,
+      "time": 2.033333333333333,
+      "bytes": 61598,
+      "sha256": "0a63f3e35694efe5c2821eabcfd2cfd4a0aef8a1f9d3a59335029ff08425f1b7"
+    },
+    {
+      "name": "avatar-motion-look-62",
+      "kind": "look",
+      "frame": 62,
+      "time": 2.066666666666667,
+      "bytes": 61577,
+      "sha256": "d900dd2572099cd82bcdccb9a5ac79e0cf9015db085028410cdf5740b3feff56"
+    },
+    {
+      "name": "avatar-motion-look-63",
+      "kind": "look",
+      "frame": 63,
+      "time": 2.1,
+      "bytes": 61591,
+      "sha256": "17ff04d23c698b1eca2d83cdf1a63b1b8eaf223a26a4e412f4e3782b37667c47"
+    },
+    {
+      "name": "avatar-motion-look-64",
+      "kind": "look",
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "bytes": 61587,
+      "sha256": "449d0f985197f205704915321a34e88d07cbd3ba33cb51efb33334622bc79a13"
+    },
+    {
+      "name": "avatar-motion-look-65",
+      "kind": "look",
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "bytes": 61464,
+      "sha256": "5a30363604b5996b84bbc0800dff5cc6de93e6461e2332a83d6d8d94179f7d24"
+    },
+    {
+      "name": "avatar-motion-look-66",
+      "kind": "look",
+      "frame": 66,
+      "time": 2.2,
+      "bytes": 61682,
+      "sha256": "2541e13755b6265650e76186ef5bf32bcfdead086b0e6e134523f2ad5fcb067b"
+    },
+    {
+      "name": "avatar-motion-look-67",
+      "kind": "look",
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "bytes": 61571,
+      "sha256": "2964dcb2721238d96850839e3a16e5ab7d6c5982ce3e6587270ab473e4c8452f"
+    },
+    {
+      "name": "avatar-motion-look-68",
+      "kind": "look",
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "bytes": 61585,
+      "sha256": "57c9d31e767248885fdaec9895b257280ddb569f41f428adbcaf16ec011cdb6d"
+    },
+    {
+      "name": "avatar-motion-look-69",
+      "kind": "look",
+      "frame": 69,
+      "time": 2.3,
+      "bytes": 61614,
+      "sha256": "6bb64ce996190a015f4ebf23ab2a677a69c3f98da5e3a2019ac2e804a80ea933"
+    },
+    {
+      "name": "avatar-motion-look-70",
+      "kind": "look",
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "bytes": 61542,
+      "sha256": "3e6f4c10f6f26ca70564a07ae30a8101f5321c30f974aa88010498979ca5355f"
+    },
+    {
+      "name": "avatar-motion-look-71",
+      "kind": "look",
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "bytes": 61410,
+      "sha256": "1544144e2700e052449045d2463f02f30661ed8be97781af2b150850df7e07fd"
+    },
+    {
+      "name": "avatar-motion-look-72",
+      "kind": "look",
+      "frame": 72,
+      "time": 2.4,
+      "bytes": 61509,
+      "sha256": "468c275af9357a23576aba4d7a65bb8049c448eaa854faca26cc0f0f9b281d7b"
+    }
+  ]
+}

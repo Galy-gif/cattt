@@ -23,6 +23,112 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "creationStart": store.startOnboarding()
+                case "creationNext": store.onboardingNext()
+                case "creationBack": store.onboardingBack()
+                case "creationName": store.nameDraft = arg
+                case "creationInput": store.meetDraft = arg
+                case "creationSend": store.sendMeetReply()
+                case "creationEnter": store.enterYard()
+                case "creationRetry": store.retryCreationSave()
+                case "creationReload": store.loadCreation()
+                case "creationSnapshot":
+                    let data: [String: Any] = [
+                        "step": store.onboarding.map { String(describing: $0) } ?? "home",
+                        "name": store.catName, "nameDraft": store.nameDraft,
+                        "temperament": store.temperament.rawValue,
+                        "traits": Dictionary(uniqueKeysWithValues: store.traitLevels.map { ($0.key.rawValue, $0.value) }),
+                        "input": store.meetDraft, "firstReply": store.firstMeetingReply ?? "",
+                        "lines": store.meetLines.map(\.text), "lineIDs": store.meetLines.map { $0.id.uuidString },
+                        "done": store.meetDone, "pending": store.meetReplyPending,
+                        "loadFailed": store.creationLoadFailed, "saveFailed": store.creationSaveFailed,
+                        "profileID": store.creationArchive.profile?.id.uuidString ?? "",
+                        "createdAt": store.creationArchive.profile?.createdAt.timeIntervalSince1970 ?? 0,
+                    ]
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let encoded = try? JSONSerialization.data(withJSONObject: data) {
+                        try? encoded.write(to: dir.appendingPathComponent("creation-" + arg + ".json"), options: .atomic)
+                    }
+                case "reviewPage":
+                    // 只切内存中的页面用于视觉验收，不重置领养资料或提交创建流程。
+                    if let raw = Int(arg), let step = AppStore.OnboardingStep(rawValue: raw) {
+                        store.showsMe = false; store.onboarding = step
+                    }
+                case "recoveryReply": store.remoteReply(to: arg)
+                case "historyReconnect": store.connectBackend()
+                case "historyEarlier": await store.loadEarlierMessages()
+                case "historySnapshot":
+                    let data: [String: Any] = [
+                        "texts": store.messages.map(\.text),
+                        "states": store.messages.map { String(describing: $0.state) },
+                        "waiting": store.isWaiting, "streaming": store.isStreaming,
+                        "ids": store.messages.map { $0.serverID ?? $0.id },
+                        "sequences": store.messages.compactMap(\.serverSequence),
+                        "hasEarlier": store.hasEarlierMessages,
+                        "loading": store.isLoadingEarlierMessages,
+                        "failed": store.historyLoadError != nil,
+                    ]
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let encoded = try? JSONSerialization.data(withJSONObject: data) {
+                        try? encoded.write(to: dir.appendingPathComponent("history-" + arg + ".json"), options: .atomic)
+                    }
+                case "reviewDraft": store.draft = arg
+                case "diaryCapture": store.captureText = arg; store.saveCapture()
+                case "diaryCaptureShared": store.captureForCat = true; store.captureText = arg; store.saveCapture(); store.captureForCat = false
+                case "diarySync": store.syncDiary()
+                case "diaryShare":
+                    if let entry = store.entries.last(where: { $0.kind == .text }) { store.setDiaryVisibility(entry, forCat: arg == "yes") }
+                case "diaryChat":
+                    if let entry = store.entries.last(where: { $0.kind == .text && !$0.isPrivate }) { store.openChat(from: entry) }
+                case "diaryDay": store.selectDiaryDay(arg == "today" ? nil : arg)
+                case "diaryEditor": store.isCapturing = true
+                case "diaryReload": store.loadDiary()
+                case "diarySnapshot":
+                    let data: [String: Any] = [
+                        "texts": store.entries.map(\.text), "ids": store.entries.map(\.id),
+                        "days": store.entries.map(\.dayKey), "private": store.entries.map(\.isPrivate),
+                        "shown": store.shownEntries.map(\.text), "selectedDay": store.diaryDay,
+                        "failed": store.diaryLoadFailed, "draft": store.captureText,
+                        "capturing": store.isCapturing, "saveFailed": store.captureSaveFailed,
+                        "cloudIDs": store.entries.map { $0.cloudID ?? "" }, "revisions": store.entries.map { $0.cloudRevision ?? 0 },
+                        "pending": store.entries.map { $0.pendingMutationID != nil }, "visits": store.entries.map { $0.visit.rawValue },
+                        "notes": store.entries.map(\.note), "sync": store.diarySyncLabel,
+                        "needsSync": store.entries.map(\.needsSync),
+                    ]
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let encoded = try? JSONSerialization.data(withJSONObject: data) {
+                        try? encoded.write(to: dir.appendingPathComponent("diary-" + arg + ".json"), options: .atomic)
+                    }
+                case "reviewMessage":
+                    store.messages.append(ChatMessage(id: "ui-review-long", role: .cat, text: arg, state: .done))
+                case "yardHit":
+                    if let runtime = store.world.yard3D {
+                        do {
+                            let text = try await runtime.web.send(["type": "reviewTargets"])
+                            let object = try JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: Any]
+                            let targets = object?["targets"] as? [[String: Any]] ?? []
+                            if let target = targets.first(where: { $0["name"] as? String == arg }), target["hit"] as? String == arg,
+                               let x = target["x"] as? Double, let y = target["y"] as? Double {
+                                runtime.send(["type": "reviewTap", "x": x, "y": y])
+                            }
+                            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                                try Data(text.utf8).write(to: dir.appendingPathComponent("yard-hit-" + arg + ".json"), options: .atomic)
+                            }
+                        } catch { print("3D 点选验收失败：\(error)") }
+                    }
+                case "yardTap":
+                    let point = arg.split(separator: ",").compactMap { Double($0) }
+                    if point.count == 2 { store.world.yard3D?.send(["type": "reviewTap", "x": point[0], "y": point[1]]) }
+                case "yardCover": store.world.yard3D?.web.captureCover(exportName: arg)
+                case "yardReload": store.world.yard3D?.web.simulateContentProcessTermination()
+                case "yardActivity": store.world.reviewActivity(arg)
+                case "yardCommand":
+                    let parts = arg.split(separator: "=").map(String.init)
+                    if let type = parts.first {
+                        var value: [String: Any] = ["type": type]
+                        if parts.count > 1 { value["slot"] = parts[1]; value["weather"] = parts.count > 2 ? parts[2] : "clear"; value["instant"] = true }
+                        store.world.yard3D?.send(value)
+                    }
                 case "yardProbe": store.yardProbeVisible = arg == "open"
                 case "depth": store.worldDepthEnabled = arg != "off"
                 case "moveCat": if let i = Int(arg) { store.moveCat(to: i) }
@@ -34,17 +140,18 @@ enum DebugScript {
                         store.dragCamera(translation: CGFloat(dx))
                         store.endDrag(velocity: 0)
                     }
-                case "snapshot": store.world.writeSnapshot(label:arg);store.writeCameraSnapshot(label:arg)
+                case "snapshot": store.world.writeSnapshot(label:arg);store.writeCameraSnapshot(label:arg);store.writeYardBusinessSnapshot(label:arg)
                 case "place": if let i=Int(arg) {store.world.placeForReview(i)}
                 case "screen":
                     switch arg {
-                    case "home":store.screen = .home
+                    case "home":store.screen = .home;store.closeMailbox();store.showsMe = false
                     case "chat":store.screen = .chat
                     // 日记和我的不再是整屏：信箱抽纸 / 右上角 sheet。锚点给个信箱大概的位置。
                     case "mailbox":store.openMailbox(anchor:CGPoint(x:44,y:490))
                     case "me":store.showsMe = true
                     default:break
                     }
+                case "memory": store.memoryShowsBoundaries = arg == "boundaries"; store.showsMemoryControls = true
                 case "mail": store.hasMail = true
                 case "pause": store.world.togglePause()
                 case "speed": if let v=Double(arg) {store.world.debugTimeScale=v}

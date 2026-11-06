@@ -10,22 +10,25 @@ struct MeView: View {
             VStack(spacing: 0) {
                 headerBlock
 
-                VStack(alignment: .leading, spacing: 22) {
+                VStack(alignment: .leading, spacing: 28) {
                     howWeGetAlong
                     whatItRemembers
                     settings
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 24)
                 .padding(.top, 22)
                 .padding(.bottom, 30)
             }
         }
-        .background(Palette.bg)
+        .background { PageBackground().ignoresSafeArea() }
         .overlay(alignment: .topTrailing) { doneButton }
         .presentationDetents([.large])
         .presentationDragIndicator(.visible)
         .presentationBackground(Palette.bg)
         .preferredColorScheme(.light)
+        .sheet(isPresented: $store.showsMemoryControls) {
+            MemoryCenterView(startWithBoundaries: store.memoryShowsBoundaries)
+        }
     }
 
     private var doneButton: some View {
@@ -37,10 +40,11 @@ struct MeView: View {
                 .foregroundStyle(Palette.ink)
                 .padding(.horizontal, 14)
                 .frame(minHeight: Metrics.minTap)
+                .background(Palette.card.opacity(0.86), in: Capsule())
                 .contentShape(Rectangle())
         }
         .buttonStyle(PressScaleStyle())
-        .padding(.trailing, 8)
+        .padding(.trailing, 20)
         .padding(.top, 10)
         .accessibilityLabel("完成")
     }
@@ -48,42 +52,49 @@ struct MeView: View {
     // MARK: - 头区
 
     private var headerBlock: some View {
-        VStack(spacing: 10) {
-            Image("tuanzi-canonical")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
-                .accessibilityHidden(true)
+        HStack(spacing: 18) {
+            // 耳朵探出小窗、爪子搭在窗沿，沿用正式团子的同一份3D肖像。
+            ZStack {
+                UnevenRoundedRectangle(
+                    topLeadingRadius: 54, bottomLeadingRadius: Metrics.radiusLg,
+                    bottomTrailingRadius: Metrics.radiusLg, topTrailingRadius: 54
+                )
+                .fill(Palette.inset)
+                .frame(width: 108, height: 104)
+                .overlay(alignment: .bottom) {
+                    Capsule()
+                        .fill(Palette.card)
+                        .frame(width: 120, height: 14)
+                        .shadow(color: Palette.shadow, radius: 6, y: 3)
+                }
+                .offset(y: 12)
 
-            VStack(spacing: 5) {
+                AnimatedCatPortrait()
+                    .frame(width: 140, height: 140)
+                    .frame(height: 122, alignment: .top)
+                    .clipped()
+                    .offset(y: -8)
+            }
+            .frame(width: 128, height: 128)
+            .rotationEffect(.degrees(-4))
+            .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 10) {
                 Text(store.catName)
                     .font(Typo.serif(25, bold: true))
                     .tracking(track(0.06, 25))
                     .foregroundStyle(Palette.ink)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Text("在一起 \(SeedData.togetherDays) 天")
+                Text(store.temperament.name)
                     .font(Typo.sans(12.5))
-                    .tracking(track(0.04, 12.5))
-                    .tabularNumbers()
                     .foregroundStyle(Palette.ink3)
             }
+            Spacer(minLength: 0)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, Metrics.gutterDiary)
-        .padding(.bottom, 20)
-        // sheet 顶上是抓手和「完成」，头像从它们底下开始。
-        .padding(.top, 44)
-        .background(
-            LinearGradient(
-                stops: [
-                    .init(color: Palette.meHeaderTop, location: 0),
-                    .init(color: Palette.meHeaderMid, location: 0.78),
-                    .init(color: Palette.bg, location: 1),
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
+        .padding(.horizontal, 24)
+        .padding(.top, 64)
+        .padding(.bottom, 12)
     }
 
     // MARK: - 我们怎么相处
@@ -92,10 +103,7 @@ struct MeView: View {
         VStack(alignment: .leading, spacing: 11) {
             SectionTitle(text: "我们怎么相处")
 
-            // TODO: 后端 —— 这些标签由气质预设 + 细调特征推出来，本版先用定值。
-            WrappingChips(items: ["慢热", "话少", "记得住事", "不劝你"])
-
-            Text("团子每天最多主动找你一到两次。你不回也没关系。")
+            Text(store.temperament.behavior)
                 .font(Typo.sans(13))
                 .lineHeight(1.8, size: 13)
                 .foregroundStyle(Palette.ink3)
@@ -111,23 +119,13 @@ struct MeView: View {
             SectionTitle(text: "它记得的事")
 
             ListContainer {
-                // TODO: 二级页 —— 记忆列表、在聊话题、不要再提列表，本版未做。
-                memoryRow(icon: { Icons.document(color: Palette.ink3) },
-                          title: "长期记忆", count: "\(store.memoryCount) 条")
-                ListDivider(leading: 63)
-                memoryRow(icon: { Icons.clock(color: Palette.ink3) },
-                          title: "在聊的话题", count: "4 个")
-                ListDivider(leading: 63)
-                memoryRow(icon: { Icons.trash(color: Palette.ink3) },
-                          title: "不要再提的", count: "\(store.boundaryCount) 条")
+                Button {
+                    store.memoryShowsBoundaries = false; store.showsMemoryControls = true
+                } label: {
+                    memoryRow(icon: { Icons.document(color: Palette.ink3) },
+                              title: "长期记忆", count: store.backend.isRemote ? "\(store.memoryCount) 条 ›" : "演示模式 ›")
+                }.buttonStyle(.plain)
             }
-
-            Text("每一条都能看到它是从哪次对话来的，可以改，也可以删。")
-                .font(Typo.sans(13))
-                .lineHeight(1.8, size: 13)
-                .foregroundStyle(Palette.ink3)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 2)
         }
     }
 
@@ -138,7 +136,7 @@ struct MeView: View {
     ) -> some View {
         HStack(spacing: 12) {
             // 层级靠容器，不靠把图标画大 —— 36 是列表行那一档。
-            IconTile(size: Metrics.iconSlotMd, fill: Palette.bg, circular: true) { icon() }
+            IconTile(size: Metrics.iconSlotMd, fill: Palette.inset, circular: true) { icon() }
 
             Text(title)
                 .font(Typo.sans(14.5))
@@ -150,7 +148,6 @@ struct MeView: View {
                 .tabularNumbers()
                 .foregroundStyle(Palette.ink4)
 
-            Icons.chevronRight(color: Color(hex: 0xA7B2A0))
         }
         .padding(.horizontal, 15)
         .padding(.vertical, 14)
@@ -164,25 +161,6 @@ struct MeView: View {
             SectionTitle(text: "设置")
 
             ListContainer {
-                HStack(spacing: 12) {
-                    Text("新记录默认给团子看")
-                        .font(Typo.sans(14.5))
-                        .foregroundStyle(Palette.ink)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    ShareToggle(isOn: store.shareByDefault)
-                }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 14)
-                .frame(minHeight: Metrics.minTap)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    withAnimation(.easeOut(duration: 0.2)) { store.shareByDefault.toggle() }
-                }
-                .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isButton)
-
-                ListDivider()
                 // 院子的天气：跟着真实天气，或者一直晴 / 一直下雨（docs/方案/院子天气-真实与手动切换-方案-2026-09-16.md）。
                 Menu {
                     Picker("院子的天气", selection: $store.weatherMode) {
@@ -200,7 +178,7 @@ struct MeView: View {
                                 .font(Typo.sans(12))
                                 .foregroundStyle(Palette.ink4)
 
-                            Icons.chevronRight(color: Color(hex: 0xA7B2A0))
+                            Icons.chevronRight(color: Palette.ink4)
                         }
                         if let note = store.weatherNote {
                             Text(note)
@@ -235,21 +213,13 @@ struct MeView: View {
                 .accessibilityAddTraits(.isButton)
 
                 ListDivider()
-                // TODO: 二级页 —— 通知与声音，本版未做。
-                settingRow("通知与声音")
-
-                ListDivider()
-                // TODO: 二级页 —— 显示与无障碍，本版未做。
-                settingRow("显示与无障碍")
-
-                ListDivider()
                 HStack(spacing: 12) {
-                    Text("帮助与关于")
+                    Text("版本")
                         .font(Typo.sans(14.5))
                         .foregroundStyle(Palette.ink)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text("0.1 · 长按看创建流程")
+                    Text("0.1")
                         .font(Typo.sans(12))
                         .foregroundStyle(Palette.ink4)
                 }
@@ -269,7 +239,7 @@ struct MeView: View {
                 .foregroundStyle(Palette.ink)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Icons.chevronRight(color: Color(hex: 0xA7B2A0))
+            Icons.chevronRight(color: Palette.ink4)
         }
         .padding(.horizontal, 15)
         .padding(.vertical, 14)

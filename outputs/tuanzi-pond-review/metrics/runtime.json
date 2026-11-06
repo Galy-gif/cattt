@@ -1,0 +1,23 @@
+{
+  "clips": 48,
+  "states": [
+    "pond_down",
+    "pond_probe",
+    "pond_pat",
+    "pond_shake",
+    "pond_up"
+  ],
+  "contacts": 83,
+  "strokes": 3,
+  "minimumPawSurface": 0.006122362725925989,
+  "supportVerticalError": 0.0039690094467534145,
+  "threeSupportPawsOnShore": true,
+  "recovered": [
+    "pond_down",
+    "pond_probe",
+    "pond_pat",
+    "pond_shake",
+    "pond_up"
+  ],
+  "fixedEffectObjects": 22
+}

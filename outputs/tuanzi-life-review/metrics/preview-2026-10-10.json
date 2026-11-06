@@ -1,0 +1,43 @@
+{
+  "device": "iPhone 17 Pro Simulator",
+  "date": "2026-10-10",
+  "sourceHash": "e3f472aa81041f1bd17a98f365a67ed94e99b0e06980b5b558c7b8a972f88177",
+  "captures": [
+    {
+      "name": "bed",
+      "action": "sleep_idle",
+      "sourceSha256": "cd3c8b263f41510870ea8a22adfa1d124fe8c07b3bc429a6d662db17df600db6",
+      "crop": [
+        380,
+        1180,
+        950,
+        1720
+      ],
+      "image": "bed.jpg"
+    },
+    {
+      "name": "doze",
+      "action": "doze_idle",
+      "sourceSha256": "4dc11a1ad4a6d246df67443f40cc67e07f4891bc30b8136ba69412993ed0decf",
+      "crop": [
+        380,
+        1180,
+        950,
+        1720
+      ],
+      "image": "doze.jpg"
+    },
+    {
+      "name": "drink",
+      "action": "drink_lap",
+      "sourceSha256": "c78d4a2a12dc1dd448d2bb879400e2de5283ad844f34902b630541a92d91bf69",
+      "crop": [
+        380,
+        1180,
+        950,
+        1720
+      ],
+      "image": "drink.jpg"
+    }
+  ]
+}

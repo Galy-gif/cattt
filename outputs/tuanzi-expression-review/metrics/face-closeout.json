@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-12",
+  "environment": "iPhone 17 Pro / iOS 26.5 Simulator",
+  "originalFailureRootCause": "未复现，未确定",
+  "changes": "补原生不可用事件与Debug最近一次失败持久化，不宣称修复原始异常",
+  "checks": "全部通过",
+  "simulatorBuild": "通过",
+  "runs": {
+    "face-start": {
+      "action": "sulk_idle",
+      "ready": true,
+      "failure": "",
+      "webFailure": null,
+      "events": [
+        {
+          "type": "firstFrame",
+          "renderMs": 694
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 757
+        }
+      ]
+    },
+    "face-reload": {
+      "action": "sulk_idle",
+      "ready": true,
+      "failure": "",
+      "webFailure": null,
+      "events": [
+        {
+          "type": "firstFrame",
+          "renderMs": 694
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 757
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 578
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 598
+        }
+      ]
+    },
+    "face-sad": {
+      "action": "sad_idle",
+      "ready": true,
+      "failure": "",
+      "webFailure": null,
+      "events": [
+        {
+          "type": "firstFrame",
+          "renderMs": 694
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 757
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 578
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 598
+        }
+      ]
+    },
+    "face-exit": {
+      "action": "happy_idle",
+      "ready": true,
+      "failure": "",
+      "webFailure": null,
+      "events": [
+        {
+          "type": "firstFrame",
+          "renderMs": 694
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 757
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 578
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 598
+        }
+      ]
+    },
+    "final-recovery": {
+      "action": "sad_idle",
+      "ready": true,
+      "failure": "",
+      "webFailure": null,
+      "events": [
+        {
+          "type": "firstFrame",
+          "renderMs": 702
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 722
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 544.0000000000001
+        },
+        {
+          "type": "restored"
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 559
+        }
+      ]
+    }
+  },
+  "intentionalFault": {
+    "purpose": "故意无效调试指令验证诊断，不计正常验收失败",
+    "captured": true,
+    "detail": "不认识的命令：reviewInvalidForDiagnostics",
+    "persistsAfterRestart": true
+  }
+}

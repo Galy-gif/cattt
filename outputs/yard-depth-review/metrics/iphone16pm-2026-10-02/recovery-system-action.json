@@ -1,0 +1,9 @@
+{
+  "kind": "实际SIGKILL内容进程",
+  "appPid": 48619,
+  "webPid": 48620,
+  "identification": "同一次App重开前后唯一新增WebContent，旧Maomao内容进程退出；其他WebContent保留",
+  "attemptedAt": 1790936804.777272,
+  "output": "Sent signal to terminate process sent to pid 48620\n",
+  "status": "已注入"
+}

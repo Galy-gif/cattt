@@ -1,0 +1,9 @@
+{
+  "sha256": {
+    "web/public/models/tuanzi.glb": "d011c5e3b1f88017313b722675f2473f56877f74846eaf54c908aa3e918fa4fb",
+    "web/public/models/yard.glb": "206abc2817b7736181f086fe4acb24fd2aaaf2a020620c0d13e190ee4f92dabf"
+  },
+  "preservedAnimations": 43,
+  "totalAnimations": 48,
+  "installedWebDirectoryMatches": true
+}

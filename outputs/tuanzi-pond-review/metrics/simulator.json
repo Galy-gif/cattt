@@ -1,0 +1,26 @@
+[
+  {
+    "sample": "pond-verified-done",
+    "action": "idle",
+    "settled": true,
+    "drinkDone": false
+  },
+  {
+    "sample": "pond-verified-pat",
+    "action": "pond_pat",
+    "settled": false,
+    "drinkDone": false
+  },
+  {
+    "sample": "pond-verified-probe",
+    "action": "pond_probe",
+    "settled": false,
+    "drinkDone": false
+  },
+  {
+    "sample": "pond-verified-shake",
+    "action": "idle",
+    "settled": true,
+    "drinkDone": false
+  }
+]

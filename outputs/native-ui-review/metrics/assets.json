@@ -1,0 +1,329 @@
+{
+  "source": "web/ui-assets.html",
+  "models": {
+    "tuanzi": "d53b4f15d78acab349a302c4c57f8b23099fcc0dd002fc78643f2438efded23c",
+    "yard": "963a6283ee9c844cd904709575e33710e2f289e09d7a981cdab05ff7b2411ca5"
+  },
+  "files": [
+    {
+      "name": "chat-3d-dawn-clear-house",
+      "bytes": 129250,
+      "sha256": "63054702e95ef22f982772d68a544aea3935b2dc0865c1a23a33f8211ebbce61"
+    },
+    {
+      "name": "chat-3d-dawn-clear-bed",
+      "bytes": 132122,
+      "sha256": "8e6008f3c1c524ae617169aafabe7e5f3326391eb2f6b28bd7e00d1e72548bf8"
+    },
+    {
+      "name": "chat-3d-dawn-clear-tree",
+      "bytes": 132112,
+      "sha256": "d4e27913c9d54f932a47ded1a17d97f0525d1d958aa3479eb4301671d8a35efd"
+    },
+    {
+      "name": "chat-3d-dawn-clear-grass",
+      "bytes": 140623,
+      "sha256": "59caf7ffc8d561f91f68e542a00115bb4610db44e65d4e305b09e2e201a4babc"
+    },
+    {
+      "name": "chat-3d-dawn-clear-pond",
+      "bytes": 130465,
+      "sha256": "203393eb250c45ec7d72334aa3cff295ccd1d5a7f9279d575bad56c8c7fd1527"
+    },
+    {
+      "name": "chat-3d-dawn-clear-fence",
+      "bytes": 102370,
+      "sha256": "51f0e3de510321b81d2999fa7bdd386c78010c8abcdd6200c3a0f27400feafb7"
+    },
+    {
+      "name": "chat-3d-dawn-rain-house",
+      "bytes": 94111,
+      "sha256": "adde2edced5bbb9fd6115c2a1b0b8227d3e481649d999ff8bc2fee1728f49c19"
+    },
+    {
+      "name": "chat-3d-dawn-rain-bed",
+      "bytes": 96511,
+      "sha256": "e4f9b8b5de62aed30b37b37e7f3bb0394c53d521f503d04cb72542458ceffad6"
+    },
+    {
+      "name": "chat-3d-dawn-rain-tree",
+      "bytes": 94727,
+      "sha256": "9ac4df4d1172dab666d67f8e8527df03928e7ecb65879bde1201780cd42b2bb0"
+    },
+    {
+      "name": "chat-3d-dawn-rain-grass",
+      "bytes": 105110,
+      "sha256": "71629a505a06c0e057dd8d91f19a2f21e566664b84876ab3ae3e399c5a27a9f1"
+    },
+    {
+      "name": "chat-3d-dawn-rain-pond",
+      "bytes": 100858,
+      "sha256": "aa8131f191078b0d08f46ba2589229f9d7491185142ae9cddb7caa8c82b52805"
+    },
+    {
+      "name": "chat-3d-dawn-rain-fence",
+      "bytes": 78044,
+      "sha256": "c537fdd7f13f8a4de8b2032833921b3f32d30cfa506f2c57bd5caf7b98e107af"
+    },
+    {
+      "name": "chat-3d-day-clear-house",
+      "bytes": 113362,
+      "sha256": "ae40843859dfca934b81d4e528a51bbb805202e6faab4e9ff08523869841af05"
+    },
+    {
+      "name": "chat-3d-day-clear-bed",
+      "bytes": 113255,
+      "sha256": "6c183419a4d9869487a1c07a17f1c5196e0f302465b76f9412f076a183d3ae97"
+    },
+    {
+      "name": "chat-3d-day-clear-tree",
+      "bytes": 128273,
+      "sha256": "dde7873474b2235d928933b8dc5dca4b6b98ed35aec032fb5a641e4aafe3653d"
+    },
+    {
+      "name": "chat-3d-day-clear-grass",
+      "bytes": 125446,
+      "sha256": "dd68ad18cceb4458cf2165eafc0e13c444b32eeaaecbb17ef383630c86cfe7bb"
+    },
+    {
+      "name": "chat-3d-day-clear-pond",
+      "bytes": 117665,
+      "sha256": "24bb5c78e884ce2b15360892ad7c2e2a99135a6c50f38077dd42d5bf315a4208"
+    },
+    {
+      "name": "chat-3d-day-clear-fence",
+      "bytes": 97761,
+      "sha256": "7934f50b5aba866da9012b4754bcddf73bc32a41d80aa3b68b740c9e0f3c033b"
+    },
+    {
+      "name": "chat-3d-day-rain-house",
+      "bytes": 93510,
+      "sha256": "fcf5c5cc7e4045464c510606a4c77ffa3ef84ff4ad357e742b1aacb47c40e21d"
+    },
+    {
+      "name": "chat-3d-day-rain-bed",
+      "bytes": 95766,
+      "sha256": "d3b36163652340930ea706c3efcb824970145dafb1dd1ab3f65be8a3e4fac11b"
+    },
+    {
+      "name": "chat-3d-day-rain-tree",
+      "bytes": 99007,
+      "sha256": "14e53f16618e2efa585af1d61dcab0e51e55b641d59c1e3db3aa49768eac1324"
+    },
+    {
+      "name": "chat-3d-day-rain-grass",
+      "bytes": 106129,
+      "sha256": "75f081869d5b78300636f47e0bd34284a5df14c1500b37be7f2775a61bae132c"
+    },
+    {
+      "name": "chat-3d-day-rain-pond",
+      "bytes": 103001,
+      "sha256": "9b58a4dc5e1fbeb735e4b2cee0fc7c6dad2c152a022e06619fa3dcaeae26b2f4"
+    },
+    {
+      "name": "chat-3d-day-rain-fence",
+      "bytes": 77668,
+      "sha256": "e54ce10c4550d8f028b69560bf9fae58ed17ee862460df923f41c44896270615"
+    },
+    {
+      "name": "chat-3d-dusk-clear-house",
+      "bytes": 123417,
+      "sha256": "09431cf3284fd11b3cf2765e1478c47bb0fe51104f65703d7e624a2b9a6d66bf"
+    },
+    {
+      "name": "chat-3d-dusk-clear-bed",
+      "bytes": 125074,
+      "sha256": "c147c641796cbc46ff21b77a61ff24b84865477198f1ecbc502a4054b2548fa3"
+    },
+    {
+      "name": "chat-3d-dusk-clear-tree",
+      "bytes": 122484,
+      "sha256": "d44a2110479463a491df2b42f788f1ddb8429ed04713963d4b5889a94bed9df0"
+    },
+    {
+      "name": "chat-3d-dusk-clear-grass",
+      "bytes": 130993,
+      "sha256": "a01624a5572386204bf3db651d35449d98dd725c20b311bb05d9c5972012391f"
+    },
+    {
+      "name": "chat-3d-dusk-clear-pond",
+      "bytes": 122367,
+      "sha256": "13f5c1280a104f738b046cc77f2439609e5fbb292f69286b870f4ae7994feec0"
+    },
+    {
+      "name": "chat-3d-dusk-clear-fence",
+      "bytes": 104830,
+      "sha256": "4df1ba90090553260c112e0f487d2382400756a262223d68bc0007a2b3d78e42"
+    },
+    {
+      "name": "chat-3d-dusk-rain-house",
+      "bytes": 89935,
+      "sha256": "dedb519833c88b78388e427d11455094926fed4ef350488b25a01d33f6c16c7d"
+    },
+    {
+      "name": "chat-3d-dusk-rain-bed",
+      "bytes": 87333,
+      "sha256": "38a5dd4ec9afbdb3859026e4ee5446117742603254cbd3a839780bf4dd54f97e"
+    },
+    {
+      "name": "chat-3d-dusk-rain-tree",
+      "bytes": 83360,
+      "sha256": "e12753f45d50249421fab1df8df99ae77875b287fe85aefc6dd176fecd13c56c"
+    },
+    {
+      "name": "chat-3d-dusk-rain-grass",
+      "bytes": 91586,
+      "sha256": "a75ba7ab1e343d83a6206a49f1250e501fd42cd0f370e4fc4a48422092bcbe4f"
+    },
+    {
+      "name": "chat-3d-dusk-rain-pond",
+      "bytes": 88971,
+      "sha256": "5f892ff7e1ac26b2ce096a24296b2c03922f95c8ac4d308ae7bd215857518639"
+    },
+    {
+      "name": "chat-3d-dusk-rain-fence",
+      "bytes": 69229,
+      "sha256": "ea40ca807867160463854aaa3d810f3ecfbd839cffab6ae19cb4e4e2e90eccbc"
+    },
+    {
+      "name": "chat-3d-evening-clear-house",
+      "bytes": 112913,
+      "sha256": "1e44d622b6ec733166f7e8554634e2029acf0ffbe5ae06f489b62b1c6bc0a74c"
+    },
+    {
+      "name": "chat-3d-evening-clear-bed",
+      "bytes": 112846,
+      "sha256": "c34e913a59b7da7c0b9a1267a54db4e0672cf87f953e099b54a0469fadac7d6f"
+    },
+    {
+      "name": "chat-3d-evening-clear-tree",
+      "bytes": 108628,
+      "sha256": "6bfc3764b13c0dce3880475fa77fb08f5ac6828914edf73258eb017cb73c6851"
+    },
+    {
+      "name": "chat-3d-evening-clear-grass",
+      "bytes": 116925,
+      "sha256": "70a6d072f6393fdfc61254bcb33fef0e753d3ebfe5077844a4ba2fbce80658a6"
+    },
+    {
+      "name": "chat-3d-evening-clear-pond",
+      "bytes": 111354,
+      "sha256": "b526b4f9b1098e91a93f0c1b394c6e338d4361d4f14b15a38dd192353af78787"
+    },
+    {
+      "name": "chat-3d-evening-clear-fence",
+      "bytes": 94702,
+      "sha256": "e5260cd23d1bec03f62721ebf43c0f2ec005fec6bd648999282f03c8b123e379"
+    },
+    {
+      "name": "chat-3d-evening-rain-house",
+      "bytes": 93474,
+      "sha256": "4ce5bf2813034755c1d492b149c32f180dbefc77a35f65b1ee07c0d3aebaef53"
+    },
+    {
+      "name": "chat-3d-evening-rain-bed",
+      "bytes": 88765,
+      "sha256": "32fb492c2e7b576f3a0eb9719dd99d9748b308c7499ac564a40f29e86a5d9791"
+    },
+    {
+      "name": "chat-3d-evening-rain-tree",
+      "bytes": 83792,
+      "sha256": "0c98dc53bf98ccab0783c9e63a90f00a2d9245d92ec24962c91495d384517a88"
+    },
+    {
+      "name": "chat-3d-evening-rain-grass",
+      "bytes": 92567,
+      "sha256": "67989f2576060170830ccf69999c63650cb63e8616a84b37be96d3bdc6e76249"
+    },
+    {
+      "name": "chat-3d-evening-rain-pond",
+      "bytes": 90953,
+      "sha256": "81635b1ba7756b6f44f3c871840f65fc5db2a518fdad2137203b7665ce1b8c07"
+    },
+    {
+      "name": "chat-3d-evening-rain-fence",
+      "bytes": 69837,
+      "sha256": "8d075f6044e9ca1ef5eada80c5b146f6ffb4b4b6dbb95274bccf16f1f8839b5b"
+    },
+    {
+      "name": "chat-3d-night-clear-house",
+      "bytes": 94091,
+      "sha256": "0ee6edfa641e1c2a98385c10cdd3ae09b5279e4c8d06f2e5e9fda75c97ae146f"
+    },
+    {
+      "name": "chat-3d-night-clear-bed",
+      "bytes": 90692,
+      "sha256": "dd497ab5c55f123258be536da40b03465d3d6a40d091e0ae22f0c768cb52198d"
+    },
+    {
+      "name": "chat-3d-night-clear-tree",
+      "bytes": 88774,
+      "sha256": "054649663dd7d968646d06eb1b700dc70dd7b3c583227d6a422ccb04fdc52ee7"
+    },
+    {
+      "name": "chat-3d-night-clear-grass",
+      "bytes": 92280,
+      "sha256": "d53368a08e3f1aa2bb4fadc6fbe9050b0a1b0975cd020aab46a08066e231c756"
+    },
+    {
+      "name": "chat-3d-night-clear-pond",
+      "bytes": 89573,
+      "sha256": "dea9521e9f877bb7bb3c7c5700c6406d9053d2a26d7bafae18ae2ee1483a2485"
+    },
+    {
+      "name": "chat-3d-night-clear-fence",
+      "bytes": 76166,
+      "sha256": "7c1a1d1ff254d07124178c7ce5272fa547db2cf88a09ab7770cf868af0f9c271"
+    },
+    {
+      "name": "chat-3d-night-rain-house",
+      "bytes": 86069,
+      "sha256": "62c7a1fbd00f2cdc333db978e59c5110312346eaaef70d7a727b4ec383b94050"
+    },
+    {
+      "name": "chat-3d-night-rain-bed",
+      "bytes": 79182,
+      "sha256": "a7ebb20ac8313f499db12688acd2f97b966ddbe5aa61034a68398da37c988d8f"
+    },
+    {
+      "name": "chat-3d-night-rain-tree",
+      "bytes": 72791,
+      "sha256": "28d4e37f4a86a0e498b57a735a45c09e1c3864e67478334ff002839abc894153"
+    },
+    {
+      "name": "chat-3d-night-rain-grass",
+      "bytes": 76475,
+      "sha256": "e5dd2f9fc41cc798efab9fd149816a7cefa7c57649bccf88670bb0cf184626bd"
+    },
+    {
+      "name": "chat-3d-night-rain-pond",
+      "bytes": 77301,
+      "sha256": "2d854230d0a58c34004d257e3e248a9d0c3f2301acfd061f71150e376e1240c1"
+    },
+    {
+      "name": "chat-3d-night-rain-fence",
+      "bytes": 63896,
+      "sha256": "b93ab427a9bc2c9c83143314a3a40a1ee26394c9200129a8d0edbc2e148cc862"
+    },
+    {
+      "name": "tuanzi-ui-portrait",
+      "bytes": 295410,
+      "sha256": "33e54a59b0de2f912203aa5b3e3446b6fca439d4ada50d7c6777921695eecbf9"
+    },
+    {
+      "name": "tuanzi-ui-quiet",
+      "bytes": 285429,
+      "sha256": "e9cd46192a68f59551d58bfd87d81e5ae523f4052c1ce3642b2ba81db5a3668e"
+    },
+    {
+      "name": "tuanzi-ui-full",
+      "bytes": 229729,
+      "sha256": "c2a835eca89db217157f2f6abea7301821b651b7730369ee40911529aabc5bba"
+    },
+    {
+      "name": "meeting-3d",
+      "bytes": 141692,
+      "sha256": "a76a6ab0d0e7b2ec9d89d41d8e395f1c67ca5f589b4a92798bc5a270790d4ed6"
+    }
+  ]
+}

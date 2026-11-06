@@ -1,0 +1,32 @@
+[
+  {
+    "file": "A-pebble.png",
+    "sha256": "c5ff6323d0fa5ad858f3f9ddc33d1c7fd4985666b54af65fd472d81cf4a1dd14",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待选择"
+  },
+  {
+    "file": "B-curl.png",
+    "sha256": "2ae68373723c1aa758226cbd960eaaa8b9ac9f200e6ececc40745c87cfd2a595",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待选择"
+  },
+  {
+    "file": "C-peek.png",
+    "sha256": "4fd20dc2c4ee82efa9fdce4d5d0854124668e22afd1d66cbfc45c1709b0efbf6",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "status": "新生成，待选择"
+  }
+]

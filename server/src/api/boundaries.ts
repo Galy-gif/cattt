@@ -1,3 +1,4 @@
+import { bumpMemory } from '../memory/control.ts';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Env } from './auth.ts';
@@ -43,7 +44,7 @@ boundariesRoutes.post('/messages/:id/boundary', async (c) => {
   const [msg] = await db
     .select({ id: messages.id, turnId: messages.turnId })
     .from(messages)
-    .where(and(eq(messages.id, id.data), eq(messages.conversationId, owner.conversationId)));
+    .where(and(eq(messages.id, id.data), eq(messages.conversationId, owner.conversationId), eq(messages.role, 'cat')));
   if (!msg) return c.json(notFound, 404);
   await db.transaction(async (tx) => {
     await tx.select().from(cats).where(eq(cats.id, owner.catId)).for('update');
@@ -51,8 +52,21 @@ boundariesRoutes.post('/messages/:id/boundary', async (c) => {
       .onConflictDoNothing().returning({ id: boundaries.id });
     const [sourceTurn] = msg.turnId ? await tx.select({ source: turns.userMessageId }).from(turns).where(eq(turns.id, msg.turnId)) : [];
     await invalidateSoulSources(tx, owner.catId, [msg.id, ...(sourceTurn ? [sourceTurn.source] : [])]);
-    if (row) await ensureBoundaryJob(tx, row.id);
+    if (row) { await ensureBoundaryJob(tx, row.id); await bumpMemory(tx, owner.catId); }
   });
   await enqueueBoundarySummarize(msg.id).catch((error) => console.error('边界待办稍后补投', error));
+  return c.json({ ok: true });
+});
+
+/** 撤销只移除边界，不恢复已删除的记忆或已停用的原话。 */
+boundariesRoutes.delete('/boundaries/:id', async c => {
+  const id = z.uuid().safeParse(c.req.param('id'));
+  if (!id.success) return c.json(notFound, 404);
+  await db.transaction(async tx => {
+    const catId = c.get('owner').catId;
+    await tx.select().from(cats).where(eq(cats.id, catId)).for('update');
+    const removed = await tx.delete(boundaries).where(and(eq(boundaries.id, id.data), eq(boundaries.catId, catId))).returning();
+    if (removed.length) await bumpMemory(tx, catId);
+  });
   return c.json({ ok: true });
 });

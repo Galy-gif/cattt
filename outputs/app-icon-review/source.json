@@ -1,0 +1,8 @@
+{
+  "selectedSource": "assets/app-icon/rounded-v12/C-rest.png",
+  "sourceSHA256": "7f770aecf99d94cf10e55ad999cb336243af35d6485fbbfe1f84918cdbbf109d",
+  "generator": "image_gen",
+  "processing": "仅等比缩放1254→1024并转RGB，无造型和配色修改",
+  "selectedAt": "2026-10-14",
+  "appearance": "常规源；移除旧大头照深色/着色映射，系统外观待验"
+}

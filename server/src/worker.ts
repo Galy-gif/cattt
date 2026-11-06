@@ -8,11 +8,13 @@ import { extractMemories } from './worker/memory.ts';
 import { sweepStaleTurns } from './worker/sweep.ts';
 import { executeJob, recoverJobs } from './jobs/store.ts';
 import { recoveryScanner } from './worker/recovery.ts';
+import { readDiary } from './worker/diary.ts';
 
 assertModelConfig();
 const connection = bullConnection();
 
 const workers = [
+  new Worker<MemoryExtractJob>(QUEUE.diaryRead, job => executeJob(job.data.taskId, task => readDiary(task.objectId, task.version, task.id)), { connection, concurrency: 2 }),
   new Worker<MemoryExtractJob>(QUEUE.memoryExtract, (job) => executeJob(job.data.taskId, (task) => extractMemories(task.objectId, task.id)), {
     connection,
     concurrency: 4,

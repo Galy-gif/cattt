@@ -11,6 +11,13 @@ import { config } from '../config.ts';
  */
 const failedOnce = new Set<string>();
 
+export function mockDiaryModel() {
+  return new MockLanguageModelV4({ provider: 'mock', modelId: 'mock-diary', doGenerate: async options => ({
+    content: [{ type: 'text' as const, text: JSON.stringify({ comment: lastUserText(options).includes('[quiet]') ? null : '在这里陪你坐一会儿。' }) }],
+    finishReason: { unified: 'stop' as const, raw: 'stop' }, usage: usage(100, 20), warnings: [],
+  }) });
+}
+
 const usage = (input: number, output: number) => ({
   inputTokens: { total: input, noCache: input, cacheRead: 0, cacheWrite: 0 },
   outputTokens: { total: output, text: output, reasoning: 0 },
@@ -56,8 +63,14 @@ export function mockChatModel() {
           controller.close();
         } }) };
       }
-      const reply = `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`;
-      const chars = Array.from(reply);
+      const system = options.prompt.find(m => m.role === 'system')?.content ?? '';
+      const recalled = system.match(/## 你记得的事\n([\s\S]*?)(?=\n\n|$)/)?.[1]?.trim();
+      const diary = system.match(/## 本轮日记来源\n([^\n]+)/)?.[1];
+      const reply = said.includes('[diary]') ? `合成验收：本轮日记来源${diary ?? '为空'}`
+        : said.includes('[recall]') ? `合成验收：本轮可参考的长期记忆${recalled ? `如下。\n${recalled}` : '为空。'}`
+        : `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`;
+      // 诊断回复只验证上下文到达，不逐字放大本机PG往返；故障/慢流标记仍按字输出。
+      const chars = /\[(recall|diary)\]/.test(said) && !/\[(fail1?|slow)\]/.test(said) ? [reply] : Array.from(reply);
       const delay = said.includes('[slow]') ? 300 : config.MOCK_DELAY_MS;
       let shouldFail = said.includes('[fail]');
       if (said.includes('[fail1]') && !failedOnce.has(said)) {
@@ -163,6 +176,21 @@ export function mockExtractModel() {
         usage: usage(300, text.length),
         warnings: [],
       };
+    },
+  });
+}
+
+/** 测试扩词仅模拟结构化返回，不代表真实模型理解质量。 */
+export function mockRecallModel() {
+  return new MockLanguageModelV4({
+    provider: 'mock', modelId: 'mock-recall',
+    doGenerate: async options => {
+      const query = lastUserText(options);
+      const terms = /烧脑.*(读物|看)|硬核.*(读物|看)/.test(query) ? ['阅读', '小说', '科幻']
+        : /晚饭|晚餐|吃什么/.test(query) ? ['饮食', '口味', '忌口']
+        : /提神|清醒/.test(query) ? ['咖啡', '饮品', '茶饮'] : [];
+      const text = JSON.stringify({ terms });
+      return { content: [{ type: 'text', text }], finishReason: { unified: 'stop', raw: 'stop' }, usage: usage(query.length + 180, text.length), warnings: [] };
     },
   });
 }

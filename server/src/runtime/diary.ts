@@ -47,6 +47,8 @@ export function factLines(f: DiaryFacts): string[] {
 export async function writeDiary(catId: string, facts: DiaryFacts) {
   const [cat] = await db.select().from(cats).where(eq(cats.id, catId));
   if (!cat) throw new Error('not_found');
+  // 现有日记请求没有可核验的来源 ID。暂不接收任意聊天/碎片正文，避免绕过停用原话。
+  facts = { ...facts, chatSnippet: undefined, fragmentSnippet: undefined };
   const temperament = (cat.temperament in TEMPERAMENTS ? cat.temperament : 'slow') as Temperament;
   const behavior = compileBehavior(temperament, cat.traits);
   const slot = chatSlot();

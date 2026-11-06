@@ -22,8 +22,12 @@ struct ChatMessage: Identifiable, Equatable {
     var remembered = false
     /// 用户对这条猫消息选了「不要再提」
     var boundary = false
+    var sourceWithdrawn = false
     /// 服务端的消息 id。本地模拟时为空；接了后端时，重新回复和「不要再提」要用它
     var serverID: String?
+    var serverSequence: Int?
+    var clientMessageID: String?
+    var diaryEntryID: String?
 
     var isCat: Bool { role == .cat }
 
@@ -35,8 +39,9 @@ struct ChatMessage: Identifiable, Equatable {
         case .timeout: return "它走神了 · 再试一次"
         default: break
         }
+        if sourceWithdrawn { return "已停止使用这段话" }
         if remembered && state == .done { return "记下了" }
-        if boundary { return "已经记下了" }
+        if boundary { return "不会主动提起" }
         return nil
     }
 
@@ -45,7 +50,7 @@ struct ChatMessage: Identifiable, Equatable {
 
     /// 超时的猫气泡里显示「……」，头像换 aloof。
     var displayText: String { state == .timeout ? "……" : text }
-    var avatarImage: String { state == .timeout ? "tuanzi-aloof" : "tuanzi-canonical" }
+    var avatarImage: String { state == .timeout ? "tuanzi-ui-quiet" : "tuanzi-ui-portrait" }
 }
 
 // 气质 Temperament 与四条特征 Trait 搬到了 Model/Personality.swift（那里还编译出院子用的行为参数表）。

@@ -103,7 +103,13 @@ export function feltify(root: THREE.Object3D, skip: string[]) {
     let felt = cache.get(source);
     if (!felt) {
       const rope = source.name === 'rope';
-      felt = feltMaterial(source.color, rope ? { scale: 60, bump: 0.6, mottle: 0.22 } : {});
+      const name = source.name;
+      const options: FeltOptions = rope ? { scale: 65, bump: .38, mottle: .14 }
+        : name.startsWith('wood') ? { scale: 120, bump: .16, mottle: .12, sheen: .15 }
+        : name.startsWith('stone') ? { scale: 48, bump: .22, mottle: .12, sheen: 0 }
+        : name.startsWith('leaf') ? { scale: 80, bump: .22, mottle: .10, sheen: .25 }
+        : { scale: 105, bump: .24, mottle: .10, sheen: .4 };
+      felt = feltMaterial(source.color, options);
       felt.name = source.name;
       felt.side = source.side;
       cache.set(source, felt);

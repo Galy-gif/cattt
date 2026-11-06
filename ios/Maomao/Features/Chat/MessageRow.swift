@@ -8,6 +8,7 @@ struct MessageRow: View {
     let message: ChatMessage
     let showsAvatar: Bool
     let availableWidth: CGFloat
+    var animatesAvatar = false
 
     /// 猫在左最大 78%，用户在右最大 76%。猫那边还要扣掉头像位。
     private var maxBubbleWidth: CGFloat {
@@ -29,7 +30,7 @@ struct MessageRow: View {
         HStack(alignment: .top, spacing: 8) {
             if message.isCat {
                 // 头像位永远占着，只有每组第一条真的画 —— 同一组里气泡左缘对齐。
-                CatWindowAvatar(image: message.avatarImage)
+                CatWindowAvatar(image: message.avatarImage, animated: showsAvatar && animatesAvatar)
                     .opacity(showsAvatar ? 1 : 0)
                     .accessibilityHidden(true)
             } else {
@@ -92,25 +93,27 @@ struct MessageRow: View {
             Label("复制", systemImage: "doc.on.doc")
         }
 
-        // TODO: 后端 —— 反馈要带上这条消息的 id 上报。
-        Button {} label: {
-            Label("反馈", systemImage: "exclamationmark.bubble")
-        }
-
         if message.isCat && !message.boundary {
             Button {
                 store.messagePanel = AppStore.MessagePanel(id: message.id, isCat: true)
                 store.markBoundary()
             } label: {
-                Label("不要再提", systemImage: "hand.raised")
+                Label("回避此话题", systemImage: "hand.raised")
             }
         }
 
+        if store.backend.isRemote && !message.sourceWithdrawn, let id = message.serverID {
+            Button { store.withdrawnSource = .source(id) } label: {
+                Label("停用此消息", systemImage: "eye.slash")
+            }
+        }
+        if !store.backend.isRemote {
         Button(role: .destructive) {
-            // TODO: 后端 —— 同步删除服务端这条消息。
+            // 本地模拟支持删除；远端模式等服务端删除契约实现后开放。
             store.messages.removeAll { $0.id == message.id }
         } label: {
             Label("删除", systemImage: "trash")
+        }
         }
     }
 
@@ -137,31 +140,22 @@ struct MessageRow: View {
     }
 }
 
-/// 团子的圆窗头像：只露头，暖纸底，外面一圈半透明的窗沿。
-///
-/// 用的是全身定稿图，按头部位置放大裁进圆里（两张图头的位置一致：中心约在 50% / 34%）。
-/// 扒着窗沿的前爪要美术另出，本版没有。
+/// 与院子同一3D模型的头部特写；窗口不再放大全身图。
 struct CatWindowAvatar: View {
     static let size: CGFloat = 36
-    /// 头在原图里的中心和直径（占原图边长的比例）。
-    private static let headCenter = CGPoint(x: 0.50, y: 0.345)
-    private static let headDiameter: CGFloat = 0.50
-
     let image: String
-
+    var animated = true
     var body: some View {
-        let inner = Self.size - 4
-        let scaled = inner / Self.headDiameter
-        Image(image)
-            .resizable()
-            .scaledToFit()
-            .frame(width: scaled, height: scaled)
-            .offset(x: (0.5 - Self.headCenter.x) * scaled, y: (0.5 - Self.headCenter.y) * scaled + inner * 0.06)
-            .frame(width: inner, height: inner)
-            .background(Palette.paper)
+        Group {
+            if image == "tuanzi-ui-portrait" {
+                AnimatedCatPortrait(animated: animated)
+            } else {
+                Image(image).resizable().scaledToFit()
+            }
+        }
+            .frame(width: Self.size, height: Self.size)
+            .background(Palette.paper.opacity(0.85), in: Circle())
             .clipShape(Circle())
-            .padding(2)
-            .background(Color.white.opacity(0.55), in: Circle())
-            .shadow(color: Palette.chatSeparation, radius: 6, x: 0, y: 2)
+            .accessibilityHidden(true)
     }
 }

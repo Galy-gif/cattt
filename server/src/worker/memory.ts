@@ -1,3 +1,4 @@
+import { bumpMemory, lockMemory, removeAspect } from '../memory/control.ts';
 import { rethrowForQueue } from './model-error.ts';
 import { generateText, Output } from 'ai';
 import { and, desc, eq, gt, inArray, lt, lte, max } from 'drizzle-orm';
@@ -11,6 +12,7 @@ import { extractSlot, recordModelCall } from '../runtime/model.ts';
 // 次要字段缺了给默认值，免得模型漏一个字段整次提取作废；
 // 敏感度不给默认值，缺了宁可这次不记
 const candidateSchema = z.object({
+  clarification: z.string().default(''),
   memories: z.array(
     z.object({
       subject: z.string(),
@@ -33,6 +35,7 @@ const EXTRACT_INSTRUCTIONS = `你负责从一段对话里挑出以后还值得�
 可以记：稳定的偏好、持续的目标、明确的人际关系、重要的未来安排、反复出现且一致的信息，以及用户明确说"记住"的内容。
 不要记：一次性的闲聊、一时的情绪、对用户心理的推测、没核实的第三方隐私。
 只看用户自己说的话；猫说的话不算事实来源。
+用户明确纠正同一方面时必须沿用已有 subject 和 predicate，不要另造近义字段。若无法确定用户在改哪件事，不写候选，clarification 写一句简短的澄清问题。已有记忆只是匹配方面的参考，不能作为新事实来源。
 
 每条记忆的字段：
 - subject：关于谁。用户本人写「用户」；用户提到的具体的人或宠物写称呼，如「用户的妈妈」。
@@ -58,59 +61,57 @@ export async function extractMemories(turnId: string, jobId: string) {
   const [conv] = await db.select().from(conversations).where(eq(conversations.id, turn.conversationId));
   if (!conv) return;
 
-  // 这一轮对应的用户消息：上一条猫消息之后、到这一轮的用户消息为止（连着发的几句一起算）
   const [anchor] = await db.select().from(messages).where(eq(messages.id, turn.userMessageId));
-  if (!anchor) return;
-  const [prevCat] = await db
-    .select({ seq: max(messages.seq) })
-    .from(messages)
+  if (!anchor) return false;
+  const [prevCat] = await db.select({ seq: max(messages.seq) }).from(messages)
     .where(and(eq(messages.conversationId, conv.id), eq(messages.role, 'cat'), lt(messages.seq, anchor.seq)));
-  const userMessages = await db
-    .select({ text: messages.text, createdAt: messages.createdAt })
-    .from(messages)
-    .where(
-      and(
-        eq(messages.conversationId, conv.id),
-        eq(messages.role, 'user'),
-        gt(messages.seq, prevCat?.seq ?? 0),
-        lte(messages.seq, anchor.seq),
-      ),
-    )
-    .orderBy(messages.seq);
-  const catReply = turn.catMessageId
-    ? (await db.select({ text: messages.text }).from(messages).where(eq(messages.id, turn.catMessageId)))[0]?.text
-    : undefined;
+  const sources = await db.select().from(messages).where(and(eq(messages.conversationId, conv.id), eq(messages.role, 'user'),
+    gt(messages.seq, prevCat?.seq ?? 0), lte(messages.seq, anchor.seq))).orderBy(messages.seq);
+  let remembered = false;
+  for (const source of sources) {
+    const result = await extractSource(conv.catId, source.id, turnId, jobId);
+    remembered ||= result.remembered;
+  }
+  return remembered;
+}
 
-  const existing = await db
-    .select({ subject: memories.subject, predicate: memories.predicate, value: memories.value })
-    .from(memories)
-    .where(and(eq(memories.catId, conv.catId), inArray(memories.status, ['active', 'conflicted'])))
-    .orderBy(desc(memories.lastConfirmedAt))
-    .limit(60);
-
-  const today = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'full' }).format(anchor.createdAt);
-  const existingBlock =
-    existing.length > 0 ? existing.map((m) => `- ${m.subject}｜${m.predicate}｜${m.value}`).join('\n') : '（还没有）';
-  const dialogue = [...userMessages.map((m) => `用户（${new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", dateStyle: "full" }).format(m.createdAt)}）：${m.text}`), ...(catReply ? [`猫：${catReply}`] : [])].join('\n');
-
+/** 每条原话单独提取，来源不会误挂在同轮最后一句上。回复前的明确记忆操作也走同一写入门。 */
+export async function extractSource(catId: string, sourceId: string, turnId: string, jobId?: string, signal?: AbortSignal) {
+  const [cat] = await db.select().from(cats).where(eq(cats.id, catId));
+  const [source] = await db.select().from(messages).innerJoin(conversations, eq(conversations.id, messages.conversationId))
+    .where(and(eq(messages.id, sourceId), eq(conversations.catId, catId)));
+  const m = source?.messages;
+  if (!cat?.learnMemories || !m || m.role !== 'user' || !m.contextAllowed || !m.memoryEligible || m.seq <= cat.learnAfterSeq)
+    return { remembered: false, note: '本次没有保存任何新记忆：继续记新的事情已关闭，或这条原话已停止使用。回复必须明确说明这次没有记下来、不会留作以后使用；即使用户说“记住”，也不能答应。不要用“记下了”“记住了”“改好了”“以后会记得”等成功或未来记忆承诺来表示听见了。仍可回应用户当下的其他问题。' };
+  const receipts = await db.select().from(memoryReceipts).where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.sourceMessageId, sourceId)));
+  if (receipts.length) {
+    const saved = (await db.select({ memory: memories }).from(memories).innerJoin(memoryReceipts, and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, memories.fingerprint), eq(memoryReceipts.sourceMessageId, sourceId), eq(memoryReceipts.accepted, true)))
+      .where(and(eq(memories.catId, catId), eq(memories.status, 'active')))).map(r => r.memory);
+    return { remembered: saved.some(x => x.explicit), note: saved.length ? `已经保存：${saved.map(x => x.value).join('；')}` : '本次没有新增记忆，不要宣称记下了。' };
+  }
+  const existing = cat.useMemories ? await db.select().from(memories).innerJoin(messages, eq(messages.id, memories.sourceMessageId))
+    .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+    .where(and(eq(memories.catId, catId), eq(conversations.catId, catId), eq(messages.role, 'user'), inArray(memories.status, ['active', 'conflicted']), eq(messages.contextAllowed, true)))
+    .orderBy(desc(memories.lastConfirmedAt)).limit(60) : [];
+  const existingBlock = existing.map(({ memories: x }) => `- ${x.subject}｜${x.predicate}｜${x.value}`).join('\n') || '（还没有，或已有记忆已停止参考）';
   const slot = extractSlot();
   const started = Date.now();
   const { output, usage } = await generateText({
-    model: slot.model,
-    instructions: `${EXTRACT_INSTRUCTIONS}\n\n今天是${today}。\n\n已有记忆：\n${existingBlock}`,
-    messages: [{ role: 'user', content: dialogue }],
-    output: Output.object({ schema: candidateSchema }),
-    providerOptions: slot.providerOptions,
-    maxRetries: 2,
+    model: slot.model, instructions: `${EXTRACT_INSTRUCTIONS}\n今天是${new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'full' }).format(m.createdAt)}。\n已有记忆：\n${existingBlock}`,
+    messages: [{ role: 'user', content: m.text }], output: Output.object({ schema: candidateSchema }),
+    providerOptions: slot.providerOptions, maxRetries: 2, abortSignal: signal,
   }).catch(rethrowForQueue);
   await recordModelCall({ purpose: 'memory_extract', modelId: slot.modelId, usage, latencyMs: Date.now() - started, turnId, jobId });
-
   let remembered = false;
+  const saved: string[] = [];
   for (const candidate of output.memories) {
-    const applied = await applyCandidate(conv.catId, turn.userMessageId, candidate);
-    if (applied && candidate.explicit) remembered = true;
+    signal?.throwIfAborted();
+    if (await applyCandidate(catId, sourceId, candidate)) {
+      saved.push(candidate.value);
+      remembered ||= candidate.explicit;
+    }
   }
-  return remembered;
+  return { remembered, note: saved.length ? `已成功保存到长期记忆：${saved.join('；')}` : output.clarification || '本次没有保存记忆，不能说已经记住或改好。' };
 }
 
 /**
@@ -128,15 +129,19 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
   const fingerprint = memoryFingerprint(c.subject, c.predicate);
 
   return db.transaction(async (tx) => {
-    await tx.select({ id: cats.id }).from(cats).where(eq(cats.id, catId)).for('update');
+    const cat = await lockMemory(tx, catId);
     const [source] = await tx.select().from(messages).where(eq(messages.id, sourceMessageId));
-    if (!source) return false;
+    const [conv] = await tx.select().from(conversations).where(eq(conversations.catId, catId));
+    if (!source || source.conversationId !== conv?.id || source.role !== 'user' || !source.contextAllowed || !source.memoryEligible || !cat.learnMemories || source.seq <= cat.learnAfterSeq) return false;
+    const edited = await tx.select().from(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, fingerprint)));
+    if (edited.some(m => m.editedThroughSeq >= source.seq)) return false;
     const [receipt] = await tx.select().from(memoryReceipts).where(and(eq(memoryReceipts.sourceMessageId, sourceMessageId), eq(memoryReceipts.fingerprint, fingerprint)));
     if (receipt) return receipt.accepted;
     const [prior] = await tx.select().from(memories).where(and(eq(memories.sourceMessageId, sourceMessageId), eq(memories.fingerprint, fingerprint)));
     if (prior) return prior.status === 'active';
     const finish = async (accepted: boolean) => {
       await tx.insert(memoryReceipts).values({ catId, sourceMessageId, fingerprint, accepted }).onConflictDoNothing();
+      if (accepted) await bumpMemory(tx, catId);
       return accepted;
     };
     const [blocked] = await tx
@@ -207,21 +212,12 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
 }
 
 export async function deleteMemory(catId: string, memoryId: string): Promise<boolean> {
-  return db.transaction(async (tx) => {
-    await tx.select({ id: cats.id }).from(cats).where(eq(cats.id, catId)).for('update');
+  return db.transaction(async tx => {
+    await lockMemory(tx, catId);
     const [memory] = await tx.select().from(memories).where(and(eq(memories.id, memoryId), eq(memories.catId, catId)));
     if (!memory) return false;
-    const sources = await tx.select({ id: memories.sourceMessageId }).from(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, memory.fingerprint)));
-    const { invalidateSoulSources } = await import('../soul/service.ts');
-    const confirmations = await tx.select({ id: memoryReceipts.sourceMessageId }).from(memoryReceipts)
-      .where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, memory.fingerprint)));
-    await invalidateSoulSources(tx, catId, [...new Set([...sources, ...confirmations].map((s) => s.id))]);
-    const [latest] = await tx.select({ seq: max(messages.seq) }).from(messages)
-      .innerJoin(conversations, eq(conversations.id, messages.conversationId)).where(eq(conversations.catId, catId));
-    await tx.insert(memoryBlocks).values({ catId, fingerprint: memory.fingerprint, sourceSeq: latest?.seq ?? 0 })
-      .onConflictDoUpdate({ target: [memoryBlocks.catId, memoryBlocks.fingerprint], set: { sourceSeq: latest?.seq ?? 0, createdAt: dbNow() } });
-    await tx.delete(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, memory.fingerprint)));
-    await tx.update(memoryReceipts).set({ accepted: false }).where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.fingerprint, memory.fingerprint)));
+    await removeAspect(tx, catId, memory.fingerprint);
+    await bumpMemory(tx, catId);
     return true;
   });
 }

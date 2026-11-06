@@ -20,6 +20,7 @@ struct LocationRail: View {
             }
             .background { axis }
         }
+        .yardControl("rail")
         .padding(.leading, 12)
         .padding(.top, 196)
         .animation(.easeOut(duration: Metrics.fadeFast), value: store.viewedIndex)

@@ -1,4 +1,8 @@
+import { BowlPour } from './bowl-pour.ts';
 import * as THREE from 'three';
+import { FlowerResponse } from './flower-response.ts';
+import { POND_TOUCH } from './pond.ts';
+import { PondEffects } from './pond-effects.ts';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import type { Atmosphere } from './atmosphere';
 import { feltMaterial, feltify } from './felt';
@@ -12,18 +16,18 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
  * 配色取自 iOS 院子现行素材（毛毡草地、石子路、蓝池塘、青绿远山、奶油色的云）。
  */
 const COLORS = {
-  lawn: '#9cc23a',
-  lawnPatch: '#86b234',
-  cobble: '#d9d0bd',
-  pathBed: '#c9bfa8',
-  stone: '#a89684',
+  lawn: '#91ac62',
+  lawnPatch: '#79994f',
+  cobble: '#bfb7a0',
+  pathBed: '#8a9369',
+  stone: '#a79f8b',
   pad: '#4f9b3c',
-  blade: '#8dbb35',
-  bladeTip: '#c3dc62',
-  hillNear: '#9ec94a',
-  hillMid: '#5fa869',
-  hillFar: '#4f9a86',
-  treeline: '#2f7a3c',
+  blade: '#a0b878',
+  bladeTip: '#b1c38a',
+  hillNear: '#829d72',
+  hillMid: '#799d91',
+  hillFar: '#8ea9ac',
+  treeline: '#486f56',
   cloud: '#fbf1dc',
   leaf: '#d9863a',
 };
@@ -40,11 +44,48 @@ export class World {
 
   private sky: THREE.Mesh<THREE.SphereGeometry, THREE.ShaderMaterial>;
   private clouds: { group: THREE.Group; speed: number }[] = [];
+  private nestBaseInverse = new THREE.Matrix4();
+  private nestWeight = 0;
+  private nestLoad = 0;
+  get motionSnapshot() { return { flower:this.flowerResponse.snapshot, time: this.time, nestWeight: this.nestWeight }; }
+  restoreMotion(value: { time: number; nestWeight: number; flower?: ReturnType<World['flowerSnapshot']> }) { if(value.flower)this.flowerResponse.restore(value.flower); if (Number.isFinite(value.time) && Number.isFinite(value.nestWeight)) { this.time = value.time; this.nestWeight = value.nestWeight; } }
+  private flowerResponse=new FlowerResponse();
+  private flowerPaw:THREE.Vector3|null=null;
+  private flowerState='idle';
+  private flowerSnapshot(){return this.flowerResponse.snapshot;}
+  setFlowerPaw(paw:THREE.Vector3|null,state:string){this.flowerPaw=paw;this.flowerState=state;}
+  setNestLoad(value: number) { this.nestLoad = value; }
+  get nestTransform() {
+    this.nestPivot?.updateWorldMatrix(true, true);
+    return this.nestPivot ? this.nestPivot.matrixWorld.clone().multiply(this.nestBaseInverse) : new THREE.Matrix4();
+  }
   private nestPivot: THREE.Object3D | null = null;
   private crown: THREE.Object3D | null = null;
   private flag: THREE.Object3D | null = null;
+  private bowlPour=new BowlPour();
+  private bowlWaterY=0;
+  private bowlWater: THREE.Object3D | null = null;
+  private drinkingPhase: number | null = null;
+  private pondEffects = new PondEffects();
+  private pondPaw: THREE.Vector3 | null = null;
+  private pondState = 'idle';
+  setPondPaw(paw: THREE.Vector3 | null, state: string) { this.pondPaw = paw; this.pondState = state; }
+  private bowlRipples = [0, 1].map(() => {
+    const ring = new THREE.Mesh(new THREE.RingGeometry(.88, 1, 32), new THREE.MeshBasicMaterial({ color: '#b9e9df', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }));
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.set(ANCHORS.bowl.x, .0476, ANCHORS.bowl.z);
+    ring.visible = false;
+    return ring;
+  });
+  setDrinking(phase: number | null) { this.drinkingPhase = phase; }
+  private mailUp: boolean | null = null;
+  setHomeFacts(full: boolean, mail: boolean) {
+    this.mailUp = mail;
+    this.bowlPour.setFull(full);
+    if (this.bowlWater) this.bowlWater.visible = full;
+  }
   private windowMaterial: THREE.MeshStandardMaterial | null = null;
-  private windowLamp = new THREE.PointLight('#ffc878', 0, 2.6, 1.6);
+  private windowLamp = new THREE.PointLight('#ffd69a', 0, 3.8, 1.8);
   private rain: THREE.LineSegments<THREE.BufferGeometry, THREE.ShaderMaterial>;
   private water: THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>;
   private sunDisc: THREE.Sprite;
@@ -57,7 +98,7 @@ export class World {
 
   constructor(grassRatio = 1) {
     this.scene.fog = new THREE.Fog('#cfe3ea', 16, 130);
-    this.scene.add(this.fillLight);
+    this.scene.add(this.fillLight, ...this.bowlRipples, this.bowlPour.root);
 
     this.sunLight.castShadow = true;
     this.sunLight.shadow.mapSize.set(2048, 2048);
@@ -75,9 +116,9 @@ export class World {
 
     this.sky = makeSky();
     this.scene.add(this.sky);
-    this.scene.add(makeGround(), makePaths(), makeStones(), makeLilyPads(), makeHills());
+    this.scene.add(makeGround(), makeContactShadows(), makePaths(), makeStones(), makeLilyPads(), makeHills(), makeShorePlants());
     this.water = makeWater();
-    this.scene.add(this.water);
+    this.scene.add(this.water, this.pondEffects.root);
     this.scene.add(makeGrass(this.grassUniforms, grassRatio));
     this.makeClouds();
     this.makeMist();
@@ -133,13 +174,18 @@ export class World {
       if (!box.isEmpty()) this.compositionParts.push({ id: object.name, box });
     }
     this.compositionParts.push({ id: 'pond', box: new THREE.Box3().setFromPoints(POND.map(p => new THREE.Vector3(p.x, .08, p.z))).expandByScalar(.13) });
-    for (const name of ['bench', 'rocks', 'flowerbed', 'fence']) {
+    for (const name of ['house', 'bench', 'rocks', 'flowerbed', 'fence', 'flower', 'tree_wood', 'tree_crown', 'nest_pivot']) {
       const root = gltf.scene.getObjectByName(name);
       if (root) batchStaticProps(root);
     }
+    const flower=gltf.scene.getObjectByName('flower');
+    if(flower){this.scene.add(this.flowerResponse.root);this.flowerResponse.root.attach(flower);}
     this.nestPivot = gltf.scene.getObjectByName('nest_pivot') ?? null;
+    if (this.nestPivot) { this.nestPivot.updateWorldMatrix(true, true); this.nestBaseInverse.copy(this.nestPivot.matrixWorld).invert(); }
     this.crown = gltf.scene.getObjectByName('tree_crown') ?? null;
     this.flag = gltf.scene.getObjectByName('mailbox_flag') ?? null;
+    this.bowlWater = gltf.scene.getObjectByName('bowl_water') ?? null;
+    this.bowlWaterY=this.bowlWater?.position.y ?? 0;
     if (this.windowMaterial) {
       // 灯放在窗外一点，照到门前的地面
       const house = new THREE.Vector3(ANCHORS.house.x, 0, ANCHORS.house.z);
@@ -149,10 +195,20 @@ export class World {
     return true;
   }
 
-  update(dt: number, atmosphere: Atmosphere, camera: THREE.Camera, still: boolean) {
+  update(dt: number, atmosphere: Atmosphere, camera: THREE.Camera, still: boolean, reduceMotion = false) {
     if (!still) this.time += dt;
     const t = this.time;
     const sky = atmosphere.current;
+    this.bowlPour.update(dt,still || reduceMotion);
+    if(this.bowlWater){this.bowlWater.visible=this.bowlPour.level>0;this.bowlWater.position.y=this.bowlWaterY-.022*(1-this.bowlPour.level);}
+    // 每次舔饮带出两道薄水纹，吞咽、空盆和中断时收住。
+    const drink = this.drinkingPhase;
+    this.bowlRipples.forEach((ring, i) => {
+      const age = drink === null ? 1 : ((drink * 4 + i * .5) % 1);
+      ring.visible = !!this.bowlWater?.visible && drink !== null && drink < 2;
+      ring.scale.setScalar(.012 + .063 * age);
+      ring.material.opacity = .6 * (1 - age);
+    });
 
     // 天、雾、光
     const skyUniforms = this.sky.material.uniforms;
@@ -162,8 +218,10 @@ export class World {
     this.sky.position.copy(camera.position);
     const fog = this.scene.fog as THREE.Fog;
     fog.color.copy(sky.horizon);
-    fog.near = THREE.MathUtils.lerp(16, 5, sky.mist);
-    fog.far = THREE.MathUtils.lerp(130, 34, sky.mist);
+    // 拉远的总览相机不应给整个院子罩上等量灰雾；雾仍从院外开始分层。
+    const aerial = Math.max(0, camera.position.y - 3) * .85;
+    fog.near = THREE.MathUtils.lerp(16, 7, sky.mist) + aerial;
+    fog.far = THREE.MathUtils.lerp(115, 48, sky.mist) + aerial;
     this.sunLight.color.copy(sky.light);
     this.sunLight.intensity = sky.lightIntensity;
     const azimuth = THREE.MathUtils.degToRad(sky.azimuth);
@@ -188,9 +246,9 @@ export class World {
     this.stars.material.uniforms.uTime!.value = t;
 
     // 窗灯：入夜亮起，轻轻呼吸（幅度两成以内）
-    const breathe = 1 + 0.12 * Math.sin(t * 1.3) + 0.05 * Math.sin(t * 3.1 + 1.0);
-    if (this.windowMaterial) this.windowMaterial.emissiveIntensity = sky.windowLit * 1.7 * breathe;
-    this.windowLamp.intensity = sky.windowLit * 0.9 * breathe;
+    const breathe = 1 + 0.025 * Math.sin(t * 0.7) + 0.012 * Math.sin(t * 1.3 + 1.0);
+    if (this.windowMaterial) this.windowMaterial.emissiveIntensity = sky.windowLit * 0.92 * breathe;
+    this.windowLamp.intensity = sky.windowLit * 0.68 * breathe;
 
     // 没人操作也在动：云、吊窝、树冠、草、水、旗子、落叶、雾
     const wind = 1 + sky.rain * 0.8;
@@ -199,17 +257,23 @@ export class World {
       if (cloud.group.position.x > 34) cloud.group.position.x = -34;
     }
     if (this.nestPivot) {
-      this.nestPivot.rotation.z = Math.sin(t * 0.9) * 0.05 * wind;
-      this.nestPivot.rotation.x = Math.sin(t * 0.63 + 1.2) * 0.03 * wind;
+      this.nestWeight = THREE.MathUtils.damp(this.nestWeight, this.nestLoad, 4, dt);
+      this.nestPivot.rotation.z = Math.sin(t * 0.9) * (0.05 * wind + .018 * this.nestWeight);
+      this.nestPivot.rotation.x = Math.sin(t * 0.63 + 1.2) * (0.03 * wind + .01 * this.nestWeight);
     }
     if (this.crown) {
       this.crown.rotation.z = Math.sin(t * 0.5) * 0.012 * wind;
       this.crown.rotation.x = Math.sin(t * 0.37 + 0.6) * 0.008 * wind;
     }
-    if (this.flag) this.flag.rotation.y = Math.sin(t * 0.8) * 0.04;
+    if (this.flag) {
+      this.flag.rotation.y = Math.sin(t * 0.8) * 0.04;
+      if (this.mailUp !== null) this.flag.rotation.z = THREE.MathUtils.damp(this.flag.rotation.z, this.mailUp ? 0 : -Math.PI / 2, 10, dt);
+    }
     this.grassUniforms.uTime.value = t;
     this.grassUniforms.uWind.value = wind;
 
+    this.flowerResponse.update(still ? 0 : dt,this.flowerPaw,this.flowerState);
+    this.pondEffects.update(still ? 0 : dt, this.pondPaw, this.pondState);
     const water = this.water.material.uniforms;
     water.uTime!.value = t;
     water.uRain!.value = sky.rain;
@@ -334,19 +398,63 @@ function makeSky() {
 
 function makeGround() {
   // 院子是一片略微起伏的草地，远处缓缓抬高接到远山
-  const geometry = new THREE.PlaneGeometry(90, 70, 110, 86);
+  const geometry = new THREE.PlaneGeometry(130, 150, 124, 144);
   geometry.rotateX(-Math.PI / 2);
   const position = geometry.attributes.position!;
   for (let i = 0; i < position.count; i++) {
     const x = position.getX(i);
-    const z = position.getZ(i) - 10; // 网格整体后移 10 m，这里换回世界坐标
+    const z = position.getZ(i) - 20; // 网格整体后移 20 m，这里换回世界坐标
     position.setY(i, groundHeight(x, z));
   }
   geometry.computeVertexNormals();
-  const ground = new THREE.Mesh(geometry, feltMaterial(COLORS.lawn, { scale: 55, mottle: 0.22, bump: 0.45, patch: COLORS.lawnPatch, sheen: 0 }));
-  ground.position.z = -10;
-  ground.receiveShadow = true;
+  const colors = new Float32Array(position.count * 3);
+  for (let i = 0; i < position.count; i++) {
+    const x = position.getX(i), z = position.getZ(i) - 20;
+    const far = THREE.MathUtils.smoothstep(Math.hypot(x * .7, z), 6, 24);
+    const tint = new THREE.Color('#ffffff').lerp(new THREE.Color('#94b6ad'), far * .58);
+    // 门前、长凳周围轻微磨淡的草，院中仍留完整草地。
+    const wear = Math.exp(-((x + 2.35) ** 2 / .8 + (z + .95) ** 2 / .28))
+      + .6 * Math.exp(-((x + 3.85) ** 2 / .55 + (z - .25) ** 2 / .3));
+    tint.lerp(new THREE.Color('#e5d2a7'), Math.min(.38, wear * .38));
+    tint.toArray(colors, i * 3);
+  }
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const ground = new THREE.Mesh(geometry, feltMaterial(COLORS.lawn, { scale: 65, mottle: 0.11, bump: 0.22, patch: COLORS.lawnPatch, sheen: 0 }));
+  ground.material.vertexColors = true;
+  ground.position.z = -20;
+  // iOS WebKit 在宽地面上会把定向光阴影贴图的边界画成硬矩形；局部接地阴影单独处理。
+  ground.receiveShadow = false;
   return ground;
+}
+
+function makeContactShadows() {
+  const size = 64;
+  const data = new Uint8Array(size * size * 4);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const d = Math.hypot((x + .5) / size * 2 - 1, (y + .5) / size * 2 - 1);
+    const alpha = Math.round(90 * Math.max(0, 1 - d * d) ** 2);
+    const i = (y * size + x) * 4;
+    data[i] = 40; data[i + 1] = 59; data[i + 2] = 37; data[i + 3] = alpha;
+  }
+  const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+  texture.needsUpdate = true;
+  texture.magFilter = THREE.LinearFilter;
+  texture.minFilter = THREE.LinearFilter;
+  const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false, toneMapped: false });
+  const group = new THREE.Group();
+  const footprints: [number, number, number, number][] = [
+    [ANCHORS.house.x, ANCHORS.house.z, 2.5, 1.65],
+    [ANCHORS.tree.x, ANCHORS.tree.z, 1.8, 1.55],
+    [ANCHORS.bench.x, ANCHORS.bench.z, 1.6, .75],
+  ];
+  for (const [x, z, width, depth] of footprints) {
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(width, depth), material);
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.set(x, .012, z);
+    shadow.renderOrder = 1;
+    group.add(shadow);
+  }
+  return group;
 }
 
 /** 石子路：路网每条边上铺一层浅色路基，上面排一粒粒压扁的石子（iOS 院子的石子路） */
@@ -371,16 +479,16 @@ function makePaths() {
     const across = 2;
     for (let i = 0; i <= rows; i++) {
       const u = i / rows;
-      const p = curve.getPointAt(u);
       const tangent = curve.getTangentAt(u);
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
       for (let j = 0; j < across; j++) {
+        const p = curve.getPointAt(Math.min(1, u + (j ? .045 / length : 0)));
         const offset = ((j + 0.5) / across - 0.5) * width * 0.92 + (rand() - 0.5) * 0.006;
-        const r = 0.058 + rand() * 0.004;
+        const r = 0.052 + rand() * 0.014;
         const m = new THREE.Matrix4().compose(
-          new THREE.Vector3(p.x + side.x * offset, 0.009, p.z + side.z * offset),
+          new THREE.Vector3(p.x + side.x * offset, 0.007 + rand() * .004, p.z + side.z * offset),
           new THREE.Quaternion().setFromEuler(new THREE.Euler(0, -Math.atan2(tangent.z, tangent.x) + (rand() - .5) * .12, 0)),
-          new THREE.Vector3(r, 0.013 + rand() * 0.002, width * .21),
+          new THREE.Vector3(r, 0.013 + rand() * 0.002, width * (.18 + rand() * .035)),
         );
         stones.push(m);
         tints.push(new THREE.Color(COLORS.cobble).offsetHSL(0, 0, (rand() - 0.5) * 0.04));
@@ -438,9 +546,18 @@ function pondCurve() {
  */
 function makeWater() {
   const outline = pondCurve().getPoints(72);
-  const shape = new THREE.Shape(outline.map((p) => new THREE.Vector2(p.x, -p.z)));
-  const geometry = new THREE.ShapeGeometry(shape, 24);
-  geometry.rotateX(-Math.PI / 2);
+  const center = outline.reduce((sum, p) => sum.add(p), new THREE.Vector3()).multiplyScalar(1 / outline.length);
+  const vertices = [center.x, 0, center.z];
+  const depths = [1];
+  const indices: number[] = [];
+  for (let i = 0; i < outline.length - 1; i++) {
+    const p = outline[i]!; vertices.push(p.x, 0, p.z); depths.push(0);
+    indices.push(0, (i + 1) % (outline.length - 1) + 1, i + 1);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setAttribute('depth', new THREE.Float32BufferAttribute(depths, 1));
+  geometry.setIndex(indices); geometry.computeVertexNormals();
   const material = new THREE.ShaderMaterial({
     fog: true,
     uniforms: {
@@ -449,12 +566,14 @@ function makeWater() {
       uRain: { value: 0 },
       uSky: { value: new THREE.Color('#70bee4') },
       uLight: { value: 1 },
-      uBase: { value: new THREE.Color('#2f9fe0') },
+      uBase: { value: new THREE.Color('#518e9a') },
     },
     vertexShader: /* glsl */ `
       #include <fog_pars_vertex>
       varying vec3 vWorld;
+      attribute float depth; varying float vDepth;
       void main() {
+        vDepth = depth;
         vec4 world = modelMatrix * vec4(position, 1.0);
         vWorld = world.xyz;
         vec4 mvPosition = viewMatrix * world;
@@ -465,7 +584,7 @@ function makeWater() {
       #include <common>
       #include <fog_pars_fragment>
       uniform float uTime; uniform float uRain; uniform vec3 uSky; uniform float uLight; uniform vec3 uBase;
-      varying vec3 vWorld;
+      varying vec3 vWorld; varying float vDepth;
       float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
       // 一格一个涟漪：格子里随机位置、随机相位，环向外扩、淡出
       float ripples(vec2 p, float density, float amount) {
@@ -485,14 +604,17 @@ function makeWater() {
       }
       void main() {
         vec2 p = vWorld.xz;
-        vec3 col = mix(uBase, uSky, 0.3) * uLight;
+        float shore = 1.0 - smoothstep(0.0, 0.27, vDepth);
+        vec3 base = mix(uBase, vec3(0.28, 0.43, 0.32), shore * .55);
+        vec3 col = mix(base, uSky, 0.20 + (1.0 - shore) * .10) * uLight;
+        col *= .94 + .06 * sin(p.x * 2.0 + sin(p.y * 2.7 + uTime * .12));
         // 缝线一样的波纹：几道断续的细白线慢慢横移
         float band = sin(p.y * 22.0 + sin(p.x * 3.0 + uTime * 0.35) * 1.6);
         float dash = smoothstep(0.35, 0.65, sin(p.x * 9.0 + p.y * 4.0 - uTime * 0.25 + band));
         float thread = smoothstep(0.965, 1.0, band) * dash;
-        col += vec3(0.85) * thread * 0.38 * uLight;
-        float rings = ripples(p, 2.6, 0.06 + uRain * 0.8) + ripples(p + 3.7, 4.3, uRain * 0.7);
-        col += vec3(0.9) * rings * (0.35 + 0.35 * uLight);
+        col += vec3(0.85) * thread * 0.18 * uLight;
+        float rings = ripples(p, 2.6, 0.06 + uRain * 0.48) + ripples(p + 3.7, 4.3, uRain * 0.32);
+        col += vec3(0.9) * rings * (0.16 + 0.25 * uLight);
         gl_FragColor = vec4(col, 1.0);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
@@ -505,20 +627,45 @@ function makeWater() {
 }
 
 function makeStones() {
-  const outline = pondCurve().getSpacedPoints(30);
-  const mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 16, 12), feltMaterial('#ffffff', { scale: 70, mottle: 0.2, bump: 0.5 }), outline.length);
+  const curve = pondCurve();
+  const count = 36;
+  const mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 14, 10), feltMaterial('#ffffff', { scale: 58, mottle: 0.12, bump: 0.2, sheen: 0 }), count);
   const rand = lcg(5);
   const m = new THREE.Matrix4();
-  outline.forEach((p, i) => {
-    // 大小石头交错：每隔几粒来一块大的
-    const big = i % 4 === 0;
-    const r = big ? 0.10 + rand() * 0.05 : 0.045 + rand() * 0.035;
-    m.compose(new THREE.Vector3(p.x, r * 0.3, p.z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, rand() * 6, 0)), new THREE.Vector3(r * 1.35, r * 0.8, r));
+  for (let i = 0; i < count; i++) {
+    const u = (i + .22 * Math.sin(i * 1.9)) / count;
+    const p = curve.getPointAt(u);
+    const big = i % 7 < 2;
+    const r = big ? .09 + rand() * .02 : .035 + rand() * .035;
+    m.compose(new THREE.Vector3(p.x, r * .27, p.z), new THREE.Quaternion().setFromEuler(new THREE.Euler(.08, rand() * 6, .1)), new THREE.Vector3(r * 1.28, r * .7, r));
+    // 留出前爪探水的小口，避免伸爪路径被岸石挡住。
+    if (Math.hypot(p.x-POND_TOUCH.x,p.z-POND_TOUCH.z)<.19) m.scale(new THREE.Vector3(0,0,0));
     mesh.setMatrixAt(i, m);
-    mesh.setColorAt(i, new THREE.Color(COLORS.stone).offsetHSL((rand() - 0.5) * 0.02, 0, (rand() - 0.5) * 0.12));
-  });
+    mesh.setColorAt(i, new THREE.Color(COLORS.stone).offsetHSL((rand() - .5) * .02, 0, (rand() - .5) * .08));
+  }
   mesh.castShadow = true;
   mesh.receiveShadow = true;
+  return mesh;
+}
+
+/** 岸生叶集中在两段池岸，留出前岸的喝水位置。 */
+function makeShorePlants() {
+  const curve = pondCurve();
+  const parts: THREE.BufferGeometry[] = [];
+  const rand = lcg(87);
+  for (const u of [.12, .66]) {
+    const root = curve.getPointAt(u);
+    for (let i = 0; i < 14; i++) {
+      const leaf = new THREE.PlaneGeometry(.018, .11 + rand() * .08, 1, 3);
+      leaf.translate(0, .08, 0);
+      leaf.rotateX((rand() - .5) * .9); leaf.rotateY(rand() * Math.PI * 2);
+      leaf.translate(root.x + (rand() - .5) * .10, .01, root.z + (rand() - .5) * .10);
+      parts.push(leaf);
+    }
+  }
+  const geometry = mergeGeometries(parts); parts.forEach(p => p.dispose());
+  const material = new THREE.MeshLambertMaterial({ color: '#6d8956', side: THREE.DoubleSide });
+  const mesh = new THREE.Mesh(geometry, material); mesh.receiveShadow = true;
   return mesh;
 }
 
@@ -551,7 +698,7 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
   for (let i = 0; i < position.count; i++) {
     const y = position.getY(i);
     position.setX(i, position.getX(i) * (1 - y * y * 0.92));
-    position.setZ(i, y * y * 0.22);
+    position.setZ(i, y * y * 0.09);
   }
   blade.computeVertexNormals();
 
@@ -562,7 +709,7 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
     matrices.push(new THREE.Matrix4().compose(
       new THREE.Vector3(x, groundHeight(x, z), z),
       new THREE.Quaternion().setFromEuler(new THREE.Euler((rand() - 0.5) * 0.25, rand() * 6.28, 0)),
-      new THREE.Vector3(width * (0.8 + rand() * 0.6), height, 1),
+      new THREE.Vector3(width * (0.8 + rand() * 0.6), height, height),
     ));
     tints.push(new THREE.Color(COLORS.blade).offsetHSL((rand() - 0.5) * 0.03, 0, (rand() - 0.5) * 0.1));
   };
@@ -576,9 +723,10 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
     add(clump.x + Math.cos(a) * r, z, 0.17 + rand() * 0.17 * (1 - r), 1.1);
   }
   // 放在所有章节机位的前面（最靠前的机位 z≈2.4），只给首屏和结尾的全景当近景
-  for (let i = 0; i < 4200; i++) {
+  for (let i = 0; i < 1900; i++) {
     const x = -6 + rand() * 12;
-    add(x, 4.3 + rand() * 0.8 + Math.abs(x) * 0.025, 0.08 + rand() * 0.14, 1.3);
+    if (Math.abs(x) < 2.2 && rand() < .86) continue;
+    add(x, 4.3 + rand() * 0.8 + Math.abs(x) * 0.025, 0.035 + rand() * 0.065, 1.0);
   }
   // 院子里零星的矮草，避开路和池塘
   const pond = POND.map((p) => new THREE.Vector2(p.x, p.z));
@@ -589,10 +737,10 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
     return Math.hypot(x - a.x - dx * t, z - a.z - dz * t) < .22;
   });
   for (let i = 0; i < 9000; i++) {
-    const x = -7 + rand() * 14;
-    const z = -4.8 + rand() * 9.0;
+    const x = -9 + rand() * 18;
+    const z = -6 + rand() * 11.8;
     // 越往外越稀，边缘自然散开，不出现一块矩形的"草毯"
-    const falloff = Math.hypot(x / 6.5, (z + 0.6) / 4.2);
+    const falloff = Math.hypot(x / 8.5, (z + 0.25) / 5.6);
     if (rand() < falloff * falloff) continue;
     if (nearPath(x, z)) continue;
     if (insidePolygon(x, z, pond, 0.12)) continue;
@@ -616,11 +764,11 @@ function makeGrass(uniforms: { uTime: { value: number }; uWind: { value: number 
         vBlade = position.y;
         vec3 bladeRoot = (instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
         float gust = sin(uTime * 1.3 + bladeRoot.x * 1.7 + bladeRoot.z * 1.3) + 0.5 * sin(uTime * 2.9 + bladeRoot.x * 4.1);
-        transformed.x += gust * 0.09 * uWind * position.y * position.y;`,
+        transformed.x += gust * 0.028 * uWind * position.y * position.y;`,
       );
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', '#include <common>\nuniform vec3 uTip; varying float vBlade;')
-      .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb * 0.78, uTip, vBlade * vBlade);')
+      .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb, uTip, vBlade * vBlade * .36);')
       // 背面不翻法线，两面受光一致
       .replace('#include <normal_fragment_begin>', '#include <normal_fragment_begin>\nnormal = normalize(vNormal);');
   };
@@ -651,35 +799,39 @@ function insidePolygon(x: number, z: number, polygon: THREE.Vector2[], margin: n
 function makeHills() {
   const group = new THREE.Group();
   const layers: { color: string; hills: [number, number, number, number][] }[] = [
-    { color: COLORS.hillNear, hills: [[-15, -24, 13, 4.4], [19, -25, 12, 4.0]] },
-    { color: COLORS.hillMid, hills: [[2, -31, 18, 6.2], [-33, -33, 16, 6.6], [36, -35, 18, 7.0]] },
-    { color: COLORS.hillFar, hills: [[-8, -42, 24, 8.8], [26, -46, 26, 9.5], [-44, -46, 22, 9]] },
+    { color: COLORS.hillNear, hills: [[-15, -36, 13, 4.4], [19, -37, 12, 4.0]] },
+    { color: COLORS.hillMid, hills: [[2, -48, 18, 6.2], [-33, -50, 16, 6.6], [36, -52, 18, 7.0]] },
+    { color: COLORS.hillFar, hills: [[-8, -64, 24, 8.8], [26, -67, 26, 9.5], [-44, -67, 22, 9]] },
   ];
   for (const { color, hills } of layers) {
     const material = feltMaterial(color, { scale: 3, mottle: 0.1, bump: 0.12, sheen: 0 });
     for (const [x, z, radius, height] of hills) {
       const hill = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 16, 0, Math.PI * 2, 0, Math.PI / 2), material);
       hill.scale.set(radius, height, radius * 0.7);
-      hill.position.set(x, 1.0, z);
+      hill.position.set(x, groundHeight(x, z) - .15, z);
       group.add(hill);
     }
   }
   const rand = lcg(41);
-  const count = 150;
+  const count = 72;
   const round = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 18, 12), feltMaterial('#ffffff', { scale: 4, mottle: 0.12, bump: 0.15, sheen: 0 }), count);
   const pine = new THREE.InstancedMesh(new THREE.ConeGeometry(1, 2.6, 8), feltMaterial('#ffffff', { scale: 4, mottle: 0.12, bump: 0.15, sheen: 0 }), 34);
   const m = new THREE.Matrix4();
   for (let i = 0; i < count; i++) {
     const r = 0.55 + rand() * 0.75;
-    m.compose(new THREE.Vector3(-40 + i * 0.54 + rand(), 1.75 + r * 0.7 + (i % 3) * 0.25, -17 - rand() * 5), new THREE.Quaternion(), new THREE.Vector3(r, r * 1.2, r));
+    const cluster = [-31, -24, 23, 32][i % 4]!;
+    const x = cluster + (rand() - .5) * 7;
+    const z = -22 - rand() * 8;
+    m.compose(new THREE.Vector3(x, groundHeight(x, z) + r * .72, z), new THREE.Quaternion(), new THREE.Vector3(r, r * 1.2, r));
     round.setMatrixAt(i, m);
-    round.setColorAt(i, new THREE.Color(i % 4 === 0 ? '#6fae3c' : COLORS.treeline).offsetHSL((rand() - 0.5) * 0.04, 0, (rand() - 0.4) * 0.12));
+    round.setColorAt(i, new THREE.Color(i % 4 === 0 ? '#809563' : COLORS.treeline).offsetHSL((rand() - 0.5) * 0.04, 0, (rand() - 0.4) * 0.12));
   }
   for (let i = 0; i < 34; i++) {
     const r = 0.7 + rand() * 0.5;
-    m.compose(new THREE.Vector3(-36 + rand() * 72, 2.6 + r, -19 - rand() * 3), new THREE.Quaternion(), new THREE.Vector3(r, r * 1.3, r));
+    const x = (i % 2 ? -1 : 1) * (22 + rand() * 18), z = -29 - rand() * 6;
+    m.compose(new THREE.Vector3(x, groundHeight(x, z) + r * 1.4, z), new THREE.Quaternion(), new THREE.Vector3(r, r * 1.3, r));
     pine.setMatrixAt(i, m);
-    pine.setColorAt(i, new THREE.Color('#1f5f3a').offsetHSL(0, 0, (rand() - 0.5) * 0.08));
+    pine.setColorAt(i, new THREE.Color('#456b60').offsetHSL(0, 0, (rand() - 0.5) * 0.08));
   }
   group.add(round, pine);
 
@@ -692,15 +844,15 @@ function makeHills() {
     const x = Math.cos(a) * d * 1.3;
     const z = -1.5 - Math.abs(Math.sin(a)) * d;
     const r = 0.18 + rand() * 0.3;
-    m.compose(new THREE.Vector3(x, r * 0.5, z), new THREE.Quaternion(), new THREE.Vector3(r * 1.3, r, r));
+    m.compose(new THREE.Vector3(x, groundHeight(x, z) + r * 0.5, z), new THREE.Quaternion(), new THREE.Vector3(r * 1.3, r, r));
     bushes.setMatrixAt(i, m);
-    bushes.setColorAt(i, new THREE.Color(i % 3 ? '#4e9a3a' : '#2f7d3a').offsetHSL(0, 0, (rand() - 0.5) * 0.08));
+    bushes.setColorAt(i, new THREE.Color(i % 3 ? '#718a56' : '#4e7054').offsetHSL(0, 0, (rand() - 0.5) * 0.08));
   }
   for (let i = 0; i < 160; i++) {
     const x = -8 + rand() * 16;
     const z = -7 + rand() * 9.5;
     const r = 0.014 + rand() * 0.012;
-    m.compose(new THREE.Vector3(x, 0.05 + rand() * 0.03, z), new THREE.Quaternion(), new THREE.Vector3(r, r * 0.6, r));
+    m.compose(new THREE.Vector3(x, groundHeight(x, z) + 0.03 + rand() * 0.03, z), new THREE.Quaternion(), new THREE.Vector3(r, r * 0.6, r));
     flowers.setMatrixAt(i, m);
     flowers.setColorAt(i, new THREE.Color(['#f7f3e8', '#f0c23b', '#f2a7b5'][i % 3]!));
   }
@@ -784,7 +936,7 @@ function makeRain() {
     top.set([0, 1], i * 2);
     const s = 5 + Math.random() * 4;
     speed.set([s, s], i * 2);
-    const l = 0.16 + Math.random() * 0.22;
+    const l = 0.075 + Math.random() * 0.12;
     length.set([l, l], i * 2);
     const r = Math.random();
     rank.set([r, r], i * 2);
@@ -816,7 +968,7 @@ function makeRain() {
       varying float vAlpha;
       void main() {
         vec3 col = mix(vec3(0.62, 0.70, 0.80), vec3(0.93, 0.95, 0.97), uBright);
-        gl_FragColor = vec4(col, vAlpha * 0.42);
+        gl_FragColor = vec4(col, vAlpha * 0.24);
       }`,
   });
   const rain = new THREE.LineSegments(geometry, material);

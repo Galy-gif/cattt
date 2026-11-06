@@ -38,6 +38,18 @@ test('非边界缩放以手势中心的地面点为锚', () => {
   f.zoomBy(1.1, 240, 450); const after = f.groundAt(240, 450);
   assert.ok(before.distanceTo(after) < 1e-6, String(before.distanceTo(after)));
 });
+test('斜向总览缩放仍锚住地面手势点，横拖沿镜头横轴移动', () => {
+  const f = make(); f.overview(true); f.update(cat, 1 / 60);
+  const before = f.groundAt(240, 450);
+  f.zoomBy(1.08, 240, 450);
+  const after = f.groundAt(240, 450);
+  assert.ok(before.distanceTo(after) < 1e-5, String(before.distanceTo(after)));
+  const start = f.snapshot();
+  f.beginBrowse(); f.dragBy(.4, .2); f.endBrowse(true);
+  const end = f.snapshot();
+  assert.notEqual(start.centerX, end.centerX);
+  assert.notEqual(start.centerZ, end.centerZ);
+});
 test('双指转单指以残留指坐标继续，取消/第三指不污染下一次手势', () => {
   const f = make(); const gesture = new CameraGestures(f, () => 440);
   gesture.down(1, 170, 460, 0); gesture.down(2, 270, 460, 1); gesture.down(3, 800, 100, 2);

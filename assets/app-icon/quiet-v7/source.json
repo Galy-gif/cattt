@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen",
+  "status": "方向稿，待用户确认，未接入",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGB",
+  "bytes": 1072622,
+  "sha256": "cdd3a9b4fc38c45b282772a8c83e2a8567af4afd8599a8a48a7c02a4822b44dc"
+}

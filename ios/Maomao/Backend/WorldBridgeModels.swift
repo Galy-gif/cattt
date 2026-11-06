@@ -20,6 +20,8 @@ struct WorldSnapshot: Codable, Equatable {
     var lastDrinkAt: String?
     /// 今天去过的地点名，按顺序。
     var placesToday: [String] = []
+    var activity: String?
+    var activityFallback: Bool?
 
     var json: [String: Any] {
         guard let data = try? JSONEncoder().encode(self),

@@ -5,3 +5,5 @@ ios/Maomao/Assets.xcassets/*
 assets/scenes/*
 assets/tuanzi/*
 outputs/*-delivery/*
+# 69 段骨骼动作的可编辑源文件；分发模型控制在3MiB内。
+assets/tuanzi-3d/tuanzi.blend

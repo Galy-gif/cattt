@@ -1,6 +1,6 @@
 import { rethrowForQueue } from './model-error.ts';
 import { generateText } from 'ai';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { db } from '../db/client.ts';
 import { boundaries, messages } from '../db/schema.ts';
 import { extractSlot, recordModelCall } from '../runtime/model.ts';
@@ -11,7 +11,7 @@ export async function summarizeBoundary(boundaryId: string, jobId: string) {
     .select({ id: boundaries.id, description: boundaries.description, text: messages.text })
     .from(boundaries)
     .innerJoin(messages, eq(messages.id, boundaries.sourceMessageId))
-    .where(eq(boundaries.id, boundaryId));
+    .where(and(eq(boundaries.id, boundaryId), eq(messages.contextAllowed, true)));
   if (!row || row.description) return;
 
   const slot = extractSlot();

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "A-pocket.png",
+    "sha256": "e2af2edbed4b51532288b08435b1a4e01b8d2725a4791656634f531871412497",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "bytes": 1488607,
+    "tool": "image_gen",
+    "status": "新生成，待用户选择"
+  },
+  {
+    "file": "B-arch.png",
+    "sha256": "c1e795d33aaa5d267e63fc81b84f1054c9fc5e884826ecc5d7e90586044ab406",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "bytes": 1509458,
+    "tool": "image_gen",
+    "status": "新生成，待用户选择"
+  },
+  {
+    "file": "C-tail.png",
+    "sha256": "81ab49e6ffeaed33faa82884de696d65ed1c946f8cbfd53b8f60c15e18c8229a",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "bytes": 1485810,
+    "tool": "image_gen",
+    "status": "新生成，待用户选择"
+  }
+]

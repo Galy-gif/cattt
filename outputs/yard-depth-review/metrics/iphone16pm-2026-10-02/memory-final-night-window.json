@@ -1,0 +1,199 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "phase": "最终版总览夜雨USB稳定窗口",
+  "durationSeconds": 31.194157,
+  "endReason": "Time limit reached",
+  "samples": [
+    {
+      "timeNs": 131791000,
+      "appMiB": 30.51666259765625,
+      "webContentMiB": 227.43844604492188,
+      "combinedMiB": 257.9551086425781
+    },
+    {
+      "timeNs": 1155718708,
+      "appMiB": 30.73541259765625,
+      "webContentMiB": 243.25094604492188,
+      "combinedMiB": 273.9863586425781
+    },
+    {
+      "timeNs": 2200663000,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 235.76657104492188,
+      "combinedMiB": 266.5176086425781
+    },
+    {
+      "timeNs": 3194297375,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 235.76657104492188,
+      "combinedMiB": 266.5176086425781
+    },
+    {
+      "timeNs": 4199070125,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 236.82907104492188,
+      "combinedMiB": 267.5801086425781
+    },
+    {
+      "timeNs": 5197192375,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 232.31344604492188,
+      "combinedMiB": 263.0644836425781
+    },
+    {
+      "timeNs": 6203745458,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 239.62594604492188,
+      "combinedMiB": 270.3144836425781
+    },
+    {
+      "timeNs": 7196909916,
+      "appMiB": 30.67291259765625,
+      "webContentMiB": 232.25094604492188,
+      "combinedMiB": 262.9238586425781
+    },
+    {
+      "timeNs": 8270133458,
+      "appMiB": 30.67291259765625,
+      "webContentMiB": 239.61032104492188,
+      "combinedMiB": 270.2832336425781
+    },
+    {
+      "timeNs": 9299588250,
+      "appMiB": 30.76666259765625,
+      "webContentMiB": 239.59469604492188,
+      "combinedMiB": 270.3613586425781
+    },
+    {
+      "timeNs": 10363200250,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.21969604492188,
+      "combinedMiB": 262.9394836425781
+    },
+    {
+      "timeNs": 11403382958,
+      "appMiB": 30.73541259765625,
+      "webContentMiB": 235.98532104492188,
+      "combinedMiB": 266.7207336425781
+    },
+    {
+      "timeNs": 12464940416,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.26657104492188,
+      "combinedMiB": 262.9863586425781
+    },
+    {
+      "timeNs": 13496143416,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.29782104492188,
+      "combinedMiB": 263.0176086425781
+    },
+    {
+      "timeNs": 14561457041,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 235.75094604492188,
+      "combinedMiB": 266.4707336425781
+    },
+    {
+      "timeNs": 15597523500,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.06344604492188,
+      "combinedMiB": 262.7832336425781
+    },
+    {
+      "timeNs": 16663181250,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.06344604492188,
+      "combinedMiB": 262.7832336425781
+    },
+    {
+      "timeNs": 17698480708,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 232.12594604492188,
+      "combinedMiB": 262.8457336425781
+    },
+    {
+      "timeNs": 18765253875,
+      "appMiB": 30.71978759765625,
+      "webContentMiB": 235.84469604492188,
+      "combinedMiB": 266.5644836425781
+    },
+    {
+      "timeNs": 19797627458,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 232.17282104492188,
+      "combinedMiB": 262.9238586425781
+    },
+    {
+      "timeNs": 20795715958,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 235.87594604492188,
+      "combinedMiB": 266.6269836425781
+    },
+    {
+      "timeNs": 21863496833,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 232.37594604492188,
+      "combinedMiB": 263.1269836425781
+    },
+    {
+      "timeNs": 22894775125,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 236.00094604492188,
+      "combinedMiB": 266.7519836425781
+    },
+    {
+      "timeNs": 23898089041,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 232.31344604492188,
+      "combinedMiB": 263.0644836425781
+    },
+    {
+      "timeNs": 24965515916,
+      "appMiB": 30.75103759765625,
+      "webContentMiB": 232.25094604492188,
+      "combinedMiB": 263.0019836425781
+    },
+    {
+      "timeNs": 25996735541,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 232.25094604492188,
+      "combinedMiB": 262.9394836425781
+    },
+    {
+      "timeNs": 26997639750,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 232.26657104492188,
+      "combinedMiB": 262.9551086425781
+    },
+    {
+      "timeNs": 28068692583,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 235.95407104492188,
+      "combinedMiB": 266.6426086425781
+    },
+    {
+      "timeNs": 29097879166,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 232.26657104492188,
+      "combinedMiB": 262.9551086425781
+    },
+    {
+      "timeNs": 30098462208,
+      "appMiB": 30.68853759765625,
+      "webContentMiB": 232.28219604492188,
+      "combinedMiB": 262.9707336425781
+    },
+    {
+      "timeNs": 31161729833,
+      "appMiB": 30.70416259765625,
+      "webContentMiB": 235.87594604492188,
+      "combinedMiB": 266.5801086425781
+    }
+  ],
+  "sampleCount": 31,
+  "peakCombinedMiB": 273.9863586425781,
+  "limitMiB": 450,
+  "verdict": "稳定窗口通过",
+  "scope": "不替代独立后台往返窗口"
+}

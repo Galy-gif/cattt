@@ -1,0 +1,127 @@
+{
+  "evidence": "正式HTTP/SSE、真实PG、受控模型；非真实模型质量验收",
+  "passed": 7,
+  "checks": [
+    {
+      "turnId": "621be4b8-f4fc-43bd-8237-2a816a1300a8",
+      "query": "帮我想想晚饭吃什么",
+      "memoryIds": [
+        "e5e98316-7d47-4ca7-bc69-ea9a563fadf1",
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "expected": [
+        "e5e98316-7d47-4ca7-bc69-ea9a563fadf1",
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "elapsedMs": 2188,
+      "sourceCount": 32,
+      "resumes": 0
+    },
+    {
+      "turnId": "a6049dac-bdab-4fe5-b67c-e78bd7645631",
+      "query": "找本烧脑的读物",
+      "memoryIds": [
+        "fcbd3155-a9f7-453f-893d-2acbb0a22875"
+      ],
+      "expected": [
+        "fcbd3155-a9f7-453f-893d-2acbb0a22875"
+      ],
+      "elapsedMs": 2011,
+      "sourceCount": 31,
+      "resumes": 0
+    },
+    {
+      "turnId": "712d6715-868a-46f3-a30a-e2d0996d2bb3",
+      "query": "明天天气怎么样",
+      "memoryIds": [],
+      "expected": [],
+      "elapsedMs": 2496,
+      "sourceCount": 30,
+      "resumes": 0
+    },
+    {
+      "turnId": "6c2156a6-e57d-4db7-ab8d-5ca106cc7d30",
+      "query": "晚饭吃什么",
+      "memoryIds": [
+        "e5e98316-7d47-4ca7-bc69-ea9a563fadf1",
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "expected": [
+        "e5e98316-7d47-4ca7-bc69-ea9a563fadf1",
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "elapsedMs": 2063,
+      "sourceCount": 32,
+      "resumes": 0
+    },
+    {
+      "turnId": "92d5228e-ae97-4575-9465-f550d2bd715c",
+      "query": "晚饭吃什么",
+      "memoryIds": [
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "expected": [
+        "3f82166b-b919-41ae-aaf9-96111988ecf3"
+      ],
+      "elapsedMs": 2379,
+      "sourceCount": 31,
+      "resumes": 0
+    },
+    {
+      "turnId": "b3a2c6fd-6662-4592-90be-cc424217d2af",
+      "query": "晚饭吃什么",
+      "memoryIds": [],
+      "expected": [],
+      "elapsedMs": 2401,
+      "sourceCount": 30,
+      "resumes": 0
+    },
+    {
+      "turnId": "da84ef3c-f978-4afa-8946-41660e362627",
+      "query": "找本烧脑的读物",
+      "memoryIds": [],
+      "expected": [],
+      "elapsedMs": 2050,
+      "sourceCount": 30,
+      "resumes": 0
+    }
+  ],
+  "recallCalls": [
+    {
+      "model": "mock-recall",
+      "latencyMs": 29,
+      "inputTokens": 198,
+      "outputTokens": 26
+    },
+    {
+      "model": "mock-recall",
+      "latencyMs": 2,
+      "inputTokens": 196,
+      "outputTokens": 26
+    },
+    {
+      "model": "mock-recall",
+      "latencyMs": 1,
+      "inputTokens": 194,
+      "outputTokens": 26
+    },
+    {
+      "model": "mock-recall",
+      "latencyMs": 2,
+      "inputTokens": 194,
+      "outputTokens": 26
+    },
+    {
+      "model": "mock-recall",
+      "latencyMs": 7,
+      "inputTokens": 196,
+      "outputTokens": 12
+    },
+    {
+      "model": "mock-recall",
+      "latencyMs": 5,
+      "inputTokens": 194,
+      "outputTokens": 26
+    }
+  ]
+}

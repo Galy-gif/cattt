@@ -34,12 +34,16 @@ export class CameraGestures {
     return true;
   }
   up(id: number, time: number) {
-    if (!this.touches.delete(id)) return;
+    const point = this.touches.get(id);
+    if (!point) return;
+    const tap = !this.moved && this.touches.size === 1 ? point : undefined;
+    this.touches.delete(id);
     this.span = this.measure().span; this.lastTime = time;
     // 留下的那根手指以最新坐标继续拖，速度清零，不能继承双指位移。
     this.camera.endBrowse(true);
     if (this.touches.size) this.camera.beginBrowse();
     else this.moved = false;
+    return tap;
   }
   lost(id: number) { if (this.touches.has(id)) this.cancel(); }
   cancel() {

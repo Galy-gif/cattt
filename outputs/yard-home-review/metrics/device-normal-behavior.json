@@ -1,0 +1,319 @@
+{
+  "moving" : false,
+  "recovery" : [
+
+  ],
+  "target" : 0,
+  "activity" : "rest",
+  "current" : 0,
+  "events" : [
+    {
+      "reason" : "native",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "uptime" : 371076.05166137504,
+      "type" : "resumed"
+    },
+    {
+      "settled" : false,
+      "id" : "2B2C2D9E-9243-43BE-B71F-A1E22E8B2BCE",
+      "type" : "cat",
+      "fallback" : false,
+      "uptime" : 371076.08027262503,
+      "cameraMode" : "following",
+      "moving" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "nearest" : "house",
+      "action" : "stand_up",
+      "activity" : "watch",
+      "offscreen" : false
+    },
+    {
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "renderMs" : 514,
+      "uptime" : 371076.31226329168,
+      "type" : "firstFrame"
+    },
+    {
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "type" : "restored",
+      "uptime" : 371076.31243708334
+    },
+    {
+      "activity" : "watch",
+      "action" : "stand_up",
+      "cameraMode" : "following",
+      "type" : "cat",
+      "offscreen" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "id" : "3242C8FD-F3A5-4284-8C8D-76D5C6490A55",
+      "uptime" : 371076.33316679171,
+      "nearest" : "house",
+      "moving" : false,
+      "fallback" : false,
+      "settled" : false
+    },
+    {
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "uptime" : 371076.33606375003,
+      "renderMs" : 538,
+      "type" : "visualReady"
+    },
+    {
+      "fallback" : true,
+      "moving" : false,
+      "id" : "4FA57C52-DE66-46BE-9FEC-62F22850335E",
+      "activity" : "rest",
+      "nearest" : "house",
+      "settled" : false,
+      "uptime" : 371076.3519674167,
+      "type" : "cat",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "cameraMode" : "following",
+      "action" : "stand_up",
+      "offscreen" : false
+    },
+    {
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "fallback" : true,
+      "id" : "4FA57C52-DE66-46BE-9FEC-62F22850335E",
+      "offscreen" : false,
+      "settled" : false,
+      "uptime" : 371077.335123125,
+      "activity" : "rest",
+      "type" : "cat",
+      "nearest" : "house",
+      "action" : "idle",
+      "cameraMode" : "following",
+      "moving" : false
+    },
+    {
+      "action" : "sit_down",
+      "offscreen" : false,
+      "moving" : false,
+      "activity" : "rest",
+      "type" : "cat",
+      "cameraMode" : "following",
+      "nearest" : "house",
+      "fallback" : true,
+      "settled" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "uptime" : 371077.35118979169,
+      "id" : "4FA57C52-DE66-46BE-9FEC-62F22850335E"
+    },
+    {
+      "activity" : "rest",
+      "type" : "cat",
+      "cameraMode" : "following",
+      "id" : "4FA57C52-DE66-46BE-9FEC-62F22850335E",
+      "offscreen" : false,
+      "nearest" : "house",
+      "action" : "sit_idle",
+      "fallback" : true,
+      "settled" : true,
+      "moving" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "uptime" : 371078.59990116669
+    },
+    {
+      "action" : "stand_up",
+      "fallback" : true,
+      "settled" : false,
+      "uptime" : 371084.85516400001,
+      "nearest" : "house",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "moving" : false,
+      "type" : "cat",
+      "cameraMode" : "following",
+      "offscreen" : false,
+      "activity" : "rest",
+      "id" : "C31B12D6-3400-482E-9087-CA69D5D6EB6C"
+    },
+    {
+      "activity" : "rest",
+      "type" : "cat",
+      "fallback" : true,
+      "cameraMode" : "following",
+      "moving" : false,
+      "nearest" : "house",
+      "action" : "idle",
+      "offscreen" : false,
+      "id" : "C31B12D6-3400-482E-9087-CA69D5D6EB6C",
+      "settled" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "uptime" : 371085.90133399999
+    },
+    {
+      "activity" : "rest",
+      "fallback" : true,
+      "nearest" : "house",
+      "action" : "sit_down",
+      "offscreen" : false,
+      "uptime" : 371085.91784775001,
+      "type" : "cat",
+      "id" : "C31B12D6-3400-482E-9087-CA69D5D6EB6C",
+      "moving" : false,
+      "cameraMode" : "following",
+      "settled" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000"
+    },
+    {
+      "activity" : "rest",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "fallback" : true,
+      "type" : "cat",
+      "uptime" : 371087.16020195838,
+      "action" : "sit_idle",
+      "nearest" : "house",
+      "settled" : true,
+      "cameraMode" : "following",
+      "moving" : false,
+      "offscreen" : false,
+      "id" : "C31B12D6-3400-482E-9087-CA69D5D6EB6C"
+    },
+    {
+      "moving" : false,
+      "id" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+      "action" : "stand_up",
+      "type" : "cat",
+      "cameraMode" : "following",
+      "uptime" : 371097.40819450002,
+      "activity" : "rest",
+      "nearest" : "house",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "offscreen" : false,
+      "settled" : false,
+      "fallback" : true
+    },
+    {
+      "settled" : false,
+      "fallback" : true,
+      "activity" : "rest",
+      "type" : "cat",
+      "action" : "idle",
+      "id" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "cameraMode" : "following",
+      "uptime" : 371098.44205350004,
+      "moving" : false,
+      "offscreen" : false,
+      "nearest" : "house"
+    },
+    {
+      "id" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+      "action" : "sit_down",
+      "nearest" : "house",
+      "offscreen" : false,
+      "settled" : false,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "fallback" : true,
+      "activity" : "rest",
+      "type" : "cat",
+      "uptime" : 371098.46040987503,
+      "moving" : false,
+      "cameraMode" : "following"
+    },
+    {
+      "id" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+      "fallback" : true,
+      "uptime" : 371099.70760395838,
+      "moving" : false,
+      "type" : "cat",
+      "offscreen" : false,
+      "activity" : "rest",
+      "nearest" : "house",
+      "cameraMode" : "following",
+      "settled" : true,
+      "pageId" : "52C209BC-719A-45D0-B1DC-BB05291B6000",
+      "action" : "sit_idle"
+    }
+  ],
+  "business" : {
+    "currentDestinationId" : "house",
+    "placesToday" : [
+      "蘑菇屋"
+    ],
+    "dayPhase" : "day",
+    "runnable" : true,
+    "activity" : "rest",
+    "activityFallback" : true,
+    "targetDestinationId" : "house",
+    "bowlFilledToday" : true,
+    "destinationIds" : [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ],
+    "action" : "sit_idle",
+    "sceneVersion" : 4,
+    "paused" : false,
+    "mood" : "happy",
+    "phase" : "idle",
+    "stateVersion" : 0,
+    "lastDrinkAt" : "2026-09-20T10:30:34Z",
+    "moodReason" : "今天的水是满的，团子心情不错",
+    "weather" : "clear"
+  },
+  "webLoading" : false,
+  "requestID" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+  "webSize" : "{{0, 0}, {440, 956}}",
+  "failure" : "",
+  "action" : "sit_idle",
+  "runnable" : true,
+  "legacyTicks" : 0,
+  "webReady" : true,
+  "webSurfaceReady" : true,
+  "ready" : true,
+  "webURL" : "maomao:\/\/yard\/app.html?composition=1&dpr=1.5&fps=60&home=1&msaa=0&pageId=52C209BC-719A-45D0-B1DC-BB05291B6000&review=1&runId=5B62E604-069B-44DD-973A-270975306867&time=day&weather=clear",
+  "uses3D" : true,
+  "snapshot" : {
+    "next" : 1,
+    "position" : {
+      "x" : -2.3500000000000001,
+      "y" : 0,
+      "z" : -0.55000000000000004
+    },
+    "arrived" : true,
+    "slot" : null,
+    "walking" : false,
+    "weather" : "clear",
+    "facing" : 0.86635278505127289,
+    "camera" : {
+      "shownDistance" : 3.8470768123342687,
+      "velocity" : 0,
+      "position" : [
+        -2.3499999999999996,
+        1.4403980801767076,
+        3.1480475810294211
+      ],
+      "targetY" : 0.38,
+      "mode" : "following",
+      "centerX" : 0.024999999999999911,
+      "velocityZ" : 0,
+      "offset" : 2.3749999999999996,
+      "focus" : [
+        -2.3499999999999996,
+        0.38,
+        -0.55000000000000004
+      ],
+      "centerZ" : 0.125,
+      "distance" : 3.8470768123342687,
+      "place" : null
+    },
+    "shownSlot" : "day",
+    "layoutVersion" : "open-yard-v3",
+    "goal" : "house",
+    "hour" : 14.007222222222222,
+    "restSeconds" : 0,
+    "home" : {
+      "settled" : true,
+      "intent" : {
+        "id" : "E6A69CAC-8CDE-43CB-92D1-2CCF4C38F74E",
+        "place" : "house",
+        "activity" : "rest"
+      }
+    }
+  }
+}

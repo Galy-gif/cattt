@@ -13,6 +13,7 @@ export interface FollowSnapshot {
   centerX: number;
   centerZ: number;
   velocity: number;
+  velocityZ?: number;
   offset: number;
   focus: number[];
   position: number[];
@@ -39,6 +40,7 @@ export class FollowCamera {
   private centerZ = 0;
   private targetY = COMPOSITION.focusHeight;
   private velocity = 0;
+  private velocityZ = 0;
   private distance = COMPOSITION.dailyDistance;
   private shownDistance = COMPOSITION.dailyDistance;
   private selectedPlace: PlaceId | null = null;
@@ -58,7 +60,7 @@ export class FollowCamera {
   get limits() { return { min: this.minimumDistance, daily: COMPOSITION.dailyDistance, max: this.maxDistance }; }
   snapshot(): FollowSnapshot {
     return { mode: this.mode, centerX: this.centerX, centerZ: this.centerZ, velocity: this.velocity,
-      offset: this.offset, focus: this.focus.toArray(), position: this.position.toArray(),
+      velocityZ: this.velocityZ, offset: this.offset, focus: this.focus.toArray(), position: this.position.toArray(),
       ...(this.portrait ? { distance: this.distance, shownDistance: this.shownDistance, targetY: this.targetY, place: this.selectedPlace } : {}) };
   }
 
@@ -79,6 +81,7 @@ export class FollowCamera {
     this.selectedPlace = state.place ?? null;
     this.centerX = this.clampCenter(this.centerX);
     this.settled = true; this.dragging = false;
+    this.velocityZ = Number.isFinite(state.velocityZ) ? state.velocityZ! : 0;
     this.apply();
   }
 
@@ -139,28 +142,32 @@ export class FollowCamera {
     if (this.mode !== 'browsing') {
       this.centerX = this.clampCenter(this.focus.x); this.centerZ = this.focus.z; this.targetY = this.focus.y;
     }
-    this.mode = 'browsing'; this.selectedPlace = null; this.dragging = true; this.velocity = 0;
+    this.mode = 'browsing'; this.selectedPlace = null; this.dragging = true; this.velocity = this.velocityZ = 0;
     if (this.portrait) this.distance = this.shownDistance;
   }
   dragBy(delta: number, seconds: number) {
     if (!this.dragging) return;
     const previous = this.centerX;
-    this.centerX = this.clampCenter(this.centerX + delta);
+    const previousZ = this.centerZ;
+    const yaw = this.portrait ? this.yaw(this.shownDistance) : 0;
+    this.centerX = this.clampCenter(this.centerX + delta * Math.cos(yaw));
+    if (this.portrait) this.centerZ = THREE.MathUtils.clamp(this.centerZ - delta * Math.sin(yaw), this.bounds.min.z, this.bounds.max.z);
     this.velocity = seconds > 0 ? THREE.MathUtils.clamp((this.centerX - previous) / seconds, -MAX_INERTIA, MAX_INERTIA) : 0;
+    this.velocityZ = seconds > 0 ? THREE.MathUtils.clamp((this.centerZ - previousZ) / seconds, -MAX_INERTIA, MAX_INERTIA) : 0;
   }
   endBrowse(reduceMotion = false) {
     this.dragging = false;
-    if (reduceMotion || this.reduceMotion) this.velocity = 0;
+    if (reduceMotion || this.reduceMotion) this.velocity = this.velocityZ = 0;
   }
   findCat() {
     this.comparison = false;
-    this.mode = 'following'; this.dragging = false; this.velocity = 0; this.selectedPlace = null;
+    this.mode = 'following'; this.dragging = false; this.velocity = this.velocityZ = 0; this.selectedPlace = null;
     this.distance = COMPOSITION.dailyDistance; this.targetY = COMPOSITION.focusHeight;
   }
   lookAtPlace(id: PlaceId, instant = false) {
     this.comparison = false;
     const p = placeFocus(id);
-    this.mode = 'browsing'; this.dragging = false; this.velocity = 0;
+    this.mode = 'browsing'; this.dragging = false; this.velocity = this.velocityZ = 0;
     this.centerX = this.clampCenter(p.x); this.centerZ = p.z; this.targetY = p.y;
     this.selectedPlace = id; this.distance = COMPOSITION.dailyDistance;
     if (instant) this.settled = false;
@@ -168,7 +175,7 @@ export class FollowCamera {
   overview(instant = false) {
     this.comparison = false;
     const center = this.bounds.getCenter(new THREE.Vector3());
-    this.mode = 'overview'; this.dragging = false; this.velocity = 0; this.selectedPlace = null;
+    this.mode = 'overview'; this.dragging = false; this.velocity = this.velocityZ = 0; this.selectedPlace = null;
     this.centerX = center.x; this.centerZ = center.z; this.targetY = this.parts.length ? .35 : center.y;
     this.distance = this.maxDistance;
     if (instant) this.settled = false;
@@ -203,11 +210,15 @@ export class FollowCamera {
 
   update(cat: THREE.Vector3Like, dt: number) {
     if (this.comparison) { this.apply(); return; }
-    if (this.mode === 'browsing' && !this.dragging && this.velocity !== 0) {
+    if (this.mode === 'browsing' && !this.dragging && (this.velocity !== 0 || this.velocityZ !== 0)) {
       const previous = this.centerX;
       this.centerX = this.clampCenter(this.centerX + this.velocity * dt);
       this.velocity *= Math.exp(-INERTIA_DAMPING * dt);
       if (Math.abs(this.velocity) < 0.01 || this.centerX === previous || this.reduceMotion) this.velocity = 0;
+      const previousZ = this.centerZ;
+      if (this.portrait) this.centerZ = THREE.MathUtils.clamp(this.centerZ + this.velocityZ * dt, this.bounds.min.z, this.bounds.max.z);
+      this.velocityZ *= Math.exp(-INERTIA_DAMPING * dt);
+      if (Math.abs(this.velocityZ) < .01 || this.centerZ === previousZ || this.reduceMotion) this.velocityZ = 0;
     }
     const x = this.mode === 'following' ? this.clampCenter(cat.x) : this.centerX;
     const z = this.mode === 'following' ? cat.z : this.centerZ;
@@ -238,7 +249,12 @@ export class FollowCamera {
   private direction(distance: number) {
     const t = THREE.MathUtils.clamp((distance - COMPOSITION.dailyDistance) / Math.max(0.01, this.maxDistance - COMPOSITION.dailyDistance), 0, 1);
     const pitch = THREE.MathUtils.lerp(COMPOSITION.dailyPitch, COMPOSITION.overviewPitch, t);
-    return new THREE.Vector3(0, Math.sin(pitch), Math.cos(pitch));
+    const yaw = this.yaw(distance);
+    return new THREE.Vector3(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch));
+  }
+  private yaw(distance: number) {
+    const t = THREE.MathUtils.clamp((distance - COMPOSITION.dailyDistance) / Math.max(.01, this.maxDistance - COMPOSITION.dailyDistance), 0, 1);
+    return COMPOSITION.overviewYaw * t * t * (3 - 2 * t);
   }
   private apply() {
     if (this.portrait) {
@@ -265,7 +281,7 @@ export class FollowCamera {
     if (this.controls.length) camera.setViewOffset(this.width, this.height, 0, (this.insets.bottom - this.insets.top) / 2, this.width, this.height);
     const center = this.bounds.getCenter(new THREE.Vector3());
     if (this.parts.length) center.y = .35;
-    const dir = new THREE.Vector3(0, Math.sin(COMPOSITION.overviewPitch), Math.cos(COMPOSITION.overviewPitch));
+    const dir = new THREE.Vector3(Math.sin(COMPOSITION.overviewYaw) * Math.cos(COMPOSITION.overviewPitch), Math.sin(COMPOSITION.overviewPitch), Math.cos(COMPOSITION.overviewYaw) * Math.cos(COMPOSITION.overviewPitch));
     // 院界地面与各物件分别投影，合并立方体不存在的上方空角不再撑大画面。
     const ground = this.bounds.clone(); ground.min.y = ground.max.y = 0;
     const shapes = this.parts.length ? [ground, ...this.parts] : [this.bounds];

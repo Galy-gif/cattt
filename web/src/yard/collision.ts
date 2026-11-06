@@ -18,10 +18,11 @@ export function clearanceTo(point: Ground, collider: Collider) {
   return distance - collider.radius - CAT_FOOTPRINT_RADIUS - PATH_SAFETY_MARGIN;
 }
 
-export function minimumClearance(point: Ground) {
+export function minimumClearance(point: Ground, supportCollider?: string) {
   let id = '';
   let clearance = Infinity;
   for (const collider of COLLIDERS as readonly Collider[]) {
+    if (collider.id === supportCollider) continue;
     const next = clearanceTo(point, collider);
     if (next < clearance) {
       id = collider.id;

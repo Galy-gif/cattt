@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-10",
+  "approved": [
+    "drink",
+    "door-doze"
+  ],
+  "pending": [
+    "bed-sleep"
+  ],
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T10:38:46.662Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "aa0fbb696bb3bcf0a0e749521d9ed7b02ec688b5a4036b59162dbebca8a3737a",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "1df1e301eb65e01e0f6cce6f48e0a28f77ffba4b124410971f2b7e64705a1d4c"
+    }
+  },
+  "changedClips": [
+    "sleep_down",
+    "sleep_idle",
+    "sleep_up"
+  ],
+  "unchangedClips": {
+    "idle": "d4531164ad8040cee60197299430b65e1b30bdc0874b62ef607dd04cfd43d926",
+    "walk": "f43e41124a4929a60cc2739510ac79a415b2b26bf72b48f1b66318610f353043",
+    "turn_step": "8a117a91ad85643166601eab060a97ee559766ba7c92b273e59dcde7d69ec25d",
+    "sit_down": "d05106a1cc4e42ff02c4bf29e7ce7a6c0e52da0c2f5838cd0d1f242641bae36e",
+    "sit_idle": "42e961ce8e2b5dcb8907b93172d8d6e2e4d4372e9301200aea8205ce62e837ce",
+    "stand_up": "1dcd6be0967700410571a08143a3f39b06c0677cdbfea903de2a5a49fe5c7d31",
+    "ear_flick": "36e8528e20fe0aaf50248cb0202e74329570ebb0489342230f8009a82db36d0f",
+    "bed_hop": "8ee7766ecf09d65e14c6883d7c210353fff7f0b7c5638d8685e0a05cbca3a7bb",
+    "doze_down": "3e09cb25023fe39522150294a8934145113291ffa493776188a4cf3abd8b4eff",
+    "doze_idle": "c37f8571bb8dae9ddd81f414ed52c7661df81b11f621311f590a856dea416bf7",
+    "doze_up": "763fb4ec12260c61fa7c8fe2aa969c842614acb76003eb10afdf4115437c52ba",
+    "drink_down": "980cab50bec1f4e0c47bd81012d8a0e1d9b62e2b412485e82303074b556cbaae",
+    "drink_lap": "4c28594b3a8cf17ef57a7880d0d415f32bfd81397b265d30db51f61f7ac34436",
+    "drink_up": "82780ac9d594de367025d5a5148f09e223336fed74a99251915e3248c683f14e"
+  },
+  "bed": {
+    "pawGaps": {
+      "front_R_paw": 0.0002585503151635721,
+      "front_L_paw": -0.00010842323595387782,
+      "hind_R_paw": -0.004627792638308689,
+      "hind_L_paw": -0.0033695832267938847
+    },
+    "perState": {
+      "bed_hop": 0,
+      "idle": 0,
+      "turn": 0,
+      "sleep_down": 0,
+      "sleep_idle": 0
+    },
+    "rimPenetration": 0,
+    "cushionPenetration": 0.004627792638308689,
+    "worstFrame": {},
+    "state": "sleep_idle",
+    "position": [
+      -2.6,
+      0.072,
+      1.35
+    ],
+    "settled": true,
+    "exitRimPenetration": 0
+  },
+  "states": {
+    "daily": {
+      "action": "sleep_idle",
+      "activity": {
+        "target": "sleep",
+        "hop": null,
+        "time": 2.583999999999995,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sleep_idle",
+        "state": "sleep_idle",
+        "closure": 0.9999999757778905
+      },
+      "position": {
+        "x": -2.6,
+        "y": 0.072,
+        "z": 1.35
+      },
+      "facing": 1.0471975511965965,
+      "camera": {
+        "shownDistance": 3.8470768121698926,
+        "velocity": 0,
+        "position": [
+          -2.5999999982626747,
+          1.4403980801313994,
+          5.048047580060661
+        ],
+        "targetY": 0.38,
+        "mode": "following",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.6249999982626746,
+        "focus": [
+          -2.5999999982626747,
+          0.38,
+          1.3499999991892486
+        ],
+        "centerZ": 0.125,
+        "distance": 3.8470768123342687,
+        "place": null
+      }
+    },
+    "close": {
+      "action": "sleep_idle",
+      "activity": {
+        "target": "sleep",
+        "hop": null,
+        "time": 1.0339996185302776,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sleep_idle",
+        "state": "sleep_idle",
+        "closure": 0.9999999999999992
+      },
+      "position": {
+        "x": -2.6,
+        "y": 0.072,
+        "z": 1.35
+      },
+      "facing": 1.0471975511965965,
+      "camera": {
+        "shownDistance": 1.8228000438885228,
+        "velocity": 0,
+        "position": [
+          -1.0844555433772336,
+          0.722,
+          2.2250000000000023
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.625,
+        "focus": [
+          -2.6,
+          0.21200000000000002,
+          1.35
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885228,
+        "place": null
+      }
+    }
+  },
+  "images": {
+    "daily.jpg": {
+      "sha256": "ee532ea37ad52ed405aa33c7706790dceb0f13249605e5bb78903e96095a8148",
+      "bytes": 105600
+    },
+    "comparison.jpg": {
+      "sha256": "4a7b26805958526d2dee57e74424ca3ce273876d24d1804b817441aedcbddc86",
+      "bytes": 96018
+    },
+    "close.jpg": {
+      "sha256": "4271e3ca357508b94d0ec578d85fa13165075e3fcfc52653d8602d4965ecb9f5",
+      "bytes": 85849
+    }
+  },
+  "checks": {
+    "runtime": "passed",
+    "webTests": 32,
+    "swiftSuites": 10,
+    "build": "simulator passed",
+    "device": "not installed"
+  }
+}

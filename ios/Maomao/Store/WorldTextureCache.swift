@@ -10,7 +10,8 @@ import ImageIO
     private var failed=Set<String>()
     private var decoding=false
     private var pixelLimits:[String:Int] = [:]
-    init(scene:WorldScene) {
+    init(scene:WorldScene, enabled: Bool = true) {
+        guard enabled else { return }
         for object in scene.objects {
             let rect=scene.objectRect(object),source=object.sourceRect ?? WorldRect(x:0,y:0,width:1,height:1)
             let needed=Int(ceil(max(rect.width/source.width*World.refSize.width,rect.height/source.height*World.refSize.height)*3.5))

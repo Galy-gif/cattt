@@ -1,0 +1,19 @@
+{
+  "device": "iPhone 17 Pro / iOS 26.5 模拟器",
+  "backgroundSeconds": 30,
+  "sameProcess": true,
+  "samplesDuringBackgroundSeconds": [
+    25,
+    40
+  ],
+  "positionHeld": true,
+  "cameraHeld": true,
+  "returnedRunnable": true,
+  "oldTicks": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

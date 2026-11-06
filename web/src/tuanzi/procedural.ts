@@ -14,7 +14,7 @@ const _q = new THREE.Quaternion();
  * 按世界坐标轴给骨骼叠一层旋转：先绕猫的竖轴转 yaw，再绕猫的左右轴抬头 pitch。
  * 与 Blender 里骨骼自身的轴向无关。
  */
-function addWorldTurn(bone: THREE.Bone, root: THREE.Object3D, yaw: number, pitch: number) {
+export function addWorldTurn(bone: THREE.Bone, root: THREE.Object3D, yaw: number, pitch: number) {
   root.getWorldQuaternion(_q);
   _axisUp.copy(UP).applyQuaternion(_q);
   _axisLeft.copy(LEFT).applyQuaternion(_q);
@@ -100,6 +100,7 @@ export class Gaze {
 
 /** 眨眼：间隔 2–6 秒随机，偶尔连眨两下；视线大跳时顺带眨一下。 */
 export class Blink {
+  closure = 0;
   private wait = 1.5 + Math.random() * 3;
   private t = -1;
   private repeats = 0;
@@ -134,7 +135,7 @@ export class Blink {
         }
       }
     }
-    for (const { mesh, index } of this.targets) mesh.morphTargetInfluences![index] = value;
+    for (const { mesh, index } of this.targets) mesh.morphTargetInfluences![index] = Math.max(value, this.closure);
   }
 }
 
@@ -253,7 +254,7 @@ export class FootLock {
 }
 
 /** 两节骨骼的解析 IK（Holden, "Simple Two Joint IK"），爪子保持原来的世界朝向。 */
-function solveTwoBone(leg: LockedLeg, target: THREE.Vector3, root: THREE.Object3D) {
+function solveTwoBone(leg: Pick<LockedLeg, 'upper' | 'lower' | 'paw'>, target: THREE.Vector3, root: THREE.Object3D) {
   const a = leg.upper.getWorldPosition(_a);
   const b = leg.lower.getWorldPosition(_b);
   const c = leg.paw.getWorldPosition(_c);
@@ -294,4 +295,35 @@ function solveTwoBone(leg: LockedLeg, target: THREE.Vector3, root: THREE.Object3
   leg.lower.getWorldQuaternion(_qb).invert();
   leg.paw.quaternion.copy(_qb.multiply(_qPaw));
   leg.paw.updateMatrixWorld(true);
+}
+
+/** 按尾巴实际骨长跨过猫窝软沿；只改姿势，不缩尾巴、不抬整只猫。 */
+export function keepTailAboveBed(chain: THREE.Bone[], center: { x: number; z: number }) {
+  const head = new THREE.Vector3(), end = new THREE.Vector3(), sample = new THREE.Vector3();
+  const worldTurn = new THREE.Quaternion(), parent = new THREE.Quaternion();
+  for (let i = 0; i < chain.length - 1; i++) {
+    const bone = chain[i]!, child = chain[i + 1]!;
+    bone.getWorldPosition(head); child.getWorldPosition(end);
+    const length = head.distanceTo(end), radius = .035 - .01 * i / chain.length + .009;
+    let clearance = -Infinity;
+    for (let j = 0; j <= 8; j++) {
+      sample.lerpVectors(head, end, j / 8);
+      const rho = Math.hypot(sample.x - center.x, (sample.z - center.z) / .86);
+      // 扩大到毛毡尾巴表面半径，再对整段留顶沿余量。
+      if (Math.abs(rho - .26) < .068 + radius) clearance = .123 + radius;
+    }
+    if (end.y >= clearance || !Number.isFinite(clearance)) continue;
+    const direction = end.clone().sub(head).normalize();
+    const y = THREE.MathUtils.clamp((clearance - head.y) / length, -.98, .98);
+    const wanted = new THREE.Vector3(direction.x, 0, direction.z).normalize().multiplyScalar(Math.sqrt(1 - y * y)); wanted.y = y;
+    worldTurn.setFromUnitVectors(direction, wanted);
+    bone.parent!.getWorldQuaternion(parent);
+    bone.quaternion.premultiply(parent.clone().invert().multiply(worldTurn).multiply(parent));
+    bone.updateMatrixWorld(true);
+  }
+}
+
+/** 专用动作的确定性落脚目标，复用两节腿IK。 */
+export function placePaw(bones: Map<string,THREE.Bone>, root: THREE.Object3D, name: string, target: THREE.Vector3) {
+  solveTwoBone({upper:bones.get(name+'_upper')!,lower:bones.get(name+'_lower')!,paw:bones.get(name+'_paw')!},target,root);
 }

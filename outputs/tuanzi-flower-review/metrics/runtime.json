@@ -1,0 +1,19 @@
+{
+  "clips": 69,
+  "preservedClips": 60,
+  "closestPawTipToFlowerHead": 0.03795413581113823,
+  "skinGround": -0.00041551421976639385,
+  "stemPenetration": 0,
+  "groundError": -4.251899976003698e-05,
+  "flowerHits": 1,
+  "recovered": [
+    "flower_watch",
+    "flower_crouch",
+    "flower_pounce",
+    "flower_touch",
+    "flower_recoil",
+    "flower_recover"
+  ],
+  "midairExitRecovery": true,
+  "flowerResponseRecovery": true
+}

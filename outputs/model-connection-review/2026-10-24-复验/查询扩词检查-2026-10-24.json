@@ -1,0 +1,29 @@
+{
+  "model": "deepseek-flash",
+  "evidence": "现有供应商、合成查询、单次无重试；成功返回也不等于完整聊天质量验收",
+  "checks": [
+    {
+      "query": "找本烧脑的读物",
+      "status": "responded",
+      "terms": [
+        "烧脑读物",
+        "推理小说",
+        "悬疑书籍",
+        "个人阅读偏好"
+      ],
+      "inputTokens": 137,
+      "outputTokens": 20,
+      "elapsedMs": 1173
+    },
+    {
+      "query": "晚饭吃什么",
+      "status": "responded",
+      "terms": [
+        "晚饭"
+      ],
+      "inputTokens": 133,
+      "outputTokens": 7,
+      "elapsedMs": 607
+    }
+  ]
+}

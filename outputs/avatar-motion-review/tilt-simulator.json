@@ -1,0 +1,9 @@
+{
+  "videoFrames": 807,
+  "openEyeSamples": 168,
+  "eyeLineAngleDegrees": [
+    -11.7,
+    -3.43
+  ],
+  "scope": "屏幕包含小窗固定-4°倾角；眼部像素量测用于验证单侧侧倾，非骨骼精确角度"
+}

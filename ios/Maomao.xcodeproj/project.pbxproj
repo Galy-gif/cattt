@@ -10,6 +10,7 @@
 		F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */; };
 		E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */; };
 		A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C908A7DB0E92D34F9C84C967 /* Backend.swift */; };
+		FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */; };
 		836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */; };
 		E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */; };
 		9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */; };
@@ -17,8 +18,10 @@
 		F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4203F85727B26935CFD648C /* DebugScript.swift */; };
 		3B22C6673B90214CC8FD8B13 /* YardCompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B43C235DB5D5B36880FAF6 /* YardCompositionView.swift */; };
 		BEA5B362517F3C817A7EAFE7 /* YardProbeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059959C2EDFA12F4B3BA2E6 /* YardProbeView.swift */; };
+		4A96BC502B6AD08323F56EFD /* AnimatedCatPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955BE518828D8E1DC4899415 /* AnimatedCatPortrait.swift */; };
 		82D0A61B87B8447177641A95 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58F8802EEFAB15733FBF52 /* Icons.swift */; };
 		A6C79C7CF4AE514B90C1D0C0 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E020E65DC0F60D1B22E4E940 /* Metrics.swift */; };
+		5B1EC9BC71216878E044258F /* PageBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4F89DD087F05BA5C49AB2C /* PageBackground.swift */; };
 		553D61A805AC07FA74A9C0AE /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32001177D9CA5C8CC449BC2B /* Palette.swift */; };
 		784263A8DA9ABEC68DCEE7B7 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5131A557702C2F9050D9CD /* Typography.swift */; };
 		63BD883AAF8E22D1746F713F /* VectorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCD3F72D5EA150C99CF1CC /* VectorIcon.swift */; };
@@ -34,19 +37,25 @@
 		E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */ = {isa = PBXBuildFile; fileRef = 72825AB6DC25D753F8530A33 /* WorldDepth.metal */; };
 		0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE24B2D5FC849941E4BD5B /* WorldView.swift */; };
 		C5737F0502BB06B23D342C1D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3064D0824E30AF163D763 /* MeView.swift */; };
+		7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */; };
 		D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */; };
 		53742DF009E1E98666E00845 /* NamingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB709177BD2E00B2C99E1D2 /* NamingStep.swift */; };
 		F964E02D3D84C3F3045221E6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA893235766AFF19A800 /* OnboardingView.swift */; };
 		F74324A6F823B7D09FCD4647 /* PickAppearanceStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E79D1024F687302A936DAA /* PickAppearanceStep.swift */; };
 		A5C9259729E7E1DA696F6EA3 /* TemperamentStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EA097DE6CE74C49A23F5A5 /* TemperamentStep.swift */; };
 		545F003BC317E0471C5B07D0 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F735568340EAEDB8A5DAD8BA /* Components.swift */; };
+		1AA8A3DC4B8A828DAE9EDA79 /* YardHomeSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD66FC4EA0E20C9B658E85 /* YardHomeSurface.swift */; };
 		EACA01771DEC91E10245B007 /* YardProbeSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F73F65E4C6F1C2A2BBBAB9E /* YardProbeSupport.swift */; };
+		170ED46774BCFC20B5959F41 /* YardRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F9DF6FD5276E05A1CED7F /* YardRuntime.swift */; };
 		C5292F3A7E945873DCB34AE8 /* YardWebHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61B7032FE3C4637143FF863 /* YardWebHost.swift */; };
 		96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */; };
 		44964362F1DB30F201D79907 /* CatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404FE55DC010C44B75AFAC22 /* CatAction.swift */; };
 		B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */; };
 		B8EC76B04906D68259B9FF1F /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56651B6536169C588E8E3E0C /* ChatMessage.swift */; };
+		900D6AEE823D273998D52B09 /* CreationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC65CFC33A0F983791F03B /* CreationStorage.swift */; };
 		3BBF4C1400C85E217CDBED47 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */; };
+		8F4842ECE98776A65B802D83 /* DiarySeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3A560FAEA0E4B3E361DA49 /* DiarySeedData.swift */; };
+		0C970822E3029D7A4CE50E73 /* DiaryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE6945587F0E974A5A8DE7F /* DiaryStorage.swift */; };
 		E805D6198DC960D223F80A31 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE3B9C19706DC69E8BDD559 /* Location.swift */; };
 		86DA7990BA314C37B712D5F6 /* Personality.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD6C089082D4459E387B08D /* Personality.swift */; };
 		9D87892ED808F81148011D57 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C51D5F53E72B7F46C1287C6 /* World.swift */; };
@@ -55,7 +64,11 @@
 		0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */; };
 		40B96C9A05764DEF44B0CF44 /* WorldMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44900FFDCD4703A937FB65C6 /* WorldMood.swift */; };
 		BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D814ABAF82C26409760529A /* WorldScene.swift */; };
+		0C1ECDCEDEB542D545885C18 /* YardIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A292AABD4DAF2D71D945 /* YardIntent.swift */; };
 		EAD4C2B50E627271E0108D17 /* AppStore+Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A992792D2714773D46886 /* AppStore+Conditions.swift */; };
+		FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */; };
+		2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2DD6583891A61E750451F /* AppStore+Diary.swift */; };
+		D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */; };
 		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
 		1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672224FB980742CAF2A8112 /* RainSound.swift */; };
@@ -117,6 +130,7 @@
 		6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaomaoApp.swift; sourceTree = "<group>"; };
 		9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C908A7DB0E92D34F9C84C967 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
 		A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridge.swift; sourceTree = "<group>"; };
 		C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeModels.swift; sourceTree = "<group>"; };
 		2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeProtocol.swift; sourceTree = "<group>"; };
@@ -124,8 +138,10 @@
 		A4203F85727B26935CFD648C /* DebugScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugScript.swift; sourceTree = "<group>"; };
 		C0B43C235DB5D5B36880FAF6 /* YardCompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardCompositionView.swift; sourceTree = "<group>"; };
 		D059959C2EDFA12F4B3BA2E6 /* YardProbeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardProbeView.swift; sourceTree = "<group>"; };
+		955BE518828D8E1DC4899415 /* AnimatedCatPortrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedCatPortrait.swift; sourceTree = "<group>"; };
 		CE58F8802EEFAB15733FBF52 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		E020E65DC0F60D1B22E4E940 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		7B4F89DD087F05BA5C49AB2C /* PageBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBackground.swift; sourceTree = "<group>"; };
 		32001177D9CA5C8CC449BC2B /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		4D5131A557702C2F9050D9CD /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		9CBCD3F72D5EA150C99CF1CC /* VectorIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorIcon.swift; sourceTree = "<group>"; };
@@ -141,19 +157,25 @@
 		72825AB6DC25D753F8530A33 /* WorldDepth.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WorldDepth.metal; sourceTree = "<group>"; };
 		65CE24B2D5FC849941E4BD5B /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
 		22C3064D0824E30AF163D763 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
+		89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCenterView.swift; sourceTree = "<group>"; };
 		9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeetingStep.swift; sourceTree = "<group>"; };
 		8FB709177BD2E00B2C99E1D2 /* NamingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingStep.swift; sourceTree = "<group>"; };
 		EC93BA893235766AFF19A800 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		23E79D1024F687302A936DAA /* PickAppearanceStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAppearanceStep.swift; sourceTree = "<group>"; };
 		D1EA097DE6CE74C49A23F5A5 /* TemperamentStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentStep.swift; sourceTree = "<group>"; };
 		F735568340EAEDB8A5DAD8BA /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		1DCD66FC4EA0E20C9B658E85 /* YardHomeSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardHomeSurface.swift; sourceTree = "<group>"; };
 		7F73F65E4C6F1C2A2BBBAB9E /* YardProbeSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardProbeSupport.swift; sourceTree = "<group>"; };
+		961F9DF6FD5276E05A1CED7F /* YardRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardRuntime.swift; sourceTree = "<group>"; };
 		F61B7032FE3C4637143FF863 /* YardWebHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardWebHost.swift; sourceTree = "<group>"; };
 		F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atmosphere.swift; sourceTree = "<group>"; };
 		404FE55DC010C44B75AFAC22 /* CatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAction.swift; sourceTree = "<group>"; };
 		778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDiary.swift; sourceTree = "<group>"; };
 		56651B6536169C588E8E3E0C /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		E5AC65CFC33A0F983791F03B /* CreationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationStorage.swift; sourceTree = "<group>"; };
 		6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
+		1E3A560FAEA0E4B3E361DA49 /* DiarySeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySeedData.swift; sourceTree = "<group>"; };
+		7FE6945587F0E974A5A8DE7F /* DiaryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStorage.swift; sourceTree = "<group>"; };
 		3EE3B9C19706DC69E8BDD559 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		BFD6C089082D4459E387B08D /* Personality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personality.swift; sourceTree = "<group>"; };
 		6C51D5F53E72B7F46C1287C6 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
@@ -162,7 +184,11 @@
 		EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldInteraction.swift; sourceTree = "<group>"; };
 		44900FFDCD4703A937FB65C6 /* WorldMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMood.swift; sourceTree = "<group>"; };
 		0D814ABAF82C26409760529A /* WorldScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScene.swift; sourceTree = "<group>"; };
+		1D57A292AABD4DAF2D71D945 /* YardIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardIntent.swift; sourceTree = "<group>"; };
 		185A992792D2714773D46886 /* AppStore+Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Conditions.swift"; sourceTree = "<group>"; };
+		0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Creation.swift"; sourceTree = "<group>"; };
+		98A2DD6583891A61E750451F /* AppStore+Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Diary.swift"; sourceTree = "<group>"; };
+		B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+DiarySync.swift"; sourceTree = "<group>"; };
 		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		B672224FB980742CAF2A8112 /* RainSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainSound.swift; sourceTree = "<group>"; };
@@ -259,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				C908A7DB0E92D34F9C84C967 /* Backend.swift */,
+				3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */,
 				A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */,
 				C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */,
 				2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */,
@@ -280,8 +307,10 @@
 		1A8429CE87EE78531084D104 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				955BE518828D8E1DC4899415 /* AnimatedCatPortrait.swift */,
 				CE58F8802EEFAB15733FBF52 /* Icons.swift */,
 				E020E65DC0F60D1B22E4E940 /* Metrics.swift */,
+				7B4F89DD087F05BA5C49AB2C /* PageBackground.swift */,
 				32001177D9CA5C8CC449BC2B /* Palette.swift */,
 				4D5131A557702C2F9050D9CD /* Typography.swift */,
 				9CBCD3F72D5EA150C99CF1CC /* VectorIcon.swift */,
@@ -325,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				22C3064D0824E30AF163D763 /* MeView.swift */,
+				89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -352,7 +382,9 @@
 		4075F0A12A2E38731B0F2B8B /* Yard3D */ = {
 			isa = PBXGroup;
 			children = (
+				1DCD66FC4EA0E20C9B658E85 /* YardHomeSurface.swift */,
 				7F73F65E4C6F1C2A2BBBAB9E /* YardProbeSupport.swift */,
+				961F9DF6FD5276E05A1CED7F /* YardRuntime.swift */,
 				F61B7032FE3C4637143FF863 /* YardWebHost.swift */,
 			);
 			path = Yard3D;
@@ -379,7 +411,10 @@
 				404FE55DC010C44B75AFAC22 /* CatAction.swift */,
 				778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */,
 				56651B6536169C588E8E3E0C /* ChatMessage.swift */,
+				E5AC65CFC33A0F983791F03B /* CreationStorage.swift */,
 				6C11FD7C1474944EA6B337AB /* DiaryEntry.swift */,
+				1E3A560FAEA0E4B3E361DA49 /* DiarySeedData.swift */,
+				7FE6945587F0E974A5A8DE7F /* DiaryStorage.swift */,
 				3EE3B9C19706DC69E8BDD559 /* Location.swift */,
 				BFD6C089082D4459E387B08D /* Personality.swift */,
 				6C51D5F53E72B7F46C1287C6 /* World.swift */,
@@ -388,6 +423,7 @@
 				EB508F7F0A49AFAF46DA5455 /* WorldInteraction.swift */,
 				44900FFDCD4703A937FB65C6 /* WorldMood.swift */,
 				0D814ABAF82C26409760529A /* WorldScene.swift */,
+				1D57A292AABD4DAF2D71D945 /* YardIntent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,6 +502,9 @@
 			isa = PBXGroup;
 			children = (
 				185A992792D2714773D46886 /* AppStore+Conditions.swift */,
+				0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */,
+				98A2DD6583891A61E750451F /* AppStore+Diary.swift */,
+				B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */,
 				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
 				B672224FB980742CAF2A8112 /* RainSound.swift */,
@@ -611,6 +650,7 @@
 				F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */,
 				A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */,
+				FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */,
 				836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */,
 				E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */,
 				9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */,
@@ -618,8 +658,10 @@
 				F45111D1CC344C87E6BE5CB5 /* DebugScript.swift in Sources */,
 				3B22C6673B90214CC8FD8B13 /* YardCompositionView.swift in Sources */,
 				BEA5B362517F3C817A7EAFE7 /* YardProbeView.swift in Sources */,
+				4A96BC502B6AD08323F56EFD /* AnimatedCatPortrait.swift in Sources */,
 				82D0A61B87B8447177641A95 /* Icons.swift in Sources */,
 				A6C79C7CF4AE514B90C1D0C0 /* Metrics.swift in Sources */,
+				5B1EC9BC71216878E044258F /* PageBackground.swift in Sources */,
 				553D61A805AC07FA74A9C0AE /* Palette.swift in Sources */,
 				784263A8DA9ABEC68DCEE7B7 /* Typography.swift in Sources */,
 				63BD883AAF8E22D1746F713F /* VectorIcon.swift in Sources */,
@@ -635,19 +677,25 @@
 				E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */,
 				0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */,
 				C5737F0502BB06B23D342C1D /* MeView.swift in Sources */,
+				7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */,
 				D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */,
 				53742DF009E1E98666E00845 /* NamingStep.swift in Sources */,
 				F964E02D3D84C3F3045221E6 /* OnboardingView.swift in Sources */,
 				F74324A6F823B7D09FCD4647 /* PickAppearanceStep.swift in Sources */,
 				A5C9259729E7E1DA696F6EA3 /* TemperamentStep.swift in Sources */,
 				545F003BC317E0471C5B07D0 /* Components.swift in Sources */,
+				1AA8A3DC4B8A828DAE9EDA79 /* YardHomeSurface.swift in Sources */,
 				EACA01771DEC91E10245B007 /* YardProbeSupport.swift in Sources */,
+				170ED46774BCFC20B5959F41 /* YardRuntime.swift in Sources */,
 				C5292F3A7E945873DCB34AE8 /* YardWebHost.swift in Sources */,
 				96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */,
 				44964362F1DB30F201D79907 /* CatAction.swift in Sources */,
 				B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */,
 				B8EC76B04906D68259B9FF1F /* ChatMessage.swift in Sources */,
+				900D6AEE823D273998D52B09 /* CreationStorage.swift in Sources */,
 				3BBF4C1400C85E217CDBED47 /* DiaryEntry.swift in Sources */,
+				8F4842ECE98776A65B802D83 /* DiarySeedData.swift in Sources */,
+				0C970822E3029D7A4CE50E73 /* DiaryStorage.swift in Sources */,
 				E805D6198DC960D223F80A31 /* Location.swift in Sources */,
 				86DA7990BA314C37B712D5F6 /* Personality.swift in Sources */,
 				9D87892ED808F81148011D57 /* World.swift in Sources */,
@@ -656,7 +704,11 @@
 				0F484A9583F1B6638D1C1E48 /* WorldInteraction.swift in Sources */,
 				40B96C9A05764DEF44B0CF44 /* WorldMood.swift in Sources */,
 				BB70BED2CFC2E6782E6842F5 /* WorldScene.swift in Sources */,
+				0C1ECDCEDEB542D545885C18 /* YardIntent.swift in Sources */,
 				EAD4C2B50E627271E0108D17 /* AppStore+Conditions.swift in Sources */,
+				FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */,
+				2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */,
+				D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */,
 				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
 				1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */,

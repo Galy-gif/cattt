@@ -1,0 +1,43 @@
+{
+  "actions": [
+    {
+      "id": "02e5d365-1ebd-4910-b5d5-8090c37ef5af",
+      "status": "arrived",
+      "destination": "pond",
+      "reason": null,
+      "requestedAt": "2026-10-05T05:24:24.101Z",
+      "updatedAt": "2026-10-05T05:25:02.334Z"
+    }
+  ],
+  "snapshots": [
+    {
+      "mood": "sad",
+      "phase": "idle",
+      "action": "idle",
+      "paused": false,
+      "weather": "clear",
+      "activity": "watch",
+      "dayPhase": "day",
+      "runnable": true,
+      "moodReason": "碗已经空了两天，团子有点难过",
+      "placesToday": [
+        "蘑菇屋",
+        "池塘"
+      ],
+      "sceneVersion": 4,
+      "stateVersion": 8,
+      "destinationIds": [
+        "house",
+        "tree",
+        "bed",
+        "grass",
+        "pond",
+        "fence"
+      ],
+      "bowlFilledToday": false,
+      "activityFallback": false,
+      "targetDestinationId": "pond",
+      "currentDestinationId": "pond"
+    }
+  ]
+}

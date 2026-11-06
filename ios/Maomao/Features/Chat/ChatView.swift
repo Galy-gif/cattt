@@ -11,33 +11,51 @@ struct ChatView: View {
     @State private var sendTicks = 0
     /// 键盘露出屏幕的高度。`RootView` 整个 ZStack 忽略了安全区（包括键盘），系统不会替这一页避让，只能自己量。
     @State private var keyboardHeight: CGFloat = 0
+    @State private var composerHeight: CGFloat = 0
+    @State private var resizeScroll: Task<Void, Never>?
+    @State private var historyAnchor: String?
+    @State private var browsingHistory = false
+    @State private var rowFrames: [String: CGRect] = [:]
 
     private var tone: ChatTone { ChatTone.from(store.atmosphere) }
 
     /// 团子这会儿在（或正走去）院子的哪一处。背景取景和名字下那行都跟它走。
     private var catDestination: WorldScene.Destination {
         let simulation = store.world.simulation
+        if store.world.uses3D { return store.world.scene.destinations[store.world.moving ? store.world.targetIndex : store.world.currentIndex] }
         let index = simulation.isMoving ? simulation.target : simulation.current
         return store.world.scene.destinations[index]
     }
 
     var body: some View {
         ZStack {
-            ChatBackground(atmosphere: store.atmosphere, tone: tone, cameraX: catDestination.cameraX)
+            ChatBackground(tone: tone, place: catDestination.id, slot: store.dayPhase.rawValue, weather: store.weather.rawValue)
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
                 header
                 sourceCard
                 messageList
-                inputBar
+                inputBar.layoutPriority(1)
             }
-            // 只忽略容器安全区，键盘照常避让。
+            // 根容器忽略键盘，输入区依据键盘通知留出空间。
             .ignoresSafeArea(.container, edges: [.top, .bottom])
+        }
+        .sheet(item: $store.withdrawnSource) { action in
+            MemoryImpactView(action: action) { await store.refreshCounts() }
         }
         .environment(\.chatTone, tone)
         .animation(.easeInOut(duration: 0.6), value: tone.isDark)
         .sensoryFeedback(.impact(weight: .light), trigger: sendTicks)
+        .onPreferenceChange(ComposerHeightKey.self) { composerHeight = $0 }
+        .task {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("-uiFocus") {
+                try? await Task.sleep(for: .milliseconds(500))
+                inputFocused = true
+            }
+            #endif
+        }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { note in
             guard let frame = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
             let screen = UIScreen.main.bounds.height
@@ -78,12 +96,7 @@ struct ChatView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .accessibilityElement(children: .combine)
 
-            // TODO: 二级页 —— 对话记录，本版未做（见交接文档「本版未做」）。
-            Text("记录")
-                .font(Typo.sans(13))
-                .foregroundStyle(tone.ink2)
-                .padding(.horizontal, 10)
-                .frame(minHeight: Metrics.minTap)
+
         }
         .padding(.leading, 12)
         .padding(.trailing, 6)
@@ -153,21 +166,69 @@ struct ChatView: View {
 
     // MARK: - 消息列表
 
+    private var latestCatGroupID: String? {
+        var candidate: String?
+        for message in store.messages.reversed() {
+            if message.isCat { candidate = message.id }
+            else if candidate != nil { break }
+        }
+        return candidate
+    }
+
     private var messageList: some View {
-        GeometryReader { proxy in
+        let animatedID = latestCatGroupID
+        return GeometryReader { proxy in
             ScrollViewReader { scroller in
                 ScrollView {
                     LazyVStack(spacing: 0) {
+                        if store.backend.isRemote && !store.messages.isEmpty {
+                            Button {
+                                browsingHistory = true
+                                // 取下一条可见消息，避开第一页首行在插入后新增的分组间距。
+                                let candidates = store.messages.dropFirst().compactMap { message -> (String, CGRect)? in
+                                    guard let frame = rowFrames[message.id], frame.minY >= 0, frame.minY < proxy.size.height else { return nil }
+                                    return (message.id, frame)
+                                }
+                                let anchor = candidates.min { $0.1.minY < $1.1.minY }
+                                let generation = store.historyGeneration
+                                Task { @MainActor in
+                                    guard await store.loadEarlierMessages(), store.historyGeneration == generation,
+                                          let (id, frame) = anchor else { return }
+                                    // 先让旧页进入布局，再显式恢复同一消息的屏幕位置。
+                                    await Task.yield()
+                                    let y = frame.minY / max(1, proxy.size.height - frame.height)
+                                    var transaction = Transaction()
+                                    transaction.disablesAnimations = true
+                                    withTransaction(transaction) {
+                                        scroller.scrollTo(id, anchor: UnitPoint(x: 0.5, y: y))
+                                    }
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    if store.isLoadingEarlierMessages { ProgressView().tint(tone.ink2) }
+                                    Text(store.historyLoadError ?? (store.isLoadingEarlierMessages ? "正在加载…" : (store.hasEarlierMessages ? "更早的消息" : "已经到最早的消息了")))
+                                        .font(Typo.sans(11.5))
+                                }
+                                .foregroundStyle(tone.ink2)
+                                .frame(maxWidth: .infinity, minHeight: Metrics.minTap)
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(!store.hasEarlierMessages || store.isLoadingEarlierMessages)
+                        }
                         ForEach(Array(store.messages.enumerated()), id: \.element.id) { index, message in
                             let startsGroup = index == 0 || store.messages[index - 1].role != message.role
                             MessageRow(
                                 message: message,
                                 showsAvatar: message.isCat && startsGroup,
-                                availableWidth: proxy.size.width - Metrics.gutterChat * 2
+                                availableWidth: proxy.size.width - Metrics.gutterChat * 2,
+                                animatesAvatar: message.id == animatedID && !store.isWaiting
                             )
                             // 同一人连着说贴近一点，换人留出呼吸。
                             .padding(.top, index == 0 ? 0 : (startsGroup ? 16 : 5))
                             .id(message.id)
+                            .background(GeometryReader { row in
+                                Color.clear.preference(key: ChatRowFramesKey.self, value: [message.id: row.frame(in: .named("chat-scroll"))])
+                            })
                             .transition(messageTransition)
                         }
 
@@ -178,12 +239,18 @@ struct ChatView: View {
                                 .transition(.opacity)
                         }
                     }
+                    .scrollTargetLayout()
                     .padding(.horizontal, Metrics.gutterChat)
                     .padding(.top, 20)
                     .padding(.bottom, 12)
+                    .background(GeometryReader { content in
+                        Color.clear.preference(key: ChatBottomKey.self, value: content.frame(in: .named("chat-scroll")).maxY)
+                    })
                     .animation(.easeOut(duration: 0.24), value: store.messages.count)
                     .animation(.easeOut(duration: Metrics.fadeFast), value: store.isWaiting)
                 }
+                .coordinateSpace(name: "chat-scroll")
+                .scrollPosition(id: $historyAnchor, anchor: .top)
                 .scrollDismissesKeyboard(.interactively)
                 .simultaneousGesture(TapGesture().onEnded { inputFocused = false })
                 // 消息滚到顶栏下方时淡出，而不是被一条硬边切掉。
@@ -194,11 +261,18 @@ struct ChatView: View {
                         endPoint: .bottom
                     )
                 )
-                .onChange(of: store.messages.count) { scrollToBottom(scroller) }
-                .onChange(of: store.messages.last?.text) { scrollToBottom(scroller, animated: false) }
-                .onChange(of: store.isWaiting) { scrollToBottom(scroller) }
-                .onChange(of: keyboardHeight) { if keyboardHeight > 0 { scrollToBottom(scroller) } }
-                .onAppear { scrollToBottom(scroller, animated: false) }
+                .onPreferenceChange(ChatRowFramesKey.self) { rowFrames = $0 }
+                .onPreferenceChange(ChatBottomKey.self) { bottom in
+                    browsingHistory = bottom > proxy.size.height + 48
+                }
+                .onChange(of: store.backend) { browsingHistory = false; historyAnchor = nil }
+                .onChange(of: store.messages.last?.id) { if !browsingHistory { scrollToBottom(scroller) } }
+                .onChange(of: store.messages.last?.text) { if !browsingHistory { scrollToBottom(scroller, animated: false) } }
+                .onChange(of: store.isWaiting) { if !browsingHistory { scrollToBottom(scroller) } }
+                .onChange(of: composerHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
+                .onChange(of: keyboardHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
+                .onDisappear { resizeScroll?.cancel() }
+                .onAppear { browsingHistory = false; scrollToBottom(scroller, animated: false) }
             }
         }
     }
@@ -222,6 +296,16 @@ struct ChatView: View {
         }
     }
 
+    /// 键盘与多行输入改变可用高度后，再定位最后一条，避免使用动画前的列表尺寸。
+    private func scrollAfterResize(_ scroller: ScrollViewProxy) {
+        resizeScroll?.cancel()
+        resizeScroll = Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(350))
+            guard !Task.isCancelled else { return }
+            scrollToBottom(scroller, animated: false)
+        }
+    }
+
     // MARK: - 输入区
 
     private var canSend: Bool { !store.draft.trimmed.isEmpty }
@@ -230,6 +314,7 @@ struct ChatView: View {
         HStack(spacing: 4) {
             TextField("", text: $store.draft, prompt: Text("说点什么").foregroundStyle(tone.placeholder), axis: .vertical)
                 .lineLimit(1...5)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Typo.sans(15))
                 .foregroundStyle(tone.ink)
                 .tint(Palette.accent)
@@ -237,14 +322,6 @@ struct ChatView: View {
                 .submitLabel(.send)
                 .onSubmit(send)
                 .padding(.vertical, 14)
-
-            // TODO: 后端 —— 语音输入走服务端转写。
-            if !canSend && !store.isStreaming {
-                Icons.mic(color: tone.placeholder)
-                    .frame(width: 36, height: Metrics.minTap)
-                    .transition(.opacity)
-                    .accessibilityHidden(true)
-            }
 
             // 发送键收在框里：视觉是 30pt 的珊瑚圆，热区仍是 minTap。没字时变浅、不可点。
             Button {
@@ -274,6 +351,9 @@ struct ChatView: View {
         // 和气泡同一种面：半透明、不描边、不发光，只有一层极轻的软投影。
         .background(tone.field, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .shadow(color: tone.separation, radius: 12, x: 0, y: 4)
+        .background(GeometryReader { proxy in
+            Color.clear.preference(key: ComposerHeightKey.self, value: proxy.size.height)
+        })
         .padding(.horizontal, 14)
         .padding(.top, 8)
         .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 8 : max(24, insets.bottom))
@@ -281,6 +361,7 @@ struct ChatView: View {
 
     private func send() {
         guard canSend else { return }
+        browsingHistory = false
         sendTicks += 1
         store.send()
     }
@@ -291,10 +372,11 @@ struct TypingIndicator: View {
     @Environment(\.chatTone) private var tone
     let showsAvatar: Bool
     @State private var animating = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
-            CatWindowAvatar(image: "tuanzi-canonical")
+            CatWindowAvatar(image: "tuanzi-ui-portrait", animated: showsAvatar)
                 .opacity(showsAvatar ? 1 : 0)
 
             HStack(spacing: 5) {
@@ -318,8 +400,26 @@ struct TypingIndicator: View {
 
             Spacer(minLength: 0)
         }
-        .onAppear { animating = true }
+        .onAppear { animating = !reduceMotion }
+        .onChange(of: reduceMotion) { animating = !reduceMotion }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("团子正在回复")
+    }
+}
+
+private struct ComposerHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
+}
+
+private struct ChatBottomKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
+}
+
+private struct ChatRowFramesKey: PreferenceKey {
+    static var defaultValue: [String: CGRect] = [:]
+    static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
+        value.merge(nextValue(), uniquingKeysWith: { _, new in new })
     }
 }

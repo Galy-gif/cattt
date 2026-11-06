@@ -1,0 +1,16 @@
+{
+  "performance": "单组通过",
+  "failures": [],
+  "missing": [
+    "用户画面与手感确认",
+    "两进程合计内存",
+    "冷启动与恢复录屏",
+    "独立能耗采样"
+  ],
+  "fullCloseout": "未完成",
+  "diagnostic": false,
+  "seconds": 600.384,
+  "medianFps": 58.8,
+  "low1Fps": 52.6,
+  "minScale": 1
+}

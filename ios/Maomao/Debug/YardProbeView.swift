@@ -365,7 +365,7 @@ final class YardProbe: ObservableObject {
         false
         #endif
     }
-    private static func footprintMB() -> Double? {
+    static func footprintMB() -> Double? {
         var info = task_vm_info_data_t()
         var count = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<natural_t>.size)
         let result = withUnsafeMutablePointer(to: &info) {
@@ -373,7 +373,7 @@ final class YardProbe: ObservableObject {
         }
         return result == KERN_SUCCESS ? Double(info.phys_footprint) / 1_048_576 : nil
     }
-    private static func thermalName(_ state: ProcessInfo.ThermalState) -> String {
+    static func thermalName(_ state: ProcessInfo.ThermalState) -> String {
         switch state {
         case .nominal: return "nominal"
         case .fair: return "fair"
@@ -382,7 +382,7 @@ final class YardProbe: ObservableObject {
         @unknown default: return "unknown"
         }
     }
-    private static var deviceModel: String {
+    static var deviceModel: String {
         var system = utsname(); uname(&system)
         let machine = withUnsafePointer(to: &system.machine) { $0.withMemoryRebound(to: CChar.self, capacity: 1) { String(cString: $0) } }
         return isSimulator ? "simulator(\(ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] ?? machine))" : machine

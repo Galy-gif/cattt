@@ -8,21 +8,27 @@ import { boundaries, messages, turns } from '../db/schema.ts';
 import { recordVisibleLength, requestCancel } from '../turns/events.ts';
 import { createReplyTurn, createSendTurn } from '../turns/create.ts';
 import { streamTurn } from './sse.ts';
+import { MemoryControlError } from '../memory/control.ts';
 
 export const chatRoutes = new Hono<Env>();
+chatRoutes.onError((error, c) => {
+  if (error instanceof MemoryControlError) return c.json({ error: { code: 'diary_unavailable', message: error.message } }, error.status);
+  throw error;
+});
 
 // ---- 聊天 ----
 
 const sendBody = z.object({
   client_message_id: z.string().min(1).max(100),
   text: z.string().trim().min(1).max(4000),
+  diary_entry_id: z.uuid().optional(),
 });
 
 /** 发一条消息，响应就是这一轮回复的 SSE 流 */
 chatRoutes.post('/messages', async (c) => {
   const body = sendBody.safeParse(await c.req.json().catch(() => null));
   if (!body.success) return c.json(bad(z.prettifyError(body.error)), 400);
-  const { turnId } = await createSendTurn(c.get('owner'), body.data.client_message_id, body.data.text);
+  const { turnId } = await createSendTurn(c.get('owner'), body.data.client_message_id, body.data.text, body.data.diary_entry_id);
   return streamTurn(c, turnId, '0');
 });
 
@@ -30,7 +36,9 @@ chatRoutes.post('/messages', async (c) => {
 chatRoutes.post('/messages/:id/reply', async (c) => {
   const id = z.uuid().safeParse(c.req.param('id'));
   if (!id.success) return c.json(notFound, 404);
-  const created = await createReplyTurn(c.get('owner'), id.data);
+  const body = z.object({ request_id: z.uuid().optional() }).safeParse(await c.req.json().catch(() => ({})));
+  if (!body.success) return c.json(bad(z.prettifyError(body.error)), 400);
+  const created = await createReplyTurn(c.get('owner'), id.data, body.data.request_id);
   if (!created) return c.json(notFound, 404);
   return streamTurn(c, created.turnId, '0');
 });
@@ -57,7 +65,9 @@ chatRoutes.get('/messages', async (c) => {
       role: m.role,
       text: m.text,
       status: m.status,
+      context_allowed: m.contextAllowed,
       client_message_id: m.clientMessageId,
+      diary_entry_id: m.diaryEntryId,
       turn_id: m.turnId,
       remembered: remembered ?? false,
       boundary: boundaryId !== null,
@@ -111,6 +121,7 @@ chatRoutes.get('/turns/:id', async (c) => {
     cat_message_id: turn.catMessageId,
     /** 这一轮回复用到了哪些记忆 */
     memory_ids: turn.memoryIds,
+    diary_source_ids: turn.diarySourceIds,
     extracted: turn.extractedAt !== null,
     remembered: turn.remembered,
   });

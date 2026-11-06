@@ -1,0 +1,152 @@
+{
+  "status": "有效拔线能耗采样完成",
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "modelHashes": {
+    "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+    "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+  },
+  "runId": "4A7875BF-549F-4576-AE5E-1CFA9A3460CC",
+  "device": "iPhone17,2",
+  "system": "26.6.2",
+  "tool": "xctrace 27.0 Blank + Power Profiler，独立夜雨漫游",
+  "recordedAt": "2026-10-02T20:00:40.220+08:00",
+  "traceSeconds": 17.116004,
+  "sampleCount": 16,
+  "sampleDurationSeconds": 15.972998003,
+  "endReason": "Time limit reached",
+  "systemPercentPerHour": {
+    "min": 11.227709704,
+    "median": 11.660397032999999,
+    "mean": 13.01449025,
+    "durationWeightedMean": 12.973122713628731,
+    "max": 23.259386937
+  },
+  "conditions": {
+    "charging": false,
+    "chargingEvidence": "用户确认拔线 + 同次90秒原生环境全程unplugged，且仪器整个有效窗口处于该运行内",
+    "profilerChargingTableRows": 0,
+    "profilerChargingNote": "DeviceChargingState无行，不声称仪器提供ChargingStatus=0样本",
+    "nativeBrightnessPercent": 60.00000238418579,
+    "profilerBrightnessPercent": [
+      62
+    ],
+    "brightnessNote": "原生约60%，Profiler返回62%；保留两种原值，不修改为同一数值",
+    "lowPowerMode": false,
+    "nativeThermalStates": [
+      "nominal"
+    ],
+    "profilerThermal": [
+      "Nominal"
+    ]
+  },
+  "samplingScope": "整机耗电率估计的短窗口，非App单独耗电，不外推一天续航；不混入正式性能，不作旧版严格A/B",
+  "gate": {
+    "powerThresholdSpecified": false,
+    "result": "有效记录完成"
+  },
+  "samples": [
+    {
+      "startSeconds": 1.023144375,
+      "durationSeconds": 0.948996916,
+      "systemPercentPerHour": 23.259386937,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 1.972141333,
+      "durationSeconds": 0.977025667,
+      "systemPercentPerHour": 18.856338997,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 2.949167041,
+      "durationSeconds": 1.028650875,
+      "systemPercentPerHour": 14.70657311,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 3.977817958,
+      "durationSeconds": 0.971329292,
+      "systemPercentPerHour": 11.380212136,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 4.949147291,
+      "durationSeconds": 1.038901417,
+      "systemPercentPerHour": 11.352191019,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 5.98804875,
+      "durationSeconds": 0.989150625,
+      "systemPercentPerHour": 11.227709704,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 6.977199416,
+      "durationSeconds": 0.968103584,
+      "systemPercentPerHour": 12.51892933,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 7.945303041,
+      "durationSeconds": 1.031758584,
+      "systemPercentPerHour": 11.690356052,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 8.977061666,
+      "durationSeconds": 1.00099975,
+      "systemPercentPerHour": 12.009809479,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 9.978061458,
+      "durationSeconds": 0.966135333,
+      "systemPercentPerHour": 11.575278932,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 10.944196833,
+      "durationSeconds": 1.02422825,
+      "systemPercentPerHour": 12.044860057,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 11.968425125,
+      "durationSeconds": 1.02410525,
+      "systemPercentPerHour": 11.501215817,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 12.992530416,
+      "durationSeconds": 0.951676417,
+      "systemPercentPerHour": 11.630438014,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 13.944206875,
+      "durationSeconds": 1.05219425,
+      "systemPercentPerHour": 11.459656517,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 14.996401166,
+      "durationSeconds": 0.996550459,
+      "systemPercentPerHour": 11.768470077,
+      "profilerBrightnessPercent": 62
+    },
+    {
+      "startSeconds": 15.992951666,
+      "durationSeconds": 1.003191334,
+      "systemPercentPerHour": 11.250417822,
+      "profilerBrightnessPercent": 62
+    }
+  ],
+  "xmlHashes": {
+    "toc": "ed55e2bf92b5ea8b1db43bd853c10c3b277675d30a0fcf568cb8b747680f2151",
+    "values": "d76633998ba0711c229f13c31f5c8bce64af3c3e52758e4a05dc0c869e1d5842",
+    "charging": "cc12bae241c453f8d22c9296acb8d2182b0d1933c8341f455b8b61250edfcb49",
+    "thermal": "34e752adba4dc0dfe22ff62befc7231805f1ef549dca6829781ccc45c4c78f2b"
+  },
+  "rawTrace": "仅本机，未入仓库"
+}

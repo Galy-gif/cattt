@@ -1,0 +1,1500 @@
+{
+  "boundary": [
+    {
+      "x": -4.25,
+      "z": -3.6
+    },
+    {
+      "x": -0.8,
+      "z": -3.6
+    },
+    {
+      "x": 4.25,
+      "z": -3.6
+    },
+    {
+      "x": 4.45,
+      "z": -1.4
+    },
+    {
+      "x": 4.5,
+      "z": 1.4
+    },
+    {
+      "x": 4.2,
+      "z": 3.65
+    },
+    {
+      "x": 1.8,
+      "z": 3.85
+    },
+    {
+      "x": -1.6,
+      "z": 3.45
+    },
+    {
+      "x": -3.85,
+      "z": 2.25
+    },
+    {
+      "x": -4.45,
+      "z": 0.1
+    }
+  ],
+  "bounds": {
+    "max": [
+      4.5,
+      2.526800036430359,
+      3.85
+    ],
+    "min": [
+      -4.45,
+      -0.21599999898672095,
+      -3.6
+    ]
+  },
+  "build": {
+    "builtAt": "2026-10-02T09:58:06.591Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "3813acd5311d5714d8854ea23e6179f69aea4b387decf2462f0647399e547918",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera": {
+    "centerX": -2.35,
+    "centerZ": -0.55,
+    "distance": 3.8470768123342687,
+    "focus": [
+      -2.35,
+      0.38,
+      -0.55
+    ],
+    "mode": "browsing",
+    "offset": 0,
+    "place": "house",
+    "position": [
+      -2.35,
+      1.4403980801767076,
+      3.148047581029421
+    ],
+    "shownDistance": 3.8470768123342687,
+    "targetY": 0.38,
+    "velocity": 0,
+    "velocityZ": 0
+  },
+  "cat": {
+    "height": 151.25792892121692,
+    "inFront": true,
+    "width": 84.55474935707072,
+    "x": 203.72175695988736,
+    "y": 413.22243239376166
+  },
+  "comparison": false,
+  "controls": {
+    "chat": {
+      "height": 46,
+      "width": 96.33333333333331,
+      "x": 325.6666666666667,
+      "y": 852
+    },
+    "findCat": {
+      "height": 46,
+      "width": 46,
+      "x": 72,
+      "y": 852
+    },
+    "overview": {
+      "height": 46,
+      "width": 46,
+      "x": 18,
+      "y": 852
+    },
+    "profile": {
+      "height": 44,
+      "width": 44,
+      "x": 380,
+      "y": 59
+    },
+    "rail": {
+      "height": 284,
+      "width": 44,
+      "x": 7,
+      "y": 191
+    },
+    "status": {
+      "height": 27,
+      "width": 179,
+      "x": 130.5,
+      "y": 67
+    },
+    "topic": {
+      "height": 56,
+      "width": 408,
+      "x": 16,
+      "y": 780
+    }
+  },
+  "device": "iPhone17,2",
+  "elapsed": 61.36191201210022,
+  "environment": [
+    {
+      "active": true,
+      "appFootprintMiB": 53.87608337402344,
+      "at": 0.0003579854965209961,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 57.09485626220703,
+      "at": 1.0030380487442017,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 48.70423126220703,
+      "at": 2.0015740394592285,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 35.93860626220703,
+      "at": 3.0015400648117065,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.65735626220703,
+      "at": 4.001363039016724,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.50110626220703,
+      "at": 5.001528978347778,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.50110626220703,
+      "at": 6.001530051231384,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.43860626220703,
+      "at": 7.0015339851379395,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.45423126220703,
+      "at": 8.001502990722656,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.45423126220703,
+      "at": 9.001484036445618,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.45423126220703,
+      "at": 10.00146496295929,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.45423126220703,
+      "at": 11.0015150308609,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.45423126220703,
+      "at": 12.001471042633057,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 13.00065302848816,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 14.000717997550964,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 15.000817060470581,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 16.000867009162903,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 17.00096607208252,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 18.001038074493408,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 19.001129031181335,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 20.001232028007507,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 21.001545071601868,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 22.001492023468018,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 23.001482009887695,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 24.001594066619873,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 25.001334071159363,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 26.001407027244568,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 27.000563979148865,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 28.00042998790741,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 29.000548005104065,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 30.00132703781128,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 31.00130605697632,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 32.00133204460144,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.40735626220703,
+      "at": 33.001227021217346,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 34.0012069940567,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 35.000787019729614,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 36.00054705142975,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 37.00121796131134,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.42298126220703,
+      "at": 38.00119602680206,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.37610626220703,
+      "at": 39.00120198726654,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.37610626220703,
+      "at": 40.00122797489166,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.37610626220703,
+      "at": 41.001139998435974,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.37610626220703,
+      "at": 42.00115501880646,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.37610626220703,
+      "at": 43.00022804737091,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 44.00117099285126,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 45.001105070114136,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 46.00114107131958,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 47.00114297866821,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 48.00110900402069,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 49.00108206272125,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 50.001087069511414,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 51.0010290145874,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 52.00105106830597,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 53.00101399421692,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 54.0009959936142,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 55.000943064689636,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 56.00015306472778,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 57.000213980674744,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 58.00000596046448,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 59.00093901157379,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 60.00015997886658,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 30.39173126220703,
+      "at": 61.00092899799347,
+      "batteryState": "unplugged",
+      "brightness": 0.550000011920929,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    }
+  ],
+  "events": [
+    {
+      "at": 0.2326500415802002,
+      "type": "ready"
+    },
+    {
+      "at": 0.23494505882263184,
+      "type": "resumed"
+    },
+    {
+      "at": 0.505416989326477,
+      "type": "firstFrame"
+    },
+    {
+      "at": 0.5232000350952148,
+      "type": "visualReady"
+    },
+    {
+      "at": 26.368075013160706,
+      "type": "resolutionScale"
+    },
+    {
+      "at": 26.387585997581482,
+      "type": "resolutionScale"
+    },
+    {
+      "at": 26.389948964118958,
+      "type": "resolutionScale"
+    },
+    {
+      "at": 32.40031898021698,
+      "type": "resolutionScale"
+    },
+    {
+      "at": 32.419458985328674,
+      "type": "resolutionScale"
+    },
+    {
+      "at": 32.42125904560089,
+      "type": "resolutionScale"
+    }
+  ],
+  "head": {
+    "x": 250.42184205969627,
+    "y": 492.761156718692
+  },
+  "isSimulator": false,
+  "layoutVersion": "open-yard-v3",
+  "limits": {
+    "daily": 3.8470768123342687,
+    "max": 31.16002666646996,
+    "min": 2.8
+  },
+  "occlusion": {
+    "bottom": 182,
+    "left": 62,
+    "right": 16,
+    "top": 111
+  },
+  "overlay": true,
+  "parts": [
+    {
+      "id": "bed",
+      "rect": {
+        "height": 253.58938386310777,
+        "inFront": true,
+        "width": 386.79235096701655,
+        "x": -97.80173673869137,
+        "y": 758.0849977495682
+      }
+    },
+    {
+      "id": "bench",
+      "rect": {
+        "height": 313.6048141538656,
+        "inFront": true,
+        "width": 482.4901461502467,
+        "x": -555.9348556116142,
+        "y": 412.31246437119955
+      }
+    },
+    {
+      "id": "bowl",
+      "rect": {
+        "height": 29.378845318897763,
+        "inFront": true,
+        "width": 109.22917100892286,
+        "x": 370.58872712446146,
+        "y": 460.21009889272756
+      }
+    },
+    {
+      "id": "fence",
+      "rect": {
+        "height": 216.8971895486468,
+        "inFront": true,
+        "width": 2068.9846937865227,
+        "x": -136.039045857054,
+        "y": 303.5985224603012
+      }
+    },
+    {
+      "id": "flower",
+      "rect": {
+        "height": 36.77604480930038,
+        "inFront": true,
+        "width": 36.94264930630554,
+        "x": 1155.2969947946724,
+        "y": 369.2763676380004
+      }
+    },
+    {
+      "id": "flowerbed",
+      "rect": {
+        "height": 254800.65539897222,
+        "inFront": false,
+        "width": 1049935.4701818805,
+        "x": 13168.566539874308,
+        "y": 4022.6995116406647
+      }
+    },
+    {
+      "id": "house",
+      "rect": {
+        "height": 435.75315444133935,
+        "inFront": true,
+        "width": 546.5242332520053,
+        "x": -30.262191613004006,
+        "y": 131.27731262597317
+      }
+    },
+    {
+      "id": "mailbox",
+      "rect": {
+        "height": 152.87345008415159,
+        "inFront": true,
+        "width": 83.18317163436161,
+        "x": -69.75234304615603,
+        "y": 308.4321573487958
+      }
+    },
+    {
+      "id": "rocks",
+      "rect": {
+        "height": 11181.85716816602,
+        "inFront": false,
+        "width": 64100.56756861427,
+        "x": 10730.643407240012,
+        "y": 2701.6317978759716
+      }
+    },
+    {
+      "id": "tree",
+      "rect": {
+        "height": 688.4064137211367,
+        "inFront": true,
+        "width": 835.7898575188558,
+        "x": 606.5583316658989,
+        "y": -185.19452271999427
+      }
+    },
+    {
+      "id": "pond",
+      "rect": {
+        "height": 998.5340809366838,
+        "inFront": true,
+        "width": 4620.519845722579,
+        "x": 1077.2196264209358,
+        "y": 509.3480904440984
+      }
+    }
+  ],
+  "projectionMatrix": [
+    4.88002535421007,
+    0,
+    0,
+    0,
+    0,
+    2.246036773904216,
+    0,
+    0,
+    -0.10454545454545458,
+    -0.07426778242677823,
+    -1.001000500250125,
+    -1,
+    0,
+    0,
+    -0.2001000500250125,
+    0
+  ],
+  "recovery": {},
+  "renderSamples": [
+    {
+      "at": 1.078173041343689,
+      "calls": 117,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 2.079990029335022,
+      "calls": 117,
+      "fps": 44.510385756676556,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 3.0788910388946533,
+      "calls": 117,
+      "fps": 60.15779092702169,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 4.08036196231842,
+      "calls": 117,
+      "fps": 59.99999999999997,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 5.079432010650635,
+      "calls": 117,
+      "fps": 57.82652043868397,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 6.080167055130005,
+      "calls": 117,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448228
+    },
+    {
+      "at": 7.0791929960250854,
+      "calls": 118,
+      "fps": 59.9803343166175,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 8.078971982002258,
+      "calls": 118,
+      "fps": 59.94005994005994,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 9.079113006591797,
+      "calls": 118,
+      "fps": 60.21717670286267,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 10.079432964324951,
+      "calls": 118,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 11.078943967819214,
+      "calls": 118,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 12.079560041427612,
+      "calls": 118,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 13.080536961555481,
+      "calls": 118,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 14.095093965530396,
+      "calls": 69,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 15.09522807598114,
+      "calls": 69,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 16.095396041870117,
+      "calls": 69,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 17.096533060073853,
+      "calls": 69,
+      "fps": 59.92141453831052,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 18.095916986465454,
+      "calls": 69,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 19.098554968833923,
+      "calls": 69,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 329516
+    },
+    {
+      "at": 20.101969003677368,
+      "calls": 118,
+      "fps": 59.82053838484546,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 21.10205900669098,
+      "calls": 118,
+      "fps": 55.83250249252243,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 22.102313995361328,
+      "calls": 118,
+      "fps": 53.359683794466406,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 23.102758049964905,
+      "calls": 118,
+      "fps": 55.83250249252243,
+      "scale": 1,
+      "triangles": 448230
+    },
+    {
+      "at": 24.119834065437317,
+      "calls": 119,
+      "fps": 54.94505494505474,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 25.123754024505615,
+      "calls": 70,
+      "fps": 58.070866141732495,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 26.135715007781982,
+      "calls": 70,
+      "fps": 54.45544554455446,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 27.150918006896973,
+      "calls": 70,
+      "fps": 54.72636815920398,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 28.15118896961212,
+      "calls": 70,
+      "fps": 57.94205794205773,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 29.151095986366272,
+      "calls": 70,
+      "fps": 60,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 30.150835037231445,
+      "calls": 70,
+      "fps": 59.92141453831063,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 31.150596976280212,
+      "calls": 70,
+      "fps": 60.039370078740156,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 32.151676058769226,
+      "calls": 70,
+      "fps": 60,
+      "scale": 0.95,
+      "triangles": 329518
+    },
+    {
+      "at": 33.16825807094574,
+      "calls": 119,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 34.184661984443665,
+      "calls": 70,
+      "fps": 53.254437869822105,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 35.18640697002411,
+      "calls": 119,
+      "fps": 53.83848454636092,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 36.18733096122742,
+      "calls": 119,
+      "fps": 55.888223552894615,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 37.18655204772949,
+      "calls": 70,
+      "fps": 55.77689243027848,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 38.18712306022644,
+      "calls": 119,
+      "fps": 55.226824457594084,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 39.19326102733612,
+      "calls": 119,
+      "fps": 53.25443786982248,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 40.20412003993988,
+      "calls": 119,
+      "fps": 56.943056943056945,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 41.21605098247528,
+      "calls": 119,
+      "fps": 57,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 42.220298051834106,
+      "calls": 70,
+      "fps": 53.30700888450148,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 43.22048497200012,
+      "calls": 119,
+      "fps": 55.390702274975276,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 44.22059500217438,
+      "calls": 119,
+      "fps": 54.509415262636274,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 45.22154700756073,
+      "calls": 119,
+      "fps": 56.943056943056945,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 46.2348929643631,
+      "calls": 119,
+      "fps": 55.118110236220474,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 47.237558007240295,
+      "calls": 70,
+      "fps": 55,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 48.239078998565674,
+      "calls": 119,
+      "fps": 57.59682224428997,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 49.23972404003143,
+      "calls": 70,
+      "fps": 55.83250249252243,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 50.25316798686981,
+      "calls": 119,
+      "fps": 55.55555555555556,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 51.25475203990936,
+      "calls": 70,
+      "fps": 53.946053946053944,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 52.25429403781891,
+      "calls": 70,
+      "fps": 55.172413793103445,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 53.25576400756836,
+      "calls": 119,
+      "fps": 58,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 54.25537896156311,
+      "calls": 119,
+      "fps": 56,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 55.27191400527954,
+      "calls": 119,
+      "fps": 58.88223552894212,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 56.277178049087524,
+      "calls": 119,
+      "fps": 58.12807881773399,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 57.28893303871155,
+      "calls": 119,
+      "fps": 56,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 58.301544070243835,
+      "calls": 119,
+      "fps": 55.944055944055535,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 59.320217967033386,
+      "calls": 119,
+      "fps": 55,
+      "scale": 1,
+      "triangles": 448232
+    },
+    {
+      "at": 60.32214903831482,
+      "calls": 70,
+      "fps": 55.118110236220865,
+      "scale": 1,
+      "triangles": 329518
+    },
+    {
+      "at": 61.32209098339081,
+      "calls": 70,
+      "fps": 55,
+      "scale": 1,
+      "triangles": 329518
+    }
+  ],
+  "report": {
+    "frames": 3487,
+    "hitches": 2,
+    "journey": {
+      "arrived": true,
+      "goal": "house",
+      "position": [
+        -2.35,
+        0,
+        -0.55
+      ]
+    },
+    "longestFrameMs": 50.000000000000455,
+    "low1Fps": 43.5,
+    "medianFps": 58.8,
+    "minScale": 0.95,
+    "pauses": [],
+    "perSecond": [
+      59.46481665014866,
+      60.396039603960396,
+      59.880239520958085,
+      57.94205794205794,
+      59.9803343166175,
+      60,
+      60,
+      59.99999999999989,
+      60.21717670286289,
+      59.82053838484536,
+      60,
+      59.760956175298915,
+      60.21717670286279,
+      59.94005994005994,
+      60,
+      60,
+      60,
+      60,
+      59.82053838484546,
+      53.838484546360725,
+      53.6779324055666,
+      56,
+      55.390702274975474,
+      56.82951146560319,
+      54.29417571569595,
+      55.172413793103445,
+      60,
+      59.880239520958085,
+      60.09852216748769,
+      60,
+      59.94005994005994,
+      57.94205794205794,
+      54.13385826771615,
+      52.78884462151433,
+      56.97445972495088,
+      56.21301775147929,
+      55,
+      54.13385826771653,
+      56,
+      57.142857142856734,
+      52.78884462151433,
+      54.83549351944168,
+      55.888223552893805,
+      57.36894164193909,
+      53.25443786982248,
+      55.94405594405595,
+      57,
+      55.118110236220474,
+      56.37982195845697,
+      52.68389662027833,
+      56.943056943056945,
+      56.1576354679803,
+      58.88223552894212,
+      58,
+      57.94205794205794,
+      56.1576354679803,
+      55.94405594405595,
+      54.13385826771615,
+      54.7808764940243,
+      57
+    ],
+    "resolutionEvents": [
+      {
+        "at": 26281,
+        "phase": "queued",
+        "reason": "slow",
+        "scale": 0.95
+      },
+      {
+        "at": 26300,
+        "phase": "applied",
+        "reason": "slow",
+        "scale": 0.95
+      },
+      {
+        "at": 26303,
+        "phase": "rendered",
+        "reason": "slow",
+        "scale": 0.95
+      },
+      {
+        "at": 32313,
+        "phase": "queued",
+        "reason": "fast",
+        "scale": 1
+      },
+      {
+        "at": 32332,
+        "phase": "applied",
+        "reason": "fast",
+        "scale": 1
+      },
+      {
+        "at": 32334,
+        "phase": "rendered",
+        "reason": "fast",
+        "scale": 1
+      }
+    ],
+    "seconds": 60.816,
+    "segments": [
+      {
+        "endMs": 61256,
+        "frames": 3487,
+        "startMs": 440
+      }
+    ],
+    "touch": {
+      "maxFrameDelay": null,
+      "maxMs": null,
+      "samples": 0
+    },
+    "trajectoryClearance": {
+      "minimum": 0.315,
+      "violations": 0
+    },
+    "visitedNodes": [
+      "m0",
+      "curve-0-0-1",
+      "curve-0-14-10"
+    ]
+  },
+  "runId": "03739D4B-CFB1-4B69-B098-EF9BC403831F",
+  "startedAt": "2026-10-02T09:59:47Z",
+  "system": "26.6.2",
+  "thermal": 0,
+  "time": "day",
+  "view": "house",
+  "viewMatrix": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0.9612616959383189,
+    -0.2756373558169991,
+    0,
+    0,
+    0.2756373558169991,
+    0.9612616959383189,
+    0,
+    -2.35,
+    1.4403980801767076,
+    3.148047581029421,
+    1
+  ],
+  "viewport": {
+    "height": 956,
+    "width": 440
+  },
+  "webContentFootprintMiB": null,
+  "yard": {
+    "height": 9724.075461620163,
+    "inFront": false,
+    "width": 44037.57806634559,
+    "x": -33461.73852005221,
+    "y": -8343.938270896804
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "clips": 43,
+  "states": [
+    "nest_jump",
+    "nest_grab",
+    "nest_climb",
+    "nest_turn",
+    "nest_watch",
+    "nest_down",
+    "nest_sleep",
+    "nest_wake",
+    "nest_turn_out",
+    "nest_out",
+    "nest_drop",
+    "nest_land",
+    "idle"
+  ],
+  "recovery": {
+    "nest_jump": "中断与恢复后安全落地",
+    "nest_grab": "中断与恢复后安全落地",
+    "nest_climb": "中断与恢复后安全落地",
+    "nest_turn": "中断与恢复后安全落地",
+    "nest_sleep": "中断与恢复后安全落地"
+  },
+  "exitRecovery": true,
+  "supportNoDrift": true,
+  "watchSleepSwitch": true,
+  "exitBeforeRoute": true,
+  "frames": 190
+}

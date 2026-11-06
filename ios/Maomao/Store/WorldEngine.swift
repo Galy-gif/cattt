@@ -3,6 +3,9 @@ import Combine
 
 @MainActor
 final class WorldEngine: ObservableObject {
+    let uses3D: Bool
+    let yard3D: YardRuntime?
+    private(set) var intent3D = YardIntent()
     let scene: WorldScene
     @Published private(set) var simulation: WorldSimulation
     @Published private(set) var loadError: String?
@@ -32,15 +35,23 @@ final class WorldEngine: ObservableObject {
     private(set) var totalTickMilliseconds = 0.0
     #if DEBUG
     /// 调试慢放：验收录 0.25 倍速用。只缩放世界时间，不影响镜头和界面动画。
-    var debugTimeScale = 1.0
+    var debugTimeScale = 1.0 { didSet { yard3D?.send(["type": "motionRate", "value": debugTimeScale]) } }
     #endif
 
     init() {
         // v5 树窝帧不齐就整段退回 v4，时长和动作名一起换，不混用。
-        WorldInteraction.useV5 = CatActionCatalog.shared.hasV5
+        uses3D = UserDefaults.standard.string(forKey: "world") != "2d"
+        yard3D = uses3D ? YardRuntime() : nil
+        if !uses3D { WorldInteraction.useV5 = CatActionCatalog.shared.hasV5 }
         let loaded = Self.load()
         scene=loaded.0;loadError=loaded.1
         simulation=WorldSimulation(scene:loaded.0)
+        if uses3D, let goal = YardRuntime.savedGoal, let index = YardIntent.places.firstIndex(of: goal) { intent3D.choose(index) }
+        yard3D?.onState = { [weak self] message in self?.observe3D(message) }
+        yard3D?.onUnavailable = { [weak self] reason in
+            guard let self else { return }
+            intent3D.unavailable(reason); interruptAgentMove(reason: "world_unavailable"); notifyState()
+        }
         let target=WorldClockTarget { [weak self] in self?.advance() }
         clockTarget=target
         let link=CADisplayLink(target:target,selector:#selector(WorldClockTarget.fire))
@@ -68,9 +79,19 @@ final class WorldEngine: ObservableObject {
         let now=ProcessInfo.processInfo.systemUptime
         let dt=now-lastTick;lastTick=now
         guard foreground,worldEnabled,dt<0.5 else {return}
-        if onHome { frameChanged?(dt) }
+        if onHome || uses3D { frameChanged?(dt) }
         guard !manuallyPaused else {return}
         let start=ProcessInfo.processInfo.systemUptime
+        if uses3D {
+            #if DEBUG
+            let intentDT = dt * debugTimeScale
+            #else
+            let intentDT = dt
+            #endif
+            if canRunWorld, intent3D.tick(intentDT) { dispatch3D() }
+            inspectAgentAction()
+            return
+        }
         let oldRevision=simulation.revision
         let oldPhase=simulation.phase
         let oldTarget=simulation.target
@@ -93,10 +114,29 @@ final class WorldEngine: ObservableObject {
         #endif
     }
     #if DEBUG
-    func placeForReview(_ index:Int) {interruptAgentMove(reason: "user_preempted");simulation.placeForReview(index);notifyState()}
+    func placeForReview(_ index:Int) {
+        if uses3D { guard YardIntent.places.indices.contains(index) else { return }; request(index); intent3D.autonomous = false; yard3D?.send(["type": "teleport", "place": YardIntent.places[index]]); return }
+        interruptAgentMove(reason: "user_preempted");simulation.placeForReview(index);notifyState()}
     func writeSnapshot(label:String="world-metrics") {
         let intervals=tickIntervals.sorted()
         let p95=intervals.isEmpty ? 0:intervals[min(intervals.count-1,Int(Double(intervals.count)*0.95))]*1000
+        if uses3D {
+            var values: [String: Any] = ["uses3D": true, "runnable": canRunWorld, "legacyTicks": tickCount, "action": intent3D.action, "target": intent3D.target, "current": intent3D.current, "requestID": intent3D.request.id, "activity": intent3D.request.activity, "moving": intent3D.moving, "ready": intent3D.ready, "failure": intent3D.failure ?? ""]
+            values["snapshot"] = yard3D?.web.snapshot
+            values["events"] = yard3D?.events
+            values["recovery"] = yard3D?.recovery
+            values["business"] = worldSnapshot().json
+            values["webReady"] = yard3D?.web.ready
+            values["webSurfaceReady"] = yard3D?.web.surfaceReady
+            values["webURL"] = yard3D?.web.webView.url?.absoluteString
+            values["webLoading"] = yard3D?.web.webView.isLoading
+            values["webSize"] = yard3D.map { NSCoder.string(for: $0.web.webView.bounds) }
+            values["webFailure"] = yard3D?.web.failure
+            if let json = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted), let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                try? json.write(to: dir.appendingPathComponent(label + ".json"), options: .atomic)
+            }
+            return
+        }
         let data:[String:Any]=["worldEnabled":worldEnabled,"displayLinkPaused":displayLink?.isPaused ?? true,"manuallyPaused":manuallyPaused,"ticks":tickCount,"worldSeconds":simulation.time,"meanSimulationMilliseconds":totalTickMilliseconds/Double(max(1,tickCount)),"maxSimulationMilliseconds":maxTickMilliseconds,"p95TimerIntervalMilliseconds":p95,"action":simulation.action,"phase":simulation.phase.rawValue,"x":simulation.point.x,"y":simulation.point.y,"target":simulation.target,"current":simulation.current,"paused":simulation.paused,"onHome":onHome,"foreground":foreground,"textureValidationError":loadError ?? ""]
         if let json=try? JSONSerialization.data(withJSONObject:data,options:.prettyPrinted),let dir=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask).first {
             let safe=label.filter{$0.isLetter || $0.isNumber || $0 == "-"}
@@ -114,6 +154,7 @@ final class WorldEngine: ObservableObject {
         runtimeResting = energy == "resting"
         runtimeUnsocial = willingness == "quiet"
         runtimeQuiet = runtimeResting || runtimeUnsocial
+        intent3D.autonomous = activeAgentCommand == nil && !runtimeQuiet
         simulation.autonomous = activeAgentCommand == nil && !runtimeQuiet
     }
     /// 后端临时状态压在性格上（性格系统优化方案第 2.2 节）：
@@ -124,16 +165,21 @@ final class WorldEngine: ObservableObject {
         if runtimeUnsocial { b.lookWeight = 0; b.comesToDoor = false }
         return b
     }
-    var canRunWorld: Bool { foreground && worldEnabled && !manuallyPaused }
+    var currentIndex: Int { uses3D ? intent3D.current : simulation.current }
+    var targetIndex: Int { uses3D ? intent3D.target : simulation.target }
+    var moving: Bool { uses3D ? intent3D.moving : simulation.isMoving }
+    var drinkCount: Int { uses3D ? intent3D.drinkCount : simulation.drinkCount }
+    var canRunWorld: Bool { foreground && worldEnabled && !manuallyPaused && (!uses3D || (intent3D.ready && yard3D?.web.surfaceReady == true)) }
     func worldSnapshot() -> WorldSnapshot {
         let destinations = scene.destinations
         var snapshot = WorldSnapshot(stateVersion: bridgeVersion, sceneVersion: scene.version,
-            destinationIds: destinations.map(\.id), currentDestinationId: destinations[simulation.current].id,
-            targetDestinationId: destinations[simulation.pendingTarget ?? simulation.target].id,
-            phase: simulation.phase.rawValue, action: simulation.action,
-            paused: simulation.paused, runnable: canRunWorld,
+            destinationIds: destinations.map(\.id), currentDestinationId: destinations[currentIndex].id,
+            targetDestinationId: destinations[uses3D ? intent3D.target : (simulation.pendingTarget ?? simulation.target)].id,
+            phase: uses3D ? intent3D.phase : simulation.phase.rawValue, action: uses3D ? intent3D.action : simulation.action,
+            paused: uses3D ? !canRunWorld : simulation.paused, runnable: canRunWorld,
             mood: yard.mood, moodReason: yard.moodReason, dayPhase: yard.dayPhase, weather: yard.weather,
             bowlFilledToday: yard.bowlFilledToday, lastDrinkAt: yard.lastDrinkAt, placesToday: yard.placesToday)
+        if uses3D { snapshot.activity = intent3D.request.activity; snapshot.activityFallback = intent3D.activityFallback }
         if var previous = lastBridgeSnapshot {
             previous.stateVersion = snapshot.stateVersion
             if previous != snapshot { bridgeVersion += 1; snapshot.stateVersion = bridgeVersion }
@@ -150,7 +196,8 @@ final class WorldEngine: ObservableObject {
         activeAgentCommand = command
         agentFinishUptime = ProcessInfo.processInfo.systemUptime + max(0, finishAfter)
         simulation.autonomous = false
-        simulation.request(index)
+        if uses3D { intent3D.autonomous = false; intent3D.choose(index); dispatch3D() }
+        else { simulation.request(index) }
         agentActionChanged?(command, "running", nil)
         notifyState()
         return true
@@ -158,6 +205,7 @@ final class WorldEngine: ObservableObject {
     func interruptAgentMove(reason: String) {
         guard let command = activeAgentCommand else { return }
         activeAgentCommand = nil; agentFinishUptime = nil
+        intent3D.autonomous = !runtimeQuiet
         simulation.autonomous = !runtimeQuiet
         // 不强切出窝/下栏动画。用户请求走正常重定向；暂停保留安全过渡，回前台不重发命令。
         agentActionChanged?(command, "interrupted", reason)
@@ -168,6 +216,7 @@ final class WorldEngine: ObservableObject {
         if let deadline = agentFinishUptime, ProcessInfo.processInfo.systemUptime >= deadline {
             interruptAgentMove(reason: "execution_timeout"); return
         }
+        if uses3D { return } // 到达只能由 observe3D 的 settled 回执触发。
         guard let index = scene.destinations.firstIndex(where: { $0.id == command.destinationId }),
               simulation.current == index, simulation.target == index,
               simulation.pendingTarget == nil, !simulation.isMoving, !simulation.isTurning,
@@ -189,42 +238,70 @@ final class WorldEngine: ObservableObject {
         onHome=home;self.foreground=foreground;worldEnabled=enabled
         displayLink?.isPaused = !enabled || !foreground
         simulation.setPaused(!enabled || !foreground || manuallyPaused)
+        yard3D?.setActive(enabled && foreground && !manuallyPaused)
         lastTick=ProcessInfo.processInfo.systemUptime
         notifyState()
     }
-    func request(_ index:Int) { interruptAgentMove(reason: "user_preempted"); simulation.request(index);notifyState() }
-    func poke() {interruptAgentMove(reason: "user_preempted");simulation.poke();notifyState()}
+    #if DEBUG
+    func reviewActivity(_ activity: String) {
+        guard uses3D, ["tilt", "groom", "happy", "sulk", "sad", "nestWatch", "nestSleep", "pond", "fence", "flower", "scratch", "chase", "stretch", "run"].contains(activity) else { return }
+        intent3D.autonomous = false
+        intent3D.choose((activity == "chase" || activity == "stretch" || activity == "run") ? 3 : (activity == "fence" || activity == "flower") ? 5 : activity == "pond" ? 4 : (activity.hasPrefix("nest") || activity == "scratch") ? 1 : 0, activity: activity == "fence" || activity == "pond" || activity == "nestWatch" ? "watch" : activity == "nestSleep" ? "rest" : activity)
+        dispatch3D()
+    }
+    #endif
+    func request(_ index:Int) { interruptAgentMove(reason: "user_preempted"); if uses3D { intent3D.choose(index); dispatch3D() } else { simulation.request(index) };notifyState() }
+    func poke() {interruptAgentMove(reason: "user_preempted");if uses3D { yard3D?.send(["type": "poke"]) } else { simulation.poke() };notifyState()}
     /// 情绪、时段、天气、水碗：每秒由 AppStore 喂一次。
     func setConditions(mood:Mood,night:Bool,allowed:Set<Int>,bowlFull:Bool,behavior:BehaviorParams) {
+        if uses3D { intent3D.conditions(mood: mood, night: night, allowed: allowed, bowlFull: bowlFull, behavior: adjusted(behavior)); return }
         simulation.setConditions(mood:mood,night:night,allowed:allowed,bowlFull:bowlFull,behavior:adjusted(behavior))
     }
     /// 打开 App：按性格决定来不来门口。
-    func greet() { simulation.greet();notifyState() }
+    func greet() { if uses3D { intent3D.greet(); dispatch3D() } else { simulation.greet() };notifyState() }
     /// 院子里的事实（情绪、时段、天气、水、今天去过哪）：每秒由 AppStore 喂一次，只为送进聊天。
     func setYardFacts(_ facts: WorldYardFacts) {
         guard facts != yard else { return }
         yard = facts
         bridgeChanged?()
     }
-    func requestDrink() { if simulation.requestDrink() {notifyState()} }
+    func requestDrink() { if uses3D { if intent3D.drink() { dispatch3D(); notifyState() }; return }; if simulation.requestDrink() {notifyState()} }
     func togglePause() {
         interruptAgentMove(reason: "world_paused")
-        manuallyPaused.toggle();simulation.setPaused(manuallyPaused || !foreground || !worldEnabled)
+        manuallyPaused.toggle();yard3D?.setActive(worldEnabled && foreground && !manuallyPaused);simulation.setPaused(manuallyPaused || !foreground || !worldEnabled)
         lastTick=ProcessInfo.processInfo.systemUptime;notifyState()
     }
-    func setSeed(_ value:UInt64) {simulation.seed(value)}
+    func setSeed(_ value:UInt64) {intent3D.seed(value);simulation.seed(value)}
     func stepFrame() {
+        guard !uses3D else { return }
         guard let action=CatAction(rawValue:simulation.action) else {return}
         let spec=action.spec,index=spec.frame(at:simulation.actionTime)
         let duration=spec.frameDurations?[index] ?? (1/spec.fps)
         simulation.stepFrame(duration+0.00001);notifyState()
     }
-    func preview(_ name:String) {interruptAgentMove(reason: "world_paused");manuallyPaused=true;simulation.preview(name);notifyState()}
+    func preview(_ name:String) {guard !uses3D else { return };interruptAgentMove(reason: "world_paused");manuallyPaused=true;simulation.preview(name);notifyState()}
+    private func dispatch3D() { yard3D?.intent(intent3D.request) }
+    private func observe3D(_ message: [String: Any]) {
+        guard let id = message["id"] as? String, let nearest = message["nearest"] as? String,
+              let moving = message["moving"] as? Bool, let action = message["action"] as? String,
+              intent3D.observe(id: id, nearest: nearest, moving: moving, action: action,
+                 offscreen: message["offscreen"] as? Bool ?? false, cameraMode: message["cameraMode"] as? String ?? "following",
+                 fallback: message["fallback"] as? Bool ?? true, drinkDone: message["drinkDone"] as? Bool ?? false) else { return }
+        if message["settled"] as? Bool == true, let command = activeAgentCommand,
+           scene.destinations[intent3D.target].id == command.destinationId {
+            activeAgentCommand = nil; agentFinishUptime = nil; intent3D.autonomous = !runtimeQuiet
+            agentActionChanged?(command, "arrived", nil)
+        }
+        notifyState()
+    }
     func reset() {
         interruptAgentMove(reason: "world_reset")
+        if uses3D { intent3D = YardIntent(); dispatch3D() }
         simulation=WorldSimulation(scene:scene);manuallyPaused=false
+        intent3D.autonomous = !runtimeQuiet
         simulation.autonomous = !runtimeQuiet
         simulation.setPaused(!foreground || !worldEnabled)
+        yard3D?.setActive(foreground && worldEnabled)
         notifyState()
     }
 }

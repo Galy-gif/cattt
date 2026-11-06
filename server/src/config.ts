@@ -33,6 +33,8 @@ const schema = z
     EXTRACT_THINKING: thinking.default('disabled'),
     /** 假模型每个字之间停多久，测断线续传时调大 */
     MOCK_DELAY_MS: z.coerce.number().int().default(40),
+    MEMORY_RECALL_MODE: z.enum(['hybrid', 'local']).default('hybrid'),
+    MEMORY_RECALL_TIMEOUT_MS: z.coerce.number().int().min(100).max(5000).default(2500),
   });
 
 const parsed = schema.safeParse(process.env);
@@ -68,6 +70,3 @@ export const STALE_TURN_MS = 30_000;
 export const TURN_EVENTS_TTL_S = 10 * 60;
 /** 带进上下文的最近消息条数 */
 export const CONTEXT_MESSAGES = 30;
-/** 召回：用户明确要记的最多几条、其余最近的几条 */
-export const RECALL_EXPLICIT = 30;
-export const RECALL_RECENT = 20;

@@ -1,0 +1,497 @@
+{
+  "nest_shell": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "nest_opening_rim": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0.001477155601605773,
+      "verticesInside": 1,
+      "frame": 972,
+      "vertex": 1167,
+      "point": [
+        0.2819700241088867,
+        1.3748701810836792,
+        0.6793179512023926
+      ]
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "nest_cushion": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0.0037423588801175356,
+      "verticesInside": 179,
+      "frame": 150,
+      "vertex": 6037,
+      "point": [
+        0.26036927103996277,
+        1.5782006978988647,
+        0.7119423151016235
+      ]
+    },
+    "nest_turn": {
+      "penetration": 0.0014891327591612935,
+      "verticesInside": 218,
+      "frame": 174,
+      "vertex": 6037,
+      "point": [
+        0.25664862990379333,
+        1.5934675931930542,
+        0.7163053154945374
+      ]
+    },
+    "nest_watch": {
+      "penetration": 0.001467446913011372,
+      "verticesInside": 918,
+      "frame": 240,
+      "vertex": 6037,
+      "point": [
+        0.165631964802742,
+        1.7034544944763184,
+        0.7163053154945374
+      ]
+    },
+    "nest_down": {
+      "penetration": 0.001498498604632914,
+      "verticesInside": 188,
+      "frame": 570,
+      "vertex": 6037,
+      "point": [
+        0.1452174186706543,
+        1.6725119352340698,
+        0.7163060307502747
+      ]
+    },
+    "nest_sleep": {
+      "penetration": 0.0014584060991182923,
+      "verticesInside": 653,
+      "frame": 600,
+      "vertex": 6037,
+      "point": [
+        0.1430628001689911,
+        1.635503888130188,
+        0.7163069844245911
+      ]
+    },
+    "nest_wake": {
+      "penetration": 0.0014986207243055105,
+      "verticesInside": 187,
+      "frame": 810,
+      "vertex": 6037,
+      "point": [
+        0.145217627286911,
+        1.6725120544433594,
+        0.7163059115409851
+      ]
+    },
+    "nest_turn_out": {
+      "penetration": 0.0015023823361843824,
+      "verticesInside": 217,
+      "frame": 888,
+      "vertex": 6037,
+      "point": [
+        0.21298548579216003,
+        1.578577995300293,
+        0.7163053154945374
+      ]
+    },
+    "nest_out": {
+      "penetration": 0.0036780191585421562,
+      "verticesInside": 137,
+      "frame": 930,
+      "vertex": 6037,
+      "point": [
+        0.2603698670864105,
+        1.5647220611572266,
+        0.7102598547935486
+      ]
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "tree_trunk": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "tree_branch": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "tree_fork_0": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "tree_fork_1": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  },
+  "tree_fork_2": {
+    "nest_jump": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_grab": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_climb": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_watch": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_down": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_sleep": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_wake": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_turn_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_out": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_drop": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "nest_land": {
+      "penetration": 0,
+      "verticesInside": 0
+    },
+    "idle": {
+      "penetration": 0,
+      "verticesInside": 0
+    }
+  }
+}

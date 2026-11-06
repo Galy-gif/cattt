@@ -1,0 +1,19 @@
+{
+  "kind": "新版USB录屏期间真实内容进程SIGKILL",
+  "appPid": 48850,
+  "webPid": 48851,
+  "atUnix": 1790938402.369897,
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-02T10:46:28.039Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "baca2af466249c60882ef22b15b1bc7d2319bec4eed10cfe160e435b0dd80661",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+    }
+  },
+  "output": "Sent signal to terminate process sent to pid 48851\n"
+}

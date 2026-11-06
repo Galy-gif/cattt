@@ -1,0 +1,8 @@
+{
+  "database": "maomao_memory_review_maomao_diary_sync_review_1792830294",
+  "provider": "deepseek",
+  "scope": "仅隔离合成数据，非App端到端或完整人格质量验收",
+  "memoryExitCode": 0,
+  "diaryExitCode": 0,
+  "recallExitCode": 0
+}

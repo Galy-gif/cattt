@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-10",
+  "device": "iPhone 17 Pro Simulator / iOS 26.5",
+  "posesBuild": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T10:26:05.355Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "cfd303e90c8fc34e0c45236320745d67989cffe4ea8813eb8979fc7a387d33ab",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "7eeed5a7666e10631bf1930909217ff11eb7fac77c841b97674b5545c47effc5"
+    }
+  },
+  "finalDrinkBuild": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T10:29:09.278Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "40478d3dafae67a11be6d42e549b6715b5bfd9a94144c6c8886986be70eecb7c",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "7eeed5a7666e10631bf1930909217ff11eb7fac77c841b97674b5545c47effc5"
+    }
+  },
+  "sameCatModel": true,
+  "states": {
+    "doze": {
+      "action": "doze_idle",
+      "activity": {
+        "target": "doze",
+        "hop": null,
+        "time": 5.100000000000006,
+        "completions": 1,
+        "seconds": 7.200000000000033,
+        "eligible": false,
+        "clip": "doze_idle",
+        "state": "doze_idle",
+        "closure": 0.9999999986183673
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "facing": 0,
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 0,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "F74908C6-6F20-447C-824E-BEBE09A19F06",
+          "id": "AD9EBD2A-ECB3-48FE-AB66-F5A6E5ECFB22",
+          "place": "house",
+          "activity": "rest",
+          "type": "intent",
+          "pageId": "15AB1F1E-C3E8-42BC-89B8-12242B4FF24F"
+        }
+      }
+    },
+    "bed": {
+      "action": "sleep_idle",
+      "activity": {
+        "target": "sleep",
+        "hop": null,
+        "time": 2.5499999999999954,
+        "completions": 1,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sleep_idle",
+        "state": "sleep_idle",
+        "closure": 0.9999999722491677
+      },
+      "position": {
+        "x": -2.6,
+        "y": 0.072,
+        "z": 1.35
+      },
+      "facing": 1.5707963267948966,
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": true,
+          "degraded": false,
+          "drinkStart": 0,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "26279B93-DC63-4E87-AF0C-0D2748E5D17C",
+          "activity": "rest",
+          "place": "bed",
+          "id": "8F75B831-FB16-469D-AA89-5ADE9541F2C8",
+          "type": "intent",
+          "pageId": "A870E5F6-9D4E-4C1A-B1F4-69ADFA938451"
+        }
+      }
+    },
+    "drink": {
+      "action": "drink_lap",
+      "activity": {
+        "target": "drink",
+        "hop": null,
+        "time": 2.149999999999997,
+        "completions": 1,
+        "seconds": 2.149999999999997,
+        "eligible": true,
+        "clip": "drink_lap",
+        "state": "drink_lap",
+        "closure": 5.245721636204457e-19
+      },
+      "position": {
+        "x": -1.636287123300813,
+        "y": 0,
+        "z": -1.105110015210479
+      },
+      "facing": 2.159239160067262,
+      "home": {
+        "drinkDone": false,
+        "settled": false,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "house",
+          "id": "8F5C94FC-39C8-4407-9C64-C81DD3F4DE51",
+          "activity": "drink",
+          "runId": "F5E55D57-20D4-4BAF-8AFF-07BB71907EC4",
+          "type": "intent",
+          "pageId": "F854EBFE-3D82-43A9-8808-02E3FE1C0F92"
+        }
+      }
+    },
+    "drink-done": {
+      "action": "idle",
+      "activity": {
+        "target": null,
+        "hop": null,
+        "time": 0.23299990463256393,
+        "completions": 2,
+        "seconds": 7.20000000000003,
+        "eligible": false,
+        "clip": "idle",
+        "state": "idle",
+        "closure": 9.307069808665993e-35
+      },
+      "position": {
+        "x": -1.636287123300813,
+        "y": 0,
+        "z": -1.105110015210479
+      },
+      "facing": 2.159239160067262,
+      "home": {
+        "drinkDone": true,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "house",
+          "id": "8F5C94FC-39C8-4407-9C64-C81DD3F4DE51",
+          "activity": "drink",
+          "runId": "F5E55D57-20D4-4BAF-8AFF-07BB71907EC4",
+          "type": "intent",
+          "pageId": "F854EBFE-3D82-43A9-8808-02E3FE1C0F92"
+        }
+      }
+    }
+  },
+  "bowl": {
+    "surfaceY": 0.04700000211596489,
+    "openingRayBottomY": 0.009000003337860107,
+    "addedTriangles": 324
+  },
+  "images": {
+    "bed-side.jpg": {
+      "sha256": "9da02404d1e86aaabcd7eb64ec27f566c668a83ea700ca755f3a72b184c1cf7d",
+      "bytes": 121719
+    },
+    "doze-side.jpg": {
+      "sha256": "7230f095890e2a5a130b570d9b1f66c6557d4e8c338647c0f1fab7a54e71dd0e",
+      "bytes": 109765
+    },
+    "drink-side.jpg": {
+      "sha256": "fccfcabad6cbb276c8ef4b5baa83523a966978b41471a4e4c606cd31804b4c84",
+      "bytes": 107000
+    },
+    "comparison.jpg": {
+      "sha256": "8371abeb0b4e45bdadc94b407543ae30d906f847118df54fd22d8f894caeedc4",
+      "bytes": 95087
+    },
+    "doze-front.jpg": {
+      "sha256": "50ed72dabd04c6a1c8d72bbea772670cac66170a9c0c2d899025c7e016986d57",
+      "bytes": 104016
+    },
+    "bed-front.jpg": {
+      "sha256": "7c43d0b55cbf456ec8e5df76da802dfdc2fb5d4951597f8b0a7ad4877575314f",
+      "bytes": 91008
+    }
+  },
+  "video": {
+    "path": "/tmp/maomao-life-revision/drink-open-bowl.mp4",
+    "sha256": "279240445a0213a6abc89178556cd6117d9b7cab211085bede552cb8902c981f",
+    "gif": "/Users/gouzi/.codex/visualizations/2026/10/05/01a10a67-1e64-7c71-a484-5c25d961d9e4/喝水动作-2026-10-10.gif",
+    "extractedRangeSeconds": [
+      15,
+      21
+    ],
+    "fps": 12,
+    "speed": 1,
+    "gifBytes": 5440216
+  },
+  "checks": {
+    "runtime": "passed",
+    "webTests": 32,
+    "swiftSuites": 10,
+    "simulatorBuild": "passed",
+    "deviceBuild": "not run for revision"
+  }
+}

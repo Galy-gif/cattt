@@ -1,0 +1,36 @@
+{
+  "tool": "内置imagegen，三次独立生成",
+  "status": "候选待选择，未替换App资源",
+  "files": [
+    {
+      "name": "A-memory.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1103879,
+      "sha256": "49ea8657c8fa4e4794a8994b2bfc35e57276b1df4540387fe57c5894d15c5d2d"
+    },
+    {
+      "name": "B-seat.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1003254,
+      "sha256": "b1c0ad99ec8ed9b8d851109168e6330732e68ed60b8e90b09ce4eeee5cbb3f1b"
+    },
+    {
+      "name": "C-comma.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1001305,
+      "sha256": "943f9ed67adaad92c1a3123cdef4340bf1a0b90a3c121c9caec710925363046f"
+    }
+  ]
+}

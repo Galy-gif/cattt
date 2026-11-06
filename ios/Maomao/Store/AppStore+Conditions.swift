@@ -7,7 +7,6 @@ extension AppStore {
     static let weatherModeKey = "maomao.weatherMode"
     private enum Keys {
         static let bowl = "maomao.bowlFilledAt", drink = "maomao.lastDrinkAt", visit = "maomao.lastVisitAt", created = "maomao.createdAt"
-        static let diaryDate = "maomao.catDiaryDate", diaryText = "maomao.catDiaryText", diaryTime = "maomao.catDiaryTime"
         static let temperament = "maomao.temperament", traits = "maomao.traits"
     }
 
@@ -15,7 +14,7 @@ extension AppStore {
 
     func loadPersisted() {
         let ud = UserDefaults.standard
-        if let d = ud.object(forKey: Keys.created) as? Date { createdAt = d } else { ud.set(createdAt, forKey: Keys.created) }
+        if let d = ud.object(forKey: Keys.created) as? Date { createdAt = d }
         previousVisitAt = ud.object(forKey: Keys.visit) as? Date
         ud.set(sessionStartedAt, forKey: Keys.visit)
         bowlFilledAt = ud.object(forKey: Keys.bowl) as? Date
@@ -28,15 +27,6 @@ extension AppStore {
             traitLevels = Trait.allCases.reduce(into: [:]) { $0[$1] = saved[$1.rawValue] ?? 1 }
         }
         compileBehavior()
-        catDiaryDate = ud.object(forKey: Keys.diaryDate) as? Date
-        if let day = catDiaryDate, let text = ud.string(forKey: Keys.diaryText) {
-            if Calendar.current.isDateInToday(day) {
-                entries.append(DiaryEntry(id: "cat-today", time: ud.string(forKey: Keys.diaryTime) ?? "19:30", kind: .cat, visit: .unread, text: text))
-            } else {
-                let f = DateFormatter(); f.dateFormat = "M/dd"
-                catMonthRows.append(DiaryMonthRow(date: f.string(from: day), firstLine: text, count: 1))
-            }
-        }
     }
 
     func savePersisted() {
@@ -90,6 +80,7 @@ extension AppStore {
 
     /// 每帧调用；真正的重算每秒一次。
     func advanceConditions(_ dt: Double) {
+        world.yard3D?.facts(full: bowlFull, mail: hasMail)
         if pouring > 0 { pouring = max(0, pouring - dt / 1.4) }
         // 雨慢慢下起来、慢慢停：天气自己变是一分钟，用户手动切是三秒。逐帧推，三秒也不跳格。
         let targetRain = weather == .rain ? 1.0 : 0.0
@@ -130,21 +121,22 @@ extension AppStore {
         #endif
         if evaluation != mood { mood = evaluation }
         compileBehavior()
+        world.yard3D?.atmosphere(hour: hour, weather: w.rawValue)
         world.setConditions(mood: mood.mood, night: phase.isNight, allowed: MoodRules.allowedDestinations(phase: phase, weather: w),
                             bowlFull: bowlFull, behavior: behavior)
         // 喝过水
-        if world.simulation.drinkCount != lastDrinkCount {
-            lastDrinkCount = world.simulation.drinkCount
+        if world.drinkCount != lastDrinkCount {
+            lastDrinkCount = world.drinkCount
             lastDrinkAt = now; savePersisted()
         }
         // 今天去过哪（团子的日记用）
-        let sim = world.simulation
-        if !sim.isMoving, sim.current != lastPlaceIndex {
-            lastPlaceIndex = sim.current
-            visitedPlacesToday.append(world.scene.destinations[sim.current].name)
+        if (!world.uses3D || world.intent3D.ready), !world.moving, world.currentIndex != lastPlaceIndex {
+            lastPlaceIndex = world.currentIndex
+            visitedPlacesToday.append(world.scene.destinations[world.currentIndex].name)
+            if visitedPlacesToday.count > 40 { visitedPlacesToday.removeFirst() }
         }
         // 院子里的事实送进聊天（只读，不写记忆、不改 Soul）。
-        world.setYardFacts(WorldYardFacts(mood: mood.mood.rawValue, moodReason: mood.reason,
+        world.setYardFacts(WorldYardFacts(mood: mood.mood.rawValue, moodReason: yardMoodReason,
                                           dayPhase: phase.rawValue, weather: w.rawValue,
                                           bowlFilledToday: bowlFull,
                                           lastDrinkAt: lastDrinkAt.map { ISO8601DateFormatter().string(from: $0) },
@@ -152,7 +144,9 @@ extension AppStore {
         // 雨声：只在院子里、下雨时响
         rainSound.set(on: w == .rain && rainSoundEnabled && !yardProbeVisible && screen == .home && !mailboxOpen && !showsMe)
         // 团子的日记：夜晚开始时写，一天一条
-        if hour >= CatDiary.writeHour, !(catDiaryDate.map { Calendar.current.isDate($0, inSameDayAs: now) } ?? false) {
+        let diaryDayKey = DiaryDay.key(for: now)
+        let hasTodayDiary = entries.contains { $0.kind == .cat && $0.dayKey == diaryDayKey }
+        if !diaryLoadFailed, now >= diaryRetryAfter, hour >= CatDiary.writeHour, !hasTodayDiary {
             writeCatDiary(now: now)
         }
     }
@@ -191,28 +185,29 @@ extension AppStore {
         facts.visitedToday = cal.isDate(sessionStartedAt, inSameDayAs: now)
         facts.absenceDays = facts.visitedToday ? 0 : (previousVisitAt.map { MoodRules.daysBetween($0, now, calendar: cal) } ?? 0)
         facts.emptyDays = bowlFilledAt.map { MoodRules.daysBetween($0, now, calendar: cal) } ?? MoodRules.daysBetween(createdAt, now, calendar: cal)
-        facts.chatSnippet = messages.last(where: { $0.role == .user }).flatMap { CatDiary.snippet($0.text) }
-        facts.fragmentSnippet = entries.first(where: { !$0.isPrivate && $0.visit != .unread && $0.kind != .cat }).flatMap { CatDiary.snippet($0.text) }
+        facts.chatSnippet = backend.isRemote ? nil : messages.last(where: { $0.role == .user }).flatMap { CatDiary.snippet($0.text) }
+        facts.fragmentSnippet = backend.isRemote ? nil : entries.first(where: { !$0.isPrivate && $0.visit != .unread && $0.kind != .cat }).flatMap { CatDiary.snippet($0.text) }
         facts.places = visitedPlacesToday
         facts.sentences = behavior.diarySentences
         let text = CatDiary.compose(facts)
         let f = DateFormatter(); f.dateFormat = "HH:mm"
         let time = f.string(from: now)
-        saveCatDiary(text: text, time: time, now: now)
+        guard saveCatDiary(text: text, time: time, now: now) else { return }
         // 连着后端时由模型按同一张事实表写；写不出来就留着上面这条本地模板。
         if backend.isRemote { remoteCatDiary(facts: facts, time: time, now: now) }
     }
 
-    private func saveCatDiary(text: String, time: String, now: Date, announces: Bool = true) {
-        entries.removeAll { $0.kind == .cat }
-        withAnimation(.easeOut(duration: Metrics.fade)) {
-            entries.append(DiaryEntry(id: "cat-today", time: time, kind: .cat, visit: .unread, text: text))
-        }
+    @discardableResult
+    private func saveCatDiary(text: String, time: String, now: Date, timeZone: TimeZone = .current, announces: Bool = true) -> Bool {
+        var archive = diaryArchive
+        archive.upsertCatDiary(text: text, time: time, now: now, timeZone: timeZone)
+        guard persistDiary(archive) else { diaryRetryAfter = now.addingTimeInterval(60); return false }
+        diaryRetryAfter = .distantPast
         catDiaryDate = now
-        let ud = UserDefaults.standard
-        ud.set(now, forKey: Keys.diaryDate); ud.set(text, forKey: Keys.diaryText); ud.set(time, forKey: Keys.diaryTime)
         hasMail = true
         if announces { announce("团子把今天记下来了") }
+        syncDiary()
+        return true
     }
 
     private func remoteCatDiary(facts: CatDiary.Facts, time: String, now: Date) {
@@ -233,11 +228,14 @@ extension AppStore {
         if let chat = facts.chatSnippet { body["chatSnippet"] = chat }
         if let fragment = facts.fragmentSnippet { body["fragmentSnippet"] = fragment }
         let client = api
+        let generation = diaryGeneration
+        let timeZone = TimeZone.current
         Task { @MainActor [weak self] in
             guard let self, let written = try? await client.catDiary(facts: body), !written.isEmpty else { return }
             // 期间已经翻到第二天就别覆盖了。
-            guard Calendar.current.isDate(self.catDiaryDate ?? now, inSameDayAs: now) else { return }
-            self.saveCatDiary(text: written, time: time, now: now, announces: false)
+            guard self.backend == client.config, self.diaryGeneration == generation,
+                  Calendar.current.isDate(self.catDiaryDate ?? now, inSameDayAs: now) else { return }
+            self.saveCatDiary(text: written, time: time, now: now, timeZone: timeZone, announces: false)
         }
     }
 }

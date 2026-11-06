@@ -1,0 +1,14 @@
+{
+  "normal": {
+    "frames": 589,
+    "eyeDarkAreaMin": 106,
+    "eyeDarkAreaMax": 1062,
+    "scope": "眼部ROI暗像素；H264压缩导致小量波动"
+  },
+  "reduceMotion": {
+    "frames": 345,
+    "eyeDarkAreaMin": 1035,
+    "eyeDarkAreaMax": 1048,
+    "scope": "眼部ROI暗像素；H264压缩导致小量波动"
+  }
+}

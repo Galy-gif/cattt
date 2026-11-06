@@ -1,0 +1,7 @@
+{
+  "typecheck": true,
+  "testFiles": 20,
+  "testsPassed": 118,
+  "model": "受控mock",
+  "scope": "后端功能回归；真实小样本另见当日检查"
+}

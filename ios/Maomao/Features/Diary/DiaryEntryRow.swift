@@ -21,7 +21,7 @@ struct DiaryEntryRow: View {
                 if entry.kind == .cat { catCard } else { card }
             }
 
-            if entry.visit == .commented {
+            if entry.visit == .commented && !entry.isPrivate {
                 noteRow
             }
         }
@@ -105,18 +105,35 @@ struct DiaryEntryRow: View {
                     .foregroundStyle(Palette.ink4)
             }
 
-            if entry.isPrivate {
+            if entry.kind == .text {
                 HStack(spacing: 6) {
-                    Icons.lock(color: Palette.ink3)
-                    Text("只留给自己")
+                    if entry.isPrivate { Icons.lock(color: Palette.ink3) }
+                    Text(entry.permissionLabel)
                         .font(Typo.sans(10.5))
                         .tracking(track(0.04, 10.5))
                         .foregroundStyle(Palette.ink3)
+                    Spacer(minLength: 0)
+                    if !entry.isPrivate, !entry.needsSync, entry.visit != .commented {
+                        TextLink(text: "聊聊", size: 12) { store.openChat(from: entry) }
+                    }
+                    if store.backend.isRemote {
+                        Menu {
+                            if entry.isPrivate {
+                                Button("给\(store.catName)看") { store.setDiaryVisibility(entry, forCat: true) }
+                            } else {
+                                Button("停止给\(store.catName)看") { store.setDiaryVisibility(entry, forCat: false) }
+                            }
+                        } label: {
+                            Text("权限").font(Typo.sans(12)).foregroundStyle(Palette.ink3)
+                                .frame(minWidth: Metrics.minTap, minHeight: Metrics.minTap)
+                        }
+                        .accessibilityLabel("日记使用权限")
+                    }
                 }
             }
 
             // 团子来过：只留脚印 —— 它看过，但没话说。
-            if entry.visit == .readNoComment {
+            if entry.visit == .readNoComment && !entry.isPrivate {
                 PawPrints()
             }
         }
@@ -155,7 +172,7 @@ struct DiaryEntryRow: View {
 
     private var noteRow: some View {
         HStack(alignment: .top, spacing: columnGap) {
-            Text("稍后")
+            Text("留言")
                 .font(Typo.sans(11))
                 .tracking(track(0.04, 11))
                 .foregroundStyle(Palette.ink3)

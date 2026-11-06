@@ -1,0 +1,91 @@
+{
+  "phase": "屋前白天稳定运行",
+  "connection": "wired",
+  "traceSeconds": 11.109979,
+  "endReason": "Time limit reached",
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-02T09:58:06.591Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "3813acd5311d5714d8854ea23e6179f69aea4b387decf2462f0647399e547918",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+    }
+  },
+  "samples": [
+    {
+      "atSeconds": 0.132743916,
+      "appBytes": 33260608,
+      "webContentBytes": 251757488,
+      "combinedBytes": 285018096
+    },
+    {
+      "atSeconds": 1.14546625,
+      "appBytes": 33276992,
+      "webContentBytes": 251773872,
+      "combinedBytes": 285050864
+    },
+    {
+      "atSeconds": 2.19077925,
+      "appBytes": 33276992,
+      "webContentBytes": 251773872,
+      "combinedBytes": 285050864
+    },
+    {
+      "atSeconds": 3.189997916,
+      "appBytes": 33276992,
+      "webContentBytes": 251773872,
+      "combinedBytes": 285050864
+    },
+    {
+      "atSeconds": 4.188968666,
+      "appBytes": 33276992,
+      "webContentBytes": 251773872,
+      "combinedBytes": 285050864
+    },
+    {
+      "atSeconds": 5.193168166,
+      "appBytes": 33260608,
+      "webContentBytes": 251773872,
+      "combinedBytes": 285034480
+    },
+    {
+      "atSeconds": 6.256889458,
+      "appBytes": 33260608,
+      "webContentBytes": 247907248,
+      "combinedBytes": 281167856
+    },
+    {
+      "atSeconds": 7.291574166,
+      "appBytes": 33276992,
+      "webContentBytes": 251790256,
+      "combinedBytes": 285067248
+    },
+    {
+      "atSeconds": 8.288410666,
+      "appBytes": 33276992,
+      "webContentBytes": 251790256,
+      "combinedBytes": 285067248
+    },
+    {
+      "atSeconds": 9.354008958,
+      "appBytes": 33276992,
+      "webContentBytes": 251790256,
+      "combinedBytes": 285067248
+    },
+    {
+      "atSeconds": 10.389488208,
+      "appBytes": 33276992,
+      "webContentBytes": 251790256,
+      "combinedBytes": 285067248
+    }
+  ],
+  "peakCombinedMiB": 271.86131286621094,
+  "limitMiB": 450,
+  "singlePhaseVerdict": "通过",
+  "fullMemoryVerdict": "未完成，夜雨和往返待采样",
+  "exportSha256": "e89b7226a19eedd14a2169d464a619b5cf59928cedc4da4edcdeba0bfc3a7d96"
+}

@@ -11,7 +11,14 @@ struct RootView: View {
         // 再让里面的 ZStack 铺满整屏。之前 ignoresSafeArea 挂在 reader 上，量出来永远是 0。
         GeometryReader { proxy in
             ZStack {
-                Palette.bg.ignoresSafeArea()
+                PageBackground().ignoresSafeArea()
+
+                if store.world.uses3D, store.onboarding == nil, !store.yardProbeVisible {
+                    YardHomeSurface()
+                        .environment(\.screenInsets, proxy.safeAreaInsets)
+                        .opacity(store.screen == .home ? 1 : 0.001)
+                        .allowsHitTesting(store.screen == .home && !store.mailboxOpen && !store.showsMe)
+                }
 
                 if !store.yardProbeVisible {
                     screen.environment(\.screenInsets, proxy.safeAreaInsets)
@@ -55,6 +62,13 @@ struct RootView: View {
             .ignoresSafeArea()
         }
         .environmentObject(store)
+        .task(id: scenePhase) {
+            guard scenePhase == .active else { return }
+            while !Task.isCancelled {
+                store.syncDiary()
+                do { try await Task.sleep(for: .seconds(15)) } catch { return }
+            }
+        }
         .sheet(isPresented: $store.showsMe) {
             MeView()
                 .environmentObject(store)
@@ -76,6 +90,11 @@ struct RootView: View {
 
     private func updateWorldVisibility() {
         store.world.setVisibility(home: store.screen == .home && store.onboarding == nil, foreground: scenePhase == .active, enabled: store.onboarding == nil && !store.yardProbeVisible)
+        if store.world.uses3D, store.onboarding == nil, !store.yardProbeVisible {
+            store.conditionsClock = 1; store.advanceConditions(0)
+            store.world.yard3D?.start(intent: store.world.intent3D.request, slot: store.dayPhase.rawValue, weather: store.weather.rawValue)
+        }
+        if scenePhase != .active { store.rainSound.set(on: false) }
         // 打开 App（或从后台回来）：按性格决定猫来不来门口。
         if scenePhase == .active && !store.yardProbeVisible { store.greetOnOpen() } else if scenePhase == .background { store.greetedThisSession = false }
     }

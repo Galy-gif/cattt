@@ -1,0 +1,24 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "method": "App关闭后通过CoreDevice工具启动3D调试入口；普通图标仍进入2D首页",
+  "video": "usb-cover-fix-triple-recovery.mov",
+  "screenLaunchTransitionIntervalSeconds": [
+    4.6,
+    4.8
+  ],
+  "first3DImageIntervalSeconds": [
+    5.0,
+    5.2
+  ],
+  "fullyRevealedIntervalSeconds": [
+    5.2,
+    5.4
+  ],
+  "samplingStepSeconds": 0.2,
+  "conservativeLaunchToImageUpperBoundSeconds": 0.6,
+  "conservativeLaunchToRevealUpperBoundSeconds": 0.8,
+  "verdict": "工具冷启动通过≤2.5秒；不代表正式3D首页图标启动",
+  "nativeFirstFrameSeconds": 0.6165,
+  "nativeVisualReadySeconds": 0.631795,
+  "note": "逐帧抽查；初始化事件与视频启动过渡分别记录，不用视频文件创建时间推算"
+}

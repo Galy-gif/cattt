@@ -1,0 +1,23 @@
+{
+  "source": {
+    "selectedSource": "assets/app-icon/rounded-v12/C-rest.png",
+    "sourceSHA256": "7f770aecf99d94cf10e55ad999cb336243af35d6485fbbfe1f84918cdbbf109d",
+    "generator": "image_gen",
+    "processing": "仅等比缩放1254→1024并转RGB，无造型和配色修改",
+    "selectedAt": "2026-10-14",
+    "appearance": "常规源；移除旧大头照深色/着色映射，系统外观待验"
+  },
+  "files": [
+    {
+      "name": "AppIcon-default.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "bytes": 808646,
+      "sha256": "4727ee479a3bf77caa514941718c70b8fb3753f06b6eb5372aa67f55f279fad0"
+    }
+  ],
+  "preview": "圆角为审阅示意；实际裁切以系统主屏幕为准"
+}

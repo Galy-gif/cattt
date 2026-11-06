@@ -1,0 +1,8 @@
+{
+  "connected": true,
+  "authentication": "passed",
+  "models": [
+    "deepseek-flash"
+  ],
+  "scope": "仅验证固定文字生成，不代表记忆召回、日记读取或自然表达验收通过。"
+}

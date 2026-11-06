@@ -1,0 +1,63 @@
+{
+  "actions": [
+    {
+      "id": "02e5d365-1ebd-4910-b5d5-8090c37ef5af",
+      "status": "arrived",
+      "destination": "pond",
+      "reason": null,
+      "requestedAt": "2026-10-05T05:24:24.101Z",
+      "updatedAt": "2026-10-05T05:25:02.334Z"
+    },
+    {
+      "id": "c9b968c5-faf5-4967-a622-e0d27f235172",
+      "status": "interrupted",
+      "destination": "pond",
+      "reason": "user_preempted",
+      "requestedAt": "2026-10-05T05:27:37.766Z",
+      "updatedAt": "2026-10-05T05:27:44.750Z"
+    },
+    {
+      "id": "f5029c3f-2ed7-4699-b643-ca4039c9e9ba",
+      "status": "interrupted",
+      "destination": "pond",
+      "reason": "world_paused",
+      "requestedAt": "2026-10-05T05:28:10.664Z",
+      "updatedAt": "2026-10-05T05:28:20.279Z"
+    }
+  ],
+  "snapshots": [
+    {
+      "mood": "sad",
+      "phase": "idle",
+      "action": "idle",
+      "paused": false,
+      "weather": "clear",
+      "activity": "watch",
+      "dayPhase": "day",
+      "runnable": true,
+      "moodReason": "碗已经空了两天，团子有点难过",
+      "placesToday": [
+        "蘑菇屋",
+        "猫窝",
+        "蘑菇屋",
+        "池塘",
+        "树屋",
+        "草丛"
+      ],
+      "sceneVersion": 4,
+      "stateVersion": 27,
+      "destinationIds": [
+        "house",
+        "tree",
+        "bed",
+        "grass",
+        "pond",
+        "fence"
+      ],
+      "bowlFilledToday": false,
+      "activityFallback": false,
+      "targetDestinationId": "grass",
+      "currentDestinationId": "grass"
+    }
+  ]
+}

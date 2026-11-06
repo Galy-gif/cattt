@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// A3 命名 3/4。木牌实时预览 + 建议名 + 1–8 字校验。
+/// A3 命名 2/3。木牌实时预览 + 建议名 + 1–8 字校验。
 struct NamingStep: View {
     @EnvironmentObject private var store: AppStore
     @FocusState private var focused: Bool
+    @State private var keyboardHeight: CGFloat = 0
 
     private var trimmed: String { store.nameDraft.trimmed }
 
@@ -32,15 +33,21 @@ struct NamingStep: View {
 
             Spacer(minLength: 0)
 
-            PrimaryButton(enabled: store.isNameValid) {
-                store.onboardingNext()
-            } label: {
-                Text("下一步")
-                    .font(Typo.sans(16))
-                    .tracking(track(0.1, 16))
+            HStack {
+                Spacer()
+                OnboardingNextButton(enabled: store.isNameValid) {
+                    store.onboardingNext()
+                }
             }
             .padding(.horizontal, Metrics.gutterOnboarding)
-            .padding(.bottom, 44)
+            .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 12 : 44)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { note in
+            guard let frame = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+            let duration = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            withAnimation(.easeOut(duration: duration)) {
+                keyboardHeight = max(0, UIScreen.main.bounds.height - frame.minY)
+            }
         }
     }
 
@@ -99,14 +106,8 @@ struct NamingStep: View {
             }
             .padding(.horizontal, 16)
             .frame(minHeight: 54)
-            .background(Palette.card, in: RoundedRectangle(cornerRadius: Metrics.radiusControl))
-            .overlay(
-                RoundedRectangle(cornerRadius: Metrics.radiusControl)
-                    .stroke(
-                        store.nameError != nil || store.isNameValid ? Palette.accent : Palette.rule,
-                        lineWidth: 1
-                    )
-            )
+            .background(Palette.card.opacity(0.86), in: Capsule())
+            .softShadow()
 
             if let error = store.nameError {
                 Text(error)
@@ -123,10 +124,7 @@ struct NamingStep: View {
                         .padding(.horizontal, 14)
                         .padding(.vertical, 7)
                         .background(Palette.card, in: RoundedRectangle(cornerRadius: Metrics.radiusCard))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: Metrics.radiusCard)
-                                .stroke(Palette.rule, lineWidth: 1)
-                        )
+
                         .contentShape(Rectangle())
                         .onTapGesture {
                             store.nameDraft = name

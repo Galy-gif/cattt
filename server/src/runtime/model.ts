@@ -3,7 +3,7 @@ import { APICallError, type LanguageModel, type LanguageModelUsage, RetryError }
 import { config } from '../config.ts';
 import { db } from '../db/client.ts';
 import { modelCalls } from '../db/schema.ts';
-import { mockChatModel, mockExtractModel } from './mock.ts';
+import { mockChatModel, mockExtractModel, mockRecallModel, mockDiaryModel } from './mock.ts';
 
 /**
  * 模型适配层。业务代码只拿 model + providerOptions，不关心是哪家。
@@ -61,7 +61,7 @@ export function classifyModelError(err: unknown): ModelErrorInfo {
 
 /** 成本账本：每次模型调用记一行，按用途分 */
 export async function recordModelCall(entry: {
-  purpose: 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary';
+  purpose: 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary' | 'memory_recall' | 'diary_read';
   modelId: string;
   usage: LanguageModelUsage | null;
   latencyMs: number;
@@ -79,4 +79,15 @@ export async function recordModelCall(entry: {
     reasoningTokens: entry.usage?.outputTokenDetails.reasoningTokens ?? null,
     latencyMs: entry.latencyMs,
   });
+}
+
+/** 查询扩词独立用途，mock 也独立，避免误走记忆写入提取。 */
+export function recallSlot(): ModelSlot {
+  const slot = extractSlot();
+  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: mockRecallModel(), modelId: 'mock-recall' } : slot;
+}
+
+export function diarySlot(): ModelSlot {
+  const slot = chatSlot();
+  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: mockDiaryModel(), modelId: 'mock-diary' } : slot;
 }

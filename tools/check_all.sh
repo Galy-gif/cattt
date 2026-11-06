@@ -15,6 +15,12 @@ python3 tools/check_shared_rules.py
 echo '· iOS 世界层逻辑测试'
 sh tools/check_world_logic.sh
 
+echo '· iOS 日记存储与日期归档'
+sh tools/check_diary_logic.sh
+
+echo '· iOS 创建资料与进度恢复'
+sh tools/check_creation_logic.sh
+
 echo '· 网页：类型检查与测试'
 pnpm --dir web typecheck
 pnpm --dir web test:app

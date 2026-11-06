@@ -1,0 +1,14 @@
+{
+  "hasMail" : false,
+  "screen" : "home",
+  "mailboxOpen" : false,
+  "bowlFilledToday" : true,
+  "pouring" : 0,
+  "showsMe" : false,
+  "legacyTextureCount" : 0,
+  "lastDrinkAt" : "2026-09-20T10:30:34Z",
+  "mailboxAnchor" : [
+    60,
+    520
+  ]
+}

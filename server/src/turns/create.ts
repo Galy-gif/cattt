@@ -3,6 +3,8 @@ import { db, dbNow, type Tx } from '../db/client.ts';
 import { cats, conversations, messages, turns } from '../db/schema.ts';
 import { publish, requestCancel } from './events.ts';
 import { startTurn } from './run.ts';
+import { readableDiary } from '../diary/service.ts';
+import { MemoryControlError } from '../memory/control.ts';
 
 export type Owner = { userId: string; catId: string; conversationId: string };
 
@@ -23,12 +25,15 @@ export async function createSendTurn(
   owner: Owner,
   clientMessageId: string,
   text: string,
+  diaryEntryId?: string,
 ): Promise<{ turnId: string; userMessageId: string; created: boolean }> {
   const result = await db.transaction(async (tx) => {
+    const [cat] = await tx.select().from(cats).where(eq(cats.id, owner.catId)).for('update');
     await tx.select().from(conversations).where(eq(conversations.id, owner.conversationId)).for('update');
+    if (diaryEntryId && !await readableDiary(owner.catId, diaryEntryId, tx)) throw new MemoryControlError(404, '这条日记未开放给团子');
     const [inserted] = await tx
       .insert(messages)
-      .values({ conversationId: owner.conversationId, role: 'user', text, clientMessageId })
+      .values({ conversationId: owner.conversationId, role: 'user', text, clientMessageId, diaryEntryId, memoryEligible: cat!.learnMemories })
       .onConflictDoNothing()
       .returning({ id: messages.id });
 
@@ -63,7 +68,7 @@ export async function createSendTurn(
 }
 
 /** 对已有的用户消息重新回复（超时后「再试一次」）。不新增用户消息，所以 version 不变。 */
-export async function createReplyTurn(owner: Owner, userMessageId: string): Promise<{ turnId: string } | null> {
+export async function createReplyTurn(owner: Owner, userMessageId: string, requestId?: string): Promise<{ turnId: string } | null> {
   const result = await db.transaction(async (tx) => {
     await tx.select().from(conversations).where(eq(conversations.id, owner.conversationId)).for('update');
     const [msg] = await tx
@@ -74,21 +79,32 @@ export async function createReplyTurn(owner: Owner, userMessageId: string): Prom
           eq(messages.id, userMessageId),
           eq(messages.conversationId, owner.conversationId),
           eq(messages.role, 'user'),
+          eq(messages.contextAllowed, true),
         ),
       );
     if (!msg) return null;
+    // 客户端在发送前保存 UUID；回执丢失后的同一次重试仍返回原 turn。
+    if (requestId) {
+      const [existing] = await tx.select().from(turns).where(eq(turns.id, requestId));
+      if (existing) {
+        if (existing.conversationId !== owner.conversationId || existing.userMessageId !== userMessageId) return null;
+        return { turnId: existing.id, created: false, cancelled: [] as string[] };
+      }
+    }
     const [conv] = await tx
       .select({ version: conversations.version })
       .from(conversations)
       .where(eq(conversations.id, owner.conversationId));
     const [turn] = await tx
       .insert(turns)
-      .values({ conversationId: owner.conversationId, userMessageId, inputVersion: conv!.version })
+      .values({ id: requestId, conversationId: owner.conversationId, userMessageId, inputVersion: conv!.version })
+      .onConflictDoNothing()
       .returning({ id: turns.id });
-    return { turnId: turn!.id, cancelled: await cancelPending(tx, owner.conversationId, turn!.id) };
+    if (!turn) return null;
+    return { turnId: turn.id, created: true, cancelled: await cancelPending(tx, owner.conversationId, turn.id) };
   });
   if (!result) return null;
-  await launch(result.turnId, userMessageId, result.cancelled);
+  if (result.created) await launch(result.turnId, userMessageId, result.cancelled);
   return { turnId: result.turnId };
 }
 

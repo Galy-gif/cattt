@@ -40,6 +40,9 @@ struct BackendConfig: Equatable {
 
 /// 服务端字段是 snake_case，解码时统一转。
 struct APIMessage: Decodable {
+    let clientMessageId: String?
+    let diaryEntryId: String?
+    let seq: Int
     let id: String
     let role: String
     let text: String
@@ -48,6 +51,7 @@ struct APIMessage: Decodable {
     let remembered: Bool
     /// 猫的消息：被标了不要再提
     let boundary: Bool
+    let contextAllowed: Bool?
 }
 
 struct APITurn: Decodable {
@@ -76,6 +80,7 @@ enum APIError: LocalizedError {
             switch (status, code) {
             case (401, _): return "token 不对"
             case (409, "no_cat"): return "这个账号还没有猫"
+            case (404, "diary_unavailable"): return "这条日记已停止共享，请重新选择"
             default: return "HTTP \(status)" + (code.map { " \($0)" } ?? "")
             }
         case .badResponse: return "服务端返回的东西看不懂"
@@ -134,13 +139,15 @@ struct APIClient {
     // MARK: 聊天
 
     /// 发一条消息。响应就是这一轮回复的 SSE 流。
-    func send(clientMessageID: String, text: String) -> AsyncThrowingStream<SSEEvent, Error> {
-        sse(request("POST", "v1/messages", body: ["client_message_id": clientMessageID, "text": text]))
+    func send(clientMessageID: String, text: String, diaryEntryID: String? = nil) -> AsyncThrowingStream<SSEEvent, Error> {
+        var body = ["client_message_id": clientMessageID, "text": text]
+        if let diaryEntryID { body["diary_entry_id"] = diaryEntryID }
+        return sse(request("POST", "v1/messages", body: body))
     }
 
     /// 对已有的用户消息重新回复（超时后「再试一次」）。
-    func reply(to userMessageID: String) -> AsyncThrowingStream<SSEEvent, Error> {
-        sse(request("POST", "v1/messages/\(userMessageID)/reply"))
+    func reply(to userMessageID: String, requestID: String) -> AsyncThrowingStream<SSEEvent, Error> {
+        sse(request("POST", "v1/messages/\(userMessageID)/reply", body: ["request_id": requestID]))
     }
 
     /// 断线续传：从上次收到的事件之后接着读。
@@ -161,10 +168,11 @@ struct APIClient {
         try await json(APITurn.self, request("GET", "v1/turns/\(turnID)"))
     }
 
-    func messages(limit: Int = 50) async throws -> [APIMessage] {
+    func messages(limit: Int = 50, before: Int? = nil) async throws -> [APIMessage] {
         struct Page: Decodable { let messages: [APIMessage] }
         var request = request("GET", "v1/messages")
         request.url?.append(queryItems: [URLQueryItem(name: "limit", value: String(limit))])
+        if let before { request.url?.append(queryItems: [URLQueryItem(name: "before", value: String(before))]) }
         return try await json(Page.self, request).messages
     }
 
@@ -272,5 +280,82 @@ struct SSEParser {
         default: break
         }
         return nil
+    }
+}
+
+// MARK: - 记忆管理
+struct APIMemory: Decodable, Identifiable {
+    let id: String
+    let subject: String
+    let predicate: String
+    let value: String
+    let status: String
+    let sourceMessageId: String
+    let sourceText: String?
+    let sourceAllowed: Bool
+    let lastConfirmedAt: String
+    let revision: Int
+    let edited: Bool
+}
+struct APIBoundary: Decodable, Identifiable {
+    let id: String
+    let description: String?
+    let sourceMessageId: String
+    let sourceText: String
+}
+struct APIMemorySettings: Decodable {
+    let learn: Bool
+    let use: Bool
+    let revision: Int
+}
+struct APIMemoryImpact: Decodable {
+    struct Source: Decodable, Identifiable { let id: String; let text: String; let role: String; let allowed: Bool; let legacy: Bool? }
+    struct Memory: Decodable, Identifiable { let id: String; let value: String }
+    let revision: Int
+    let watermark: Int
+    let messages: [Source]
+    let memories: [Memory]
+}
+extension APIClient {
+    func memoryList() async throws -> [APIMemory] {
+        struct Page: Decodable { let memories: [APIMemory] }
+        return try await json(Page.self, request("GET", "v1/memories")).memories
+    }
+    func boundaryList() async throws -> [APIBoundary] {
+        struct Page: Decodable { let boundaries: [APIBoundary] }
+        return try await json(Page.self, request("GET", "v1/boundaries")).boundaries
+    }
+    func memorySettings() async throws -> APIMemorySettings {
+        try await json(APIMemorySettings.self, request("GET", "v1/memory-settings"))
+    }
+    func changeMemorySettings(learn: Bool? = nil, use: Bool? = nil, revision: Int) async throws -> APIMemorySettings {
+        var body: [String: Any] = ["revision": revision]
+        if let learn { body["learn"] = learn }
+        if let use { body["use"] = use }
+        return try await json(APIMemorySettings.self, request("PATCH", "v1/memory-settings", body: body))
+    }
+    func editMemory(_ memory: APIMemory, value: String) async throws {
+        struct OK: Decodable {}
+        _ = try await json(OK.self, request("PATCH", "v1/memories/\(memory.id)", body: ["value": value, "revision": memory.revision]))
+    }
+    func memoryImpact(_ id: String) async throws -> APIMemoryImpact {
+        try await json(APIMemoryImpact.self, request("GET", "v1/memories/\(id)/impact"))
+    }
+    func sourceImpact(_ id: String) async throws -> APIMemoryImpact {
+        try await json(APIMemoryImpact.self, request("GET", "v1/messages/\(id)/usage"))
+    }
+    func deleteMemory(_ id: String, withdrawSources: Bool, revision: Int, watermark: Int) async throws {
+        struct OK: Decodable {}
+        var req = request("DELETE", "v1/memories/\(id)")
+        req.url?.append(queryItems: [URLQueryItem(name: "withdraw_sources", value: String(withdrawSources)), URLQueryItem(name: "revision", value: String(revision)), URLQueryItem(name: "watermark", value: String(watermark))])
+        _ = try await json(OK.self, req)
+    }
+    func withdrawSource(_ id: String, revision: Int, watermark: Int) async throws {
+        struct OK: Decodable {}
+        _ = try await json(OK.self, request("POST", "v1/messages/\(id)/withdraw", body: ["revision": revision, "watermark": watermark]))
+    }
+    func revokeBoundary(_ id: String) async throws {
+        struct OK: Decodable {}
+        _ = try await json(OK.self, request("DELETE", "v1/boundaries/\(id)"))
     }
 }

@@ -1,0 +1,15 @@
+{
+  "clips": 69,
+  "floor": -0.0010268345886964864,
+  "clearance": 0.9056543771066932,
+  "plantedFrameTravel": 1.7923696854022514e-7,
+  "headTailDistance": 0.25709018799603217,
+  "finalYaw": 0,
+  "recovered": [
+    "chase_look",
+    "chase_turn",
+    "chase_turn",
+    "chase_settle"
+  ],
+  "exitToHouseRecovery": true
+}

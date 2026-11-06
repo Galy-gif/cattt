@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Face } from './face';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export type Surface = 'felt' | 'soft';
@@ -64,6 +65,7 @@ interface Look {
  * 描边是外扩背面，短绒以四层连续纤维薄壳随骨骼变形。
  */
 export class Appearance {
+  readonly face = new Face();
   private bodyMaterials = new Map<THREE.SkinnedMesh, THREE.MeshPhysicalMaterial>();
   private eyeMaterials = new Map<THREE.Mesh, THREE.MeshPhysicalMaterial>();
   private outlines: THREE.SkinnedMesh[] = [];
@@ -78,6 +80,7 @@ export class Appearance {
     for (const mesh of model.body) {
       const source = mesh.material as THREE.MeshStandardMaterial;
       const material = new THREE.MeshPhysicalMaterial({ map: source.map, color: source.color });
+      this.face.mouth(material);
       this.bodyMaterials.set(mesh, material);
       mesh.material = material;
 
@@ -88,6 +91,7 @@ export class Appearance {
 
       for (let layer = 1; layer <= 4; layer++) {
         const shell = shareSkin(mesh, makeShellMaterial(source.map, source.color, layer));
+        this.face.mouth(shell.material as THREE.Material);
         shell.castShadow = false;
         shell.userData.yardLayer = layer;
         this.shells.push(shell);
@@ -96,6 +100,7 @@ export class Appearance {
     for (const mesh of model.eyes) {
       const source = mesh.material as THREE.MeshStandardMaterial;
       const material = new THREE.MeshPhysicalMaterial({ color: source.color });
+      this.face.eyes(mesh, material);
       this.eyeMaterials.set(mesh, material);
       mesh.material = material;
     }

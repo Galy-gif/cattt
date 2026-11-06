@@ -1,0 +1,23 @@
+{
+  "redBeforeFix": {
+    "command": "vitest run test/context-revision.test.ts",
+    "failed": 1,
+    "passed": 1,
+    "symptom": "后台记忆在上下文读取后提交，回复错误地进入failed"
+  },
+  "afterFix": {
+    "contextCasesPassed": 2,
+    "allBackendTestFiles": 21,
+    "allBackendTestsPassed": 120,
+    "typecheck": true,
+    "revocationRegression": "扩词期间撤回原话/首字前撤回继续停止旧轮次，未放宽许可"
+  },
+  "checkAll": {
+    "passed": true,
+    "webTestsPassed": 37
+  },
+  "simulatorBuild": {
+    "passed": true,
+    "device": "iPhone 17 Pro / iOS 26.5"
+  }
+}

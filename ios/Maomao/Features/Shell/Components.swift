@@ -5,7 +5,7 @@ struct PrimaryButton<Label: View>: View {
     var height: CGFloat = Metrics.primaryButton
     var horizontalPadding: CGFloat? = nil   // nil = 撑满宽度
     var enabled: Bool = true
-    /// nil = 设计系统默认的 4pt 直角感；给具体值可以做成胶囊（传 height / 2）。
+    /// nil = 设计系统默认控件圆角；给具体值可以做成胶囊（传 height / 2）。
     var cornerRadius: CGFloat? = nil
     /// 软投影。浮在场景图上的按钮关掉 —— 场景本身已经有明暗，再叠一层会脏。
     var shadow: Bool = true
@@ -13,17 +13,19 @@ struct PrimaryButton<Label: View>: View {
     var tapSlop: CGFloat = 0
     /// 浮在场景上的主按钮走珊瑚色玻璃（iOS 26），页面里的仍是实色。
     var glass: Bool = false
+    /// 原生创建流程沿用聊天输入框的柔和白色表面。
+    var subtle: Bool = false
     let action: () -> Void
     @ViewBuilder let label: () -> Label
 
     var body: some View {
         Button(action: action) {
             label()
-                .foregroundStyle(enabled ? Palette.accentInk : Palette.ink4)
+                .foregroundStyle(enabled ? (subtle ? Palette.ink : Palette.accentInk) : Palette.ink4)
                 .frame(maxWidth: horizontalPadding == nil ? .infinity : nil)
                 .padding(.horizontal, horizontalPadding ?? 0)
                 .frame(height: height)
-                .modifier(PrimaryFill(enabled: enabled, glass: glass, shape: RoundedRectangle(cornerRadius: cornerRadius ?? Metrics.radiusControl)))
+                .modifier(PrimaryFill(enabled: enabled, glass: glass, subtle: subtle, shape: RoundedRectangle(cornerRadius: cornerRadius ?? (subtle ? height / 2 : Metrics.radiusControl))))
                 .modifier(ConditionalHardShadow(enabled: enabled && shadow && !glass))
                 .padding(.vertical, tapSlop)
                 .contentShape(Rectangle())
@@ -35,11 +37,14 @@ struct PrimaryButton<Label: View>: View {
 private struct PrimaryFill: ViewModifier {
     let enabled: Bool
     let glass: Bool
+    let subtle: Bool
     let shape: RoundedRectangle
 
     @ViewBuilder
     func body(content: Content) -> some View {
-        if glass && enabled {
+        if subtle {
+            content.background(Palette.card.opacity(enabled ? 0.86 : 0.5), in: shape)
+        } else if glass && enabled {
             content.liquidGlass(in: shape, tint: Palette.accent, interactive: true, fallback: Palette.accent)
         } else {
             content.background(enabled ? Palette.accent : Palette.pendingSwatch, in: shape)
@@ -389,14 +394,13 @@ struct PaperSheet<Handle: View, Content: View>: View {
         .modifier(PaperBody(content: content, height: height))
         .opacity(contentShown ? 1 : 0)
         .frame(width: width, height: height, alignment: .top)
-        .background(
-            Palette.bg,
-            in: UnevenRoundedRectangle(
+        .background {
+            PageBackground().clipShape(UnevenRoundedRectangle(
                 topLeadingRadius: Metrics.radiusLg,
                 topTrailingRadius: Metrics.radiusLg,
                 style: .continuous
-            )
-        )
+            ))
+        }
         .shadow(color: Palette.shadow, radius: 24, x: 0, y: -4)
         .opacity(paperOpacity)
         .rotationEffect(.degrees(-6 * (1 - p)), anchor: .top)
@@ -485,5 +489,28 @@ private struct PaperBody<C: View>: ViewModifier {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .frame(height: height, alignment: .top)
+    }
+}
+
+/// 创建流程的轻量前进操作：文字与小圆箭头，不占据整条输入框的视觉面积。
+struct OnboardingNextButton: View {
+    var enabled: Bool = true
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Text("下一步")
+                    .font(Typo.sans(15, weight: .medium))
+                Icons.chevronRight(color: enabled ? Palette.card : Palette.ink4)
+                    .frame(width: Metrics.iconSlotMd, height: Metrics.iconSlotMd)
+                    .background(enabled ? Palette.ink2 : Palette.inset, in: Circle())
+            }
+            .foregroundStyle(enabled ? Palette.ink : Palette.ink4)
+            .frame(minHeight: Metrics.minTap)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .disabled(!enabled)
     }
 }

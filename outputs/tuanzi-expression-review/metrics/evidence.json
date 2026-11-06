@@ -1,0 +1,406 @@
+{
+  "date": "2026-10-10",
+  "device": "iPhone 17 Pro / iOS 26.5 Simulator",
+  "approved": [
+    "bed-sleep",
+    "door-doze",
+    "drink"
+  ],
+  "pending": [
+    "tilt",
+    "groom",
+    "happy",
+    "sulk",
+    "sad"
+  ],
+  "checks": {
+    "swiftSuites": 10,
+    "webTests": 33,
+    "allLocalChecks": "passed",
+    "simulatorBuild": "passed",
+    "deviceInstalled": false
+  },
+  "unchangedClips": {
+    "idle": "d4531164ad8040cee60197299430b65e1b30bdc0874b62ef607dd04cfd43d926",
+    "walk": "f43e41124a4929a60cc2739510ac79a415b2b26bf72b48f1b66318610f353043",
+    "turn_step": "8a117a91ad85643166601eab060a97ee559766ba7c92b273e59dcde7d69ec25d",
+    "sit_down": "d05106a1cc4e42ff02c4bf29e7ce7a6c0e52da0c2f5838cd0d1f242641bae36e",
+    "sit_idle": "42e961ce8e2b5dcb8907b93172d8d6e2e4d4372e9301200aea8205ce62e837ce",
+    "stand_up": "1dcd6be0967700410571a08143a3f39b06c0677cdbfea903de2a5a49fe5c7d31",
+    "ear_flick": "36e8528e20fe0aaf50248cb0202e74329570ebb0489342230f8009a82db36d0f",
+    "bed_hop": "8ee7766ecf09d65e14c6883d7c210353fff7f0b7c5638d8685e0a05cbca3a7bb",
+    "doze_down": "3e09cb25023fe39522150294a8934145113291ffa493776188a4cf3abd8b4eff",
+    "doze_idle": "c37f8571bb8dae9ddd81f414ed52c7661df81b11f621311f590a856dea416bf7",
+    "doze_up": "763fb4ec12260c61fa7c8fe2aa969c842614acb76003eb10afdf4115437c52ba",
+    "drink_down": "980cab50bec1f4e0c47bd81012d8a0e1d9b62e2b412485e82303074b556cbaae",
+    "drink_lap": "4c28594b3a8cf17ef57a7880d0d415f32bfd81397b265d30db51f61f7ac34436",
+    "drink_up": "82780ac9d594de367025d5a5148f09e223336fed74a99251915e3248c683f14e",
+    "sleep_down": "6b7b0335fb4c1dd34a26a7083fed4f907ec2436f95bd505023924dc4b7c9e017",
+    "sleep_idle": "cb8eaa082d50f93583f23b234962b141eef4a2b5d11372a6e2242a18ed0b7422",
+    "sleep_up": "1b1f90c81f63d72cd071fe0f376a9dbecf7564dc56fd08decaaecf752e6d1ec2"
+  },
+  "allClips": {
+    "idle": "d4531164ad8040cee60197299430b65e1b30bdc0874b62ef607dd04cfd43d926",
+    "walk": "f43e41124a4929a60cc2739510ac79a415b2b26bf72b48f1b66318610f353043",
+    "turn_step": "8a117a91ad85643166601eab060a97ee559766ba7c92b273e59dcde7d69ec25d",
+    "sit_down": "d05106a1cc4e42ff02c4bf29e7ce7a6c0e52da0c2f5838cd0d1f242641bae36e",
+    "sit_idle": "42e961ce8e2b5dcb8907b93172d8d6e2e4d4372e9301200aea8205ce62e837ce",
+    "stand_up": "1dcd6be0967700410571a08143a3f39b06c0677cdbfea903de2a5a49fe5c7d31",
+    "ear_flick": "36e8528e20fe0aaf50248cb0202e74329570ebb0489342230f8009a82db36d0f",
+    "bed_hop": "8ee7766ecf09d65e14c6883d7c210353fff7f0b7c5638d8685e0a05cbca3a7bb",
+    "doze_down": "3e09cb25023fe39522150294a8934145113291ffa493776188a4cf3abd8b4eff",
+    "doze_idle": "c37f8571bb8dae9ddd81f414ed52c7661df81b11f621311f590a856dea416bf7",
+    "doze_up": "763fb4ec12260c61fa7c8fe2aa969c842614acb76003eb10afdf4115437c52ba",
+    "drink_down": "980cab50bec1f4e0c47bd81012d8a0e1d9b62e2b412485e82303074b556cbaae",
+    "drink_lap": "4c28594b3a8cf17ef57a7880d0d415f32bfd81397b265d30db51f61f7ac34436",
+    "drink_up": "82780ac9d594de367025d5a5148f09e223336fed74a99251915e3248c683f14e",
+    "sleep_down": "6b7b0335fb4c1dd34a26a7083fed4f907ec2436f95bd505023924dc4b7c9e017",
+    "sleep_idle": "cb8eaa082d50f93583f23b234962b141eef4a2b5d11372a6e2242a18ed0b7422",
+    "sleep_up": "1b1f90c81f63d72cd071fe0f376a9dbecf7564dc56fd08decaaecf752e6d1ec2",
+    "tilt_down": "bde4b9b19146dccf1ac38d5ce444393b9502f66f8e206f74555bf9f605683027",
+    "tilt_idle": "bcf3378d19bfb01625b86ca8ab30194e8120391fc358f5f9a816fde17cbd26c7",
+    "tilt_up": "fc2bcd4ef0bd42ccddb66f900db762453f4456f7aaba8ab7a8fdaaf9f3b1bd06",
+    "groom_down": "b9eee02aa3794306dab2c92896d5803b270cda3ef6c241a68f851ba45814deb4",
+    "groom_idle": "4a605b0fbeca3d29b477ac4beb602e97fd1f44fb2e514b98ff780b980fd77412",
+    "groom_up": "6174395715f5fd2959ba961c3c3a542192761ddcb0721a40d492da67030a879a",
+    "happy_down": "a9d0a4bf066244b1ce5c90e45e89139430b13d7ba517fd81b197d36c18196295",
+    "happy_idle": "5cf304241185048d628b00823db97485724881931b8b96f9b03511c1bb0f764d",
+    "happy_up": "e2292d7b292813b5be56f37a463eea4c921b1167d48a515309e7456dc46601ab",
+    "sulk_down": "f75f511923b6f0eb451025c6ff287b80ac14323f4f88dce330d4a6724914accf",
+    "sulk_idle": "b03f51a4810991173a173c6b5c3c84103805a081b2420a1d3783f7b52c0b3ef5",
+    "sulk_up": "2d69a0f460f0a018b0b665288f3afb1fc15b88de82944a250ca2f9b3e80a3d7c",
+    "sad_down": "b4e068878cd35b7f1036f0bcd8f9029dd7ee342914e130dfdcfd260489e5bcdc",
+    "sad_idle": "091503f6972d8c32eea5c3ab7b3034820dc58087fe164e96bcc4bdcccde93fa0",
+    "sad_up": "cf2d4fe867e769557c8cb2bb411eb82e3a5840ded4d8f3098333f257f8b98ab3"
+  },
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T10:57:46.653Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "72b1e9e8cd59bd77b6cb6260bf23ecba13d848544af19277e022edb88c752fa1",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "8f5dbe007bf9cc0fdb287a8a02c929e41543e53a6a1c485e24016d8e2af0961e"
+    }
+  },
+  "screenshots": {
+    "tilt": {
+      "action": {
+        "target": "tilt",
+        "hop": null,
+        "time": 4.466999999999997,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "tilt_idle",
+        "state": "tilt_idle",
+        "closure": 6.955190278192322e-88
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "activity": "tilt",
+          "id": "DB340F7D-23A3-4AA5-A153-0C5F13F6AA80",
+          "runId": "6B198EF5-2119-4634-A810-9BFB6EFA0979",
+          "place": "house",
+          "type": "intent",
+          "pageId": "AED19988-846A-4D63-A1EC-FB37B0D8813B"
+        }
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 1.8228000438885226,
+        "velocity": 0,
+        "position": [
+          -2.35,
+          0.65,
+          1.2
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.375,
+        "focus": [
+          -2.35,
+          0.14,
+          -0.55
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885226,
+        "place": null
+      },
+      "imageSha256": "c3d7ee2e9802bc87da1a9fca77e2b0bd6304b1fe4995b9883678546dc1c84540"
+    },
+    "groom": {
+      "action": {
+        "target": "groom",
+        "hop": null,
+        "time": 3.0489999999999937,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "groom_idle",
+        "state": "groom_idle",
+        "closure": 1.4481177046284132e-103
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "6B198EF5-2119-4634-A810-9BFB6EFA0979",
+          "activity": "groom",
+          "id": "A165F6EF-6246-4C66-87BD-C518BDDC9951",
+          "place": "house",
+          "type": "intent",
+          "pageId": "AED19988-846A-4D63-A1EC-FB37B0D8813B"
+        }
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 1.8228000438885226,
+        "velocity": 0,
+        "position": [
+          -2.35,
+          0.65,
+          1.2
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.375,
+        "focus": [
+          -2.35,
+          0.14,
+          -0.55
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885226,
+        "place": null
+      },
+      "imageSha256": "622f63a655915edcf6bcd24ad7ef83c6272700d4d51a45e4bc9dc2ba292f0845"
+    },
+    "happy": {
+      "action": {
+        "target": "happy",
+        "hop": null,
+        "time": 3.0999999999999934,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "happy_idle",
+        "state": "happy_idle",
+        "closure": 1.0527242681711177e-122
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "6B198EF5-2119-4634-A810-9BFB6EFA0979",
+          "place": "house",
+          "id": "007DF012-A3B5-443C-9480-58AC65207D92",
+          "activity": "happy",
+          "type": "intent",
+          "pageId": "AED19988-846A-4D63-A1EC-FB37B0D8813B"
+        }
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 1.8228000438885226,
+        "velocity": 0,
+        "position": [
+          -2.35,
+          0.65,
+          1.2
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.375,
+        "focus": [
+          -2.35,
+          0.14,
+          -0.55
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885226,
+        "place": null
+      },
+      "imageSha256": "b0c4493ea2b003242991a3fc402193e31224850c6565eb37fd58bcd20af40831"
+    },
+    "sulk": {
+      "action": {
+        "target": "sulk",
+        "hop": null,
+        "time": 2.0999999999999965,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sulk_idle",
+        "state": "sulk_idle",
+        "closure": 4.1783357409907463e-140
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "6B198EF5-2119-4634-A810-9BFB6EFA0979",
+          "place": "house",
+          "activity": "sulk",
+          "id": "6CC588E9-EF50-4005-8450-F4830A229975",
+          "pageId": "AED19988-846A-4D63-A1EC-FB37B0D8813B",
+          "type": "intent"
+        }
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 1.8228000438885226,
+        "velocity": 0,
+        "position": [
+          -2.35,
+          0.65,
+          1.2
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.375,
+        "focus": [
+          -2.35,
+          0.14,
+          -0.55
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885226,
+        "place": null
+      },
+      "imageSha256": "72883241968e7e6be02de17ff42d199ecbd59b8d9eba1ee8785dc5b51a59205f"
+    },
+    "sad": {
+      "action": {
+        "target": "sad",
+        "hop": null,
+        "time": 3.183999999999993,
+        "completions": 2,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sad_idle",
+        "state": "sad_idle",
+        "closure": 1.3577916593042026e-157
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "runId": "6B198EF5-2119-4634-A810-9BFB6EFA0979",
+          "id": "E325D508-DA0F-418F-8EF2-662ED756F20B",
+          "place": "house",
+          "activity": "sad",
+          "type": "intent",
+          "pageId": "AED19988-846A-4D63-A1EC-FB37B0D8813B"
+        }
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 1.8228000438885226,
+        "velocity": 0,
+        "position": [
+          -2.35,
+          0.65,
+          1.2
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.02499999999999991,
+        "velocityZ": 0,
+        "offset": 2.375,
+        "focus": [
+          -2.35,
+          0.14,
+          -0.55
+        ],
+        "centerZ": 0.125,
+        "distance": 1.8228000438885226,
+        "place": null
+      },
+      "imageSha256": "69f7bc95b28ce350d3c3b68b1a8e003278d5b81f27a08c587482e2ec784170dc"
+    }
+  },
+  "motion": {
+    "clip": "groom_idle",
+    "source": "模拟器录屏8–14秒，12fps，72帧",
+    "snapshot": {
+      "target": "groom",
+      "hop": null,
+      "time": 3.2829999999999924,
+      "completions": 2,
+      "seconds": 0,
+      "eligible": false,
+      "clip": "groom_idle",
+      "state": "groom_idle",
+      "closure": 2.5766418044913236e-182
+    },
+    "gifSha256": "dc3887cc691db84f5f3553f7d7895dfe0de547e184e90ad1a54994f00d619e27"
+  }
+}

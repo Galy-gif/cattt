@@ -13,12 +13,7 @@ final class AppStore: ObservableObject {
     /// 日记进了院子里的信箱、「我的」上了右上角，整屏只剩院子和聊天。
     enum Screen { case home, chat }
 
-    enum OnboardingStep: Int, CaseIterable {
-        case welcome, pickCat, temperament, naming, firstMeeting
-
-        /// 欢迎屏不计步，其余是 1/4–4/4。
-        var stepNumber: Int { rawValue }
-    }
+    typealias OnboardingStep = CreationDraft.Step
 
     @Published var yardProbeVisible: Bool = {
         #if DEBUG
@@ -64,8 +59,6 @@ final class AppStore: ObservableObject {
     @Published var weatherNote: String?
     let realWeather = RealWeather()
     var rainQuick = false
-    /// 团子自己写的、不是今天的那几条，进"这个月"。
-    @Published var catMonthRows: [DiaryMonthRow] = []
     var createdAt = Date()
     /// 领养到今天几天（第一天 0）。慢热的猫靠它判断熟没熟。
     var adoptionDays: Int { MoodRules.daysBetween(createdAt, currentDate(), calendar: .current) }
@@ -90,10 +83,10 @@ final class AppStore: ObservableObject {
     var debugWeather: Weather?
     var debugMood: Mood?
     #endif
-    var catIndex: Int { world.simulation.target }
+    var catIndex: Int { world.currentIndex }
     var viewedLocation: Location { Location.all[viewedIndex] }
-    var catLocation: Location { Location.all[world.simulation.current] }
-    var isLost: Bool { !worldGeometry.isVisible(CGFloat(world.simulation.renderPoint.x), cameraX: effectiveCameraX()) }
+    var catLocation: Location { Location.all[world.currentIndex] }
+    var isLost: Bool { if world.uses3D { return world.intent3D.offscreen || world.intent3D.cameraMode != "following" }; return !worldGeometry.isVisible(CGFloat(world.simulation.renderPoint.x), cameraX: effectiveCameraX()) }
     var catAction: CatAction { CatAction(rawValue:world.simulation.action) ?? .blinkLook }
     func catPose(at date: Date = Date()) -> (point: CGPoint, facing: Facing) {
         (world.simulation.point.cgPoint,world.simulation.facingRight ? .right:.left)
@@ -103,6 +96,54 @@ final class AppStore: ObservableObject {
     }
     var statusText: String {
         if let reaction {return reaction}
+        if world.uses3D {
+            if let failure = world.intent3D.failure { return failure }
+            if world.moving { return "团子正往" + Location.all[world.targetIndex].name + "走" }
+            switch world.intent3D.action {
+            case "sleep_idle": return "团子在小窝里睡着了"
+            case "sleep_down": return "团子正在小窝里趴下"
+            case "doze_idle": return "团子在门口打瞌睡"
+            case "drink_down": return "团子低头凑近水面"
+            case "drink_lap": return "团子在慢慢喝水"
+            case "drink_up": return "团子抬起了头"
+            case "run_ready": return "团子准备跑两步"
+            case "run_stride": return "团子在小跑"
+            case "run_settle": return "团子慢下来站稳了"
+            case "stretch_reach": return "团子把前爪伸了出去"
+            case "stretch_down", "stretch_hold": return "团子在伸懒腰"
+            case "stretch_up", "stretch_settle": return "团子慢慢收回爪子"
+            case "chase_look": return "团子回头盯着尾巴"
+            case "chase_turn": return "团子在追自己的尾巴"
+            case "chase_settle": return "团子停下来站稳了"
+            case "scratch_reach", "scratch_grip": return "团子把前爪搭在树干上"
+            case "scratch_rake": return "团子在树上磨爪子"
+            case "scratch_release", "scratch_settle": return "团子收爪站稳了"
+            case "flower_watch", "flower_crouch": return "团子盯住了小花"
+            case "flower_pounce", "flower_touch": return "团子伸爪扑向小花"
+            case "flower_recoil", "flower_recover": return "团子收回爪子站稳了"
+            case "fence_reach", "fence_jump", "fence_grip": return "团子伸爪够着栅栏"
+            case "fence_climb", "fence_turn", "fence_down": return "团子正爬上横木"
+            case "fence_rest": return "团子趴在栅栏上看院子"
+            case "fence_wake", "fence_turn_out", "fence_out", "fence_drop", "fence_land": return "团子正从栅栏下来"
+            case "pond_down", "pond_probe": return "团子伸爪试了试水"
+            case "pond_pat": return "团子轻轻拍着水面"
+            case "pond_shake", "pond_up": return "团子收回爪子甩甩水"
+            case "nest_watch": return "团子在树窝里看着院子"
+            case "nest_sleep": return "团子在树窝里睡着了"
+            case "nest_grab", "nest_climb": return "团子正爬进树窝"
+            case "nest_out", "nest_drop", "nest_land": return "团子正从树窝下来"
+            case "tilt_idle": return "团子歪着头看你"
+            case "groom_idle": return "团子在慢慢理毛"
+            case "happy_idle": return "团子翘着尾巴，看起来很高兴"
+            case "sulk_idle": return "团子把脸转到一边"
+            case "sad_idle": return "团子垂着耳朵，安静地坐着"
+            case "bed_hop": return "团子轻轻跳过窝沿"
+            default: break
+            }
+            if world.intent3D.request.activity == "drink" { return world.intent3D.activityFallback ? "团子在水盆边看着水" : "团子在水盆边歇着" }
+            if mood.mood != .calm { return yardMoodReason }
+            return "\(catName) · \(catLocation.name) · \(dayPhaseName) · \(weather == .rain ? "雨" : "晴")"
+        }
         if world.simulation.isDrinking {
             switch world.simulation.drink {
             case .going: return "团子去喝水了"
@@ -144,12 +185,26 @@ final class AppStore: ObservableObject {
         }
     }
 
+    var yardMoodReason: String {
+        guard world.uses3D else { return mood.reason }
+        return mood.reason
+            .replacingOccurrences(of: "团子把自己缩成一团，好几天没见到你了", with: "好几天没见到你，团子有点难过")
+            .replacingOccurrences(of: "团子缩成一团，碗已经空了两天", with: "碗已经空了两天，团子有点难过")
+            .replacingOccurrences(of: "下雨了，团子缩在屋檐下", with: "下雨了，团子想安静歇会儿")
+            .replacingOccurrences(of: "团子背对着门口，碗空了一整天", with: "碗空了一整天，团子有点闷闷的")
+            .replacingOccurrences(of: "团子背过身去，不想再被戳了", with: "团子不想再被戳了")
+            .replacingOccurrences(of: "团子尾巴翘得老高，刚喝过水", with: "团子刚喝过水，心情不错")
+            .replacingOccurrences(of: "团子尾巴翘着，今天的水是满的", with: "今天的水是满的，团子心情不错")
+    }
+    var dayPhaseName: String { ["dawn": "清晨", "day": "白天", "dusk": "黄昏", "evening": "傍晚", "night": "夜晚"][dayPhase.rawValue] ?? "白天" }
+
     // MARK: - 聊天
 
     /// 来源卡：从日记留言或话题卡跳进来时出现。
     struct ChatSource: Equatable {
         let kicker: String
         let text: String
+        var diaryEntryID: String? = nil
     }
 
     /// 长按气泡弹出的底部菜单。
@@ -159,6 +214,11 @@ final class AppStore: ObservableObject {
     }
 
     @Published var messages = SeedData.messages
+    @Published var hasEarlierMessages = false
+    @Published var isLoadingEarlierMessages = false
+    @Published var historyLoadError: String?
+    var historyGeneration = UUID()
+    var earliestMessageSequence: Int?
     @Published var draft = ""
     @Published var isWaiting = false
     @Published var isStreaming = false
@@ -167,11 +227,21 @@ final class AppStore: ObservableObject {
 
     // MARK: - 日记
 
-    @Published var entries = SeedData.entries
+    @Published var entries: [DiaryEntry] = []
+    @Published var selectedDiaryDay: String?
+    @Published var diaryLoadFailed = false
+    var diaryGeneration = UUID()
+    var diaryRetryAfter = Date.distantPast
     @Published var isCapturing = false
     @Published var captureText = ""
+    @Published var captureSaveFailed = false
+    @Published var captureForCat = false
+    @Published var diarySyncFailed = false
+    @Published var diarySyncFinished = false
+    @Published var diarySyncTask: Task<Void, Never>?
+    var diarySyncAgain = false
     @Published var diaryFilter: DiaryFilter = .all
-    var shownEntries: [DiaryEntry] { entries.filter(diaryFilter.matches) }
+    var shownEntries: [DiaryEntry] { diaryArchive.entries(on: diaryDay).filter(diaryFilter.matches) }
     /// 信箱里有新东西（团子来看过 / 留了一句）：旗子立起来。打开信箱就放下。
     @Published var hasMail = false
     /// 日记纸是否从信箱里抽出来了。
@@ -185,7 +255,9 @@ final class AppStore: ObservableObject {
 
     /// 右上角头像钮打开的系统 sheet。
     @Published var showsMe = false
-    @Published var shareByDefault = true
+    @Published var showsMemoryControls = false
+    @Published var memoryShowsBoundaries = false
+    @Published var withdrawnSource: MemoryImpactAction?
     @Published var memoryCount = 37
     @Published var boundaryCount = 2
 
@@ -193,40 +265,45 @@ final class AppStore: ObservableObject {
 
     /// 聊天走本地模拟还是本机后端。切换走 `setBackendMode(_:)`。
     @Published var backend = BackendConfig.load() {
-        didSet { backend.save() }
+        didSet { backend.save(); if backend != oldValue { loadCreation(); loadDiary() } }
     }
     /// 调试面板上显示的连接状态。
     @Published var backendStatus: String?
     /// 当前这一轮回复在服务端的 id，停止时要用。
+    var remoteChatGeneration = UUID()
     var remoteTurnID: String?
     /// 用户按了停止：之后到的字不再显示。
     var remoteStopped = false
-    /// 收到 accepted 后 20 秒没有第一个字就判超时。
+    /// 收到 accepted 后 50 秒没有第一个字就判超时。
     var watchdogTask: Task<Void, Never>?
 
     // MARK: - 创建流程
 
-    @Published var pickedAppearance = "orange"
-    @Published var temperament: Temperament = .slow { didSet { compileBehavior() } }
-    @Published var traitsOpen = false
-    @Published var traitLevels: [Trait: Int] = Trait.defaults { didSet { compileBehavior() } }
-    @Published var nameDraft = ""
+    @Published var pickedAppearance = "orange" { didSet { persistCreationDraft() } }
+    @Published var temperament: Temperament = .slow { didSet { compileBehavior(); persistCreationDraft() } }
+    @Published var traitsOpen = false { didSet { persistCreationDraft() } }
+    @Published var traitLevels: [Trait: Int] = Trait.defaults { didSet { compileBehavior(); persistCreationDraft() } }
+    @Published var nameDraft = "" { didSet { persistCreationDraft() } }
     @Published var nameError: String?
-    @Published private(set) var namePoolIndex = 0
+    @Published var namePoolIndex = 0
 
-    struct MeetLine: Identifiable, Equatable {
-        let id = UUID()
-        let text: String
-        let isCat: Bool
+    typealias MeetLine = CreationLine
+
+    @Published var meetDone = false
+    @Published var meetDraft = "" { didSet { persistCreationDraft() } }
+    @Published var meetLines: [MeetLine] = []
+    @Published var creationLoadFailed = false
+    @Published var creationSaveFailed = false
+    var creationArchive = CreationArchive()
+    var restoringCreation = true
+    var meetReplyPending: Bool { creationArchive.draft?.meeting == .replyPending }
+    var firstMeetingReply: String? {
+        if let draft = creationArchive.draft { return draft.firstReply }
+        return creationArchive.profile?.firstReply
     }
 
-    /// false = 还在问名字（输入框 + 「先不说」），true = 可以进院子了。
-    @Published private(set) var meetDone = false
-    @Published var meetDraft = ""
-    @Published private(set) var meetLines: [MeetLine] = []
-
     var catName: String { nameDraft.trimmed.isEmpty ? SeedData.defaultCatName : nameDraft.trimmed }
-    var isNameValid: Bool { (1...8).contains(nameDraft.trimmed.count) }
+    var isNameValid: Bool { CreationDraft.validName(nameDraft) }
     var nameSuggestions: [String] { SeedData.namePool[namePoolIndex % SeedData.namePool.count] }
 
     // MARK: - 全局
@@ -243,16 +320,27 @@ final class AppStore: ObservableObject {
 
     /// 一次只有一条消息在途，所以聊天用单个句柄 —— 「停止」直接取消它。
     var chatTask: Task<Void, Never>?
-    private var onboardingTask: Task<Void, Never>?
+    var onboardingTask: Task<Void, Never>?
     private var toastTask: Task<Void, Never>?
     private var reactionTask: Task<Void, Never>?
 
     init() {
-        worldTextures=WorldTextureCache(scene:world.scene)
+        worldTextures=WorldTextureCache(scene:world.scene, enabled: !world.uses3D)
         world.stateChanged = { [weak self] in self?.objectWillChange.send() }
         world.frameChanged = { [weak self] dt in self?.advanceCamera(dt) }
-        connectBackend()
+        world.yard3D?.onTap = { [weak self] target, point in
+            guard let self, screen == .home, !mailboxOpen, !showsMe else { return }
+            switch target {
+            case "cat": poke()
+            case "mailbox": openMailbox(anchor: point)
+            case "bowl": fillBowl()
+            default: break
+            }
+        }
         loadPersisted()
+        loadCreation()
+        connectBackend()
+        loadDiary()
     }
 
     private func run(_ body: @escaping () async throws -> Void) -> Task<Void, Never> {
@@ -295,10 +383,11 @@ final class AppStore: ObservableObject {
     func look(at index: Int) {
         guard world.scene.destinations.indices.contains(index) else {return}
         reaction=nil;viewedIndex=index
+        if world.uses3D { world.yard3D?.send(["type": "look", "place": YardIntent.places[index]]); return }
         camera.look(at:world.scene.destinations[index].cameraX,half:worldGeometry.halfScreen)
         prepareWorldTextures()
     }
-    func findCat() { reaction=nil;camera.find();prepareWorldTextures() }
+    func findCat() { reaction=nil; if world.uses3D { world.yard3D?.send(["type": "findCat"]); return }; camera.find();prepareWorldTextures() }
     func dragCamera(translation: CGFloat) {
         camera.drag(translation,width:worldGeometry.bgSize.width,half:worldGeometry.halfScreen)
         prepareWorldTextures()
@@ -317,6 +406,7 @@ final class AppStore: ObservableObject {
         Set(world.scene.objects.map(\.image)).union(["world-v3-ground-preview","world-v5-felt-grain"]).union(WorldTextureCache.skyLimits.keys)
     }
     func prepareWorldTextures() {
+        guard !world.uses3D else { return }
         let lookAhead=camera.x+camera.velocity*0.24
         let tiles=tileNames(at:camera.x,margin:0.14).union(tileNames(at:lookAhead,margin:0.08))
         worldTextures.update(tiles,pinned:pinnedTextures)
@@ -327,6 +417,13 @@ final class AppStore: ObservableObject {
     private var maxTextureBytes=0
     private var cameraMissingHDFrames=0
     private var lastCameraForMetrics:Double?
+    func writeYardBusinessSnapshot(label: String) {
+        guard world.uses3D, let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let values: [String: Any] = ["screen": screen == .home ? "home" : "chat", "hasMail": hasMail, "mailboxOpen": mailboxOpen, "mailboxAnchor": [mailboxAnchor.x, mailboxAnchor.y], "bowlFilledToday": filledToday, "lastDrinkAt": lastDrinkAt.map { ISO8601DateFormatter().string(from: $0) } ?? "", "pouring": pouring, "legacyTextureCount": worldTextures.images.count, "showsMe": showsMe]
+        if let json = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted) {
+            try? json.write(to: dir.appendingPathComponent("business-" + label + ".json"), options: .atomic)
+        }
+    }
     func writeCameraSnapshot(label:String) {
         let object:[String:Any] = ["frames":cameraFrames,"cameraX":camera.x,"cameraMode":String(describing:camera.mode),"maxStepNormalized":maxCameraStep,"maxTextureBytes":maxTextureBytes,"missingHDFrames":cameraMissingHDFrames,"textureCount":worldTextures.images.count]
         if let data=try? JSONSerialization.data(withJSONObject:object,options:.prettyPrinted),let dir=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask).first {
@@ -338,6 +435,10 @@ final class AppStore: ObservableObject {
     private func advanceCamera(_ dt:Double) {
         advanceFlag(dt)
         advanceConditions(dt)
+        if world.uses3D {
+            if world.intent3D.cameraMode == "following" { viewedIndex = world.currentIndex }
+            return
+        }
         #if DEBUG
         cameraFrames += 1
         if let previous=lastCameraForMetrics {maxCameraStep=max(maxCameraStep,abs(camera.x-previous))}
@@ -359,12 +460,13 @@ final class AppStore: ObservableObject {
         }
     }
     func poke() {
-        guard !isLost,!world.simulation.isMoving else {return}
+        guard !isLost,!world.moving else {return}
         let now=Date()
         pokeTimes.append(now)
         pokeTimes.removeAll { now.timeIntervalSince($0) > MoodRules.pokeBurstWindow+MoodRules.pokeSulkSeconds }
         interactedThisSession=true
         world.poke()
+        if world.uses3D { announce("团子耳朵动了一下"); return }
         let lines=world.simulation.current == 0 ? MoodCopy.reactions(mood.mood,temperament:temperament,familiar:familiar):catLocation.reactions
         announce(world.simulation.hiddenInGrass ? "草叶动了动，团子看着你":lines[pokeTimes.count % lines.count])
     }
@@ -417,7 +519,10 @@ final class AppStore: ObservableObject {
 
         let id = "u" + UUID().uuidString
         let willFail = forceFail
-        messages.append(ChatMessage(id: id, role: .user, text: text, state: .sending))
+        var outgoing = ChatMessage(id: id, role: .user, text: text, state: .sending)
+        outgoing.diaryEntryID = chatSource?.diaryEntryID
+        messages.append(outgoing)
+        chatSource = nil
         draft = ""
         forceFail = false
 
@@ -541,10 +646,10 @@ final class AppStore: ObservableObject {
     func markBoundary() {
         guard let panel = messagePanel else { return }
         if let index = messages.firstIndex(where: { $0.id == panel.id }) {
-            messages[index].boundary = true
             if backend.isRemote, let serverID = messages[index].serverID {
                 remoteMarkBoundary(messageID: serverID)
             } else {
+                messages[index].boundary = true
                 boundaryCount += 1
             }
         }
@@ -565,7 +670,9 @@ final class AppStore: ObservableObject {
 
     /// 留言纸上的「聊聊」：跳聊天并带来源卡。
     func openChat(from entry: DiaryEntry) {
-        chatSource = ChatSource(kicker: "从今天的这条继续", text: entry.text)
+        guard backend.isRemote, let cloudID = entry.cloudID, !entry.needsSync,
+              entry.kind == .cat || !entry.isPrivate else { flash("请先同步并开放这条日记"); return }
+        chatSource = ChatSource(kicker: "从这条日记继续", text: entry.text, diaryEntryID: cloudID)
         hasMail = false
         mailboxOpen = false
         screen = .chat
@@ -580,18 +687,24 @@ final class AppStore: ObservableObject {
         }
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        withAnimation(.easeOut(duration: Metrics.fade)) {
-            entries.append(DiaryEntry(
+        let now = currentDate()
+        var archive = diaryArchive
+        archive.entries.append(DiaryEntry(
                 id: "n" + UUID().uuidString,
-                time: formatter.string(from: Date()),
+                time: formatter.string(from: now),
                 kind: .text,
                 visit: .unread,
-                text: text
+                text: text,
+                isPrivate: !backend.isRemote || !captureForCat,
+                createdAt: now
             ))
-        }
+        guard persistDiary(archive) else { captureSaveFailed = true; return }
+        captureSaveFailed = false
+        selectDiaryDay(nil)
         isCapturing = false
         captureText = ""
         flash("记下了")
+        syncDiary()
     }
 
     /// 调试：把第一条够不上目标状态的非私密碎片推到该状态。
@@ -600,106 +713,11 @@ final class AppStore: ObservableObject {
             flash("没有可以推进的碎片了")
             return
         }
-        withAnimation(.easeOut(duration: Metrics.fadeSlow)) {
-            entries[index].visit = target
-        }
+        var archive = diaryArchive
+        archive.entries[index].visit = target
+        guard persistDiary(archive) else { return }
         hasMail = true
         announce(target == .commented ? "团子在你的日记上留了一句" : "团子去信箱看过你的日记了")
-    }
-
-    // MARK: - 创建流程
-
-    func startOnboarding() {
-        cancelEverything()
-        showsMe = false
-        mailboxOpen = false
-        nameDraft = ""
-        nameError = nil
-        meetDone = false
-        meetLines = []
-        meetDraft = ""
-        toast = nil
-        onboarding = .welcome
-    }
-
-    func onboardingBack() {
-        guard let step = onboarding else { return }
-        onboarding = OnboardingStep(rawValue: max(0, step.rawValue - 1))
-    }
-
-    func onboardingNext() {
-        guard let step = onboarding else { return }
-
-        if step == .naming {
-            guard isNameValid else {
-                nameError = "名字要 1 到 8 个字"
-                return
-            }
-            nameError = nil
-            startFirstMeeting()
-            return
-        }
-
-        withAnimation(.easeOut(duration: Metrics.progressBar)) {
-            onboarding = OnboardingStep(rawValue: min(OnboardingStep.allCases.count - 1, step.rawValue + 1))
-        }
-    }
-
-    func rerollNames() { namePoolIndex += 1 }
-
-    /// 初次见面：第一句话由猫先说 —— 用户是被认领的一方，不是操作者。
-    private func startFirstMeeting() {
-        meetDone = false
-        meetDraft = ""
-        meetLines = [MeetLine(text: "你来了。", isCat: true)]
-        onboarding = .firstMeeting
-
-        onboardingTask?.cancel()
-        onboardingTask = run { [weak self] in
-            try await Self.sleep(1400)
-            guard let self else { return }
-            withAnimation(.easeOut(duration: Metrics.fade)) {
-                self.meetLines.append(MeetLine(text: "我要怎么叫你？", isCat: true))
-            }
-        }
-    }
-
-    func sendMeetReply() {
-        let text = meetDraft.trimmed
-        guard !text.isEmpty else { return }
-        let name = catName
-        withAnimation(.easeOut(duration: Metrics.fade)) {
-            meetLines.append(MeetLine(text: text, isCat: false))
-        }
-        meetDraft = ""
-
-        onboardingTask?.cancel()
-        onboardingTask = run { [weak self] in
-            try await Self.sleep(900)
-            guard let self else { return }
-            withAnimation(.easeOut(duration: Metrics.fade)) {
-                self.meetLines.append(MeetLine(text: "\(text)。\n那我是\(name)。记住了。", isCat: true))
-                self.meetDone = true
-            }
-        }
-    }
-
-    /// 「先不说」跳过。
-    func skipMeet() {
-        withAnimation(.easeOut(duration: Metrics.fade)) {
-            meetLines.append(MeetLine(text: "那我先不问了。你在就行。", isCat: true))
-            meetDone = true
-        }
-    }
-
-    func enterYard() {
-        onboarding = nil
-        screen = .home
-        createdAt = Date()
-        savePersonality()
-        compileBehavior()
-        greetedThisSession = false
-        if backend.isRemote { remoteUpdateCat() }
     }
 
     // MARK: - 重置
@@ -714,7 +732,6 @@ final class AppStore: ObservableObject {
         world.reset()
         camera = WorldCamera()
         messages = SeedData.messages
-        entries = SeedData.entries
         chatSource = nil
         messagePanel = nil
         isStreaming = false
@@ -733,12 +750,12 @@ final class AppStore: ObservableObject {
         lastDrinkAt = nil
         pokeTimes = []
         catDiaryDate = nil
-        catMonthRows = []
         visitedPlacesToday = []
         greetedThisSession = false
         savePersisted()
         conditionsClock = 1
         connectBackend()
+        loadDiary()
     }
 }
 

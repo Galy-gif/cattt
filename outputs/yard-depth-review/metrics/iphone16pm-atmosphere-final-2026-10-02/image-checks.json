@@ -1,0 +1,62 @@
+[
+  {
+    "name": "dawn-clear",
+    "blackFraction": 0.0,
+    "jpegBytes": 120839,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "dawn-rain",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 96362,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "day-clear",
+    "blackFraction": 0.0,
+    "jpegBytes": 110421,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "day-rain",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 97557,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "dusk-clear",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 114926,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "dusk-rain",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 93192,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "evening-clear",
+    "blackFraction": 0.0,
+    "jpegBytes": 108400,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "evening-rain",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 97191,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "night-clear",
+    "blackFraction": 9.1552734375e-05,
+    "jpegBytes": 93246,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  },
+  {
+    "name": "night-rain",
+    "blackFraction": 3.0517578125e-05,
+    "jpegBytes": 88503,
+    "captureResult": "机器来源/图像检查与人工光色快检通过；用于时段晴雨检查，不作为持续性能"
+  }
+]

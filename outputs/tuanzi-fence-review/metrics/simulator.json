@@ -1,0 +1,46 @@
+[
+  {
+    "sample": "fence-final-exit",
+    "action": "fence_out",
+    "settled": false,
+    "moving": true,
+    "position": {
+      "x": 3.15,
+      "y": 0.5012603589156296,
+      "z": -3.097363941073418
+    }
+  },
+  {
+    "sample": "fence-final-land",
+    "action": "walk",
+    "settled": false,
+    "moving": true,
+    "position": {
+      "x": 2.898567936652219,
+      "y": 0,
+      "z": -2.300672933363581
+    }
+  },
+  {
+    "sample": "fence-final-rest",
+    "action": "fence_rest",
+    "settled": true,
+    "moving": false,
+    "position": {
+      "x": 3.15,
+      "y": 0.501,
+      "z": -3.1
+    }
+  },
+  {
+    "sample": "fence-final-top",
+    "action": "fence_turn",
+    "settled": false,
+    "moving": false,
+    "position": {
+      "x": 3.15,
+      "y": 0.501,
+      "z": -3.1
+    }
+  }
+]

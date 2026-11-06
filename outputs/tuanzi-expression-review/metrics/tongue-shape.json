@@ -1,0 +1,39 @@
+{
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T11:07:07.855Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "ad371b56c3923f7858c16e52cd77f926bb770500d147d93fbd431ceaf3292f73",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "8f5dbe007bf9cc0fdb287a8a02c929e41543e53a6a1c485e24016d8e2af0961e"
+    }
+  },
+  "unchangedGLB": true,
+  "activity": {
+    "target": "groom",
+    "hop": null,
+    "time": 4.465999999999997,
+    "completions": 2,
+    "seconds": 0,
+    "eligible": false,
+    "clip": "groom_idle",
+    "state": "groom_idle",
+    "closure": 1.7748756912464434e-273
+  },
+  "capture": "模拟器最终构建录屏8–14秒，12fps，72帧",
+  "gifSha256": "7c1fb82bb77af8e9d5559c96a618c7f784c8ec079670096eb6e9340b96b23bd4",
+  "imageSha256": "9344cfeba620ae7924a329ad52534e531a5ef206718ace00a5d9812c3d045bda",
+  "checks": {
+    "typecheck": "passed",
+    "webTests": 33,
+    "simulatorBuild": "passed",
+    "groomThenDrink": "completed once",
+    "groomContactFrames": 75,
+    "sampleFrames": 288
+  },
+  "visualApproval": "pending",
+  "deviceInstalled": false
+}

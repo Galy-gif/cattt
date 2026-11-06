@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-13",
+  "environment": "iPhone 17 Pro / iOS 26.5 Simulator",
+  "checks": "check_all.sh passed; 35 web tests passed",
+  "build": "web build:ios and simulator build passed",
+  "runtime": "real GLB regression passed",
+  "modelSha256": {
+    "tuanzi": "d53b4f15d78acab349a302c4c57f8b23099fcc0dd002fc78643f2438efded23c",
+    "yard": "963a6283ee9c844cd904709575e33710e2f289e09d7a981cdab05ff7b2411ca5"
+  },
+  "runs": {
+    "closeout-start": {
+      "ready": true,
+      "webSurfaceReady": true,
+      "failure": "",
+      "webFailure": null,
+      "legacyTicks": 0,
+      "renderEvents": [
+        {
+          "type": "firstFrame",
+          "renderMs": 933
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 995
+        }
+      ],
+      "lastCat": {
+        "action": "idle",
+        "activity": "watch",
+        "settled": true,
+        "offscreen": true
+      }
+    },
+    "closeout-reload": {
+      "ready": true,
+      "webSurfaceReady": true,
+      "failure": "",
+      "webFailure": null,
+      "legacyTicks": 0,
+      "renderEvents": [
+        {
+          "type": "firstFrame",
+          "renderMs": 933
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 995
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 536
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 550.0000000000001
+        }
+      ],
+      "lastCat": {
+        "action": "idle",
+        "activity": "watch",
+        "settled": true,
+        "offscreen": true
+      }
+    },
+    "closeout-sad": {
+      "ready": true,
+      "webSurfaceReady": true,
+      "failure": "",
+      "webFailure": null,
+      "legacyTicks": 0,
+      "renderEvents": [
+        {
+          "type": "firstFrame",
+          "renderMs": 933
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 995
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 536
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 550.0000000000001
+        }
+      ],
+      "lastCat": {
+        "action": "sad_idle",
+        "activity": "sad",
+        "settled": true,
+        "offscreen": true
+      }
+    },
+    "closeout-happy": {
+      "ready": true,
+      "webSurfaceReady": true,
+      "failure": "",
+      "webFailure": null,
+      "legacyTicks": 0,
+      "renderEvents": [
+        {
+          "type": "firstFrame",
+          "renderMs": 933
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 995
+        },
+        {
+          "type": "processTerminated"
+        },
+        {
+          "type": "firstFrame",
+          "renderMs": 536
+        },
+        {
+          "type": "visualReady",
+          "renderMs": 550.0000000000001
+        }
+      ],
+      "lastCat": {
+        "action": "happy_idle",
+        "activity": "happy",
+        "settled": true,
+        "offscreen": true
+      }
+    }
+  },
+  "boundaries": [
+    "yardReload is simulated termination callback, not real process kill",
+    "No video/visual acceptance in this run; camera retained browsing with cat offscreen",
+    "Physical device unavailable; latest device acceptance pending",
+    "Tilt/happy user visual approval pending",
+    "Original intermittent unavailable root cause undetermined"
+  ]
+}

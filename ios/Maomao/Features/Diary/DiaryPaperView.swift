@@ -11,10 +11,6 @@ struct DiaryPaperHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack {
-                // TODO: 二级页 —— 搜索，本版未做。
-                IconTile(size: Metrics.iconSlotLg, glass: true) { Icons.search(color: Palette.ink) }
-                    .accessibilityLabel("搜索")
-
                 Spacer(minLength: 0)
 
                 Button {
@@ -30,17 +26,26 @@ struct DiaryPaperHeader: View {
             }
 
             VStack(alignment: .leading, spacing: 0) {
-                Text(SeedData.diaryDateKicker)
+                Text(DiaryDay.label(store.diaryDay))
                     .font(Typo.serif(22))
                     .tracking(track(0.02, 22))
                     .foregroundStyle(Palette.ink)
-                Text("今天")
+                Text(store.diaryDay == store.diaryToday ? "今天" : "日记")
                     .font(Typo.serif(34, bold: true))
                     .tracking(track(0.02, 34))
                     .foregroundStyle(Palette.ink)
             }
 
             infoPill
+            Button(store.diarySyncLabel) { store.syncDiary() }
+                .font(Typo.sans(12))
+                .foregroundStyle(Palette.ink3)
+                .buttonStyle(.plain)
+                .disabled(!store.backend.isRemote)
+
+            if store.diaryDay != store.diaryToday {
+                TextLink(text: "回到今天", size: 13) { store.selectDiaryDay(nil) }
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, Metrics.gutterDiary)
@@ -51,7 +56,7 @@ struct DiaryPaperHeader: View {
     /// 参考图一「27 May」那颗：白底小胶囊，一个小图标一段字。
     private var infoPill: some View {
         HStack(spacing: 7) {
-            IconTile(size: 24, fill: Palette.bg, circular: true) {
+            IconTile(size: 24, fill: Palette.inset, circular: true) {
                 Icons.clock(size: IconSize.sm, color: Palette.ink2)
             }
             Text("\(store.shownEntries.count) 条")
@@ -86,7 +91,7 @@ struct DiaryPaperView: View {
     private var filterRow: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(DiaryFilter.allCases, id: \.self) { item in
+                ForEach([DiaryFilter.all, .privateOnly], id: \.self) { item in
                     filterChip(item)
                 }
             }
@@ -132,6 +137,20 @@ struct DiaryPaperView: View {
     private var entryList: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
+                if store.diaryLoadFailed {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("暂时无法读取日记，原文件已保留。")
+                            .font(Typo.sans(14))
+                            .foregroundStyle(Palette.ink2)
+                        TextLink(text: "重新读取", size: 13) { store.loadDiary() }
+                    }
+                    .padding(.vertical, 18)
+                } else if store.shownEntries.isEmpty {
+                    Text(store.diaryFilter == .privateOnly ? "这一天还没有只留给自己的记录" : "这一天还没有记录")
+                        .font(Typo.sans(14))
+                        .foregroundStyle(Palette.ink3)
+                        .padding(.vertical, 22)
+                }
                 ForEach(store.shownEntries) { entry in
                     DiaryEntryRow(entry: entry)
                 }
@@ -142,41 +161,48 @@ struct DiaryPaperView: View {
             .padding(.top, 10)
             .padding(.bottom, 12)
         }
+        .id(store.diaryDay)
     }
 
+    @ViewBuilder
     private var thisMonth: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            SectionTitle(text: "这个月")
+        if !store.diaryEarlierDays.isEmpty {
+          VStack(alignment: .leading, spacing: 9) {
+            SectionTitle(text: "其他日期")
 
             ListContainer {
-                ForEach(Array((store.catMonthRows + SeedData.monthRows).enumerated()), id: \.element.id) { index, row in
+                ForEach(Array(store.diaryEarlierDays.enumerated()), id: \.element) { index, day in
                     if index > 0 { ListDivider(leading: 45) }
-
+                    let records = store.diaryArchive.entries(on: day)
+                    Button { store.selectDiaryDay(day) } label: {
                     HStack(spacing: 12) {
-                        Text(row.date)
+                        Text(day)
                             .font(Typo.sans(12))
                             .tabularNumbers()
                             .foregroundStyle(Palette.ink3)
-                            .frame(width: 44, alignment: .leading)
 
-                        Text(row.firstLine)
+                        Text(records.first?.text ?? "")
                             .font(Typo.sans(14))
                             .foregroundStyle(Palette.ink)
                             .lineLimit(1)
                             .truncationMode(.tail)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
-                        Text("\(row.count) 条")
+                        Text("\(records.count) 条")
                             .font(Typo.sans(12))
                             .foregroundStyle(Palette.ink4)
                     }
                     .padding(.horizontal, 15)
                     .padding(.vertical, 13)
                     .frame(minHeight: Metrics.minTap)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("\(DiaryDay.label(day))，\(records.count)条记录")
                 }
             }
         }
         .padding(.top, 4)
+        }
     }
 
     // MARK: - 记一下
@@ -186,6 +212,8 @@ struct DiaryPaperView: View {
             Spacer(minLength: 0)
             PrimaryButton(height: Metrics.minTap, horizontalPadding: 19) {
                 store.captureText = ""
+                store.captureSaveFailed = false
+                store.captureForCat = false
                 withAnimation(.easeOut(duration: Metrics.fadeFast)) { store.isCapturing = true }
             } label: {
                 HStack(spacing: 7) {
@@ -195,6 +223,7 @@ struct DiaryPaperView: View {
                         .tracking(track(0.08, 14.5))
                 }
             }
+            .disabled(store.diaryLoadFailed)
         }
         .padding(.horizontal, Metrics.gutterDiary)
         .padding(.top, 8)

@@ -1,0 +1,36 @@
+{
+  "tool": "内置imagegen，三次独立生成",
+  "status": "候选待选择，未替换App资源",
+  "files": [
+    {
+      "name": "A-soft.png",
+      "sha256": "5b8171743691cbd7303a357ee0214b2321f0e61173cc688b789284df326826c2",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1117274
+    },
+    {
+      "name": "B-peek.png",
+      "sha256": "891d9ccc1fb527aa5f49b90dff10a9f98964f2b8494517fb055cfeddec21bd65",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1141999
+    },
+    {
+      "name": "C-stretch.png",
+      "sha256": "bc22121f08bb432a823593a95174811354ed6d6d062497cfe78e1c0594c2faf4",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1142564
+    }
+  ]
+}

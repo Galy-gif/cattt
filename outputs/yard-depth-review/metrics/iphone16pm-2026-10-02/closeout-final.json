@@ -1,0 +1,149 @@
+{
+  "status": "第1项小院定稿与性能收尾完成",
+  "date": "2026-10-02",
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-02T10:58:11.974Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+    }
+  },
+  "scope": "iPhone16ProMax/iOS26.6.2当前3D调试入口；普通首页仍2D，下一项另做正式首页迁移",
+  "gates": {
+    "visualAndHandfeel": "用户确认，通过；取消一键全景按钮，双指/找团子保留",
+    "sustainedPerformance": {
+      "status": "最终版本三组持续矩阵通过",
+      "effectiveSeconds": 1201.932,
+      "groups": [
+        {
+          "group": "house-day-300s-fixed",
+          "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+          "seconds": 300.574,
+          "medianFps": 58.8,
+          "low1Fps": 41.7,
+          "minScale": 0.95,
+          "thermal": [
+            "fair"
+          ],
+          "environmentSamples": 302,
+          "runtimeFaults": [],
+          "verdict": "单组通过"
+        },
+        {
+          "group": "overview-day-300s-stroll",
+          "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+          "seconds": 300.974,
+          "medianFps": 58.8,
+          "low1Fps": 50,
+          "minScale": 1,
+          "thermal": [
+            "fair"
+          ],
+          "environmentSamples": 302,
+          "runtimeFaults": [],
+          "verdict": "单组通过"
+        },
+        {
+          "group": "overview-night-600s-stroll",
+          "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+          "seconds": 600.384,
+          "medianFps": 58.8,
+          "low1Fps": 52.6,
+          "minScale": 1,
+          "thermal": [
+            "fair"
+          ],
+          "environmentSamples": 601,
+          "runtimeFaults": [],
+          "verdict": "单组通过"
+        }
+      ],
+      "scope": "仅本设备；逐组百分位独立记录，不平均或混合百分位"
+    },
+    "normalTouchAndRecovery": {
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "runId": "9C851430-804B-4B14-BB73-0993DC5206E1",
+      "manualConfirmation": "用户确认全部完成且无异常，已保存量测",
+      "attestedScenarios": [
+        "拖动/缩放及切地点",
+        "10次回桌面再返回，其中一次后台30秒",
+        "锁屏解锁一次",
+        "减弱动态效果开启测试并还原"
+      ],
+      "recordedPauseCount": 4,
+      "recordedMaxPauseSeconds": 1.912,
+      "pauseCoverage": "本份保存记录仅4次暂停，不能独立证明10次与30秒；该部分按用户实际确认登记",
+      "touch": {
+        "maxFrameDelay": 1,
+        "maxMs": 18.000000000058208,
+        "samples": 1411
+      },
+      "runtimeErrors": [],
+      "touchVerdict": "通过",
+      "visualAndHandfeel": "用户确认通过",
+      "memoryScope": "另列双进程稳定窗口，未将App单进程代替合计内存"
+    },
+    "coldLaunch": {
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "method": "App关闭后通过CoreDevice工具启动3D调试入口；普通图标仍进入2D首页",
+      "video": "usb-cover-fix-triple-recovery.mov",
+      "screenLaunchTransitionIntervalSeconds": [
+        4.6,
+        4.8
+      ],
+      "first3DImageIntervalSeconds": [
+        5.0,
+        5.2
+      ],
+      "fullyRevealedIntervalSeconds": [
+        5.2,
+        5.4
+      ],
+      "samplingStepSeconds": 0.2,
+      "conservativeLaunchToImageUpperBoundSeconds": 0.6,
+      "conservativeLaunchToRevealUpperBoundSeconds": 0.8,
+      "verdict": "工具冷启动通过≤2.5秒；不代表正式3D首页图标启动",
+      "nativeFirstFrameSeconds": 0.6165,
+      "nativeVisualReadySeconds": 0.631795,
+      "note": "逐帧抽查；初始化事件与视频启动过渡分别记录，不用视频文件创建时间推算"
+    },
+    "memory": {
+      "result": "夜雨/往返同步观测窗口通过",
+      "nightPeakMiB": 273.9863586425781,
+      "returnPeakMiB": 274.1738815307617,
+      "completeReturnsSeconds": [
+        23.257999999999985,
+        25.099
+      ],
+      "scope": "121秒窗口覆盖2次完整往返（23.258/25.099秒）；第三次63.869秒超出窗口，仅按原生状态确认，不纳入WebContent峰值。"
+    },
+    "power": {
+      "result": "有效拔线能耗采样完成",
+      "samples": 16,
+      "durationSeconds": 15.972998003,
+      "systemMedianPercentPerHour": 11.660397032999999,
+      "powerThresholdSpecified": false,
+      "scope": "整机耗电率估计的短窗口，非App单独耗电，不外推一天续航；不混入正式性能，不作旧版严格A/B"
+    },
+    "atmosphere": {
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "samples": 10,
+      "result": "五时段×晴雨快检通过",
+      "observations": [
+        "清晨暖白、白天浅蓝、黄昏暖色、傍晚紫调、夜晚深蓝，时段梯度可辨",
+        "雨天降亮与雨线正常，屋与团子仍可辨",
+        "未见硬矩形阴影、场景物件漏渲或黑屏"
+      ],
+      "scope": "同版本真机实测页，静态光色检查；不代替最终控件构图、持续帧率或全天自动时钟测试"
+    },
+    "buildAndChecks": "最终源码真机/模拟器构建、本机全检查、7类桥支持场景通过；收尾文档与图像更新后仓库检查及差异格式检查通过"
+  },
+  "faultPolicy": "三次真实SIGKILL恢复成功；各故障轮原始异常与失败标记保留，不改写为正常运行无异常",
+  "commitAndPush": "未执行",
+  "standaloneReportPolicy": "性能工具和10秒光色探针的原始缺测/missing字段仅表示单组不承担全部验收，未修改原始报告；完整结论由本汇总结合独立证据形成"
+}

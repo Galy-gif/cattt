@@ -1,0 +1,446 @@
+{
+  "boundary": [
+    {
+      "x": -4.25,
+      "z": -3.6
+    },
+    {
+      "x": -0.8,
+      "z": -3.6
+    },
+    {
+      "x": 4.25,
+      "z": -3.6
+    },
+    {
+      "x": 4.45,
+      "z": -1.4
+    },
+    {
+      "x": 4.5,
+      "z": 1.4
+    },
+    {
+      "x": 4.2,
+      "z": 3.65
+    },
+    {
+      "x": 1.8,
+      "z": 3.85
+    },
+    {
+      "x": -1.6,
+      "z": 3.45
+    },
+    {
+      "x": -3.85,
+      "z": 2.25
+    },
+    {
+      "x": -4.45,
+      "z": 0.1
+    }
+  ],
+  "bounds": {
+    "max": [
+      4.5,
+      2.526800036430359,
+      3.85
+    ],
+    "min": [
+      -4.45,
+      -0.21599999898672095,
+      -3.6
+    ]
+  },
+  "build": {
+    "builtAt": "2026-10-02T10:58:11.974Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  },
+  "camera": {
+    "centerX": 0.02499999999999991,
+    "centerZ": 0.125,
+    "distance": 31.16002666646996,
+    "focus": [
+      0.02499999999999991,
+      0.35,
+      0.125
+    ],
+    "mode": "overview",
+    "offset": 0,
+    "place": null,
+    "position": [
+      -9.824489353261708,
+      19.959640166866237,
+      22.24731529160385
+    ],
+    "shownDistance": 31.16002666646996,
+    "targetY": 0.35,
+    "velocity": 0,
+    "velocityZ": 0
+  },
+  "cat": {
+    "height": 25.395133883232045,
+    "inFront": true,
+    "width": 17.599719595963073,
+    "x": 234.29382940896227,
+    "y": 478.46061857089654
+  },
+  "comparison": false,
+  "controls": {
+    "chat": {
+      "height": 46,
+      "width": 96.33333333333331,
+      "x": 325.6666666666667,
+      "y": 852
+    },
+    "findCat": {
+      "height": 46,
+      "width": 46,
+      "x": 18,
+      "y": 852
+    },
+    "profile": {
+      "height": 44,
+      "width": 44,
+      "x": 380,
+      "y": 59
+    },
+    "rail": {
+      "height": 284,
+      "width": 44,
+      "x": 7,
+      "y": 191
+    },
+    "status": {
+      "height": 27,
+      "width": 165.66666666666669,
+      "x": 137.16666666666669,
+      "y": 67
+    },
+    "topic": {
+      "height": 56,
+      "width": 408,
+      "x": 16,
+      "y": 780
+    }
+  },
+  "device": "iPhone17,2",
+  "elapsed": 3.6499829292297363,
+  "environment": [
+    {
+      "active": true,
+      "appFootprintMiB": 47.485435485839844,
+      "at": 0.0003859996795654297,
+      "batteryState": "unplugged",
+      "brightness": 0.6000000238418579,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 50.73548126220703,
+      "at": 1.0011519193649292,
+      "batteryState": "unplugged",
+      "brightness": 0.6000000238418579,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 50.79798126220703,
+      "at": 2.0012459754943848,
+      "batteryState": "unplugged",
+      "brightness": 0.6000000238418579,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    },
+    {
+      "active": true,
+      "appFootprintMiB": 47.46985626220703,
+      "at": 3.0013219118118286,
+      "batteryState": "unplugged",
+      "brightness": 0.6000000238418579,
+      "lowPowerMode": false,
+      "thermal": "nominal"
+    }
+  ],
+  "events": [
+    {
+      "at": 0.23413491249084473,
+      "type": "ready"
+    },
+    {
+      "at": 0.23487401008605957,
+      "type": "resumed"
+    },
+    {
+      "at": 0.5148419141769409,
+      "type": "firstFrame"
+    },
+    {
+      "at": 0.5314120054244995,
+      "type": "visualReady"
+    }
+  ],
+  "head": {
+    "x": 245.81989592985715,
+    "y": 493.669007338282
+  },
+  "isSimulator": false,
+  "layoutVersion": "open-yard-v3",
+  "limits": {
+    "daily": 3.8470768123342687,
+    "max": 31.16002666646996,
+    "min": 2.8
+  },
+  "occlusion": {
+    "bottom": 182,
+    "left": 62,
+    "right": 16,
+    "top": 111
+  },
+  "overlay": true,
+  "parts": [
+    {
+      "id": "bed",
+      "rect": {
+        "height": 22.82254094333881,
+        "inFront": true,
+        "width": 29.767708966069748,
+        "x": 136.34934971104272,
+        "y": 489.44499733177236
+      }
+    },
+    {
+      "id": "bench",
+      "rect": {
+        "height": 44.46590518898282,
+        "inFront": true,
+        "width": 41.16184279774885,
+        "x": 74.26414052597451,
+        "y": 460.29705326824075
+      }
+    },
+    {
+      "id": "bowl",
+      "rect": {
+        "height": 9.61727550092233,
+        "inFront": true,
+        "width": 16.388522626040984,
+        "x": 143.6156583654471,
+        "y": 432.89102574205714
+      }
+    },
+    {
+      "id": "fence",
+      "rect": {
+        "height": 119.54892422708053,
+        "inFront": true,
+        "width": 271.5529858331688,
+        "x": 58.00000000013852,
+        "y": 347.4132444114496
+      }
+    },
+    {
+      "id": "flower",
+      "rect": {
+        "height": 6.944841958184978,
+        "inFront": true,
+        "width": 3.785951182629925,
+        "x": 262.3718607935696,
+        "y": 372.81174707843536
+      }
+    },
+    {
+      "id": "flowerbed",
+      "rect": {
+        "height": 17.67940767794875,
+        "inFront": true,
+        "width": 24.842543351337593,
+        "x": 348.0454072615085,
+        "y": 480.95900613204986
+      }
+    },
+    {
+      "id": "house",
+      "rect": {
+        "height": 98.19722177826665,
+        "inFront": true,
+        "width": 88.08355259266712,
+        "x": 75.46817283942241,
+        "y": 370.1196905322742
+      }
+    },
+    {
+      "id": "mailbox",
+      "rect": {
+        "height": 25.98219665363108,
+        "inFront": true,
+        "width": 13.869630569877733,
+        "x": 73.87534972417274,
+        "y": 425.5356104926998
+      }
+    },
+    {
+      "id": "rocks",
+      "rect": {
+        "height": 24.96211338258335,
+        "inFront": true,
+        "width": 31.463224708984164,
+        "x": 373.31919888407384,
+        "y": 463.7166150363743
+      }
+    },
+    {
+      "id": "tree",
+      "rect": {
+        "height": 113.37202362876842,
+        "inFront": true,
+        "width": 90.1086038314173,
+        "x": 171.0958610123158,
+        "y": 318.8916769437713
+      }
+    },
+    {
+      "id": "pond",
+      "rect": {
+        "height": 84.78898191187216,
+        "inFront": true,
+        "width": 129.75344868404045,
+        "x": 230.2954137463448,
+        "y": 408.97969186248343
+      }
+    }
+  ],
+  "projectionMatrix": [
+    4.88002535421007,
+    0,
+    0,
+    0,
+    0,
+    2.246036773904216,
+    0,
+    0,
+    0,
+    -0.07426778242677823,
+    -1.001000500250125,
+    -1,
+    0,
+    0,
+    -0.2001000500250125,
+    0
+  ],
+  "recovery": {},
+  "renderSamples": [
+    {
+      "at": 1.077454924583435,
+      "calls": 100,
+      "fps": 60,
+      "scale": 1,
+      "triangles": 368664
+    },
+    {
+      "at": 2.0936509370803833,
+      "calls": 149,
+      "fps": 43.65079365079365,
+      "scale": 1,
+      "triangles": 487378
+    },
+    {
+      "at": 3.0986779928207397,
+      "calls": 149,
+      "fps": 59.880239520958085,
+      "scale": 1,
+      "triangles": 487378
+    }
+  ],
+  "report": {
+    "frames": 154,
+    "hitches": 1,
+    "journey": {
+      "arrived": true,
+      "goal": "grass",
+      "position": [
+        -0.2,
+        0,
+        2.22
+      ]
+    },
+    "longestFrameMs": 36,
+    "low1Fps": 40,
+    "medianFps": 58.8,
+    "minScale": 1,
+    "pauses": [],
+    "perSecond": [
+      59.28853754940712,
+      59.701492537313435
+    ],
+    "resolutionEvents": [],
+    "seconds": 2.582,
+    "segments": [
+      {
+        "endMs": 3029,
+        "frames": 154,
+        "startMs": 447
+      }
+    ],
+    "touch": {
+      "maxFrameDelay": null,
+      "maxMs": null,
+      "samples": 0
+    },
+    "trajectoryClearance": {
+      "minimum": 0.9056543771066932,
+      "violations": 0
+    },
+    "visitedNodes": [
+      "d3-1",
+      "curve-3-0-7"
+    ]
+  },
+  "runId": "4A7875BF-549F-4576-AE5E-1CFA9A3460CC",
+  "startedAt": "2026-10-02T12:00:00Z",
+  "system": "26.6.2",
+  "thermal": 0,
+  "time": "night",
+  "view": "overview",
+  "viewMatrix": [
+    0.9135454576426009,
+    -2.7755575615628914e-17,
+    0.40673664307580015,
+    0,
+    0.2559676632747606,
+    0.777145961456971,
+    -0.5749127846454442,
+    0,
+    -0.3160937395429235,
+    0.6293203910498372,
+    0.7099581630143077,
+    0,
+    -9.824489353261708,
+    19.959640166866237,
+    22.24731529160385,
+    1
+  ],
+  "viewport": {
+    "height": 956,
+    "width": 440
+  },
+  "webContentFootprintMiB": null,
+  "yard": {
+    "height": 303.63575244592505,
+    "inFront": true,
+    "width": 404.5576890638048,
+    "x": 26.073524194899992,
+    "y": 284.58929618128445
+  }
+}

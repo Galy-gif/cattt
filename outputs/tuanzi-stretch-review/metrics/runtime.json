@@ -1,0 +1,24 @@
+{
+  "floor": -0.0002582575451161955,
+  "plantedTravel": 0.00042296139947368646,
+  "hipRise": 0.017999999999999988,
+  "hindToe": 0.002207548826517948,
+  "headDrop": 0.07398369155455986,
+  "chestDrop": 0.05303265405135657,
+  "stages": [
+    "stretch_reach",
+    "stretch_down",
+    "stretch_hold",
+    "stretch_up",
+    "stretch_settle",
+    "idle"
+  ],
+  "recovered": [
+    "stretch_reach",
+    "stretch_down",
+    "stretch_hold",
+    "stretch_up",
+    "stretch_settle"
+  ],
+  "exitToHouseRecovery": true
+}

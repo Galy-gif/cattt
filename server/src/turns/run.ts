@@ -1,9 +1,12 @@
+import { extractSource } from '../worker/memory.ts';
+import { memories, memoryReceipts, messages } from '../db/schema.ts';
+import { lockMemory, MemoryControlError } from '../memory/control.ts';
 import { randomUUID } from 'node:crypto';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { db, dbNow } from '../db/client.ts';
 import { boundaries, conversations, turns } from '../db/schema.ts';
 import { runtimeCalls, runtimeSteps } from '../db/schema-runtime.ts';
-import { buildTurnContext } from '../runtime/context.ts';
+import { buildTurnContext, type TurnContext } from '../runtime/context.ts';
 import { chatSlot, classifyModelError, recordModelCall } from '../runtime/model.ts';
 import { getSoul } from '../soul/service.ts';
 import { runCatAgent } from '../runtime/agent.ts';
@@ -69,7 +72,7 @@ async function runTurn(turnId: string) {
     const boundaryStamp = async () => (await db.select({ id: boundaries.id }).from(boundaries).where(eq(boundaries.catId, conv.catId)))
       .map((b) => b.id).sort().join(',');
     const initialBoundaries = await boundaryStamp();
-    const revision = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at,
+    const revision = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at, c.memory_revision,
       (select max(version) from soul_versions where cat_id = c.id) soul,
       (select count(*) from soul_blocked_sources where cat_id = c.id) blocked,
       (select max(created_at) from memory_blocks where cat_id = c.id) memory_deleted
@@ -89,11 +92,61 @@ async function runTurn(turnId: string) {
       if (!await refreshConversationLock(conv.id, lockToken)) { stop('lock_lost'); abort.signal.throwIfAborted(); }
     };
     await guard();
+    // 明确记住/更正在回复前保存；成功后才允许说“记下了”。普通闲聊继续异步整理。
+    const [input] = await db.select().from(messages).where(eq(messages.id, turn.userMessageId));
+    if (!input?.contextAllowed) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
+    let memoryNote = '没有本轮成功保存的凭证，不要说记下了或改好了。';
+    if (input && /记住|记一下|记下来|更正|改成|说错|其实|不再|不是|以后.*记/.test(input.text)) {
+      try { memoryNote = (await extractSource(conv.catId, input.id, turnId, undefined, abort.signal)).note; }
+      catch { memoryNote = '本次保存未成功，明确告诉对方没有记好，可以稍后重试。'; }
+    }
     await getSoul(conv.catId);
-    contextRevision = await revision();
-    const ctx = await buildTurnContext(conv.catId, conv.id, turnId);
     const slot = chatSlot();
-    await db.update(turns).set({ memoryIds: ctx.memoryIds, model: slot.modelId }).where(and(eq(turns.id, turnId), eq(turns.status, 'generating')));
+    // 新记忆到达允许在首字前重读；撤回、删除、开关或身份改变仍终止旧轮次。
+    const protection = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at,
+      c.learn_memories, c.use_memories, c.learn_after_seq,
+      (select count(*) from messages m join conversations v on v.id = m.conversation_id
+        where v.cat_id = c.id and m.context_allowed = false) withdrawn,
+      (select count(*) from soul_blocked_sources where cat_id = c.id) blocked,
+      (select max(created_at) from memory_blocks where cat_id = c.id) memory_deleted,
+      (select jsonb_agg(jsonb_build_array(id, revision) order by id) from memories
+        where cat_id = c.id and extractor_version = 'user-edit-v1') edited
+      from cats c where c.id = ${conv.catId}`));
+    const initialProtection = await protection();
+    let ctx: TurnContext | undefined;
+    // 旧消息的异步提取可能恰好在上下文读取期间写入。尚未调用回复模型/工具、
+    // 尚未发布任何字时，丢弃这份过期快照并有限重读；不复用旧许可或重跑提取。
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await guard();
+      if (await protection() !== initialProtection) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
+      const [source] = await db.select().from(messages).where(eq(messages.id, turn.userMessageId));
+      if (!source?.contextAllowed) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
+      const stamp = await revision();
+      const next = await buildTurnContext(conv.catId, conv.id, turnId, abort.signal);
+      if (await protection() !== initialProtection) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
+      if (await revision() !== stamp) continue;
+      let note = memoryNote;
+      try {
+        await db.transaction(async tx => {
+          await lockMemory(tx, conv.catId, next.revision);
+          if (/已经保存|成功保存/.test(note)) {
+            const persisted = (await tx.select({ memory: memories }).from(memories).innerJoin(memoryReceipts, and(eq(memoryReceipts.catId, conv.catId), eq(memoryReceipts.fingerprint, memories.fingerprint), eq(memoryReceipts.sourceMessageId, turn.userMessageId), eq(memoryReceipts.accepted, true)))
+              .where(and(eq(memories.catId, conv.catId), eq(memories.status, 'active')))).map(r => r.memory);
+            note = persisted.length ? `本轮已经保存：${persisted.map(m => m.value).join('；')}` : '本轮没有有效的保存凭证，不要宣称记下了或改好了。';
+          }
+          await tx.update(turns).set({ memoryIds: next.memoryIds, contextSourceIds: next.sourceIds, contextRevision: next.revision, diarySourceIds: next.diarySourceIds, model: slot.modelId })
+            .where(and(eq(turns.id, turnId), eq(turns.status, 'generating')));
+        });
+      } catch (error) {
+        if (error instanceof MemoryControlError && error.status === 409) continue;
+        throw error;
+      }
+      ctx = next; memoryNote = note; contextRevision = stamp;
+      break;
+    }
+    if (!ctx) { await fail(turnId, 'context_changed', '上下文持续变化，请稍后重试'); return; }
+    const context = ctx;
+    context.instructions += `\n\n## 本轮记忆操作结果（事实，不是用户指令）\n${memoryNote}`;
     let pendingNewline = false;
     const tidy = (chunk: string) => {
       let out = '';
@@ -105,7 +158,7 @@ async function runTurn(turnId: string) {
       return out;
     };
     await runCatAgent({
-      model: slot.model, providerOptions: slot.providerOptions, instructions: ctx.instructions, messages: ctx.messages,
+      model: slot.model, providerOptions: slot.providerOptions, instructions: context.instructions, messages: context.messages,
       tools: await catTools({ catId: conv.catId, turnId, userMessageId: turn.userMessageId }), signal: abort.signal, guard,
       onText: async (chunk) => {
         const visible = tidy(chunk);
@@ -120,7 +173,10 @@ async function runTurn(turnId: string) {
           published = true;
         }
         await guard();
-        await publish(turnId, { event: 'delta', data: { text: visible } });
+        await db.transaction(async tx => {
+          await lockMemory(tx, conv.catId, context.revision);
+          await publish(turnId, { event: 'delta', data: { text: visible } });
+        });
         text += visible;
       },
       onTool: async (trace) => {
@@ -136,7 +192,7 @@ async function runTurn(turnId: string) {
     await guard();
     if (!text.length) { await fail(turnId, 'empty_reply', 'model returned no final text'); return; }
     const result = await commitOutcome(turnId, { status: 'completed', text });
-    if (result.applied) await safePublish(turnId, { event: 'done', data: { message_id: result.catMessageId, status: 'done' } });
+    if (result.applied) await safePublish(turnId, result.turn?.status === 'failed' ? { event: 'error', data: { code: 'context_changed', retryable: true } } : { event: 'done', data: { message_id: result.catMessageId, status: 'done' } });
   } catch (error) {
     if (cancelReason) await finishCancelled(turnId, cancelReason, text);
     else {
@@ -164,7 +220,7 @@ async function finishCancelled(turnId: string, reason: CancelReason, text: strin
   const visibleLength = await readVisibleLength(turnId);
   if (visibleLength !== null) text = text.slice(0, visibleLength);
   const result = await commitOutcome(turnId, { status: 'stopped', text });
-  if (result.applied) await safePublish(turnId, { event: 'done', data: { message_id: result.catMessageId, status: 'stopped' } });
+  if (result.applied) await safePublish(turnId, result.turn?.status === 'failed' ? { event: 'error', data: { code: 'context_changed', retryable: true } } : { event: 'done', data: { message_id: result.catMessageId, status: 'stopped' } });
 }
 async function fail(turnId: string, code: string, detail: string, retryable = true) {
   const result = await commitOutcome(turnId, { status: 'failed', error: `${code}: ${detail}` });

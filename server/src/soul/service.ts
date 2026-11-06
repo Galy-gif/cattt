@@ -16,9 +16,11 @@ async function lockCat(tx: Tx, catId: string) {
   return cat;
 }
 async function source(tx: Tx, catId: string, messageId: string) {
-  const [msg] = await tx.select({ id: messages.id }).from(messages)
+  const [cat] = await tx.select().from(cats).where(eq(cats.id, catId));
+  const [msg] = await tx.select({ id: messages.id, seq: messages.seq }).from(messages)
     .innerJoin(conversations, eq(messages.conversationId, conversations.id))
-    .where(and(eq(conversations.catId, catId), eq(messages.id, messageId), eq(messages.role, 'user')));
+    .where(and(eq(conversations.catId, catId), eq(messages.id, messageId), eq(messages.role, 'user'), eq(messages.contextAllowed, true), eq(messages.memoryEligible, true)));
+  if (msg && (!cat?.learnMemories || msg.seq <= cat.learnAfterSeq)) throw new SoulInputError('这条来源不允许继续形成记忆');
   if (!msg) throw new SoulInputError('来源必须是这只猫对话中的用户消息');
   const [blocked] = await tx.select().from(boundaries).where(and(eq(boundaries.catId, catId), eq(boundaries.sourceMessageId, messageId)));
   if (blocked) throw new SoulInputError('来源已经被设为边界');

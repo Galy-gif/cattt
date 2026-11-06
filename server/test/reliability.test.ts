@@ -33,7 +33,9 @@ it('首字共同锁拒绝旧版本，但已经开口的轮次继续',async()=>{
 it('持久待办不依赖入队成功，重复执行共享结果并投影后来重答',async()=>{
  await commitOutcome(turnId,{status:'completed',text:'喵'});
  const [job]=await db.select().from(asyncJobs).where(eq(asyncJobs.sourceId,sourceId));expect(job!.state).toBe('pending');
- let calls=0;await Promise.all([executeJob(job!.id,async()=>{calls++;return true;}),executeJob(job!.id,async()=>{calls++;return true;})]);expect(calls).toBe(1);
+ // 本用例只测重复认领，不依赖虚拟机时钟恰好到达投递时间。
+ await db.update(asyncJobs).set({nextAttemptAt:new Date(0)}).where(eq(asyncJobs.id,job!.id));
+ let calls=0;await Promise.all([executeJob(job!.id,async()=>{calls++;return applyCandidate(catId,sourceId,base);}),executeJob(job!.id,async()=>{calls++;return applyCandidate(catId,sourceId,base);})]);expect(calls).toBe(1);
  const [retry]=await db.insert(turns).values({conversationId:convId,userMessageId:sourceId,inputVersion:0}).returning();
  await commitOutcome(retry!.id,{status:'stopped'});
  const rows=await db.select().from(turns).where(eq(turns.userMessageId,sourceId));expect(rows.every(t=>t.extractedAt&&t.remembered)).toBe(true);

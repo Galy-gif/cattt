@@ -1,0 +1,16 @@
+{
+  "sha256": "9486e09deb256230d4dfbce77d7e2b69c7fe05eb4ea20374fd38d58acd3d467d",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGB",
+  "bytes": 1131334,
+  "tool": "内置imagegen",
+  "references": [
+    "IMG_9379.jpg",
+    "IMG_9377.JPG",
+    "IMG_9381.JPG"
+  ],
+  "status": "参考驱动的新方向稿；未替换App资源"
+}

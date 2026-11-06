@@ -1,0 +1,272 @@
+{
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-02T10:58:11.974Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+    }
+  },
+  "pictures": [
+    {
+      "name": "bed-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "55363FAF-DD7E-46F5-836E-6AC1A7FC9C32",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "400880e59245a34a871af368844f9a3ed1a49f2a69881f41f0765758b8aca4a6",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.29309806354226,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 120237
+    },
+    {
+      "name": "fence-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "B5C1685D-3E7B-46DB-8BDC-BB691C57BE62",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "5e98c64fc5efebf6edec13d70101a1f88bdf7971a1e34b68bc48154f3de9667a",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.2747940356427,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 108571
+    },
+    {
+      "name": "grass-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "9125FD58-E13A-4FBF-B935-4F02565FC073",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "4900cbdedb5a07b0708c0b9adda90ced8b75cc3ab05a1a29df503707af3d939c",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.28173723477664,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 126555
+    },
+    {
+      "name": "house-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "9F524EC8-7C9B-4622-8CF7-619A9B3DC0BA",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "e84fb346149ad2af90c23a37d7521790145b117dcf6b06f43ac3b88f154844ed",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.30465824655508,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 120719
+    },
+    {
+      "name": "house-night-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "0310DC17-0B82-4758-8F3B-B90B999FBF08",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "1f4a23cbc890111c520ad8200a7f86f13b7b72cb2c0c1648858b67e210af4aa5",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.25948632871473,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 96896
+    },
+    {
+      "name": "overview-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "E9923258-3B05-4124-8562-7E88D391A0A3",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "251d293e7ce26826f7d802ed4cc20df87aff58a544f09fd31ca26791f27586fa",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 25.396323637578472,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 104527
+    },
+    {
+      "name": "overview-night-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "435A80B2-D6FA-42D6-A099-37D59A31E291",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "4df6e1892edcd42ca83c2f4ae3a00fc69505d3218f4a2cafa06dfbbd5e5cf1f0",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 25.38940347339,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 78080
+    },
+    {
+      "name": "pond-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "F7C20418-4AC0-4C33-A516-3C4D7C75888F",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "bcff4a1cbce362d2a4adfe4bb700b7b8fc18ef26067a46f8aae2b8a262e3c74e",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.23570301749967,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 123200
+    },
+    {
+      "name": "pond-night-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "7D31ECFC-4C0C-4C65-8BA3-00C18DBF208C",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "62a15d625aefacdddc9379a9997a0affe2d325b5e8e3d7ee2289589f4c70e9fa",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.28029820564947,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 92033
+    },
+    {
+      "name": "tree-day-ui",
+      "device": "iPhone17,2",
+      "system": "26.6.2",
+      "runId": "9FFCBA8B-80F5-49E7-9800-B31267E2CA23",
+      "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+      "modelHashes": {
+        "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+        "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+      },
+      "pngSha256": "cca12fcc97d646bbd6fd131252161795fedb71c9e7af34195b12e6e03481dadb",
+      "imageSize": [
+        1320,
+        2868
+      ],
+      "viewport": {
+        "height": 956,
+        "width": 440
+      },
+      "catHeightPt": 151.28147587900526,
+      "catInViewport": true,
+      "controlOverlapPt2": 0.0,
+      "oneKeyOverviewRemoved": true,
+      "jpegBytes": 128183
+    }
+  ],
+  "rejectedCaptures": [
+    {
+      "name": "pond-day-ui-black-capture.png",
+      "reason": "取回截图内容黑屏，量测成功不能替代图像成功；已保留失败原图并重拍"
+    }
+  ]
+}

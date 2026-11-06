@@ -9,6 +9,8 @@ export const snapshotSchema = z.object({
   targetDestinationId: z.enum(destinationIds),
   phase: z.enum(['idle', 'moving', 'approaching', 'interacting', 'exiting']),
   action: z.string().min(1).max(80),
+  activity: z.enum(['rest', 'watch', 'groom', 'drink', 'tilt', 'happy', 'sulk', 'sad', 'chase', 'stretch', 'run', 'scratch', 'flower']).optional(),
+  activityFallback: z.boolean().optional(),
   paused: z.boolean(),
   runnable: z.boolean(),
   // 院子里的事实，聊天只读（性格系统优化方案第 2.3 节）。老版本 App 不带这些字段。

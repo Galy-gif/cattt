@@ -1,0 +1,7 @@
+{
+  "connected": false,
+  "authentication": "passed",
+  "generation": "not_attempted",
+  "code": "model_quota",
+  "detail": "密钥认证通过，账户余额不足；补充余额后重新运行。"
+}

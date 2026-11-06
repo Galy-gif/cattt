@@ -1,0 +1,21 @@
+{
+  "kind": "真实内容进程SIGKILL",
+  "normalRunVerdict": "未通过（故障注入轮必须保留异常）",
+  "recoveryState": "状态复核通过",
+  "recoveryVisibleReadySeconds": 0.5924550294876099,
+  "cameraEqual": true,
+  "catPositionEqual": true,
+  "visualRecording": "缺测，0.59秒只为原生回调间隔，不代表逐帧无白闪",
+  "build": {
+    "builtAt": "2026-10-02T09:58:06.591Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "modelHashes": {
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb",
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f"
+    },
+    "schemaVersion": 2,
+    "sourceHash": "3813acd5311d5714d8854ea23e6179f69aea4b387decf2462f0647399e547918",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb"
+  }
+}

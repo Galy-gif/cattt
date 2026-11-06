@@ -1,0 +1,21 @@
+{
+  "floor": -0.0018445711049780017,
+  "clearance": 0.3827556821184159,
+  "travel": 0.78,
+  "peakSpeed": 0.3611111111111187,
+  "plantedTravel": 4.825486580125042e-8,
+  "bodyBounce": 0.012,
+  "stages": [
+    "run_ready",
+    "run_stride",
+    "run_settle",
+    "idle"
+  ],
+  "recovered": [
+    "run_ready",
+    "run_stride",
+    "run_stride",
+    "run_settle"
+  ],
+  "exitToHouseRecovery": true
+}

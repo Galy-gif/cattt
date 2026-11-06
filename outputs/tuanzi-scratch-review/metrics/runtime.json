@@ -1,0 +1,21 @@
+{
+  "clips": 69,
+  "floor": -0.000391192142537973,
+  "penetration": 0,
+  "worst": null,
+  "leftMin": 0.0023468653545399842,
+  "rightMin": 0.0019110885383346599,
+  "hindGroundError": 0.0000017168019545571456,
+  "hindTravel": [
+    0.0000010397608905102842,
+    0.0000010397608905102842
+  ],
+  "recovered": [
+    "scratch_reach",
+    "scratch_grip",
+    "scratch_rake",
+    "scratch_release",
+    "scratch_settle"
+  ],
+  "exitToHouseRecovery": true
+}

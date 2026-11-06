@@ -1,0 +1,206 @@
+{
+  "webSize" : "{{0, 0}, {402, 874}}",
+  "ready" : true,
+  "uses3D" : true,
+  "current" : 0,
+  "activity" : "rest",
+  "events" : [
+    {
+      "type" : "resumed",
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "uptime" : 32325.09446054167,
+      "reason" : "initialize"
+    },
+    {
+      "moving" : true,
+      "activity" : "watch",
+      "cameraMode" : "following",
+      "nearest" : "pond",
+      "settled" : false,
+      "offscreen" : false,
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "id" : "11EAAB3E-E706-4869-906B-02B4056E3743",
+      "uptime" : 32325.136898875004,
+      "type" : "cat",
+      "fallback" : false,
+      "action" : "turn"
+    },
+    {
+      "uptime" : 32325.49401216667,
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "type" : "firstFrame",
+      "renderMs" : 566
+    },
+    {
+      "type" : "restored",
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "uptime" : 32325.494745083335
+    },
+    {
+      "uptime" : 32325.508299375,
+      "renderMs" : 581,
+      "type" : "visualReady",
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D"
+    },
+    {
+      "action" : "walk",
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "cameraMode" : "following",
+      "activity" : "watch",
+      "settled" : false,
+      "fallback" : false,
+      "moving" : true,
+      "nearest" : "pond",
+      "id" : "11EAAB3E-E706-4869-906B-02B4056E3743",
+      "offscreen" : false,
+      "uptime" : 32327.654896333337,
+      "type" : "cat"
+    },
+    {
+      "id" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+      "cameraMode" : "following",
+      "action" : "walk",
+      "moving" : false,
+      "fallback" : true,
+      "type" : "cat",
+      "nearest" : "house",
+      "activity" : "rest",
+      "settled" : false,
+      "uptime" : 32328.155161166669,
+      "offscreen" : true,
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D"
+    },
+    {
+      "cameraMode" : "following",
+      "action" : "sit_down",
+      "fallback" : true,
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "id" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+      "settled" : false,
+      "type" : "cat",
+      "activity" : "rest",
+      "offscreen" : true,
+      "moving" : false,
+      "nearest" : "house",
+      "uptime" : 32328.321980416669
+    },
+    {
+      "id" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+      "offscreen" : false,
+      "activity" : "rest",
+      "moving" : false,
+      "settled" : false,
+      "fallback" : true,
+      "uptime" : 32328.503353791668,
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "type" : "cat",
+      "nearest" : "house",
+      "cameraMode" : "following",
+      "action" : "sit_down"
+    },
+    {
+      "uptime" : 32329.57027054167,
+      "activity" : "rest",
+      "fallback" : true,
+      "id" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+      "nearest" : "house",
+      "settled" : true,
+      "cameraMode" : "following",
+      "offscreen" : false,
+      "type" : "cat",
+      "pageId" : "6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D",
+      "moving" : false,
+      "action" : "sit_idle"
+    }
+  ],
+  "snapshot" : {
+    "shownSlot" : "night",
+    "goal" : "house",
+    "restSeconds" : 0,
+    "home" : {
+      "settled" : true,
+      "intent" : {
+        "id" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+        "place" : "house",
+        "activity" : "rest"
+      }
+    },
+    "facing" : -1.4513171308546235,
+    "next" : 1,
+    "camera" : {
+      "shownDistance" : 3.8470768123342687,
+      "velocity" : 0,
+      "position" : [
+        -2.3499238532900018,
+        1.4403980801767076,
+        3.1480993560037835
+      ],
+      "targetY" : 0.38,
+      "mode" : "following",
+      "centerX" : 0.024999999999999911,
+      "velocityZ" : 0,
+      "offset" : 2.3749238532900017,
+      "focus" : [
+        -2.3499238532900018,
+        0.38,
+        -0.54994822502563723
+      ],
+      "centerZ" : 0.125,
+      "distance" : 3.8470768123342687,
+      "place" : null
+    },
+    "hour" : 19.600000000000001,
+    "walking" : false,
+    "weather" : "rain",
+    "arrived" : true,
+    "position" : {
+      "x" : -2.3500000000000001,
+      "y" : 0,
+      "z" : -0.55000000000000004
+    },
+    "slot" : null,
+    "layoutVersion" : "open-yard-v3"
+  },
+  "recovery" : [
+
+  ],
+  "requestID" : "FE7C670C-1C54-4C79-AECA-7BFEB57055BB",
+  "legacyTicks" : 0,
+  "failure" : "",
+  "business" : {
+    "runnable" : true,
+    "placesToday" : [
+      "蘑菇屋"
+    ],
+    "action" : "sit_idle",
+    "activity" : "rest",
+    "moodReason" : "",
+    "weather" : "rain",
+    "phase" : "idle",
+    "currentDestinationId" : "house",
+    "paused" : false,
+    "dayPhase" : "night",
+    "stateVersion" : 0,
+    "bowlFilledToday" : true,
+    "sceneVersion" : 4,
+    "targetDestinationId" : "house",
+    "activityFallback" : true,
+    "mood" : "calm",
+    "destinationIds" : [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ]
+  },
+  "webURL" : "maomao:\/\/yard\/app.html?composition=1&dpr=1.5&fps=60&home=1&msaa=0&pageId=6CA58FEC-6DD1-45EB-ABEC-8AD485CB528D&review=1&runId=F6DE112F-77F8-4604-AA76-8CA07DBBDF15&time=day&weather=clear",
+  "target" : 0,
+  "action" : "sit_idle",
+  "webSurfaceReady" : true,
+  "webLoading" : false,
+  "runnable" : true,
+  "moving" : false,
+  "webReady" : true
+}

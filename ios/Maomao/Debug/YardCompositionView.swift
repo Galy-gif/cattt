@@ -116,8 +116,6 @@ struct YardCompositionView: View {
             VStack {
                 Spacer()
                 HStack(spacing: 8) {
-                    cameraButton("全景", symbol: "arrow.up.left.and.arrow.down.right") { preview.overview() }
-                        .compositionFrame("overview")
                     if preview.mode != "following" {
                         cameraButton("找团子", symbol: "pawprint") { preview.findCat() }
                             .compositionFrame("findCat")
@@ -187,6 +185,11 @@ struct CompositionPlace: Identifiable {
     private var latestReport: [String: Any] = [:]
     private var events: [[String: Any]] = []
     private var recovery: [String: Any] = [:]
+    private var environmentSamples: [[String: Any]] = []
+    private var renderSamples: [[String: Any]] = []
+    private var sampleTimer: AnyCancellable?
+    private var previousBatteryMonitoring: Bool?
+    private var active = true
 
     func start(safe: EdgeInsets) {
         guard !loaded else { return }
@@ -199,7 +202,12 @@ struct CompositionPlace: Identifiable {
         showUI = ud.object(forKey: "yardCompositionUI") == nil || ud.bool(forKey: "yardCompositionUI")
         updateInsets(safe)
         previousIdle = UIApplication.shared.isIdleTimerDisabled
+        previousBatteryMonitoring = UIDevice.current.isBatteryMonitoringEnabled
         UIApplication.shared.isIdleTimerDisabled = true
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        environmentSamples = []; renderSamples = []; active = true
+        sampleEnvironment()
+        sampleTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in self?.sampleEnvironment() }
         subscription = web.messages.sink { [weak self] message in self?.receive(message) }
         var query = ["composition": "1", "view": initialView, "time": night ? "night" : "day", "weather": night ? "rain" : "clear",
                      "dpr": "1.5", "msaa": "0", "fps": "60", "post": "1", "shadow": "2048", "grass": "1", "shells": "4", "walk": "0"]
@@ -233,7 +241,23 @@ struct CompositionPlace: Identifiable {
         send(["type": "atmosphere", "slot": night ? "night" : "day", "weather": night ? "rain" : "clear"])
     }
     func setActive(_ active: Bool) {
+        self.active = active
         tasks.append(Task { [weak self] in await self?.web.setActive(active) })
+    }
+    private func sampleEnvironment() {
+        guard loaded else { return }
+        let battery: String
+        switch UIDevice.current.batteryState {
+        case .unplugged: battery = "unplugged"
+        case .charging: battery = "charging"
+        case .full: battery = "full"
+        default: battery = "unknown"
+        }
+        environmentSamples.append(["at": Date().timeIntervalSince(began), "active": active,
+            "brightness": UIScreen.main.brightness, "batteryState": battery,
+            "lowPowerMode": ProcessInfo.processInfo.isLowPowerModeEnabled,
+            "thermal": YardProbe.thermalName(ProcessInfo.processInfo.thermalState),
+            "appFootprintMiB": YardProbe.footprintMB() as Any? ?? NSNull()])
     }
     func hideTemporarily() {
         showUI = false
@@ -281,12 +305,15 @@ struct CompositionPlace: Identifiable {
                 let buildURL = Bundle.main.url(forResource: "YardWeb", withExtension: nil)?.appendingPathComponent("probe-build.json")
                 record["build"] = buildURL.flatMap { try? Data(contentsOf: $0) }.flatMap { try? JSONSerialization.jsonObject(with: $0) } ?? NSNull()
                 record["view"] = initialView; record["time"] = night ? "night" : "day"; record["overlay"] = showUI
-                record["device"] = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] ?? UIDevice.current.model
+                record["device"] = YardProbe.deviceModel
                 record["system"] = UIDevice.current.systemVersion
                 record["isSimulator"] = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] != nil
                 record["recovery"] = recovery
                 record["report"] = latestReport; record["events"] = events
                 record["thermal"] = ProcessInfo.processInfo.thermalState.rawValue
+                record["environment"] = environmentSamples
+                record["renderSamples"] = renderSamples
+                record["webContentFootprintMiB"] = NSNull()
                 record["elapsed"] = Date().timeIntervalSince(began)
                 let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("yard-composition")
                 _ = try YardProbeArchive.save(record, directory: url, name: "\(initialView)-\(night ? "night" : "day")-\(showUI ? "ui" : "clean")")
@@ -323,6 +350,9 @@ struct CompositionPlace: Identifiable {
         }
         if type == "perf" {
             latestReport = message["report"] as? [String: Any] ?? [:]
+            renderSamples.append(["at": Date().timeIntervalSince(began),
+                "fps": message["fps"] as Any? ?? NSNull(), "scale": message["scale"] as Any? ?? NSNull(),
+                "calls": message["calls"] as Any? ?? NSNull(), "triangles": message["triangles"] as Any? ?? NSNull()])
             if let snapshot = message["snapshot"] as? [String: Any] {
                 if let camera = snapshot["camera"] as? [String: Any] { mode = camera["mode"] as? String ?? mode; selected = camera["place"] as? String }
                 if let goal = message["nearest"] as? String ?? snapshot["goal"] as? String { catName = CompositionPlace.all.first(where: { $0.id == goal })?.location.name ?? catName }
@@ -363,11 +393,14 @@ struct CompositionPlace: Identifiable {
         }
     }
     func close() {
+        sampleTimer?.cancel(); sampleTimer = nil
         deadline?.cancel(); deadline = nil
         tasks.forEach { $0.cancel() }; tasks.removeAll(); subscription?.cancel(); subscription = nil
         web.stop(); loaded = false; ready = false
         if let previousIdle { UIApplication.shared.isIdleTimerDisabled = previousIdle }
         previousIdle = nil
+        if let previousBatteryMonitoring { UIDevice.current.isBatteryMonitoringEnabled = previousBatteryMonitoring }
+        previousBatteryMonitoring = nil
     }
 }
 #endif

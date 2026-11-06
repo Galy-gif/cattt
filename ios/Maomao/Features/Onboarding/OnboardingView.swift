@@ -1,38 +1,59 @@
 import SwiftUI
 
-/// 创建流程：欢迎 → 选外观 1/4 → 气质 2/4 → 命名 3/4 → 初次见面 4/4。
+/// 创建流程：欢迎 → 气质 1/3 → 命名 2/3 → 初次见面 3/3。
 struct OnboardingView: View {
     @EnvironmentObject private var store: AppStore
 
     var body: some View {
         ZStack {
-            Palette.bg.ignoresSafeArea()
+            PageBackground().ignoresSafeArea()
 
             VStack(spacing: 0) {
+                if store.creationLoadFailed || store.creationSaveFailed {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(store.creationLoadFailed ? "创建资料暂时无法读取，原件已保留" : "创建资料没有保存成功，请重试")
+                            .font(Typo.sans(13.5))
+                            .foregroundStyle(Palette.ink2)
+                        Button(store.creationLoadFailed ? "重新读取" : "重试保存") {
+                            if store.creationLoadFailed { store.loadCreation() } else { store.retryCreationSave() }
+                        }
+                        .font(Typo.sans(14))
+                        .foregroundStyle(Palette.accent)
+                        .frame(minHeight: Metrics.minTap)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, Metrics.gutterOnboarding)
+                    .designTopInset(56)
+                }
+
                 if let step = store.onboarding, step != .welcome, step != .firstMeeting {
                     progressHeader(step: step)
                 }
 
-                switch store.onboarding {
-                case .welcome: WelcomeStep()
-                case .pickCat: PickAppearanceStep()
-                case .temperament: TemperamentStep()
-                case .naming: NamingStep()
-                case .firstMeeting: FirstMeetingStep()
-                case nil: EmptyView()
+                Group {
+                    switch store.onboarding {
+                    case .welcome: WelcomeStep()
+                    case .temperament: TemperamentStep()
+                    case .naming: NamingStep()
+                    case .firstMeeting: FirstMeetingStep()
+                    case nil: EmptyView()
+                    }
                 }
+                .disabled(store.creationLoadFailed)
             }
             .ignoresSafeArea(.container, edges: [.top, .bottom])
         }
     }
 
-    /// 返回箭头 + 3px 进度轨（宽度 = 步数 × 25%）+ 右侧 n / 4 计数。
+    /// 返回箭头 + 3px 进度轨（宽度 = 步数 / 3）+ 右侧 n / 3 计数。
     private func progressHeader(step: AppStore.OnboardingStep) -> some View {
         HStack(spacing: 14) {
             Button { store.onboardingBack() } label: {
                 Icons.chevronLeft(color: Palette.ink3)
+                    .frame(width: Metrics.minTap, height: Metrics.minTap)
+                    .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
+            .buttonStyle(PressScaleStyle())
             .accessibilityLabel("上一步")
 
             GeometryReader { proxy in
@@ -40,12 +61,12 @@ struct OnboardingView: View {
                     Capsule().fill(Palette.rule)
                     Capsule()
                         .fill(Palette.accent)
-                        .frame(width: proxy.size.width * CGFloat(step.stepNumber) * 0.25)
+                        .frame(width: proxy.size.width * CGFloat(step.stepNumber) / 3)
                 }
             }
             .frame(height: 3)
 
-            Text("\(step.stepNumber) / 4")
+            Text("\(step.stepNumber) / 3")
                 .font(Typo.sans(11.5))
                 .tabularNumbers()
                 .foregroundStyle(Palette.ink3)
@@ -71,7 +92,7 @@ struct WelcomeStep: View {
                         .foregroundStyle(Palette.ink)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text("它有自己的性格，会记得你说过的事，\n也会在你不在的时候过自己的日子。")
+                    Text("它有自己的性格，会记得你说过的事，\n也有自己的脾气和喜欢待的地方。")
                         .font(Typo.sans(15))
                         .lineHeight(1.95, size: 15)
                         .foregroundStyle(Palette.ink2)
@@ -110,24 +131,15 @@ struct WelcomeStep: View {
             Spacer(minLength: 0)
 
             VStack(spacing: 15) {
-                PrimaryButton {
+                PrimaryButton(subtle: true) {
                     store.onboardingNext()
                 } label: {
-                    Text("去认领一只")
+                    Text("去见见它")
                         .font(Typo.sans(16))
                         .tracking(track(0.1, 16))
                 }
 
-                // TODO: 后端 —— 登录流程本版未做。
-                TextLink(
-                    text: "已经有猫了，登录",
-                    size: 13.5,
-                    color: Palette.ink3,
-                    ruleColor: Color(hex: 0xA7B2A0),
-                    underlineGap: 3
-                ) {
-                    store.flash("登录还没接")
-                }
+
             }
             .padding(.horizontal, 30)
             .padding(.bottom, 44)

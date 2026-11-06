@@ -1,0 +1,602 @@
+[
+  {
+    "name": "yard-start-dawn-clear-house",
+    "bytes": 156079,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-house.imageset/yard-start-dawn-clear-house.jpg",
+    "sha256": "1495196eff012d8af52237b032a93bead121d57b5156f9aa6cea8a070d58441a"
+  },
+  {
+    "name": "yard-start-dawn-clear-tree",
+    "bytes": 159208,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-tree.imageset/yard-start-dawn-clear-tree.jpg",
+    "sha256": "549771074c31a66967fee4a4ba8ae862d2a8e18b25e17a4d37fd1975090499de"
+  },
+  {
+    "name": "yard-start-dawn-clear-bed",
+    "bytes": 170382,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-bed.imageset/yard-start-dawn-clear-bed.jpg",
+    "sha256": "2e2b3b316bce98da56f18b1f0c26d37a84e820e7a533e34d614ee423b511dee5"
+  },
+  {
+    "name": "yard-start-dawn-clear-grass",
+    "bytes": 175362,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-grass.imageset/yard-start-dawn-clear-grass.jpg",
+    "sha256": "bfa163d0facac75b742e898dd96dfb05464161068cbbaecc0764ed5793a8fcde"
+  },
+  {
+    "name": "yard-start-dawn-clear-pond",
+    "bytes": 170451,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-pond.imageset/yard-start-dawn-clear-pond.jpg",
+    "sha256": "27431d7d5094dfe752ea52243e3cd6b270ce1dcba6f15aa23bc379ab80f164d6"
+  },
+  {
+    "name": "yard-start-dawn-clear-fence",
+    "bytes": 156593,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-clear-fence.imageset/yard-start-dawn-clear-fence.jpg",
+    "sha256": "e8c394d56b2397a5676d1b84a45beda818ae27a74e76ef20a29c7d78c2f95b12"
+  },
+  {
+    "name": "yard-start-dawn-rain-house",
+    "bytes": 131052,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-house.imageset/yard-start-dawn-rain-house.jpg",
+    "sha256": "0f358362809e937a6cdf7ae6f8eb1ad51490cd45c9d69771f09b5e6120d5517d"
+  },
+  {
+    "name": "yard-start-dawn-rain-tree",
+    "bytes": 139103,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-tree.imageset/yard-start-dawn-rain-tree.jpg",
+    "sha256": "e03cbc77eb7db35ea9c1b0497617ee46f1f328d2b7314af0651798a3d7253980"
+  },
+  {
+    "name": "yard-start-dawn-rain-bed",
+    "bytes": 138326,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-bed.imageset/yard-start-dawn-rain-bed.jpg",
+    "sha256": "7b30a4660385ecf1d91bca888766d632d3884155a02e38739f302d4e5bb58fa0"
+  },
+  {
+    "name": "yard-start-dawn-rain-grass",
+    "bytes": 146251,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-grass.imageset/yard-start-dawn-rain-grass.jpg",
+    "sha256": "889fa1b14c99cfe66d2e9124c2bf39139ffeafa2cb08c8faab4bd7c743aec680"
+  },
+  {
+    "name": "yard-start-dawn-rain-pond",
+    "bytes": 146511,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-pond.imageset/yard-start-dawn-rain-pond.jpg",
+    "sha256": "909fdf0fbf3e5842adc45421d83eec5b94f66164a695e6764b4ac4eba07194b5"
+  },
+  {
+    "name": "yard-start-dawn-rain-fence",
+    "bytes": 135344,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dawn-rain-fence.imageset/yard-start-dawn-rain-fence.jpg",
+    "sha256": "c954e11b4e9288fd096b6663b09275535deda737ba98244fddb36d6ba585262f"
+  },
+  {
+    "name": "yard-start-day-clear-house",
+    "bytes": 150042,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-house.imageset/yard-start-day-clear-house.jpg",
+    "sha256": "9c86215f39a286dba7406df2a692d84a52966270883b423921fdc3937a3d1207"
+  },
+  {
+    "name": "yard-start-day-clear-tree",
+    "bytes": 159363,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-tree.imageset/yard-start-day-clear-tree.jpg",
+    "sha256": "98e88574011aff03e220bd678b6abfde1e14186aada17696f02e3f0725c51888"
+  },
+  {
+    "name": "yard-start-day-clear-bed",
+    "bytes": 156025,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-bed.imageset/yard-start-day-clear-bed.jpg",
+    "sha256": "33d48eccc11aef82f0da1dcdbf0e91ac3bb87fc5231e3571925e9691862cce9e"
+  },
+  {
+    "name": "yard-start-day-clear-grass",
+    "bytes": 165235,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-grass.imageset/yard-start-day-clear-grass.jpg",
+    "sha256": "98b303cec700732fcbfca3ace03d64783f368dcd2a7d78dac8882b213dcd38c6"
+  },
+  {
+    "name": "yard-start-day-clear-pond",
+    "bytes": 168321,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-pond.imageset/yard-start-day-clear-pond.jpg",
+    "sha256": "e1de6739744021ed755ecef4adb29164533896525c6c4b048a3da68944893f51"
+  },
+  {
+    "name": "yard-start-day-clear-fence",
+    "bytes": 143182,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-clear-fence.imageset/yard-start-day-clear-fence.jpg",
+    "sha256": "3e25f83f5b9f3895b545edeebe2719bf83abd2cce420738c8df802f6319830a3"
+  },
+  {
+    "name": "yard-start-day-rain-house",
+    "bytes": 130554,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-house.imageset/yard-start-day-rain-house.jpg",
+    "sha256": "0a84fcf561a22dbccbc70aee4c4e715877c075f0fea7c0227779f7c4ed2da860"
+  },
+  {
+    "name": "yard-start-day-rain-tree",
+    "bytes": 141263,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-tree.imageset/yard-start-day-rain-tree.jpg",
+    "sha256": "a56864de0465fd69bf6583dbf0c94627ae203fe99a493ac85f006a74b8b23b88"
+  },
+  {
+    "name": "yard-start-day-rain-bed",
+    "bytes": 134961,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-bed.imageset/yard-start-day-rain-bed.jpg",
+    "sha256": "abd25ae1ce556c4293cb9a8872f5e54461ea4300f945b43436beb1b09cf180d8"
+  },
+  {
+    "name": "yard-start-day-rain-grass",
+    "bytes": 140549,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-grass.imageset/yard-start-day-rain-grass.jpg",
+    "sha256": "089093d70982265c2a207b1a38cf02e075ad11959b9a1cc980e6511bd0be8faa"
+  },
+  {
+    "name": "yard-start-day-rain-pond",
+    "bytes": 145929,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-pond.imageset/yard-start-day-rain-pond.jpg",
+    "sha256": "b9eaeff311f84e6691594372d32a3b20ce4c2a3015188ef66ed4249f9878eed5"
+  },
+  {
+    "name": "yard-start-day-rain-fence",
+    "bytes": 136048,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-day-rain-fence.imageset/yard-start-day-rain-fence.jpg",
+    "sha256": "bd6064670344c11c4be02f6a17894bbe47bee9892226fd51e61bc21d912694cf"
+  },
+  {
+    "name": "yard-start-dusk-clear-house",
+    "bytes": 150410,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-house.imageset/yard-start-dusk-clear-house.jpg",
+    "sha256": "36ad4070ae6c978d7b7951354cf734b30b999045d18bb2dd570b29e45baa6a50"
+  },
+  {
+    "name": "yard-start-dusk-clear-tree",
+    "bytes": 147045,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-tree.imageset/yard-start-dusk-clear-tree.jpg",
+    "sha256": "62331294a9c9d3c6cf3f21143535828730119fefd7c894ab45e72c9e4e9dcb97"
+  },
+  {
+    "name": "yard-start-dusk-clear-bed",
+    "bytes": 162108,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-bed.imageset/yard-start-dusk-clear-bed.jpg",
+    "sha256": "5780ed70392e0dbe65422d02cc5e6f9d41a3bab084d40e26dcbc6dfd7c61d2a3"
+  },
+  {
+    "name": "yard-start-dusk-clear-grass",
+    "bytes": 164479,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-grass.imageset/yard-start-dusk-clear-grass.jpg",
+    "sha256": "035a8adccfe35c73277419210b1c63ab0f7273d6b456c20fb2998e00de4356e0"
+  },
+  {
+    "name": "yard-start-dusk-clear-pond",
+    "bytes": 160499,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-pond.imageset/yard-start-dusk-clear-pond.jpg",
+    "sha256": "9272928ac13cab8e514a56144008f9f6b08ff7261e5d484b17f09aff3daf58e4"
+  },
+  {
+    "name": "yard-start-dusk-clear-fence",
+    "bytes": 145119,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-clear-fence.imageset/yard-start-dusk-clear-fence.jpg",
+    "sha256": "3c6590cb6ae8976bfae0b335d0f19632e278654ee0d46fb41d9cfdc07ea00195"
+  },
+  {
+    "name": "yard-start-dusk-rain-house",
+    "bytes": 130768,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-house.imageset/yard-start-dusk-rain-house.jpg",
+    "sha256": "54705351171fd0fa4fc4c6495809bbe93f4d9fd87863122016aa8f3d0758ca3d"
+  },
+  {
+    "name": "yard-start-dusk-rain-tree",
+    "bytes": 126180,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-tree.imageset/yard-start-dusk-rain-tree.jpg",
+    "sha256": "d602539cfbcfdbcd04362ad3919e45a04a3a8a2740fc27974133bec2bff6c5d8"
+  },
+  {
+    "name": "yard-start-dusk-rain-bed",
+    "bytes": 132697,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-bed.imageset/yard-start-dusk-rain-bed.jpg",
+    "sha256": "083cba0272f5049b51a1e764f0a25803eaac68c0437333a9f3de0a5a0f81b370"
+  },
+  {
+    "name": "yard-start-dusk-rain-grass",
+    "bytes": 134964,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-grass.imageset/yard-start-dusk-rain-grass.jpg",
+    "sha256": "71c5f442c1b49207c42113ab417369b7ef80a89e38051df9ab7b6a31a56ebce1"
+  },
+  {
+    "name": "yard-start-dusk-rain-pond",
+    "bytes": 140109,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-pond.imageset/yard-start-dusk-rain-pond.jpg",
+    "sha256": "f13b60a8413991674b457a64fb877f011096d4e8fbe2dc974fe6ca8ec3d5d3dd"
+  },
+  {
+    "name": "yard-start-dusk-rain-fence",
+    "bytes": 129651,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-dusk-rain-fence.imageset/yard-start-dusk-rain-fence.jpg",
+    "sha256": "cae3a040843fe2a0917ac218cc1615e23d7dc3decb477b98d818d390ba9004c7"
+  },
+  {
+    "name": "yard-start-evening-clear-house",
+    "bytes": 147609,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-house.imageset/yard-start-evening-clear-house.jpg",
+    "sha256": "c87d974918d1e33c82dc147b17f8aac62445419f572532e3aca66aba47037d65"
+  },
+  {
+    "name": "yard-start-evening-clear-tree",
+    "bytes": 140809,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-tree.imageset/yard-start-evening-clear-tree.jpg",
+    "sha256": "777ade7be70848776668d9b8937b651fa6ea9c52c6646074402ad636d89bfc8b"
+  },
+  {
+    "name": "yard-start-evening-clear-bed",
+    "bytes": 152244,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-bed.imageset/yard-start-evening-clear-bed.jpg",
+    "sha256": "77e785e6814efe3a2fbcaa8d3d83cc37e5018596faea28cba26bc835e5ee7eec"
+  },
+  {
+    "name": "yard-start-evening-clear-grass",
+    "bytes": 153239,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-grass.imageset/yard-start-evening-clear-grass.jpg",
+    "sha256": "97628ae9dbc8ffd75eb18448ebf8ec211f29230dfceaa3360a5144e01968af23"
+  },
+  {
+    "name": "yard-start-evening-clear-pond",
+    "bytes": 151126,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-pond.imageset/yard-start-evening-clear-pond.jpg",
+    "sha256": "9a589146f8e93a104dab0cc5a57ead9800daa5975be17544acba09c18d11c5ec"
+  },
+  {
+    "name": "yard-start-evening-clear-fence",
+    "bytes": 137335,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-clear-fence.imageset/yard-start-evening-clear-fence.jpg",
+    "sha256": "5325a56807f59d4bd012bf0b3ed31e239cdafe62d1d2daa11fee74ab17995aa8"
+  },
+  {
+    "name": "yard-start-evening-rain-house",
+    "bytes": 137363,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-house.imageset/yard-start-evening-rain-house.jpg",
+    "sha256": "d3c28a6c4808af3560fd14e5444f673b97b236b08087381f8e857fee2206fff3"
+  },
+  {
+    "name": "yard-start-evening-rain-tree",
+    "bytes": 136516,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-tree.imageset/yard-start-evening-rain-tree.jpg",
+    "sha256": "8cdeae15f814478dae0c8cd6a83110a3abb5715eb336635c7552b4aedfda2219"
+  },
+  {
+    "name": "yard-start-evening-rain-bed",
+    "bytes": 137215,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-bed.imageset/yard-start-evening-rain-bed.jpg",
+    "sha256": "6449eeadcf0843754ace16d4a44b279283cb092b300daa5d9eb0a07cdc4a6167"
+  },
+  {
+    "name": "yard-start-evening-rain-grass",
+    "bytes": 141348,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-grass.imageset/yard-start-evening-rain-grass.jpg",
+    "sha256": "dd5beeea1d9c204e43d19ca011bbbdb1c9d2d56c8db4b579ce79e2d6a1904fc3"
+  },
+  {
+    "name": "yard-start-evening-rain-pond",
+    "bytes": 142568,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-pond.imageset/yard-start-evening-rain-pond.jpg",
+    "sha256": "a73a9be04fabf0d78ec6929d69349df209bb26cb40270c0f87ce06ad6a179822"
+  },
+  {
+    "name": "yard-start-evening-rain-fence",
+    "bytes": 134201,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-evening-rain-fence.imageset/yard-start-evening-rain-fence.jpg",
+    "sha256": "0e2033e6818a7391b98948e405294d7e2d98fdd84d0dd0f73e4ffd90fbc175bc"
+  },
+  {
+    "name": "yard-start-night-clear-house",
+    "bytes": 133044,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-house.imageset/yard-start-night-clear-house.jpg",
+    "sha256": "e3e4644fbffb99eec0a9d7c3d5d2fb099958df6edde32600bb1328d7be87b027"
+  },
+  {
+    "name": "yard-start-night-clear-tree",
+    "bytes": 123806,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-tree.imageset/yard-start-night-clear-tree.jpg",
+    "sha256": "1fdb82bbafc01cf80e44913a1ed954b8fe78e894fa922e4df195bc835adb1bdf"
+  },
+  {
+    "name": "yard-start-night-clear-bed",
+    "bytes": 130286,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-bed.imageset/yard-start-night-clear-bed.jpg",
+    "sha256": "7c21aa558ae529429159bc1451bde18c27e19f67e3915d6e789fa54d657c3cc3"
+  },
+  {
+    "name": "yard-start-night-clear-grass",
+    "bytes": 130710,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-grass.imageset/yard-start-night-clear-grass.jpg",
+    "sha256": "4ae16ebfc65a6d316f9079386e7c42b246de9addc9a4e81cc5d3293d7eff668a"
+  },
+  {
+    "name": "yard-start-night-clear-pond",
+    "bytes": 131571,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-pond.imageset/yard-start-night-clear-pond.jpg",
+    "sha256": "5b635017827805d94ce55d422fe5829c4f93a771b225f089dce5da52e2d4c906"
+  },
+  {
+    "name": "yard-start-night-clear-fence",
+    "bytes": 116683,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-clear-fence.imageset/yard-start-night-clear-fence.jpg",
+    "sha256": "80e3556f2302d07764a8a942f7660b564f6536d8c45c3410f8f7240e64ee32fb"
+  },
+  {
+    "name": "yard-start-night-rain-house",
+    "bytes": 125523,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-house.imageset/yard-start-night-rain-house.jpg",
+    "sha256": "d2a500a77059f4ffc0ddd5d4c5d067b1213db80ffab9623ecf58ea597359ec44"
+  },
+  {
+    "name": "yard-start-night-rain-tree",
+    "bytes": 112496,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-tree.imageset/yard-start-night-rain-tree.jpg",
+    "sha256": "d644a72a9b80f990e491dcac919e1c10ed45cdb9e99560a36dedcf0451532cdc"
+  },
+  {
+    "name": "yard-start-night-rain-bed",
+    "bytes": 118055,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-bed.imageset/yard-start-night-rain-bed.jpg",
+    "sha256": "369ccd741627b1aed9884b6ec164e323e8eaa3befa3b950cde252b81b490ad27"
+  },
+  {
+    "name": "yard-start-night-rain-grass",
+    "bytes": 116746,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-grass.imageset/yard-start-night-rain-grass.jpg",
+    "sha256": "df8d3a2fcf5e01915aaee8d3f5e15a8b5ce458022e4ab40b9ab5725dd106327c"
+  },
+  {
+    "name": "yard-start-night-rain-pond",
+    "bytes": 117685,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-pond.imageset/yard-start-night-rain-pond.jpg",
+    "sha256": "dc452f7be7ce6ae8bff649619f4928e92379e2d2e4b5dcbe24e062a8d6054ba8"
+  },
+  {
+    "name": "yard-start-night-rain-fence",
+    "bytes": 110203,
+    "size": [
+      600,
+      1305
+    ],
+    "file": "ios/Maomao/Assets.xcassets/yard-start-night-rain-fence.imageset/yard-start-night-rain-fence.jpg",
+    "sha256": "614cef79452d4a8faf0be2ed1a089313eed9d180704d84981bea7a050b78e50b"
+  }
+]

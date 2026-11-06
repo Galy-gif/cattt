@@ -1,0 +1,36 @@
+{
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T11:10:11.966Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "59fd546bd90906a4d13d5127d14b77a512b00985cef3fe89a359403e2d3bb974",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "8f5dbe007bf9cc0fdb287a8a02c929e41543e53a6a1c485e24016d8e2af0961e"
+    }
+  },
+  "change": {
+    "colorBefore": "#c18172",
+    "colorAfter": "#cc7164",
+    "shapeAndMotion": "unchanged"
+  },
+  "activity": {
+    "target": "groom",
+    "hop": null,
+    "time": 4.265999999999993,
+    "completions": 2,
+    "seconds": 0,
+    "eligible": false,
+    "clip": "groom_idle",
+    "state": "groom_idle",
+    "closure": 1.188507221803796e-302
+  },
+  "imageSha256": "7c408c62fc8c4f2b4d7967870c6facf478f77f48716e2cdcdb231c44ca4b6c69",
+  "checks": {
+    "typecheck": "passed",
+    "simulatorBuild": "passed"
+  },
+  "deviceInstalled": false
+}

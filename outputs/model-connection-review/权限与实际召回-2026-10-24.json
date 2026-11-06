@@ -1,0 +1,51 @@
+{
+  "recall": [
+    {
+      "query": "晚饭吃什么",
+      "expected": [
+        "忌口",
+        "口味"
+      ],
+      "actual": [
+        "忌口",
+        "口味"
+      ],
+      "passed": true
+    },
+    {
+      "query": "找本烧脑的读物",
+      "expected": [
+        "阅读偏好"
+      ],
+      "actual": [
+        "阅读偏好"
+      ],
+      "passed": true
+    },
+    {
+      "query": "撤回阅读来源后再查",
+      "actual": [],
+      "passed": true
+    }
+  ],
+  "closedLearning": [
+    {
+      "input": "记住，我喜欢周末去图书馆。",
+      "status": "completed",
+      "reply": "这次没记下来，以后也不会留作记录。不过我知道了，你喜欢周末去图书馆。",
+      "storedCount": 0
+    },
+    {
+      "input": "以后请记得叫我小林。",
+      "status": "completed",
+      "reply": "这次没记下来，也不会留到以后用。不过，小林，我现在会这样叫你。",
+      "storedCount": 0
+    },
+    {
+      "input": "记住我明天有考试，顺便给我一句鼓励。",
+      "status": "completed",
+      "reply": "考试的事这次没记下来，之后也不会用来提醒你。小林，尽全力答就好，考完回来歇一歇。",
+      "storedCount": 0
+    }
+  ]
+}

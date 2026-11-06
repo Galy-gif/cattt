@@ -1,0 +1,91 @@
+{
+  "status": "缺测",
+  "reason": "无线Activity Monitor在1.499065秒后报Device disconnected，不能覆盖夜雨和前后台峰值",
+  "tool": "Activity Monitor",
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-02T09:58:06.591Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "3813acd5311d5714d8854ea23e6179f69aea4b387decf2462f0647399e547918",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+      "tuanzi": "06cf68b349dc1b8be7358d7bbbc72e2e02083aa345146e3f8537617fa8409cdb"
+    }
+  },
+  "diagnosticSamples": [
+    {
+      "atNs": 224483958,
+      "pid": 48585,
+      "physicalFootprintBytes": 45614144,
+      "responsiblePid": "1"
+    },
+    {
+      "atNs": 224483958,
+      "pid": 48586,
+      "physicalFootprintBytes": 256181216,
+      "responsiblePid": "1"
+    },
+    {
+      "atNs": 1215194375,
+      "pid": 48585,
+      "physicalFootprintBytes": 32179264,
+      "responsiblePid": "1"
+    },
+    {
+      "atNs": 1215194375,
+      "pid": 48586,
+      "physicalFootprintBytes": 254624736,
+      "responsiblePid": "1"
+    }
+  ],
+  "gate": "未完成，不能用短断线快照判450MiB通过",
+  "recording": "CoreDevice明确返回Screen Recording不支持",
+  "energyAttempt": {
+    "status": "缺测",
+    "reason": "Power Profiler在2.046428秒后报Device disconnected，仅一个能耗样本，未作持续记录结论",
+    "samples": {
+      "SystemPowerLevel": {
+        "columns": [
+          "start",
+          "duration",
+          "power-usage",
+          "display-brightness",
+          "secondary-display-brightness"
+        ],
+        "rows": [
+          "<row><start-time id=\"1\" fmt=\"00:01.048.407\">1048407083</start-time><duration id=\"2\" fmt=\"896.68 ms\">896677125</duration><percent-per-hour id=\"3\" fmt=\"20.3%/hr\">20.327924672</percent-per-hour><display-brightness id=\"4\" fmt=\"61%\">61</display-brightness><sentinel /></row>\n"
+        ]
+      },
+      "DeviceChargingState": {
+        "columns": [
+          "start",
+          "duration"
+        ],
+        "rows": []
+      },
+      "DisplayBrightnessLevel": {
+        "columns": [
+          "start",
+          "duration",
+          "display",
+          "brightness"
+        ],
+        "rows": [
+          "<row><start-time id=\"1\" fmt=\"00:01.048.407\">1048407083</start-time><duration id=\"2\" fmt=\"998.02 ms\">998020882</duration><string id=\"3\" fmt=\"Display 1\">Display 1</string><display-brightness id=\"4\" fmt=\"61%\">61</display-brightness></row>\n"
+        ]
+      },
+      "SystemThermalState": {
+        "columns": [
+          "start",
+          "duration",
+          "thermal-state"
+        ],
+        "rows": [
+          "<row><start-time id=\"1\" fmt=\"00:01.048.407\">1048407083</start-time><duration id=\"2\" fmt=\"998.02 ms\">998020882</duration><thermal-state id=\"3\" fmt=\"Nominal\">Nominal</thermal-state></row>\n"
+        ]
+      }
+    }
+  }
+}

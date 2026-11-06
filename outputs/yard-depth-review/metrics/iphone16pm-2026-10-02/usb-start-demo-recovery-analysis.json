@@ -1,0 +1,17 @@
+{
+  "blankCanvasEvents" : [
+    {
+      "at" : 146.16601666666668,
+      "duration" : 0.04999999999998295,
+      "frames" : 2
+    }
+  ],
+  "detector" : "画面中央 4%–96% × 8%–83% 网格中，≥92% 像素接近院子淡蓝露底色且上下色差 <18，或 ≥96% 接近白色；有明确上下渐变的原生天空不计露底",
+  "duration" : 184.40255,
+  "file" : "usb-start-demo-recovery.mov",
+  "frames" : 8857,
+  "schemaVersion" : 2,
+  "whiteCanvasEvents" : [
+
+  ]
+}

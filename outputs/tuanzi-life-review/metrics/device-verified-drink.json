@@ -1,0 +1,940 @@
+{
+  "verified-lap": {
+    "action": "drink_lap",
+    "activity": "drink",
+    "ready": true,
+    "moving": false,
+    "failure": "",
+    "snapshot": {
+      "next": 1,
+      "shownSlot": "day",
+      "camera": {
+        "shownDistance": 7.560663032793528,
+        "velocity": 0,
+        "position": [
+          -1.9434732973223787,
+          2.8716510206804142,
+          5.515431755206057
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": -1.7820321132860064,
+        "velocityZ": 0,
+        "offset": 0,
+        "focus": [
+          -1.7820321132860064,
+          0.38,
+          -1.621040582769464
+        ],
+        "centerZ": -1.621040582769464,
+        "distance": 7.560663032793528,
+        "place": null
+      },
+      "goal": "house",
+      "restSeconds": 0,
+      "arrived": true,
+      "walking": false,
+      "hour": 12,
+      "activity": {
+        "target": "drink",
+        "hop": null,
+        "time": 0.24999990463256427,
+        "completions": 1,
+        "seconds": 2.649999999999995,
+        "eligible": true,
+        "clip": "drink_lap",
+        "state": "drink_lap",
+        "closure": 5.1637988860146936e-18
+      },
+      "facing": 2.1590642663724786,
+      "layoutVersion": "open-yard-v3",
+      "weather": "clear",
+      "slot": null,
+      "home": {
+        "drinkDone": false,
+        "settled": false,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "house",
+          "activity": "drink",
+          "runId": "F7398209-0FCB-4634-8542-84FD3F4F206F",
+          "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+          "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+          "type": "intent"
+        }
+      },
+      "position": {
+        "x": -1.636287123300813,
+        "y": 0,
+        "z": -1.105110015210479
+      }
+    },
+    "recovery": [],
+    "business": {
+      "action": "drink_lap",
+      "targetDestinationId": "house",
+      "stateVersion": 0,
+      "destinationIds": [
+        "house",
+        "tree",
+        "bed",
+        "grass",
+        "pond",
+        "fence"
+      ],
+      "moodReason": "团子刚喝过水，心情不错",
+      "mood": "happy",
+      "weather": "clear",
+      "runnable": true,
+      "lastDrinkAt": "2026-10-05T04:00:00Z",
+      "placesToday": [
+        "蘑菇屋"
+      ],
+      "activity": "drink",
+      "dayPhase": "day",
+      "currentDestinationId": "house",
+      "phase": "idle",
+      "paused": false,
+      "bowlFilledToday": true,
+      "activityFallback": false,
+      "sceneVersion": 4
+    },
+    "events": [
+      {
+        "type": "resumed",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374215.630794,
+        "reason": "initialize"
+      },
+      {
+        "type": "cat",
+        "drinkDone": false,
+        "action": "turn",
+        "offscreen": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "cameraMode": "browsing",
+        "id": "2154A3A6-C0AB-4FF2-BC0D-44FCD9DA02E3",
+        "activity": "watch",
+        "settled": false,
+        "fallback": false,
+        "moving": true,
+        "nearest": "house",
+        "uptime": 374215.66038308333
+      },
+      {
+        "renderMs": 343,
+        "type": "firstFrame",
+        "uptime": 374215.8531257917,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374215.85352108337,
+        "type": "restored"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "renderMs": 357,
+        "uptime": 374215.8679372917,
+        "type": "visualReady"
+      },
+      {
+        "action": "turn",
+        "fallback": false,
+        "drinkDone": false,
+        "uptime": 374216.47297125,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "settled": false,
+        "cameraMode": "browsing",
+        "type": "cat",
+        "offscreen": false,
+        "nearest": "house",
+        "moving": true,
+        "activity": "rest",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31"
+      },
+      {
+        "cameraMode": "browsing",
+        "type": "cat",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "offscreen": false,
+        "settled": false,
+        "drinkDone": false,
+        "action": "stand_up",
+        "uptime": 374216.49174587504,
+        "moving": false,
+        "fallback": false,
+        "nearest": "house",
+        "activity": "rest",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "fallback": false,
+        "uptime": 374217.54203037504,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "settled": false,
+        "drinkDone": false,
+        "action": "idle",
+        "cameraMode": "browsing",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "offscreen": false,
+        "activity": "rest",
+        "type": "cat",
+        "moving": false,
+        "nearest": "house"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "offscreen": false,
+        "nearest": "house",
+        "fallback": false,
+        "moving": false,
+        "activity": "rest",
+        "action": "sit_down",
+        "uptime": 374217.5618125,
+        "type": "cat",
+        "settled": false,
+        "cameraMode": "browsing",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "drinkDone": false
+      },
+      {
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "cameraMode": "browsing",
+        "action": "sit_idle",
+        "type": "cat",
+        "fallback": false,
+        "moving": false,
+        "drinkDone": false,
+        "activity": "rest",
+        "nearest": "house",
+        "offscreen": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374218.80566020834,
+        "settled": false
+      },
+      {
+        "offscreen": false,
+        "cameraMode": "browsing",
+        "activity": "rest",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "nearest": "house",
+        "action": "doze_idle",
+        "type": "cat",
+        "fallback": false,
+        "settled": true,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374218.8233973334,
+        "drinkDone": false,
+        "moving": false
+      },
+      {
+        "moving": true,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "type": "cat",
+        "cameraMode": "browsing",
+        "action": "stand_up",
+        "drinkDone": false,
+        "activity": "drink",
+        "settled": false,
+        "offscreen": false,
+        "fallback": false,
+        "uptime": 374220.5909499167,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "nearest": "house"
+      },
+      {
+        "type": "cat",
+        "drinkDone": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "activity": "drink",
+        "settled": false,
+        "action": "idle",
+        "uptime": 374221.62338375003,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "fallback": false,
+        "moving": true,
+        "cameraMode": "browsing",
+        "nearest": "house",
+        "offscreen": false
+      },
+      {
+        "action": "turn",
+        "cameraMode": "browsing",
+        "nearest": "house",
+        "moving": true,
+        "activity": "drink",
+        "drinkDone": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "type": "cat",
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "offscreen": false,
+        "fallback": false,
+        "uptime": 374221.64523508336,
+        "settled": false
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "drinkDone": false,
+        "moving": true,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "uptime": 374222.289802875,
+        "offscreen": false,
+        "type": "cat",
+        "cameraMode": "browsing",
+        "activity": "drink",
+        "action": "walk",
+        "nearest": "house",
+        "settled": false,
+        "fallback": false
+      },
+      {
+        "fallback": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374226.2236171667,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "activity": "drink",
+        "cameraMode": "browsing",
+        "settled": false,
+        "drinkDone": false,
+        "type": "cat",
+        "moving": true,
+        "offscreen": false,
+        "action": "turn",
+        "nearest": "house"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "offscreen": false,
+        "cameraMode": "browsing",
+        "type": "cat",
+        "moving": false,
+        "activity": "drink",
+        "fallback": false,
+        "uptime": 374226.25614250003,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "nearest": "house",
+        "settled": false,
+        "action": "idle",
+        "drinkDone": false
+      },
+      {
+        "cameraMode": "browsing",
+        "type": "cat",
+        "nearest": "house",
+        "offscreen": false,
+        "uptime": 374226.2747064584,
+        "moving": false,
+        "fallback": false,
+        "settled": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "action": "drink_down",
+        "drinkDone": false,
+        "activity": "drink"
+      },
+      {
+        "cameraMode": "browsing",
+        "drinkDone": false,
+        "fallback": false,
+        "offscreen": false,
+        "uptime": 374227.8735882917,
+        "activity": "drink",
+        "moving": false,
+        "settled": false,
+        "type": "cat",
+        "nearest": "house",
+        "action": "drink_lap",
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      }
+    ]
+  },
+  "verified-record": {
+    "action": "idle",
+    "activity": "drink",
+    "ready": true,
+    "moving": false,
+    "failure": "",
+    "snapshot": {
+      "camera": {
+        "shownDistance": 7.560663032793528,
+        "velocity": 0,
+        "position": [
+          -1.9434732973223787,
+          2.8716510206804142,
+          5.515431755206057
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": -1.7820321132860064,
+        "velocityZ": 0,
+        "offset": 0,
+        "focus": [
+          -1.7820321132860064,
+          0.38,
+          -1.621040582769464
+        ],
+        "centerZ": -1.621040582769464,
+        "distance": 7.560663032793528,
+        "place": null
+      },
+      "slot": null,
+      "layoutVersion": "open-yard-v3",
+      "position": {
+        "x": -1.636287123300813,
+        "y": 0,
+        "z": -1.105110015210479
+      },
+      "walking": false,
+      "hour": 12,
+      "shownSlot": "day",
+      "restSeconds": 0,
+      "activity": {
+        "target": null,
+        "hop": null,
+        "time": 0.6009997138976936,
+        "completions": 2,
+        "seconds": 7.216000000000031,
+        "eligible": false,
+        "clip": "idle",
+        "state": "idle",
+        "closure": 6.710777114739043e-42
+      },
+      "goal": "house",
+      "home": {
+        "drinkDone": true,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 1,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "house",
+          "activity": "drink",
+          "runId": "F7398209-0FCB-4634-8542-84FD3F4F206F",
+          "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+          "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+          "type": "intent"
+        }
+      },
+      "weather": "clear",
+      "next": 1,
+      "facing": 2.1590642663724786,
+      "arrived": true
+    },
+    "recovery": [
+      {
+        "after": {
+          "walking": false,
+          "facing": 2.1590642663724786,
+          "camera": {
+            "shownDistance": 7.560663032793528,
+            "velocity": 0,
+            "position": [
+              -1.9434732973223787,
+              2.8716510206804142,
+              5.515431755206057
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": -1.7820321132860064,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              -1.7820321132860064,
+              0.38,
+              -1.621040582769464
+            ],
+            "centerZ": -1.621040582769464,
+            "distance": 7.560663032793528,
+            "place": null
+          },
+          "next": 1,
+          "weather": "clear",
+          "slot": null,
+          "layoutVersion": "open-yard-v3",
+          "hour": 12,
+          "shownSlot": "day",
+          "goal": "house",
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 1,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "house",
+              "activity": "drink",
+              "runId": "F7398209-0FCB-4634-8542-84FD3F4F206F",
+              "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+              "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+              "type": "intent"
+            }
+          },
+          "activity": {
+            "target": "drink",
+            "hop": null,
+            "time": 1.249999904632564,
+            "completions": 1,
+            "seconds": 3.649999999999992,
+            "eligible": true,
+            "clip": "drink_lap",
+            "state": "drink_lap",
+            "closure": 9.457827569029283e-20
+          },
+          "position": {
+            "x": -1.636287123300813,
+            "y": 0,
+            "z": -1.105110015210479
+          },
+          "restSeconds": 0,
+          "arrived": true
+        },
+        "before": {
+          "goal": "house",
+          "slot": null,
+          "weather": "clear",
+          "layoutVersion": "open-yard-v3",
+          "position": {
+            "x": -1.636287123300813,
+            "y": 0,
+            "z": -1.105110015210479
+          },
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 1,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "house",
+              "activity": "drink",
+              "runId": "F7398209-0FCB-4634-8542-84FD3F4F206F",
+              "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+              "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+              "type": "intent"
+            }
+          },
+          "shownSlot": "day",
+          "camera": {
+            "shownDistance": 7.560663032793528,
+            "velocity": 0,
+            "position": [
+              -1.9434732973223787,
+              2.8716510206804142,
+              5.515431755206057
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": -1.7820321132860064,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              -1.7820321132860064,
+              0.38,
+              -1.621040582769464
+            ],
+            "centerZ": -1.621040582769464,
+            "distance": 7.560663032793528,
+            "place": null
+          },
+          "next": 1,
+          "activity": {
+            "target": "drink",
+            "hop": null,
+            "time": 1.249999904632564,
+            "completions": 1,
+            "seconds": 3.649999999999992,
+            "eligible": true,
+            "clip": "drink_lap",
+            "state": "drink_lap",
+            "closure": 9.457827569029283e-20
+          },
+          "restSeconds": 0,
+          "hour": 12,
+          "walking": false,
+          "facing": 2.1590642663724786,
+          "arrived": true
+        }
+      }
+    ],
+    "business": {
+      "sceneVersion": 4,
+      "bowlFilledToday": true,
+      "paused": false,
+      "activityFallback": false,
+      "currentDestinationId": "house",
+      "action": "idle",
+      "mood": "happy",
+      "stateVersion": 1,
+      "lastDrinkAt": "2026-10-05T04:00:00Z",
+      "moodReason": "团子刚喝过水，心情不错",
+      "activity": "drink",
+      "phase": "idle",
+      "weather": "clear",
+      "dayPhase": "day",
+      "destinationIds": [
+        "house",
+        "tree",
+        "bed",
+        "grass",
+        "pond",
+        "fence"
+      ],
+      "targetDestinationId": "house",
+      "placesToday": [
+        "蘑菇屋"
+      ],
+      "runnable": true
+    },
+    "events": [
+      {
+        "type": "resumed",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374215.630794,
+        "reason": "initialize"
+      },
+      {
+        "type": "cat",
+        "drinkDone": false,
+        "action": "turn",
+        "offscreen": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "cameraMode": "browsing",
+        "id": "2154A3A6-C0AB-4FF2-BC0D-44FCD9DA02E3",
+        "activity": "watch",
+        "settled": false,
+        "fallback": false,
+        "moving": true,
+        "nearest": "house",
+        "uptime": 374215.66038308333
+      },
+      {
+        "renderMs": 343,
+        "type": "firstFrame",
+        "uptime": 374215.8531257917,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374215.85352108337,
+        "type": "restored"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "renderMs": 357,
+        "uptime": 374215.8679372917,
+        "type": "visualReady"
+      },
+      {
+        "action": "turn",
+        "fallback": false,
+        "drinkDone": false,
+        "uptime": 374216.47297125,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "settled": false,
+        "cameraMode": "browsing",
+        "type": "cat",
+        "offscreen": false,
+        "nearest": "house",
+        "moving": true,
+        "activity": "rest",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31"
+      },
+      {
+        "cameraMode": "browsing",
+        "type": "cat",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "offscreen": false,
+        "settled": false,
+        "drinkDone": false,
+        "action": "stand_up",
+        "uptime": 374216.49174587504,
+        "moving": false,
+        "fallback": false,
+        "nearest": "house",
+        "activity": "rest",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "fallback": false,
+        "uptime": 374217.54203037504,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "settled": false,
+        "drinkDone": false,
+        "action": "idle",
+        "cameraMode": "browsing",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "offscreen": false,
+        "activity": "rest",
+        "type": "cat",
+        "moving": false,
+        "nearest": "house"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "offscreen": false,
+        "nearest": "house",
+        "fallback": false,
+        "moving": false,
+        "activity": "rest",
+        "action": "sit_down",
+        "uptime": 374217.5618125,
+        "type": "cat",
+        "settled": false,
+        "cameraMode": "browsing",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "drinkDone": false
+      },
+      {
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "cameraMode": "browsing",
+        "action": "sit_idle",
+        "type": "cat",
+        "fallback": false,
+        "moving": false,
+        "drinkDone": false,
+        "activity": "rest",
+        "nearest": "house",
+        "offscreen": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374218.80566020834,
+        "settled": false
+      },
+      {
+        "offscreen": false,
+        "cameraMode": "browsing",
+        "activity": "rest",
+        "id": "FBFBE374-E9A3-42AB-844B-1F996DC42B31",
+        "nearest": "house",
+        "action": "doze_idle",
+        "type": "cat",
+        "fallback": false,
+        "settled": true,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374218.8233973334,
+        "drinkDone": false,
+        "moving": false
+      },
+      {
+        "moving": true,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "type": "cat",
+        "cameraMode": "browsing",
+        "action": "stand_up",
+        "drinkDone": false,
+        "activity": "drink",
+        "settled": false,
+        "offscreen": false,
+        "fallback": false,
+        "uptime": 374220.5909499167,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "nearest": "house"
+      },
+      {
+        "type": "cat",
+        "drinkDone": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "activity": "drink",
+        "settled": false,
+        "action": "idle",
+        "uptime": 374221.62338375003,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "fallback": false,
+        "moving": true,
+        "cameraMode": "browsing",
+        "nearest": "house",
+        "offscreen": false
+      },
+      {
+        "action": "turn",
+        "cameraMode": "browsing",
+        "nearest": "house",
+        "moving": true,
+        "activity": "drink",
+        "drinkDone": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "type": "cat",
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "offscreen": false,
+        "fallback": false,
+        "uptime": 374221.64523508336,
+        "settled": false
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "drinkDone": false,
+        "moving": true,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "uptime": 374222.289802875,
+        "offscreen": false,
+        "type": "cat",
+        "cameraMode": "browsing",
+        "activity": "drink",
+        "action": "walk",
+        "nearest": "house",
+        "settled": false,
+        "fallback": false
+      },
+      {
+        "fallback": false,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "uptime": 374226.2236171667,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "activity": "drink",
+        "cameraMode": "browsing",
+        "settled": false,
+        "drinkDone": false,
+        "type": "cat",
+        "moving": true,
+        "offscreen": false,
+        "action": "turn",
+        "nearest": "house"
+      },
+      {
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "offscreen": false,
+        "cameraMode": "browsing",
+        "type": "cat",
+        "moving": false,
+        "activity": "drink",
+        "fallback": false,
+        "uptime": 374226.25614250003,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "nearest": "house",
+        "settled": false,
+        "action": "idle",
+        "drinkDone": false
+      },
+      {
+        "cameraMode": "browsing",
+        "type": "cat",
+        "nearest": "house",
+        "offscreen": false,
+        "uptime": 374226.2747064584,
+        "moving": false,
+        "fallback": false,
+        "settled": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963",
+        "action": "drink_down",
+        "drinkDone": false,
+        "activity": "drink"
+      },
+      {
+        "cameraMode": "browsing",
+        "drinkDone": false,
+        "fallback": false,
+        "offscreen": false,
+        "uptime": 374227.8735882917,
+        "activity": "drink",
+        "moving": false,
+        "settled": false,
+        "type": "cat",
+        "nearest": "house",
+        "action": "drink_lap",
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "type": "processTerminated",
+        "uptime": 374232.2396181667,
+        "snapshotAvailable": true,
+        "pageId": "327071D2-EA0A-4926-811B-D35A20972963"
+      },
+      {
+        "reason": "initialize",
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "uptime": 374232.3850155,
+        "type": "resumed"
+      },
+      {
+        "nearest": "house",
+        "fallback": false,
+        "uptime": 374232.41368558333,
+        "cameraMode": "browsing",
+        "settled": false,
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "action": "drink_lap",
+        "activity": "drink",
+        "type": "cat",
+        "drinkDone": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "moving": false,
+        "offscreen": false
+      },
+      {
+        "renderMs": 312.00000000000006,
+        "uptime": 374232.59744441666,
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "type": "firstFrame"
+      },
+      {
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "uptime": 374232.59783470834,
+        "type": "restored"
+      },
+      {
+        "type": "visualReady",
+        "renderMs": 333,
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "uptime": 374232.6185406667
+      },
+      {
+        "moving": false,
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "nearest": "house",
+        "drinkDone": false,
+        "action": "drink_up",
+        "cameraMode": "browsing",
+        "uptime": 374236.1248495834,
+        "fallback": false,
+        "offscreen": false,
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "settled": false,
+        "type": "cat",
+        "activity": "drink"
+      },
+      {
+        "uptime": 374237.50903875,
+        "offscreen": false,
+        "pageId": "2B54879C-AFE7-49A9-81E5-FB8D0E6FD98D",
+        "action": "idle",
+        "drinkDone": true,
+        "cameraMode": "browsing",
+        "id": "BE1D532A-DBF6-49AD-85EE-AF58B8964DF9",
+        "nearest": "house",
+        "fallback": false,
+        "type": "cat",
+        "moving": false,
+        "settled": true,
+        "activity": "drink"
+      }
+    ]
+  },
+  "checks": {
+    "completionDelta": 1,
+    "recoveredFrom": "drink_lap",
+    "recoveredTo": "drink_lap",
+    "nativeLastDrinkPresent": true,
+    "visualApproval": "待用户确认"
+  }
+}

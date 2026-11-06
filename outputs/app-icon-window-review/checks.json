@@ -1,0 +1,12 @@
+{
+  "file": "assets/app-icon/window-v2/source.png",
+  "sha256": "92f97c0a268b7d896ef930a9bd3148d58c9a84a6cb786ea7f633f150dddd76ab",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGB",
+  "bytes": 2299151,
+  "status": "新方向设计稿，未替换App资源",
+  "generation": "内置imagegen，新生成；非正式GLB渲染"
+}

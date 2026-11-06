@@ -1,0 +1,23 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "runId": "9C851430-804B-4B14-BB73-0993DC5206E1",
+  "manualConfirmation": "用户确认全部完成且无异常，已保存量测",
+  "attestedScenarios": [
+    "拖动/缩放及切地点",
+    "10次回桌面再返回，其中一次后台30秒",
+    "锁屏解锁一次",
+    "减弱动态效果开启测试并还原"
+  ],
+  "recordedPauseCount": 4,
+  "recordedMaxPauseSeconds": 1.912,
+  "pauseCoverage": "本份保存记录仅4次暂停，不能独立证明10次与30秒；该部分按用户实际确认登记",
+  "touch": {
+    "maxFrameDelay": 1,
+    "maxMs": 18.000000000058208,
+    "samples": 1411
+  },
+  "runtimeErrors": [],
+  "touchVerdict": "通过",
+  "visualAndHandfeel": "用户确认通过",
+  "memoryScope": "另列双进程稳定窗口，未将App单进程代替合计内存"
+}

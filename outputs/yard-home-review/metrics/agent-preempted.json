@@ -1,0 +1,318 @@
+{
+  "webLoading" : false,
+  "moving" : true,
+  "legacyTicks" : 0,
+  "business" : {
+    "bowlFilledToday" : false,
+    "sceneVersion" : 4,
+    "currentDestinationId" : "house",
+    "placesToday" : [
+      "蘑菇屋"
+    ],
+    "activity" : "rest",
+    "action" : "walk",
+    "runnable" : true,
+    "destinationIds" : [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ],
+    "moodReason" : "碗已经空了两天，团子有点难过",
+    "targetDestinationId" : "bed",
+    "mood" : "sad",
+    "stateVersion" : 7,
+    "phase" : "moving",
+    "weather" : "clear",
+    "paused" : false,
+    "activityFallback" : true,
+    "dayPhase" : "day"
+  },
+  "activity" : "rest",
+  "snapshot" : {
+    "home" : {
+      "settled" : false,
+      "intent" : {
+        "id" : "1D6DC69C-6D01-4CBE-B0B6-D6CD400B3DE8",
+        "place" : "bed",
+        "activity" : "rest"
+      }
+    },
+    "goal" : "bed",
+    "slot" : null,
+    "layoutVersion" : "open-yard-v3",
+    "position" : {
+      "x" : -3.3102661056203879,
+      "y" : 0,
+      "z" : 1.1137515900935346
+    },
+    "hour" : 12,
+    "camera" : {
+      "shownDistance" : 3.8470768123342687,
+      "velocity" : 0,
+      "position" : [
+        -3.2788137852230994,
+        1.4403980801767076,
+        4.7602196410139763
+      ],
+      "targetY" : 0.38,
+      "mode" : "following",
+      "centerX" : 2.5499999999999998,
+      "velocityZ" : 0,
+      "offset" : 5.8288137852230992,
+      "focus" : [
+        -3.2788137852230994,
+        0.38,
+        1.0621720599845554
+      ],
+      "centerZ" : 2.75,
+      "distance" : 3.8470768123342687,
+      "place" : null
+    },
+    "weather" : "clear",
+    "facing" : -0.52597339536845666,
+    "restSeconds" : 0,
+    "shownSlot" : "day",
+    "walking" : false,
+    "next" : 1,
+    "arrived" : false
+  },
+  "action" : "walk",
+  "current" : 0,
+  "uses3D" : true,
+  "target" : 2,
+  "webReady" : true,
+  "webSurfaceReady" : true,
+  "webURL" : "maomao:\/\/yard\/app.html?composition=1&dpr=1.5&fps=60&home=1&msaa=0&pageId=337DB9B5-621C-417D-82D9-C85BED33E332&review=1&runId=167FA87E-F7D6-4BBE-91ED-4987CAFB1F8D&time=day&weather=clear",
+  "ready" : true,
+  "requestID" : "1D6DC69C-6D01-4CBE-B0B6-D6CD400B3DE8",
+  "runnable" : true,
+  "recovery" : [
+
+  ],
+  "failure" : "",
+  "webSize" : "{{0, 0}, {402, 874}}",
+  "events" : [
+    {
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "type" : "resumed",
+      "reason" : "initialize",
+      "uptime" : 30543.807825666667
+    },
+    {
+      "nearest" : "grass",
+      "offscreen" : false,
+      "uptime" : 30543.850118416667,
+      "moving" : true,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "settled" : false,
+      "id" : "E352286F-FB34-49F5-B13E-03F460B1555D",
+      "activity" : "watch",
+      "type" : "cat",
+      "cameraMode" : "following",
+      "fallback" : false,
+      "action" : "turn"
+    },
+    {
+      "type" : "firstFrame",
+      "uptime" : 30544.588114875001,
+      "renderMs" : 1292.0000000000002,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332"
+    },
+    {
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "uptime" : 30544.588775708336,
+      "type" : "restored"
+    },
+    {
+      "renderMs" : 1368,
+      "type" : "visualReady",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "uptime" : 30544.663115750001
+    },
+    {
+      "nearest" : "grass",
+      "cameraMode" : "following",
+      "action" : "turn",
+      "id" : "BC617F14-1A33-41E4-9236-DCEE94C9E7B3",
+      "uptime" : 30544.711546125003,
+      "fallback" : true,
+      "settled" : false,
+      "offscreen" : false,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "moving" : true,
+      "type" : "cat",
+      "activity" : "rest"
+    },
+    {
+      "type" : "cat",
+      "fallback" : true,
+      "moving" : false,
+      "action" : "sit_down",
+      "offscreen" : true,
+      "cameraMode" : "following",
+      "nearest" : "house",
+      "settled" : false,
+      "id" : "BC617F14-1A33-41E4-9236-DCEE94C9E7B3",
+      "activity" : "rest",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "uptime" : 30544.724131916668
+    },
+    {
+      "id" : "BC617F14-1A33-41E4-9236-DCEE94C9E7B3",
+      "offscreen" : false,
+      "fallback" : true,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "nearest" : "house",
+      "settled" : false,
+      "action" : "sit_down",
+      "cameraMode" : "following",
+      "type" : "cat",
+      "activity" : "rest",
+      "uptime" : 30544.82326666667,
+      "moving" : false
+    },
+    {
+      "type" : "cat",
+      "id" : "559B1DB4-09CB-4905-9B18-63D8B22F1992",
+      "fallback" : true,
+      "action" : "stand_up",
+      "nearest" : "house",
+      "settled" : false,
+      "activity" : "rest",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "moving" : false,
+      "uptime" : 30544.992668375002,
+      "offscreen" : false,
+      "cameraMode" : "following"
+    },
+    {
+      "uptime" : 30546.02134454167,
+      "type" : "cat",
+      "action" : "idle",
+      "cameraMode" : "following",
+      "nearest" : "house",
+      "fallback" : true,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "offscreen" : false,
+      "moving" : false,
+      "id" : "559B1DB4-09CB-4905-9B18-63D8B22F1992",
+      "activity" : "rest",
+      "settled" : true
+    },
+    {
+      "type" : "cat",
+      "id" : "559B1DB4-09CB-4905-9B18-63D8B22F1992",
+      "activity" : "rest",
+      "settled" : false,
+      "fallback" : true,
+      "moving" : false,
+      "offscreen" : false,
+      "cameraMode" : "following",
+      "action" : "sit_down",
+      "nearest" : "house",
+      "uptime" : 30546.037399333334,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332"
+    },
+    {
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "activity" : "rest",
+      "moving" : false,
+      "type" : "cat",
+      "uptime" : 30547.288416750001,
+      "id" : "559B1DB4-09CB-4905-9B18-63D8B22F1992",
+      "settled" : true,
+      "fallback" : true,
+      "cameraMode" : "following",
+      "offscreen" : false,
+      "action" : "sit_idle",
+      "nearest" : "house"
+    },
+    {
+      "moving" : true,
+      "id" : "64D3DAD2-39A2-49A4-A73B-50A8E15DA616",
+      "offscreen" : false,
+      "nearest" : "house",
+      "action" : "stand_up",
+      "type" : "cat",
+      "settled" : false,
+      "activity" : "watch",
+      "cameraMode" : "following",
+      "uptime" : 30556.177155875001,
+      "fallback" : false,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332"
+    },
+    {
+      "activity" : "watch",
+      "offscreen" : false,
+      "id" : "64D3DAD2-39A2-49A4-A73B-50A8E15DA616",
+      "settled" : false,
+      "cameraMode" : "following",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "uptime" : 30557.190684250003,
+      "moving" : true,
+      "type" : "cat",
+      "nearest" : "house",
+      "action" : "idle",
+      "fallback" : false
+    },
+    {
+      "uptime" : 30557.20852816667,
+      "cameraMode" : "following",
+      "fallback" : false,
+      "nearest" : "house",
+      "activity" : "watch",
+      "id" : "64D3DAD2-39A2-49A4-A73B-50A8E15DA616",
+      "offscreen" : false,
+      "moving" : true,
+      "type" : "cat",
+      "action" : "turn",
+      "settled" : false,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332"
+    },
+    {
+      "uptime" : 30558.890411666667,
+      "fallback" : false,
+      "activity" : "watch",
+      "offscreen" : false,
+      "cameraMode" : "following",
+      "action" : "walk",
+      "id" : "64D3DAD2-39A2-49A4-A73B-50A8E15DA616",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "type" : "cat",
+      "nearest" : "house",
+      "settled" : false,
+      "moving" : true
+    },
+    {
+      "action" : "walk",
+      "settled" : false,
+      "offscreen" : false,
+      "nearest" : "house",
+      "uptime" : 30562.686995250002,
+      "activity" : "rest",
+      "moving" : true,
+      "id" : "1D6DC69C-6D01-4CBE-B0B6-D6CD400B3DE8",
+      "type" : "cat",
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "fallback" : true,
+      "cameraMode" : "following"
+    },
+    {
+      "activity" : "rest",
+      "type" : "cat",
+      "settled" : false,
+      "fallback" : true,
+      "id" : "1D6DC69C-6D01-4CBE-B0B6-D6CD400B3DE8",
+      "offscreen" : false,
+      "pageId" : "337DB9B5-621C-417D-82D9-C85BED33E332",
+      "moving" : true,
+      "action" : "walk",
+      "uptime" : 30565.073735250004,
+      "nearest" : "bed",
+      "cameraMode" : "following"
+    }
+  ]
+}

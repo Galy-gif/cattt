@@ -74,6 +74,20 @@ test('静态物件合批保留世界边界、三角面数及材质，实际减�
   assert.equal(meshes[0].material,material);assert.ok(meshes[0].castShadow&&meshes[0].receiveShadow);
 });
 
+test('同材质但顶点属性不同的零件分批合并', async () => {
+  const {batchStaticProps}=await import('../src/yard/static-props.ts');
+  const root=new THREE.Group(), material=new THREE.MeshStandardMaterial();
+  for(let i=0;i<4;i++){
+    const geometry=new THREE.BoxGeometry(.2,.2,.2);
+    if(i>=2)geometry.deleteAttribute('uv');
+    const mesh=new THREE.Mesh(geometry,material);mesh.position.x=i*.3;root.add(mesh);
+  }
+  batchStaticProps(root);
+  const meshes=root.children.filter(child=>child.isMesh);
+  assert.equal(meshes.length,2);
+  assert.deepEqual(meshes.map(mesh=>mesh.geometry.index.count/3).sort((a,b)=>a-b),[24,24]);
+});
+
 test('散步在支路终点结束一段再返程，重叠路径不会锁住；新操作取消余下行程', async () => {
   const {Walker}=await import('../src/yard/cat.ts');
   const root=new THREE.Group();let finish;const legs=[];

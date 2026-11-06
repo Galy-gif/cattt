@@ -1,0 +1,9 @@
+{
+  "buildSucceeded": true,
+  "device": "iPhone 17 Pro / iOS 26.5",
+  "binarySHA256": {
+    "Maomao": "65e5de7dbd02dae53647f0bd9b62aba3db299cad5758d5313c0d32824e92414c",
+    "Maomao.debug.dylib": "12d7ef99461a78054f25d4661f53858d6847003de53544e854ab7c8085b2c9f1"
+  },
+  "typecheck": true
+}

@@ -1,18 +1,19 @@
 import SwiftUI
 
-/// A4 初次见面 4/4。全屏草丛场景，对话气泡逐条淡入。
+/// A4 初次见面 3/3。全屏草丛场景，对话气泡逐条淡入。
 ///
 /// 这一屏的意义：**第一句话由猫先说** —— 用户是被认领的一方，不是操作者。
 struct FirstMeetingStep: View {
     @EnvironmentObject private var store: AppStore
     @FocusState private var focused: Bool
+    @State private var keyboardHeight: CGFloat = 0
 
     var body: some View {
         GeometryReader { proxy in
             let contentWidth = proxy.size.width - Metrics.gutterOnboarding * 2
 
             ZStack {
-                Image("scene-04")
+                Image("meeting-3d")
                     .resizable()
                     .scaledToFill()
                     .frame(width: proxy.size.width, height: proxy.size.height)
@@ -24,12 +25,17 @@ struct FirstMeetingStep: View {
                 footer
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 
-                skipLink
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
             }
             .frame(width: proxy.size.width, height: proxy.size.height)
         }
         .ignoresSafeArea()
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { note in
+            guard let frame = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+            let duration = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            withAnimation(.easeOut(duration: duration)) {
+                keyboardHeight = max(0, UIScreen.main.bounds.height - frame.minY)
+            }
+        }
     }
 
     private func bubbles(maxBubbleWidth: CGFloat) -> some View {
@@ -47,12 +53,7 @@ struct FirstMeetingStep: View {
                         .padding(.vertical, 14)
                         .background(
                             line.isCat ? Palette.card.opacity(0.96) : Palette.chatBubbleUser,
-                            in: UnevenRoundedRectangle(
-                                topLeadingRadius: line.isCat ? 3 : 14,
-                                bottomLeadingRadius: 14,
-                                bottomTrailingRadius: 14,
-                                topTrailingRadius: line.isCat ? 14 : 3
-                            )
+                            in: RoundedRectangle(cornerRadius: Metrics.radiusLg, style: .continuous)
                         )
                         .frame(maxWidth: maxBubbleWidth)
 
@@ -62,13 +63,13 @@ struct FirstMeetingStep: View {
             }
         }
         .padding(.horizontal, Metrics.gutterOnboarding)
-        .padding(.bottom, 116)
+        .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 80 : 116)
     }
 
     @ViewBuilder
     private var footer: some View {
         if store.meetDone {
-            PrimaryButton(height: Metrics.primaryButtonShort) {
+            PrimaryButton(height: Metrics.primaryButtonShort, subtle: true) {
                 store.enterYard()
             } label: {
                 Text("进院子")
@@ -76,48 +77,38 @@ struct FirstMeetingStep: View {
                     .tracking(track(0.1, 16))
             }
             .padding(.horizontal, Metrics.gutterOnboarding)
-            .padding(.bottom, 44)
+            .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 12 : 44)
             .transition(.opacity)
         } else {
-            HStack(spacing: 11) {
+            HStack(spacing: 0) {
                 TextField("说点什么", text: $store.meetDraft)
                     .font(Typo.sans(15))
                     .foregroundStyle(Palette.ink)
                     .focused($focused)
                     .submitLabel(.send)
-                    .onSubmit { store.sendMeetReply() }
+                    .onSubmit { focused = false; store.sendMeetReply() }
+                    .disabled(store.meetReplyPending)
                     .padding(.horizontal, 18)
                     .frame(height: Metrics.primaryButtonShort)
-                    .background(Palette.card, in: RoundedRectangle(cornerRadius: Metrics.radiusCard, style: .continuous))
-                    .softShadow()
+
 
                 Button {
+                    focused = false
                     store.sendMeetReply()
                 } label: {
-                    Icons.sendArrow(color: Palette.accentInk)
+                    Icons.sendArrow(color: store.meetDraft.trimmed.isEmpty ? Palette.ink4 : Palette.ink)
                         .frame(width: 50, height: 50)
-                        .background(Palette.accent, in: RoundedRectangle(cornerRadius: Metrics.radiusControl, style: .continuous))
+
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(PressScaleStyle())
                 .accessibilityLabel("发送")
+                .disabled(store.meetDraft.trimmed.isEmpty || store.meetReplyPending || store.creationSaveFailed)
             }
+            .background(Palette.card.opacity(0.86), in: Capsule())
+            .softShadow()
             .padding(.horizontal, Metrics.gutterOnboarding)
-            .padding(.bottom, 44)
+            .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 12 : 44)
         }
     }
 
-    @ViewBuilder
-    private var skipLink: some View {
-        if !store.meetDone {
-            TextLink(
-                text: "先不说",
-                size: 12.5,
-                color: Palette.ink2.opacity(0.6)
-            ) {
-                store.skipMeet()
-            }
-            .padding(.trailing, 26)
-            .padding(.bottom, 104)
-        }
-    }
 }

@@ -1,0 +1,249 @@
+{
+  "recovery" : [
+
+  ],
+  "requestID" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+  "snapshot" : {
+    "facing" : 0.86635278505127289,
+    "position" : {
+      "x" : -2.3500000000000001,
+      "y" : 0,
+      "z" : -0.55000000000000004
+    },
+    "walking" : false,
+    "restSeconds" : 0,
+    "camera" : {
+      "shownDistance" : 3.8470768123342687,
+      "velocity" : 0,
+      "position" : [
+        -2.3499999999999996,
+        1.4403980801767076,
+        3.1480475810294211
+      ],
+      "targetY" : 0.38,
+      "mode" : "following",
+      "centerX" : 0.024999999999999911,
+      "velocityZ" : 0,
+      "offset" : 2.3749999999999996,
+      "focus" : [
+        -2.3499999999999996,
+        0.38,
+        -0.55000000000000004
+      ],
+      "centerZ" : 0.125,
+      "distance" : 3.8470768123342687,
+      "place" : null
+    },
+    "home" : {
+      "settled" : true,
+      "intent" : {
+        "id" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+        "place" : "house",
+        "activity" : "rest"
+      }
+    },
+    "shownSlot" : "day",
+    "slot" : null,
+    "next" : 1,
+    "weather" : "clear",
+    "layoutVersion" : "open-yard-v3",
+    "hour" : 13.861111111111111,
+    "arrived" : true,
+    "goal" : "house"
+  },
+  "runnable" : true,
+  "action" : "sit_idle",
+  "business" : {
+    "action" : "sit_idle",
+    "weather" : "clear",
+    "stateVersion" : 0,
+    "activity" : "rest",
+    "phase" : "idle",
+    "mood" : "happy",
+    "destinationIds" : [
+      "house",
+      "tree",
+      "bed",
+      "grass",
+      "pond",
+      "fence"
+    ],
+    "dayPhase" : "day",
+    "activityFallback" : true,
+    "targetDestinationId" : "house",
+    "lastDrinkAt" : "2026-09-20T10:30:34Z",
+    "sceneVersion" : 4,
+    "placesToday" : [
+      "蘑菇屋"
+    ],
+    "runnable" : true,
+    "moodReason" : "今天的水是满的，团子心情不错",
+    "bowlFilledToday" : true,
+    "paused" : false,
+    "currentDestinationId" : "house"
+  },
+  "ready" : true,
+  "target" : 0,
+  "uses3D" : true,
+  "events" : [
+    {
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "reason" : "native",
+      "uptime" : 370549.89586141671,
+      "type" : "resumed"
+    },
+    {
+      "type" : "cat",
+      "id" : "AAC4BCC4-86F9-40C7-8768-D16DCC0C693F",
+      "fallback" : false,
+      "cameraMode" : "following",
+      "settled" : false,
+      "offscreen" : false,
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "activity" : "watch",
+      "uptime" : 370549.92124195833,
+      "nearest" : "house",
+      "moving" : false,
+      "action" : "stand_up"
+    },
+    {
+      "uptime" : 370550.13968312502,
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "type" : "firstFrame",
+      "renderMs" : 398
+    },
+    {
+      "uptime" : 370550.1402762917,
+      "type" : "restored",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052"
+    },
+    {
+      "action" : "stand_up",
+      "uptime" : 370550.1680216667,
+      "activity" : "watch",
+      "nearest" : "house",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "id" : "B98AC83C-439A-4208-83BD-4B7C0A98543B",
+      "fallback" : false,
+      "moving" : false,
+      "settled" : false,
+      "offscreen" : false,
+      "cameraMode" : "following",
+      "type" : "cat"
+    },
+    {
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "renderMs" : 428,
+      "type" : "visualReady",
+      "uptime" : 370550.17320866667
+    },
+    {
+      "action" : "stand_up",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "cameraMode" : "following",
+      "uptime" : 370550.20670437504,
+      "nearest" : "house",
+      "moving" : false,
+      "fallback" : true,
+      "type" : "cat",
+      "activity" : "rest",
+      "offscreen" : false,
+      "settled" : false,
+      "id" : "D659E434-29BC-4612-9E1E-A7FE458523F2"
+    },
+    {
+      "action" : "idle",
+      "nearest" : "house",
+      "fallback" : true,
+      "settled" : false,
+      "type" : "cat",
+      "moving" : false,
+      "uptime" : 370551.17410012503,
+      "id" : "D659E434-29BC-4612-9E1E-A7FE458523F2",
+      "activity" : "rest",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "cameraMode" : "following",
+      "offscreen" : false
+    },
+    {
+      "id" : "D659E434-29BC-4612-9E1E-A7FE458523F2",
+      "type" : "cat",
+      "uptime" : 370551.18833179167,
+      "settled" : false,
+      "cameraMode" : "following",
+      "nearest" : "house",
+      "offscreen" : false,
+      "activity" : "rest",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "fallback" : true,
+      "moving" : false,
+      "action" : "sit_down"
+    },
+    {
+      "fallback" : true,
+      "id" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+      "action" : "stand_up",
+      "cameraMode" : "following",
+      "moving" : false,
+      "offscreen" : false,
+      "activity" : "rest",
+      "uptime" : 370552.30730675004,
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "type" : "cat",
+      "settled" : false,
+      "nearest" : "house"
+    },
+    {
+      "offscreen" : false,
+      "uptime" : 370553.34017862502,
+      "settled" : false,
+      "cameraMode" : "following",
+      "action" : "idle",
+      "moving" : false,
+      "fallback" : true,
+      "id" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "activity" : "rest",
+      "type" : "cat",
+      "nearest" : "house"
+    },
+    {
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "settled" : false,
+      "moving" : false,
+      "offscreen" : false,
+      "nearest" : "house",
+      "id" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+      "type" : "cat",
+      "action" : "sit_down",
+      "cameraMode" : "following",
+      "fallback" : true,
+      "uptime" : 370553.35713770834,
+      "activity" : "rest"
+    },
+    {
+      "settled" : true,
+      "cameraMode" : "following",
+      "activity" : "rest",
+      "nearest" : "house",
+      "pageId" : "C05B1AC7-CC54-406A-92D0-DB148B830052",
+      "id" : "0806520D-1415-4BEE-8602-6EC3B12CEE25",
+      "offscreen" : false,
+      "type" : "cat",
+      "uptime" : 370554.60850887501,
+      "fallback" : true,
+      "moving" : false,
+      "action" : "sit_idle"
+    }
+  ],
+  "webURL" : "maomao:\/\/yard\/app.html?composition=1&dpr=1.5&fps=60&home=1&msaa=0&pageId=C05B1AC7-CC54-406A-92D0-DB148B830052&review=1&runId=F74E2AAE-29C3-406D-BE66-047DD53A4100&time=day&weather=clear",
+  "current" : 0,
+  "failure" : "",
+  "moving" : false,
+  "legacyTicks" : 0,
+  "webReady" : true,
+  "activity" : "rest",
+  "webSurfaceReady" : true,
+  "webLoading" : false,
+  "webSize" : "{{0, 0}, {440, 956}}"
+}

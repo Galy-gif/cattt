@@ -1,0 +1,89 @@
+{
+  "device": "iPhone 17 Pro simulator, iOS 26.5",
+  "date": "2026-10-14",
+  "interaction": "user manually dragged to history top; CUA clicked load and retry buttons",
+  "fixture": "isolated local HTTP/SSE visual fixture, 125 seeded messages; initial pagination 503 then success; a pending reply released after loading",
+  "screenshots_local": [
+    "/tmp/maomao-chat-scroll-review/05-fixed-before.png",
+    "/tmp/maomao-chat-scroll-review/06-fixed-failed.png",
+    "/tmp/maomao-chat-scroll-review/07-fixed-loaded.png",
+    "/tmp/maomao-chat-scroll-review/08-reply-arrived.png"
+  ],
+  "report_image": "outputs/chat-continuity-review/滚动实拍对照.jpg",
+  "measured_rows": "OCR history messages 076–086 in native 1206×2622 screenshot; points assume 3× simulator scale",
+  "checks": [
+    {
+      "scenario": "失败提示",
+      "before": "05-fixed-before.png",
+      "after": "06-fixed-failed.png",
+      "common_rows": [
+        76,
+        86
+      ],
+      "max_abs_shift_pt": 0.0,
+      "delta_pt": {
+        "76": 0.0,
+        "77": 0.0,
+        "78": 0.0,
+        "79": 0.0,
+        "80": 0.0,
+        "81": 0.0,
+        "82": 0.0,
+        "83": 0.0,
+        "84": 0.0,
+        "85": 0.0,
+        "86": 0.0
+      }
+    },
+    {
+      "scenario": "插入旧页",
+      "before": "05-fixed-before.png",
+      "after": "07-fixed-loaded.png",
+      "common_rows": [
+        76,
+        86
+      ],
+      "max_abs_shift_pt": 0.0,
+      "delta_pt": {
+        "76": 0.0,
+        "77": 0.0,
+        "78": 0.0,
+        "79": 0.0,
+        "80": 0.0,
+        "81": 0.0,
+        "82": 0.0,
+        "83": 0.0,
+        "84": 0.0,
+        "85": -0.0,
+        "86": 0.0
+      }
+    },
+    {
+      "scenario": "新回复到达",
+      "before": "07-fixed-loaded.png",
+      "after": "08-reply-arrived.png",
+      "common_rows": [
+        75,
+        86
+      ],
+      "max_abs_shift_pt": 0.081,
+      "delta_pt": {
+        "75": -0.081,
+        "76": 0.064,
+        "77": -0.0,
+        "78": -0.0,
+        "79": 0.0,
+        "80": 0.0,
+        "81": -0.0,
+        "82": 0.0,
+        "83": 0.0,
+        "84": -0.0,
+        "85": 0.0,
+        "86": 0.0
+      }
+    }
+  ],
+  "build": "passed",
+  "check_all": "passed",
+  "real_device": "deferred at user request"
+}

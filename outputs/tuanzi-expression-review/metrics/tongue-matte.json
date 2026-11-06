@@ -1,0 +1,37 @@
+{
+  "build": {
+    "schemaVersion": 2,
+    "builtAt": "2026-10-10T11:03:05.144Z",
+    "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+    "dirty": true,
+    "sourceHash": "4cb77c3864899e3b9a345c17b0fbeb2283b8ebb8bb6ebb13cce2396ebe94bd80",
+    "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+    "modelHashes": {
+      "yard": "04fec8dd2cdbabac90673c2bd7460640bad30b5474827319c653d2730b2eec7a",
+      "tuanzi": "8f5dbe007bf9cc0fdb287a8a02c929e41543e53a6a1c485e24016d8e2af0961e"
+    }
+  },
+  "unchangedModels": true,
+  "change": "仅理毛舌头Lambert漫反射材质#98565d，接收阴影；喝水保留原材质",
+  "activity": {
+    "target": "groom",
+    "hop": null,
+    "time": 4.209999999999993,
+    "completions": 2,
+    "seconds": 0,
+    "eligible": false,
+    "clip": "groom_idle",
+    "state": "groom_idle",
+    "closure": 4.169495285027093e-215
+  },
+  "capture": "模拟器录屏8–14秒，12fps，72帧",
+  "gifSha256": "7a1a0ea7ff9a9b77baf0b4f69e5b4efd9ac64fe62e99c018b413b14dc2baed52",
+  "imageSha256": "937416c03d910c2433b4f64bb2872bf80b64d3b82fcfd4671fea33079176c762",
+  "checks": {
+    "typecheck": "passed",
+    "webTests": 33,
+    "simulatorBuild": "passed"
+  },
+  "visualApproval": "pending",
+  "deviceInstalled": false
+}

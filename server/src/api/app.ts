@@ -8,6 +8,7 @@ import { memoriesRoutes } from './memories.ts';
 import { boundariesRoutes } from './boundaries.ts';
 import { soulRoutes } from './soul.ts';
 import { worldRoutes } from '../world/routes.ts';
+import { diaryRoutes } from './diary.ts';
 
 export const app = new Hono();
 app.get('/healthz', async (c) => {
@@ -20,6 +21,7 @@ app.get('/healthz', async (c) => {
 const v1 = new Hono<Env>();
 v1.use('*', auth);
 v1.route('/', catRoutes);
+v1.route('/', diaryRoutes);
 v1.route('/', chatRoutes);
 v1.route('/', memoriesRoutes);
 v1.route('/', boundariesRoutes);

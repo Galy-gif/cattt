@@ -1,12 +1,22 @@
+import { RunMotion, type RunStage } from './run-motion.ts';
+import { StretchMotion, type StretchStage } from './stretch-motion.ts';
+import { ChaseMotion, type ChaseStage } from './chase-motion.ts';
+import { ScratchMotion, type ScratchStage } from './scratch-motion.ts';
 import * as THREE from 'three';
+import { FlowerMotion, type FlowerStage } from './flower-motion.ts';
+import { FenceMotion, type FenceStage } from './fence-motion.ts';
+import { NestMotion, type NestStage } from './nest-motion.ts';
 import { Appearance, loadModel, type Model } from './model';
-import { Blink, FootLock, Gaze, RestPose, TailSpring } from './procedural';
+import { Blink, FootLock, Gaze, RestPose, TailSpring, keepTailAboveBed } from './procedural';
 
 export interface WalkResult {
   interrupted: boolean;
 }
 
-export type TuanziState = 'idle' | 'turn' | 'walk' | 'sit_down' | 'sit_idle' | 'stand_up';
+export type Expression = 'tilt' | 'groom' | 'happy' | 'sulk' | 'sad';
+type LifeTarget = 'sleep' | 'doze' | 'drink' | 'pond' | Expression;
+const EXPRESSIONS: readonly Expression[] = ['tilt', 'groom', 'happy', 'sulk', 'sad'];
+export type TuanziState = RunStage | StretchStage | ChaseStage | ScratchStage | FlowerStage | FenceStage | 'pond_down' | 'pond_probe' | 'pond_pat' | 'pond_shake' | 'pond_up' | NestStage | `${Expression}_${'down' | 'idle' | 'up'}` | 'bed_hop' | 'idle' | 'turn' | 'walk' | 'sit_down' | 'sit_idle' | 'stand_up' | 'sleep_down' | 'sleep_idle' | 'sleep_up' | 'doze_down' | 'doze_up' | 'doze_idle' | 'drink_down' | 'drink_lap' | 'drink_up';
 
 const WALK_SPEED = 0.25; // 米/秒，约每秒 0.65 个身长
 const ACCELERATION = 0.7;
@@ -41,6 +51,29 @@ export class Tuanzi {
   /** 最近一次开始切换动作的时间（秒，按 mixer 时间） */
   lastTransitionAt = -Infinity;
 
+  /** 只有连续舔饮和抬头站稳全部完成，才增加一次。 */
+  drinkCompletions = 0;
+  bedSupport: { x: number; z: number } | null = null;
+  private nest: NestMotion | null = null;
+  private fence: FenceMotion | null = null;
+  private run: RunMotion | null = null;
+  private stretch: StretchMotion | null = null;
+  private chase: ChaseMotion | null = null;
+  private scratch: ScratchMotion | null = null;
+  private flower: FlowerMotion | null = null;
+  private lifeTarget: LifeTarget | null = null;
+  private lifeSeconds = 0;
+  private drinkEligible = false;
+  private drinkTongueMaterial = new THREE.MeshStandardMaterial({ color: '#e58b87', roughness: .8 });
+  // 理毛时舌头紧贴脸和爪，使用无镜面高光的暖肉粉色，并接受头部遮光。
+  private groomTongueMaterial = new THREE.MeshLambertMaterial({ color: '#cc7164' });
+  private tongue = new THREE.Mesh<THREE.SphereGeometry, THREE.Material>(new THREE.SphereGeometry(1, 12, 8), this.drinkTongueMaterial);
+  private groomTongueGeometry = new THREE.SphereGeometry(1, 24, 12);
+  private drinkTongueGeometry = this.tongue.geometry;
+  private tongueRoot = new THREE.Vector3();
+  private tongueRestRotation = new THREE.Quaternion();
+  private hop: { from: THREE.Vector3; to: THREE.Vector3; time: number; resolve: (value: WalkResult) => void } | null = null;
+  private faceGoal: number | null = null;
   private yaw = 0;
   private yawRate = 0;
   private acceleration = 0;
@@ -66,7 +99,7 @@ export class Tuanzi {
       const clip = source.name === 'ear_flick' ? THREE.AnimationUtils.makeClipAdditive(source.clone()) : source;
       const action = this.mixer.clipAction(clip);
       if (clip.name === 'ear_flick') action.blendMode = THREE.AdditiveAnimationBlendMode;
-      if (['sit_down', 'stand_up', 'ear_flick'].includes(clip.name)) {
+      if ((clip.name.startsWith('scratch_') && clip.name !== 'scratch_rake') || clip.name.startsWith('flower_') || (clip.name.startsWith('fence_') && clip.name !== 'fence_rest') || clip.name.startsWith('pond_') || (clip.name.startsWith('nest_') && !['nest_watch', 'nest_sleep'].includes(clip.name)) || /^(tilt|groom|happy|sulk|sad)_(down|up)$/.test(clip.name) || ['bed_hop', 'sit_down', 'stand_up', 'ear_flick', 'sleep_down', 'sleep_up', 'doze_down', 'doze_up', 'drink_down', 'drink_up'].includes(clip.name)) {
         action.setLoop(THREE.LoopOnce, 1);
         action.clampWhenFinished = clip.name !== 'ear_flick';
       }
@@ -82,8 +115,16 @@ export class Tuanzi {
     this.tail = new TailSpring(model.bones);
     this.footLock = new FootLock(model.bones, this.root);
     const legs = [...model.bones.values()].filter((bone) => /^(front|hind)_[LR]_(upper|lower|paw)$/.test(bone.name));
-    this.rest = new RestPose([...this.gaze.bones, ...this.tail.chain, ...legs]);
+    this.rest = new RestPose([...this.gaze.bones, ...this.tail.chain, ...legs, ...['spine_02','spine_03','spine_04'].map(n=>model.bones.get(n)!)]);
     this.play('idle', 0);
+    this.root.updateMatrixWorld(true);
+    const head = model.bones.get('head')!;
+    this.tongue.position.copy(head.worldToLocal(this.root.localToWorld(new THREE.Vector3(0, .17455, .215))));
+    this.tongue.quaternion.copy(head.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(this.root.getWorldQuaternion(new THREE.Quaternion())));
+    this.tongueRoot.copy(this.tongue.position);
+    this.tongueRestRotation.copy(this.tongue.quaternion);
+    this.tongue.scale.set(.0038, .0014, .006);
+    this.tongue.visible = false; head.add(this.tongue);
   }
 
   /** 脚底中心的世界坐标（只读） */
@@ -96,8 +137,34 @@ export class Tuanzi {
     return wrapAngle(this.yaw);
   }
 
+  snapshotActivity() {
+    return { run: this.run?.data ?? null, stretch: this.stretch?.data ?? null, chase: this.chase?.data ?? null, scratch: this.scratch?.data ?? null, flower: this.flower?.data ?? null, fence: this.fence?.data ?? null, nest: this.nest?.data ?? null, state: this.state, clip: this.base?.getClip().name, time: this.base?.time ?? 0,
+      target: this.lifeTarget, seconds: this.lifeSeconds, eligible: this.drinkEligible,
+      completions: this.drinkCompletions, closure: this.blink.closure,
+      hop: this.hop ? { from: this.hop.from.toArray(), to: this.hop.to.toArray(), time: this.hop.time } : null };
+  }
+  restoreActivity(value: ReturnType<Tuanzi['snapshotActivity']>) {
+    if (!value.clip || !this.actions.has(value.clip)) return;
+    this.settle(true); this.route = null; this.wantSit = false; this.speed = 0; this.faceGoal = null;
+    this.run = value.run ? new RunMotion(this.position,this.facing,value.run) : null;
+    this.stretch = value.stretch ? new StretchMotion(this.position,this.facing,value.stretch) : null;
+    this.chase = value.chase ? new ChaseMotion(this.position,this.facing,value.chase) : null;
+    this.scratch = value.scratch ? new ScratchMotion(this.position, value.scratch) : null;
+    this.flower = value.flower ? new FlowerMotion(this.position,value.flower) : null;
+    this.fence = value.fence ? new FenceMotion(this.position, value.fence) : null;
+    this.nest = value.nest ? new NestMotion(this.position, value.nest.sleep, value.nest) : null;
+    this.state = value.state; this.lifeTarget = value.target; this.lifeSeconds = value.seconds;
+    this.drinkEligible = value.eligible; this.drinkCompletions = value.completions; this.blink.closure = value.closure;
+    this.mixer.stopAllAction(); this.base = null; this.play(value.clip, 0); this.actions.get(value.clip)!.time = value.time;
+    if (value.hop) this.hop = { from: new THREE.Vector3().fromArray(value.hop.from), to: new THREE.Vector3().fromArray(value.hop.to), time: value.hop.time, resolve: () => {} };
+    this.mixer.update(0); this.rest.capture(); this.root.updateMatrixWorld(true); this.updateFace();
+  }
+
   /** 内容进程重建时恢复世界姿态，移动路线由调用方重新接续。 */
   restorePose(position: THREE.Vector3Like, facing: number) {
+    this.run = null; this.stretch = null; this.chase = null; this.scratch = null; this.flower = null; this.fence = null; this.nest = null; this.root.rotation.set(0, facing, 0);
+    this.hop?.resolve({ interrupted: true }); this.hop = null; this.faceGoal = null;
+    this.lifeTarget = null; this.drinkEligible = false;
     this.settle(true);
     this.route = null;
     this.speed = 0;
@@ -108,6 +175,16 @@ export class Tuanzi {
     this.root.rotation.y = facing;
     this.play('idle', 0);
   }
+
+  /** 专用猫窝跨沿动作。新意图要等落脚后再接路线，不能半空换路。 */
+  hopTo(point: THREE.Vector3Like): Promise<WalkResult> {
+    if (this.hop) throw new Error('猫窝起落尚未结束');
+    this.stand(); this.settle(true); this.route = null; this.speed = 0;
+    return new Promise(resolve => { this.hop = { from: this.root.position.clone(), to: new THREE.Vector3().copy(point), time: 0, resolve }; });
+  }
+  faceToward(point: THREE.Vector3Like) { this.stand(); this.faceGoal = Math.atan2(point.x - this.position.x, point.z - this.position.z); }
+  get facingReady() { return this.faceGoal === null; }
+  get hopping() { return this.hop !== null; }
 
   get clipNames() {
     return [...this.actions.keys()];
@@ -122,6 +199,8 @@ export class Tuanzi {
    * 走到最后一点 resolve；被新的 walkTo／walkAlong／sit 打断时也 resolve，interrupted 为 true。
    */
   walkAlong(points: THREE.Vector3Like[]): Promise<WalkResult> {
+    this.faceGoal = null;
+    this.stand();
     this.settle(true);
     this.wantSit = false;
     const start = new THREE.Vector3(this.root.position.x, 0, this.root.position.z);
@@ -133,17 +212,185 @@ export class Tuanzi {
   }
 
   sit() {
+    this.endLife();
     this.settle(true);
     this.route = null;
     this.wantSit = true;
   }
 
   stand() {
+    if (this.run) this.run.data.exit=true;
+    if (this.stretch) this.stretch.data.exit=true;
+    if (this.chase) this.chase.data.exit=true;
+    if (this.scratch) this.scratch.data.exit = true;
+    if (this.flower) this.flower.data.exit = true;
+    if (this.fence) this.fence.data.exit = true;
+    if (this.nest) this.nest.data.exit = true;
+    this.endLife();
     this.wantSit = false;
     if (this.state === 'sit_down' || this.state === 'sit_idle') {
       this.state = 'stand_up';
       this.play('stand_up', 0.15);
     }
+  }
+
+  playRun() {
+    this.stand();this.settle(true);this.route=null;this.speed=0;this.bedSupport=null;this.faceGoal=null;
+    this.run=new RunMotion(this.position,this.facing);this.state='run_ready';this.play('idle',.1);
+  }
+  get running(){return this.run!==null;}
+  private updateRun(dt:number){
+    if(!this.run)return;
+    this.run.update(dt);this.root.position.copy(this.run.point);
+    if(this.run.done){this.run=null;this.state='idle';return;}
+    this.state=this.run.data.stage;
+  }
+  playStretch() {
+    this.stand();this.settle(true);this.route=null;this.speed=0;this.bedSupport=null;this.faceGoal=null;
+    this.stretch=new StretchMotion(this.position,this.facing);this.state='stretch_reach';this.play('idle',.1);
+  }
+  get playingStretch(){return this.stretch!==null;}
+  private updateStretch(dt:number){
+    if(!this.stretch)return;
+    this.stretch.update(dt);
+    if(this.stretch.done){this.root.position.y=this.stretch.data.entry[1]!;this.stretch=null;this.state='idle';return;}
+    this.state=this.stretch.data.stage;
+  }
+  playChase() {
+    this.stand();this.settle(true);this.route=null;this.speed=0;this.bedSupport=null;this.faceGoal=null;
+    this.chase=new ChaseMotion(this.position,this.facing);this.state='chase_look';this.play('idle',.1);
+  }
+  get playingChase(){return this.chase!==null;}
+  private updateChase(dt:number){
+    if(!this.chase)return;
+    this.chase.update(dt);this.yaw=this.chase.yaw;this.root.rotation.set(0,this.yaw,0);
+    if(this.chase.done){this.root.position.y=this.chase.data.entry[1]!;this.chase=null;this.state='idle';return;}
+    this.state=this.chase.data.stage;
+  }
+  playScratch() {
+    this.stand(); this.settle(true); this.route=null; this.speed=0; this.bedSupport=null;
+    this.scratch=new ScratchMotion(this.position);this.state='scratch_reach';this.play('scratch_reach',.1);
+  }
+  get playingScratch(){return this.scratch!==null;}
+  private updateScratch(dt:number){
+    if(!this.scratch)return;
+    this.scratch.update(dt);const {point,yaw}=this.scratch.pose;
+    this.root.position.copy(point);this.yaw=yaw;this.root.rotation.set(0,yaw,0);
+    if(this.scratch.done){this.scratch=null;this.state='idle';this.play('idle',.1);return;}
+    const state=this.scratch.data.stage;
+    if(this.state!==state){this.state=state;this.play(state==='scratch_release'?'scratch_reach':state==='scratch_settle'?'fence_land':state,.035);}
+    if(this.base){
+      this.base.paused=false;
+      const time=this.scratch.data.time;
+      this.base.time=(state==='scratch_rake'?time%.8:state==='scratch_release'?1.25-time:time)-dt;
+    }
+  }
+  playFlower() {
+    this.stand(); this.settle(true); this.route=null; this.speed=0; this.bedSupport=null;
+    this.flower=new FlowerMotion(this.position);this.state='flower_watch';this.play('flower_watch',.1);
+  }
+  get playingFlower(){return this.flower!==null;}
+  get flowerPaw(){return this.flower ? this.model.bones.get('front_L_paw')!.localToWorld(new THREE.Vector3(0,.028,0)) : null;}
+  private updateFlower(dt:number){
+    if(!this.flower)return;
+    this.flower.update(dt);const {point,yaw}=this.flower.pose;
+    this.root.position.copy(point);this.yaw=yaw;this.root.rotation.set(0,yaw,0);
+    if(this.flower.done){this.flower=null;this.state='idle';this.play('idle',.1);return;}
+    const state=this.flower.data.stage;
+    if(this.state!==state){this.state=state;this.play(state,.035);}
+    if(this.base)this.base.time=this.flower.data.time-dt;
+  }
+  enterFence() {
+    this.stand(); this.settle(true); this.route = null; this.speed = 0; this.bedSupport = null;
+    this.fence = new FenceMotion(this.position); this.state = 'fence_reach'; this.play('fence_reach', .12);
+  }
+  get fencing() { return this.fence !== null; }
+  get fenceSettled() { return this.fence?.settled ?? false; }
+  private updateFence(dt: number) {
+    if (!this.fence) return;
+    this.fence.update(dt);
+    const {point,yaw} = this.fence.pose;
+    this.root.position.copy(point); this.yaw = yaw; this.root.rotation.set(0,yaw,0);
+    if (this.fence.done) { this.fence = null; this.state = 'idle'; this.play('idle', .15); return; }
+    const state = this.fence.data.stage;
+    if (this.state !== state) { this.state = state; this.play(state, ['fence_jump','fence_grip','fence_drop','fence_land'].includes(state) ? .035 : .06); }
+    // 接触点按同一时间采样，避免根节点先走一帧而爪子落后一帧。
+    if (this.base) this.base.time = this.fence.data.time - dt;
+  }
+  enterNest(sleep: boolean) {
+    this.stand(); this.settle(true); this.route = null; this.speed = 0; this.bedSupport = null;
+    this.nest = new NestMotion(this.position, sleep);
+    this.state = 'nest_jump'; this.play('nest_jump', .12);
+  }
+  setNestRest(sleep: boolean) { if (this.nest && !this.nest.data.exit) this.nest.data.sleep = sleep; }
+  get nestCanRest() { return !!this.nest && !this.nest.data.exit; }
+  get nesting() { return this.nest !== null; }
+  get nestSettled() { return this.nest?.settled ?? false; }
+  get nestLoad() { return this.nest?.pose.weight ?? 0; }
+  applyNestSupport(transform: THREE.Matrix4) {
+    if (!this.nest) return;
+    const { point, yaw, weight } = this.nest.pose;
+    this.root.position.copy(point).lerp(point.clone().applyMatrix4(transform), weight);
+    const q = new THREE.Quaternion().setFromRotationMatrix(transform);
+    this.root.quaternion.copy(new THREE.Quaternion().slerp(q, weight)).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),yaw));
+    this.root.updateMatrixWorld(true);
+  }
+  private updateNest(dt: number) {
+    if (!this.nest) return;
+    this.nest.update(dt);
+    const { point, yaw } = this.nest.pose;
+    this.root.position.copy(point); this.yaw = yaw; this.root.rotation.set(0,yaw,0);
+    if (this.nest.done) { this.nest = null; this.state = 'idle'; this.play('idle', .15); return; }
+    const state = this.nest.data.stage;
+    if (this.state !== state) { this.state = state; this.play(state === 'nest_turn_out' ? 'nest_turn' : state, .1); }
+  }
+  sleep() { this.requestLife('sleep'); }
+  doze() { this.requestLife('doze'); }
+  drink() { this.requestLife('drink'); }
+  playPond() { this.requestLife('pond'); }
+  get pondBusy() { return this.lifeTarget === 'pond' || this.state.startsWith('pond_'); }
+  get pondPaw() { return this.state.startsWith('pond_') ? this.model.bones.get('front_R_paw')!.getWorldPosition(new THREE.Vector3()) : null; }
+  express(kind: Expression) { this.requestLife(kind); }
+  private requestLife(target: LifeTarget) {
+    if (this.lifeTarget === target) return;
+    this.stand(); this.settle(true); this.route = null; this.speed = 0;
+    this.lifeTarget = target; this.lookAt(null);
+  }
+  private endLife() {
+    this.lifeTarget = null; this.drinkEligible = false;
+    if (this.state.startsWith('pond_') && this.state !== 'pond_up') { this.state = 'pond_up'; this.play('pond_up', .3); }
+    for (const kind of EXPRESSIONS) if (this.state === `${kind}_down` || this.state === `${kind}_idle`) this.rise(kind);
+    if (this.state === 'sleep_down' || this.state === 'sleep_idle') this.rise('sleep');
+    if (this.state === 'drink_down' || this.state === 'drink_lap') this.rise('drink');
+    if (this.state === 'doze_down' || this.state === 'doze_idle') this.rise('doze');
+  }
+  private rise(kind: LifeTarget) {
+    const fraction = this.state === `${kind}_down` && this.base ? this.base.time / this.base.getClip().duration : 1;
+    this.state = `${kind}_up`; this.play(this.state, .12);
+    const action = this.actions.get(this.state)!;
+    action.time = (1 - fraction) * action.getClip().duration;
+  }
+  get drinkingPhase(): number | null { return this.state === 'drink_lap' ? this.lifeSeconds % 2.4 : null; }
+  private updateLife(dt: number) {
+    if (this.lifeTarget === 'pond' && this.state === 'idle') { this.state = 'pond_down'; this.play('pond_down', .2); }
+    if (this.lifeTarget && EXPRESSIONS.includes(this.lifeTarget as Expression) && this.state === 'idle') {
+      this.state = `${this.lifeTarget}_down`; this.play(this.state, .2);
+    }
+    if (this.lifeTarget === 'doze' && this.state === 'idle') { this.state = 'doze_down'; this.play('doze_down', .2); }
+    if (this.state === 'idle' && (this.lifeTarget === 'sleep' || this.lifeTarget === 'drink')) {
+      this.state = this.lifeTarget === 'sleep' ? 'sleep_down' : 'drink_down';
+      this.lifeSeconds = 0; this.drinkEligible = this.lifeTarget === 'drink'; this.play(this.state, .2);
+    }
+    if (this.state === 'drink_lap') {
+      this.lifeSeconds += dt;
+      if (this.lifeSeconds >= 7.2) { this.state = 'drink_up'; this.lifeTarget = null; this.play('drink_up', .12); }
+    }
+    const asleep = this.state === 'nest_sleep' || this.state === 'nest_down' || this.state === 'sleep_idle' || this.state === 'sleep_down' || this.state === 'doze_idle';
+    this.blink.closure = THREE.MathUtils.damp(this.blink.closure, asleep ? 1 : 0, 4, dt);
+    const cycle = this.lifeSeconds % 2.4;
+    const lap = cycle < 2 ? Math.sin(Math.PI * ((cycle * 4) % 1)) ** 2 : 0;
+    this.tongue.visible = this.state === 'drink_lap' && lap > .1;
+    this.tongue.scale.z = .002 + .005 * lap;
   }
 
   lookAt(point: THREE.Vector3Like | null) {
@@ -167,9 +414,18 @@ export class Tuanzi {
     this.base = action;
     this.mixer.update(0);
     this.rest.capture();
+    this.updateFace();
   }
 
   update(dt: number) {
+    this.updateRun(dt);
+    this.updateStretch(dt);
+    this.updateChase(dt);
+    this.updateScratch(dt);
+    this.updateFlower(dt);
+    this.updateFence(dt);
+    this.updateNest(dt);
+    this.updateLife(dt);
     const previousYaw = this.yaw;
     const previousSpeed = this.speed;
     this.move(dt);
@@ -184,17 +440,58 @@ export class Tuanzi {
     this.rest.capture();
     this.root.updateMatrixWorld(true);
     this.footLock.update(this.root, dt, this.state === 'walk' || this.state === 'turn' || this.state === 'idle');
-    if (this.proceduralEnabled) {
+    if (this.proceduralEnabled && !this.nest && !this.fence && !this.flower && !this.scratch && !this.chase && !this.stretch && !this.run && !EXPRESSIONS.some(kind => this.state.startsWith(kind + '_')) && !this.state.startsWith('pond_') && !this.state.startsWith('sleep') && !this.state.startsWith('drink') && !this.state.startsWith('doze') && this.state !== 'bed_hop') {
       this.gaze.update(this.root, dt);
       this.tail.update(this.root, dt, this.yawRate, this.acceleration);
     }
+    this.run?.apply(this.root,this.model.bones);
+    this.stretch?.apply(this.root,this.model.bones);
+    this.chase?.apply(this.root,this.model.bones);
+    if (this.bedSupport) keepTailAboveBed(this.tail.chain, this.bedSupport);
+    this.tongue.position.copy(this.tongueRoot);
+    this.tongue.geometry = this.state === 'groom_idle' ? this.groomTongueGeometry : this.drinkTongueGeometry;
+    this.tongue.scale.x = .0038; this.tongue.scale.y = .0014;
+    this.tongue.material = this.state === 'groom_idle' ? this.groomTongueMaterial : this.drinkTongueMaterial;
+    this.tongue.receiveShadow = this.state === 'groom_idle';
+    if (this.state === 'groom_idle') {
+      const pulse = Math.sin(Math.PI * 3 * (this.base?.time ?? 0) / 4.8) ** 2;
+      // 扁平圆舌尖从唇线向外展开，根部藏在嘴内；不能只露出针尖。
+      this.tongue.position.add(new THREE.Vector3(0, 0, .004 * pulse).applyQuaternion(this.tongueRestRotation));
+      const head = this.model.bones.get('head')!;
+      const paw = head.worldToLocal(this.model.bones.get('front_R_paw')!.getWorldPosition(new THREE.Vector3()));
+      this.tongue.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), paw.sub(this.tongue.position).normalize());
+      this.tongue.visible = pulse > .08;
+      this.tongue.scale.set(.006 + .003 * pulse, .0018, .004 + .018 * pulse);
+    } else this.tongue.quaternion.copy(this.tongueRestRotation);
     this.blink.enabled = this.proceduralEnabled;
     this.blink.update(dt);
+    this.updateFace();
+  }
+
+  private updateFace() {
+    this.appearance.face.update(this.base?.getClip().name ?? this.state, this.base?.time ?? 0, this.base?.getClip().duration ?? 1);
   }
 
   private move(dt: number) {
-    if (this.state === 'sit_down' || this.state === 'sit_idle' || this.state === 'stand_up') return;
+    if (this.nest || this.fence || this.flower || this.scratch || this.chase || this.stretch || this.run) return;
+    if (this.hop && (this.state === 'idle' || this.state === 'bed_hop')) {
+      const h = this.hop;
+      if (this.state !== 'bed_hop') { this.state = 'bed_hop'; this.play('bed_hop', .12); }
+      h.time = Math.min(1.4, h.time + dt);
+      const t = h.time / 1.4, u = THREE.MathUtils.smoothstep(t, .12, .88);
+      this.root.position.lerpVectors(h.from, h.to, u);
+      this.root.position.y += .32 * Math.sin(Math.PI * u);
+      if (h.time >= 1.4) { this.hop = null; this.root.position.copy(h.to); this.state = 'idle'; this.play('idle', .12); h.resolve({ interrupted: false }); }
+      return;
+    }
+    if (!['idle', 'turn', 'walk'].includes(this.state)) return;
 
+    if (this.faceGoal !== null) {
+      const turn = wrapAngle(this.faceGoal - this.yaw);
+      if (Math.abs(turn) < .005) { this.yaw = this.faceGoal; this.faceGoal = null; this.setState('idle', 'idle'); }
+      else { this.setState('turn', 'turn_step'); this.yaw += THREE.MathUtils.clamp(turn, -STEP_TURN_RATE * dt, STEP_TURN_RATE * dt); }
+      this.root.rotation.y = this.yaw; return;
+    }
     if (this.route) {
       const route = this.route;
       const position = this.root.position;
@@ -263,7 +560,27 @@ export class Tuanzi {
 
   private onFinished(action: THREE.AnimationAction) {
     const name = action.getClip().name;
-    if (name === 'sit_down' && this.state === 'sit_down') {
+    const pondSequence = ['pond_down','pond_probe','pond_pat','pond_shake','pond_up'] as const;
+    const pondIndex = pondSequence.indexOf(name as typeof pondSequence[number]);
+    if (pondIndex >= 0 && this.state === name) {
+      const next = pondSequence[pondIndex + 1];
+      if (!next) this.lifeTarget = null;
+      this.state = next ?? 'idle'; this.play(this.state, .16); return;
+    }
+    for (const kind of EXPRESSIONS) {
+      if (name === `${kind}_down` && this.state === name) { this.state = `${kind}_idle`; this.play(this.state, .15); return; }
+      if (name === `${kind}_up` && this.state === name) { this.state = 'idle'; this.play('idle', .15); return; }
+    }
+    if (name === 'doze_down' && this.state === 'doze_down') { this.state = 'doze_idle'; this.play('doze_idle', .2); }
+    else if (name === 'doze_up' && this.state === 'doze_up') { this.state = 'idle'; this.play('idle', .15); }
+    else if (name === 'sleep_down' && this.state === 'sleep_down') { this.state = 'sleep_idle'; this.play('sleep_idle', .15); }
+    else if (name === 'sleep_up' && this.state === 'sleep_up') { this.state = 'idle'; this.play('idle', .15); }
+    else if (name === 'drink_down' && this.state === 'drink_down') { this.state = 'drink_lap'; this.lifeSeconds = 0; this.play('drink_lap', .12); }
+    else if (name === 'drink_up' && this.state === 'drink_up') {
+      if (this.drinkEligible) this.drinkCompletions++;
+      this.drinkEligible = false; this.state = 'idle'; this.play('idle', .15);
+    }
+    else if (name === 'sit_down' && this.state === 'sit_down') {
       this.state = 'sit_idle';
       this.play('sit_idle', 0.2);
     } else if (name === 'stand_up' && this.state === 'stand_up') {

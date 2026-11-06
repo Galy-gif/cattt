@@ -1,0 +1,685 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "runId": "F7C20418-4AC0-4C33-A516-3C4D7C75888F",
+  "phase": "最终版池塘白天真实前后台往返USB窗口",
+  "durationSeconds": 121.051387,
+  "endReason": "Time limit reached",
+  "traceStart": "2026-10-02T19:20:04.955+08:00",
+  "sampleCount": 83,
+  "backgroundSampleCount": 14,
+  "completeReturnsSeconds": [
+    23.257999999999985,
+    25.099
+  ],
+  "peakCombinedMiB": 274.1738815307617,
+  "limitMiB": 450,
+  "verdict": "往返窗口通过",
+  "samples": [
+    {
+      "elapsedSeconds": 0.084470958,
+      "nativeElapsedSeconds": 41.039470911026,
+      "phase": "前台",
+      "appMiB": 30.204208374023438,
+      "webContentMiB": 240.14154815673828,
+      "combinedMiB": 270.3457565307617
+    },
+    {
+      "elapsedSeconds": 1.11120275,
+      "nativeElapsedSeconds": 42.06620264053345,
+      "phase": "前台",
+      "appMiB": 30.219833374023438,
+      "webContentMiB": 232.62592315673828,
+      "combinedMiB": 262.8457565307617
+    },
+    {
+      "elapsedSeconds": 2.213354125,
+      "nativeElapsedSeconds": 43.16835403442383,
+      "phase": "前台",
+      "appMiB": 30.219833374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2363815307617
+    },
+    {
+      "elapsedSeconds": 3.244937583,
+      "nativeElapsedSeconds": 44.19993758201599,
+      "phase": "前台",
+      "appMiB": 30.219833374023438,
+      "webContentMiB": 236.32904815673828,
+      "combinedMiB": 266.5488815307617
+    },
+    {
+      "elapsedSeconds": 4.31138375,
+      "nativeElapsedSeconds": 45.2663836479187,
+      "phase": "前台",
+      "appMiB": 30.251083374023438,
+      "webContentMiB": 236.32904815673828,
+      "combinedMiB": 266.5801315307617
+    },
+    {
+      "elapsedSeconds": 5.347148291,
+      "nativeElapsedSeconds": 46.30214810371399,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2832565307617
+    },
+    {
+      "elapsedSeconds": 6.351010333,
+      "nativeElapsedSeconds": 47.306010246276855,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2832565307617
+    },
+    {
+      "elapsedSeconds": 7.41265525,
+      "nativeElapsedSeconds": 48.3676552772522,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2832565307617
+    },
+    {
+      "elapsedSeconds": 8.449355083,
+      "nativeElapsedSeconds": 49.4043550491333,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2832565307617
+    },
+    {
+      "elapsedSeconds": 9.445657083,
+      "nativeElapsedSeconds": 50.400656938552856,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 236.39154815673828,
+      "combinedMiB": 266.6582565307617
+    },
+    {
+      "elapsedSeconds": 10.51442025,
+      "nativeElapsedSeconds": 51.469420194625854,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.07904815673828,
+      "combinedMiB": 270.3457565307617
+    },
+    {
+      "elapsedSeconds": 11.5469855,
+      "nativeElapsedSeconds": 52.50198531150818,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.07904815673828,
+      "combinedMiB": 270.3457565307617
+    },
+    {
+      "elapsedSeconds": 12.545300333,
+      "nativeElapsedSeconds": 53.50030016899109,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 236.39154815673828,
+      "combinedMiB": 266.6582565307617
+    },
+    {
+      "elapsedSeconds": 13.544841458,
+      "nativeElapsedSeconds": 54.4998414516449,
+      "phase": "前台",
+      "appMiB": 30.219833374023438,
+      "webContentMiB": 236.37592315673828,
+      "combinedMiB": 266.5957565307617
+    },
+    {
+      "elapsedSeconds": 14.5474305,
+      "nativeElapsedSeconds": 55.50243043899536,
+      "phase": "前台",
+      "appMiB": 30.219833374023438,
+      "webContentMiB": 236.37592315673828,
+      "combinedMiB": 266.5957565307617
+    },
+    {
+      "elapsedSeconds": 15.612961166,
+      "nativeElapsedSeconds": 56.56796097755432,
+      "phase": "前台",
+      "appMiB": 30.235458374023438,
+      "webContentMiB": 236.40717315673828,
+      "combinedMiB": 266.6426315307617
+    },
+    {
+      "elapsedSeconds": 16.647554708,
+      "nativeElapsedSeconds": 57.60255455970764,
+      "phase": "前台",
+      "appMiB": 30.235458374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3301315307617
+    },
+    {
+      "elapsedSeconds": 17.646691166,
+      "nativeElapsedSeconds": 58.601691007614136,
+      "phase": "前台",
+      "appMiB": 30.235458374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3301315307617
+    },
+    {
+      "elapsedSeconds": 18.716376291,
+      "nativeElapsedSeconds": 59.67137622833252,
+      "phase": "前台",
+      "appMiB": 30.235458374023438,
+      "webContentMiB": 240.00092315673828,
+      "combinedMiB": 270.2363815307617
+    },
+    {
+      "elapsedSeconds": 19.754242291,
+      "nativeElapsedSeconds": 60.70924210548401,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 240.20404815673828,
+      "combinedMiB": 270.4707565307617
+    },
+    {
+      "elapsedSeconds": 20.747294125,
+      "nativeElapsedSeconds": 61.70229411125183,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 237.26654815673828,
+      "combinedMiB": 267.5332565307617
+    },
+    {
+      "elapsedSeconds": 21.746217041,
+      "nativeElapsedSeconds": 62.70121693611145,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 236.50092315673828,
+      "combinedMiB": 266.7676315307617
+    },
+    {
+      "elapsedSeconds": 22.81389125,
+      "nativeElapsedSeconds": 63.76889109611511,
+      "phase": "前台",
+      "appMiB": 30.266708374023438,
+      "webContentMiB": 236.50092315673828,
+      "combinedMiB": 266.7676315307617
+    },
+    {
+      "elapsedSeconds": 23.849488875,
+      "nativeElapsedSeconds": 64.80448889732361,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.18842315673828,
+      "combinedMiB": 270.4863815307617
+    },
+    {
+      "elapsedSeconds": 24.916831708,
+      "nativeElapsedSeconds": 65.87183165550232,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.32904815673828,
+      "combinedMiB": 270.6270065307617
+    },
+    {
+      "elapsedSeconds": 25.95102225,
+      "nativeElapsedSeconds": 66.90602207183838,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.28217315673828,
+      "combinedMiB": 270.5801315307617
+    },
+    {
+      "elapsedSeconds": 27.017278541,
+      "nativeElapsedSeconds": 67.97227835655212,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.25092315673828,
+      "combinedMiB": 270.5488815307617
+    },
+    {
+      "elapsedSeconds": 28.048413375,
+      "nativeElapsedSeconds": 69.00341320037842,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.57904815673828,
+      "combinedMiB": 266.8770065307617
+    },
+    {
+      "elapsedSeconds": 29.114148083,
+      "nativeElapsedSeconds": 70.06914806365967,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.57904815673828,
+      "combinedMiB": 266.8770065307617
+    },
+    {
+      "elapsedSeconds": 30.150258458,
+      "nativeElapsedSeconds": 71.10525846481323,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 240.28217315673828,
+      "combinedMiB": 270.5645065307617
+    },
+    {
+      "elapsedSeconds": 31.215258208,
+      "nativeElapsedSeconds": 72.17025804519653,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 236.59467315673828,
+      "combinedMiB": 266.8770065307617
+    },
+    {
+      "elapsedSeconds": 32.251452041,
+      "nativeElapsedSeconds": 73.20645189285278,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 240.28217315673828,
+      "combinedMiB": 270.5645065307617
+    },
+    {
+      "elapsedSeconds": 33.316285375,
+      "nativeElapsedSeconds": 74.27128529548645,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 236.61029815673828,
+      "combinedMiB": 266.8926315307617
+    },
+    {
+      "elapsedSeconds": 34.34673925,
+      "nativeElapsedSeconds": 75.30173921585083,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.50092315673828,
+      "combinedMiB": 266.7988815307617
+    },
+    {
+      "elapsedSeconds": 35.349400208,
+      "nativeElapsedSeconds": 76.30440020561218,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3926315307617
+    },
+    {
+      "elapsedSeconds": 36.353254916,
+      "nativeElapsedSeconds": 77.3082549571991,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3926315307617
+    },
+    {
+      "elapsedSeconds": 37.420790583,
+      "nativeElapsedSeconds": 78.3757905960083,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3926315307617
+    },
+    {
+      "elapsedSeconds": 38.450393375,
+      "nativeElapsedSeconds": 79.40539336204529,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.09467315673828,
+      "combinedMiB": 270.3926315307617
+    },
+    {
+      "elapsedSeconds": 39.448742625,
+      "nativeElapsedSeconds": 80.40374255180359,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2988815307617
+    },
+    {
+      "elapsedSeconds": 40.520542541,
+      "nativeElapsedSeconds": 81.4755425453186,
+      "phase": "前台",
+      "appMiB": 30.282333374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.2988815307617
+    },
+    {
+      "elapsedSeconds": 41.549757166,
+      "nativeElapsedSeconds": 82.50475716590881,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.01654815673828,
+      "combinedMiB": 270.3145065307617
+    },
+    {
+      "elapsedSeconds": 42.548917791,
+      "nativeElapsedSeconds": 83.5039176940918,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.42279815673828,
+      "combinedMiB": 266.7207565307617
+    },
+    {
+      "elapsedSeconds": 43.548506583,
+      "nativeElapsedSeconds": 84.50350642204285,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.43842315673828,
+      "combinedMiB": 266.7363815307617
+    },
+    {
+      "elapsedSeconds": 44.617162875,
+      "nativeElapsedSeconds": 85.57216286659241,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.12592315673828,
+      "combinedMiB": 270.4238815307617
+    },
+    {
+      "elapsedSeconds": 45.649905666,
+      "nativeElapsedSeconds": 86.60490560531616,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.43842315673828,
+      "combinedMiB": 266.7363815307617
+    },
+    {
+      "elapsedSeconds": 46.715334083,
+      "nativeElapsedSeconds": 87.67033410072327,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 243.81342315673828,
+      "combinedMiB": 274.1113815307617
+    },
+    {
+      "elapsedSeconds": 47.750117,
+      "nativeElapsedSeconds": 88.7051169872284,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 236.43842315673828,
+      "combinedMiB": 266.7363815307617
+    },
+    {
+      "elapsedSeconds": 48.832689416,
+      "nativeElapsedSeconds": 89.78768944740295,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 243.87592315673828,
+      "combinedMiB": 274.1738815307617
+    },
+    {
+      "elapsedSeconds": 49.851658375,
+      "nativeElapsedSeconds": 90.80665826797485,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.17279815673828,
+      "combinedMiB": 270.4707565307617
+    },
+    {
+      "elapsedSeconds": 50.919962458,
+      "nativeElapsedSeconds": 91.8749623298645,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.17279815673828,
+      "combinedMiB": 270.4707565307617
+    },
+    {
+      "elapsedSeconds": 51.951789166,
+      "nativeElapsedSeconds": 92.90678906440735,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.17279815673828,
+      "combinedMiB": 270.4707565307617
+    },
+    {
+      "elapsedSeconds": 52.950382583,
+      "nativeElapsedSeconds": 93.90538239479065,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.03217315673828,
+      "combinedMiB": 270.3301315307617
+    },
+    {
+      "elapsedSeconds": 53.956447083,
+      "nativeElapsedSeconds": 94.91144704818726,
+      "phase": "前台",
+      "appMiB": 30.297958374023438,
+      "webContentMiB": 240.03217315673828,
+      "combinedMiB": 270.3301315307617
+    },
+    {
+      "elapsedSeconds": 55.01856775,
+      "nativeElapsedSeconds": 95.9735677242279,
+      "phase": "前台",
+      "appMiB": 30.313583374023438,
+      "webContentMiB": 240.03217315673828,
+      "combinedMiB": 270.3457565307617
+    },
+    {
+      "elapsedSeconds": 56.051203291,
+      "nativeElapsedSeconds": 97.00620317459106,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 240.03217315673828,
+      "combinedMiB": 270.3613815307617
+    },
+    {
+      "elapsedSeconds": 57.051149333,
+      "nativeElapsedSeconds": 98.00614929199219,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.34467315673828,
+      "combinedMiB": 266.6738815307617
+    },
+    {
+      "elapsedSeconds": 58.116002,
+      "nativeElapsedSeconds": 99.07100200653076,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.36029815673828,
+      "combinedMiB": 266.6895065307617
+    },
+    {
+      "elapsedSeconds": 59.152094375,
+      "nativeElapsedSeconds": 100.10709428787231,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 240.04779815673828,
+      "combinedMiB": 270.3770065307617
+    },
+    {
+      "elapsedSeconds": 60.152888083,
+      "nativeElapsedSeconds": 101.10788798332214,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 240.04779815673828,
+      "combinedMiB": 270.3770065307617
+    },
+    {
+      "elapsedSeconds": 61.218310666,
+      "nativeElapsedSeconds": 102.17331051826477,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.36029815673828,
+      "combinedMiB": 266.6895065307617
+    },
+    {
+      "elapsedSeconds": 62.251900916,
+      "nativeElapsedSeconds": 103.20690083503723,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.36029815673828,
+      "combinedMiB": 266.6895065307617
+    },
+    {
+      "elapsedSeconds": 63.316158125,
+      "nativeElapsedSeconds": 104.27115797996521,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.36029815673828,
+      "combinedMiB": 266.6895065307617
+    },
+    {
+      "elapsedSeconds": 64.352993708,
+      "nativeElapsedSeconds": 105.3079936504364,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 240.04779815673828,
+      "combinedMiB": 270.3770065307617
+    },
+    {
+      "elapsedSeconds": 65.352437083,
+      "nativeElapsedSeconds": 106.3074369430542,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 240.04779815673828,
+      "combinedMiB": 270.3770065307617
+    },
+    {
+      "elapsedSeconds": 66.417776708,
+      "nativeElapsedSeconds": 107.37277674674988,
+      "phase": "前台",
+      "appMiB": 30.329208374023438,
+      "webContentMiB": 236.36029815673828,
+      "combinedMiB": 266.6895065307617
+    },
+    {
+      "elapsedSeconds": 67.456859666,
+      "nativeElapsedSeconds": 108.4118595123291,
+      "phase": "前台",
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 240.04779815673828,
+      "combinedMiB": 270.3926315307617
+    },
+    {
+      "elapsedSeconds": 68.528985958,
+      "nativeElapsedSeconds": 109.4839859008789,
+      "phase": "后台",
+      "appMiB": 30.532333374023438,
+      "webContentMiB": 232.67279815673828,
+      "combinedMiB": 263.2051315307617
+    },
+    {
+      "elapsedSeconds": 69.52835975,
+      "nativeElapsedSeconds": 110.4833595752716,
+      "phase": "后台",
+      "appMiB": 30.907333374023438,
+      "webContentMiB": 228.93842315673828,
+      "combinedMiB": 259.8457565307617
+    },
+    {
+      "elapsedSeconds": 70.572631958,
+      "nativeElapsedSeconds": 111.52763199806213,
+      "phase": "后台",
+      "appMiB": 30.813583374023438,
+      "webContentMiB": 181.90717315673828,
+      "combinedMiB": 212.72075653076172
+    },
+    {
+      "elapsedSeconds": 71.626038833,
+      "nativeElapsedSeconds": 112.5810387134552,
+      "phase": "后台",
+      "appMiB": 30.829208374023438,
+      "webContentMiB": 181.90717315673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 72.639970041,
+      "nativeElapsedSeconds": 113.59496998786926,
+      "phase": "后台",
+      "appMiB": 30.829208374023438,
+      "webContentMiB": 181.90717315673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 73.639608708,
+      "nativeElapsedSeconds": 114.59460854530334,
+      "phase": "后台",
+      "appMiB": 30.829208374023438,
+      "webContentMiB": 181.90717315673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 74.704461875,
+      "nativeElapsedSeconds": 115.65946173667908,
+      "phase": "后台",
+      "appMiB": 30.829208374023438,
+      "webContentMiB": 181.90717315673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 92.152103958,
+      "nativeElapsedSeconds": 133.10710382461548,
+      "phase": "前台",
+      "appMiB": 30.860458374023438,
+      "webContentMiB": 211.67279815673828,
+      "combinedMiB": 242.53325653076172
+    },
+    {
+      "elapsedSeconds": 93.151657958,
+      "nativeElapsedSeconds": 134.10665798187256,
+      "phase": "前台",
+      "appMiB": 30.860458374023438,
+      "webContentMiB": 211.71967315673828,
+      "combinedMiB": 242.58013153076172
+    },
+    {
+      "elapsedSeconds": 94.174073666,
+      "nativeElapsedSeconds": 135.12907361984253,
+      "phase": "后台",
+      "appMiB": 30.876083374023438,
+      "webContentMiB": 211.79779815673828,
+      "combinedMiB": 242.67388153076172
+    },
+    {
+      "elapsedSeconds": 95.22642625,
+      "nativeElapsedSeconds": 136.1814262866974,
+      "phase": "后台",
+      "appMiB": 30.876083374023438,
+      "webContentMiB": 200.73529815673828,
+      "combinedMiB": 231.61138153076172
+    },
+    {
+      "elapsedSeconds": 96.248276,
+      "nativeElapsedSeconds": 137.20327591896057,
+      "phase": "后台",
+      "appMiB": 30.922958374023438,
+      "webContentMiB": 181.86029815673828,
+      "combinedMiB": 212.78325653076172
+    },
+    {
+      "elapsedSeconds": 97.292593625,
+      "nativeElapsedSeconds": 138.24759364128113,
+      "phase": "后台",
+      "appMiB": 30.876083374023438,
+      "webContentMiB": 181.86029815673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 98.348096,
+      "nativeElapsedSeconds": 139.30309581756592,
+      "phase": "后台",
+      "appMiB": 30.876083374023438,
+      "webContentMiB": 181.86029815673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 100.443429916,
+      "nativeElapsedSeconds": 141.39842987060547,
+      "phase": "后台",
+      "appMiB": 30.876083374023438,
+      "webContentMiB": 181.86029815673828,
+      "combinedMiB": 212.73638153076172
+    },
+    {
+      "elapsedSeconds": 105.643309208,
+      "nativeElapsedSeconds": 146.59830904006958,
+      "phase": "后台",
+      "appMiB": 30.860458374023438,
+      "webContentMiB": 181.86029815673828,
+      "combinedMiB": 212.72075653076172
+    },
+    {
+      "elapsedSeconds": 120.072161166,
+      "nativeElapsedSeconds": 161.0271611213684,
+      "phase": "前台",
+      "appMiB": 30.938583374023438,
+      "webContentMiB": 211.53217315673828,
+      "combinedMiB": 242.47075653076172
+    }
+  ],
+  "scope": "121秒窗口覆盖2次完整往返（23.258/25.099秒）；第三次63.869秒超出窗口，仅按原生状态确认，不纳入WebContent峰值。",
+  "collectorNote": "结束后的符号解析与保存较慢；不把等待保存时长当有效采样时长"
+}

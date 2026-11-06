@@ -1,0 +1,78 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "phase": "正常交互开始前USB稳定窗口，仅10秒；不代表10次往返全程峰值",
+  "trace": "原始trace仅本机",
+  "samples": [
+    {
+      "timeNs": 98483291,
+      "appMiB": 30.422958374023438,
+      "webContentMiB": 237.50096893310547,
+      "combinedMiB": 267.9239273071289
+    },
+    {
+      "timeNs": 1156593375,
+      "appMiB": 30.438583374023438,
+      "webContentMiB": 233.71971893310547,
+      "combinedMiB": 264.1583023071289
+    },
+    {
+      "timeNs": 2209984958,
+      "appMiB": 30.438583374023438,
+      "webContentMiB": 233.71971893310547,
+      "combinedMiB": 264.1583023071289
+    },
+    {
+      "timeNs": 3271054083,
+      "appMiB": 30.438583374023438,
+      "webContentMiB": 237.40721893310547,
+      "combinedMiB": 267.8458023071289
+    },
+    {
+      "timeNs": 4305967541,
+      "appMiB": 30.438583374023438,
+      "webContentMiB": 237.48534393310547,
+      "combinedMiB": 267.9239273071289
+    },
+    {
+      "timeNs": 5305939541,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 237.42284393310547,
+      "combinedMiB": 267.7676773071289
+    },
+    {
+      "timeNs": 6374723375,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 233.64159393310547,
+      "combinedMiB": 263.9864273071289
+    },
+    {
+      "timeNs": 7405659083,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 237.32909393310547,
+      "combinedMiB": 267.6739273071289
+    },
+    {
+      "timeNs": 8471547083,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 237.34471893310547,
+      "combinedMiB": 267.6895523071289
+    },
+    {
+      "timeNs": 9508085833,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 233.65721893310547,
+      "combinedMiB": 264.0020523071289
+    },
+    {
+      "timeNs": 10572343416,
+      "appMiB": 30.344833374023438,
+      "webContentMiB": 237.43846893310547,
+      "combinedMiB": 267.7833023071289
+    }
+  ],
+  "peakCombinedMiB": 267.9239273071289,
+  "sampleCount": 11,
+  "limitMiB": 450,
+  "verdict": "稳定窗口通过",
+  "fullMemoryCoverage": "未完成"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 2,
+  "builtAt": "2026-10-05T06:46:45.036Z",
+  "commit": "f88ed34ed6b0203a342786b401efcf92016fc9d6",
+  "dirty": true,
+  "sourceHash": "e3f472aa81041f1bd17a98f365a67ed94e99b0e06980b5b558c7b8a972f88177",
+  "sourceHashScope": "web/src + ios/Maomao 源文件 + app.html + vite.ios.config.ts；排除生成的 YardWeb",
+  "modelHashes": {
+    "yard": "cba16d2a9b14d4877511c96ce52a9b793a1d3439aae23b9e33d887fe7b39478f",
+    "tuanzi": "a3ff61d036a3d95ec66a6314bc250b21b78003b3b4d217bfdf8f18bf9a7195c4"
+  },
+  "bindingFingerprint": "9c3736eb4a6fb8ed5be82abe52dcfd9e435c977b08c15b81eb9f027a377008f8",
+  "files": {
+    "assets/tuanzi-3d/tuanzi.blend": {
+      "bytes": 3651114,
+      "sha256": "3b6c871b4f12f18bbe8015db858ec6ed8d8cdf267971b5403a2144ac9e0591db"
+    },
+    "web/public/models/tuanzi.glb": {
+      "bytes": 1541300,
+      "sha256": "a3ff61d036a3d95ec66a6314bc250b21b78003b3b4d217bfdf8f18bf9a7195c4"
+    },
+    "assets/tuanzi-3d/textures/tuanzi_color.png": {
+      "bytes": 1813543,
+      "sha256": "717cd0183727361a1d473e235dc8e6264f287bcd6847e5118001ac6655e1271a"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-14T06:42:43.267Z",
+  "model": "mock",
+  "transport": "真实Hono HTTP/SSE",
+  "database": "独立PostgreSQL + Redis",
+  "device": "iPhone 17 Pro simulator",
+  "results": [
+    {
+      "scenario": "normal",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "disconnect",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "restart",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "completed",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "expired",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": true,
+      "passed": true
+    },
+    {
+      "scenario": "unaccepted",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "reply",
+      "turns": 1,
+      "messages": 2,
+      "status": "completed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "stopped",
+      "turns": 1,
+      "messages": 2,
+      "status": "stopped",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "failed",
+      "turns": 1,
+      "messages": 1,
+      "status": "failed",
+      "snapshot": false,
+      "passed": true
+    },
+    {
+      "scenario": "history",
+      "messages": 125,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "connected": true,
+  "visit": 2,
+  "note": "读了几页书，挺安静的一天。",
+  "scope": "仅一条合成内容验证连接与结构化输出，不代表整体自然度验收"
+}

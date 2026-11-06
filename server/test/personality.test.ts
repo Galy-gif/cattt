@@ -105,9 +105,9 @@ describe('院子里的事实进聊天', () => {
     expect(block).toContain('今天去过：蘑菇屋、草丛。');
     expect(block).toContain('你现在不高兴：团子背对着门口，碗空了一整天');
   });
-  it('世界不可用时不写这一块', async () => {
+  it('世界不可用时明确位置未知，不能凭作息假装已经移动', async () => {
     const { yardBlock } = await import('../src/runtime/yard.ts');
-    expect(yardBlock(null)).toBeNull();
-    expect(yardBlock({ available: false, error: 'world_offline' } as never)).toBeNull();
+    expect(yardBlock(null)).toContain('当前位置和移动结果均未确认');
+    expect(yardBlock({ available: false, error: 'world_offline' } as never)).toContain('不要假装已经移动或到达');
   });
 });

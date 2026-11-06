@@ -1,6 +1,6 @@
 import { and, asc, eq, inArray, isNull, lte, or, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
-import { asyncJobs, boundaries, conversations, turns } from '../db/schema.ts';
+import { asyncJobs, boundaries, cats, conversations, memories, memoryReceipts, messages, turns } from '../db/schema.ts';
 export const JOB_VERSION = 'v1';
 export const MAX_JOB_ATTEMPTS = 3;
 
@@ -58,11 +58,21 @@ export async function executeJob(id: string, execute: (job: typeof asyncJobs.$in
       .catch((error) => console.error(`[outbox ${id}] 续租失败`, error));
   }, 30_000);
   try {
-    const remembered = (await execute(job)) === true;
+    let remembered = (await execute(job)) === true;
     await db.transaction(async (tx) => {
       if (job.kind === 'memory') {
         const [turn] = await tx.select().from(turns).where(eq(turns.id, job.objectId));
-        if (turn) await tx.select().from(conversations).where(eq(conversations.id, turn.conversationId)).for('update');
+        if (turn) {
+          const [conv] = await tx.select().from(conversations).where(eq(conversations.id, turn.conversationId));
+          if (conv) {
+            const [cat] = await tx.select().from(cats).where(eq(cats.id, conv.catId)).for('update');
+            const active = await tx.select().from(memories).innerJoin(messages, eq(messages.id, memories.sourceMessageId))
+              .innerJoin(memoryReceipts, and(eq(memoryReceipts.catId, conv.catId), eq(memoryReceipts.fingerprint, memories.fingerprint), eq(memoryReceipts.sourceMessageId, job.sourceId), eq(memoryReceipts.accepted, true)))
+              .where(and(eq(memories.catId, conv.catId), eq(memories.status, 'active'), eq(memories.explicit, true), eq(messages.contextAllowed, true)));
+            remembered = remembered && !!cat?.learnMemories && active.length > 0;
+          }
+          await tx.select().from(conversations).where(eq(conversations.id, turn.conversationId)).for('update');
+        }
       }
       const applied = await tx.update(asyncJobs).set({ state: 'done', remembered, leaseUntil: null, error: null }).where(owned).returning();
       if (applied.length && job.kind === 'memory') await tx.update(turns).set({ extractedAt: dbNow(), remembered })

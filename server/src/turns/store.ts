@@ -1,6 +1,6 @@
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { db, dbNow } from '../db/client.ts';
-import { conversations, messages, turns } from '../db/schema.ts';
+import { cats, conversations, messages, turns } from '../db/schema.ts';
 import { ensureMemoryJob } from '../jobs/store.ts';
 
 export async function claimTurn(id: string) {
@@ -25,7 +25,15 @@ export type Outcome = { status: 'completed' | 'stopped' | 'failed' | 'superseded
 export async function commitOutcome(id: string, outcome: Outcome) {
   return db.transaction(async (tx) => {
     const [initial] = await tx.select().from(turns).where(eq(turns.id, id));
-    if (initial) await tx.select().from(conversations).where(eq(conversations.id, initial.conversationId)).for('update');
+    let memoryRevision: number | undefined;
+    if (initial) {
+      const [conv] = await tx.select().from(conversations).where(eq(conversations.id, initial.conversationId));
+      if (conv) {
+        const [cat] = await tx.select().from(cats).where(eq(cats.id, conv.catId)).for('update');
+        memoryRevision = cat?.memoryRevision;
+      }
+      await tx.select().from(conversations).where(eq(conversations.id, initial.conversationId)).for('update');
+    }
     const [turn] = await tx.select().from(turns).where(eq(turns.id, id)).for('update');
     if (!turn || !['queued', 'generating'].includes(turn.status)) return { applied: false, turn, catMessageId: turn?.catMessageId ?? null };
     if (outcome.staleBeforeMs !== undefined) {
@@ -33,6 +41,7 @@ export async function commitOutcome(id: string, outcome: Outcome) {
         sql`coalesce(${turns.heartbeatAt}, ${turns.createdAt}) < now() - ${`${outcome.staleBeforeMs} milliseconds`}::interval`));
       if (!stale) return { applied: false, turn, catMessageId: turn.catMessageId };
     }
+    if (turn.contextRevision !== null && turn.contextRevision !== memoryRevision && (outcome.status === 'completed' || outcome.status === 'stopped')) outcome = { status: 'failed', error: 'context_changed' };
     let catMessageId: string | null = null;
     if ((outcome.status === 'completed' || outcome.status === 'stopped') && outcome.text) {
       const [message] = await tx.insert(messages).values({ conversationId: turn.conversationId, role: 'cat', text: outcome.text,

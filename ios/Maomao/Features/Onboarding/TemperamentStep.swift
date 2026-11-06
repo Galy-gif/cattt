@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A2 气质 2/4。四个预设 + 可展开的四条三档细调。
+/// A2 气质 1/3。四个预设 + 可展开的四条三档细调。
 struct TemperamentStep: View {
     @EnvironmentObject private var store: AppStore
 
@@ -35,23 +35,25 @@ struct TemperamentStep: View {
                 .padding(.horizontal, Metrics.gutterOnboarding)
             }
 
-            VStack(spacing: 13) {
-                TextLink(
-                    text: store.traitsOpen ? "收起细调" : "想再细调四个特征",
-                    color: Palette.ink3,
-                    ruleColor: Color(hex: 0xA7B2A0),
-                    underlineGap: 3
-                ) {
+            HStack(alignment: .center) {
+                Button {
                     withAnimation(.easeOut(duration: Metrics.fade)) { store.traitsOpen.toggle() }
-                }
-
-                PrimaryButton {
-                    store.onboardingNext()
                 } label: {
-                    Text("下一步")
-                        .font(Typo.sans(16))
-                        .tracking(track(0.1, 16))
+                    HStack(spacing: 6) {
+                        Text(store.traitsOpen ? "收起细调" : "细调性格")
+                            .font(Typo.sans(13))
+                        Icons.chevronDown(size: IconSize.sm, color: Palette.ink3)
+                            .rotationEffect(.degrees(store.traitsOpen ? 180 : 0))
+                    }
+                    .foregroundStyle(Palette.ink3)
+                    .frame(minHeight: Metrics.minTap)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(PressScaleStyle())
+                .accessibilityValue(store.traitsOpen ? "已展开" : "已收起")
+
+                Spacer(minLength: 16)
+                OnboardingNextButton { store.onboardingNext() }
             }
             .padding(.horizontal, Metrics.gutterOnboarding)
             .padding(.top, 16)
@@ -67,12 +69,12 @@ struct TemperamentStep: View {
                 Text(preset.name)
                     .font(Typo.serif(17))
                     .tracking(track(0.06, 17))
-                    .foregroundStyle(selected ? Palette.accentDark : Palette.ink)
+                    .foregroundStyle(Palette.ink)
 
                 Spacer(minLength: 0)
 
                 if selected {
-                    Icons.check(color: Palette.accent)
+                    Icons.check(color: Palette.ink2)
                 }
             }
 
@@ -87,13 +89,10 @@ struct TemperamentStep: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 15)
         .background(
-            selected ? Palette.paper : Palette.card,
+            selected ? Palette.card : Palette.card.opacity(0.5),
             in: RoundedRectangle(cornerRadius: Metrics.radiusControl)
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: Metrics.radiusControl)
-                .stroke(selected ? Palette.accent : Palette.rule, lineWidth: 1)
-        )
+        .shadow(color: Palette.shadow.opacity(selected ? 1 : 0), radius: 10, y: 4)
         .contentShape(Rectangle())
         .onTapGesture { store.temperament = preset }
         .accessibilityElement(children: .combine)

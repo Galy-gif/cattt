@@ -1,0 +1,808 @@
+{
+  "bed": {
+    "action": "sleep_idle",
+    "activity": "rest",
+    "ready": true,
+    "moving": false,
+    "failure": "",
+    "snapshot": {
+      "position": {
+        "x": -2.6,
+        "y": 0.072,
+        "z": 1.35
+      },
+      "camera": {
+        "shownDistance": 3.8470768123342687,
+        "velocity": 0,
+        "position": [
+          0.75,
+          1.4403980801767076,
+          2.7480475810294207
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.75,
+        "velocityZ": 0,
+        "offset": 0,
+        "focus": [
+          0.75,
+          0.38,
+          -0.95
+        ],
+        "centerZ": -0.95,
+        "distance": 3.8470768123342687,
+        "place": "tree"
+      },
+      "walking": false,
+      "weather": "clear",
+      "activity": {
+        "target": "sleep",
+        "hop": null,
+        "time": 2.4859998092651328,
+        "completions": 0,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "sleep_idle",
+        "state": "sleep_idle",
+        "closure": 0.9999999999999994
+      },
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": true,
+          "degraded": false,
+          "drinkStart": 0,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "bed",
+          "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+          "id": "207124EA-09EC-4768-8FD2-078CD313F220",
+          "activity": "rest",
+          "type": "intent",
+          "pageId": "D3FB9C50-6C69-459A-B542-60FBD703F5CB"
+        }
+      },
+      "restSeconds": 0,
+      "next": 1,
+      "layoutVersion": "open-yard-v3",
+      "facing": -3.141592653589793,
+      "arrived": true,
+      "hour": 12,
+      "shownSlot": "day",
+      "goal": "bed",
+      "slot": null
+    },
+    "recovery": []
+  },
+  "drink": {
+    "action": "stand_up",
+    "activity": "rest",
+    "ready": true,
+    "moving": false,
+    "failure": "",
+    "snapshot": {
+      "home": {
+        "drinkDone": false,
+        "settled": false,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 0,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "activity": "rest",
+          "place": "house",
+          "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+          "id": "3225FCBD-55B5-4BF3-9504-B779C25413CF",
+          "pageId": "DD9E2603-16CD-4E39-A617-73A4C8DDAC7F",
+          "type": "intent"
+        }
+      },
+      "next": 1,
+      "arrived": true,
+      "facing": 2.510311320254937,
+      "slot": null,
+      "shownSlot": "day",
+      "goal": "house",
+      "hour": 12,
+      "restSeconds": 0,
+      "weather": "clear",
+      "camera": {
+        "shownDistance": 3.8470768123342687,
+        "velocity": 0,
+        "position": [
+          0.75,
+          1.4403980801767076,
+          2.7480475810294207
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.75,
+        "velocityZ": 0,
+        "offset": 0,
+        "focus": [
+          0.75,
+          0.38,
+          -0.95
+        ],
+        "centerZ": -0.95,
+        "distance": 3.8470768123342687,
+        "place": "tree"
+      },
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "activity": {
+        "target": "doze",
+        "hop": null,
+        "time": 0,
+        "completions": 0,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "stand_up",
+        "state": "stand_up",
+        "closure": 0
+      },
+      "walking": false,
+      "layoutVersion": "open-yard-v3"
+    },
+    "recovery": [
+      {
+        "before": {
+          "position": {
+            "x": -2.6,
+            "y": 0.072,
+            "z": 1.35
+          },
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "walking": false,
+          "weather": "clear",
+          "activity": {
+            "target": "sleep",
+            "hop": null,
+            "time": 4.483999809265134,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "sleep_idle",
+            "state": "sleep_idle",
+            "closure": 0.9999999999999994
+          },
+          "home": {
+            "drinkDone": false,
+            "settled": true,
+            "execution": {
+              "onBed": true,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "bed",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "207124EA-09EC-4768-8FD2-078CD313F220",
+              "activity": "rest",
+              "type": "intent",
+              "pageId": "D3FB9C50-6C69-459A-B542-60FBD703F5CB"
+            }
+          },
+          "restSeconds": 0,
+          "next": 1,
+          "layoutVersion": "open-yard-v3",
+          "facing": -3.141592653589793,
+          "arrived": true,
+          "hour": 12,
+          "shownSlot": "day",
+          "goal": "bed",
+          "slot": null
+        },
+        "after": {
+          "next": 1,
+          "walking": false,
+          "activity": {
+            "target": "sleep",
+            "hop": null,
+            "time": 4.483999809265134,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "sleep_idle",
+            "state": "sleep_idle",
+            "closure": 0.9999999999999994
+          },
+          "slot": null,
+          "position": {
+            "x": -2.6,
+            "y": 0.072,
+            "z": 1.35
+          },
+          "hour": 12,
+          "restSeconds": 0,
+          "facing": -3.141592653589793,
+          "layoutVersion": "open-yard-v3",
+          "shownSlot": "day",
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "weather": "clear",
+          "arrived": true,
+          "goal": "bed",
+          "home": {
+            "drinkDone": false,
+            "settled": true,
+            "execution": {
+              "onBed": true,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "bed",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "207124EA-09EC-4768-8FD2-078CD313F220",
+              "activity": "rest",
+              "type": "intent",
+              "pageId": "D3FB9C50-6C69-459A-B542-60FBD703F5CB"
+            }
+          }
+        }
+      },
+      {
+        "after": {
+          "position": {
+            "x": -3.3366579166485093,
+            "y": 0,
+            "z": 1.6040922333027101
+          },
+          "layoutVersion": "open-yard-v3",
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "slot": null,
+          "walking": false,
+          "arrived": false,
+          "goal": "house",
+          "restSeconds": 0,
+          "hour": 12,
+          "weather": "clear",
+          "next": 1,
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": false,
+              "stage": "route"
+            },
+            "intent": {
+              "activity": "rest",
+              "place": "house",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "3225FCBD-55B5-4BF3-9504-B779C25413CF",
+              "pageId": "DD9E2603-16CD-4E39-A617-73A4C8DDAC7F",
+              "type": "intent"
+            }
+          },
+          "facing": -2.5179919497877394,
+          "shownSlot": "day",
+          "activity": {
+            "target": null,
+            "hop": null,
+            "time": 0,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "walk",
+            "state": "walk",
+            "closure": 0
+          }
+        },
+        "before": {
+          "arrived": false,
+          "goal": "house",
+          "next": 1,
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": false,
+              "stage": "route"
+            },
+            "intent": {
+              "activity": "rest",
+              "place": "house",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "3225FCBD-55B5-4BF3-9504-B779C25413CF",
+              "pageId": "DD9E2603-16CD-4E39-A617-73A4C8DDAC7F",
+              "type": "intent"
+            }
+          },
+          "shownSlot": "day",
+          "facing": -2.5179919497877394,
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "position": {
+            "x": -3.3366579166485093,
+            "y": 0,
+            "z": 1.6040922333027101
+          },
+          "slot": null,
+          "activity": {
+            "target": null,
+            "hop": null,
+            "time": 0.20467352483159057,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "walk",
+            "state": "walk",
+            "closure": 5.288878443457004e-13
+          },
+          "restSeconds": 0,
+          "hour": 12,
+          "layoutVersion": "open-yard-v3",
+          "walking": false,
+          "weather": "clear"
+        }
+      }
+    ],
+    "validDrinkTest": false,
+    "reason": "固定延时发出喝水时尚未回到屋前；期间离开App，不能视为喝水实测通过"
+  },
+  "doze": {
+    "action": "doze_idle",
+    "activity": "rest",
+    "ready": true,
+    "moving": false,
+    "failure": "",
+    "snapshot": {
+      "hour": 12,
+      "position": {
+        "x": -2.35,
+        "y": 0,
+        "z": -0.55
+      },
+      "camera": {
+        "shownDistance": 3.8470768123342687,
+        "velocity": 0,
+        "position": [
+          0.75,
+          1.4403980801767076,
+          2.7480475810294207
+        ],
+        "targetY": 0.38,
+        "mode": "browsing",
+        "centerX": 0.75,
+        "velocityZ": 0,
+        "offset": 0,
+        "focus": [
+          0.75,
+          0.38,
+          -0.95
+        ],
+        "centerZ": -0.95,
+        "distance": 3.8470768123342687,
+        "place": "tree"
+      },
+      "next": 1,
+      "weather": "clear",
+      "layoutVersion": "open-yard-v3",
+      "slot": null,
+      "facing": 2.510311320254937,
+      "arrived": true,
+      "goal": "house",
+      "shownSlot": "day",
+      "restSeconds": 0,
+      "home": {
+        "drinkDone": false,
+        "settled": true,
+        "execution": {
+          "onBed": false,
+          "degraded": false,
+          "drinkStart": 0,
+          "applied": true,
+          "stage": "active"
+        },
+        "intent": {
+          "place": "house",
+          "id": "3E1EF304-E9D9-418C-8001-99DE00063FA1",
+          "activity": "rest",
+          "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+          "pageId": "6B36A6D3-D4BC-44FD-91AC-5FEDC6C87710",
+          "type": "intent"
+        }
+      },
+      "activity": {
+        "target": "doze",
+        "hop": null,
+        "time": 2.949999999999994,
+        "completions": 0,
+        "seconds": 0,
+        "eligible": false,
+        "clip": "doze_idle",
+        "state": "doze_idle",
+        "closure": 0.9999924955292431
+      },
+      "walking": false
+    },
+    "recovery": [
+      {
+        "before": {
+          "position": {
+            "x": -2.6,
+            "y": 0.072,
+            "z": 1.35
+          },
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "walking": false,
+          "weather": "clear",
+          "activity": {
+            "target": "sleep",
+            "hop": null,
+            "time": 4.483999809265134,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "sleep_idle",
+            "state": "sleep_idle",
+            "closure": 0.9999999999999994
+          },
+          "home": {
+            "drinkDone": false,
+            "settled": true,
+            "execution": {
+              "onBed": true,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "bed",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "207124EA-09EC-4768-8FD2-078CD313F220",
+              "activity": "rest",
+              "type": "intent",
+              "pageId": "D3FB9C50-6C69-459A-B542-60FBD703F5CB"
+            }
+          },
+          "restSeconds": 0,
+          "next": 1,
+          "layoutVersion": "open-yard-v3",
+          "facing": -3.141592653589793,
+          "arrived": true,
+          "hour": 12,
+          "shownSlot": "day",
+          "goal": "bed",
+          "slot": null
+        },
+        "after": {
+          "next": 1,
+          "walking": false,
+          "activity": {
+            "target": "sleep",
+            "hop": null,
+            "time": 4.483999809265134,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "sleep_idle",
+            "state": "sleep_idle",
+            "closure": 0.9999999999999994
+          },
+          "slot": null,
+          "position": {
+            "x": -2.6,
+            "y": 0.072,
+            "z": 1.35
+          },
+          "hour": 12,
+          "restSeconds": 0,
+          "facing": -3.141592653589793,
+          "layoutVersion": "open-yard-v3",
+          "shownSlot": "day",
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "weather": "clear",
+          "arrived": true,
+          "goal": "bed",
+          "home": {
+            "drinkDone": false,
+            "settled": true,
+            "execution": {
+              "onBed": true,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": true,
+              "stage": "active"
+            },
+            "intent": {
+              "place": "bed",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "207124EA-09EC-4768-8FD2-078CD313F220",
+              "activity": "rest",
+              "type": "intent",
+              "pageId": "D3FB9C50-6C69-459A-B542-60FBD703F5CB"
+            }
+          }
+        }
+      },
+      {
+        "after": {
+          "position": {
+            "x": -3.3366579166485093,
+            "y": 0,
+            "z": 1.6040922333027101
+          },
+          "layoutVersion": "open-yard-v3",
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "slot": null,
+          "walking": false,
+          "arrived": false,
+          "goal": "house",
+          "restSeconds": 0,
+          "hour": 12,
+          "weather": "clear",
+          "next": 1,
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": false,
+              "stage": "route"
+            },
+            "intent": {
+              "activity": "rest",
+              "place": "house",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "3225FCBD-55B5-4BF3-9504-B779C25413CF",
+              "pageId": "DD9E2603-16CD-4E39-A617-73A4C8DDAC7F",
+              "type": "intent"
+            }
+          },
+          "facing": -2.5179919497877394,
+          "shownSlot": "day",
+          "activity": {
+            "target": null,
+            "hop": null,
+            "time": 0,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "walk",
+            "state": "walk",
+            "closure": 0
+          }
+        },
+        "before": {
+          "arrived": false,
+          "goal": "house",
+          "next": 1,
+          "home": {
+            "drinkDone": false,
+            "settled": false,
+            "execution": {
+              "onBed": false,
+              "degraded": false,
+              "drinkStart": 0,
+              "applied": false,
+              "stage": "route"
+            },
+            "intent": {
+              "activity": "rest",
+              "place": "house",
+              "runId": "0A130A4B-8EE4-4A16-9BEB-DAC2D1DB09B4",
+              "id": "3225FCBD-55B5-4BF3-9504-B779C25413CF",
+              "pageId": "DD9E2603-16CD-4E39-A617-73A4C8DDAC7F",
+              "type": "intent"
+            }
+          },
+          "shownSlot": "day",
+          "facing": -2.5179919497877394,
+          "camera": {
+            "shownDistance": 3.8470768123342687,
+            "velocity": 0,
+            "position": [
+              0.75,
+              1.4403980801767076,
+              2.7480475810294207
+            ],
+            "targetY": 0.38,
+            "mode": "browsing",
+            "centerX": 0.75,
+            "velocityZ": 0,
+            "offset": 0,
+            "focus": [
+              0.75,
+              0.38,
+              -0.95
+            ],
+            "centerZ": -0.95,
+            "distance": 3.8470768123342687,
+            "place": "tree"
+          },
+          "position": {
+            "x": -3.3366579166485093,
+            "y": 0,
+            "z": 1.6040922333027101
+          },
+          "slot": null,
+          "activity": {
+            "target": null,
+            "hop": null,
+            "time": 0.20467352483159057,
+            "completions": 0,
+            "seconds": 0,
+            "eligible": false,
+            "clip": "walk",
+            "state": "walk",
+            "closure": 5.288878443457004e-13
+          },
+          "restSeconds": 0,
+          "hour": 12,
+          "layoutVersion": "open-yard-v3",
+          "walking": false,
+          "weather": "clear"
+        }
+      }
+    ]
+  }
+}

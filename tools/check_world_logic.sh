@@ -9,7 +9,7 @@ for t in ios/Tests/*.swift; do
   name=$(basename "$t" .swift)
   swiftc ios/Maomao/Model/WorldScene.swift ios/Maomao/Model/WorldInteraction.swift \
     ios/Maomao/Model/WorldCamera.swift ios/Maomao/Model/WorldMood.swift \
-    ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift \
+    ios/Maomao/Model/WorldDepth.swift ios/Maomao/Model/Personality.swift ios/Maomao/Model/YardIntent.swift \
     "$t" -o "$d/$name"
   "$d/$name" assets/scenes/courtyard-v4/scene.json
   echo "  ok  $name"

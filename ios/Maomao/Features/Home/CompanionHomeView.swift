@@ -12,14 +12,24 @@ struct CompanionHomeView: View {
     private var pillTop: CGFloat { max(58, insets.top + 5) }
 
     var body: some View {
-        WorldView()
+        worldSurface
             .overlay(alignment: .top) { statusBar }
             .overlay(alignment: .topTrailing) { profileButton }
             .overlay(alignment: .topLeading) { LocationRail() }
             .overlay(alignment: .bottom) { topicCard }
             .overlay(alignment: .bottomLeading) { findCatLink }
             .overlay(alignment: .bottomTrailing) { chatButton }
+            .coordinateSpace(name: "yard-home")
+            .onPreferenceChange(YardControlFrames.self) { frames in
+                let rects = frames.values.map { ["x": $0.minX, "y": $0.minY, "width": $0.width, "height": $0.height] }
+                store.world.yard3D?.send(["type": "controls", "rects": rects])
+            }
             .ignoresSafeArea()
+    }
+
+    @ViewBuilder private var worldSurface: some View {
+        if store.world.uses3D { Color.clear }
+        else { WorldView() }
     }
 
     // MARK: - 顶部状态条
@@ -28,13 +38,14 @@ struct CompanionHomeView: View {
         Text(store.statusText)
             .font(Typo.sans(12.5))
             .tracking(track(0.06, 12.5))
-            .foregroundStyle(Palette.ink2)
+            .foregroundStyle(store.dayPhase.isNight && store.world.uses3D ? Color.white.opacity(0.92) : Palette.ink2)
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 14)
             .padding(.vertical, 6)
             // 和 Tab 栏同一层玻璃，只是收成一颗胶囊。
             .liquidGlass(in: Capsule(style: .continuous))
+            .yardControl("status")
             // 右上角头像钮占掉 16 + 44，留 64 两边对称，最长那句也不碰它。
             .padding(.horizontal, 64)
             .padding(.top, pillTop)
@@ -50,14 +61,13 @@ struct CompanionHomeView: View {
             store.showsMe = true
         } label: {
             IconTile(size: Metrics.iconSlotLg, circular: true, glass: true) {
-                Image("tuanzi-canonical")
-                    .resizable()
-                    .scaledToFit()
+                AnimatedCatPortrait(animated: !store.showsMe && !store.mailboxOpen && store.onboarding == nil && store.screen == .home)
                     .padding(5)
             }
             .contentShape(Circle())
         }
         .buttonStyle(PressScaleStyle())
+        .yardControl("profile")
         .padding(.trailing, 16)
         // 胶囊高约 28、钮 44：钮顶比胶囊顶高 8，中线齐。
         .padding(.top, pillTop - 8)
@@ -105,6 +115,7 @@ struct CompanionHomeView: View {
                 RoundedRectangle(cornerRadius: Metrics.radiusCard)
                     .stroke(Palette.onSceneTopicRule, lineWidth: 1)
             )
+            .yardControl("topic")
             .padding(.horizontal, 16)
             // 压在「聊会儿」上方：底边距 + 胶囊热区 46 + 16。
             .padding(.bottom, bottomClearance + Metrics.minTap + 16)
@@ -128,6 +139,7 @@ struct CompanionHomeView: View {
                     .contentShape(Circle())
             }
             .buttonStyle(PressScaleStyle())
+            .yardControl("findCat")
             .padding(.leading, 18)
             // 和右边「聊会儿」同一条水平线：它 42 高，胶囊热区 46，差 2。
             .padding(.bottom, bottomClearance + 2)
@@ -158,6 +170,7 @@ struct CompanionHomeView: View {
                 .font(Typo.sans(15))
                 .tracking(track(0.08, 15))
         }
+        .yardControl("chat")
         .padding(.trailing, 18)
         .padding(.bottom, bottomClearance)
     }

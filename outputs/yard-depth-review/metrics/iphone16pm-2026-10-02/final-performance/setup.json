@@ -1,0 +1,17 @@
+{
+  "sourceHash": "2525cebfa7b8108d97f07bed599be98f3d3249fe29734b6cb66aace8d3ccaa27",
+  "runId": "69B4B8D5-C8A6-41E9-A58A-4B0C75FF1663",
+  "performanceSetup": {
+    "active": true,
+    "appFootprintMiB": 30.047935485839844,
+    "at": 3.0016720294952393,
+    "batteryState": "unplugged",
+    "brightness": 0.6000000238418579,
+    "lowPowerMode": false,
+    "thermal": "fair"
+  },
+  "setup": "用户确认已拔线；亮度/充电/低电量/热状态由原生采样核对",
+  "ambientTemperature": "按已提示的普通室温条件进行；无温度计读数",
+  "captureSetup": "模拟器已关闭，USB录像预览已关闭；内存采样已结束，仅Mac端解析保存仍进行中",
+  "memoryCollectorState": "Recording completed. Saving output file…，导出仍返回Document Missing Template；待文件完成，未判往返内存通过"
+}

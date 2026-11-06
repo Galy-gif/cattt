@@ -1,0 +1,7 @@
+{
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "connected": false,
+  "code": "diary_model_auth",
+  "scope": "未回退mock，未标记已读或生成假留言"
+}
