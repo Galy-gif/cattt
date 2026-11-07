@@ -78,6 +78,7 @@ async function boot() {
   let scaleTestTimer: ReturnType<typeof setInterval> | undefined;
   const resolutionEvents: { phase: string; scale: number; reason: string; at: number }[] = [];
   const visitedNodes = new Set<string>();
+  const nodeEntries = Object.entries(NODES);
   let trajectoryMinClearance = Infinity, trajectoryViolations = 0, colliding = false;
   renderer.onScaleEvent = event => {
     const record = { ...event, at: event.at - started };
@@ -93,6 +94,7 @@ async function boot() {
   let restored = false;
   let lastHomeState = '';
   const raycaster = new THREE.Raycaster();
+  const catScreenPosition = new THREE.Vector3();
   const tap = (x: number, y: number) => {
     raycaster.setFromCamera(new THREE.Vector2(x / renderer.width * 2 - 1, 1 - y / renderer.height * 2), follow.camera);
     const target = pickTarget(raycaster, world.scene, cat.root);
@@ -195,7 +197,7 @@ async function boot() {
       cat!.root.traverse(object => { const mesh = object as THREE.SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.update(); });
       follow.setSubjectSize(new THREE.Box3().setFromObject(cat!.root, true).getSize(new THREE.Vector3()));
     }
-    for (const [id, p] of Object.entries(NODES)) if (Math.hypot(p.x - cat!.position.x, p.z - cat!.position.z) < .09) visitedNodes.add(id);
+    for (const [id, p] of nodeEntries) if (Math.hypot(p.x - cat!.position.x, p.z - cat!.position.z) < .09) visitedNodes.add(id);
     const gap = minimumClearance(cat!.position, behavior?.supportCollider);
     trajectoryMinClearance = Math.min(trajectoryMinClearance, gap.clearance);
     if (gap.clearance < 0 && !colliding) {
@@ -222,11 +224,11 @@ async function boot() {
     }
     frameIndex++;
     if (behavior) {
-      const center = new THREE.Vector3(cat!.position.x, cat!.position.y + .2, cat!.position.z).project(follow.camera);
+      const center = catScreenPosition.set(cat!.position.x, cat!.position.y + .2, cat!.position.z).project(follow.camera);
       const state = { id: behavior.intent.id, nearest: walker.arrived ? walker.goal : walker.nearest,
         moving: behavior.moving, settled: behavior.settled, action: cat!.state, activity: behavior.intent.activity,
         fallback: behavior.fallback, drinkDone: behavior.drinkDone, offscreen: Math.abs(center.x) > 1.1 || Math.abs(center.y) > 1.1 || center.z > 1,
-        cameraMode: follow.snapshot().mode };
+        cameraMode: follow.mode };
       const json = JSON.stringify(state);
       if (json !== lastHomeState) { lastHomeState = json; post({ type: 'cat', ...state, snapshot: snapshot() }); }
     }
@@ -237,7 +239,7 @@ async function boot() {
     world.setFlowerPaw(cat!.flowerPaw,cat!.state);
     world.setNestLoad(cat!.nestLoad);
     world.update(dt, atmosphere, follow.camera, false, follow.reduceMotion);
-    cat!.applyNestSupport(world.nestTransform);
+    if (cat!.nesting) cat!.applyNestSupport(world.nestTransform);
     renderer.gl.toneMappingExposure = atmosphere.current.exposure;
     applyCatGlow(cat!, atmosphere.current.catGlow);
     if (walking && walker.arrived) {

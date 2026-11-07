@@ -14,6 +14,31 @@ function make(w = 440, h = 956) {
 }
 function settle(f, target = cat) { for (let i = 0; i < 240; i++) f.update(target, 1 / 60); }
 
+test('跟随和平移只更新镜头姿态；安全区、缩放偏移变化才重算投影', () => {
+  const f = make();
+  const original = f.camera.updateProjectionMatrix.bind(f.camera);
+  let updates = 0;
+  f.camera.updateProjectionMatrix = () => { updates++; original(); };
+  const projection = f.camera.projectionMatrix.toArray();
+  for (let i = 0; i < 120; i++) f.update({ x: i / 120, y: 0, z: .2 }, 1 / 60);
+  assert.equal(updates, 0);
+  assert.deepEqual(f.camera.projectionMatrix.toArray(), projection);
+  assert.notEqual(f.camera.position.x, 0);
+  f.beginBrowse(); f.dragBy(.2, .1); f.endBrowse(true); settle(f);
+  assert.equal(updates, 0);
+  f.resize(390, 844, { top: 120, bottom: 200, left: 64, right: 18 });
+  assert.ok(updates > 0);
+  assert.notDeepEqual(f.camera.projectionMatrix.toArray(), projection);
+  f.setControls([{ x: 8, y: 200, width: 44, height: 200 }]);
+  const beforeZoom = updates;
+  f.zoomBy(.8, 240, 450); f.endBrowse(true);
+  assert.ok(updates > beforeZoom);
+  const view = f.camera.view;
+  const reference = new THREE.PerspectiveCamera(f.camera.fov, f.camera.aspect, f.camera.near, f.camera.far);
+  reference.setViewOffset(view.fullWidth, view.fullHeight, view.offsetX, view.offsetY, view.width, view.height);
+  assert.deepEqual(f.camera.projectionMatrix.toArray(), reference.projectionMatrix.toArray());
+});
+
 test('全景真实物件边界在两种竖屏可用区内，尺寸变化后仍完整', () => {
   for (const [w, h] of [[440, 956], [402, 874]]) {
     const f = make(w, h); f.overview(); settle(f);

@@ -259,8 +259,14 @@ export class FollowCamera {
   private apply() {
     if (this.portrait) {
       const t = !this.comparison && this.controls.length ? THREE.MathUtils.clamp((this.shownDistance - COMPOSITION.dailyDistance) / Math.max(.01, this.maxDistance - COMPOSITION.dailyDistance), 0, 1) : 0;
-      this.camera.setViewOffset(this.width, this.height, (this.insets.right - this.insets.left) / 2 * (1 - t),
-        (this.insets.bottom - this.insets.top) / 2, this.width, this.height);
+      const offsetX = (this.insets.right - this.insets.left) / 2 * (1 - t);
+      const offsetY = (this.insets.bottom - this.insets.top) / 2;
+      const view = this.camera.view;
+      // 平移/跟随只改外参；相同裁切不必每帧重算投影矩阵及其逆矩阵。
+      if (!view?.enabled || view.fullWidth !== this.width || view.fullHeight !== this.height ||
+          view.offsetX !== offsetX || view.offsetY !== offsetY || view.width !== this.width || view.height !== this.height) {
+        this.camera.setViewOffset(this.width, this.height, offsetX, offsetY, this.width, this.height);
+      }
     }
     this.camera.position.copy(this.position); this.camera.lookAt(this.focus); this.camera.updateMatrixWorld();
   }

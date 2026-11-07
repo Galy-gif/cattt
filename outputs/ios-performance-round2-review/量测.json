@@ -1,0 +1,153 @@
+{
+  "baselineCommit": "2e5f15e890ec43773fa2364fab190ce89f816ec1",
+  "benchmark": {
+    "node": "26.5.0",
+    "viewport": [
+      402,
+      874
+    ],
+    "framesPerRun": 72000,
+    "runs": 7
+  },
+  "cameraBefore": [
+    {
+      "ms": 44.565499999999986,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 45.00583299999994,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 46.07650000000001,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 62.77225000000004,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 66.67058399999999,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 66.905958,
+      "projectionUpdates": 72000
+    },
+    {
+      "ms": 83.149542,
+      "projectionUpdates": 72000
+    }
+  ],
+  "cameraAfter": [
+    {
+      "ms": 27.463000000000022,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 28.189707999999968,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 28.713250000000016,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 29.948542000000003,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 31.50475,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 32.881,
+      "projectionUpdates": 0
+    },
+    {
+      "ms": 40.71916700000001,
+      "projectionUpdates": 0
+    }
+  ],
+  "browserBefore": {
+    "world": {
+      "calls": 302,
+      "ms": 113.40000012516975
+    },
+    "cat": {
+      "calls": 302,
+      "ms": 243.40000039339066
+    },
+    "camera": {
+      "calls": 302,
+      "ms": 29.09999993443489
+    },
+    "renderer": {
+      "calls": 302,
+      "ms": 1259.900000065565
+    },
+    "nest": {
+      "calls": 302,
+      "ms": 3.9000000059604645
+    }
+  },
+  "browserAfter": {
+    "projectionUpdatesDuringFollow": 0,
+    "world": {
+      "calls": 301,
+      "ms": 86.09999987483025
+    },
+    "cat": {
+      "calls": 301,
+      "ms": 107.8000001013279
+    },
+    "camera": {
+      "calls": 301,
+      "ms": 42.8999999165535
+    },
+    "renderer": {
+      "calls": 301,
+      "ms": 1585.9000002145767
+    },
+    "nest": {
+      "calls": 0,
+      "ms": 0
+    }
+  },
+  "browserTimingComparable": false,
+  "fixedRouteNodes": 274,
+  "native": {
+    "nest-r2": {
+      "current": 1,
+      "target": 1,
+      "action": "nest_watch",
+      "webReady": true,
+      "webSurfaceReady": true,
+      "failure": ""
+    },
+    "browse-r2": {
+      "current": 1,
+      "target": 1,
+      "action": "nest_watch",
+      "webReady": true,
+      "webSurfaceReady": true,
+      "failure": ""
+    },
+    "recovered-r2": {
+      "current": 1,
+      "target": 1,
+      "action": "nest_watch",
+      "webReady": true,
+      "webSurfaceReady": true,
+      "failure": ""
+    },
+    "snapshotRestoredExactly": true
+  },
+  "firstBatchCI": {
+    "runId": 42353740803,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "repo-web-server": "success",
+    "swift-and-shared-rules": "cancelled"
+  }
+}
