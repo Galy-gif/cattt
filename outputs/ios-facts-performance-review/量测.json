@@ -1,0 +1,135 @@
+{
+  "baselineCommit": "caf5113ea83f00c0b796baade3ff0b70dec9a52f",
+  "environment": {
+    "xcode": "27.2",
+    "device": "iPhone 18 Pro Simulator",
+    "iOS": "27.0",
+    "configuration": "Debug",
+    "debugHour": 12,
+    "weather": "clear",
+    "bowlDuringWindows": "empty"
+  },
+  "windows": {
+    "home-before": {
+      "notificationsPerSecond": 0,
+      "surfaceReady": true,
+      "cameraMode": "following",
+      "storeNotifications": 0,
+      "uses3D": true,
+      "seconds": 5.182913833355997,
+      "factsChecks": 307,
+      "screen": "home",
+      "factsChecksPerSecond": 59.233089700280416
+    },
+    "home-after": {
+      "storeNotifications": 0,
+      "surfaceReady": true,
+      "seconds": 5.132502624997869,
+      "uses3D": true,
+      "cameraMode": "following",
+      "screen": "home",
+      "factsChecks": 5,
+      "notificationsPerSecond": 0,
+      "factsChecksPerSecond": 0.9741836225562721
+    },
+    "chat-before": {
+      "seconds": 5.224019999994198,
+      "storeNotifications": 0,
+      "factsChecks": 312,
+      "uses3D": true,
+      "notificationsPerSecond": 0,
+      "cameraMode": "following",
+      "surfaceReady": true,
+      "screen": "chat",
+      "factsChecksPerSecond": 59.72412050496486
+    },
+    "chat-after": {
+      "seconds": 5.144292791665066,
+      "cameraMode": "following",
+      "factsChecks": 5,
+      "storeNotifications": 0,
+      "notificationsPerSecond": 0,
+      "screen": "chat",
+      "uses3D": true,
+      "surfaceReady": true,
+      "factsChecksPerSecond": 0.9719508983044562
+    }
+  },
+  "contracts": {
+    "before": {
+      "mailRaisedImmediately": false,
+      "emptiedImmediately": true,
+      "mailLoweredImmediately": true,
+      "filledImmediately": false,
+      "expiredWaterRefreshed": true
+    },
+    "after": {
+      "emptiedImmediately": true,
+      "mailLoweredImmediately": true,
+      "filledImmediately": true,
+      "expiredWaterRefreshed": true,
+      "mailRaisedImmediately": true
+    }
+  },
+  "recovery": {
+    "kind": "content-process-termination-callback-injection",
+    "snapshotEqual": true,
+    "webReady": true,
+    "webSurfaceReady": true,
+    "business": {
+      "pouring": 0,
+      "bowlFilledToday": true,
+      "lastDrinkAt": "",
+      "mailboxOpen": false,
+      "screen": "home",
+      "legacyTextureCount": 0,
+      "showsMe": false,
+      "hasMail": true,
+      "mailboxAnchor": [
+        60,
+        520
+      ]
+    }
+  },
+  "reopenedMail": {
+    "pouring": 0,
+    "showsMe": false,
+    "mailboxAnchor": [
+      60,
+      520
+    ],
+    "mailboxOpen": false,
+    "legacyTextureCount": 0,
+    "bowlFilledToday": true,
+    "hasMail": true,
+    "lastDrinkAt": "2026-11-07T04:00:00Z",
+    "screen": "home"
+  },
+  "openedMailbox": {
+    "bowlFilledToday": true,
+    "pouring": 0,
+    "hasMail": false,
+    "lastDrinkAt": "2026-11-07T04:00:00Z",
+    "showsMe": false,
+    "mailboxAnchor": [
+      44,
+      490
+    ],
+    "screen": "home",
+    "mailboxOpen": true,
+    "legacyTextureCount": 0
+  },
+  "checks": {
+    "allChecks": "passed",
+    "debugBuild": "passed",
+    "releaseBuild": "passed",
+    "diaryContentAndPrivacyChecked": true
+  },
+  "fourthBatchCI": {
+    "runId": 42360128154,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "repo-web-server": "success",
+    "swift-and-shared-rules": "cancelled"
+  }
+}

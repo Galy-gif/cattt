@@ -46,7 +46,7 @@ final class AppStore: ObservableObject {
     @Published var weather: Weather = .clear
     @Published var atmosphere = AtmosphereParams.day
     @Published var mood = MoodEvaluation.calm
-    @Published var bowlFilledAt: Date?
+    @Published var bowlFilledAt: Date? { didSet { syncHomeFacts() } }
     @Published var lastDrinkAt: Date?
     /// 倒水动画进度：1 刚开始，0 结束；0.5 是"碗已经满了，水晃一下"。
     @Published var pouring = 0.0
@@ -246,7 +246,7 @@ final class AppStore: ObservableObject {
     @Published var diaryFilter: DiaryFilter = .all
     var shownEntries: [DiaryEntry] { diaryEntries(on: diaryDay).filter(diaryFilter.matches) }
     /// 信箱里有新东西（团子来看过 / 留了一句）：旗子立起来。打开信箱就放下。
-    @Published var hasMail = false
+    @Published var hasMail = false { didSet { syncHomeFacts() } }
     /// 日记纸是否从信箱里抽出来了。
     @Published var mailboxOpen = false
     /// 抽纸的起点：信箱投信口的屏幕坐标，点信箱时由 `WorldView` 量好带进来。

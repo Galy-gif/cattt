@@ -13,6 +13,7 @@ import Combine
 /// 性格：temperament:slow|close|quiet|curious、trait:energy|initiative|directness|closeness=0|1|2、days:N（假装领养了 N 天）、greet（当成刚打开 App）；
 /// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
 /// performance:标签（采集五秒 Store 通知数，写入 Documents/performance-标签.json）；
+/// factsCheck:标签（水碗/邮件即时同步与跨日刷新检查，结束后恢复原内存状态）；
 /// datePerformance:标签（原生日期函数批量基准，写入 Documents/date-performance-标签.json）；
 /// diaryReadPerformance:标签（日记只读路径基准及失效检查；样本不落盘）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
@@ -27,6 +28,35 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "factsCheck":
+                    guard let runtime = store.world.yard3D else { return }
+                    let bowl = store.bowlFilledAt, mail = store.hasMail
+                    defer { store.bowlFilledAt = bowl; store.hasMail = mail; store.conditionsClock = 1 }
+                    @MainActor func configured(full: Bool, mail: Bool) -> Bool {
+                        let facts = runtime.web.homeConfiguration["facts"]
+                        return facts?["full"] as? Bool == full && facts?["mail"] as? Bool == mail
+                    }
+                    store.bowlFilledAt = nil; store.hasMail = false
+                    store.bowlFilledAt = store.currentDate()
+                    let filled = configured(full: true, mail: false)
+                    store.bowlFilledAt = nil
+                    let emptied = configured(full: false, mail: false)
+                    store.hasMail = true
+                    let raised = configured(full: false, mail: true)
+                    store.hasMail = false
+                    let lowered = configured(full: false, mail: false)
+                    // 模拟已过归档日却仍留着满碗的网页事实；每秒刷新必须纠正。
+                    store.bowlFilledAt = store.currentDate().addingTimeInterval(-86400)
+                    runtime.facts(full: true, mail: false)
+                    store.conditionsClock = 1; store.advanceConditions(0)
+                    let values = ["filledImmediately": filled, "emptiedImmediately": emptied,
+                                  "mailRaisedImmediately": raised, "mailLoweredImmediately": lowered,
+                                  "expiredWaterRefreshed": configured(full: false, mail: false)]
+                    let label = arg.filter { $0.isLetter || $0.isNumber || $0 == "-" }
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let data = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted) {
+                        try? data.write(to: dir.appendingPathComponent("facts-check-" + label + ".json"), options: .atomic)
+                    }
                 case "diaryReadPerformance":
                     // 合成 1,000 条 / 100 天；计量 Store 读取，包含写入派生数据的成本。
                     let original = store.entries, selected = store.selectedDiaryDay, filter = store.diaryFilter
@@ -95,6 +125,7 @@ enum DebugScript {
                     // 五秒实测真实 Store 通知；不把通知数冒充 SwiftUI 重绘次数。
                     var updates = 0
                     let observation = store.objectWillChange.sink { updates += 1 }
+                    let factsBefore = store.world.yard3D?.factsChecks ?? 0
                     let started = ProcessInfo.processInfo.systemUptime
                     try? await Task.sleep(for: .seconds(5))
                     observation.cancel()
@@ -103,6 +134,7 @@ enum DebugScript {
                     let values: [String: Any] = [
                         "seconds": seconds, "storeNotifications": updates,
                         "notificationsPerSecond": Double(updates) / seconds,
+                        "factsChecks": (store.world.yard3D?.factsChecks ?? 0) - factsBefore,
                         "uses3D": store.world.uses3D,
                         "surfaceReady": store.world.yard3D?.web.surfaceReady == true,
                         "screen": store.screen == .home ? "home" : "chat",

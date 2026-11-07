@@ -17,6 +17,9 @@ final class YardRuntime {
     private var started = false
     private var active = false
     private var lastFacts = ""
+    #if DEBUG
+    private(set) var factsChecks = 0
+    #endif
     private var lastAtmosphere = ""
     private var coverTask: Task<Void, Never>?
     private var coverContext = ""
@@ -58,6 +61,9 @@ final class YardRuntime {
         send(value.json)
     }
     func facts(full: Bool, mail: Bool) {
+        #if DEBUG
+        factsChecks += 1
+        #endif
         let key = "\(full):\(mail)"
         guard key != lastFacts else { return }; lastFacts = key
         send(["type": "facts", "full": full, "mail": mail])
