@@ -2,22 +2,30 @@ import Foundation
 
 enum DiaryDay {
     static func key(for date: Date, timeZone: TimeZone = .current) -> String {
-        let f = DateFormatter()
-        f.calendar = Calendar(identifier: .gregorian)
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.timeZone = timeZone
-        f.dateFormat = "yyyy-MM-dd"
-        return f.string(from: date)
+        // FormatStyle 是值类型，Foundation 复用内部格式化器；不在每秒检查和视图读取时重建。
+        date.formatted(Date.ISO8601FormatStyle(timeZone: timeZone).year().month().day())
     }
 
     static func label(_ key: String) -> String {
-        let f = DateFormatter()
-        f.calendar = Calendar(identifier: .gregorian)
-        f.locale = Locale(identifier: "zh_CN")
-        f.dateFormat = "yyyy-MM-dd"
-        guard let date = f.date(from: key) else { return key }
-        f.dateFormat = "yyyy年M月d日 · EEEE"
-        return f.string(from: date)
+        let calendar = Calendar(identifier: .gregorian)
+        let locale = Locale(identifier: "zh_CN")
+        let zone = TimeZone.current
+        let parser = Date.ParseStrategy(format: "\(year: .defaultDigits)-\(month: .twoDigits)-\(day: .twoDigits)",
+                                        locale: locale, timeZone: zone, calendar: calendar, isLenient: false)
+        let date: Date
+        if let parsed = try? parser.parse(key) {
+            date = parsed
+        } else {
+            // 保留旧版非标准日期处理，例如二月三十日规范到三月二日。
+            let legacy = DateFormatter()
+            legacy.calendar = calendar; legacy.locale = locale; legacy.timeZone = zone
+            legacy.dateFormat = "yyyy-MM-dd"
+            guard let parsed = legacy.date(from: key) else { return key }
+            date = parsed
+        }
+        return date.formatted(Date.VerbatimFormatStyle(
+            format: "\(year: .defaultDigits)年\(month: .defaultDigits)月\(day: .defaultDigits)日 · \(weekday: .wide)",
+            locale: locale, timeZone: zone, calendar: calendar))
     }
 }
 

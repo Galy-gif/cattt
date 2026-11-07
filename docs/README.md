@@ -15,6 +15,7 @@
 
 | 文件 | 定了什么 |
 |---|---|
+| [决策/2026-11-07-iOS原生日期处理优化.md](决策/2026-11-07-iOS原生日期处理优化.md) | 第二批已推送 main；第三批减少 Swift 日期格式化器重复构造，保留时区、中文和旧解析行为 |
 | [决策/2026-11-07-iOS帧循环优化.md](决策/2026-11-07-iOS帧循环优化.md) | 第一批已推送 main；第二批减少镜头投影重算、路点枚举与无用树窝支撑计算 |
 | [决策/2026-11-07-iOS性能优化.md](决策/2026-11-07-iOS性能优化.md) | 3D 跟随只发布地点变化；详细帧采样限调试/验收；保留恢复快照，增加通知计数探针 |
 | [决策/2026-11-06-统一提交与活动协议对齐.md](决策/2026-11-06-统一提交与活动协议对齐.md) | 用户授权统一提交推送；补齐后端正式活动枚举，增加跨端活动协议回归 |
@@ -57,6 +58,7 @@
 
 | 文件 | 是什么 | 状态 |
 |---|---|---|
+| [../outputs/ios-native-performance-review/验收报告.md](../outputs/ios-native-performance-review/验收报告.md) | 第三批 iOS 原生日期处理性能 | 模拟器批量基准、日期/存储断言、全仓检查、Debug/Release构建通过；第三批按用户要求提交推送，真机未测 |
 | [../outputs/ios-performance-round2-review/验收报告.md](../outputs/ios-performance-round2-review/验收报告.md) | 第二批镜头与 3D 帧循环优化 | 网页39项测试、全仓检查、Debug构建与树窝恢复检查通过；已授权提交/推送，状态以Git为准，真机未测 |
 | [../outputs/ios-performance-review/验收报告.md](../outputs/ios-performance-review/验收报告.md) | iOS 重复通知与详细性能采样开销优化 | 模拟器通知对比、网页38项测试、全仓检查与 Debug/Release 构建通过；真机能耗/FPS 未测 |
 | [../outputs/real-model-e2e-review/验收报告.md](../outputs/real-model-e2e-review/验收报告.md) | 真实模型App/HTTP/SSE/worker与30轮连续对话 | 8类App、30轮及四气质8条完成；120项回归通过，更广质量/真机/公网另验 |

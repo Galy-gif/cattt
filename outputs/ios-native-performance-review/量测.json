@@ -1,0 +1,63 @@
+{
+  "baselineCommit": "a70cf9908546e33063262d7660fcc0a5a4d8f7fa",
+  "environment": {
+    "xcode": "27.2",
+    "device": "iPhone 18 Pro Simulator",
+    "iOS": "27.0",
+    "configuration": "Debug"
+  },
+  "before": {
+    "iterations": 1000,
+    "checksum": 119028,
+    "keyMilliseconds": [
+      332.81754166819155,
+      274.905750004109,
+      295.67162500461563
+    ],
+    "labelMilliseconds": [
+      208.4678749961313,
+      486.4744583319407,
+      237.05716666881926
+    ]
+  },
+  "after": {
+    "keyMilliseconds": [
+      0.6576250016223639,
+      0.6328749877866358,
+      0.6219583156052977
+    ],
+    "iterations": 1000,
+    "checksum": 119028,
+    "labelMilliseconds": [
+      19.136041664751247,
+      7.850958325434476,
+      7.720458350377157
+    ]
+  },
+  "medians": {
+    "keyMilliseconds": {
+      "before": 295.67162500461563,
+      "after": 0.6328749877866358
+    },
+    "labelMilliseconds": {
+      "before": 237.05716666881926,
+      "after": 7.850958325434476
+    }
+  },
+  "checks": {
+    "dateContractAssertionsAdded": 13,
+    "allChecks": "passed",
+    "webTests": 39,
+    "debugBuild": "passed",
+    "releaseBuild": "passed",
+    "diaryReopenedWithSameIdentityDatePrivacy": true,
+    "mockChat": "passed"
+  },
+  "secondBatchCI": {
+    "runId": 42354802682,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "repo-web-server": "success",
+    "swift-and-shared-rules": "cancelled"
+  }
+}

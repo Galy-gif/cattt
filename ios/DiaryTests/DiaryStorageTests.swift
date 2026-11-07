@@ -5,6 +5,28 @@ struct DiaryStorageTests {
     static func check(_ value: Bool, _ message: String = "") { precondition(value, message) }
 
     static func main() throws {
+        // 日期键是落盘契约，不能随系统显示语言或跨日时区变化而改格式。
+        let dateCases = [
+            ("2026-10-18T15:59:00Z", "Asia/Shanghai", "2026-10-18"),
+            ("2026-10-18T16:01:00Z", "Asia/Shanghai", "2026-10-19"),
+            ("2026-12-31T10:30:00Z", "Pacific/Kiritimati", "2027-01-01"),
+            ("2024-03-01T00:30:00Z", "America/Los_Angeles", "2024-02-29"),
+            ("2026-03-08T10:01:00Z", "America/Los_Angeles", "2026-03-08"),
+            ("2026-01-01T00:00:00Z", "Pacific/Honolulu", "2025-12-31"),
+            ("2026-11-07T18:20:00Z", "Asia/Kathmandu", "2026-11-08"),
+        ]
+        for (instant, zone, expected) in dateCases {
+            let date = ISO8601DateFormatter().date(from: instant)!
+            check(DiaryDay.key(for: date, timeZone: TimeZone(identifier: zone)!) == expected, "时区归档：\(zone)")
+        }
+        check(DiaryDay.label("2026-11-07") == "2026年11月7日 · 星期六")
+        check(DiaryDay.label("2024-02-29") == "2024年2月29日 · 星期四")
+        check(DiaryDay.label("2027-01-01") == "2027年1月1日 · 星期五")
+        // 沿用既有 Foundation 解析行为：二月三十日被规范到三月二日。
+        check(DiaryDay.label("2026-02-30") == "2026年3月2日 · 星期一")
+        for invalid in ["not-a-date", "2026-13-50"] {
+            check(DiaryDay.label(invalid) == invalid, "无效日期原样保留")
+        }
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }
         let a = DiaryStorage(url: root.appendingPathComponent("a/records.json"))

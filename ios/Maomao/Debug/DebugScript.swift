@@ -13,6 +13,7 @@ import Combine
 /// 性格：temperament:slow|close|quiet|curious、trait:energy|initiative|directness|closeness=0|1|2、days:N（假装领养了 N 天）、greet（当成刚打开 App）；
 /// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
 /// performance:标签（采集五秒 Store 通知数，写入 Documents/performance-标签.json）；
+/// datePerformance:标签（原生日期函数批量基准，写入 Documents/date-performance-标签.json）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
@@ -25,6 +26,28 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "datePerformance":
+                    // 合成批量基准，仅用于比较日期处理本身，不作为界面帧率。
+                    let dates = (0..<1000).map { Date(timeIntervalSince1970: 1_792_320_000 + Double($0) * 3600) }
+                    let keys = (0..<1000).map { String(format: "2026-11-%02d", $0 % 28 + 1) }
+                    let zone = TimeZone(identifier: "Asia/Shanghai")!
+                    var keyTimes: [Double] = [], labelTimes: [Double] = []
+                    var checksum = 0
+                    for _ in 0..<3 {
+                        var started = ProcessInfo.processInfo.systemUptime
+                        for date in dates { checksum += DiaryDay.key(for: date, timeZone: zone).utf8.count }
+                        keyTimes.append((ProcessInfo.processInfo.systemUptime - started) * 1000)
+                        started = ProcessInfo.processInfo.systemUptime
+                        for key in keys { checksum += DiaryDay.label(key).utf8.count }
+                        labelTimes.append((ProcessInfo.processInfo.systemUptime - started) * 1000)
+                    }
+                    let values: [String: Any] = ["iterations": dates.count, "keyMilliseconds": keyTimes,
+                                               "labelMilliseconds": labelTimes, "checksum": checksum]
+                    let label = arg.filter { $0.isLetter || $0.isNumber || $0 == "-" }
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let data = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted) {
+                        try? data.write(to: dir.appendingPathComponent("date-performance-" + label + ".json"), options: .atomic)
+                    }
                 case "performance":
                     // 五秒实测真实 Store 通知；不把通知数冒充 SwiftUI 重绘次数。
                     var updates = 0
