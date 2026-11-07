@@ -5,6 +5,27 @@ struct DiaryStorageTests {
     static func check(_ value: Bool, _ message: String = "") { precondition(value, message) }
 
     static func main() throws {
+        // 读取索引保留完整记录，按归档日分组、日内按创建时间排序；重建不能留旧账号内容。
+        let readZone = TimeZone(secondsFromGMT: 0)!
+        let readDate = ISO8601DateFormatter().date(from: "2026-11-07T12:00:00Z")!
+        let readLate = DiaryEntry(id: "late", time: "12:00", kind: .text, visit: .unread, text: "私密正文",
+                                  isPrivate: true, createdAt: readDate, timeZone: readZone)
+        let readEarly = DiaryEntry(id: "early", time: "11:00", kind: .voice, visit: .commented, text: "语音",
+                                   note: "留言", createdAt: readDate.addingTimeInterval(-3600), timeZone: readZone)
+        let readOld = DiaryEntry(id: "old", time: "12:00", kind: .cat, visit: .unread, text: "昨天",
+                                 createdAt: readDate.addingTimeInterval(-86400), timeZone: readZone)
+        let readIndex = DiaryReadIndex(entries: [readLate, readOld, readEarly])
+        check(readIndex.days == ["2026-11-07", "2026-11-06"])
+        check(readIndex.entries(on: "2026-11-07") == [readEarly, readLate])
+        check(readIndex.entries(on: "2026-11-06") == [readOld])
+        check(readIndex.entries(on: "2026-11-05").isEmpty)
+        check(DiaryReadIndex(entries: []).days.isEmpty)
+        var readChanged = readLate
+        readChanged.text = "已修改"; readChanged.isPrivate = false; readChanged.visit = .readNoComment
+        let readReplaced = DiaryReadIndex(entries: [readChanged])
+        check(readReplaced.entries(on: "2026-11-07") == [readChanged])
+        check(readReplaced.entries(on: "2026-11-06").isEmpty)
+        check(readIndex.entries(on: "2026-11-07") == [readEarly, readLate])
         // 日期键是落盘契约，不能随系统显示语言或跨日时区变化而改格式。
         let dateCases = [
             ("2026-10-18T15:59:00Z", "Asia/Shanghai", "2026-10-18"),

@@ -29,6 +29,21 @@ enum DiaryDay {
     }
 }
 
+/// 原生列表的派生读取索引；仅随 entries 更新，不参与落盘和同步。
+struct DiaryReadIndex {
+    let days: [String]
+    private let byDay: [String: [DiaryEntry]]
+
+    init(entries: [DiaryEntry]) {
+        byDay = Dictionary(grouping: entries, by: \.dayKey).mapValues {
+            $0.sorted { $0.createdAt < $1.createdAt }
+        }
+        days = byDay.keys.sorted(by: >)
+    }
+
+    func entries(on day: String) -> [DiaryEntry] { byDay[day] ?? [] }
+}
+
 struct DiaryArchive: Codable, Equatable {
     var version = 1
     var entries: [DiaryEntry] = []

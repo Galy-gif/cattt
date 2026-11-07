@@ -13,7 +13,12 @@ extension AppStore {
     var diaryArchive: DiaryArchive { DiaryArchive(entries: entries) }
     var diaryToday: String { DiaryDay.key(for: currentDate()) }
     var diaryDay: String { selectedDiaryDay ?? diaryToday }
-    var diaryEarlierDays: [String] { diaryArchive.days.filter { $0 != diaryDay } }
+    var diaryEarlierDays: [String] {
+        let selected = diaryDay
+        return diaryReadIndex.days.filter { $0 != selected }
+    }
+
+    func diaryEntries(on day: String) -> [DiaryEntry] { diaryReadIndex.entries(on: day) }
 
     func loadDiary() {
         // 先清空前一账号的界面；文件损坏时不覆盖，也不显示演示内容。

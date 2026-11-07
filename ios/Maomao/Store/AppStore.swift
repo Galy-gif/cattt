@@ -227,7 +227,10 @@ final class AppStore: ObservableObject {
 
     // MARK: - 日记
 
-    @Published var entries: [DiaryEntry] = []
+    @Published var entries: [DiaryEntry] = [] {
+        didSet { diaryReadIndex = DiaryReadIndex(entries: entries) }
+    }
+    private(set) var diaryReadIndex = DiaryReadIndex(entries: [])
     @Published var selectedDiaryDay: String?
     @Published var diaryLoadFailed = false
     var diaryGeneration = UUID()
@@ -241,7 +244,7 @@ final class AppStore: ObservableObject {
     @Published var diarySyncTask: Task<Void, Never>?
     var diarySyncAgain = false
     @Published var diaryFilter: DiaryFilter = .all
-    var shownEntries: [DiaryEntry] { diaryArchive.entries(on: diaryDay).filter(diaryFilter.matches) }
+    var shownEntries: [DiaryEntry] { diaryEntries(on: diaryDay).filter(diaryFilter.matches) }
     /// 信箱里有新东西（团子来看过 / 留了一句）：旗子立起来。打开信箱就放下。
     @Published var hasMail = false
     /// 日记纸是否从信箱里抽出来了。

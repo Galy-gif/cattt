@@ -15,6 +15,7 @@
 
 | 文件 | 定了什么 |
 |---|---|
+| [决策/2026-11-07-iOS日记读取性能优化.md](决策/2026-11-07-iOS日记读取性能优化.md) | 第三批已推送 main；第四批在记录变化时建立原生日记日期索引，复用列表读取结果 |
 | [决策/2026-11-07-iOS原生日期处理优化.md](决策/2026-11-07-iOS原生日期处理优化.md) | 第二批已推送 main；第三批减少 Swift 日期格式化器重复构造，保留时区、中文和旧解析行为 |
 | [决策/2026-11-07-iOS帧循环优化.md](决策/2026-11-07-iOS帧循环优化.md) | 第一批已推送 main；第二批减少镜头投影重算、路点枚举与无用树窝支撑计算 |
 | [决策/2026-11-07-iOS性能优化.md](决策/2026-11-07-iOS性能优化.md) | 3D 跟随只发布地点变化；详细帧采样限调试/验收；保留恢复快照，增加通知计数探针 |
@@ -58,6 +59,7 @@
 
 | 文件 | 是什么 | 状态 |
 |---|---|---|
+| [../outputs/ios-diary-performance-review/验收报告.md](../outputs/ios-diary-performance-review/验收报告.md) | 第四批 iOS 原生日记列表读取性能 | 1,000条/100天模拟器批量基准、索引契约、保存重开、全仓检查与Debug/Release构建通过；按用户要求提交推送，真机未测 |
 | [../outputs/ios-native-performance-review/验收报告.md](../outputs/ios-native-performance-review/验收报告.md) | 第三批 iOS 原生日期处理性能 | 模拟器批量基准、日期/存储断言、全仓检查、Debug/Release构建通过；第三批按用户要求提交推送，真机未测 |
 | [../outputs/ios-performance-round2-review/验收报告.md](../outputs/ios-performance-round2-review/验收报告.md) | 第二批镜头与 3D 帧循环优化 | 网页39项测试、全仓检查、Debug构建与树窝恢复检查通过；已授权提交/推送，状态以Git为准，真机未测 |
 | [../outputs/ios-performance-review/验收报告.md](../outputs/ios-performance-review/验收报告.md) | iOS 重复通知与详细性能采样开销优化 | 模拟器通知对比、网页38项测试、全仓检查与 Debug/Release 构建通过；真机能耗/FPS 未测 |

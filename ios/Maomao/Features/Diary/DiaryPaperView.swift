@@ -173,7 +173,7 @@ struct DiaryPaperView: View {
             ListContainer {
                 ForEach(Array(store.diaryEarlierDays.enumerated()), id: \.element) { index, day in
                     if index > 0 { ListDivider(leading: 45) }
-                    let records = store.diaryArchive.entries(on: day)
+                    let records = store.diaryEntries(on: day)
                     Button { store.selectDiaryDay(day) } label: {
                     HStack(spacing: 12) {
                         Text(day)

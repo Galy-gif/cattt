@@ -4,7 +4,9 @@
 
 **这个仓库是项目的唯一真相源。** 现在是什么样、为什么这样，只看这里。产品文档也在这里（`docs/产品/`），不再以飞书为准；本机的出图目录、AI 助手的记忆都只是输入；一条信息要算数，必须落进仓库。规则见 [工作约定](docs/工作约定.md)。
 
-2026-11-07：第三批减少 iOS 原生日记日期处理的格式化器重复构造，日期契约、全仓检查、Debug/Release构建及模拟器保存/重开检查通过；本批按用户要求提交并推送 main，交付以 Git 记录为准，真机性能未测，见[原生性能报告](outputs/ios-native-performance-review/验收报告.md)。
+2026-11-07：第四批将 iOS 原生日记列表的重复筛选排序改为记录变化时建立日期索引；索引契约、全仓检查、Debug/Release构建及模拟器保存重开通过。本批按用户要求提交并推送 main，交付以 Git 记录为准；1,000条/100天批量基准和更新成本见[日记读取性能报告](outputs/ios-diary-performance-review/验收报告.md)，真机性能未测。
+
+2026-11-07：第三批减少 iOS 原生日记日期处理的格式化器重复构造，日期契约、全仓检查、Debug/Release构建及模拟器保存/重开检查通过；已以 `dbff87e` 提交并推送 main，远端网页/后端检查通过、Swift作业取消，真机性能未测，见[原生性能报告](outputs/ios-native-performance-review/验收报告.md)及[交付记录](outputs/ios-diary-performance-review/验收报告.md#复测与交付边界)。
 
 2026-11-07：第二批减少 3D 帧循环的投影重算、固定路点枚举与无用树窝支撑计算；网页39项测试、全仓检查、Debug构建与模拟器树窝恢复检查通过。本批已以 `a70cf99` 提交并推送 main，远端网页/后端检查通过、Swift作业取消，真机性能未测，见[第二批报告](outputs/ios-performance-round2-review/验收报告.md)及[交付记录](outputs/ios-native-performance-review/验收报告.md#交付与边界)。
 

@@ -14,6 +14,7 @@ import Combine
 /// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
 /// performance:标签（采集五秒 Store 通知数，写入 Documents/performance-标签.json）；
 /// datePerformance:标签（原生日期函数批量基准，写入 Documents/date-performance-标签.json）；
+/// diaryReadPerformance:标签（日记只读路径基准及失效检查；样本不落盘）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
@@ -26,6 +27,48 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "diaryReadPerformance":
+                    // 合成 1,000 条 / 100 天；计量 Store 读取，包含写入派生数据的成本。
+                    let original = store.entries, selected = store.selectedDiaryDay, filter = store.diaryFilter
+                    defer { store.entries = original; store.selectedDiaryDay = selected; store.diaryFilter = filter }
+                    let zone = TimeZone(identifier: "Asia/Shanghai")!
+                    let samples: [DiaryEntry] = (0..<1000).map { i in
+                        let seconds = 1_792_320_000.0 - Double(i % 100) * 86400 - Double(i / 100) * 60
+                        return DiaryEntry(id: "read-benchmark-\(i)", time: "12:00", kind: .text, visit: .unread,
+                                   text: "样本\(i)", isPrivate: i % 2 == 0,
+                                   createdAt: Date(timeIntervalSince1970: seconds), timeZone: zone)
+                    }
+                    store.selectedDiaryDay = samples[0].dayKey; store.diaryFilter = .all
+                    var readTimes: [Double] = [], updateTimes: [Double] = []
+                    var checksum = 0
+                    for _ in 0..<3 {
+                        var started = ProcessInfo.processInfo.systemUptime
+                        store.entries = samples
+                        updateTimes.append((ProcessInfo.processInfo.systemUptime - started) * 1000)
+                        started = ProcessInfo.processInfo.systemUptime
+                        for _ in 0..<20 {
+                            checksum += store.shownEntries.count
+                            for day in store.diaryEarlierDays {
+                                let records = store.diaryEntries(on: day)
+                                checksum += records.count + (records.first?.text.utf8.count ?? 0)
+                            }
+                        }
+                        readTimes.append((ProcessInfo.processInfo.systemUptime - started) * 1000)
+                    }
+                    store.entries = []
+                    let cleared = store.shownEntries.isEmpty && store.diaryEarlierDays.isEmpty
+                    store.entries = [samples[0]]
+                    store.entries[0].text = "更新"; store.entries[0].isPrivate = false
+                    store.diaryFilter = .privateOnly
+                    let updated = store.diaryEntries(on: samples[0].dayKey) == store.entries && store.shownEntries.isEmpty
+                    let values: [String: Any] = ["entries": samples.count, "days": 100, "readsPerRound": 20,
+                                               "readMilliseconds": readTimes, "updateMilliseconds": updateTimes,
+                                               "checksum": checksum, "cleared": cleared, "updated": updated]
+                    let label = arg.filter { $0.isLetter || $0.isNumber || $0 == "-" }
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let data = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted) {
+                        try? data.write(to: dir.appendingPathComponent("diary-read-performance-" + label + ".json"), options: .atomic)
+                    }
                 case "datePerformance":
                     // 合成批量基准，仅用于比较日期处理本身，不作为界面帧率。
                     let dates = (0..<1000).map { Date(timeIntervalSince1970: 1_792_320_000 + Double($0) * 3600) }
