@@ -15,6 +15,7 @@
 
 | 文件 | 定了什么 |
 |---|---|
+| [决策/2026-11-07-iOS头像动画准备优化.md](决策/2026-11-07-iOS头像动画准备优化.md) | 第五批已推送 main；第六批利用原有停顿异步准备头像动作帧，共享准备结果，保留动作与停播规则 |
 | [决策/2026-11-07-iOS事实同步频率优化.md](决策/2026-11-07-iOS事实同步频率优化.md) | 第四批已推送 main；第五批水碗/邮件变化即时同步，每秒核对跨日与恢复，去掉逐帧重复检查 |
 | [决策/2026-11-07-iOS日记读取性能优化.md](决策/2026-11-07-iOS日记读取性能优化.md) | 第三批已推送 main；第四批在记录变化时建立原生日记日期索引，复用列表读取结果 |
 | [决策/2026-11-07-iOS原生日期处理优化.md](决策/2026-11-07-iOS原生日期处理优化.md) | 第二批已推送 main；第三批减少 Swift 日期格式化器重复构造，保留时区、中文和旧解析行为 |
@@ -60,6 +61,7 @@
 
 | 文件 | 是什么 | 状态 |
 |---|---|---|
+| [../outputs/ios-avatar-performance-review/验收报告.md](../outputs/ios-avatar-performance-review/验收报告.md) | 第六批 iOS 原生头像动画准备性能 | 单轮同步启动片段、共享帧、后台/遮挡/等待取消/减弱动态效果检查、全仓及Debug/Release构建通过；本轮按用户要求提交推送并结束开发，真机未测 |
 | [../outputs/ios-facts-performance-review/验收报告.md](../outputs/ios-facts-performance-review/验收报告.md) | 第五批 iOS 原生事实同步性能 | 院子/聊天实际计数、即时同步与跨日条件、模拟器重载、全仓检查及Debug/Release构建通过；按用户要求提交推送，真机未测 |
 | [../outputs/ios-diary-performance-review/验收报告.md](../outputs/ios-diary-performance-review/验收报告.md) | 第四批 iOS 原生日记列表读取性能 | 1,000条/100天模拟器批量基准、索引契约、保存重开、全仓检查与Debug/Release构建通过；按用户要求提交推送，真机未测 |
 | [../outputs/ios-native-performance-review/验收报告.md](../outputs/ios-native-performance-review/验收报告.md) | 第三批 iOS 原生日期处理性能 | 模拟器批量基准、日期/存储断言、全仓检查、Debug/Release构建通过；第三批按用户要求提交推送，真机未测 |

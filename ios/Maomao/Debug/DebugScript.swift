@@ -14,6 +14,7 @@ import Combine
 /// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
 /// performance:标签（采集五秒 Store 通知数，写入 Documents/performance-标签.json）；
 /// factsCheck:标签（水碗/邮件即时同步与跨日刷新检查，结束后恢复原内存状态）；
+/// avatarSnapshot:标签（头像实际播放状态和同步准备耗时）；
 /// datePerformance:标签（原生日期函数批量基准，写入 Documents/date-performance-标签.json）；
 /// diaryReadPerformance:标签（日记只读路径基准及失效检查；样本不落盘）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
@@ -28,6 +29,7 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "avatarSnapshot": PortraitPerformance.write(label: arg)
                 case "factsCheck":
                     guard let runtime = store.world.yard3D else { return }
                     let bowl = store.bowlFilledAt, mail = store.hasMail

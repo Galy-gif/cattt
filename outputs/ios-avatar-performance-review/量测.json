@@ -1,0 +1,857 @@
+{
+  "date": "2026-11-07",
+  "environment": {
+    "xcode": "27.2",
+    "device": "iPhone 18 Pro",
+    "os": "iOS 27.0 Simulator",
+    "configuration": "Debug",
+    "simulatorID": "EA45DBCF-B0F6-45DB-9917-E209717A4503"
+  },
+  "scope": {
+    "comparison": "One before/after process run; two starts per clip. Not an FPS measurement or a strict system-cache-cold launch.",
+    "beforeSetup": "Main-thread interval including synchronous frame acquisition and startAnimating.",
+    "afterSetup": "Main-thread interval after awaiting shared preparation, through startAnimating.",
+    "preparation": "Wall-clock time across sequential asynchronous image preparation; not total CPU time.",
+    "baselineCommit": "2fa72b0aeb4dca0fab81ab4d20b6924cf2ff2a66",
+    "baselineInstrumentation": "Same Debug snapshot entry point added before implementation; baseline timer placed before synchronous frame acquisition."
+  },
+  "assets": {
+    "blinkFrames": 10,
+    "lookFrames": 73,
+    "width": 256,
+    "height": 256,
+    "pngBytes": 5131548,
+    "estimatedRGBABytes": 21757952,
+    "measuredMemory": false
+  },
+  "checks": {
+    "fullRepository": "passed",
+    "debugBuild": "passed",
+    "releaseBuild": "passed",
+    "releaseExistingWarnings": 6,
+    "waitingExitAndReturn": "passed",
+    "mailboxExitAndReturn": "passed",
+    "sameProcessBackgroundAndReturn": "passed",
+    "reduceMotionEnabled": "no playback or frame preparation",
+    "playbackAfterRestoringSetting": "passed",
+    "physicalDeviceMeasured": false,
+    "reduceMotionRestoredToOriginalValue": true,
+    "reduceMotionFinalValue": false
+  },
+  "delivery": {
+    "fifthBatchCommit": "2fa72b0aeb4dca0fab81ab4d20b6924cf2ff2a66",
+    "fifthBatchPushedToMain": true,
+    "fifthBatchCI": {
+      "run": 42361218355,
+      "conclusion": "cancelled",
+      "repo-web-server": "success",
+      "swift-and-shared-rules": "cancelled"
+    },
+    "sixthBatchCommittedAtMeasurement": false
+  },
+  "snapshots": {
+    "after-chat.json": {
+      "views": [
+        {
+          "heldFrames": 0,
+          "animating": false,
+          "inWindow": true
+        },
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        },
+        {
+          "inWindow": true,
+          "heldFrames": 0,
+          "animating": false
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "clip": "blink",
+          "setupMilliseconds": 5.380416667321697,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.34308331669308245,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.19795831758528948,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1605833531357348,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.12887499178759754,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        },
+        {
+          "setupMilliseconds": 0.3072500112466514,
+          "duration": 2.433333333333333,
+          "clip": "look",
+          "frames": 73
+        },
+        {
+          "frames": 10,
+          "setupMilliseconds": 0.39383332477882504,
+          "duration": 0.3333333333333333,
+          "clip": "blink"
+        }
+      ],
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 39.39904164872132
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 100.63529165927321
+        }
+      ]
+    },
+    "after-me.json": {
+      "views": [
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        },
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        },
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        },
+        {
+          "animating": true,
+          "inWindow": true,
+          "heldFrames": 10
+        }
+      ],
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 39.39904164872132
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 100.63529165927321
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "clip": "blink",
+          "setupMilliseconds": 5.380416667321697,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.34308331669308245,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.19795831758528948,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1605833531357348,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.12887499178759754,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        },
+        {
+          "setupMilliseconds": 0.3072500112466514,
+          "duration": 2.433333333333333,
+          "clip": "look",
+          "frames": 73
+        },
+        {
+          "frames": 10,
+          "setupMilliseconds": 0.39383332477882504,
+          "duration": 0.3333333333333333,
+          "clip": "blink"
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1725833280943334,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.26695834822021425,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        }
+      ]
+    },
+    "after-resumed.json": {
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 39.39904164872132
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 100.63529165927321
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "clip": "blink",
+          "setupMilliseconds": 5.380416667321697,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.34308331669308245,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.19795831758528948,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1605833531357348,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.12887499178759754,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        },
+        {
+          "setupMilliseconds": 0.3072500112466514,
+          "duration": 2.433333333333333,
+          "clip": "look",
+          "frames": 73
+        }
+      ],
+      "views": [
+        {
+          "animating": true,
+          "inWindow": true,
+          "heldFrames": 73
+        }
+      ]
+    },
+    "after-stopped.json": {
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 39.39904164872132
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 100.63529165927321
+        }
+      ],
+      "views": [
+        {
+          "inWindow": true,
+          "animating": false,
+          "heldFrames": 0
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "clip": "blink",
+          "setupMilliseconds": 5.380416667321697,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.34308331669308245,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.19795831758528948,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1605833531357348,
+          "clip": "look",
+          "duration": 2.433333333333333
+        }
+      ]
+    },
+    "after.json": {
+      "views": [
+        {
+          "animating": true,
+          "heldFrames": 73,
+          "inWindow": true
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "clip": "blink",
+          "setupMilliseconds": 5.380416667321697,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.34308331669308245,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.19795831758528948,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 0.1605833531357348,
+          "clip": "look",
+          "duration": 2.433333333333333
+        }
+      ],
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 39.39904164872132
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 100.63529165927321
+        }
+      ]
+    },
+    "background-process.json": {
+      "processIDBefore": 69666,
+      "processIDAfter": 69666
+    },
+    "before-stopped.json": {
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "frames": 10,
+          "setupMilliseconds": 26.384875003714114,
+          "clip": "blink"
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 19.03129165293649,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 4.424374987138435,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        },
+        {
+          "clip": "look",
+          "frames": 73,
+          "setupMilliseconds": 13.692500011529773,
+          "duration": 2.433333333333333
+        }
+      ],
+      "views": [
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        }
+      ]
+    },
+    "before.json": {
+      "views": [
+        {
+          "inWindow": true,
+          "heldFrames": 73,
+          "animating": true
+        }
+      ],
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "frames": 10,
+          "setupMilliseconds": 26.384875003714114,
+          "clip": "blink"
+        },
+        {
+          "frames": 73,
+          "setupMilliseconds": 19.03129165293649,
+          "clip": "look",
+          "duration": 2.433333333333333
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 4.424374987138435,
+          "duration": 0.3333333333333333,
+          "frames": 10
+        },
+        {
+          "clip": "look",
+          "frames": 73,
+          "setupMilliseconds": 13.692500011529773,
+          "duration": 2.433333333333333
+        }
+      ]
+    },
+    "bg4-before.json": {
+      "preparations": [
+        {
+          "frames": 10,
+          "milliseconds": 30.79025002080016,
+          "preparedFrames": 10,
+          "clip": "blink"
+        },
+        {
+          "preparedFrames": 73,
+          "clip": "look",
+          "milliseconds": 136.7151666781865,
+          "frames": 73
+        }
+      ],
+      "views": [
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        },
+        {
+          "animating": false,
+          "inWindow": true,
+          "heldFrames": 0
+        }
+      ],
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 6.650833354797214,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.1885833335109055,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "clip": "look",
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.2185833582188934
+        },
+        {
+          "setupMilliseconds": 0.14200000441633165,
+          "duration": 0.3333333333333333,
+          "clip": "blink",
+          "frames": 10
+        }
+      ]
+    },
+    "bg4-resumed.json": {
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 6.650833354797214,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.1885833335109055,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "clip": "look",
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.2185833582188934
+        },
+        {
+          "setupMilliseconds": 0.14200000441633165,
+          "duration": 0.3333333333333333,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "look",
+          "setupMilliseconds": 0.18775000353343785,
+          "frames": 73,
+          "duration": 2.433333333333333
+        },
+        {
+          "frames": 10,
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 23.970708338310942,
+          "clip": "blink"
+        },
+        {
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.17058334196917713,
+          "frames": 73,
+          "clip": "look"
+        },
+        {
+          "clip": "blink",
+          "frames": 10,
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 0.17824998940341175
+        },
+        {
+          "frames": 73,
+          "clip": "look",
+          "setupMilliseconds": 0.16974998288787901,
+          "duration": 2.433333333333333
+        }
+      ],
+      "views": [
+        {
+          "inWindow": true,
+          "animating": false,
+          "heldFrames": 0
+        },
+        {
+          "heldFrames": 73,
+          "inWindow": true,
+          "animating": true
+        }
+      ],
+      "preparations": [
+        {
+          "frames": 10,
+          "milliseconds": 30.79025002080016,
+          "preparedFrames": 10,
+          "clip": "blink"
+        },
+        {
+          "preparedFrames": 73,
+          "clip": "look",
+          "milliseconds": 136.7151666781865,
+          "frames": 73
+        }
+      ]
+    },
+    "bg4-stopped.json": {
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 6.650833354797214,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "blink",
+          "setupMilliseconds": 0.1885833335109055,
+          "frames": 10,
+          "duration": 0.3333333333333333
+        },
+        {
+          "clip": "look",
+          "frames": 73,
+          "duration": 2.433333333333333,
+          "setupMilliseconds": 0.2185833582188934
+        },
+        {
+          "setupMilliseconds": 0.14200000441633165,
+          "duration": 0.3333333333333333,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "look",
+          "setupMilliseconds": 0.18775000353343785,
+          "frames": 73,
+          "duration": 2.433333333333333
+        }
+      ],
+      "preparations": [
+        {
+          "frames": 10,
+          "milliseconds": 30.79025002080016,
+          "preparedFrames": 10,
+          "clip": "blink"
+        },
+        {
+          "preparedFrames": 73,
+          "clip": "look",
+          "milliseconds": 136.7151666781865,
+          "frames": 73
+        }
+      ],
+      "views": [
+        {
+          "inWindow": true,
+          "animating": false,
+          "heldFrames": 0
+        },
+        {
+          "inWindow": true,
+          "heldFrames": 0,
+          "animating": false
+        }
+      ]
+    },
+    "early-resumed.json": {
+      "starts": [
+        {
+          "clip": "blink",
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 7.692041661357507,
+          "frames": 10
+        },
+        {
+          "clip": "look",
+          "duration": 2.433333333333333,
+          "frames": 73,
+          "setupMilliseconds": 6.521625007735565
+        }
+      ],
+      "preparations": [
+        {
+          "clip": "blink",
+          "milliseconds": 49.99087500618771,
+          "frames": 10,
+          "preparedFrames": 10
+        },
+        {
+          "clip": "look",
+          "milliseconds": 90.71799999219365,
+          "frames": 73,
+          "preparedFrames": 73
+        }
+      ],
+      "views": [
+        {
+          "heldFrames": 73,
+          "animating": true,
+          "inWindow": true
+        }
+      ]
+    },
+    "early-stopped.json": {
+      "starts": [],
+      "preparations": [],
+      "views": [
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        }
+      ]
+    },
+    "motion-restored.json": {
+      "views": [
+        {
+          "animating": true,
+          "heldFrames": 73,
+          "inWindow": true
+        },
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        }
+      ],
+      "preparations": [
+        {
+          "clip": "blink",
+          "frames": 10,
+          "preparedFrames": 10,
+          "milliseconds": 40.90691666351631
+        },
+        {
+          "clip": "look",
+          "preparedFrames": 73,
+          "milliseconds": 166.7015833372716,
+          "frames": 73
+        }
+      ],
+      "starts": [
+        {
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 0.2837499778252095,
+          "clip": "blink",
+          "frames": 10
+        },
+        {
+          "clip": "blink",
+          "duration": 0.3333333333333333,
+          "setupMilliseconds": 0.12100001913495362,
+          "frames": 10
+        },
+        {
+          "setupMilliseconds": 0.12741665705107152,
+          "clip": "look",
+          "duration": 2.433333333333333,
+          "frames": 73
+        }
+      ]
+    },
+    "reduced-motion-later.json": {
+      "preparations": [],
+      "views": [
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        },
+        {
+          "inWindow": true,
+          "animating": false,
+          "heldFrames": 0
+        }
+      ],
+      "starts": []
+    },
+    "reduced-motion.json": {
+      "preparations": [],
+      "views": [
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        },
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        }
+      ],
+      "starts": []
+    },
+    "waiting-resumed.json": {
+      "preparations": [
+        {
+          "preparedFrames": 10,
+          "frames": 10,
+          "milliseconds": 22.266833315370604,
+          "clip": "blink"
+        },
+        {
+          "frames": 73,
+          "milliseconds": 135.4037499986589,
+          "clip": "look",
+          "preparedFrames": 73
+        }
+      ],
+      "starts": [
+        {
+          "frames": 10,
+          "setupMilliseconds": 4.644749977160245,
+          "clip": "blink",
+          "duration": 0.3333333333333333
+        },
+        {
+          "duration": 2.433333333333333,
+          "frames": 73,
+          "clip": "look",
+          "setupMilliseconds": 0.19062499632127583
+        }
+      ],
+      "views": [
+        {
+          "heldFrames": 73,
+          "animating": true,
+          "inWindow": true
+        }
+      ]
+    },
+    "waiting-stopped.json": {
+      "starts": [],
+      "preparations": [
+        {
+          "preparedFrames": 10,
+          "frames": 10,
+          "milliseconds": 22.266833315370604,
+          "clip": "blink"
+        }
+      ],
+      "views": [
+        {
+          "heldFrames": 0,
+          "inWindow": true,
+          "animating": false
+        }
+      ]
+    },
+    "waiting.json": {
+      "preparations": [
+        {
+          "preparedFrames": 10,
+          "frames": 10,
+          "milliseconds": 22.266833315370604,
+          "clip": "blink"
+        }
+      ],
+      "views": [
+        {
+          "animating": false,
+          "heldFrames": 0,
+          "inWindow": true
+        }
+      ],
+      "starts": []
+    }
+  }
+}
