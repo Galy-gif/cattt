@@ -2,6 +2,21 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { FramePacer, PerfRecorder } from '../src/app/performance.ts';
 
+test('正式运行关闭详细采样；长时间运行、触摸和暂停都不积累统计报告', () => {
+  const r = new PerfRecorder(false);
+  for (let i = 0; i < 72000; i++) {
+    r.frame(i * 1000 / 60, 1);
+    r.touch(1, 16);
+    if (i % 600 === 0) r.pause(i * 1000 / 60, 'native');
+  }
+  assert.equal(r.report(), null);
+  // 同样输入在验收模式必须真实采样，避免把全部统计误关。
+  const review = new PerfRecorder(true);
+  review.frame(0, 1); review.frame(20, 1); review.touch(1, 18);
+  assert.equal(review.report().frames, 1);
+  assert.equal(review.report().touch.samples, 1);
+});
+
 test('前台 2 秒卡顿不能被丢弃；首帧不计间隔', () => {
   const r = new PerfRecorder();
   r.frame(500, 1); r.frame(520, .95); r.frame(2520, .9);

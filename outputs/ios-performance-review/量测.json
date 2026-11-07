@@ -1,0 +1,111 @@
+{
+  "baselineCommit": "9ee9bb4177e8e0a15810ea636ea91a5d04a4a478",
+  "environment": {
+    "xcode": "27.2",
+    "device": "iPhone 18 Pro Simulator",
+    "iOS": "27.0",
+    "configuration": "Debug",
+    "node": "26.5.0"
+  },
+  "notifications": {
+    "before-home-follow": {
+      "uses3D": true,
+      "notificationsPerSecond": 58.95787364229894,
+      "surfaceReady": true,
+      "seconds": 5.224068999988958,
+      "storeNotifications": 308,
+      "screen": "home",
+      "cameraMode": "following"
+    },
+    "before-chat-follow": {
+      "seconds": 5.278609916684218,
+      "storeNotifications": 316,
+      "cameraMode": "following",
+      "uses3D": true,
+      "screen": "chat",
+      "surfaceReady": true,
+      "notificationsPerSecond": 59.864245509260286
+    },
+    "after-home-follow": {
+      "storeNotifications": 1,
+      "screen": "home",
+      "surfaceReady": true,
+      "cameraMode": "following",
+      "notificationsPerSecond": 0.19282138671275445,
+      "uses3D": true,
+      "seconds": 5.1861467083508614
+    },
+    "after-chat-follow": {
+      "notificationsPerSecond": 0,
+      "seconds": 5.289512416668003,
+      "cameraMode": "following",
+      "storeNotifications": 0,
+      "uses3D": true,
+      "surfaceReady": true,
+      "screen": "chat"
+    },
+    "after-location": {
+      "surfaceReady": true,
+      "screen": "home",
+      "seconds": 5.090233166672988,
+      "uses3D": true,
+      "cameraMode": "following",
+      "storeNotifications": 5,
+      "notificationsPerSecond": 0.9822732743828384
+    }
+  },
+  "recorder-before": [
+    {
+      "simulatedSeconds": 60,
+      "frameSamples": 3600,
+      "medianReportMs": 0.507000000000005
+    },
+    {
+      "simulatedSeconds": 1200,
+      "frameSamples": 72000,
+      "medianReportMs": 13.209499999999991
+    },
+    {
+      "simulatedSeconds": 7200,
+      "frameSamples": 432000,
+      "medianReportMs": 62.72204099999999
+    }
+  ],
+  "recorder-after": [
+    {
+      "simulatedSeconds": 60,
+      "frameSamples": 0,
+      "meanReportMs": 3.401333000000001e-05,
+      "report": null
+    },
+    {
+      "simulatedSeconds": 1200,
+      "frameSamples": 0,
+      "meanReportMs": 8.813339999999954e-06,
+      "report": null
+    },
+    {
+      "simulatedSeconds": 7200,
+      "frameSamples": 0,
+      "meanReportMs": 5.745409999999964e-06,
+      "report": null
+    }
+  ],
+  "recovery": {
+    "kind": "content-process-termination-callback-injection",
+    "snapshotEqual": true,
+    "current": 4,
+    "target": 4,
+    "webSurfaceReady": true
+  },
+  "checks": {
+    "allChecksPassed": true,
+    "webTestsPassed": 38,
+    "probeTestsPassed": 5,
+    "debugBuild": "passed",
+    "releaseBuild": "passed",
+    "mockChat": "passed",
+    "egoLiteProductionSnapshot": "passed",
+    "egoLiteReviewPerf": "passed"
+  }
+}

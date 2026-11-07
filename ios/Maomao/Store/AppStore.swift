@@ -436,7 +436,10 @@ final class AppStore: ObservableObject {
         advanceFlag(dt)
         advanceConditions(dt)
         if world.uses3D {
-            if world.intent3D.cameraMode == "following" { viewedIndex = world.currentIndex }
+            // @Published 对相同值也发通知；跟随镜头不应每帧刷新整个原生界面。
+            if world.intent3D.cameraMode == "following", viewedIndex != world.currentIndex {
+                viewedIndex = world.currentIndex
+            }
             return
         }
         #if DEBUG

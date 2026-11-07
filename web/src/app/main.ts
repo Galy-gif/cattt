@@ -63,7 +63,8 @@ async function boot() {
     if (home) follow.findCat();
   }
 
-  const recorder = new PerfRecorder();
+  // 完整帧序列只用于显式调试/验收。正式运行不累积、排序和跨桥传输整段统计。
+  const recorder = new PerfRecorder(params.has('review') || params.has('debug'));
   const pacer = new FramePacer(renderer.targetFps);
   const listeners = new AbortController();
   let walking = params.get('walk') === '1';
@@ -102,7 +103,7 @@ async function boot() {
         y: target === 'mailbox' && projected ? (1 - projected.y) * renderer.height / 2 : y });
     }
   };
-  const report = () => ({ ...recorder.report(), resolutionEvents,
+  const report = () => ({ ...recorder.report(), performanceRecording: recorder.enabled, resolutionEvents,
     visitedNodes: [...visitedNodes], journey: { arrived: walker.arrived, goal: walker.goal, position: cat!.position.toArray() },
     trajectoryClearance: { minimum: Number.isFinite(trajectoryMinClearance) ? trajectoryMinClearance : null, violations: trajectoryViolations } });
   const compositionMetrics = () => {
@@ -277,8 +278,10 @@ async function boot() {
     if (finished - reportAt >= 1000) {
       reportAt = finished;
       const info = renderer.gl.info.render;
-      post({ type: 'perf', report: report(), snapshot: snapshot(), fps: renderer.fps, scale: renderer.scale,
-        nearest: walker.nearest, calls: info.calls, triangles: info.triangles });
+      if (recorder.enabled) {
+        post({ type: 'perf', report: report(), snapshot: snapshot(), fps: renderer.fps, scale: renderer.scale,
+          nearest: walker.nearest, calls: info.calls, triangles: info.triangles });
+      } else sendSnapshot(); // 保持每秒恢复检查点，不依赖性能采样。
       if (!hud.hidden) hud.textContent = `${renderer.fps.toFixed(0)} fps · ×${renderer.scale.toFixed(2)} · ${walker.nearest}`;
     }
   }

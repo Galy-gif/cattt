@@ -28,6 +28,8 @@ export interface PerfReport {
 }
 
 export class PerfRecorder {
+  readonly enabled: boolean;
+  constructor(enabled = true) { this.enabled = enabled; }
   private durations: number[] = [];
   private previous: number | null = null;
   private segments: PerfReport['segments'] = [];
@@ -40,6 +42,7 @@ export class PerfRecorder {
   private touchTimes: number[] = [];
 
   frame(now: number, scale: number) {
+    if (!this.enabled) return;
     this.minimum = Math.min(this.minimum ?? scale, scale);
     if (this.previous === null) {
       this.segments.push({ startMs: now, endMs: now, frames: 0 });
@@ -64,15 +67,20 @@ export class PerfRecorder {
   }
 
   pause(now: number, reason: string) {
+    if (!this.enabled) return;
     if (this.previous === null) return;
     this.previous = null;
     this.secondMs = 0; this.secondFrames = 0;
     this.pauses.push({ startMs: now, endMs: null, reason });
   }
 
-  touch(frames: number, ms: number) { this.touchFrames.push(frames); this.touchTimes.push(ms); }
+  touch(frames: number, ms: number) {
+    if (!this.enabled) return;
+    this.touchFrames.push(frames); this.touchTimes.push(ms);
+  }
 
-  report(): PerfReport {
+  report(): PerfReport | null {
+    if (!this.enabled) return null;
     const sorted = [...this.durations].sort((a, b) => a - b);
     const at = (q: number) => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))] ?? 0;
     const fps = (ms: number) => ms > 0 ? Math.round(10000 / ms) / 10 : 0;

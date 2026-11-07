@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 #if DEBUG
 /// 启动参数脚本：没有模拟器面板时也能驱动世界层做验收截图。
@@ -11,6 +12,7 @@ import SwiftUI
 /// 时段与情绪：time:小时（如 19.6，auto 恢复）、weather:rain|clear|auto、mood:calm|happy|sulk|sad|auto、bowl:fill|empty、drink（去喝水）、diary（现在写团子的日记）；
 /// 性格：temperament:slow|close|quiet|curious、trait:energy|initiative|directness|closeness=0|1|2、days:N（假装领养了 N 天）、greet（当成刚打开 App）；
 /// 实测回归：yardProbe:open|close（配合 -yardProbeAutoStart YES）；
+/// performance:标签（采集五秒 Store 通知数，写入 Documents/performance-标签.json）；
 /// 以及聊天：backend:mock|local、send:文本（文本里不能有冒号和分号）、stop、boundary（把最后一条猫消息标成不要再提）。
 enum DebugScript {
     static func run(on store: AppStore) {
@@ -23,6 +25,28 @@ enum DebugScript {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000)
                 switch command {
+                case "performance":
+                    // 五秒实测真实 Store 通知；不把通知数冒充 SwiftUI 重绘次数。
+                    var updates = 0
+                    let observation = store.objectWillChange.sink { updates += 1 }
+                    let started = ProcessInfo.processInfo.systemUptime
+                    try? await Task.sleep(for: .seconds(5))
+                    observation.cancel()
+                    guard !Task.isCancelled else { return }
+                    let seconds = ProcessInfo.processInfo.systemUptime - started
+                    let values: [String: Any] = [
+                        "seconds": seconds, "storeNotifications": updates,
+                        "notificationsPerSecond": Double(updates) / seconds,
+                        "uses3D": store.world.uses3D,
+                        "surfaceReady": store.world.yard3D?.web.surfaceReady == true,
+                        "screen": store.screen == .home ? "home" : "chat",
+                        "cameraMode": store.world.intent3D.cameraMode,
+                    ]
+                    let label = arg.filter { $0.isLetter || $0.isNumber || $0 == "-" }
+                    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+                       let data = try? JSONSerialization.data(withJSONObject: values, options: .prettyPrinted) {
+                        try? data.write(to: dir.appendingPathComponent("performance-" + label + ".json"), options: .atomic)
+                    }
                 case "creationStart": store.startOnboarding()
                 case "creationNext": store.onboardingNext()
                 case "creationBack": store.onboardingBack()
