@@ -9,8 +9,13 @@
 /* Begin PBXBuildFile section */
 		F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */; };
 		E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */; };
+		8C110EF04255CC160596AE74 /* AgreementAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */; };
 		A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C908A7DB0E92D34F9C84C967 /* Backend.swift */; };
 		FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */; };
+		0CFF041A8D7525086B412B91 /* IdentityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16EEFEC4AD5ED490EA8FF2 /* IdentityAPI.swift */; };
+		910C6A215EEBAEBF41B43E94 /* NotificationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5D291413CC516A87780A39 /* NotificationBridge.swift */; };
+		460562B96EDC02245D9880A7 /* ProactiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE763B01980A3EFF3A835F4 /* ProactiveAPI.swift */; };
+		9C60C6516664295225EA1DEB /* SessionVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F1C925C1C8E8FBB2468A1 /* SessionVault.swift */; };
 		836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */; };
 		E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */; };
 		9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */; };
@@ -31,11 +36,13 @@
 		5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */; };
 		962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */; };
 		D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */; };
+		50779DDB4D31180692D92B19 /* MailboxLettersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */; };
 		397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */; };
 		996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */; };
 		3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CA0F72F62426E4F81B633 /* LocationRail.swift */; };
 		E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */ = {isa = PBXBuildFile; fileRef = 72825AB6DC25D753F8530A33 /* WorldDepth.metal */; };
 		0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE24B2D5FC849941E4BD5B /* WorldView.swift */; };
+		8E97AD44C2B7A294C84299AE /* AgreementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974B96C3AE398711306DF68 /* AgreementsView.swift */; };
 		C5737F0502BB06B23D342C1D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3064D0824E30AF163D763 /* MeView.swift */; };
 		7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */; };
 		D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */; };
@@ -48,6 +55,7 @@
 		EACA01771DEC91E10245B007 /* YardProbeSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F73F65E4C6F1C2A2BBBAB9E /* YardProbeSupport.swift */; };
 		170ED46774BCFC20B5959F41 /* YardRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F9DF6FD5276E05A1CED7F /* YardRuntime.swift */; };
 		C5292F3A7E945873DCB34AE8 /* YardWebHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61B7032FE3C4637143FF863 /* YardWebHost.swift */; };
+		E065A4E2DF92C719A41A09E9 /* AccountSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16052F31142B9047F32C1586 /* AccountSession.swift */; };
 		96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */; };
 		44964362F1DB30F201D79907 /* CatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404FE55DC010C44B75AFAC22 /* CatAction.swift */; };
 		B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */; };
@@ -69,6 +77,10 @@
 		FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */; };
 		2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2DD6583891A61E750451F /* AppStore+Diary.swift */; };
 		D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */; };
+		0D2E06C0C3970B8CCFF2B24A /* AppStore+Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8080184CDB4DDF4EEC6900 /* AppStore+Identity.swift */; };
+		48A70789913609C8BF21FCD8 /* AppStore+Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */; };
+		837173CEF6C85A889655CF4F /* AppStore+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF8D7FB399F69D4B310145F /* AppStore+Notifications.swift */; };
+		1139537C90AA2BB75864BB96 /* AppStore+Proactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C49B85A0736C69551583D /* AppStore+Proactive.swift */; };
 		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
 		1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672224FB980742CAF2A8112 /* RainSound.swift */; };
@@ -129,8 +141,13 @@
 		F5BF48AA40CAD7891EB709FC /* Maomao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maomao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaomaoApp.swift; sourceTree = "<group>"; };
 		9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementAPI.swift; sourceTree = "<group>"; };
 		C908A7DB0E92D34F9C84C967 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
+		6C16EEFEC4AD5ED490EA8FF2 /* IdentityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAPI.swift; sourceTree = "<group>"; };
+		BC5D291413CC516A87780A39 /* NotificationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBridge.swift; sourceTree = "<group>"; };
+		2EE763B01980A3EFF3A835F4 /* ProactiveAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProactiveAPI.swift; sourceTree = "<group>"; };
+		107F1C925C1C8E8FBB2468A1 /* SessionVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionVault.swift; sourceTree = "<group>"; };
 		A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridge.swift; sourceTree = "<group>"; };
 		C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeModels.swift; sourceTree = "<group>"; };
 		2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridgeProtocol.swift; sourceTree = "<group>"; };
@@ -151,11 +168,13 @@
 		3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSheet.swift; sourceTree = "<group>"; };
 		FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryRow.swift; sourceTree = "<group>"; };
 		FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperView.swift; sourceTree = "<group>"; };
+		B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxLettersView.swift; sourceTree = "<group>"; };
 		496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtmosphereLayers.swift; sourceTree = "<group>"; };
 		D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionHomeView.swift; sourceTree = "<group>"; };
 		494CA0F72F62426E4F81B633 /* LocationRail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRail.swift; sourceTree = "<group>"; };
 		72825AB6DC25D753F8530A33 /* WorldDepth.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WorldDepth.metal; sourceTree = "<group>"; };
 		65CE24B2D5FC849941E4BD5B /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
+		4974B96C3AE398711306DF68 /* AgreementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementsView.swift; sourceTree = "<group>"; };
 		22C3064D0824E30AF163D763 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCenterView.swift; sourceTree = "<group>"; };
 		9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeetingStep.swift; sourceTree = "<group>"; };
@@ -168,6 +187,7 @@
 		7F73F65E4C6F1C2A2BBBAB9E /* YardProbeSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardProbeSupport.swift; sourceTree = "<group>"; };
 		961F9DF6FD5276E05A1CED7F /* YardRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardRuntime.swift; sourceTree = "<group>"; };
 		F61B7032FE3C4637143FF863 /* YardWebHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YardWebHost.swift; sourceTree = "<group>"; };
+		16052F31142B9047F32C1586 /* AccountSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSession.swift; sourceTree = "<group>"; };
 		F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atmosphere.swift; sourceTree = "<group>"; };
 		404FE55DC010C44B75AFAC22 /* CatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAction.swift; sourceTree = "<group>"; };
 		778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDiary.swift; sourceTree = "<group>"; };
@@ -189,6 +209,10 @@
 		0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Creation.swift"; sourceTree = "<group>"; };
 		98A2DD6583891A61E750451F /* AppStore+Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Diary.swift"; sourceTree = "<group>"; };
 		B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+DiarySync.swift"; sourceTree = "<group>"; };
+		6A8080184CDB4DDF4EEC6900 /* AppStore+Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Identity.swift"; sourceTree = "<group>"; };
+		DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Inbox.swift"; sourceTree = "<group>"; };
+		6DF8D7FB399F69D4B310145F /* AppStore+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Notifications.swift"; sourceTree = "<group>"; };
+		9F5C49B85A0736C69551583D /* AppStore+Proactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Proactive.swift"; sourceTree = "<group>"; };
 		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		B672224FB980742CAF2A8112 /* RainSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainSound.swift; sourceTree = "<group>"; };
@@ -284,8 +308,13 @@
 		50B87C8A0011A61FC7E4E830 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */,
 				C908A7DB0E92D34F9C84C967 /* Backend.swift */,
 				3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */,
+				6C16EEFEC4AD5ED490EA8FF2 /* IdentityAPI.swift */,
+				BC5D291413CC516A87780A39 /* NotificationBridge.swift */,
+				2EE763B01980A3EFF3A835F4 /* ProactiveAPI.swift */,
+				107F1C925C1C8E8FBB2468A1 /* SessionVault.swift */,
 				A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */,
 				C6FABE599FB5BF112E1E6EE0 /* WorldBridgeModels.swift */,
 				2422A07AE80A579EED28CDD7 /* WorldBridgeProtocol.swift */,
@@ -334,6 +363,7 @@
 				3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */,
 				FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */,
 				FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */,
+				B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -353,6 +383,7 @@
 		351B7EE44DE7CAA5191E6215 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				4974B96C3AE398711306DF68 /* AgreementsView.swift */,
 				22C3064D0824E30AF163D763 /* MeView.swift */,
 				89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */,
 			);
@@ -407,6 +438,7 @@
 		D7115ABDE0A011B8099BA769 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				16052F31142B9047F32C1586 /* AccountSession.swift */,
 				F30B3E7A56EE6138FCACBA9B /* Atmosphere.swift */,
 				404FE55DC010C44B75AFAC22 /* CatAction.swift */,
 				778AA034DFA5D3B6B2F8BB66 /* CatDiary.swift */,
@@ -505,6 +537,10 @@
 				0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */,
 				98A2DD6583891A61E750451F /* AppStore+Diary.swift */,
 				B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */,
+				6A8080184CDB4DDF4EEC6900 /* AppStore+Identity.swift */,
+				DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */,
+				6DF8D7FB399F69D4B310145F /* AppStore+Notifications.swift */,
+				9F5C49B85A0736C69551583D /* AppStore+Proactive.swift */,
 				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
 				B672224FB980742CAF2A8112 /* RainSound.swift */,
@@ -649,8 +685,13 @@
 			files = (
 				F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */,
+				8C110EF04255CC160596AE74 /* AgreementAPI.swift in Sources */,
 				A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */,
 				FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */,
+				0CFF041A8D7525086B412B91 /* IdentityAPI.swift in Sources */,
+				910C6A215EEBAEBF41B43E94 /* NotificationBridge.swift in Sources */,
+				460562B96EDC02245D9880A7 /* ProactiveAPI.swift in Sources */,
+				9C60C6516664295225EA1DEB /* SessionVault.swift in Sources */,
 				836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */,
 				E5DBECFE172223CC3341721E /* WorldBridgeModels.swift in Sources */,
 				9F2838BB77155761E522E751 /* WorldBridgeProtocol.swift in Sources */,
@@ -671,11 +712,13 @@
 				5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */,
 				962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */,
 				D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */,
+				50779DDB4D31180692D92B19 /* MailboxLettersView.swift in Sources */,
 				397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */,
 				996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */,
 				3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */,
 				E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */,
 				0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */,
+				8E97AD44C2B7A294C84299AE /* AgreementsView.swift in Sources */,
 				C5737F0502BB06B23D342C1D /* MeView.swift in Sources */,
 				7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */,
 				D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */,
@@ -688,6 +731,7 @@
 				EACA01771DEC91E10245B007 /* YardProbeSupport.swift in Sources */,
 				170ED46774BCFC20B5959F41 /* YardRuntime.swift in Sources */,
 				C5292F3A7E945873DCB34AE8 /* YardWebHost.swift in Sources */,
+				E065A4E2DF92C719A41A09E9 /* AccountSession.swift in Sources */,
 				96AEC47188F8A219C03F72DC /* Atmosphere.swift in Sources */,
 				44964362F1DB30F201D79907 /* CatAction.swift in Sources */,
 				B07112BE0678E87C8A9CA576 /* CatDiary.swift in Sources */,
@@ -709,6 +753,10 @@
 				FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */,
 				2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */,
 				D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */,
+				0D2E06C0C3970B8CCFF2B24A /* AppStore+Identity.swift in Sources */,
+				48A70789913609C8BF21FCD8 /* AppStore+Inbox.swift in Sources */,
+				837173CEF6C85A889655CF4F /* AppStore+Notifications.swift in Sources */,
+				1139537C90AA2BB75864BB96 /* AppStore+Proactive.swift in Sources */,
 				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
 				1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */,
@@ -782,10 +830,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CATTT_API_URL = "";
+				CATTT_APNS_ENVIRONMENT = development;
+				CODE_SIGN_ENTITLEMENTS = Maomao/Maomao.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CatttAPIURL = "$(CATTT_API_URL)";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用大致位置让院子跟着你那里的天气下雨或放晴。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -808,10 +860,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CATTT_API_URL = "";
+				CATTT_APNS_ENVIRONMENT = production;
+				CODE_SIGN_ENTITLEMENTS = Maomao/Maomao.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CatttAPIURL = "$(CATTT_API_URL)";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用大致位置让院子跟着你那里的天气下雨或放晴。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

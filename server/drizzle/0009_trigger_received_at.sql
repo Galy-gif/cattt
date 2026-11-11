@@ -1,0 +1,1 @@
+ALTER TABLE "triggers" RENAME COLUMN "created_at" TO "received_at";

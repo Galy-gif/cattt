@@ -146,7 +146,7 @@ extension AppStore {
         // 团子的日记：夜晚开始时写，一天一条
         let diaryDayKey = DiaryDay.key(for: now)
         let hasTodayDiary = entries.contains { $0.kind == .cat && $0.dayKey == diaryDayKey }
-        if !diaryLoadFailed, now >= diaryRetryAfter, hour >= CatDiary.writeHour, !hasTodayDiary {
+        if !backend.isRemote, !diaryLoadFailed, now >= diaryRetryAfter, hour >= CatDiary.writeHour, !hasTodayDiary {
             writeCatDiary(now: now)
         }
     }
@@ -180,6 +180,7 @@ extension AppStore {
     // MARK: - 团子的日记
 
     func writeCatDiary(now: Date) {
+        guard !backend.isRemote else { syncDiary(); return }
         let cal = Calendar.current
         var facts = CatDiary.Facts(day: now)
         facts.isFirstDay = MoodRules.daysBetween(createdAt, now, calendar: cal) == 0
@@ -198,8 +199,6 @@ extension AppStore {
         let f = DateFormatter(); f.dateFormat = "HH:mm"
         let time = f.string(from: now)
         guard saveCatDiary(text: text, time: time, now: now) else { return }
-        // 连着后端时由模型按同一张事实表写；写不出来就留着上面这条本地模板。
-        if backend.isRemote { remoteCatDiary(facts: facts, time: time, now: now) }
     }
 
     @discardableResult
@@ -215,32 +214,4 @@ extension AppStore {
         return true
     }
 
-    private func remoteCatDiary(facts: CatDiary.Facts, time: String, now: Date) {
-        let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd"
-        var body: [String: Any] = [
-            "date": formatter.string(from: facts.day),
-            "isFirstDay": facts.isFirstDay,
-            "mood": facts.mood.rawValue,
-            "moodReason": mood.reason,
-            "weather": facts.weather.rawValue,
-            "filledToday": facts.filledToday,
-            "drankToday": facts.drankToday,
-            "visitedToday": facts.visitedToday,
-            "absenceDays": facts.absenceDays,
-            "emptyDays": facts.emptyDays,
-            "places": facts.places,
-        ]
-        if let chat = facts.chatSnippet { body["chatSnippet"] = chat }
-        if let fragment = facts.fragmentSnippet { body["fragmentSnippet"] = fragment }
-        let client = api
-        let generation = diaryGeneration
-        let timeZone = TimeZone.current
-        Task { @MainActor [weak self] in
-            guard let self, let written = try? await client.catDiary(facts: body), !written.isEmpty else { return }
-            // 期间已经翻到第二天就别覆盖了。
-            guard self.backend == client.config, self.diaryGeneration == generation,
-                  Calendar.current.isDate(self.catDiaryDate ?? now, inSameDayAs: now) else { return }
-            self.saveCatDiary(text: written, time: time, now: now, timeZone: timeZone, announces: false)
-        }
-    }
 }

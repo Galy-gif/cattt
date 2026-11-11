@@ -1,3 +1,6 @@
+import { and, eq, max } from 'drizzle-orm';
+import { db } from '../db/client.ts';
+import { outbox } from '../db/schema.ts';
 import { Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';
 import { z } from 'zod';
@@ -39,10 +42,13 @@ worldRoutes.get('/events', async (c) => {
   return streamSSE(c, async (stream) => {
     try {
       let statePolledAt = -Infinity;
+      let inboxSeq = -1;
       while (!stream.aborted) {
         const actions = await pollCommands(catId, input.data.sessionId, input.data.generation);
         for (const action of actions) await stream.writeSSE({ event: 'action', id: action.id, data: JSON.stringify(action) });
         if (performance.now() - statePolledAt >= 2_000) {
+          const [inbox] = await db.select({seq:max(outbox.seq)}).from(outbox).where(and(eq(outbox.catId,catId),eq(outbox.status,'sent')));
+          if(Number(inbox?.seq??0)!==inboxSeq) { inboxSeq=Number(inbox?.seq??0); await stream.writeSSE({event:'inbox',data:JSON.stringify({seq:inboxSeq})}); }
           const { runtime } = await getSoul(catId);
           await stream.writeSSE({ event: 'runtime_state', data: JSON.stringify({ version: runtime.version, state: runtime.state }) });
           statePolledAt = performance.now();

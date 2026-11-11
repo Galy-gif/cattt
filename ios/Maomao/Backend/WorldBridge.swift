@@ -5,6 +5,7 @@ import Foundation
 final class WorldBridge {
     private weak var engine: WorldEngine?
     private let api: APIClient
+    private let onInbox: () -> Void
     private var task: Task<Void, Never>?
     private var session: WorldSession?
     private var pending: [WorldCommand] = []
@@ -15,9 +16,10 @@ final class WorldBridge {
     private var serverInstant: Date?
     private var syncUptime: Double = 0
 
-    init(engine: WorldEngine, api: APIClient) {
+    init(engine: WorldEngine, api: APIClient, onInbox: @escaping () -> Void = {}) {
         self.engine = engine
         self.api = api
+        self.onInbox = onInbox
         engine.agentActionChanged = { [weak self] command, status, reason in
             guard let self, let engine = self.engine else { return }
             let ack = WorldAcknowledgement(command: command, status: status, reason: reason, snapshot: engine.worldSnapshot(), occurredAt: self.eventTimestamp())
@@ -45,6 +47,8 @@ final class WorldBridge {
                             if let prior = handled[command.id] {
                                 if !acknowledgements.contains(where: { $0.command.id == command.id && $0.status == prior.status }) { acknowledgements.append(prior) }
                             } else if !pending.contains(where: { $0.id == command.id }) { pending.append(command) }
+                        } else if event.event == "inbox" {
+                            onInbox()
                         } else if event.event == "runtime_state" {
                             struct Runtime: Decodable {
                                 struct State: Decodable { let energy: String; let willingness: String }

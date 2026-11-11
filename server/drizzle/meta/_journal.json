@@ -50,6 +50,69 @@
       "when": 1792378543614,
       "tag": "0006_last_charles_xavier",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794326976039,
+      "tag": "0007_user_time_zone",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1794328508346,
+      "tag": "0008_followups",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1794329100924,
+      "tag": "0009_trigger_received_at",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794330370497,
+      "tag": "0010_errands",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1794330929378,
+      "tag": "0011_errand_step_clock",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1794331831335,
+      "tag": "0012_daily_diary",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1794333103259,
+      "tag": "0013_identity_push_budget",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1794333743140,
+      "tag": "0014_push_daily_reservations",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1794335936834,
+      "tag": "0015_inference_observe",
+      "breakpoints": true
     }
   ]
 }

@@ -135,8 +135,10 @@ struct DiaryPaperView: View {
     // MARK: - 碎片列表
 
     private var entryList: some View {
+        ScrollViewReader { scroller in
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
+                MailboxLettersView()
                 if store.diaryLoadFailed {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("暂时无法读取日记，原文件已保留。")
@@ -161,7 +163,16 @@ struct DiaryPaperView: View {
             .padding(.top, 10)
             .padding(.bottom, 12)
         }
+        .refreshable { store.syncDiary(); store.refreshInbox() }
         .id(store.diaryDay)
+        .task(id: store.notificationLetterID) {
+            await Task.yield()
+            if let id = store.notificationLetterID { scroller.scrollTo(id, anchor: .top) }
+        }
+        .onChange(of: store.mailboxLetters.map(\.id)) {
+            if let id = store.notificationLetterID { scroller.scrollTo(id, anchor: .top) }
+        }
+        }
     }
 
     @ViewBuilder

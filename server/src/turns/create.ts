@@ -1,3 +1,4 @@
+import { recordInferenceSource } from '../agent/inference.ts';
 import { and, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
 import { cats, conversations, messages, turns } from '../db/schema.ts';
@@ -51,6 +52,7 @@ export async function createSendTurn(
       return { turnId: turn!.id, userMessageId: existing!.id, created: false, cancelled: [] as string[] };
     }
 
+    await recordInferenceSource(owner.catId,inserted.id,{},tx);
     const [conv] = await tx
       .update(conversations)
       .set({ version: sql`${conversations.version} + 1` })

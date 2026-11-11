@@ -66,6 +66,11 @@ struct DiaryEntry: Identifiable, Equatable, Codable {
         self.photoCaption = photoCaption
     }
 
+    /// 仅本机阅读状态，缺字段的旧档案仍能恢复。
+    var catDiaryRead: Bool?
+    var isServerCatDiary: Bool { kind == .cat && id.hasPrefix("daily-cat:") && cloudID != nil }
+    var hasUnreadCatDiary: Bool { isServerCatDiary && catDiaryRead != true }
+
     var needsSync: Bool { cloudID == nil || pendingMutationID != nil }
     var permissionLabel: String {
         if isPrivate && cloudIsPrivate == false && pendingMutationID != nil { return "撤回待同步" }

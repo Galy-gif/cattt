@@ -1,3 +1,5 @@
+import { followupText } from '../agent/router.ts';
+import { localISO, parseFollowupTime } from '../agent/tickets.ts';
 import type { LanguageModelV4CallOptions, LanguageModelV4StreamPart } from '@ai-sdk/provider';
 import { MockLanguageModelV4 } from 'ai/test';
 import { config } from '../config.ts';
@@ -56,6 +58,45 @@ export function mockChatModel() {
             }
           }
         }
+        const currentResults = options.prompt.slice(options.prompt.map(m=>m.role).lastIndexOf('user')+1).filter(m=>m.role==='tool').flatMap(m=>m.content).filter(p=>p.type==='tool-result');
+        const has = (name:string) => currentResults.some(p=>p.toolName===name);
+        const list = currentResults.find(p=>p.toolName==='list_tickets');
+        const listed = list?.output.type==='json' ? (list.output.value as any)?.data?.tickets : [];
+        const systemText = options.prompt.find(m=>m.role==='system')?.content ?? '';
+        const timeReply = currentResults.find(p=>p.toolName==='get_time');
+        const observedZone=timeReply?.output.type==='json' ? (timeReply.output.value as any)?.data?.timeZone : undefined;
+        const zone = observedZone ?? systemText.match(/时区[：:] ?([A-Za-z_]+\/[A-Za-z_]+)/)?.[1] ?? 'Asia/Shanghai';
+        const marked = said.match(/\[followup:([^|]+)\|([^\]]+)\]/);
+        const wantsChange = /改成|改到|取消/.test(said) && !/记住|更正/.test(said);
+        const errand = said.match(/\[errand:([\s\S]+)\]/);
+        const addInput = said.match(/\[ticket-input:([^\]]+)\]/);
+        if(addInput && !has('update_ticket')) {
+          if(!has('list_tickets')) {toolName='list_tickets';toolInput={};}
+          else if(listed?.length===1) {toolName='update_ticket';toolInput={ticket_id:listed[0].id,text:addInput[1]};}
+        } else if((errand || /帮我想想|想好了告诉我/.test(said)) && !has('start_errand')) {
+          toolName='start_errand';toolInput={goal:errand?.[1]??said.slice(0,60)};
+        } else if(wantsChange && !has('update_ticket') && !has('cancel_ticket')) {
+          if(!has('get_time')) { toolName='get_time'; toolInput={}; }
+          else if(!has('list_tickets')) { toolName='list_tickets'; toolInput={}; }
+          else if(listed?.length===1) {
+            const ticket=listed[0];
+            if(said.includes('取消')) {toolName='cancel_ticket';toolInput={ticket_id:ticket.id};}
+            else {
+              const date=new Date(); const day=localISO(date,zone).slice(0,10); const base=new Date(day+'T12:00:00Z'); base.setUTCDate(base.getUTCDate()+(said.includes('后天')?2:1));
+              toolName='update_ticket';toolInput={ticket_id:ticket.id,when:base.toISOString().slice(0,10)+'T'+localISO(new Date(ticket.due_at),zone).slice(11)};
+            }
+          }
+        } else if((marked || /问我|提醒我/.test(said)) && !has('schedule_followup')) {
+          let when=marked?.[1]?.trim();
+          const minutes=said.match(/(\d+)分钟后/);
+          if(minutes) when=localISO(new Date(Date.now()+Number(minutes[1])*60000),zone);
+          const explicit=said.match(/(\d{4}-\d\d-\d\d[T ]\d\d:\d\d(?::\d\d)?)/); if(explicit && !marked) when=explicit[1]!.replace(' ','T');
+          if(!when) {
+            const hour=said.match(/(\d{1,2})[点时]/);
+            if(hour && /明天|后天/.test(said)) { const day=new Date(localISO(new Date(),zone).slice(0,10)+'T12:00:00Z');day.setUTCDate(day.getUTCDate()+(said.includes('后天')?2:1)); when=day.toISOString().slice(0,10)+'T'+String(Number(hour[1])+(/下午|晚上/.test(said)&&Number(hour[1])<12?12:0)).padStart(2,'0')+':00:00'; }
+          }
+          if(when) {toolName='schedule_followup';toolInput={when,about:marked?.[2]?.trim() ?? said.split(/问我|提醒我/).at(-1)!.replace(/[。！]$/,'').slice(0,60)}; if(!has('get_time')) {toolName='get_time';toolInput={};}}
+        }
         return { stream: new ReadableStream<LanguageModelV4StreamPart>({ start(controller) {
           controller.enqueue({ type: 'stream-start', warnings: [] });
           controller.enqueue({ type: 'tool-call', toolCallId: `mock-${toolName}`, toolName, input: JSON.stringify(toolInput) });
@@ -66,9 +107,17 @@ export function mockChatModel() {
       const system = options.prompt.find(m => m.role === 'system')?.content ?? '';
       const recalled = system.match(/## 你记得的事\n([\s\S]*?)(?=\n\n|$)/)?.[1]?.trim();
       const diary = system.match(/## 本轮日记来源\n([^\n]+)/)?.[1];
-      const reply = said.includes('[diary]') ? `合成验收：本轮日记来源${diary ?? '为空'}`
+      const finalTools=options.prompt.slice(options.prompt.map(m=>m.role).lastIndexOf('user')+1).filter(m=>m.role==='tool').flatMap(m=>m.content).filter(p=>p.type==='tool-result');
+      const agreement=finalTools.find(p=>['schedule_followup','start_errand','update_ticket','cancel_ticket'].includes(p.toolName));
+      const observation=agreement?.output.type==='json' ? agreement.output.value as any : undefined;
+      const confirmation=observation?.status==='succeeded'
+        ? agreement!.toolName==='start_errand' ? (observation.data.queued?'这件我先记着，前面那件办完再来。':'好，我想想，想好了留封信给你。')
+        : agreement!.toolName==='cancel_ticket'?'好，这件事取消了。'
+        : observation.data.when ? `好，${agreement!.toolName==='update_ticket'?'改好了':'约好了'}，${observation.data.when.replace('T',' ')}，到时候问你。` : '好，这句也放进那件事里了。'
+        : agreement?'这次没存好，稍后再试。': /改天|明晚/.test(said)&&/问我|提醒我/.test(said)?'你想约哪一天、几点呢？':undefined;
+      const reply = confirmation ?? (said.includes('[diary]') ? `合成验收：本轮日记来源${diary ?? '为空'}`
         : said.includes('[recall]') ? `合成验收：本轮可参考的长期记忆${recalled ? `如下。\n${recalled}` : '为空。'}`
-        : `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`;
+        : `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`);
       // 诊断回复只验证上下文到达，不逐字放大本机PG往返；故障/慢流标记仍按字输出。
       const chars = /\[(recall|diary)\]/.test(said) && !/\[(fail1?|slow)\]/.test(said) ? [reply] : Array.from(reply);
       const delay = said.includes('[slow]') ? 300 : config.MOCK_DELAY_MS;
@@ -193,4 +242,39 @@ export function mockRecallModel() {
       return { content: [{ type: 'text', text }], finishReason: { unified: 'stop', raw: 'stop' }, usage: usage(query.length + 180, text.length), warnings: [] };
     },
   });
+}
+
+export function mockRouterModel() {
+  return new MockLanguageModelV4({provider:'mock',modelId:'mock-router',doGenerate:async options=>{
+    const snapshot=JSON.parse(lastUserText(options));
+    if(snapshot.inference)return {content:[{type:'text' as const,text:JSON.stringify({decision:snapshot.event?'accept':'ignore',rule_assessments:[{rule_id:snapshot.rule.rule_id,version:snapshot.rule.version,matched:!!snapshot.event}],evidence:snapshot.event?[{message_id:snapshot.source.id,quote:snapshot.source.text}]:[],topic:snapshot.event?.topic,after_at:snapshot.event?.after_at,resolved:false})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(200,100),warnings:[]};
+    if ('facts' in snapshot) return {content:[{type:'text' as const,text:JSON.stringify({has_events:snapshot.facts.length>0,fact_ids:snapshot.facts.map((f:{id:string})=>f.id)})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(100,30),warnings:[]};
+    if(snapshot.tickets.some((t:{goal:string})=>t.goal.includes('[route-fail]'))) throw new Error('mock route failure');
+    return {content:[{type:'text' as const,text:JSON.stringify({decision:'attach',ticket_ids:snapshot.tickets.map((t:{id:string})=>t.id),merge:true,text:followupText(snapshot.tickets),rule_assessments:[{rule_id:'followup_due',matched:true,reason:'用户亲口约定到期'}]})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(150,50),warnings:[]};
+  }});
+}
+
+/** 后台假模型：每步仍经过SDK工具循环；标记仅用于固定验收反例。 */
+export function mockWorkerModel(options:{onRequest?:()=>void|Promise<void>}={}) {
+ return new MockLanguageModelV4({provider:'mock',modelId:'mock-worker',doGenerate:async call=>{
+ await options.onRequest?.();
+ const goal=call.prompt.filter(m=>m.role==='user').flatMap(m=>m.content).filter(p=>p.type==='text').map(p=>p.text).join('\n');
+ if(call.prompt.some(m=>m.role==='system'&&m.content.includes('写每日猫日记'))) {const card=JSON.parse(goal);return {content:[{type:'text' as const,text:JSON.stringify({reflection:'有些小念头，不必急着弄明白。我想把心里的柔软留在这一页，慢慢想。',fact_ids:card.facts.slice(0,4).map((f:{id:string})=>f.id)})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(100,40),warnings:[]};}
+ const observations=call.prompt.filter(m=>m.role==='tool').flatMap(m=>m.content).filter(p=>p.type==='tool-result');
+ const has=(name:string)=>observations.some(p=>p.toolName===name);
+ const inputs=goal.match(/用户补充：([^\n]+)/g)?.join('；')??'';
+ let toolName='report',input:Record<string,unknown>;
+ if(goal.includes('[memory]')&&!has('recall_memories')){toolName='recall_memories';input={query:'周末建议'};}
+ else if(goal.includes('[diary]')&&!has('read_permitted_diary')){toolName='read_permitted_diary';input={};}
+ else if(goal.includes('[loop]')||goal.includes('[output-budget]'))input={status:'progress'};
+ else if(goal.includes('[waiting]')&&!inputs)input={status:'waiting',question:'周末想出门，还是想待在家里？'};
+ else if(goal.includes('[blocked]'))input={status:'blocked',reason:'这件事需要联网查证，我现在查不了。'};
+ else if(goal.includes('[failed]'))input={status:'failed',reason:'这次没能想出可靠的办法。'};
+ else if(goal.includes('[dropped]'))input={status:'dropped'};
+ else if(!has('report')&&!has('recall_memories')&&!has('read_permitted_diary'))input={status:'progress'};
+ else input={status:'ready',result:'我想了想，周末可以留一段不用赶时间的空当，散散步，或者在家看点喜欢的东西。'+inputs};
+ if(goal.includes('[whitelist]')&&call.tools?.some(t=>!['get_time','get_weather','recall_memories','read_permitted_diary','report'].includes(t.name)))throw new Error('unexpected worker tool');
+ const index=observations.length;
+ return {content:[{type:'tool-call',toolCallId:`mock-worker-${index}`,toolName,input:JSON.stringify(input)}],finishReason:{unified:'tool-calls',raw:'tool_calls'},usage:usage(200,goal.includes('[output-budget]')?4000:60),warnings:[]};
+ }});
 }

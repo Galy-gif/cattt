@@ -1,9 +1,12 @@
 import SwiftUI
+import AuthenticationServices
 
 /// 我的。2026-09-10 起由院子右上角的头像钮打开，是一张系统 sheet（App Store 账户页那种做法），
 /// 右上角一个「完成」，也能下拉关。
 struct MeView: View {
     @EnvironmentObject private var store: AppStore
+
+    @State private var showsAgreements = false
 
     var body: some View {
         ScrollView {
@@ -11,8 +14,11 @@ struct MeView: View {
                 headerBlock
 
                 VStack(alignment: .leading, spacing: 28) {
+                    accountSection
                     howWeGetAlong
                     whatItRemembers
+                    if store.backend.isRemote { agreements }
+                    if store.backend.isRemote { proactiveSettings }
                     settings
                 }
                 .padding(.horizontal, 24)
@@ -26,8 +32,30 @@ struct MeView: View {
         .presentationDragIndicator(.visible)
         .presentationBackground(Palette.bg)
         .preferredColorScheme(.light)
+        .task { await store.refreshProactivePermission() }
+        .sheet(isPresented: $showsAgreements) { AgreementsView().environmentObject(store) }
         .sheet(isPresented: $store.showsMemoryControls) {
             MemoryCenterView(startWithBoundaries: store.memoryShowsBoundaries)
+        }
+    }
+
+    private var accountSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            SectionTitle(text: "和团子的账号")
+            if store.backend.mode == .service, !store.backend.token.isEmpty {
+                Text("已登录").font(Typo.sans(14)).foregroundStyle(Palette.ink2)
+                TextLink(text: "退出登录", size: 13) { store.signOut() }
+            } else if store.appleLoginNonce != nil {
+                SignInWithAppleButton(.continue) { request in
+                    request.nonce = store.appleNonceDigest
+                } onCompletion: { store.finishAppleLogin($0) }
+                .signInWithAppleButtonStyle(.black)
+                .frame(height: Metrics.minTap)
+            } else {
+                TextLink(text: store.identityBusy ? "正在连接…" : "用 Apple 登录", size: 14) { store.prepareAppleLogin() }
+                    .disabled(store.identityBusy)
+            }
+            if let error = store.identityError { Text(error).font(Typo.sans(13)).foregroundStyle(Palette.ink3) }
         }
     }
 
@@ -152,6 +180,45 @@ struct MeView: View {
         .padding(.horizontal, 15)
         .padding(.vertical, 14)
         .frame(minHeight: Metrics.minTap)
+        .contentShape(Rectangle())
+    }
+
+    private var agreements: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            SectionTitle(text: "说好的")
+            ListContainer {
+                Button { showsAgreements = true } label: {
+                    memoryRow(icon: { Icons.clock(color: Palette.ink3) }, title: "约定与托付", count: "查看 ›")
+                }.buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var proactiveSettings: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            SectionTitle(text: "它来找你")
+            ListContainer {
+                Button { store.changeProactivePermission() } label: {
+                    HStack(spacing: 12) {
+                        Text("允许团子主动找我")
+                            .font(Typo.sans(14.5))
+                            .foregroundStyle(Palette.ink)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        ShareToggle(isOn: store.allowProactive)
+                    }
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 14)
+                    .frame(minHeight: Metrics.minTap)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .disabled(store.proactiveBusy || store.backend.token.isEmpty)
+                .accessibilityValue(store.allowProactive ? "已允许" : "未允许")
+            }
+            Text(store.proactiveError ?? "关闭时，说好的约定、托付和团子的日记仍会保留。")
+                .font(Typo.sans(12))
+                .foregroundStyle(Palette.ink4)
+        }
     }
 
     // MARK: - 设置

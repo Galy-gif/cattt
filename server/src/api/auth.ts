@@ -1,3 +1,6 @@
+import { config } from '../config.ts';
+import { sessionUser } from '../identity/service.ts';
+import { withModelAccount } from '../runtime/budget.ts';
 import { eq } from 'drizzle-orm';
 import { createMiddleware } from 'hono/factory';
 import { hashToken } from '../auth-token.ts';
@@ -13,12 +16,14 @@ export const auth = createMiddleware<Env>(async (c, next) => {
   const token = header.startsWith('Bearer ') ? header.slice(7).trim() : '';
   if (!token) return c.json({ error: { code: 'unauthorized', message: '缺少 token' } }, 401);
 
-  const [user] = await db.select({ id: users.id }).from(users).where(eq(users.devTokenHash, hashToken(token)));
+  const sessionId=await sessionUser(token);
+  const [dev]=!sessionId&&config.APP_ENV==='development'?await db.select({id:users.id}).from(users).where(eq(users.devTokenHash,hashToken(token))):[];
+  const user=sessionId?{id:sessionId}:dev;
   if (!user) return c.json({ error: { code: 'unauthorized', message: 'token 不对' } }, 401);
 
   const owner = await loadOwner(user.id);
   if (!owner) return c.json({ error: { code: 'no_cat', message: '这个账号还没有猫' } }, 409);
 
   c.set('owner', owner);
-  await next();
+  await withModelAccount(user.id,()=>next());
 });

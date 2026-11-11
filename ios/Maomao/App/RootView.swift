@@ -64,6 +64,10 @@ struct RootView: View {
         .environmentObject(store)
         .task(id: scenePhase) {
             guard scenePhase == .active else { return }
+            store.checkAppleCredential()
+            store.registerNotificationDevice()
+            store.resolveNotificationIntent()
+            store.refreshInbox()
             while !Task.isCancelled {
                 store.syncDiary()
                 do { try await Task.sleep(for: .seconds(15)) } catch { return }

@@ -1,9 +1,10 @@
+import { budgetModel } from './budget.ts';
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import { APICallError, type LanguageModel, type LanguageModelUsage, RetryError } from 'ai';
 import { config } from '../config.ts';
 import { db } from '../db/client.ts';
 import { modelCalls } from '../db/schema.ts';
-import { mockChatModel, mockExtractModel, mockRecallModel, mockDiaryModel } from './mock.ts';
+import { mockChatModel, mockExtractModel, mockRecallModel, mockDiaryModel, mockRouterModel, mockWorkerModel } from './mock.ts';
 
 /**
  * 模型适配层。业务代码只拿 model + providerOptions，不关心是哪家。
@@ -17,17 +18,17 @@ export type ModelSlot = {
   providerOptions: { deepseek: { thinking: { type: 'enabled' | 'disabled' } } };
 };
 
-export function chatSlot(): ModelSlot {
+export function chatSlot(purpose = 'chat'): ModelSlot {
   return {
-    model: config.MODEL_PROVIDER === 'mock' ? mockChatModel() : deepseek(config.CHAT_MODEL),
+    model: budgetModel(config.MODEL_PROVIDER === 'mock' ? mockChatModel() : deepseek(config.CHAT_MODEL),purpose),
     modelId: config.MODEL_PROVIDER === 'mock' ? 'mock-chat' : config.CHAT_MODEL,
     providerOptions: { deepseek: { thinking: { type: config.CHAT_THINKING } } },
   };
 }
 
-export function extractSlot(): ModelSlot {
+export function extractSlot(purpose = 'memory_extract'): ModelSlot {
   return {
-    model: config.MODEL_PROVIDER === 'mock' ? mockExtractModel() : deepseek(config.EXTRACT_MODEL),
+    model: budgetModel(config.MODEL_PROVIDER === 'mock' ? mockExtractModel() : deepseek(config.EXTRACT_MODEL),purpose),
     modelId: config.MODEL_PROVIDER === 'mock' ? 'mock-extract' : config.EXTRACT_MODEL,
     providerOptions: { deepseek: { thinking: { type: config.EXTRACT_THINKING } } },
   };
@@ -40,7 +41,9 @@ export type ModelErrorInfo = { code: string; retryable: boolean; summary: string
  * 余额不足、key 不对、请求格式错，重试也没用，要告诉客户端别让用户一直点「再试一次」。
  */
 export function classifyModelError(err: unknown): ModelErrorInfo {
+  if(err instanceof Error&&err.name==='ModelBudgetExceeded')return {code:'model_daily_budget',retryable:false,summary:'今天先歇一会儿，明天再聊。'};
   const e = RetryError.isInstance(err) ? err.lastError : err;
+  if(e instanceof Error&&e.name==='ModelBudgetExceeded')return {code:'model_daily_budget',retryable:false,summary:'今天先歇一会儿，明天再聊。'};
   if (APICallError.isInstance(e)) {
     const summary = `${e.statusCode ?? '?'} ${e.message}`;
     switch (e.statusCode) {
@@ -61,7 +64,7 @@ export function classifyModelError(err: unknown): ModelErrorInfo {
 
 /** 成本账本：每次模型调用记一行，按用途分 */
 export async function recordModelCall(entry: {
-  purpose: 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary' | 'memory_recall' | 'diary_read';
+  purpose: 'errand' | 'route' | 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary' | 'memory_recall' | 'diary_read';
   modelId: string;
   usage: LanguageModelUsage | null;
   latencyMs: number;
@@ -83,11 +86,23 @@ export async function recordModelCall(entry: {
 
 /** 查询扩词独立用途，mock 也独立，避免误走记忆写入提取。 */
 export function recallSlot(): ModelSlot {
-  const slot = extractSlot();
-  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: mockRecallModel(), modelId: 'mock-recall' } : slot;
+  const slot = extractSlot('memory_recall');
+  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: budgetModel(mockRecallModel(),'memory_recall'), modelId: 'mock-recall' } : slot;
 }
 
 export function diarySlot(): ModelSlot {
-  const slot = chatSlot();
-  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: mockDiaryModel(), modelId: 'mock-diary' } : slot;
+  const slot = chatSlot('diary_read');
+  return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: budgetModel(mockDiaryModel(),'diary_read'), modelId: 'mock-diary' } : slot;
+}
+
+export function routerSlot(): ModelSlot {
+  return { model:budgetModel(config.MODEL_PROVIDER === 'mock' ? mockRouterModel() : deepseek(config.ROUTER_MODEL),'route'),
+    modelId:config.MODEL_PROVIDER === 'mock' ? 'mock-router' : config.ROUTER_MODEL,
+    providerOptions:{deepseek:{thinking:{type:config.ROUTER_THINKING}}} };
+}
+
+export function workerSlot(purpose = 'errand'): ModelSlot {
+ return {model:budgetModel(config.MODEL_PROVIDER==='mock'?mockWorkerModel():deepseek(config.WORKER_MODEL),purpose),
+ modelId:config.MODEL_PROVIDER==='mock'?'mock-worker':config.WORKER_MODEL,
+ providerOptions:{deepseek:{thinking:{type:config.WORKER_THINKING}}}};
 }

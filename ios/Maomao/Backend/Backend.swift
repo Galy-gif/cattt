@@ -8,6 +8,7 @@ struct BackendConfig: Equatable {
     enum Mode: String, CaseIterable {
         case mock
         case local
+        case service
     }
 
     var mode: Mode
@@ -15,25 +16,51 @@ struct BackendConfig: Equatable {
     /// 开发者 token，`pnpm create-dev-user` 生成。开发者版才有，以后换 Apple 登录。
     var token: String
 
-    var isRemote: Bool { mode == .local }
+    var accountID: String? = nil
+    var isRemote: Bool { mode != .mock }
+    var storageIdentity: String {
+        if mode == .service { return baseURL.absoluteString + "\naccount:" + (accountID ?? "signed-out") }
+        return isRemote ? baseURL.absoluteString + "\n" + token : "local-only"
+    }
+    static var serviceURL: URL? {
+        guard let raw = Bundle.main.object(forInfoDictionaryKey: "CatttAPIURL") as? String,
+              let url = URL(string: raw), url.scheme == "https", url.host != nil else { return nil }
+        return url
+    }
 
     static let localURL = URL(string: "http://localhost:8787")!
 
     static func load() -> BackendConfig {
         let defaults = UserDefaults.standard
-        return BackendConfig(
-            mode: Mode(rawValue: defaults.string(forKey: "backendMode") ?? "") ?? .mock,
-            baseURL: defaults.string(forKey: "backendURL").flatMap(URL.init(string:)) ?? localURL,
-            token: defaults.string(forKey: "backendToken") ?? ""
-        )
+        #if DEBUG
+        let mode = Mode(rawValue: defaults.string(forKey: "backendMode") ?? "") ?? .mock
+        if mode != .service {
+            return BackendConfig(mode: mode, baseURL: defaults.string(forKey: "backendURL").flatMap(URL.init(string:)) ?? localURL,
+                                 token: defaults.string(forKey: "backendToken") ?? "")
+        }
+        #endif
+        #if DEBUG
+        let remembered = defaults.string(forKey: "serviceOrigin").flatMap(URL.init(string:))
+        let url = serviceURL ?? remembered ?? URL(string: "https://unconfigured.invalid")!
+        #else
+        let url = serviceURL ?? URL(string: "https://unconfigured.invalid")!
+        #endif
+        let session = SessionVault.load(origin: url.absoluteString)
+        return BackendConfig(mode: .service, baseURL: url, token: session.flatMap { $0.expiresAt > Date() ? $0.token : nil } ?? "", accountID: session?.accountID)
     }
 
     func save() {
+        #if DEBUG
         let defaults = UserDefaults.standard
         defaults.set(mode.rawValue, forKey: "backendMode")
-        defaults.set(baseURL.absoluteString, forKey: "backendURL")
-        defaults.set(token, forKey: "backendToken")
+        if mode == .service { defaults.set(baseURL.absoluteString, forKey: "serviceOrigin") }
+        if CredentialPersistencePolicy.maySaveDeveloperToken(mode: mode.rawValue, accountID: accountID) {
+            defaults.set(baseURL.absoluteString, forKey: "backendURL")
+            defaults.set(token, forKey: "backendToken")
+        }
+        #endif
     }
+
 }
 
 // MARK: - 接口数据
@@ -52,6 +79,7 @@ struct APIMessage: Decodable {
     /// 猫的消息：被标了不要再提
     let boundary: Bool
     let contextAllowed: Bool?
+    let ticketId: String?
 }
 
 struct APITurn: Decodable {
@@ -78,7 +106,7 @@ enum APIError: LocalizedError {
         switch self {
         case let .http(status, code):
             switch (status, code) {
-            case (401, _): return "token 不对"
+            case (401, _): return "登录已失效，请重新登录"
             case (409, "no_cat"): return "这个账号还没有猫"
             case (404, "diary_unavailable"): return "这条日记已停止共享，请重新选择"
             default: return "HTTP \(status)" + (code.map { " \($0)" } ?? "")
@@ -136,6 +164,12 @@ struct APIClient {
         }
     }
 
+    /// 本机后端按用户时区格式化时间；失败由调用方静默忽略。
+    func reportTimeZone() async throws {
+        struct OK: Decodable {}
+        _ = try await json(OK.self, request("PUT", "v1/me/time-zone", body: ["time_zone": TimeZone.current.identifier]))
+    }
+
     // MARK: 聊天
 
     /// 发一条消息。响应就是这一轮回复的 SSE 流。
@@ -168,10 +202,11 @@ struct APIClient {
         try await json(APITurn.self, request("GET", "v1/turns/\(turnID)"))
     }
 
-    func messages(limit: Int = 50, before: Int? = nil) async throws -> [APIMessage] {
+    func messages(limit: Int = 50, before: Int? = nil, after: Int? = nil) async throws -> [APIMessage] {
         struct Page: Decodable { let messages: [APIMessage] }
         var request = request("GET", "v1/messages")
         request.url?.append(queryItems: [URLQueryItem(name: "limit", value: String(limit))])
+        if let after { request.url?.append(queryItems: [URLQueryItem(name: "after", value: String(after))]) }
         if let before { request.url?.append(queryItems: [URLQueryItem(name: "before", value: String(before))]) }
         return try await json(Page.self, request).messages
     }

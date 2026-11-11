@@ -29,3 +29,5 @@ echo '· 后端：类型检查'
 pnpm --dir server typecheck
 
 echo '全部通过。'
+
+sh tools/check_identity_logic.sh

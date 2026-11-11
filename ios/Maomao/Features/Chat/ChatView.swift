@@ -265,6 +265,11 @@ struct ChatView: View {
                 .onPreferenceChange(ChatBottomKey.self) { bottom in
                     browsingHistory = bottom > proxy.size.height + 48
                 }
+                .onChange(of: store.notificationMessageID) { _, id in
+                    guard let id else { return }
+                    browsingHistory = true
+                    scroller.scrollTo(id, anchor: .center)
+                }
                 .onChange(of: store.backend) { browsingHistory = false; historyAnchor = nil }
                 .onChange(of: store.messages.last?.id) { if !browsingHistory { scrollToBottom(scroller) } }
                 .onChange(of: store.messages.last?.text) { if !browsingHistory { scrollToBottom(scroller, animated: false) } }
@@ -272,7 +277,10 @@ struct ChatView: View {
                 .onChange(of: composerHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
                 .onChange(of: keyboardHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
                 .onDisappear { resizeScroll?.cancel() }
-                .onAppear { browsingHistory = false; scrollToBottom(scroller, animated: false) }
+                .onAppear {
+                    if let id = store.notificationMessageID { browsingHistory = true; scroller.scrollTo(id, anchor: .center) }
+                    else { browsingHistory = false; scrollToBottom(scroller, animated: false) }
+                }
             }
         }
     }

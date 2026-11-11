@@ -15,6 +15,7 @@
 
 | 文件 | 定了什么 |
 |---|---|
+| [决策/2026-11-10-异步Agent.md](决策/2026-11-10-异步Agent.md) | 批准异步 Agent 方案，评审点按推荐值；参考 Super-agent、便宜模型 Router、pg-boss 替换 BullMQ；子代理先做第一段底座 |
 | [决策/2026-11-07-iOS头像动画准备优化.md](决策/2026-11-07-iOS头像动画准备优化.md) | 第五批已推送 main；第六批利用原有停顿异步准备头像动作帧，共享准备结果，保留动作与停播规则 |
 | [决策/2026-11-07-iOS事实同步频率优化.md](决策/2026-11-07-iOS事实同步频率优化.md) | 第四批已推送 main；第五批水碗/邮件变化即时同步，每秒核对跨日与恢复，去掉逐帧重复检查 |
 | [决策/2026-11-07-iOS日记读取性能优化.md](决策/2026-11-07-iOS日记读取性能优化.md) | 第三批已推送 main；第四批在记录变化时建立原生日记日期索引，复用列表读取结果 |
@@ -61,6 +62,10 @@
 
 | 文件 | 是什么 | 状态 |
 |---|---|---|
+| [../server/deploy/README.md](../server/deploy/README.md) | 第五段同镜像API/worker、独立测试环境、HTTPS、增量迁移、本机回退与Apple配置缺项 | 本机代码与部署包已实施；真实Apple/APNs/云部署未验 |
+| [方案/团子异步Agent与后端架构-方案-2026-11-10.md](方案/团子异步Agent与后端架构-方案-2026-11-10.md) | 事件准入、模型研判、事项执行与唯一出口；约定、托付、每日日记、投递和推断六段 | 已批准并实施六段本机代码；observe/许可默认关闭；主要 mock 模拟器链路及 Debug/Release 通过；真实模型、内测指标、3D 故障定位及 Apple/APNs/云验收仍待；本批代码交付，Git 记录为准 |
+| [方案/团子异步Agent与后端架构-实施与验收-2026-11-10.md](方案/团子异步Agent与后端架构-实施与验收-2026-11-10.md) | 六段本机实现、分段测试与统一模拟器收尾证据 | 后端 232 项、HTTPS 16 项通过；11-11 补主要模拟器链路与点击修复，全仓及 Debug/Release 通过；仍有真实模型/内测、3D 故障及第五段外部验收缺口；本批代码交付，Git 记录为准 |
+| [../outputs/async-agent-review/模拟器实测记录.md](../outputs/async-agent-review/模拟器实测记录.md) | 约定、托付、日记、信箱和许可的实际模拟器操作、截图与故障证据 | 主要 mock 路径已实测；3D 重载曾失败一次，根因未定位；真实模型与外部验收仍待 |
 | [../outputs/ios-avatar-performance-review/验收报告.md](../outputs/ios-avatar-performance-review/验收报告.md) | 第六批 iOS 原生头像动画准备性能 | 单轮同步启动片段、共享帧、后台/遮挡/等待取消/减弱动态效果检查、全仓及Debug/Release构建通过；本轮按用户要求提交推送并结束开发，真机未测 |
 | [../outputs/ios-facts-performance-review/验收报告.md](../outputs/ios-facts-performance-review/验收报告.md) | 第五批 iOS 原生事实同步性能 | 院子/聊天实际计数、即时同步与跨日条件、模拟器重载、全仓检查及Debug/Release构建通过；按用户要求提交推送，真机未测 |
 | [../outputs/ios-diary-performance-review/验收报告.md](../outputs/ios-diary-performance-review/验收报告.md) | 第四批 iOS 原生日记列表读取性能 | 1,000条/100天模拟器批量基准、索引契约、保存重开、全仓检查与Debug/Release构建通过；按用户要求提交推送，真机未测 |

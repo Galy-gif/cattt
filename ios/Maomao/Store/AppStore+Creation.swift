@@ -7,7 +7,7 @@ extension CreationDraft.Step {
 
 extension AppStore {
     var creationStorage: CreationStorage {
-        let identity = backend.isRemote ? backend.baseURL.absoluteString + "\n" + backend.token : "local-only"
+        let identity = backend.storageIdentity
         let digest = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         return CreationStorage(url: root.appendingPathComponent("CreationRecords/" + digest + ".json"))
@@ -15,6 +15,13 @@ extension AppStore {
 
     /// 只迁移原本机空间，不能把全局旧资料猜成某个远端账号的资料。
     func loadCreation() {
+        if backend.mode == .service {
+            onboardingTask?.cancel()
+            onboarding = nil
+            creationArchive = CreationArchive()
+            creationLoadFailed = false
+            return
+        }
         onboardingTask?.cancel()
         restoringCreation = true
         creationArchive = CreationArchive()

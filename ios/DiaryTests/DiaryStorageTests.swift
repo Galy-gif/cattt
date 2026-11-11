@@ -141,6 +141,21 @@ struct DiaryStorageTests {
         cats.upsertCatDiary(text: "模型改写", time: "23:59", now: day1.addingTimeInterval(20), timeZone: tz)
         check(cats.entries[0].createdAt == day1 && cats.entries[0].cloudRevision == 1)
         check(cats.entries[0].pendingMutationID != nil)
+        // 服务端猫日记按日展示一篇，旧本地正文仍保留在档案里；未读按来源ID持久化。
+        var legacy = DiaryEntry(id: "cat-old", time: "12:00", kind: .cat, visit: .unread, text: "旧本地正文", createdAt: day1, timeZone: tz)
+        legacy.pendingMutationID = "old-pending"
+        var authority = DiaryEntry(id: "daily-cat:2026-10-18", time: "12:00", kind: .cat, visit: .unread, text: "服务端正文", createdAt: day1, timeZone: tz)
+        authority.cloudID = "daily-server"; authority.cloudRevision = 1
+        var daily = DiaryArchive(entries: [legacy])
+        daily.merge(authority); daily.merge(authority)
+        check(daily.entries.count == 2, "历史不删除、重复同步不增条")
+        check(DiaryReadIndex(entries: daily.entries).entries(on: "2026-10-18").map(\.text) == ["服务端正文"], "同日以服务端为准")
+        check(authority.hasUnreadCatDiary && !legacy.hasUnreadCatDiary)
+        daily.entries[1].catDiaryRead = true
+        daily.merge(authority)
+        check(!daily.entries[1].hasUnreadCatDiary, "重新拉取不重置已读")
+        try a.save(daily)
+        check(try a.load() == daily, "已读和原始旧记录完整恢复")
         print("日记存储：正文/换行/私密、日期边界、同日改写、历史保留、分区、损坏与写入失败检查通过")
     }
 }

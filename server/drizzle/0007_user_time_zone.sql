@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "time_zone" text DEFAULT 'Asia/Shanghai' NOT NULL;
