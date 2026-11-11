@@ -50,6 +50,9 @@ final class AppStore: ObservableObject {
     @Published var lastDrinkAt: Date?
     /// 倒水动画进度：1 刚开始，0 结束；0.5 是"碗已经满了，水晃一下"。
     @Published var pouring = 0.0
+    @Published var allowProactive = false
+    @Published var proactiveBusy = false
+    @Published var proactiveError: String?
     @Published var rainSoundEnabled = true { didSet { UserDefaults.standard.set(rainSoundEnabled, forKey: Self.rainSoundKey) } }
     /// 院子的天气怎么来（我的 → 设置）。手动切换时雨三秒起落，不等一分钟。
     @Published var weatherMode: WeatherMode = .real {
@@ -276,6 +279,14 @@ final class AppStore: ObservableObject {
     }
     /// 调试面板上显示的连接状态。
     @Published var backendStatus: String?
+    @Published var identityError: String?
+    @Published var identityBusy = false
+    @Published var appleLoginNonce: String?
+    var appleLoginURL: URL?
+    var registeredNotificationDeviceID: String?
+    var resolvingNotification = false
+    @Published var notificationMessageID: String?
+    @Published var notificationLetterID: String?
     /// 同一次 App 启动中，每个本机后端配置只上报一次，重连不重复发送。
     var timeZoneReportedBackends: [BackendConfig] = []
     var remoteChatGeneration = UUID()
@@ -346,6 +357,7 @@ final class AppStore: ObservableObject {
             default: break
             }
         }
+        NotificationBridge.store = self
         loadPersisted()
         loadCreation()
         connectBackend()
@@ -508,7 +520,8 @@ final class AppStore: ObservableObject {
     func openMailbox(anchor: CGPoint) {
         guard !mailboxOpen else {return}
         mailboxAnchor=anchor
-        hasMail=mailboxLetters.contains { $0.readAt == nil }
+        if let unread = entries.filter(\.hasUnreadCatDiary).max(by: { $0.dayKey < $1.dayKey }) { selectDiaryDay(unread.dayKey) }
+        markCatDiariesRead(on: diaryDay)
         refreshInbox()
         mailboxOpen=true
     }

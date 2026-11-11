@@ -42,6 +42,8 @@ export const cats = pgTable('cats', {
   traits: jsonb('traits').$type<Traits>().notNull(),
   /** 改性格时 +1，只影响之后的表达 */
   personaVersion: integer('persona_version').notNull().default(1),
+  allowProactive: boolean('allow_proactive').notNull().default(false),
+  proactiveRevision: integer('proactive_revision').notNull().default(0),
   learnMemories: boolean('learn_memories').notNull().default(true),
   useMemories: boolean('use_memories').notNull().default(true),
   memoryRevision: integer('memory_revision').notNull().default(0),
@@ -267,9 +269,9 @@ export * from './schema-runtime.ts';
 export const triggers = pgTable('triggers', {
   id: id(), catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
   source: text('source').notNull(), idempotencyKey: text('idempotency_key').notNull(),
-  payload: jsonb('payload').$type<{ ticket_id?: string; due_at?: string; message_id?: string; when?: string; about?: string }>().notNull(), receivedAt: timestamp('received_at', { withTimezone: true }).notNull().defaultNow(),
+  payload: jsonb('payload').$type<{ ticket_id?: string; due_at?: string; message_id?: string; when?: string; about?: string; local_day?: string; time_zone?: string; start_at?: string; end_at?: string; inference_rule?: string; permission_revision?: number; watch_id?: string }>().notNull(), receivedAt: timestamp('received_at', { withTimezone: true }).notNull().defaultNow(),
 }, t => [uniqueIndex('triggers_identity').on(t.catId, t.source, t.idempotencyKey)]);
-export type Mandate = { kind: 'explicit'; source_message_id: string } | { kind: 'inferred'; rule_id: string; version: number };
+export type Mandate = { kind: 'explicit'; source_message_id: string } | { kind: 'inferred'; rule_id: string; version: number; source_hash?: string; source_message_id?: string; permission_revision?: number; topic?: string };
 export const tickets = pgTable('tickets', {
   id: id(), catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
   kind: text('kind').notNull(), goal: text('goal').notNull(), mandate: jsonb('mandate').$type<Mandate>().notNull(),
@@ -326,3 +328,38 @@ export const runSteps=pgTable('run_steps',{
  messages:jsonb('messages').$type<import('ai').ModelMessage[]>().notNull(),usage:jsonb('usage').$type<{outputTokens:number}>().notNull(),
  finishedAt:timestamp('finished_at',{withTimezone:true}).notNull().defaultNow(),
 },t=>[uniqueIndex('run_steps_checkpoint').on(t.runId,t.step)]);
+
+/** 已确认的日内观察，仅存地点/活动，不把累计快照或手动天气复制成历史。 */
+export const diaryFacts = pgTable('diary_facts', {
+  id: id(), catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
+  localDay: text('local_day').notNull(), timeZone: text('time_zone').notNull(),
+  fingerprint: text('fingerprint').notNull(), text: text('text').notNull(),
+  observedAt: timestamp('observed_at', { withTimezone: true }).notNull(),
+}, t => [uniqueIndex('diary_facts_day_identity').on(t.catId, t.localDay, t.fingerprint)]);
+/** 启用时的日期标签固定；跨时区重扫已关闭日期，日期唯一键负责去重。 */
+export const diaryCalendars = pgTable('diary_calendars', {
+  catId: uuid('cat_id').primaryKey().references(() => cats.id, { onDelete: 'cascade' }),
+  startDay: text('start_day').notNull(),
+});
+
+/** 正式身份只保存不可逆会话摘要；Apple sub不会按邮箱合并。 */
+export const authNonces = pgTable('auth_nonces', { hash:text('hash').primaryKey(), expiresAt:timestamp('expires_at',{withTimezone:true}).notNull(), usedAt:timestamp('used_at',{withTimezone:true}) });
+export const sessions = pgTable('sessions', { id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),tokenHash:text('token_hash').notNull().unique(),expiresAt:timestamp('expires_at',{withTimezone:true}).notNull(),revokedAt:timestamp('revoked_at',{withTimezone:true}),createdAt:createdAt() });
+export const devices = pgTable('devices', { id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),token:text('token').notNull(),environment:text('environment').notNull(),topic:text('topic').notNull(),invalidAt:timestamp('invalid_at',{withTimezone:true}),updatedAt:timestamp('updated_at',{withTimezone:true}).notNull().defaultNow() },t=>[uniqueIndex('devices_identity').on(t.token,t.environment,t.topic)]);
+export type PushProof={messageIds:string[];diaries:{id:string;revision:number}[];usedMemories:boolean;memoryRevision?:number;content:string;callId?:string};
+export const pushNotifications = pgTable('push_notifications', {id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),outboxId:uuid('outbox_id').notNull().unique().references(()=>outbox.id,{onDelete:'cascade'}),ticketIds:uuid('ticket_ids').array().notNull(),reason:text('reason').notNull(),payload:jsonb('payload').$type<Record<string,unknown>>().notNull(),proof:jsonb('proof').$type<PushProof>().notNull(),status:text('status').notNull().default('pending'),budgetDay:text('budget_day'),createdAt:createdAt() });
+export const pushDeliveries = pgTable('push_deliveries',{id:id(),notificationId:uuid('notification_id').notNull().references(()=>pushNotifications.id,{onDelete:'cascade'}),deviceId:uuid('device_id').notNull().references(()=>devices.id,{onDelete:'cascade'}),apnsId:uuid('apns_id').notNull().defaultRandom(),status:text('status').notNull().default('pending'),attempts:integer('attempts').notNull().default(0),reason:text('reason'),updatedAt:timestamp('updated_at',{withTimezone:true}).notNull().defaultNow()},t=>[uniqueIndex('push_delivery_identity').on(t.notificationId,t.deviceId)]);
+export const modelReservations=pgTable('model_reservations',{id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),day:text('day').notNull(),purpose:text('purpose').notNull(),reservedTokens:integer('reserved_tokens').notNull(),status:text('status').notNull().default('reserved'),createdAt:createdAt()},t=>[index('model_reservations_daily').on(t.userId,t.day)]);
+/** 推送按实际发送当地日期预留；同通知多设备只占一次，跨日重试重新占当天一格。 */
+export const pushBudgetReservations=pgTable('push_budget_reservations',{id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),notificationId:uuid('notification_id').notNull().references(()=>pushNotifications.id,{onDelete:'cascade'}),day:text('day').notNull(),createdAt:createdAt()},t=>[uniqueIndex('push_budget_day_notification').on(t.notificationId,t.day),index('push_budget_cat_day').on(t.catId,t.day)]);
+
+/** 推断只存来源引用/hash和时刻，不建立用户原文副本。 */
+export const inferenceWatches=pgTable('inference_watches',{
+ id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),sourceMessageId:uuid('source_message_id').notNull().references(()=>messages.id,{onDelete:'cascade'}),sourceHash:text('source_hash').notNull(),ruleId:text('rule_id').notNull(),topic:text('topic').notNull(),dueAt:timestamp('due_at',{withTimezone:true}).notNull(),permissionRevision:integer('permission_revision').notNull(),state:text('state').notNull().default('waiting'),createdAt:createdAt(),
+},t=>[uniqueIndex('inference_watch_source_rule').on(t.sourceMessageId,t.ruleId),index('inference_watch_due').on(t.state,t.dueAt)]);
+export const inferenceObservations=pgTable('inference_observations',{
+ id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),sourceMessageId:uuid('source_message_id').notNull().references(()=>messages.id,{onDelete:'cascade'}),sourceHash:text('source_hash').notNull(),ruleId:text('rule_id').notNull(),ruleVersion:integer('rule_version').notNull(),topic:text('topic').notNull(),observedAt:timestamp('observed_at',{withTimezone:true}).notNull(),
+},t=>[uniqueIndex('inference_observation_source_rule').on(t.sourceMessageId,t.ruleId)]);
+export const inferredPublications=pgTable('inferred_publications',{
+ id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),ticketId:uuid('ticket_id').notNull().references(()=>tickets.id,{onDelete:'cascade'}),sourceMessageId:uuid('source_message_id').notNull().references(()=>messages.id,{onDelete:'cascade'}),localDay:text('local_day').notNull(),createdAt:createdAt(),
+},t=>[uniqueIndex('inferred_publication_cat_day').on(t.catId,t.localDay),uniqueIndex('inferred_publication_source').on(t.sourceMessageId)]);

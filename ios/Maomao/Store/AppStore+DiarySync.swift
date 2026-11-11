@@ -5,7 +5,7 @@ extension AppStore {
         if !backend.isRemote { return "仅存本机" }
         if diarySyncFailed { return "同步未完成 · 重试" }
         if diarySyncTask != nil { return "正在同步" }
-        if !diarySyncFinished || entries.contains(where: \.needsSync) { return "等待同步" }
+        if !diarySyncFinished || entries.contains(where: { $0.kind != .cat && $0.needsSync }) { return "等待同步" }
         return "已同步"
     }
 
@@ -39,11 +39,11 @@ extension AppStore {
     private func performDiarySync(client: APIClient, generation: UUID) async throws {
         try checkDiarySync(generation, client)
         var prepared = diaryArchive
-        for i in prepared.entries.indices where prepared.entries[i].needsSync && prepared.entries[i].pendingMutationID == nil {
+        for i in prepared.entries.indices where prepared.entries[i].kind != .cat && prepared.entries[i].needsSync && prepared.entries[i].pendingMutationID == nil {
             prepared.entries[i].pendingMutationID = UUID().uuidString
         }
         if prepared.entries != entries, !persistDiary(prepared) { throw APIError.badResponse }
-        for id in entries.filter(\.needsSync).map(\.id) {
+        for id in entries.filter({ $0.kind != .cat && $0.needsSync }).map(\.id) {
             for _ in 0..<3 {
                 guard let sent = entries.first(where: { $0.id == id }), let mutation = sent.pendingMutationID else { break }
                 let result = try await client.saveDiary(sent)
@@ -73,10 +73,12 @@ extension AppStore {
                 let remote = try row.local()
                 let old = entries.first(where: { $0.id == remote.id })
                 if remote.visit > (old?.visit ?? .unread), !remote.isPrivate { mail = true }
+                if remote.hasUnreadCatDiary && old == nil { mail = true }
                 if archive.merge(remote) { flash("记录已在其他设备更新，请重新选择权限") }
             }
             guard persistDiary(archive) else { throw APIError.badResponse }
-            if mail && !mailboxOpen { hasMail = true }
+            if mailboxOpen { markCatDiariesRead(on: diaryDay) }
+            if (mail && !mailboxOpen) || entries.contains(where: \.hasUnreadCatDiary) { hasMail = true }
             guard let next = page.nextSeq else { break }
             guard next > after else { throw APIError.badResponse }
             after = next

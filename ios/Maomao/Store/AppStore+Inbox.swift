@@ -4,6 +4,7 @@ extension AppStore {
     /// 不重连聊天、不改 pending turn；生成中先记下刷新请求，done 后再拉。
     func refreshInbox() {
         guard backend.isRemote, !backend.token.isEmpty else { return }
+        syncDiary()
         guard !isWaiting, !isStreaming else { inboxRefreshPending = true; return }
         guard inboxTask == nil else { inboxRefreshPending = true; return }
         let client = api
@@ -66,7 +67,7 @@ extension AppStore {
                 if let index = mailboxLetters.firstIndex(where: { $0.id == letter.id }) {
                     mailboxLetters[index].readAt = ISO8601DateFormatter().string(from: Date())
                 }
-                hasMail = mailboxLetters.contains(where: { $0.readAt == nil })
+                hasMail = mailboxLetters.contains(where: { $0.readAt == nil }) || entries.contains(where: \.hasUnreadCatDiary)
             } catch { self?.flash("没能记下已读，稍后再试") }
         }
     }

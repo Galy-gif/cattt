@@ -106,3 +106,19 @@ pg-boss 连接的 `statement_timeout` 从2秒放宽到60秒，让大表维护查
 最多20步、累计8000输出token（含供应商计入output的思考token）、累计10分钟活动执行时间；等待回答和安静时段延期不占活动时间。崩溃后未完成步骤至恢复认领的时间保守计入预算，避免重启清零。408/429/5xx与明确网络错误在同一步递增退避重试3次，其余报failed；每次尝试入成本账本。report先按call_id存凭证再返回；progress不发布，ready写信+一句短通知，waiting只问一句，blocked/failed如实说明，dropped安静结束。等待问题按各次report凭证去重，同一最终用途只有一份收据。
 
 出口在同一事务里复核归属、授权、消息/日记来源、边界、记忆开关与修订、新鲜度、安静时段和去重，持有既有Redis对话锁。会话version变化先重新判断；撤回来源后不继续把旧检查点观察交给模型。22:00–09:00的结果推迟到09:00；waiting产生24小时后无回答只安静等，不再追问。详情、自动化证据与未验边界见[实施记录](../docs/方案/团子异步Agent与后端架构-实施与验收-2026-11-10.md)。
+
+## 第六段：推断开口保持observe
+
+`ask_outcome`仍是版本1的`observe`，`quiet_return`仍`off`；本段没有升级实际规则。鉴权的 `GET /v1/me/proactive` 返回 `{allow_proactive,revision}`，`PATCH`只接 `{allow_proactive:boolean}`，仅操作本人猫的许可，不接全局规则。许可默认关闭；关闭即停止新增推断和模型调用，撤销未完成推断，explicit约定/托付与产品规则daily_diary照常。关后再开不复活旧许可epoch的候选。
+
+只在新用户聊天事务保存来源ID、来源时区和PG待办，不回填历史；独立`inference`队列在后台使用同一便宜routerSlot。只接明确结束时刻、来源后7天内的重要面试/考试/就诊/比赛/答辩；“明天面试”时间不明就ignore。输入只有600字来源和最近6条各120字的许可快照，模型结构化输出须引用本猫真实用户原话及结束时间。未来时刻保存不含原文的等待引用，clock到点重新判断。结果已自述、来源撤回/不要再提、记忆/许可关闭、规则off或模型失败一律安静忽略。observe把accept记为ignore，仅保存本来会问的引用，不建发布事项。
+
+受控auto路径复用followup事项、PG待办与publisher；发布前复核当前许可epoch、最新规则版本、来源hash、边界、记忆revision、会话version与时区，变化后重评。只在本地09:00–22:00，每猫每个日期标签最多一次；时区更换回同日期仍占原名额，同一来源跨日也不能重问。推断超过事后24小时直接安静结束，不继承explicit的必发/超时留信。ask_outcome从不推送。
+
+聚合命令（在有权访问数据库的本机/运维环境执行，无管理HTTP入口）：
+
+```sh
+MODEL_PROVIDER=mock pnpm --dir server exec tsx scripts/inference-metrics.ts
+```
+
+输出只有 `would_ask_total,matured,volunteered,ratio,pending`。48小时完成窗口才入比例分母，窗口内后续许可用户消息明确提同类结果则入分子；来源撤回、改写、边界或记忆许可变化后实时剔除。不输出原话、goal或个人标识；这只是保守关键词归因，不是因果或真实模型质量评估。内测数据和另行决策到位前不切auto。

@@ -4,6 +4,7 @@ struct APITicket: Decodable, Identifiable {
     let id: String
     let kind: String
     let goal: String
+    let sourceMessageId: String?
     let status: String
     let stage: String
     let dueAt: String?
@@ -39,11 +40,11 @@ struct APIMailboxLetter: Decodable, Identifiable {
 }
 
 extension APIClient {
-    func tickets() async throws -> [APITicket] {
+    func tickets(includeEndedFollowups: Bool = false) async throws -> [APITicket] {
         struct Page: Decodable { let tickets: [APITicket] }
         var req = request("GET", "v1/tickets")
         req.url?.append(queryItems: [URLQueryItem(name: "status", value: "all")])
-        return try await json(Page.self, req).tickets.filter { $0.kind == "errand" || $0.status == "open" }
+        return try await json(Page.self, req).tickets.filter { includeEndedFollowups || $0.kind == "errand" || $0.status == "open" }
     }
     func changeTicket(_ id: String, to date: Date) async throws {
         struct OK: Decodable {}

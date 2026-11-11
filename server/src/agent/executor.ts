@@ -152,7 +152,7 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  }finally{await releaseConversationLock(conv.id,token);}
  }catch(error){
  if(error instanceof RunStopped){await db.update(runs).set({status:'ended',leaseUntil:null}).where(owned);return;}
- await fail('这次没能继续想下去，暂时没有可靠的答案。');
+ await fail(error instanceof Error&&error.message.includes('model_daily_budget')?'今天能想的事已到上限，这件事还没办完。':'这次没能继续想下去，暂时没有可靠的答案。');
  const [conv]=await db.select().from(conversations).where(eq(conversations.catId,initial.t.catId));
  if(conv){const token=randomUUID();if(await acquireConversationLock(conv.id,token,1000))try{
  const p=await publishErrand({runId,attempt:claimed.attempt,lockToken:token,now:await now()});if(typeof p==='object')return p;if(p==='stale')return {retryAt:new Date(+(await now())+30000)};

@@ -1,7 +1,7 @@
 import { diaryAllowed } from '../agent/gate.ts';
 import { and, eq, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
-import { asyncJobs, diaryEntries, messages, turns } from '../db/schema.ts';
+import { asyncJobs, diaryEntries, diaryCalendars, users, messages, turns } from '../db/schema.ts';
 import { bumpMemory, lockMemory, MemoryControlError, withdrawSources } from '../memory/control.ts';
 
 export type DiaryInput = {
@@ -33,9 +33,20 @@ async function invalidateDiary(tx: Tx, catId: string, id: string) {
 /** CAT 锁串行化权限、来源失效和聊天输出提交；旧重试没有重新授权的能力。 */
 export async function saveDiary(catId: string, input: DiaryInput) {
   return db.transaction(async tx => {
-    await lockMemory(tx, catId);
+    const cat = await lockMemory(tx, catId);
     const [old] = await tx.select().from(diaryEntries).where(and(eq(diaryEntries.catId, catId), eq(diaryEntries.clientId, input.client_id)));
     if (old?.mutationId === input.mutation_id) return old;
+    // 猫日记一经同步就是只读历史；同一日期不能换client_id另开一篇。
+    if (old?.kind === 'cat') throw new DiaryConflict(old);
+    if (!old && input.kind === 'cat') {
+      const [sameDay] = await tx.select().from(diaryEntries).where(and(eq(diaryEntries.catId, catId), eq(diaryEntries.kind, 'cat'), eq(diaryEntries.day, input.day)));
+      if (sameDay) throw new DiaryConflict(sameDay);
+      const [calendar] = await tx.select().from(diaryCalendars).where(eq(diaryCalendars.catId, catId));
+      const [owner] = await tx.select().from(users).where(eq(users.id, cat.userId));
+      const { localISO } = await import('../agent/tickets.ts');
+      const startDay = calendar?.startDay ?? localISO(cat.createdAt, owner!.timeZone).slice(0,10);
+      if (input.client_id.startsWith('daily-cat:') || input.day >= startDay) throw new MemoryControlError(409, '猫日记由团子写好后同步，请刷新');
+    }
     if (old && old.revision !== input.revision) throw new DiaryConflict(old);
     if (!old && input.revision !== 0) throw new MemoryControlError(404, '找不到这条日记');
     const catAllowed = input.kind === 'text' && input.cat_allowed;

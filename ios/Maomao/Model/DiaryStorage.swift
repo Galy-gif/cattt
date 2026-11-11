@@ -36,7 +36,9 @@ struct DiaryReadIndex {
 
     init(entries: [DiaryEntry]) {
         byDay = Dictionary(grouping: entries, by: \.dayKey).mapValues {
-            $0.sorted { $0.createdAt < $1.createdAt }
+            let authoritative = $0.contains(where: \.isServerCatDiary)
+            return $0.filter { !authoritative || $0.kind != .cat || $0.isServerCatDiary }
+                .sorted { $0.createdAt < $1.createdAt }
         }
         days = byDay.keys.sorted(by: >)
     }
@@ -73,6 +75,12 @@ struct DiaryArchive: Codable, Equatable {
     mutating func merge(_ remote: DiaryEntry, sentMutation: String? = nil) -> Bool {
         guard let i = entries.firstIndex(where: { $0.id == remote.id }) else { entries.append(remote); return false }
         let local = entries[i]
+        if remote.isServerCatDiary {
+            var next = remote
+            next.catDiaryRead = local.catDiaryRead
+            entries[i] = next
+            return false
+        }
         if (remote.cloudRevision ?? 0) < (local.cloudRevision ?? 0) { return false }
         // 拉取时撞上另一设备的新版本，未发送的旧分享不得借刷新版本重新授权。
         if sentMutation == nil, local.pendingMutationID != nil, local.kind == .text, !local.isPrivate,

@@ -4,7 +4,7 @@ import CryptoKit
 extension AppStore {
     private var diaryStorage: DiaryStorage {
         // 开发 token 暂代账号身份；只用摘要做文件名，不写明文凭据。
-        let identity = backend.isRemote ? backend.baseURL.absoluteString + "\n" + backend.token : "local-only"
+        let identity = backend.storageIdentity
         let digest = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         return DiaryStorage(url: root.appendingPathComponent("DiaryRecords/" + digest + ".json"))
@@ -54,6 +54,7 @@ extension AppStore {
                     entries = archive.entries
                 }
             }
+            hasMail = entries.contains(where: \.hasUnreadCatDiary)
             catDiaryDate = entries.filter { $0.kind == .cat }.map(\.createdAt).max()
         } catch {
             diaryLoadFailed = true
@@ -76,5 +77,17 @@ extension AppStore {
     func selectDiaryDay(_ day: String?) {
         selectedDiaryDay = day == diaryToday ? nil : day
         diaryFilter = .all
+        if mailboxOpen { markCatDiariesRead(on: diaryDay) }
+    }
+
+    func markCatDiariesRead(on day: String) {
+        var archive = diaryArchive
+        var changed = false
+        for i in archive.entries.indices where archive.entries[i].dayKey == day && archive.entries[i].hasUnreadCatDiary {
+            archive.entries[i].catDiaryRead = true
+            changed = true
+        }
+        if changed { _ = persistDiary(archive) }
+        hasMail = entries.contains(where: \.hasUnreadCatDiary) || mailboxLetters.contains { $0.readAt == nil }
     }
 }

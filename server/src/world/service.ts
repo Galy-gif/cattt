@@ -1,3 +1,4 @@
+import { recordDiaryObservation } from '../agent/daily-diary.ts';
 import { randomUUID } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { and, eq, inArray, lte, sql } from 'drizzle-orm';
@@ -49,6 +50,7 @@ export async function putState(catId: string, sessionId: string, generation: str
       await tx.update(worldActions).set({ status: 'interrupted', reason: 'world_paused', updatedAt: instant })
         .where(and(eq(worldActions.catId, catId), inArray(worldActions.status, ['requested', 'accepted', 'running'])));
     }
+    await recordDiaryObservation(tx, catId, snapshot, instant);
     await expire(tx, catId, instant);
     return { ok: true, serverTime: instant };
   });
@@ -135,6 +137,7 @@ export async function acknowledge(catId: string, actionId: string, sessionId: st
     if (snapshot.stateVersion > session.stateVersion) {
       await tx.update(worldSessions).set({ snapshot, stateVersion: snapshot.stateVersion, observedAt: occurredAt ?? instant }).where(eq(worldSessions.id, sessionId));
     }
+    if (status === 'arrived') await recordDiaryObservation(tx, catId, snapshot, occurredAt ?? instant);
     const [updated] = await tx.update(worldActions).set({ status, reason: reason ?? null, updatedAt: instant }).where(eq(worldActions.id, actionId)).returning();
     return updated!;
   });

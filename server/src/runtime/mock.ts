@@ -247,6 +247,8 @@ export function mockRecallModel() {
 export function mockRouterModel() {
   return new MockLanguageModelV4({provider:'mock',modelId:'mock-router',doGenerate:async options=>{
     const snapshot=JSON.parse(lastUserText(options));
+    if(snapshot.inference)return {content:[{type:'text' as const,text:JSON.stringify({decision:snapshot.event?'accept':'ignore',rule_assessments:[{rule_id:snapshot.rule.rule_id,version:snapshot.rule.version,matched:!!snapshot.event}],evidence:snapshot.event?[{message_id:snapshot.source.id,quote:snapshot.source.text}]:[],topic:snapshot.event?.topic,after_at:snapshot.event?.after_at,resolved:false})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(200,100),warnings:[]};
+    if ('facts' in snapshot) return {content:[{type:'text' as const,text:JSON.stringify({has_events:snapshot.facts.length>0,fact_ids:snapshot.facts.map((f:{id:string})=>f.id)})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(100,30),warnings:[]};
     if(snapshot.tickets.some((t:{goal:string})=>t.goal.includes('[route-fail]'))) throw new Error('mock route failure');
     return {content:[{type:'text' as const,text:JSON.stringify({decision:'attach',ticket_ids:snapshot.tickets.map((t:{id:string})=>t.id),merge:true,text:followupText(snapshot.tickets),rule_assessments:[{rule_id:'followup_due',matched:true,reason:'用户亲口约定到期'}]})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(150,50),warnings:[]};
   }});
@@ -257,6 +259,7 @@ export function mockWorkerModel(options:{onRequest?:()=>void|Promise<void>}={}) 
  return new MockLanguageModelV4({provider:'mock',modelId:'mock-worker',doGenerate:async call=>{
  await options.onRequest?.();
  const goal=call.prompt.filter(m=>m.role==='user').flatMap(m=>m.content).filter(p=>p.type==='text').map(p=>p.text).join('\n');
+ if(call.prompt.some(m=>m.role==='system'&&m.content.includes('写每日猫日记'))) {const card=JSON.parse(goal);return {content:[{type:'text' as const,text:JSON.stringify({reflection:'有些小念头，不必急着弄明白。我想把心里的柔软留在这一页，慢慢想。',fact_ids:card.facts.slice(0,4).map((f:{id:string})=>f.id)})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(100,40),warnings:[]};}
  const observations=call.prompt.filter(m=>m.role==='tool').flatMap(m=>m.content).filter(p=>p.type==='tool-result');
  const has=(name:string)=>observations.some(p=>p.toolName===name);
  const inputs=goal.match(/用户补充：([^\n]+)/g)?.join('；')??'';

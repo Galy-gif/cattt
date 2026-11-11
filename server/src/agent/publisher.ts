@@ -1,3 +1,4 @@
+import { enqueuePush } from '../push/service.ts';
 import { followupText } from './router.ts';
 import { availableAt, localISO } from './tickets.ts';
 import { refreshConversationLock } from '../turns/events.ts';
@@ -57,6 +58,12 @@ export async function reviewDiaryPublication(tx: Tx, input: NonNullable<Awaited<
   return true;
 }
 
+async function writeFollowupDelivery(tx:Tx,input:{catId:string;conversationId:string;ticketId:string;text:string;sendChat:boolean}){
+ const [chatMessage]=input.sendChat?await tx.insert(messages).values({conversationId:input.conversationId,role:'cat',text:input.text,ticketId:input.ticketId,memoryEligible:false}).returning():[];
+ const [letter]=await tx.insert(mailboxLetters).values({catId:input.catId,ticketId:input.ticketId,text:input.text}).returning();
+ return{chatMessage,letter};
+}
+
 /** 主动产出与普通回复共用对话锁；只由用户输入递增 version。 */
 export async function publishFollowups(candidate: {
   catId:string; userId:string; conversationId:string; version:number; triggerId:string;
@@ -92,14 +99,14 @@ export async function publishFollowups(candidate: {
     if(valid.some(t=>(+now-+t.dueAt!>86400000)!==candidate.overdue)) return 'stale';
     if(!candidate.overdue && (hour<9 || hour>=22 || valid.some(t=>+availableAt(t.dueAt!,user!.timeZone)>+now))) return 'stale';
     const text=valid.length===candidate.batch.length ? candidate.text : followupText(valid,candidate.overdue);
-    if(!candidate.overdue) await tx.insert(messages).values({conversationId:conv.id,role:'cat',text,ticketId:valid[0]!.id,memoryEligible:false});
-    await tx.insert(mailboxLetters).values({catId:cat.id,ticketId:valid[0]!.id,text});
+    const {chatMessage}=await writeFollowupDelivery(tx,{catId:cat.id,conversationId:conv.id,ticketId:valid[0]!.id,text,sendChat:!candidate.overdue});
     for(const t of valid) {
       if(!candidate.overdue) await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:'followup:chat',kind:'chat_message',status:'sent'}).onConflictDoNothing();
       await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:'followup:letter',kind:'mailbox_letter',status:'sent'}).onConflictDoNothing();
       await tx.update(tickets).set({status:'ended',stage:candidate.overdue?'letter':'asked',endedReason:'delivered',updatedAt:sql`now()`}).where(eq(tickets.id,t.id));
       await tx.insert(decisions).values({triggerId:candidate.triggerId,ticketId:t.id,outcome:'attach',reasons:[candidate.reason,candidate.overdue?'超过24小时只留信':'亲口约定到期']});
     }
+    if(chatMessage)await enqueuePush(tx,{catId:cat.id,ticketIds:valid.map(t=>t.id),reason:'followup_due',payload:{route:'chat',message_id:chatMessage.id},proof:{messageIds:valid.flatMap(t=>t.sourceMessageId?[t.sourceMessageId]:[]),diaries:[],usedMemories:false,content:text},now,purpose:'push:followup'});
     // PG收据即前台可重放的提示来源；本段没有外部副作用，无需额外投递。
     return 'sent';
   });
@@ -123,6 +130,7 @@ export async function publishErrand(candidate:{runId:string;attempt:number;lockT
  if(t.catId!==cat.id||conv.catId!==cat.id||t.kind!=='errand')throw new Error('errand_owner');
  if(t.status!=='open')denied='授权已撤回';
  if(t.mandate.kind==='inferred'){
+ if(!cat.allowProactive)denied='主动许可已关闭';
  const [rule]=await tx.select().from(proactiveRules).where(and(eq(proactiveRules.ruleId,t.mandate.rule_id),eq(proactiveRules.version,t.mandate.version)));
  if(rule?.mode!=='auto')denied='规则已关闭';
  }else if(t.mandate.source_message_id!==t.sourceMessageId)denied='授权不可用';
@@ -159,16 +167,77 @@ export async function publishErrand(candidate:{runId:string;attempt:number;lockT
  const available=availableAt(candidate.now,user.timeZone);if(+available>+candidate.now)return {retryAt:available};
  const text=a.status==='ready'?'我想好了一些，放在信箱里了，想看时再拆。':a.status==='waiting'?a.question!:`这件事没能办好。${a.reason??'这次没有想出可靠的办法。'}`;
  if(a.status==='progress')return 'sent';
- await tx.insert(messages).values({conversationId:conv.id,role:'cat',text,ticketId:t.id,memoryEligible:false});
+ const [chatMessage]=await tx.insert(messages).values({conversationId:conv.id,role:'cat',text,ticketId:t.id,memoryEligible:false}).returning();
  await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:purpose+':chat',kind:'chat_message',status:'sent'});
  if(a.status==='ready'){
- await tx.insert(mailboxLetters).values({catId:cat.id,ticketId:t.id,text:a.result!});
+ const [letter]=await tx.insert(mailboxLetters).values({catId:cat.id,ticketId:t.id,text:a.result!}).returning();
+ await enqueuePush(tx,{catId:cat.id,ticketIds:[t.id],reason:'errand_ready',payload:{route:'mailbox',letter_id:letter!.id},proof:{messageIds:[...new Set([t.sourceMessageId!,...journal.dependencies.messages])],diaries:journal.dependencies.diaries,usedMemories:journal.dependencies.usedMemories,memoryRevision:journal.dependencies.memoryRevision,content:a.result!},now:candidate.now,purpose:'push:errand:ready'});
  await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:'errand:ready:letter',kind:'mailbox_letter',status:'sent'});
  }
  if(a.status==='waiting'){
+ await enqueuePush(tx,{catId:cat.id,ticketIds:[t.id],reason:'errand_waiting',payload:{route:'chat',message_id:chatMessage!.id},proof:{messageIds:[...new Set([t.sourceMessageId!,...journal.dependencies.messages])],diaries:journal.dependencies.diaries,usedMemories:journal.dependencies.usedMemories,memoryRevision:journal.dependencies.memoryRevision,content:a.question!,callId:a.callId},now:candidate.now,purpose:'push:errand:waiting:'+a.callId});
  await tx.update(tickets).set({stage:'waiting',updatedAt:candidate.now}).where(eq(tickets.id,t.id));
  await tx.update(runs).set({status:'pending',leaseUntil:null,stepStartedAt:null}).where(eq(runs.id,r.id));
  }else await finish(a.status,'delivered');
  return 'sent';
+ });
+}
+
+/** 每日日记只写现有日记表和inbox收据，绝不写普通来信、聊天或推送。 */
+export async function publishDailyDiary(candidate: {input:import('./daily-diary.ts').DailyInput;text:string;triggerId:string}):Promise<'sent'|'stale'> {
+  const { dailyDiaryInput, dayStart, safeDailyText } = await import('./daily-diary.ts');
+  const { randomUUID, createHash } = await import('node:crypto');
+  return db.transaction(async tx=>{
+    const cat=await lockMemory(tx,candidate.input.catId);
+    const [conv]=await tx.select().from(conversations).where(eq(conversations.catId,cat.id)).for('update');
+    await tx.select().from(users).where(eq(users.id,cat.userId)).for('update');
+    const [ticket]=await tx.select().from(tickets).where(eq(tickets.id,candidate.input.ticketId)).for('update');
+    if(!ticket||ticket.catId!==cat.id||!conv)throw new Error('daily_owner');
+    if(ticket.status!=='open')return 'sent';
+    const current=await dailyDiaryInput(ticket.id,tx);
+    if(!current||current.stamp!==candidate.input.stamp)return 'stale';
+    const [receipt]=await tx.select().from(outbox).where(and(eq(outbox.ticketId,ticket.id),eq(outbox.purpose,'daily_diary')));
+    if(receipt)return 'sent';
+    const [existing]=await tx.select().from(diaryEntries).where(and(eq(diaryEntries.catId,cat.id),eq(diaryEntries.kind,'cat'),eq(diaryEntries.day,current.day)));
+    if(!existing)await tx.insert(diaryEntries).values({catId:cat.id,clientId:`daily-cat:${current.day}`,kind:'cat',text:safeDailyText(candidate.text,current.boundaryTopics),
+      recordedAt:dayStart(current.day,current.timeZone),timeZone:current.timeZone,day:current.day,time:'00:00',catAllowed:false,mutationId:randomUUID()});
+    await tx.insert(outbox).values({catId:cat.id,ticketId:ticket.id,purpose:'daily_diary',kind:'mailbox_letter',status:'sent'});
+    await tx.update(tickets).set({status:'ended',stage:'written',endedReason:existing?'existing_diary':'delivered',updatedAt:sql`now()`}).where(eq(tickets.id,ticket.id));
+    await tx.insert(decisions).values({triggerId:candidate.triggerId,ticketId:ticket.id,outcome:'attach',reasons:['日记已写入；仅信箱提示',{input_hash:createHash('sha256').update(current.stamp).digest('hex'), sources:current.facts.map(f=>({kind:f.kind,source_id:f.sourceId,content_hash:createHash('sha256').update(f.text).digest('hex')})), revision:cat.memoryRevision, version:conv.version, time_zone:current.timeZone}]});
+    return 'sent';
+  });
+}
+
+/** 推断共用同一信箱/聊天出口；独立准入，不继承explicit的必发或过期转信兜底。 */
+export async function publishInferredFollowup(candidate:{snapshot:import('./inference.ts').InferenceSnapshot;ticketId:string;lockToken:string;now?:Date}):Promise<'sent'|'stale'|{retryAt:Date}>{
+ const {readInferenceSnapshot,sourceHash}=await import('./inference.ts');
+ const {inferredPublications,inferenceWatches}=await import('../db/schema.ts');
+ const {config}=await import('../config.ts');
+ return db.transaction(async tx=>{
+  const expected=candidate.snapshot,cat=await lockMemory(tx,expected.cat.id);
+  const [conv]=await tx.select().from(conversations).where(eq(conversations.id,expected.conversation.id)).for('update');
+  const [user]=await tx.select().from(users).where(eq(users.id,cat.userId)).for('update');
+  await tx.execute(sql`lock table proactive_rules in share mode`);
+  const [t]=await tx.select().from(tickets).where(eq(tickets.id,candidate.ticketId)).for('update');
+  if(!t||t.catId!==cat.id||!conv||!user||t.kind!=='followup'||t.mandate.kind!=='inferred')throw new Error('inferred_owner');
+  if(t.status!=='open')return 'sent';
+  if(!await refreshConversationLock(conv.id,candidate.lockToken))throw new Error('inferred_lock_lost');
+  const current=await readInferenceSnapshot(expected.trigger.id,expected.rule.ruleId,tx);
+  if(!current||current.stamp!==expected.stamp||current.denial||config.AGENT_ENABLED!=='true'||!cat.allowProactive||current.rule.mode!=='auto')return 'stale';
+  if(t.mandate.rule_id!==current.rule.ruleId||t.mandate.version!==current.rule.version||t.sourceMessageId!==current.source.id||t.mandate.source_hash!==sourceHash(current.source.text)||t.mandate.permission_revision!==cat.proactiveRevision)return 'stale';
+  const [clock]=await tx.execute<{instant:string}>(sql`select clock_timestamp() as instant`);const now=candidate.now??new Date(clock!.instant);
+  const drop=async(reason:string)=>{await tx.update(tickets).set({status:'ended',stage:'dropped',endedReason:reason,updatedAt:now}).where(eq(tickets.id,t.id));return 'sent' as const;};
+  if(!t.dueAt||+now<+t.dueAt)return{retryAt:t.dueAt??new Date(+now+30000)};
+  if(+now-+t.dueAt>86400000)return drop('inferred_expired');
+  const available=availableAt(now,user.timeZone);if(+available>+now)return{retryAt:available};
+  const day=localISO(now,user.timeZone).slice(0,10);
+  const [prior]=await tx.select().from(inferredPublications).where(sql`${inferredPublications.catId}=${cat.id} and (${inferredPublications.localDay}=${day} or ${inferredPublications.sourceMessageId}=${current.source.id})`);
+  if(prior)return drop('inferred_daily_limit');
+  await tx.insert(inferredPublications).values({catId:cat.id,ticketId:t.id,sourceMessageId:current.source.id,localDay:day});
+  await writeFollowupDelivery(tx,{catId:cat.id,conversationId:conv.id,ticketId:t.id,text:t.goal+'？',sendChat:true});
+  await tx.insert(outbox).values([{catId:cat.id,ticketId:t.id,purpose:'inferred:chat',kind:'chat_message',status:'sent'},{catId:cat.id,ticketId:t.id,purpose:'inferred:letter',kind:'mailbox_letter',status:'sent'}]);
+  await tx.update(tickets).set({status:'ended',stage:'asked',endedReason:'delivered',updatedAt:now}).where(eq(tickets.id,t.id));
+  await tx.update(inferenceWatches).set({state:'ended'}).where(and(eq(inferenceWatches.catId,cat.id),eq(inferenceWatches.sourceMessageId,current.source.id)));
+  return 'sent';
  });
 }

@@ -21,6 +21,14 @@ const thinking = z.enum(['enabled', 'disabled']);
 
 const schema = z
   .object({
+    APP_ENV: z.enum(['development','staging','production']).default('development'),
+    APPLE_CLIENT_ID: z.string().optional(),
+    SESSION_DAYS: z.coerce.number().int().min(1).max(30).default(7),
+    APNS_TEAM_ID: z.string().optional(), APNS_KEY_ID: z.string().optional(),
+    APNS_PRIVATE_KEY_FILE: z.string().optional(), APNS_TOPIC: z.string().optional(),
+    MODEL_DAILY_CALL_LIMIT: z.coerce.number().int().positive().default(120),
+    MODEL_DAILY_TOKEN_LIMIT: z.coerce.number().int().positive().default(2000000),
+    AGENT_ENABLED: z.enum(['true','false']).default('true'),
     DATABASE_URL: z.string().default('postgres://maomao:maomao@localhost:5432/maomao'),
     REDIS_URL: z.string().default('redis://localhost:6379'),
     PORT: z.coerce.number().int().default(8787),

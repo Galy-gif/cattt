@@ -12,6 +12,7 @@ export class TicketError extends Error {
 }
 export const ticketView = (t: typeof tickets.$inferSelect) => ({
   id: t.id,
+  source_message_id:t.sourceMessageId,
   kind: t.kind,
   goal: t.goal,
   status: t.status,
@@ -62,7 +63,7 @@ export async function listTickets(catId: string, status = 'open') {
   return db
     .select()
     .from(tickets)
-    .where(and(eq(tickets.catId, catId), status === 'all' ? undefined : eq(tickets.status, status)))
+    .where(and(eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, status === 'all' ? undefined : eq(tickets.status, status)))
     .orderBy(asc(tickets.dueAt), asc(tickets.createdAt));
 }
 export async function scheduleFollowup(catId: string, sourceId: string, when: string, about: string, now = new Date()) {
@@ -131,7 +132,7 @@ export async function updateTicket(catId: string, ticketId: string, when: string
     const [ticket] = await tx
       .select()
       .from(tickets)
-      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), eq(tickets.status, 'open')))
+      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, eq(tickets.status, 'open')))
       .for('update');
     if (!ticket || ticket.kind !== 'followup') throw new TicketError(404, '没有这件约定');
     if (+due <= +now) throw new TicketError(400, '请选之后的时间');
@@ -164,7 +165,7 @@ export async function cancelTicket(catId: string, ticketId: string) {
     const [ticket] = await tx
       .update(tickets)
       .set({ status: 'ended', stage: 'cancelled', endedReason: 'cancelled', updatedAt: sql`now()` })
-      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), eq(tickets.status, 'open')))
+      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, sql`(${tickets.status}='open' or exists(select 1 from outbox o where o.ticket_id=${tickets.id} and o.kind='push' and o.status='pending'))`))
       .returning();
     if (!ticket) throw new TicketError(404, '没有这件约定');
     return { ticket_id: ticket.id, cancelled: true };

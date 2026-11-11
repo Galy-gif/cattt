@@ -51,7 +51,7 @@ export async function writeDiary(catId: string, facts: DiaryFacts) {
   facts = { ...facts, chatSnippet: undefined, fragmentSnippet: undefined };
   const temperament = (cat.temperament in TEMPERAMENTS ? cat.temperament : 'slow') as Temperament;
   const behavior = compileBehavior(temperament, cat.traits);
-  const slot = chatSlot();
+  const slot = chatSlot('cat_diary');
   const started = Date.now();
   const { text, usage } = await generateText({
     model: slot.model,

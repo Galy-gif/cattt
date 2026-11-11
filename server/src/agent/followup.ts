@@ -63,6 +63,8 @@ export async function scanFollowups(at?: Date, catId?: string) {
 export async function processFollowup(triggerId: string, options: { now?: Date; route?: () => Promise<unknown> } = {}) {
   const [trigger] = await db.select().from(triggers).where(eq(triggers.id, triggerId));
   if (!trigger || trigger.source !== 'clock' || !trigger.payload.ticket_id || !trigger.payload.due_at) return;
+  const [inferred]=await db.select().from(tickets).where(eq(tickets.id,trigger.payload.ticket_id));
+  if(inferred?.mandate.kind==='inferred'){const{processInference}=await import('./inference.ts');return processInference(triggerId,{now:options.now,ruleId:inferred.mandate.rule_id});}
   const [conv] = await db.select().from(conversations).where(eq(conversations.catId, trigger.catId));
   if (!conv) return;
   const token = randomUUID();
@@ -102,7 +104,7 @@ export async function processFollowup(triggerId: string, options: { now?: Date; 
         )
         .orderBy(asc(tickets.dueAt), asc(tickets.id));
       const batch = all
-        .filter((t) => +now - +t.dueAt! > 86400000 === overdue && +availableAt(t.dueAt!, current.u.timeZone) === +time)
+        .filter((t) => t.mandate.kind==='explicit' && +now - +t.dueAt! > 86400000 === overdue && +availableAt(t.dueAt!, current.u.timeZone) === +time)
         .slice(0, 8);
       if (!batch.length) return;
       const topics = await db

@@ -1,3 +1,4 @@
+import { config } from '../config.ts';
 import { startErrand, appendTicketInput } from '../agent/errands.ts';
 import { scheduleFollowup, updateTicket, cancelTicket, listTickets, ticketView, TicketError } from '../agent/tickets.ts';
 import { z } from 'zod';
@@ -67,5 +68,6 @@ export async function catTools(owner: { catId: string; turnId: string; userMessa
       return { ...result, status: 'failed', error: { code: data.status === 'requested' ? 'accept_unknown' : `action_${data.status}`, retryable: false } };
     },
   };
+  if(config.AGENT_ENABLED==='false')for(const name of ['schedule_followup','start_errand','update_ticket'])delete tools[name];
   return tools;
 }

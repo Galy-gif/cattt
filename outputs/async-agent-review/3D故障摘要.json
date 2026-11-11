@@ -1,0 +1,70 @@
+{
+  "source": "模拟器 App Documents/yard-last-failure.json 的故障相关事件摘录；移除猫动作事件与运行 ID，uptime 换算为自初始化起秒数。",
+  "captured_at": "2026-11-11T03:04:51+08:00",
+  "ready": false,
+  "active": true,
+  "surfaceReady": false,
+  "events": [
+    {
+      "type": "resumed",
+      "reason": "initialize",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "renderMs": 1253,
+      "type": "firstFrame",
+      "elapsed_seconds": 0.483
+    },
+    {
+      "type": "restored",
+      "elapsed_seconds": 0.483
+    },
+    {
+      "renderMs": 1274,
+      "type": "visualReady",
+      "elapsed_seconds": 0.502
+    },
+    {
+      "type": "contextLost",
+      "elapsed_seconds": 73.254
+    },
+    {
+      "reason": "contextLost",
+      "type": "paused",
+      "elapsed_seconds": 73.257
+    },
+    {
+      "message": "小院暂时无法打开，可以重试",
+      "loading": false,
+      "ready": true,
+      "surfaceReady": false,
+      "type": "unavailable",
+      "detail": "",
+      "elapsed_seconds": 83.597
+    },
+    {
+      "message": "小院暂时无法打开，可以重试",
+      "surfaceReady": false,
+      "detail": "",
+      "loading": false,
+      "type": "unavailable",
+      "ready": true,
+      "elapsed_seconds": 269.336
+    },
+    {
+      "type": "error",
+      "message": "TypeError: null is not an object (evaluating 'e.getShaderPrecisionFormat(e.VERTEX_SHADER,e.HIGH_FLOAT).precision')",
+      "elapsed_seconds": 270.544
+    },
+    {
+      "type": "unavailable",
+      "loading": false,
+      "ready": false,
+      "detail": "",
+      "surfaceReady": false,
+      "message": "小院暂时无法打开，可以重试",
+      "elapsed_seconds": 279.925
+    }
+  ],
+  "scope": "证实 WebGL contextLost 后未恢复，重试初始化发生 precision 空值错误；不证明 GPU/系统根因，重启后恢复。"
+}

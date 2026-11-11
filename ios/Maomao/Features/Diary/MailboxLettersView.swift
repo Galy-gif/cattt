@@ -28,12 +28,14 @@ struct MailboxLettersView: View {
                             }
                             Text(letter.text).font(Typo.serif(16)).lineSpacing(8)
                                 .foregroundStyle(Palette.paperInk)
-                                .lineLimit(expanded.contains(letter.id) ? nil : 2)
+                                .lineLimit(expanded.contains(letter.id) || store.notificationLetterID == letter.id ? nil : 2)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding(18)
                         .background(Palette.paper, in: RoundedRectangle(cornerRadius: Metrics.radiusCard))
                     }.buttonStyle(.plain)
+                    .id(letter.id)
+                    .onAppear { if store.notificationLetterID == letter.id { expanded.insert(letter.id); store.readLetter(letter) } }
                 }
             }.padding(.bottom, 16)
         }

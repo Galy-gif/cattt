@@ -8,6 +8,7 @@ struct BackendConfig: Equatable {
     enum Mode: String, CaseIterable {
         case mock
         case local
+        case service
     }
 
     var mode: Mode
@@ -15,25 +16,51 @@ struct BackendConfig: Equatable {
     /// 开发者 token，`pnpm create-dev-user` 生成。开发者版才有，以后换 Apple 登录。
     var token: String
 
-    var isRemote: Bool { mode == .local }
+    var accountID: String? = nil
+    var isRemote: Bool { mode != .mock }
+    var storageIdentity: String {
+        if mode == .service { return baseURL.absoluteString + "\naccount:" + (accountID ?? "signed-out") }
+        return isRemote ? baseURL.absoluteString + "\n" + token : "local-only"
+    }
+    static var serviceURL: URL? {
+        guard let raw = Bundle.main.object(forInfoDictionaryKey: "CatttAPIURL") as? String,
+              let url = URL(string: raw), url.scheme == "https", url.host != nil else { return nil }
+        return url
+    }
 
     static let localURL = URL(string: "http://localhost:8787")!
 
     static func load() -> BackendConfig {
         let defaults = UserDefaults.standard
-        return BackendConfig(
-            mode: Mode(rawValue: defaults.string(forKey: "backendMode") ?? "") ?? .mock,
-            baseURL: defaults.string(forKey: "backendURL").flatMap(URL.init(string:)) ?? localURL,
-            token: defaults.string(forKey: "backendToken") ?? ""
-        )
+        #if DEBUG
+        let mode = Mode(rawValue: defaults.string(forKey: "backendMode") ?? "") ?? .mock
+        if mode != .service {
+            return BackendConfig(mode: mode, baseURL: defaults.string(forKey: "backendURL").flatMap(URL.init(string:)) ?? localURL,
+                                 token: defaults.string(forKey: "backendToken") ?? "")
+        }
+        #endif
+        #if DEBUG
+        let remembered = defaults.string(forKey: "serviceOrigin").flatMap(URL.init(string:))
+        let url = serviceURL ?? remembered ?? URL(string: "https://unconfigured.invalid")!
+        #else
+        let url = serviceURL ?? URL(string: "https://unconfigured.invalid")!
+        #endif
+        let session = SessionVault.load(origin: url.absoluteString)
+        return BackendConfig(mode: .service, baseURL: url, token: session.flatMap { $0.expiresAt > Date() ? $0.token : nil } ?? "", accountID: session?.accountID)
     }
 
     func save() {
+        #if DEBUG
         let defaults = UserDefaults.standard
         defaults.set(mode.rawValue, forKey: "backendMode")
-        defaults.set(baseURL.absoluteString, forKey: "backendURL")
-        defaults.set(token, forKey: "backendToken")
+        if mode == .service { defaults.set(baseURL.absoluteString, forKey: "serviceOrigin") }
+        if CredentialPersistencePolicy.maySaveDeveloperToken(mode: mode.rawValue, accountID: accountID) {
+            defaults.set(baseURL.absoluteString, forKey: "backendURL")
+            defaults.set(token, forKey: "backendToken")
+        }
+        #endif
     }
+
 }
 
 // MARK: - 接口数据
@@ -79,7 +106,7 @@ enum APIError: LocalizedError {
         switch self {
         case let .http(status, code):
             switch (status, code) {
-            case (401, _): return "token 不对"
+            case (401, _): return "登录已失效，请重新登录"
             case (409, "no_cat"): return "这个账号还没有猫"
             case (404, "diary_unavailable"): return "这条日记已停止共享，请重新选择"
             default: return "HTTP \(status)" + (code.map { " \($0)" } ?? "")

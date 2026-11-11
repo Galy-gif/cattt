@@ -312,6 +312,10 @@ def main():
     target_common = [
         ("ASSETCATALOG_COMPILER_APPICON_NAME", "AppIcon"),
         ("CODE_SIGN_STYLE", "Automatic"),
+        ("CODE_SIGN_ENTITLEMENTS", "Maomao/Maomao.entitlements"),
+        ("CATTT_APNS_ENVIRONMENT", "development"),
+        ("CATTT_API_URL", '""'),
+        ("INFOPLIST_KEY_CatttAPIURL", '"$(CATTT_API_URL)"'),
         ("CURRENT_PROJECT_VERSION", "1"),
         ("ENABLE_PREVIEWS", "YES"),
         ("GENERATE_INFOPLIST_FILE", "YES"),
@@ -347,7 +351,7 @@ def main():
     emit_config("projectDebug", "Debug", project_debug)
     emit_config("projectRelease", "Release", project_release)
     emit_config("targetDebug", "Debug", target_common)
-    emit_config("targetRelease", "Release", target_common)
+    emit_config("targetRelease", "Release", [(k,v) for k,v in target_common if k != "CATTT_APNS_ENVIRONMENT"] + [("CATTT_APNS_ENVIRONMENT", "production")])
     out("/* End XCBuildConfiguration section */")
 
     # ---- XCConfigurationList

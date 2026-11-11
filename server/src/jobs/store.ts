@@ -1,3 +1,4 @@
+import { jobModelAccount } from '../runtime/budget.ts';
 import { and, asc, eq, inArray, isNull, lte, or, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
 import { asyncJobs, boundaries, cats, conversations, memories, memoryReceipts, messages, turns } from '../db/schema.ts';
@@ -32,8 +33,8 @@ export async function backfillJobs(limit = 100) {
 
 export async function recoverJobs() {
   await db.update(asyncJobs).set({ state: 'failed', error: 'lease expired after final attempt', leaseUntil: null })
-    .where(and(eq(asyncJobs.state, 'running'), sql`${asyncJobs.kind} not in ('followup','errand')`, lte(asyncJobs.leaseUntil, dbNow()), sql`${asyncJobs.attempts} >= ${MAX_JOB_ATTEMPTS}`));
-  const due = await db.select().from(asyncJobs).where(and(sql`(${asyncJobs.kind} in ('followup','errand') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
+    .where(and(eq(asyncJobs.state, 'running'), sql`${asyncJobs.kind} not in ('followup','errand','daily_diary','push','inference')`, lte(asyncJobs.leaseUntil, dbNow()), sql`${asyncJobs.attempts} >= ${MAX_JOB_ATTEMPTS}`));
+  const due = await db.select().from(asyncJobs).where(and(sql`(${asyncJobs.kind} in ('followup','errand','daily_diary','push','inference') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
     or(and(eq(asyncJobs.state, 'pending'), lte(asyncJobs.nextAttemptAt, dbNow())),
       and(eq(asyncJobs.state, 'running'), lte(asyncJobs.leaseUntil, dbNow()))))).limit(100);
   const { dispatchJob } = await import('../queue.ts');
@@ -48,7 +49,7 @@ export async function recoverJobs() {
 
 export async function executeJob(id: string, execute: (job: typeof asyncJobs.$inferSelect) => Promise<boolean | void | {retryAt:Date}>) {
   const [job] = await db.update(asyncJobs).set({ state: 'running', attempts: sql`${asyncJobs.attempts} + 1`,
-    leaseUntil: sql`now() + interval '5 minutes'` }).where(and(eq(asyncJobs.id, id), sql`(${asyncJobs.kind} in ('followup','errand') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
+    leaseUntil: sql`now() + interval '5 minutes'` }).where(and(eq(asyncJobs.id, id), sql`(${asyncJobs.kind} in ('followup','errand','daily_diary','push','inference') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
       or(and(eq(asyncJobs.state, 'pending'), lte(asyncJobs.nextAttemptAt, dbNow())),
         and(eq(asyncJobs.state, 'running'), lte(asyncJobs.leaseUntil, dbNow()))))).returning();
   if (!job) return;
@@ -58,7 +59,7 @@ export async function executeJob(id: string, execute: (job: typeof asyncJobs.$in
       .catch((error) => console.error(`[outbox ${id}] 续租失败`, error));
   }, 30_000);
   try {
-    const result = await execute(job);
+    const result = await jobModelAccount(job,()=>execute(job));
     if(result && typeof result === 'object') {
       await db.update(asyncJobs).set({state:'pending',leaseUntil:null,nextAttemptAt:result.retryAt}).where(owned); return;
     }
@@ -83,8 +84,12 @@ export async function executeJob(id: string, execute: (job: typeof asyncJobs.$in
         .where(and(eq(turns.userMessageId, job.sourceId), inArray(turns.status, ['completed', 'stopped'])));
     });
   } catch (error) {
+    if(error instanceof Error&&error.message.includes('model_daily_budget')) {
+      await db.update(asyncJobs).set({state:'pending',attempts:sql`greatest(${asyncJobs.attempts}-1,0)`,leaseUntil:null,error:'model_daily_budget',nextAttemptAt:sql`(date_trunc('day',now() at time zone 'UTC')+interval '1 day') at time zone 'UTC'`}).where(owned);
+      return;
+    }
     const permanent = error instanceof Error && error.name === 'UnrecoverableError';
-    await db.update(asyncJobs).set({ state: permanent || (!['followup','errand'].includes(job.kind) && job.attempts >= MAX_JOB_ATTEMPTS) ? 'failed' : 'pending',
+    await db.update(asyncJobs).set({ state: permanent || (!['followup','errand','daily_diary','push','inference'].includes(job.kind) && job.attempts >= MAX_JOB_ATTEMPTS) ? 'failed' : 'pending',
       leaseUntil: null, error: String(error).slice(0, 1000), nextAttemptAt: sql`now() + interval '10 seconds'` }).where(owned);
     throw error;
   } finally { clearInterval(heartbeat); }

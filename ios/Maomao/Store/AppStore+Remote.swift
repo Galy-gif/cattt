@@ -30,7 +30,7 @@ extension AppStore {
     }
 
     private var pendingChatKey: String {
-        let identity = backend.baseURL.absoluteString + "\n" + backend.token
+        let identity = backend.storageIdentity
         let digest = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         return "chat.pending.v1." + digest
     }
@@ -93,7 +93,9 @@ extension AppStore {
         watchdogTask?.cancel()
         isWaiting = false
         isStreaming = false
-        backend.mode = mode
+        if backend.mode == .service, mode != .service {
+            backend = BackendConfig(mode: mode, baseURL: BackendConfig.localURL, token: "")
+        } else { backend.mode = mode }
         if mode == .mock {
             worldBridge?.stop(); worldBridge = nil
             messages = SeedData.messages
@@ -107,6 +109,7 @@ extension AppStore {
 
     /// 接后端时拉最近 50 条聊天记录和「我的」页的两个数。
     func connectBackend() {
+        allowProactive = false; proactiveBusy = false; proactiveError = nil
         inboxTask?.cancel(); inboxTask = nil; inboxRefreshPending = false
         mailboxLetters = []; inboxError = nil
         showsMemoryControls = false
@@ -123,7 +126,8 @@ extension AppStore {
         worldBridge?.stop(); worldBridge = nil
         guard backend.isRemote else { return }
         guard !backend.token.isEmpty else {
-            backendStatus = "还没填 token"
+            if backend.mode == .service { messages = []; memoryCount = 0; boundaryCount = 0 }
+            backendStatus = backend.mode == .service ? "登录后再一起聊" : "还没填 token"
             return
         }
         if !timeZoneReportedBackends.contains(client.config) {
@@ -138,6 +142,11 @@ extension AppStore {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
+                if client.config.mode == .service {
+                    let account = try await client.account()
+                    guard backend == client.config else { return }
+                    applyServerProfile(account.cat)
+                }
                 let history = try await client.messages(limit: 50)
                 guard historyGeneration == generation, remoteChatGeneration == remoteGeneration, backend == client.config else { return }
                 messages = history.map(ChatMessage.init(api:))
@@ -145,9 +154,12 @@ extension AppStore {
                 hasEarlierMessages = history.count == 50
                 try await recoverPendingChat(generation: generation, client: client)
                 await refreshCounts()
+                await refreshProactivePermission()
                 refreshInbox()
                 guard historyGeneration == generation, backend == client.config else { return }
                 backendStatus = "已连接 · \(history.count) 条记录"
+                registerNotificationDevice()
+                resolveNotificationIntent()
             } catch {
                 guard historyGeneration == generation, backend == client.config else { return }
                 backendStatus = "连不上：\(error.localizedDescription)"
@@ -238,6 +250,7 @@ extension AppStore {
         if case let .resume(id) = request { turnID = id; remoteTurnID = id; armWatchdog(turnID: id) }
         var lastEventID: String?
         var catLocalID: String?
+        var acceptedUserMessageID: String?
         var resumes = 0
 
         while !Task.isCancelled {
@@ -260,6 +273,7 @@ extension AppStore {
                     case "accepted":
                         guard turnID == nil else { continue }
                         let data = try APIClient.decode(TurnEventData.Accepted.self, from: event.data)
+                        acceptedUserMessageID = data.userMessageId
                         turnID = data.turnId
                         remoteTurnID = data.turnId
                         savePendingChat(PendingChat(request: request, userLocalID: userLocalID, turnID: data.turnId))
@@ -304,6 +318,7 @@ extension AppStore {
                             if let messageId = data.messageId { setServerID(messageId, for: catLocalID) }
                             if !remoteStopped { setState(data.status == "stopped" ? .stopped : .done, for: catLocalID) }
                         }
+                        requestNotificationPermissionAfterAgreement(sourceMessageID: acceptedUserMessageID)
                         if let turnID { pollRemembered(turnID: turnID, catLocalID: catLocalID) }
                         return
 
@@ -372,6 +387,7 @@ extension AppStore {
         if let catLocalID { messages.removeAll { $0.id == catLocalID } }
         messages.append(ChatMessage(id: "c" + UUID().uuidString, role: .cat, text: "", state: .timeout))
         switch code {
+        case "model_daily_budget": flash("今天先歇一会儿，明天再聊")
         case "model_quota": flash("模型余额不足")
         case "model_auth": flash("模型 key 不对")
         case "model_bad_request": flash("请求被模型拒绝了")
@@ -450,6 +466,8 @@ extension AppStore {
 
     /// 创建流程走完：名字、外观、气质、四条特征写到服务端。
     func remoteUpdateCat() {
+        // 正式身份档案以服务器为准；登录不能把演示/创建草稿自动覆盖上去。
+        guard backend.mode != .service else { return }
         let traits = Dictionary(uniqueKeysWithValues: traitLevels.map { ($0.key.rawValue, $0.value) })
         let (name, appearance, temperament) = (catName, pickedAppearance, temperament.rawValue)
         let client = api
