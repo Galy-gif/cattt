@@ -4,17 +4,15 @@ import UIKit
 /// 专注聊天。无 Tab 栏，全屏。背后是团子的院子，时段和天气跟院子一致。
 struct ChatView: View {
     @EnvironmentObject private var store: AppStore
-    @Environment(\.screenInsets) private var insets
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @FocusState private var inputFocused: Bool
     /// 每按一次发送 +1，只用来触发轻触感。
     @State private var sendTicks = 0
-    /// 键盘露出屏幕的高度。`RootView` 整个 ZStack 忽略了安全区（包括键盘），系统不会替这一页避让，只能自己量。
-    @State private var keyboardHeight: CGFloat = 0
     @State private var composerHeight: CGFloat = 0
     @State private var resizeScroll: Task<Void, Never>?
-    @State private var historyAnchor: String?
     @State private var browsingHistory = false
+    @State private var draggingMessages = false
+    @State private var nearBottom = true
     @State private var rowFrames: [String: CGRect] = [:]
 
     private var tone: ChatTone { ChatTone.from(store.atmosphere) }
@@ -36,10 +34,11 @@ struct ChatView: View {
                 header
                 sourceCard
                 messageList
-                inputBar.layoutPriority(1)
             }
-            // 根容器忽略键盘，输入区依据键盘通知留出空间。
-            .ignoresSafeArea(.container, edges: [.top, .bottom])
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                inputBar
+            }
+            .ignoresSafeArea(.container, edges: .top)
         }
         .sheet(item: $store.withdrawnSource) { action in
             MemoryImpactView(action: action) { await store.refreshCounts() }
@@ -55,14 +54,6 @@ struct ChatView: View {
                 inputFocused = true
             }
             #endif
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { note in
-            guard let frame = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-            let screen = UIScreen.main.bounds.height
-            let duration = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
-            withAnimation(.easeOut(duration: duration)) {
-                keyboardHeight = max(0, screen - frame.minY)
-            }
         }
     }
 
@@ -250,9 +241,15 @@ struct ChatView: View {
                     .animation(.easeOut(duration: Metrics.fadeFast), value: store.isWaiting)
                 }
                 .coordinateSpace(name: "chat-scroll")
-                .scrollPosition(id: $historyAnchor, anchor: .top)
                 .scrollDismissesKeyboard(.interactively)
                 .simultaneousGesture(TapGesture().onEnded { inputFocused = false })
+                .simultaneousGesture(DragGesture(minimumDistance: 4)
+                    .onChanged { _ in
+                        draggingMessages = true
+                        browsingHistory = !nearBottom
+                    }
+                    .onEnded { _ in draggingMessages = false }
+                )
                 // 消息滚到顶栏下方时淡出，而不是被一条硬边切掉。
                 .mask(
                     LinearGradient(
@@ -263,19 +260,21 @@ struct ChatView: View {
                 )
                 .onPreferenceChange(ChatRowFramesKey.self) { rowFrames = $0 }
                 .onPreferenceChange(ChatBottomKey.self) { bottom in
-                    browsingHistory = bottom > proxy.size.height + 48
+                    nearBottom = bottom <= proxy.size.height + 48
+                    // 只有用户拖动才进入翻历史；键盘、草稿和新消息改变尺寸时继续跟随。
+                    if draggingMessages || nearBottom { browsingHistory = !nearBottom }
                 }
                 .onChange(of: store.notificationMessageID) { _, id in
                     guard let id else { return }
                     browsingHistory = true
                     scroller.scrollTo(id, anchor: .center)
                 }
-                .onChange(of: store.backend) { browsingHistory = false; historyAnchor = nil }
+                .onChange(of: store.backend) { browsingHistory = false }
                 .onChange(of: store.messages.last?.id) { if !browsingHistory { scrollToBottom(scroller) } }
                 .onChange(of: store.messages.last?.text) { if !browsingHistory { scrollToBottom(scroller, animated: false) } }
                 .onChange(of: store.isWaiting) { if !browsingHistory { scrollToBottom(scroller) } }
                 .onChange(of: composerHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
-                .onChange(of: keyboardHeight) { if !browsingHistory { scrollAfterResize(scroller) } }
+                .onChange(of: proxy.size.height) { if !browsingHistory { scrollAfterResize(scroller) } }
                 .onDisappear { resizeScroll?.cancel() }
                 .onAppear {
                     if let id = store.notificationMessageID { browsingHistory = true; scroller.scrollTo(id, anchor: .center) }
@@ -283,6 +282,7 @@ struct ChatView: View {
                 }
             }
         }
+        .clipped()
     }
 
     /// 新消息从下方 8pt 淡入；减少动态效果时只淡入。
@@ -364,7 +364,7 @@ struct ChatView: View {
         })
         .padding(.horizontal, 14)
         .padding(.top, 8)
-        .padding(.bottom, keyboardHeight > 0 ? keyboardHeight + 8 : max(24, insets.bottom))
+        .padding(.bottom, 8)
     }
 
     private func send() {

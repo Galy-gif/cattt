@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { MockLanguageModelV4 } from 'ai/test';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import type { LanguageModelV4StreamPart } from '@ai-sdk/provider';
 import { z } from 'zod';
 import { runCatAgent, type RuntimeTool, type ToolTrace } from '../src/runtime/agent.ts';
@@ -34,6 +35,36 @@ async function run(m: ReturnType<typeof model>, tools: Record<string, RuntimeToo
   return { text, traces, phases };
 }
 describe('ToolLoopAgent 真实 SDK 循环', () => {
+  it('终答保留工具定义并明确 none，避免 DeepSeek 将历史工具调用作为 DSML 正文返回', async () => {
+    const requests: { tools?: { function: { name: string } }[]; tool_choice?: string }[] = [];
+    const leaked = '<｜｜DSML｜｜ calls>\n<｜｜DSML｜｜ invoke name="finish_tools">\n</｜｜DSML｜｜ invoke>\n</｜｜DSML｜｜ calls>';
+    const answer = '我是团子，刚才在猫窝。';
+    const provider = createDeepSeek({ apiKey: 'test-key', fetch: async (_url, init) => {
+      const request = JSON.parse(String(init?.body));
+      requests.push(request);
+      const first = requests.length === 1;
+      const delta = first
+        ? { tool_calls: [{ index: 0, id: 'finish-1', type: 'function', function: { name: 'finish_tools', arguments: '{}' } }] }
+        : { content: request.tools?.length && request.tool_choice === 'none' ? answer : leaked };
+      const chunk = (delta: object, finish_reason: string | null) => ({
+        id: 'deepseek-fixture', object: 'chat.completion.chunk', created: 0, model: 'deepseek-flash',
+        choices: [{ index: 0, delta, finish_reason }],
+      });
+      return new Response([chunk(delta, null), chunk({}, first ? 'tool_calls' : 'stop')]
+        .map(part => `data: ${JSON.stringify(part)}\n\n`).join('') + 'data: [DONE]\n\n',
+        { headers: { 'content-type': 'text/event-stream' } });
+    } });
+    let text = '';
+    await runCatAgent({ model: provider('deepseek-flash'), instructions: '猫',
+      messages: [{ role: 'user', content: '你去哪里了' }], tools: { lookup: fake },
+      signal: new AbortController().signal, guard: async () => {}, onText: async t => { text += t; },
+      onTool: async () => {}, onStep: async () => {},
+    });
+    expect(requests).toHaveLength(2);
+    expect(requests[1]?.tool_choice).toBe('none');
+    expect(requests[1]?.tools?.map(t => t.function.name)).toEqual(['lookup', 'finish_tools']);
+    expect(text).toBe(answer);
+  });
   it('丢弃工具步骤的承诺，只有工具结束后的正文进入聊天', async () => {
     const m = model([step('我已经到池塘了', [{ name: 'lookup', id: '1' }]), step('', [{ name: 'finish_tools', id: '2' }]), step('暂时去不了，喵。')]);
     const result = await run(m, { lookup: { ...fake, execute: async () => ({ ...observation, data: { observedAt: new Date('2026-09-12T00:00:00Z') } }) } });

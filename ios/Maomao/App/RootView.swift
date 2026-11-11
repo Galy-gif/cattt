@@ -59,7 +59,9 @@ struct RootView: View {
                     .environment(\.screenInsets, proxy.safeAreaInsets)
                 #endif
             }
-            .ignoresSafeArea()
+            // 聊天交给系统避让键盘；其它全屏页面保留各自现有的布局口径。
+            .ignoresSafeArea(.container, edges: usesSystemKeyboardAvoidance ? [.top, .horizontal] : .all)
+            .ignoresSafeArea(.keyboard, edges: usesSystemKeyboardAvoidance ? [] : .bottom)
         }
         .environmentObject(store)
         .task(id: scenePhase) {
@@ -90,6 +92,10 @@ struct RootView: View {
         // 全套令牌只有浅色一版，深色模式会把院子的地面色冲掉。
         // 例外是入夜后的聊天页：背景是夜里的院子，状态栏、键盘、长按菜单要跟着暗（见 ChatTone）。
         .preferredColorScheme(store.onboarding == nil && store.screen == .chat && ChatTone.from(store.atmosphere).isDark ? .dark : .light)
+    }
+
+    private var usesSystemKeyboardAvoidance: Bool {
+        store.onboarding == nil && store.screen == .chat && !store.yardProbeVisible
     }
 
     private func updateWorldVisibility() {

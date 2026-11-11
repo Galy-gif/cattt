@@ -1,0 +1,30 @@
+[
+  {
+    "input": "你去哪里了",
+    "answer": "我一直在这边，没跑远。就是没注意到你过来。",
+    "done": true,
+    "error": null,
+    "protocolLeak": false
+  },
+  {
+    "input": "现在几点了",
+    "answer": "一点十二分，刚过中午。",
+    "done": true,
+    "error": null,
+    "protocolLeak": false
+  },
+  {
+    "input": "好，拜拜",
+    "answer": "嗯，拜拜。",
+    "done": true,
+    "error": null,
+    "protocolLeak": false
+  },
+  {
+    "input": "你去哪里了",
+    "answer": "我没去哪，还在院子里。你是又回来找我了？",
+    "done": true,
+    "error": null,
+    "protocolLeak": false
+  }
+]
