@@ -52,6 +52,7 @@ struct APIMessage: Decodable {
     /// 猫的消息：被标了不要再提
     let boundary: Bool
     let contextAllowed: Bool?
+    let ticketId: String?
 }
 
 struct APITurn: Decodable {
@@ -136,6 +137,12 @@ struct APIClient {
         }
     }
 
+    /// 本机后端按用户时区格式化时间；失败由调用方静默忽略。
+    func reportTimeZone() async throws {
+        struct OK: Decodable {}
+        _ = try await json(OK.self, request("PUT", "v1/me/time-zone", body: ["time_zone": TimeZone.current.identifier]))
+    }
+
     // MARK: 聊天
 
     /// 发一条消息。响应就是这一轮回复的 SSE 流。
@@ -168,10 +175,11 @@ struct APIClient {
         try await json(APITurn.self, request("GET", "v1/turns/\(turnID)"))
     }
 
-    func messages(limit: Int = 50, before: Int? = nil) async throws -> [APIMessage] {
+    func messages(limit: Int = 50, before: Int? = nil, after: Int? = nil) async throws -> [APIMessage] {
         struct Page: Decodable { let messages: [APIMessage] }
         var request = request("GET", "v1/messages")
         request.url?.append(queryItems: [URLQueryItem(name: "limit", value: String(limit))])
+        if let after { request.url?.append(queryItems: [URLQueryItem(name: "after", value: String(after))]) }
         if let before { request.url?.append(queryItems: [URLQueryItem(name: "before", value: String(before))]) }
         return try await json(Page.self, request).messages
     }

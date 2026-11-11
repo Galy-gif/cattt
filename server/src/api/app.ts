@@ -1,3 +1,4 @@
+import { ticketRoutes } from './tickets.ts';
 import { Hono } from 'hono';
 import { sql } from '../db/client.ts';
 import { redis } from '../redis.ts';
@@ -9,6 +10,7 @@ import { boundariesRoutes } from './boundaries.ts';
 import { soulRoutes } from './soul.ts';
 import { worldRoutes } from '../world/routes.ts';
 import { diaryRoutes } from './diary.ts';
+import { meRoutes } from './me.ts';
 
 export const app = new Hono();
 app.get('/healthz', async (c) => {
@@ -21,6 +23,8 @@ app.get('/healthz', async (c) => {
 const v1 = new Hono<Env>();
 v1.use('*', auth);
 v1.route('/', catRoutes);
+v1.route('/', meRoutes);
+v1.route('/', ticketRoutes);
 v1.route('/', diaryRoutes);
 v1.route('/', chatRoutes);
 v1.route('/', memoriesRoutes);

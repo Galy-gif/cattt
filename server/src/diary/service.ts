@@ -1,4 +1,5 @@
-import { and, eq, or, sql } from 'drizzle-orm';
+import { diaryAllowed } from '../agent/gate.ts';
+import { and, eq, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
 import { asyncJobs, diaryEntries, messages, turns } from '../db/schema.ts';
 import { bumpMemory, lockMemory, MemoryControlError, withdrawSources } from '../memory/control.ts';
@@ -17,8 +18,8 @@ export const diaryJSON = (r: DiaryRow) => ({
 export class DiaryConflict extends Error { constructor(public current: DiaryRow) { super('diary_changed'); } }
 
 export async function readableDiary(catId: string, id: string, tx: Tx | typeof db = db) {
-  const [entry] = await tx.select().from(diaryEntries).where(and(eq(diaryEntries.catId, catId), eq(diaryEntries.id, id), or(eq(diaryEntries.catAllowed, true), eq(diaryEntries.kind, 'cat'))));
-  return entry;
+  const [entry] = await tx.select().from(diaryEntries).where(and(eq(diaryEntries.catId, catId), eq(diaryEntries.id, id)));
+  return diaryAllowed(entry, catId) ? entry : undefined;
 }
 
 async function invalidateDiary(tx: Tx, catId: string, id: string) {

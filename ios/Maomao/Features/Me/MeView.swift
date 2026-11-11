@@ -5,6 +5,8 @@ import SwiftUI
 struct MeView: View {
     @EnvironmentObject private var store: AppStore
 
+    @State private var showsAgreements = false
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -13,6 +15,7 @@ struct MeView: View {
                 VStack(alignment: .leading, spacing: 28) {
                     howWeGetAlong
                     whatItRemembers
+                    if store.backend.isRemote { agreements }
                     settings
                 }
                 .padding(.horizontal, 24)
@@ -26,6 +29,7 @@ struct MeView: View {
         .presentationDragIndicator(.visible)
         .presentationBackground(Palette.bg)
         .preferredColorScheme(.light)
+        .sheet(isPresented: $showsAgreements) { AgreementsView().environmentObject(store) }
         .sheet(isPresented: $store.showsMemoryControls) {
             MemoryCenterView(startWithBoundaries: store.memoryShowsBoundaries)
         }
@@ -152,6 +156,17 @@ struct MeView: View {
         .padding(.horizontal, 15)
         .padding(.vertical, 14)
         .frame(minHeight: Metrics.minTap)
+    }
+
+    private var agreements: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            SectionTitle(text: "说好的")
+            ListContainer {
+                Button { showsAgreements = true } label: {
+                    memoryRow(icon: { Icons.clock(color: Palette.ink3) }, title: "约定与托付", count: "查看 ›")
+                }.buttonStyle(.plain)
+            }
+        }
     }
 
     // MARK: - 设置

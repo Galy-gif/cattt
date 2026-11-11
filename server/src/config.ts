@@ -29,6 +29,10 @@ const schema = z
     MAOMAO_DEEPSEEK_API_KEY: z.string().optional(),
     CHAT_MODEL: z.string().default('deepseek-flash'),
     CHAT_THINKING: thinking.default('disabled'),
+    ROUTER_MODEL: z.string().default('deepseek-flash'),
+    ROUTER_THINKING: thinking.default('disabled'),
+    WORKER_MODEL: z.string().default('deepseek-flash'),
+    WORKER_THINKING: thinking.default('enabled'),
     EXTRACT_MODEL: z.string().default('deepseek-flash'),
     EXTRACT_THINKING: thinking.default('disabled'),
     /** 假模型每个字之间停多久，测断线续传时调大 */

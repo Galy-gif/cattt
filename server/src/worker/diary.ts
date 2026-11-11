@@ -1,12 +1,11 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '../db/client.ts';
-import { boundaries, diaryEntries, messages } from '../db/schema.ts';
-import { lockMemory } from '../memory/control.ts';
-import { boundaryOverlaps } from '../memory/relevance.ts';
+import { diaryEntries } from '../db/schema.ts';
+import { diaryPublicationInput, reviewDiaryPublication } from '../agent/publisher.ts';
 import { classifyModelError, diarySlot, recordModelCall } from '../runtime/model.ts';
-import { UnrecoverableError } from 'bullmq';
+import { UnrecoverableError } from '../jobs/errors.ts';
 
 const response = z.object({ comment: z.string().max(120).nullable() });
 export type DiaryReader = (text: string, name: string, jobId: string, recordedDay: string) => Promise<string | null>;
@@ -27,26 +26,11 @@ const read: DiaryReader = async (text, name, jobId, recordedDay) => {
 
 /** 不存正文副本；任务只携带ID/版本，开始和落结果时分别核验。 */
 export async function readDiary(entryId: string, version: string, jobId: string, reader: DiaryReader = read) {
-  const input = await db.transaction(async tx => {
-    const [initial] = await tx.select().from(diaryEntries).where(eq(diaryEntries.id, entryId));
-    if (!initial) return null;
-    const cat = await lockMemory(tx, initial.catId);
-    const [entry] = await tx.select().from(diaryEntries).where(eq(diaryEntries.id, entryId));
-    if (!entry?.catAllowed || entry.kind !== 'text' || String(entry.revision) !== version || entry.visit > 0) return null;
-    const topics = await tx.select({ topic: boundaries.description, text: messages.text }).from(boundaries)
-      .innerJoin(messages, eq(messages.id, boundaries.sourceMessageId))
-      .where(and(eq(boundaries.catId, cat.id), eq(messages.contextAllowed, true)));
-    const item = { id: entry.id, subject: '', predicate: '', value: entry.text, fingerprint: '', explicit: true, sensitivity: 'low', lastConfirmedAt: entry.updatedAt, revision: entry.revision };
-    if (topics.some(t => boundaryOverlaps(item, t.topic ?? t.text))) return null;
-    return { entry, revision: cat.memoryRevision, name: cat.name };
-  });
+  const input = await db.transaction(tx => diaryPublicationInput(tx, entryId, version));
   if (!input) return;
   const comment = await reader(input.entry.text, input.name, jobId, input.entry.day);
   await db.transaction(async tx => {
-    const cat = await lockMemory(tx, input.entry.catId);
-    const [current] = await tx.select().from(diaryEntries).where(eq(diaryEntries.id, entryId));
-    if (!current?.catAllowed || current.revision !== input.entry.revision || current.visit > 0) return;
-    if (cat.memoryRevision !== input.revision) throw new Error('diary_context_changed');
+    if (!await reviewDiaryPublication(tx, input)) return;
     await tx.update(diaryEntries).set({ visit: comment ? 2 : 1, note: comment ?? '' }).where(eq(diaryEntries.id, entryId));
   });
 }

@@ -1,4 +1,4 @@
-import { UnrecoverableError } from 'bullmq';
+import { UnrecoverableError } from '../jobs/errors.ts';
 import { classifyModelError } from '../runtime/model.ts';
 
 /** 队列错误适配留在 worker 边界，模型模块不依赖队列。 */

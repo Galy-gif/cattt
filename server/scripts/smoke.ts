@@ -72,6 +72,7 @@ async function post(path: string) {
 }
 async function del(path: string) {
   const res = await fetch(BASE + path, { method: 'DELETE', headers });
+  if (!res.ok) throw new Error(`DELETE ${path} → ${res.status} ${await res.text()}`);
   return res.json() as Promise<any>;
 }
 
@@ -209,8 +210,8 @@ await check('「记住……」：提取出明确要记的记忆，/turns 显示
   expect(reply?.remembered === true, '历史记录里这条回复没带 remembered');
 });
 
-await check('下一轮回复会用上记住的事', async () => {
-  const evs = await send('在吗');
+await check('相关话题的下一轮回复会用上记住的事', async () => {
+  const evs = await send('我对猫毛过敏，接触猫毛时要注意什么？');
   const t = await get(`/v1/turns/${evs[0]!.data.turn_id}`);
   const { memories } = await get('/v1/memories');
   const target = memories.find((m: any) => m.value.includes('猫毛过敏'));
@@ -223,7 +224,8 @@ await check('删掉的记忆：不再召回，同样的话再说一遍也不会�
   let { memories } = await get('/v1/memories');
   const latte = memories.find((m: any) => m.value.includes('拿铁'));
   expect(latte, '第一次没提取出来');
-  await del(`/v1/memories/${latte.id}`);
+  const impact = await get(`/v1/memories/${latte.id}/impact`);
+  await del(`/v1/memories/${latte.id}?withdraw_sources=false&revision=${impact.revision}`);
   const b = await send('我喜欢拿铁');
   const t = await waitExtracted(b[0]!.data.turn_id);
   expect(!t.memory_ids.includes(latte.id), '删掉的记忆还在被召回');
@@ -248,7 +250,63 @@ await check('「不要再提」：写进边界，worker 整理出一句话', asy
   throw new Error('10 秒内没整理出描述');
 });
 
+await check('约定聊天工具 → 改成后天直达 → 到期提问/信箱 → 已读与取消', async () => {
+  const when = new Date(Date.now()+86400000).toISOString().slice(0,19)+'Z';
+  const events = await send(`[followup:${when}|面试怎么样]`);
+  expect(textOf(events).includes('约好了'), '聊天没有成功保存约定');
+  let page = await get('/v1/tickets?status=open');
+  expect(page.tickets.length === 1, '未读取到唯一约定');
+  const id = page.tickets[0].id;
+  expect(textOf(await send('改成后天')).includes('改好了'), '追加没有直达已有约定');
+  page = await get('/v1/tickets?status=open'); expect(page.tickets.length===1 && page.tickets[0].id===id,'错误新建了事项');
+  // 可控到期：不等待两天；仅测试账号使用UTC白天，保留真实worker/pg-boss链路。
+  await sql`update users set time_zone='UTC' where id=${devUser.userId}`;
+  await sql`update tickets set due_at=now()-interval '1 minute' where id=${id}`;
+  let letter:any;
+  for(let n=0;n<140;n++) {
+    const box=await get('/v1/mailbox?after=0'); letter=box.letters.find((x:any)=>x.ticket_id===id);
+    if(letter) break; await sleep(500);
+  }
+  expect(letter,'到期70秒内没有投递信箱');
+  const history=await get('/v1/messages?limit=100');
+  expect(history.messages.filter((m:any)=>m.ticket_id===id && m.turn_id===null).length===1,'主动聊天消息不唯一或错误绑定轮次');
+  const session=await fetch(BASE+'/v1/world/sessions',{method:'POST',headers,body:JSON.stringify({protocolVersion:1})}).then(r=>r.json()) as any;
+  const signal=await sse('GET',`/v1/world/events?sessionId=${session.sessionId}&generation=${session.generation}`,{stopWhen:evs=>evs.some(e=>e.event==='inbox')});
+  expect(signal.some(e=>e.event==='inbox'&&e.data.seq>0),'前台没有inbox提示');
+  await post('/v1/mailbox/'+letter.id+'/read'); expect((await get('/v1/mailbox?after=0')).letters.find((l:any)=>l.id===letter.id).read_at,'已读未保存');
+  await send(`[followup:${when}|另一件事]`);
+  const next=(await get('/v1/tickets?status=open')).tickets[0]; expect(next,'第二件未保存');
+  expect(textOf(await send('取消这件约定')).includes('取消了'),'聊天取消失败');
+  expect((await get('/v1/tickets?status=open')).tickets.length===0,'取消后仍显示未结束');
+});
+
+// 第三段：真实HTTP聊天工具→PG待办→pg-boss→执行检查点→发布出口。
+await check('托付想好后只来一封信和一句话；等待回答经工具直达继续', async()=>{
+  await sql`update users set time_zone='UTC' where id=${devUser.userId}`;
+  // UTC午间仅用于本地验收的安静时段判定，不改机器时钟。
+  const hour=new Date().getUTCHours();
+  const zone=hour>=9&&hour<22?'UTC':'Pacific/Honolulu';
+  // 当前主机时刻若不在两地白天，选一个可用的IANA时区。
+  const zones=[zone,'Asia/Shanghai','America/New_York','Europe/London','Pacific/Auckland'];
+  const daytime=zones.find(z=>{const h=Number(new Intl.DateTimeFormat('en-GB',{timeZone:z,hour:'2-digit',hourCycle:'h23'}).format(new Date()));return h>=9&&h<22;})!;
+  await sql`update users set time_zone=${daytime} where id=${devUser.userId}`;
+  expect(textOf(await send('[errand:想想周末怎么过]')).includes('我想想'),'托付没有成功确认');
+  const first=(await get('/v1/tickets?status=open')).tickets.find((t:any)=>t.kind==='errand');expect(first,'没有托付凭证');
+  const waitLetter=async(id:string)=>{
+    for(let i=0;i<160;i++){const box=await get('/v1/mailbox?after=0');const l=box.letters.find((x:any)=>x.ticket_id===id);if(l)return l;await sleep(500);}throw new Error('80秒内没有来信');
+  };
+  const letter=await waitLetter(first.id);expect(letter.text.includes('周末'),'结果信内容缺失');
+  const history=await get('/v1/messages?limit=100');expect(history.messages.filter((m:any)=>m.ticket_id===first.id).length===1,'托付聊天通知不唯一');
+  expect(textOf(await send('[errand:[waiting] 想想在家怎么过]')).includes('我想想'),'等待托付未保存');
+  const waiting=(await get('/v1/tickets?status=open')).tickets.find((t:any)=>t.kind==='errand');expect(waiting,'缺少等待事项');
+  for(let i=0;i<160;i++){const state=(await get('/v1/tickets?status=open')).tickets.find((t:any)=>t.id===waiting.id);if(state?.stage==='waiting')break;if(i===159)throw new Error('未进入等待');await sleep(500);}
+  expect(textOf(await send('[ticket-input:想待在家里]')).includes('放进那件事'),'聊天补充未保存');
+  expect((await waitLetter(waiting.id)).text.includes('想待在家里'),'执行下一步未读到补充');
+  const stages=(await get('/v1/tickets?status=all')).tickets;expect(stages.filter((t:any)=>t.kind==='errand'&&t.stage==='ready').length===2,'列表缺少已完成阶段');
+});
+
 console.log(failed === 0 ? '\n全部通过' : `\n${failed} 项没通过`);
+await sql`delete from async_jobs where object_id in (select r.id from runs r join tickets t on t.id=r.ticket_id join cats c on c.id=t.cat_id where c.user_id=${devUser.userId}) or source_id in (select t.id from triggers t join cats c on c.id=t.cat_id where c.user_id=${devUser.userId})`;
 await deleteUser(devUser.userId);
 await sql.end();
 process.exit(failed === 0 ? 0 : 1);

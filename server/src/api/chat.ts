@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Env } from './auth.ts';
 import { bad, notFound } from './responses.ts';
-import { and, desc, eq, lt } from 'drizzle-orm';
+import { and, asc, desc, eq, gt, lt } from 'drizzle-orm';
 import { db } from '../db/client.ts';
 import { boundaries, messages, turns } from '../db/schema.ts';
 import { recordVisibleLength, requestCancel } from '../turns/events.ts';
@@ -46,9 +46,11 @@ chatRoutes.post('/messages/:id/reply', async (c) => {
 /** 历史消息，按时间正序。before 传上一页最早那条的 seq。
  *  猫的消息带两个标记，气泡下的注文要用：remembered（这一轮记下了用户明确要记的）、boundary（被标了不要再提） */
 chatRoutes.get('/messages', async (c) => {
+  const after = Number(c.req.query('after') ?? '0');
   const before = Number(c.req.query('before') ?? '0');
   const limit = Math.min(100, Math.max(1, Number(c.req.query('limit') ?? '50')));
   const conditions = [eq(messages.conversationId, c.get('owner').conversationId)];
+  if (after > 0) conditions.push(gt(messages.seq, after));
   if (before > 0) conditions.push(lt(messages.seq, before));
   const rows = await db
     .select({ m: messages, remembered: turns.remembered, boundaryId: boundaries.id })
@@ -56,10 +58,10 @@ chatRoutes.get('/messages', async (c) => {
     .leftJoin(turns, eq(turns.id, messages.turnId))
     .leftJoin(boundaries, eq(boundaries.sourceMessageId, messages.id))
     .where(and(...conditions))
-    .orderBy(desc(messages.seq))
+    .orderBy(after > 0 ? asc(messages.seq) : desc(messages.seq))
     .limit(limit);
   return c.json({
-    messages: rows.reverse().map(({ m, remembered, boundaryId }) => ({
+    messages: (after > 0 ? rows : rows.reverse()).map(({ m, remembered, boundaryId }) => ({
       id: m.id,
       seq: m.seq,
       role: m.role,
@@ -69,6 +71,7 @@ chatRoutes.get('/messages', async (c) => {
       client_message_id: m.clientMessageId,
       diary_entry_id: m.diaryEntryId,
       turn_id: m.turnId,
+      ticket_id: m.ticketId,
       remembered: remembered ?? false,
       boundary: boundaryId !== null,
       created_at: m.createdAt,

@@ -3,7 +3,7 @@ import { APICallError, type LanguageModel, type LanguageModelUsage, RetryError }
 import { config } from '../config.ts';
 import { db } from '../db/client.ts';
 import { modelCalls } from '../db/schema.ts';
-import { mockChatModel, mockExtractModel, mockRecallModel, mockDiaryModel } from './mock.ts';
+import { mockChatModel, mockExtractModel, mockRecallModel, mockDiaryModel, mockRouterModel, mockWorkerModel } from './mock.ts';
 
 /**
  * 模型适配层。业务代码只拿 model + providerOptions，不关心是哪家。
@@ -61,7 +61,7 @@ export function classifyModelError(err: unknown): ModelErrorInfo {
 
 /** 成本账本：每次模型调用记一行，按用途分 */
 export async function recordModelCall(entry: {
-  purpose: 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary' | 'memory_recall' | 'diary_read';
+  purpose: 'errand' | 'route' | 'chat' | 'memory_extract' | 'boundary_summarize' | 'cat_diary' | 'memory_recall' | 'diary_read';
   modelId: string;
   usage: LanguageModelUsage | null;
   latencyMs: number;
@@ -90,4 +90,16 @@ export function recallSlot(): ModelSlot {
 export function diarySlot(): ModelSlot {
   const slot = chatSlot();
   return config.MODEL_PROVIDER === 'mock' ? { ...slot, model: mockDiaryModel(), modelId: 'mock-diary' } : slot;
+}
+
+export function routerSlot(): ModelSlot {
+  return { model:config.MODEL_PROVIDER === 'mock' ? mockRouterModel() : deepseek(config.ROUTER_MODEL),
+    modelId:config.MODEL_PROVIDER === 'mock' ? 'mock-router' : config.ROUTER_MODEL,
+    providerOptions:{deepseek:{thinking:{type:config.ROUTER_THINKING}}} };
+}
+
+export function workerSlot(): ModelSlot {
+ return {model:config.MODEL_PROVIDER==='mock'?mockWorkerModel():deepseek(config.WORKER_MODEL),
+ modelId:config.MODEL_PROVIDER==='mock'?'mock-worker':config.WORKER_MODEL,
+ providerOptions:{deepseek:{thinking:{type:config.WORKER_THINKING}}}};
 }

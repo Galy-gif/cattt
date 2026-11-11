@@ -248,6 +248,10 @@ final class AppStore: ObservableObject {
     /// 信箱里有新东西（团子来看过 / 留了一句）：旗子立起来。打开信箱就放下。
     @Published var hasMail = false { didSet { syncHomeFacts() } }
     /// 日记纸是否从信箱里抽出来了。
+    @Published var mailboxLetters: [APIMailboxLetter] = []
+    @Published var inboxError: String?
+    var inboxTask: Task<Void, Never>?
+    var inboxRefreshPending = false
     @Published var mailboxOpen = false
     /// 抽纸的起点：信箱投信口的屏幕坐标，点信箱时由 `WorldView` 量好带进来。
     @Published var mailboxAnchor = CGPoint(x: 60, y: 520)
@@ -272,8 +276,10 @@ final class AppStore: ObservableObject {
     }
     /// 调试面板上显示的连接状态。
     @Published var backendStatus: String?
-    /// 当前这一轮回复在服务端的 id，停止时要用。
+    /// 同一次 App 启动中，每个本机后端配置只上报一次，重连不重复发送。
+    var timeZoneReportedBackends: [BackendConfig] = []
     var remoteChatGeneration = UUID()
+    /// 当前这一轮回复在服务端的 id，停止时要用。
     var remoteTurnID: String?
     /// 用户按了停止：之后到的字不再显示。
     var remoteStopped = false
@@ -502,7 +508,8 @@ final class AppStore: ObservableObject {
     func openMailbox(anchor: CGPoint) {
         guard !mailboxOpen else {return}
         mailboxAnchor=anchor
-        hasMail=false
+        hasMail=mailboxLetters.contains { $0.readAt == nil }
+        refreshInbox()
         mailboxOpen=true
     }
 

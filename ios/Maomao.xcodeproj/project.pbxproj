@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */; };
 		E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */; };
+		8C110EF04255CC160596AE74 /* AgreementAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */; };
 		A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C908A7DB0E92D34F9C84C967 /* Backend.swift */; };
 		FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */; };
 		836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */; };
@@ -31,11 +32,13 @@
 		5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */; };
 		962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */; };
 		D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */; };
+		50779DDB4D31180692D92B19 /* MailboxLettersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */; };
 		397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */; };
 		996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */; };
 		3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CA0F72F62426E4F81B633 /* LocationRail.swift */; };
 		E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */ = {isa = PBXBuildFile; fileRef = 72825AB6DC25D753F8530A33 /* WorldDepth.metal */; };
 		0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE24B2D5FC849941E4BD5B /* WorldView.swift */; };
+		8E97AD44C2B7A294C84299AE /* AgreementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974B96C3AE398711306DF68 /* AgreementsView.swift */; };
 		C5737F0502BB06B23D342C1D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3064D0824E30AF163D763 /* MeView.swift */; };
 		7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */; };
 		D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */; };
@@ -69,6 +72,7 @@
 		FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */; };
 		2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2DD6583891A61E750451F /* AppStore+Diary.swift */; };
 		D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */; };
+		48A70789913609C8BF21FCD8 /* AppStore+Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */; };
 		080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */; };
 		B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4431CE254B1414B6FD463F2 /* AppStore.swift */; };
 		1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672224FB980742CAF2A8112 /* RainSound.swift */; };
@@ -129,6 +133,7 @@
 		F5BF48AA40CAD7891EB709FC /* Maomao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maomao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB8551F861F4AF3CC085244 /* MaomaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaomaoApp.swift; sourceTree = "<group>"; };
 		9740FBDFEAB1CBBE29CF2E18 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementAPI.swift; sourceTree = "<group>"; };
 		C908A7DB0E92D34F9C84C967 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
 		A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBridge.swift; sourceTree = "<group>"; };
@@ -151,11 +156,13 @@
 		3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSheet.swift; sourceTree = "<group>"; };
 		FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryRow.swift; sourceTree = "<group>"; };
 		FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperView.swift; sourceTree = "<group>"; };
+		B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxLettersView.swift; sourceTree = "<group>"; };
 		496D5A75C5544399C1B5DD07 /* AtmosphereLayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtmosphereLayers.swift; sourceTree = "<group>"; };
 		D582F3DB7BE7709ECD0C26D6 /* CompanionHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionHomeView.swift; sourceTree = "<group>"; };
 		494CA0F72F62426E4F81B633 /* LocationRail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRail.swift; sourceTree = "<group>"; };
 		72825AB6DC25D753F8530A33 /* WorldDepth.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WorldDepth.metal; sourceTree = "<group>"; };
 		65CE24B2D5FC849941E4BD5B /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
+		4974B96C3AE398711306DF68 /* AgreementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementsView.swift; sourceTree = "<group>"; };
 		22C3064D0824E30AF163D763 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCenterView.swift; sourceTree = "<group>"; };
 		9C5D32D51C403C809EA8AF45 /* FirstMeetingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeetingStep.swift; sourceTree = "<group>"; };
@@ -189,6 +196,7 @@
 		0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Creation.swift"; sourceTree = "<group>"; };
 		98A2DD6583891A61E750451F /* AppStore+Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Diary.swift"; sourceTree = "<group>"; };
 		B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+DiarySync.swift"; sourceTree = "<group>"; };
+		DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Inbox.swift"; sourceTree = "<group>"; };
 		3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Remote.swift"; sourceTree = "<group>"; };
 		E4431CE254B1414B6FD463F2 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		B672224FB980742CAF2A8112 /* RainSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainSound.swift; sourceTree = "<group>"; };
@@ -284,6 +292,7 @@
 		50B87C8A0011A61FC7E4E830 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				7DBB27A9DAAA00C7B0D0C80D /* AgreementAPI.swift */,
 				C908A7DB0E92D34F9C84C967 /* Backend.swift */,
 				3CC762CBED63058C3B0D48D4 /* DiaryAPI.swift */,
 				A4E376AD69F4D090ACCABB12 /* WorldBridge.swift */,
@@ -334,6 +343,7 @@
 				3555B1ED479A15AAD3CA29C3 /* CaptureSheet.swift */,
 				FACAD0A41E1CA857613FF24F /* DiaryEntryRow.swift */,
 				FE2F1B9C5862684930A06D0A /* DiaryPaperView.swift */,
+				B1452B92A7050FC638CC0F1B /* MailboxLettersView.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -353,6 +363,7 @@
 		351B7EE44DE7CAA5191E6215 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				4974B96C3AE398711306DF68 /* AgreementsView.swift */,
 				22C3064D0824E30AF163D763 /* MeView.swift */,
 				89CD98657573148BE9B7CD1F /* MemoryCenterView.swift */,
 			);
@@ -505,6 +516,7 @@
 				0CE10C15ADECFD1FD0B75D79 /* AppStore+Creation.swift */,
 				98A2DD6583891A61E750451F /* AppStore+Diary.swift */,
 				B7880DB1E7640962EB2DF0F9 /* AppStore+DiarySync.swift */,
+				DF23162CE2E934EEC0DF20ED /* AppStore+Inbox.swift */,
 				3AE168EDA00C6AA78454DF35 /* AppStore+Remote.swift */,
 				E4431CE254B1414B6FD463F2 /* AppStore.swift */,
 				B672224FB980742CAF2A8112 /* RainSound.swift */,
@@ -649,6 +661,7 @@
 			files = (
 				F09D42F9E7E77D33AA855ABB /* MaomaoApp.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* RootView.swift in Sources */,
+				8C110EF04255CC160596AE74 /* AgreementAPI.swift in Sources */,
 				A7F5C89CB20A407D76A9BD70 /* Backend.swift in Sources */,
 				FCBF015959BBE821BF743BAE /* DiaryAPI.swift in Sources */,
 				836AB51F3426A557216D2B62 /* WorldBridge.swift in Sources */,
@@ -671,11 +684,13 @@
 				5397FA144BEA5856CC409E11 /* CaptureSheet.swift in Sources */,
 				962E36A87DCF130D7E4D5EE6 /* DiaryEntryRow.swift in Sources */,
 				D81D88B3FBB524416D240BE6 /* DiaryPaperView.swift in Sources */,
+				50779DDB4D31180692D92B19 /* MailboxLettersView.swift in Sources */,
 				397CBB45F094FD0B3F9459DA /* AtmosphereLayers.swift in Sources */,
 				996C37F3FCD48F19AC90C296 /* CompanionHomeView.swift in Sources */,
 				3DFDD6224B2F2EB75AA5D100 /* LocationRail.swift in Sources */,
 				E9285D622A915E2B67F5DB2E /* WorldDepth.metal in Sources */,
 				0C3AB9115461C32D69E54EB5 /* WorldView.swift in Sources */,
+				8E97AD44C2B7A294C84299AE /* AgreementsView.swift in Sources */,
 				C5737F0502BB06B23D342C1D /* MeView.swift in Sources */,
 				7579A1FCEEE44AE9F1CCD68F /* MemoryCenterView.swift in Sources */,
 				D7368BB94A4304EB2D2D2C45 /* FirstMeetingStep.swift in Sources */,
@@ -709,6 +724,7 @@
 				FDD9F4984F612A61A35B7DE9 /* AppStore+Creation.swift in Sources */,
 				2FA520B029AF8F3DD003C5C2 /* AppStore+Diary.swift in Sources */,
 				D89FE64A344BF7C8714C08BA /* AppStore+DiarySync.swift in Sources */,
+				48A70789913609C8BF21FCD8 /* AppStore+Inbox.swift in Sources */,
 				080F84D8505A06DCED47A77D /* AppStore+Remote.swift in Sources */,
 				B4CFD4E1DA318F731B977374 /* AppStore.swift in Sources */,
 				1B31ECEDFA89AE718B50475D /* RainSound.swift in Sources */,

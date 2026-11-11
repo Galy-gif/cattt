@@ -1,10 +1,12 @@
+import { messageAllowed } from '../agent/gate.ts';
+import { turnPublicationChecks } from '../agent/publisher.ts';
 import { extractSource } from '../worker/memory.ts';
 import { memories, memoryReceipts, messages } from '../db/schema.ts';
 import { lockMemory, MemoryControlError } from '../memory/control.ts';
 import { randomUUID } from 'node:crypto';
-import { and, eq, inArray, sql } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm';
 import { db, dbNow } from '../db/client.ts';
-import { boundaries, conversations, turns } from '../db/schema.ts';
+import { conversations, turns } from '../db/schema.ts';
 import { runtimeCalls, runtimeSteps } from '../db/schema-runtime.ts';
 import { buildTurnContext, type TurnContext } from '../runtime/context.ts';
 import { chatSlot, classifyModelError, recordModelCall } from '../runtime/model.ts';
@@ -69,14 +71,9 @@ async function runTurn(turnId: string) {
       }).catch(() => stop('cancel_unavailable'));
     }, 200);
 
-    const boundaryStamp = async () => (await db.select({ id: boundaries.id }).from(boundaries).where(eq(boundaries.catId, conv.catId)))
-      .map((b) => b.id).sort().join(',');
+    const checks = turnPublicationChecks(conv.catId);
+    const { boundaryStamp, revision, protection } = checks;
     const initialBoundaries = await boundaryStamp();
-    const revision = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at, c.memory_revision,
-      (select max(version) from soul_versions where cat_id = c.id) soul,
-      (select count(*) from soul_blocked_sources where cat_id = c.id) blocked,
-      (select max(created_at) from memory_blocks where cat_id = c.id) memory_deleted
-      from cats c where c.id = ${conv.catId}`));
     let contextRevision: string | undefined;
     const guard = async () => {
       abort.signal.throwIfAborted();
@@ -88,13 +85,13 @@ async function runTurn(turnId: string) {
       if (!published && current!.version > turn.inputVersion) {
         cancelReason = 'supersede'; abort.abort(new Error('supersede')); abort.signal.throwIfAborted();
       }
-      if ((contextRevision !== undefined && await revision() !== contextRevision) || await boundaryStamp() !== initialBoundaries) { stop('context_changed'); abort.signal.throwIfAborted(); }
+      if (!await checks.contextUnchanged(contextRevision, initialBoundaries)) { stop('context_changed'); abort.signal.throwIfAborted(); }
       if (!await refreshConversationLock(conv.id, lockToken)) { stop('lock_lost'); abort.signal.throwIfAborted(); }
     };
     await guard();
     // 明确记住/更正在回复前保存；成功后才允许说“记下了”。普通闲聊继续异步整理。
     const [input] = await db.select().from(messages).where(eq(messages.id, turn.userMessageId));
-    if (!input?.contextAllowed) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
+    if (!messageAllowed(input)) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
     let memoryNote = '没有本轮成功保存的凭证，不要说记下了或改好了。';
     if (input && /记住|记一下|记下来|更正|改成|说错|其实|不再|不是|以后.*记/.test(input.text)) {
       try { memoryNote = (await extractSource(conv.catId, input.id, turnId, undefined, abort.signal)).note; }
@@ -103,28 +100,19 @@ async function runTurn(turnId: string) {
     await getSoul(conv.catId);
     const slot = chatSlot();
     // 新记忆到达允许在首字前重读；撤回、删除、开关或身份改变仍终止旧轮次。
-    const protection = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at,
-      c.learn_memories, c.use_memories, c.learn_after_seq,
-      (select count(*) from messages m join conversations v on v.id = m.conversation_id
-        where v.cat_id = c.id and m.context_allowed = false) withdrawn,
-      (select count(*) from soul_blocked_sources where cat_id = c.id) blocked,
-      (select max(created_at) from memory_blocks where cat_id = c.id) memory_deleted,
-      (select jsonb_agg(jsonb_build_array(id, revision) order by id) from memories
-        where cat_id = c.id and extractor_version = 'user-edit-v1') edited
-      from cats c where c.id = ${conv.catId}`));
     const initialProtection = await protection();
     let ctx: TurnContext | undefined;
     // 旧消息的异步提取可能恰好在上下文读取期间写入。尚未调用回复模型/工具、
     // 尚未发布任何字时，丢弃这份过期快照并有限重读；不复用旧许可或重跑提取。
     for (let attempt = 0; attempt < 3; attempt++) {
       await guard();
-      if (await protection() !== initialProtection) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
+      if (!await checks.protectionUnchanged(initialProtection)) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
       const [source] = await db.select().from(messages).where(eq(messages.id, turn.userMessageId));
-      if (!source?.contextAllowed) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
+      if (!messageAllowed(source)) { await fail(turnId, 'source_withdrawn', '原话已停止使用', false); return; }
       const stamp = await revision();
       const next = await buildTurnContext(conv.catId, conv.id, turnId, abort.signal);
-      if (await protection() !== initialProtection) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
-      if (await revision() !== stamp) continue;
+      if (!await checks.protectionUnchanged(initialProtection)) { await fail(turnId, 'context_changed', '来源或许可已变化', false); return; }
+      if (!await checks.revisionUnchanged(stamp)) continue;
       let note = memoryNote;
       try {
         await db.transaction(async tx => {

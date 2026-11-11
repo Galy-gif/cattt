@@ -137,6 +137,7 @@ struct DiaryPaperView: View {
     private var entryList: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
+                MailboxLettersView()
                 if store.diaryLoadFailed {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("暂时无法读取日记，原文件已保留。")

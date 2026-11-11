@@ -1,3 +1,5 @@
+import { userTimeZone } from '../runtime/time.ts';
+import { canLearnFrom } from '../agent/gate.ts';
 import { bumpMemory, lockMemory, removeAspect } from '../memory/control.ts';
 import { rethrowForQueue } from './model-error.ts';
 import { generateText, Output } from 'ai';
@@ -81,7 +83,7 @@ export async function extractSource(catId: string, sourceId: string, turnId: str
   const [source] = await db.select().from(messages).innerJoin(conversations, eq(conversations.id, messages.conversationId))
     .where(and(eq(messages.id, sourceId), eq(conversations.catId, catId)));
   const m = source?.messages;
-  if (!cat?.learnMemories || !m || m.role !== 'user' || !m.contextAllowed || !m.memoryEligible || m.seq <= cat.learnAfterSeq)
+  if (!cat || !m || !canLearnFrom(cat, m, source?.conversations.id))
     return { remembered: false, note: '本次没有保存任何新记忆：继续记新的事情已关闭，或这条原话已停止使用。回复必须明确说明这次没有记下来、不会留作以后使用；即使用户说“记住”，也不能答应。不要用“记下了”“记住了”“改好了”“以后会记得”等成功或未来记忆承诺来表示听见了。仍可回应用户当下的其他问题。' };
   const receipts = await db.select().from(memoryReceipts).where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.sourceMessageId, sourceId)));
   if (receipts.length) {
@@ -97,7 +99,7 @@ export async function extractSource(catId: string, sourceId: string, turnId: str
   const slot = extractSlot();
   const started = Date.now();
   const { output, usage } = await generateText({
-    model: slot.model, instructions: `${EXTRACT_INSTRUCTIONS}\n今天是${new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'full' }).format(m.createdAt)}。\n已有记忆：\n${existingBlock}`,
+    model: slot.model, instructions: `${EXTRACT_INSTRUCTIONS}\n今天是${new Intl.DateTimeFormat('zh-CN', { timeZone: await userTimeZone(catId), dateStyle: 'full' }).format(m.createdAt)}。\n已有记忆：\n${existingBlock}`,
     messages: [{ role: 'user', content: m.text }], output: Output.object({ schema: candidateSchema }),
     providerOptions: slot.providerOptions, maxRetries: 2, abortSignal: signal,
   }).catch(rethrowForQueue);
@@ -132,7 +134,7 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
     const cat = await lockMemory(tx, catId);
     const [source] = await tx.select().from(messages).where(eq(messages.id, sourceMessageId));
     const [conv] = await tx.select().from(conversations).where(eq(conversations.catId, catId));
-    if (!source || source.conversationId !== conv?.id || source.role !== 'user' || !source.contextAllowed || !source.memoryEligible || !cat.learnMemories || source.seq <= cat.learnAfterSeq) return false;
+    if (!source || !canLearnFrom(cat, source, conv?.id)) return false;
     const edited = await tx.select().from(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, fingerprint)));
     if (edited.some(m => m.editedThroughSeq >= source.seq)) return false;
     const [receipt] = await tx.select().from(memoryReceipts).where(and(eq(memoryReceipts.sourceMessageId, sourceMessageId), eq(memoryReceipts.fingerprint, fingerprint)));

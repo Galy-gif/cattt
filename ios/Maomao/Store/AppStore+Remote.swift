@@ -84,6 +84,8 @@ extension AppStore {
 
     func setBackendMode(_ mode: BackendConfig.Mode) {
         guard backend.mode != mode else { return }
+        inboxTask?.cancel(); inboxTask = nil; inboxRefreshPending = false
+        mailboxLetters = []; inboxError = nil
         showsMemoryControls = false
         withdrawnSource = nil
         cancelEverything()
@@ -105,6 +107,8 @@ extension AppStore {
 
     /// 接后端时拉最近 50 条聊天记录和「我的」页的两个数。
     func connectBackend() {
+        inboxTask?.cancel(); inboxTask = nil; inboxRefreshPending = false
+        mailboxLetters = []; inboxError = nil
         showsMemoryControls = false
         withdrawnSource = nil
         chatTask?.cancel()
@@ -122,7 +126,11 @@ extension AppStore {
             backendStatus = "还没填 token"
             return
         }
-        worldBridge = WorldBridge(engine: world, api: api)
+        if !timeZoneReportedBackends.contains(client.config) {
+            timeZoneReportedBackends.append(client.config)
+            Task { try? await client.reportTimeZone() }
+        }
+        worldBridge = WorldBridge(engine: world, api: api, onInbox: { [weak self] in self?.refreshInbox() })
         worldBridge?.start()
         backendStatus = "连接中…"
         // 连不上时别留着本地模拟的示例对话，看着像真的
@@ -137,6 +145,7 @@ extension AppStore {
                 hasEarlierMessages = history.count == 50
                 try await recoverPendingChat(generation: generation, client: client)
                 await refreshCounts()
+                refreshInbox()
                 guard historyGeneration == generation, backend == client.config else { return }
                 backendStatus = "已连接 · \(history.count) 条记录"
             } catch {
@@ -290,6 +299,7 @@ extension AppStore {
                         }
                         savePendingChat(nil)
                         remoteTurnID = nil
+                        refreshInbox()
                         if let catLocalID {
                             if let messageId = data.messageId { setServerID(messageId, for: catLocalID) }
                             if !remoteStopped { setState(data.status == "stopped" ? .stopped : .done, for: catLocalID) }
