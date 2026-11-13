@@ -102,6 +102,13 @@ iOS生成器维护Sign in with Apple和APNs entitlements，Debug选择developmen
 
 ## 第六段增量
 
-继续使用同一镜像和迁移流程；新增`0015_inference_observe`，不改0007–0014，不需要新增密钥或环境变量。新的`inference`队列由同一worker与pg-boss启动；`AGENT_ENABLED=false`阻止新推断和推断发布，已存事项仍可读/取消。账号许可是数据库字段、默认false，部署配置没有把ask_outcome切auto的参数。上线后仍需内测观察及另行决策，不能用本机mock数字批准auto。
+继续使用同一镜像和迁移流程；新增`0015_inference_observe`，不改0007–0014，不需要新增密钥或环境变量。`inference`队列现由API前台Router与pg-boss启动；`AGENT_ENABLED=false`阻止新推断和推断发布，已存事项仍可读/取消。账号许可是数据库字段、默认false，部署配置没有把ask_outcome切auto的参数。上线后仍需内测观察及另行决策，不能用本机mock数字批准auto。
 
 本轮新镜像标签`cattt-phase6:current`已在上述独立本机环境验证；compose的历史项目名`cattt-phase5-local`只表示复用本机卷和网络，不表示运行旧代码。第六段主冒烟增为16项，包括HTTP许可与聊天→PG待办→新inference队列→observe聚合且无推断外发。第五段的真实Apple/APNs/云部署及云回退仍未验。
+
+
+### 事件驱动版本（0018）
+
+同一镜像仍只启动 API 和 worker。API 启动时注册前台 `report/followup/inference/push` 消费者；worker 负责执行与结构化汇报。先同时停止旧 API/worker，运行迁移 `0018_worker_reports`，再启动新版本。API 停机时，已完成计算保留为 PG 汇报，不由 worker 直接投递给用户；恢复 API 后继续消费。
+
+`AGENT_ENABLED=false` 继续暂停主动处理及待办消费；原有许可日记阅读仍按用户分享执行，已生成的汇报等待前台恢复后发布。回退须同时停止新处理器；旧 API 不支持新 `report` 协议，不能将混跑或健康接口200当成汇报恢复成功。保留新增表和待办，恢复支持该协议的版本后检查未消费汇报。

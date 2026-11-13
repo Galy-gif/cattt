@@ -13,7 +13,7 @@ import {
   triggers,
   users,
 } from '../db/schema.ts';
-import { acquireConversationLock, releaseConversationLock } from '../turns/events.ts';
+import { acquireConversationLock, releaseConversationLock, conversationBusy } from '../turns/events.ts';
 import { localISO, availableAt } from './tickets.ts';
 import { publishFollowups } from './publisher.ts';
 import { routeFollowup, reviewRoute, followupText } from './router.ts';
@@ -67,10 +67,7 @@ export async function processFollowup(triggerId: string, options: { now?: Date; 
   if(inferred?.mandate.kind==='inferred'){const{processInference}=await import('./inference.ts');return processInference(triggerId,{now:options.now,ruleId:inferred.mandate.rule_id});}
   const [conv] = await db.select().from(conversations).where(eq(conversations.catId, trigger.catId));
   if (!conv) return;
-  const token = randomUUID();
-  if (!(await acquireConversationLock(conv.id, token, 1000)))
-    return { retryAt: new Date(+(options.now ?? new Date()) + 30000) };
-  try {
+  if(await conversationBusy(conv.id))return {retryAt:new Date(+(options.now??await clockNow())+1000)};
     for (let attempt = 0; attempt < 2; attempt++) {
       const now = options.now ?? (await clockNow());
       const [current] = await db
@@ -152,7 +149,10 @@ export async function processFollowup(triggerId: string, options: { now?: Date; 
       }
       if (overdue)
         text = followupText(batch, true);
-      const result = await publishFollowups({
+      const token = randomUUID();
+      if (!await acquireConversationLock(conv.id, token, 150)) return {retryAt:new Date(+(options.now ?? await clockNow())+1000)};
+      let result;
+      try { result = await publishFollowups({
         catId: trigger.catId,
         userId: current.u.id,
         conversationId: conv.id,
@@ -165,11 +165,8 @@ export async function processFollowup(triggerId: string, options: { now?: Date; 
         reason,
         lockToken: token,
         timeZone: current.u.timeZone,
-      });
+      }); } finally { await releaseConversationLock(conv.id, token); }
       if (result !== 'stale') return;
     }
     return { retryAt: new Date(+(options.now ?? await clockNow()) + 30000) };
-  } finally {
-    await releaseConversationLock(conv.id, token);
-  }
 }

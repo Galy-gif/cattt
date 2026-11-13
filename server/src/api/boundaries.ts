@@ -6,7 +6,6 @@ import { bad, notFound } from './responses.ts';
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '../db/client.ts';
 import { boundaries, cats, messages, turns } from '../db/schema.ts';
-import { enqueueBoundarySummarize } from '../queue.ts';
 import { ensureBoundaryJob } from '../jobs/store.ts';
 import { invalidateSoulSources } from '../soul/service.ts';
 
@@ -54,7 +53,6 @@ boundariesRoutes.post('/messages/:id/boundary', async (c) => {
     await invalidateSoulSources(tx, owner.catId, [msg.id, ...(sourceTurn ? [sourceTurn.source] : [])]);
     if (row) { await ensureBoundaryJob(tx, row.id); await bumpMemory(tx, owner.catId); }
   });
-  await enqueueBoundarySummarize(msg.id).catch((error) => console.error('边界待办稍后补投', error));
   return c.json({ ok: true });
 });
 

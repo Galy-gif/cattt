@@ -77,7 +77,7 @@ export async function scanErrands(at?:Date,catId?:string) {
  await tx.update(tickets).set({stage:'thinking',localDay:day,timeZone:zone,updatedAt:now}).where(eq(tickets.id,t.id));await wakeErrand(tx,r.id);
  }else if(current.stage==='waiting'&&r.report.active&&+now-Date.parse(r.report.active.createdAt)>=86400000){
  await tx.update(tickets).set({stage:'quiet_waiting',updatedAt:now}).where(eq(tickets.id,t.id));
- }else if(current.stage==='thinking'&&r.status==='pending'){
+ }else if(current.stage==='thinking'&&r.status==='pending'&&!r.report.active){
  const [job]=await tx.select().from(asyncJobs).where(and(eq(asyncJobs.objectId,r.id),eq(asyncJobs.kind,'errand')));
  if(!job||['done','failed'].includes(job.state))await wakeErrand(tx,r.id);
  }

@@ -6,7 +6,8 @@ import { and, eq } from 'drizzle-orm';
 import { db, sql } from '../src/db/client.ts';
 import { users,cats,conversations,messages,tickets,ticketInputs,runs,runSteps,outbox,mailboxLetters,asyncJobs,diaryEntries,boundaries,modelCalls } from '../src/db/schema.ts';
 import { startErrand, appendTicketInput, scanErrands } from '../src/agent/errands.ts';
-import { processErrand, errandRetryable } from '../src/agent/executor.ts';
+import { errandRetryable } from '../src/agent/executor.ts';
+import { processErrand, deliverReports } from './report-pipeline.ts';
 import { cancelTicket } from '../src/agent/tickets.ts';
 import { mockWorkerModel } from '../src/runtime/mock.ts';
 import { catTools } from '../src/runtime/tools.ts';
@@ -65,7 +66,7 @@ it('第N完整步杀进程，租约过期新进程从检查点恢复且不重复
  await db.update(runs).set({leaseUntil:new Date(0)}).where(eq(runs.id,r.id));
  const code2=`import {processErrand} from './src/agent/executor.ts';await processErrand(${JSON.stringify(r.id)},{now:()=>new Date(${JSON.stringify(now.toISOString())})});process.exit(0);`;
  const second=spawn(process.execPath,['--import','tsx','--input-type=module','-e',code2],{env:{...process.env,MODEL_PROVIDER:'mock'},stdio:'pipe'});expect((await once(second,'exit'))[0]).toBe(0);
- const final=await runFor(t.ticket_id);expect(final.attempt).toBe(2);expect(Object.keys(final.report.calls)).toHaveLength(2);expect(await letters()).toHaveLength(1);
+ await deliverReports(r.id,now);const final=await runFor(t.ticket_id);expect(final.attempt).toBe(2);expect(Object.keys(final.report.calls)).toHaveLength(2);expect(await letters()).toHaveLength(1);
 },25000);
 it('同一事项只允许一个执行者running',async()=>{
  const t=await create();let release!:()=>void;const barrier=new Promise<void>(r=>release=r);let entered!:()=>void;const enteredP=new Promise<void>(r=>entered=r);

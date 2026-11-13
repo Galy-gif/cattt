@@ -4,20 +4,20 @@ import { availableAt, localISO } from './tickets.ts';
 import { refreshConversationLock } from '../turns/events.ts';
 import { and, eq, sql } from 'drizzle-orm';
 import { db, type Tx } from '../db/client.ts';
-import { boundaries, diaryEntries, messages, tickets, conversations, outbox, mailboxLetters, decisions, users } from '../db/schema.ts';
+import { cats, proactiveRules, type RunJournal, boundaries, diaryEntries, messages, tickets, conversations, outbox, mailboxLetters, decisions, users } from '../db/schema.ts';
 import { lockMemory } from '../memory/control.ts';
 import { diaryCommentAllowed, overlapsBoundaries, followupDenial } from './gate.ts';
 
 /** 保留聊天首字前可重读、发布后终止旧快照的原有检查顺序。 */
-export function turnPublicationChecks(catId: string) {
-  const boundaryStamp = async () => (await db.select({ id: boundaries.id }).from(boundaries).where(eq(boundaries.catId, catId)))
+export function turnPublicationChecks(catId: string, reader: Tx | typeof db = db) {
+  const boundaryStamp = async () => (await reader.select({ id: boundaries.id }).from(boundaries).where(eq(boundaries.catId, catId)))
       .map((b) => b.id).sort().join(',');
-  const revision = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at, c.memory_revision,
+  const revision = async () => JSON.stringify(await reader.execute(sql`select c.persona_version, c.updated_at, c.memory_revision,
       (select max(version) from soul_versions where cat_id = c.id) soul,
       (select count(*) from soul_blocked_sources where cat_id = c.id) blocked,
       (select max(created_at) from memory_blocks where cat_id = c.id) memory_deleted
       from cats c where c.id = ${catId}`));
-  const protection = async () => JSON.stringify(await db.execute(sql`select c.persona_version, c.updated_at,
+  const protection = async () => JSON.stringify(await reader.execute(sql`select c.persona_version, c.updated_at,
       c.learn_memories, c.use_memories, c.learn_after_seq,
       (select count(*) from messages m join conversations v on v.id = m.conversation_id
         where v.cat_id = c.id and m.context_allowed = false) withdrawn,
@@ -112,8 +112,36 @@ export async function publishFollowups(candidate: {
   });
 }
 
+/** 模型前和发布事务复用同一来源/许可检查。 */
+export async function errandDenial(reader:Tx|typeof db,cat:typeof cats.$inferSelect,conv:typeof conversations.$inferSelect,t:typeof tickets.$inferSelect,journal:RunJournal,wording?:string) {
+ const a=journal.active;
+ let denied:string|undefined;
+ const sourceTexts:string[]=[];
+
+ if(t.status!=='open')denied='授权已撤回';
+ if(t.mandate.kind==='inferred'){
+ if(!cat.allowProactive)denied='主动许可已关闭';
+ const [rule]=await reader.select().from(proactiveRules).where(and(eq(proactiveRules.ruleId,t.mandate.rule_id),eq(proactiveRules.version,t.mandate.version)));
+ if(rule?.mode!=='auto')denied='规则已关闭';
+ }else if(t.mandate.source_message_id!==t.sourceMessageId)denied='授权不可用';
+ const topics=await reader.select({topic:boundaries.description,text:messages.text}).from(boundaries).innerJoin(messages,eq(messages.id,boundaries.sourceMessageId)).where(and(eq(boundaries.catId,cat.id),eq(messages.contextAllowed,true)));
+ for(const id of new Set([t.sourceMessageId,...journal.dependencies.messages])){
+ const [m]=id?await reader.select().from(messages).where(eq(messages.id,id)):[];
+ if(!m?.contextAllowed||m.conversationId!==conv.id)denied='原话已停止使用';
+ else sourceTexts.push(m.text);
+ }
+ for(const ref of journal.dependencies.diaries){
+ const [d]=await reader.select().from(diaryEntries).where(eq(diaryEntries.id,ref.id));
+ if(!d?.catAllowed||d.catId!==cat.id||d.revision!==ref.revision)denied='日记已停止使用或修改';
+ else sourceTexts.push(d.text);
+ }
+ if(journal.dependencies.usedMemories&&(!cat.useMemories||cat.memoryRevision!==journal.dependencies.memoryRevision))denied='记忆许可或内容已变化';
+ if(overlapsBoundaries({id:t.id,subject:'',predicate:'',value:[t.goal,a?.result,a?.question,a?.reason,wording,...sourceTexts].filter(Boolean).join(' '),fingerprint:'',explicit:true,sensitivity:'low',lastConfirmedAt:t.createdAt,revision:0},topics.map(t=>t.topic??t.text)))denied='不要再提';
+ return denied;
+}
+
 /** 托付出口：持有对话锁，并在同一事务里复核、写正文和收据。 */
-export async function publishErrand(candidate:{runId:string;attempt:number;lockToken:string;now:Date}):Promise<'sent'|'stale'|{retryAt:Date}> {
+export async function publishErrand(candidate:{runId:string;attempt:number;callId:string;lockToken:string;now:Date;text?:string;protection?:string}):Promise<'sent'|'stale'|{retryAt:Date}> {
  const {runs,ticketInputs,proactiveRules}=await import('../db/schema.ts');
  return db.transaction(async tx=>{
  const [initial]=await tx.select({r:runs,t:tickets}).from(runs).innerJoin(tickets,eq(tickets.id,runs.ticketId)).where(eq(runs.id,candidate.runId));if(!initial)return 'sent';
@@ -122,31 +150,11 @@ export async function publishErrand(candidate:{runId:string;attempt:number;lockT
  const [user]=await tx.select().from(users).where(eq(users.id,cat.userId)).for('update');
  const [t]=await tx.select().from(tickets).where(eq(tickets.id,initial.t.id)).for('update');
  const [r]=await tx.select().from(runs).where(eq(runs.id,initial.r.id)).for('update');
- if(!r||!t||!conv||!user||r.attempt!==candidate.attempt||r.status!=='running')return 'sent';
+ if(!r||!t||!conv||!user||r.attempt!==candidate.attempt||r.status==='ended')return 'sent';
  if(!await refreshConversationLock(conv.id,candidate.lockToken))throw new Error('errand_lock_lost');
- const journal=r.report,a=journal.active;if(!a)return 'stale';
- let denied:string|undefined;
- const sourceTexts:string[]=[];
+ const journal=r.report,a=journal.active;if(!a||a.callId!==candidate.callId)return 'sent';
  if(t.catId!==cat.id||conv.catId!==cat.id||t.kind!=='errand')throw new Error('errand_owner');
- if(t.status!=='open')denied='授权已撤回';
- if(t.mandate.kind==='inferred'){
- if(!cat.allowProactive)denied='主动许可已关闭';
- const [rule]=await tx.select().from(proactiveRules).where(and(eq(proactiveRules.ruleId,t.mandate.rule_id),eq(proactiveRules.version,t.mandate.version)));
- if(rule?.mode!=='auto')denied='规则已关闭';
- }else if(t.mandate.source_message_id!==t.sourceMessageId)denied='授权不可用';
- const topics=await tx.select({topic:boundaries.description,text:messages.text}).from(boundaries).innerJoin(messages,eq(messages.id,boundaries.sourceMessageId)).where(and(eq(boundaries.catId,cat.id),eq(messages.contextAllowed,true)));
- for(const id of new Set([t.sourceMessageId,...journal.dependencies.messages])){
- const [m]=id?await tx.select().from(messages).where(eq(messages.id,id)):[];
- if(!m?.contextAllowed||m.conversationId!==conv.id)denied='原话已停止使用';
- else sourceTexts.push(m.text);
- }
- for(const ref of journal.dependencies.diaries){
- const [d]=await tx.select().from(diaryEntries).where(eq(diaryEntries.id,ref.id));
- if(!d?.catAllowed||d.catId!==cat.id||d.revision!==ref.revision)denied='日记已停止使用或修改';
- else sourceTexts.push(d.text);
- }
- if(journal.dependencies.usedMemories&&(!cat.useMemories||cat.memoryRevision!==journal.dependencies.memoryRevision))denied='记忆许可或内容已变化';
- if(overlapsBoundaries({id:t.id,subject:'',predicate:'',value:[t.goal,a.result,a.question,a.reason,...sourceTexts].filter(Boolean).join(' '),fingerprint:'',explicit:true,sensitivity:'low',lastConfirmedAt:t.createdAt,revision:0},topics.map(t=>t.topic??t.text)))denied='不要再提';
+ const denied=await errandDenial(tx,cat,conv,t,journal,candidate.text);
  const purpose=`errand:${a.status==='waiting'?'waiting:'+a.callId:a.status}`;
  const [receipt]=await tx.select().from(outbox).where(and(eq(outbox.ticketId,t.id),eq(outbox.purpose,purpose+':chat')));
  if(receipt)return 'sent';
@@ -160,12 +168,13 @@ export async function publishErrand(candidate:{runId:string;attempt:number;lockT
  }
  const [unread]=await tx.select().from(ticketInputs).where(and(eq(ticketInputs.ticketId,t.id),sql`${ticketInputs.readAt} is null`)).limit(1);
  if(conv.version!==journal.version||user.timeZone!==journal.timeZone||unread)return 'stale';
+ if(candidate.protection&&!await turnPublicationChecks(cat.id,tx).protectionUnchanged(candidate.protection))return 'stale';
  if(a.status==='waiting'&&+candidate.now-Date.parse(a.createdAt)>=86400000){
  await tx.update(tickets).set({stage:'quiet_waiting',updatedAt:candidate.now}).where(eq(tickets.id,t.id));
  await tx.update(runs).set({status:'pending',leaseUntil:null,stepStartedAt:null}).where(eq(runs.id,r.id));return 'sent';
  }
  const available=availableAt(candidate.now,user.timeZone);if(+available>+candidate.now)return {retryAt:available};
- const text=a.status==='ready'?'我想好了一些，放在信箱里了，想看时再拆。':a.status==='waiting'?a.question!:`这件事没能办好。${a.reason??'这次没有想出可靠的办法。'}`;
+ const text=candidate.text ?? (a.status==='ready'?'我想好了一些，放在信箱里了，想看时再拆。':a.status==='waiting'?a.question!:`这件事没能办好。${a.reason??'这次没有想出可靠的办法。'}`);
  if(a.status==='progress')return 'sent';
  const [chatMessage]=await tx.insert(messages).values({conversationId:conv.id,role:'cat',text,ticketId:t.id,memoryEligible:false}).returning();
  await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:purpose+':chat',kind:'chat_message',status:'sent'});
@@ -238,6 +247,18 @@ export async function publishInferredFollowup(candidate:{snapshot:import('./infe
   await tx.insert(outbox).values([{catId:cat.id,ticketId:t.id,purpose:'inferred:chat',kind:'chat_message',status:'sent'},{catId:cat.id,ticketId:t.id,purpose:'inferred:letter',kind:'mailbox_letter',status:'sent'}]);
   await tx.update(tickets).set({status:'ended',stage:'asked',endedReason:'delivered',updatedAt:now}).where(eq(tickets.id,t.id));
   await tx.update(inferenceWatches).set({state:'ended'}).where(and(eq(inferenceWatches.catId,cat.id),eq(inferenceWatches.sourceMessageId,current.source.id)));
+  return 'sent';
+ });
+}
+
+
+/** 前台接收阅读汇报，重新加载原文与许可，不使用持久化正文副本。 */
+export async function publishDiaryRead(candidate:{entryId:string;version:string;revision:number;comment:string|null}):Promise<'sent'|'stale'> {
+ return db.transaction(async tx=>{
+  const input=await diaryPublicationInput(tx,candidate.entryId,candidate.version);
+  if(!input)return 'sent';
+  if(input.revision!==candidate.revision)return 'stale';
+  await tx.update(diaryEntries).set({visit:candidate.comment?2:1,note:candidate.comment??''}).where(eq(diaryEntries.id,candidate.entryId));
   return 'sent';
  });
 }

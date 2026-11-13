@@ -1,3 +1,4 @@
+import { processDailyDiary, deliverReports } from './report-pipeline.ts';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { randomUUID } from 'node:crypto';
@@ -5,7 +6,7 @@ import { afterAll, beforeEach, expect, it } from 'vitest';
 import { and, eq } from 'drizzle-orm';
 import { db, sql } from '../src/db/client.ts';
 import { users,cats,conversations,messages,tickets,triggers,asyncJobs,diaryEntries,outbox,mailboxLetters,boundaries,diaryFacts,diaryCalendars,decisions } from '../src/db/schema.ts';
-import { scanDailyDiaries, processDailyDiary, dailyDiaryInput, reviewDailyDraft, reflectionText } from '../src/agent/daily-diary.ts';
+import { scanDailyDiaries, dailyDiaryInput, reviewDailyDraft, reflectionText } from '../src/agent/daily-diary.ts';
 import { registerSession, putState } from '../src/world/service.ts';
 import { snapshotSchema } from '../src/world/protocol.ts';
 import { app } from '../src/api/app.ts';
@@ -43,7 +44,7 @@ it('不开App跨三天各一篇，00:05前不提前写，重复扫描/并发投�
 it('发布后进程退出重启重放，不改写已有正文或重复收据',async()=>{
  await scan();const id=(await events())[0]!.id;
  const child=spawn(process.execPath,['--import','tsx','--input-type=module','-e',`import {processDailyDiary} from './src/agent/daily-diary.ts';await processDailyDiary('${id}');process.exit(0);`],{env:{...process.env,MODEL_PROVIDER:'mock'},stdio:'pipe'});
- expect((await once(child,'exit'))[0]).toBe(0);const before=await entries();expect(before).toHaveLength(1);await processDailyDiary(id,{write:async()=>{throw new Error('must not rewrite');}});expect(await entries()).toEqual(before);
+ expect((await once(child,'exit'))[0]).toBe(0);await deliverReports(id);const before=await entries();expect(before).toHaveLength(1);await processDailyDiary(id,{write:async()=>{throw new Error('must not rewrite');}});expect(await entries()).toEqual(before);
 });
 it('生成中进程被杀，PG待办租约恢复后仅一次发布',async()=>{
  await scan();const id=(await events())[0]!.id;

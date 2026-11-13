@@ -39,6 +39,7 @@ export async function jobModelAccount<T>(job:{kind:string;objectId:string},run:(
  when ${job.kind}='memory' then (select v.cat_id from turns t join conversations v on v.id=t.conversation_id where t.id=${job.objectId})
  when ${job.kind}='boundary' then (select cat_id from boundaries where id=${job.objectId})
  when ${job.kind}='diary_read' then (select cat_id from diary_entries where id=${job.objectId})
+ when ${job.kind}='report' then (select cat_id from worker_reports where id=${job.objectId})
  when ${job.kind}='errand' then (select t.cat_id from runs r join tickets t on t.id=r.ticket_id where r.id=${job.objectId})
  else (select cat_id from triggers where id=${job.objectId}) end`);
  return r?withModelAccount(r.user_id,run):run();

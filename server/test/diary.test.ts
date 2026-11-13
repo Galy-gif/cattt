@@ -6,7 +6,7 @@ import { asyncJobs, boundaries, cats, conversations, diaryEntries, messages, tur
 import { app } from '../src/api/app.ts';
 import { hashToken } from '../src/auth-token.ts';
 import { diaryJSON, saveDiary, type DiaryInput } from '../src/diary/service.ts';
-import { readDiary } from '../src/worker/diary.ts';
+import { readDiary } from './report-pipeline.ts';
 import { executeJob } from '../src/jobs/store.ts';
 import { buildTurnContext } from '../src/runtime/context.ts';
 import { commitOutcome } from '../src/turns/store.ts';

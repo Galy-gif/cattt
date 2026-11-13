@@ -35,6 +35,19 @@ async function run(m: ReturnType<typeof model>, tools: Record<string, RuntimeToo
   return { text, traces, phases };
 }
 describe('ToolLoopAgent 真实 SDK 循环', () => {
+  it('普通聊天直接回应，一次模型请求，不强制先走 finish_tools', async () => {
+    const choices: string[] = [];
+    const m = new MockLanguageModelV4({ doStream: async options => {
+      choices.push(options.toolChoice?.type ?? 'auto');
+      const parts = options.toolChoice?.type === 'required'
+        ? step('', [{ name: 'finish_tools', id: 'finish' }]) : step('嗯，我在。');
+      return { stream: new ReadableStream({ start(c) { for (const part of parts) c.enqueue(part); c.close(); } }) };
+    } });
+    const result = await run({ model: m, count: () => choices.length }, { lookup: fake });
+    expect(result.text).toBe('嗯，我在。');
+    expect(choices).toEqual(['auto']);
+    expect(result.traces).toHaveLength(0);
+  });
   it('终答保留工具定义并明确 none，避免 DeepSeek 将历史工具调用作为 DSML 正文返回', async () => {
     const requests: { tools?: { function: { name: string } }[]; tool_choice?: string }[] = [];
     const leaked = '<｜｜DSML｜｜ calls>\n<｜｜DSML｜｜ invoke name="finish_tools">\n</｜｜DSML｜｜ invoke>\n</｜｜DSML｜｜ calls>';

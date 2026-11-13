@@ -1,3 +1,4 @@
+import { processReport } from '../src/agent/reports.ts';
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeAll, expect, it, vi } from 'vitest';
 import { eq, inArray } from 'drizzle-orm';
@@ -16,7 +17,7 @@ const run = async (id: string) => {
   if (!jobs.includes(id)) return; // 共享测试库里其它用例的待办留给它自己的恢复扫描。
   await executeJob(id, task => {
   const action = actions.get(id); if (action) return action();
-  return task.kind === 'memory' ? extractMemories(task.objectId, task.id) : task.kind === 'boundary' ? summarizeBoundary(task.objectId, task.id) : readDiary(task.objectId, task.version, task.id);
+  return task.kind === 'report' ? processReport(task.objectId) : task.kind === 'memory' ? extractMemories(task.objectId, task.id) : task.kind === 'boundary' ? summarizeBoundary(task.objectId, task.id) : readDiary(task.objectId, task.version, task.id);
   });
 };
 const state = async (id: string) => (await db.select().from(asyncJobs).where(eq(asyncJobs.id, id)))[0]!;
@@ -24,7 +25,7 @@ async function pending(action: () => Promise<void>) {
   const id = randomUUID(); actions.set(id, action); jobs.push(id);
   const [job] = await db.insert(asyncJobs).values({ id, kind: 'boundary', sourceId: randomUUID(), objectId: randomUUID(), version: 'v1', nextAttemptAt: new Date(0) }).returning(); return job!;
 }
-beforeAll(async () => { await startQueueWorkers({ memory: run, boundary: run, diary_read: run, sweep: async () => {} }); }, 30000);
+beforeAll(async () => { await startQueueWorkers({ memory: run, boundary: run, diary_read: run, report: run, sweep: async () => {} }); }, 30000);
 afterAll(async () => {
   await closeQueues();
   if (jobs.length) await db.delete(asyncJobs).where(inArray(asyncJobs.id, jobs));
@@ -83,6 +84,8 @@ it('三类真实处理器经 pg-boss 完成；可在 Redis 停止时独立复验
     await dispatchJob(job);
     await vi.waitFor(async () => expect((await state(job.id)).state).toBe('done'), { timeout: 10000 });
   }
+  const reports=await db.select().from(asyncJobs).where(eq(asyncJobs.sourceId,entry!.id));
+  for(const job of reports.filter(j=>j.kind==='report')){jobs.push(job.id);await dispatchJob(job);await vi.waitFor(async()=>expect((await state(job.id)).state).toBe('done'),{timeout:10000});}
   expect((await db.select().from(turns).where(eq(turns.id, turn!.id)))[0]!.extractedAt).not.toBeNull();
   expect((await db.select().from(boundaries).where(eq(boundaries.id, boundary!.id)))[0]!.description).toBeTruthy();
   expect((await db.select().from(diaryEntries).where(eq(diaryEntries.id, entry!.id)))[0]!.visit).toBe(2);

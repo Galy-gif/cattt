@@ -9,7 +9,7 @@ import { createApnsTransport } from '../src/push/apns.ts';
 import { scheduleFollowup, cancelTicket } from '../src/agent/tickets.ts';
 import { scanFollowups, processFollowup } from '../src/agent/followup.ts';
 import { startErrand } from '../src/agent/errands.ts';
-import { processErrand } from '../src/agent/executor.ts';
+import { processErrand } from './report-pipeline.ts';
 import { runs,mailboxLetters } from '../src/db/schema.ts';
 import { config } from '../src/config.ts';
 import { redis } from '../src/redis.ts';

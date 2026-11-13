@@ -82,9 +82,9 @@ docker compose exec postgres psql -U maomao -c \
 
 ### 约好的事（第二段）
 
-聊天工具 `schedule_followup` 只保存日期、钟点都明确的用户约定；`list_tickets` 后可用 `update_ticket` 直达已有约定或 `cancel_ticket` 撤回。“我的”列表也可改时间和取消。未实现托付执行、推送与每日猫日记后台。
+聊天工具 `schedule_followup` 只保存日期、钟点都明确的用户约定；`list_tickets` 后可用 `update_ticket` 直达已有约定或 `cancel_ticket` 撤回。“我的”列表也可改时间和取消。托付、推送与每日猫日记见下文后续实现。
 
-worker 每30秒把到期约定写成 `clock:<ticket_id>:<due_at>` 事件和 PG 待办，经 pg-boss 投递。默认用户本地22:00–09:00安静，UTC时间不随用户换时区移动；发送时按当前时区复核。超过24小时只留信。事项、来源原话及“不要再提”在模型前和发布事务中都检查；Router失效时固定模板兜底。explicit 约定没有三次尝试后永久放弃的限制，临时故障和安静时段保留在 PG 重试。
+API 前台 Router 每30秒把到期约定写成 `clock:<ticket_id>:<due_at>` 事件和 PG 待办，经 pg-boss 投递。默认用户本地22:00–09:00安静，UTC时间不随用户换时区移动；发送时按当前时区复核。超过24小时只留信。事项、来源原话及“不要再提”在模型前和发布事务中都检查；Router失效时固定模板兜底。explicit 约定没有三次尝试后永久放弃的限制，临时故障和安静时段保留在 PG 重试。
 
 新增 `ROUTER_MODEL=deepseek-flash` / `ROUTER_THINKING=disabled`，成本用途 `route`。本段只有 `followup_due` 生效；其余主动规则仅预置版本与档位。模型只提供合并措辞，不能撤销用户亲口约定的发送授权。输入按中文每字约1 token、其他每4字符约1 token估算至多3000 token，保留最近6条聊天并逐条压短；使用SDK结构化输出。复核按ID覆盖、120字内单条文字、禁词与快照外时间/姓名的轻量启发式，不要求逐字复述主题。
 
@@ -122,3 +122,12 @@ MODEL_PROVIDER=mock pnpm --dir server exec tsx scripts/inference-metrics.ts
 ```
 
 输出只有 `would_ask_total,matured,volunteered,ratio,pending`。48小时完成窗口才入比例分母，窗口内后续许可用户消息明确提同类结果则入分子；来源撤回、改写、边界或记忆许可变化后实时剔除。不输出原话、goal或个人标识；这只是保守关键词归因，不是因果或真实模型质量评估。内测数据和另行决策到位前不切auto。
+
+
+## 2026-11-13 事件驱动与前台统一回应
+
+API 现在同时运行前台 Router，消费 `report/followup/inference/push`；worker 只执行计算、保存检查点并提交结构化汇报。托付结果通知、猫日记出版、许可日记的留言均由前台复核后写入。普通聊天不再强制先走一次 `finish_tools`，工具步骤的未验证承诺仍不会直接进入聊天。
+
+`worker_reports` 与 `report` 待办同事务提交；`async_jobs` 的 PostgreSQL 提交通知立即唤醒补投，15秒恢复扫描兜底。通知不带正文，API 离线时不会由 worker 代为开口。前台读取最近对话再措辞，不在模型调用期间持对话锁；实际发布沿用来源、取消、许可、新鲜度、安静时段和幂等检查。聊天正在生成时先延后汇报，也不会反复消耗措辞模型调用。
+
+部署仍是现有 API + worker，无新增服务或环境变量。升级前停旧进程，应用 `0018_worker_reports` 后同时启动新版本；旧 API 不支持新汇报协议，不可直接混跑。详见[架构决策](../docs/决策/2026-11-13-事件驱动与前台统一回应.md)。

@@ -216,7 +216,7 @@ export const boundaries = pgTable('boundaries', {
   createdAt: createdAt(),
 });
 
-/** PG 是异步任务的真相源，Redis 只是可重建的投递通道。 */
+/** PG 是异步待办的真相源，pg-boss 负责可重建的投递。 */
 export const asyncJobs = pgTable('async_jobs', {
   id: id(),
   kind: text('kind').notNull(),
@@ -364,3 +364,17 @@ export const inferenceObservations=pgTable('inference_observations',{
 export const inferredPublications=pgTable('inferred_publications',{
  id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),ticketId:uuid('ticket_id').notNull().references(()=>tickets.id,{onDelete:'cascade'}),sourceMessageId:uuid('source_message_id').notNull().references(()=>messages.id,{onDelete:'cascade'}),localDay:text('local_day').notNull(),createdAt:createdAt(),
 },t=>[uniqueIndex('inferred_publication_cat_day').on(t.catId,t.localDay),uniqueIndex('inferred_publication_source').on(t.sourceMessageId)]);
+
+/** 执行者的持久汇报；只有前台 Router 消费并调用发布出口。 */
+export type WorkerReportPayload =
+  | {kind:'errand'; runId:string; attempt:number; callId:string}
+  | {kind:'diary_read'; entryId:string; version:string; revision:number; comment:string|null}
+  | {kind:'daily_diary'; input:import('../agent/daily-diary.ts').DailyInput; text:string; triggerId:string};
+export const workerReports = pgTable('worker_reports', {
+  id: id(),
+  catId: uuid('cat_id').notNull().references(() => cats.id, {onDelete:'cascade'}),
+  sourceId: uuid('source_id').notNull(),
+  version: text('version').notNull(),
+  payload: jsonb('payload').$type<WorkerReportPayload>().notNull(),
+  createdAt: createdAt(),
+}, t => [uniqueIndex('worker_reports_source_version').on(t.sourceId,t.version)]);

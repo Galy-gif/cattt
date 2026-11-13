@@ -150,6 +150,9 @@ export async function readVisibleLength(turnId: string): Promise<number | null> 
 // ---- 同一段对话同一时间只生成一轮 ----
 
 const lockKey = (conversationId: string) => `conv:${conversationId}:lock`;
+
+/** 只用于避免聊天忙碌时做无用措辞；发布仍必须实际取得锁。 */
+export async function conversationBusy(conversationId: string) { return await redis.exists(lockKey(conversationId)) > 0; }
 const LOCK_TTL_MS = 30_000;
 
 export async function acquireConversationLock(

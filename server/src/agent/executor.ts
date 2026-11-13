@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
 import { ToolLoopAgent,isStepCount,tool,type ToolSet,type ModelMessage,type LanguageModel,RetryError } from 'ai';
 import { z } from 'zod';
@@ -11,8 +10,7 @@ import { personaBlock } from '../runtime/persona.ts';
 import { timeTool,userTimeZone } from '../runtime/time.ts';
 import { weatherTool } from '../runtime/weather.ts';
 import type { RuntimeTool } from '../runtime/agent.ts';
-import { acquireConversationLock,releaseConversationLock } from '../turns/events.ts';
-import { publishErrand } from './publisher.ts';
+import { submitWorkerReport } from './report-store.ts';
 import { clockNow } from './followup.ts';
 const reportSchema=z.discriminatedUnion('status',[
  z.object({status:z.literal('progress')}),
@@ -35,6 +33,7 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  const now=options.now??clockNow;
  const [initial]=await db.select({r:runs,t:tickets}).from(runs).innerJoin(tickets,eq(tickets.id,runs.ticketId)).where(eq(runs.id,runId));
  if(!initial||initial.r.status==='ended'||initial.t.status!=='open'||['queued','waiting','quiet_waiting'].includes(initial.t.stage))return;
+ if(initial.r.status==='pending'&&initial.r.report.active){ await db.transaction(tx=>submitWorkerReport(tx,initial.t.catId,runId,`${initial.r.attempt}:${initial.r.report.active!.callId}`,{kind:'errand',runId,attempt:initial.r.attempt,callId:initial.r.report.active!.callId}));return; }
  const [claimed]=await db.update(runs).set({status:'running',attempt:sql`${runs.attempt}+1`,elapsedMs:sql`least(600000, ${runs.elapsedMs}+case when ${runs.status}='running' then greatest(0,extract(epoch from (now()-coalesce(${runs.stepStartedAt},now())))*1000)::int else 0 end)`,stepStartedAt:sql`now()`,leaseUntil:sql`now()+interval '45 seconds'`}).where(and(eq(runs.id,runId),sql`(${runs.status}='pending' or (${runs.status}='running' and ${runs.leaseUntil}<=now()))`)).returning();
  if(!claimed)return;
  const owned=and(eq(runs.id,runId),eq(runs.attempt,claimed.attempt),eq(runs.status,'running'));
@@ -55,6 +54,12 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  let currentInstant=await now();
  const invocationStart=+currentInstant,initialElapsed=claimed.elapsedMs;
  const fail=async(reason:string)=>report({status:'failed',reason},'runtime-budget-or-error');
+ const handoff=async()=>db.transaction(async tx=>{
+   const [r]=await tx.select().from(runs).where(owned).for('update');
+   if(!r?.report.active)throw new RunStopped();
+   await submitWorkerReport(tx,initial.t.catId,runId,`${r.attempt}:${r.report.active.callId}`,{kind:'errand',runId,attempt:r.attempt,callId:r.report.active.callId});
+   await tx.update(runs).set({status:'pending',leaseUntil:null,stepStartedAt:null}).where(owned);
+ });
  const slot=workerSlot();
  try {
  let current=await guard();
@@ -141,22 +146,11 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  history=nextHistory;checkpoints=await db.select().from(runSteps).where(eq(runSteps.runId,runId)).orderBy(asc(runSteps.step));restored=false;
  await options.afterStep?.(checkpoints.length);
  }
- current=await guard();
- const token=randomUUID();if(!await acquireConversationLock(conv.id,token,1000))return {retryAt:new Date(+(await now())+30000)};
- try{
- const published=await publishErrand({runId,attempt:claimed.attempt,lockToken:token,now:await now()});
- if(published==='stale'){
- await changeJournal(j=>{j.active=undefined;j.version=undefined;j.freshRetries++;});
- return {retryAt:new Date(+(await now())+1000)};
- }if(typeof published==='object')return published;
- }finally{await releaseConversationLock(conv.id,token);}
+ await handoff();
  }catch(error){
  if(error instanceof RunStopped){await db.update(runs).set({status:'ended',leaseUntil:null}).where(owned);return;}
  await fail(error instanceof Error&&error.message.includes('model_daily_budget')?'今天能想的事已到上限，这件事还没办完。':'这次没能继续想下去，暂时没有可靠的答案。');
- const [conv]=await db.select().from(conversations).where(eq(conversations.catId,initial.t.catId));
- if(conv){const token=randomUUID();if(await acquireConversationLock(conv.id,token,1000))try{
- const p=await publishErrand({runId,attempt:claimed.attempt,lockToken:token,now:await now()});if(typeof p==='object')return p;if(p==='stale')return {retryAt:new Date(+(await now())+30000)};
- }finally{await releaseConversationLock(conv.id,token);}else return {retryAt:new Date(+(await now())+30000)};}
+ await handoff();
  }finally{
  clearInterval(heartbeat);
  await db.update(runs).set({status:'pending',leaseUntil:null,elapsedMs:sql`least(600000, ${runs.elapsedMs}+greatest(0,extract(epoch from (now()-coalesce(${runs.stepStartedAt},now())))*1000)::int)`,stepStartedAt:null}).where(owned);

@@ -1,3 +1,4 @@
+import { processDailyDiary } from './report-pipeline.ts';
 import { randomUUID } from "node:crypto";
 import { afterAll, beforeEach, expect, it } from "vitest";
 import { and, eq, asc, inArray } from "drizzle-orm";
@@ -30,7 +31,6 @@ import { scheduleFollowup } from "../src/agent/tickets.ts";
 import { scanFollowups, processFollowup } from "../src/agent/followup.ts";
 import {
   scanDailyDiaries,
-  processDailyDiary,
 } from "../src/agent/daily-diary.ts";
 import { app } from "../src/api/app.ts";
 import { hashToken } from "../src/auth-token.ts";

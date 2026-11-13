@@ -1,10 +1,9 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
-import { eq } from 'drizzle-orm';
 import { db } from '../db/client.ts';
-import { diaryEntries } from '../db/schema.ts';
-import { diaryPublicationInput, reviewDiaryPublication } from '../agent/publisher.ts';
+import { diaryPublicationInput } from '../agent/publisher.ts';
 import { classifyModelError, diarySlot, recordModelCall } from '../runtime/model.ts';
+import { submitWorkerReport } from '../agent/report-store.ts';
 import { UnrecoverableError } from '../jobs/errors.ts';
 
 const response = z.object({ comment: z.string().max(120).nullable() });
@@ -29,8 +28,7 @@ export async function readDiary(entryId: string, version: string, jobId: string,
   const input = await db.transaction(tx => diaryPublicationInput(tx, entryId, version));
   if (!input) return;
   const comment = await reader(input.entry.text, input.name, jobId, input.entry.day);
-  await db.transaction(async tx => {
-    if (!await reviewDiaryPublication(tx, input)) return;
-    await tx.update(diaryEntries).set({ visit: comment ? 2 : 1, note: comment ?? '' }).where(eq(diaryEntries.id, entryId));
-  });
+  await db.transaction(tx => submitWorkerReport(tx,input.entry.catId,entryId,`read:${version}:${input.revision}`,{
+    kind:'diary_read',entryId,version,revision:input.revision,comment,
+  }));
 }

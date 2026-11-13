@@ -6,7 +6,7 @@ import type { WorldSnapshot } from '../world/protocol.ts';
 import { recallPermissions } from '../memory/recall.ts';
 import { overlapsBoundaries } from './gate.ts';
 import { localISO } from './tickets.ts';
-import { publishDailyDiary } from './publisher.ts';
+import { submitWorkerReport } from './report-store.ts';
 import { routeDailyDiary, writeDailyDiary } from './diary-writer.ts';
 import { z } from 'zod';
 import { personaBlock } from '../runtime/persona.ts';
@@ -131,8 +131,8 @@ export async function processDailyDiary(triggerId: string, options: {
     try { text=reviewDailyDraft(await (options.write ?? writeDailyDiary)(selected),selected); }
     catch { text=reflectionText.quiet; }
     await options.beforePublish?.();
-    const result = await publishDailyDiary({input,text,triggerId});
-    if (result !== 'stale') return;
+    await db.transaction(tx=>submitWorkerReport(tx,input.catId,triggerId,createHash('sha256').update(input.stamp).digest('hex'),{kind:'daily_diary',input,text,triggerId}));
+    return;
   }
   return {retryAt:new Date(Date.now()+30000)};
 }

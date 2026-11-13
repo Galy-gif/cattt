@@ -13,7 +13,6 @@ import { chatSlot, classifyModelError, recordModelCall } from '../runtime/model.
 import { getSoul } from '../soul/service.ts';
 import { runCatAgent } from '../runtime/agent.ts';
 import { catTools } from '../runtime/tools.ts';
-import { recoverJobs } from '../jobs/store.ts';
 import { cancelRequestedActions } from '../world/service.ts';
 import { authorizeFirstToken, claimTurn, commitOutcome } from './store.ts';
 import {
@@ -191,7 +190,6 @@ async function runTurn(turnId: string) {
     clearInterval(heartbeat); clearInterval(cancelPoll); clearTimeout(budget);
     await cancelRequestedActions(turnId).catch(() => {});
     if (acquired) await releaseConversationLock(conv.id, lockToken).catch(() => {});
-    await recoverJobs().catch((error) => console.error(`[turn ${turnId}] 待办稍后补投`, error));
   }
 }
 

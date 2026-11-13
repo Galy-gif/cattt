@@ -252,6 +252,7 @@ export function mockRecallModel() {
 export function mockRouterModel() {
   return new MockLanguageModelV4({provider:'mock',modelId:'mock-router',doGenerate:async options=>{
     const snapshot=JSON.parse(lastUserText(options));
+    if(snapshot.worker_report)return {content:[{type:'text' as const,text:JSON.stringify({text:'我想好了一些，放在信箱里了，想看时再拆。'})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(200,30),warnings:[]};
     if(snapshot.inference)return {content:[{type:'text' as const,text:JSON.stringify({decision:snapshot.event?'accept':'ignore',rule_assessments:[{rule_id:snapshot.rule.rule_id,version:snapshot.rule.version,matched:!!snapshot.event}],evidence:snapshot.event?[{message_id:snapshot.source.id,quote:snapshot.source.text}]:[],topic:snapshot.event?.topic,after_at:snapshot.event?.after_at,resolved:false})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(200,100),warnings:[]};
     if ('facts' in snapshot) return {content:[{type:'text' as const,text:JSON.stringify({has_events:snapshot.facts.length>0,fact_ids:snapshot.facts.map((f:{id:string})=>f.id)})}],finishReason:{unified:'stop' as const,raw:'stop'},usage:usage(100,30),warnings:[]};
     if(snapshot.tickets.some((t:{goal:string})=>t.goal.includes('[route-fail]'))) throw new Error('mock route failure');

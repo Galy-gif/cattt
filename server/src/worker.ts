@@ -1,10 +1,8 @@
-import { processInference,scanInferenceClock } from './agent/inference.ts';
+import { startJobWakeup } from "./jobs/wake.ts";
 import { writeFileSync, unlinkSync } from 'node:fs';
-import { processPush } from './push/service.ts';
 import { scanDailyDiaries, processDailyDiary } from './agent/daily-diary.ts';
 import { processErrand } from './agent/executor.ts';
 import { scanErrands } from './agent/errands.ts';
-import { scanFollowups, processFollowup } from './agent/followup.ts';
 import { config, assertModelConfig, describeModelConfig } from './config.ts';
 import { sql } from './db/client.ts';
 import { closeQueues, startQueueWorkers } from './queue.ts';
@@ -21,18 +19,16 @@ await startQueueWorkers({
   memory: id => executeJob(id, task => extractMemories(task.objectId, task.id)),
   boundary: id => executeJob(id, task => summarizeBoundary(task.objectId, task.id)),
   diary_read: id => executeJob(id, task => readDiary(task.objectId, task.version, task.id)),
-  inference:id=>executeJob(id,task=>processInference(task.objectId)),
-  push: id=>executeJob(id,task=>config.AGENT_ENABLED==='true'?processPush(task.objectId):Promise.resolve({retryAt:new Date(Date.now()+60000)})),
   daily_diary: id => executeJob(id,task=>config.AGENT_ENABLED==='true'?processDailyDiary(task.objectId):Promise.resolve({retryAt:new Date(Date.now()+60000)})),
   errand: id => executeJob(id,task=>config.AGENT_ENABLED==='true'?processErrand(task.objectId):Promise.resolve({retryAt:new Date(Date.now()+60000)})),
-  followup: id => executeJob(id, task => config.AGENT_ENABLED==='true'?processFollowup(task.objectId):Promise.resolve({retryAt:new Date(Date.now()+60000)})),
   sweep: sweepStaleTurns,
 });
 
-const scan = recoveryScanner(recoverJobs, sweepStaleTurns);
+const stopWake = await startJobWakeup();
+const scan = recoveryScanner(async()=>{}, sweepStaleTurns);
 const scanTimer = setInterval(() => void scan().then(()=>writeFileSync('/tmp/cattt-worker-heartbeat','ready')), 15_000);
 void scan().then(()=>writeFileSync('/tmp/cattt-worker-heartbeat','ready'));
-const followupScan = () => config.AGENT_ENABLED==='false'?Promise.resolve():scanFollowups().then(()=>scanErrands()).then(()=>scanDailyDiaries()).then(()=>scanInferenceClock()).then(() => recoverJobs()).catch(error=>console.error('[followup scan]',error));
+const followupScan = () => config.AGENT_ENABLED==='false'?Promise.resolve():scanErrands().then(()=>scanDailyDiaries()).then(() => recoverJobs()).catch(error=>console.error('[followup scan]',error));
 const followupTimer = setInterval(() => void followupScan(),30_000);
 void followupScan();
 
@@ -46,6 +42,7 @@ async function shutdown() {
   clearInterval(scanTimer);
   clearInterval(followupTimer);
   try{unlinkSync('/tmp/cattt-worker-heartbeat');}catch{}
+  await stopWake();
   await closeQueues();
   redis.disconnect();
   await sql.end({ timeout: 5 });
