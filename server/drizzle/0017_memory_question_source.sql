@@ -1,0 +1,2 @@
+ALTER TABLE "memory_receipts" ADD COLUMN "question_id" uuid;--> statement-breakpoint
+ALTER TABLE "memory_receipts" ADD CONSTRAINT "memory_receipts_question_id_messages_id_fk" FOREIGN KEY ("question_id") REFERENCES "public"."messages"("id") ON DELETE no action ON UPDATE no action;

@@ -17,7 +17,7 @@ export async function catTools(owner: { catId: string; turnId: string; userMessa
     get_time: timeTool(undefined, await userTimeZone(owner.catId)),
     get_weather: weatherTool(),
     get_world_state: { description: '读取猫的真实世界观察；available=false 表示当前不能执行动作。移动中 current 是上次到达位置。', inputSchema: z.object({}), execute: () => observe(() => getWorldState(owner.catId)) },
-    get_action_status: { description: '查询已知动作的真实状态，不忙轮询。只有 arrived 才代表到达。', inputSchema: z.object({ actionId: z.uuid() }), execute: ({ actionId }) => observe(() => getActionStatus(owner.catId, actionId)) },
+    get_action_status: { description: '查询已知动作的真实状态，不忙轮询。读取成功仅表示查到了记录。data.status=arrived 才代表到达；陪坐也只有 arrived 才能说坐下了。', inputSchema: z.object({ actionId: z.uuid() }), execute: ({ actionId }) => observe(() => getActionStatus(owner.catId, actionId)) },
   };
   const agreement = async (work: () => Promise<unknown>): Promise<Omit<Observation, 'call_id'>> => {
     try { return {status:'succeeded',data:await work(),source:'saved-agreement',observed_at:new Date().toISOString()}; }
@@ -45,28 +45,40 @@ export async function catTools(owner: { catId: string; turnId: string; userMessa
     description:'用户明确撤回已有约定或托付时取消，成功才说取消了。ticket_id 来自 list_tickets，指代不明先问清。',
     inputSchema:z.object({ticket_id:z.uuid()}),execute:({ticket_id})=>agreement(()=>cancelTicket(owner.catId,ticket_id)),
   };
+  const performAction = async (dispatch: () => ReturnType<typeof moveCat>, signal: AbortSignal) => {
+    const result = await observe(async () => {
+      let action = await dispatch();
+      const deadline = performance.now() + 2_000;
+      while ((action.status === 'requested' || (action.activity === 'sit' && ['accepted', 'running'].includes(action.status))) && performance.now() < deadline) {
+        signal.throwIfAborted();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        action = await getActionStatus(owner.catId, action.id);
+      }
+      return { actionId: action.id, status: action.status, destinationId: action.destinationId, activity: action.activity, reason: action.reason };
+    });
+    if (result.status === 'failed') return result;
+    const data = result.data as { status: string };
+    if (['accepted', 'running'].includes(data.status)) return { ...result, status: 'accepted' as const };
+    if (data.status === 'arrived') return result;
+    return { ...result, status: 'failed' as const, error: { code: data.status === 'requested' ? 'accept_unknown' : `action_${data.status}`, retryable: false } };
+  };
   const world = await getWorldState(owner.catId);
   if (world.available) tools.move_cat = {
-    description: '执行用户要求的移动。先 get_world_state 获取 sessionId、generation 和 stateVersion；地点必须来自该观察的 destinationIds。',
+    description: '用户明确要求去某个地点时移动。先 get_world_state 获取 sessionId、generation 和 stateVersion；地点必须来自该观察的 destinationIds。邀请陪坐使用 sit_together。',
     inputSchema: z.object({ destinationId: z.string().max(80), stateVersion: z.number().int().min(0), sessionId: z.uuid(), generation: z.uuid() }),
     changesWorld: true,
-    execute: async (input, signal) => {
-      const result = await observe(async () => {
-        let action = await moveCat({ ...input, ...owner });
-        const deadline = performance.now() + 2_000;
-        while (action.status === 'requested' && performance.now() < deadline) {
-          signal.throwIfAborted();
-          await new Promise((resolve) => setTimeout(resolve, 100));
-          action = await getActionStatus(owner.catId, action.id);
-        }
-        return { actionId: action.id, status: action.status, destinationId: action.destinationId, reason: action.reason };
-      });
-      if (result.status === 'failed') return result;
-      const data = result.data as { status: string };
-      if (['accepted', 'running'].includes(data.status)) return { ...result, status: 'accepted' };
-      if (data.status === 'arrived') return result;
-      return { ...result, status: 'failed', error: { code: data.status === 'requested' ? 'accept_unknown' : `action_${data.status}`, retryable: false } };
-    },
+    execute: (input, signal) => performAction(() => moveCat({ ...input, ...owner }), signal),
+  };
+  if (world.available && world.companionSeat) tools.sit_together = {
+    description: '用户明确邀请一起坐、陪坐片刻时调用一次。由院子根据性格和当下状态选座。用户只想说话、倾诉或询问时不要调用。只有 arrived 才表示已坐稳，其余只简短回应陪伴。',
+    inputSchema: z.object({}),
+    changesWorld: true,
+    execute: (_, signal) => performAction(async () => {
+      const state = await getWorldState(owner.catId);
+      if (!state.available || !state.companionSeat || !state.sessionId || !state.generation || state.stateVersion === undefined) throw new WorldError('seat_unavailable');
+      return moveCat({ ...owner, sessionId: state.sessionId, generation: state.generation, stateVersion: state.stateVersion,
+        destinationId: state.companionSeat, activity: 'sit' });
+    }, signal),
   };
   if(config.AGENT_ENABLED==='false')for(const name of ['schedule_followup','start_errand','update_ticket'])delete tools[name];
   return tools;

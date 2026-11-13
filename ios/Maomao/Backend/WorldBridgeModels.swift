@@ -22,6 +22,7 @@ struct WorldSnapshot: Codable, Equatable {
     var placesToday: [String] = []
     var activity: String?
     var activityFallback: Bool?
+    var companionSeat: String?
 
     var json: [String: Any] {
         guard let data = try? JSONEncoder().encode(self),
@@ -40,6 +41,7 @@ struct WorldCommand: Decodable {
     let generation: String
     let destinationId: String
     let stateVersion: Int
+    let activity: String?
     let acceptBefore: String
     let finishBefore: String
 }

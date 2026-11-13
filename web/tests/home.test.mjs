@@ -13,6 +13,18 @@ function make() {
   const walker = { arrived: true, restore(goal) { this.goal = goal; this.arrived = false; } };
   return { cat, walker, behavior: new HomeBehavior(walker, cat) };
 }
+test('陪坐需等到真实坐稳，途中与坐下过渡不能算完成', () => {
+  const { cat, walker, behavior } = make();
+  behavior.accept({ id: 'company', place: 'grass', activity: 'sit' });
+  behavior.update();
+  assert.equal(cat.state, 'idle');
+  walker.arrived = true; behavior.update();
+  assert.equal(cat.state, 'sit_down');
+  assert.equal(behavior.settled, false);
+  cat.state = 'sit_idle';
+  assert(behavior.settled && !behavior.fallback);
+});
+
 test('进窝落脚后才能趴睡，睡稳后才安顿', async () => {
   const { cat, walker, behavior } = make();
   behavior.accept({ id: 'a', place: 'bed', activity: 'rest' });

@@ -5,8 +5,8 @@ import { rethrowForQueue } from './model-error.ts';
 import { generateText, Output } from 'ai';
 import { and, desc, eq, gt, inArray, lt, lte, max } from 'drizzle-orm';
 import { z } from 'zod';
-import { db, dbNow } from '../db/client.ts';
-import { cats, conversations, memories, memoryBlocks, memoryReceipts, messages, turns } from '../db/schema.ts';
+import { db, dbNow, type Tx } from '../db/client.ts';
+import { boundaries, cats, conversations, memories, memoryBlocks, memoryReceipts, messages, turns } from '../db/schema.ts';
 import { EXTRACTOR_VERSION } from '../queue.ts';
 import { memoryFingerprint, normalize } from '../runtime/fingerprint.ts';
 import { extractSlot, recordModelCall } from '../runtime/model.ts';
@@ -25,29 +25,31 @@ const candidateSchema = z.object({
       sensitivity: z.enum(['low', 'medium', 'high']),
       explicit: z.boolean().default(false),
       correction: z.boolean().default(false),
+      usesQuestion: z.boolean().default(true),
     }),
   ),
 });
 
-type Candidate = z.infer<typeof candidateSchema>['memories'][number];
+type Candidate = Omit<z.infer<typeof candidateSchema>['memories'][number], 'usesQuestion'>;
 
 // DeepSeek 的 JSON 模式要求提示词里出现 "json" 字样，并且要写清楚格式
 const EXTRACT_INSTRUCTIONS = `你负责从一段对话里挑出以后还值得记住的、关于用户的信息，只输出 json。
 
 可以记：稳定的偏好、持续的目标、明确的人际关系、重要的未来安排、反复出现且一致的信息，以及用户明确说"记住"的内容。
 不要记：一次性的闲聊、一时的情绪、对用户心理的推测、没核实的第三方隐私。
-只看用户自己说的话；猫说的话不算事实来源。
+只从本条用户原话提取事实。若前面附有团子紧挨着的上一句话，只用其中的提问辨认用户在回答哪件事。用户用简答明确交代了重要安排的结果时，记下事件和用户给出的结果；暂时不想展开聊天不等于要求遗忘。多件事无法区分、用户没回答或只让你猜时，不补出结论。不要把团子的猜测、问题里的假设或建议当成用户确认的事实。
 用户明确纠正同一方面时必须沿用已有 subject 和 predicate，不要另造近义字段。若无法确定用户在改哪件事，不写候选，clarification 写一句简短的澄清问题。已有记忆只是匹配方面的参考，不能作为新事实来源。
 
 每条记忆的字段：
 - subject：关于谁。用户本人写「用户」；用户提到的具体的人或宠物写称呼，如「用户的妈妈」。
 - predicate：哪一方面，简短的名词短语，如「喜欢的饮料」「过敏」「工作」「考试时间」。和已有记忆是同一方面时，照抄已有的 subject 和 predicate。
-- value：具体内容，按用户的原意，不添油加醋。涉及时间的换算成具体日期。
+- value：具体内容，按用户的原意，不添油加醋。相对日期按用户说话当天换算。分别核对事件、回访各自的时间；用户只给了回访钟点时，不能用它推断事件发生的钟点或时段。简答只记录能确定的结果，不从已有记忆补写时间细节。
 - kind：preference（偏好）/ plan（安排）/ fact（事实）/ other。
 - confidence：0 到 1，这确实是用户真实情况的把握。
 - sensitivity：low / medium / high。健康、性、宗教、政治、财务、证件号、精确住址写 high。
 - explicit：用户是否明确要求记住。
 - correction：用户是否在纠正之前的说法。
+- usesQuestion：这条事实是否需要借助团子上一句提问才能确定所指的事。用户自己说完整的事实填 false。
 
 输出格式：{"memories": [ ... ]}。没有值得记的就输出 {"memories": []}。`;
 
@@ -77,6 +79,16 @@ export async function extractMemories(turnId: string, jobId: string) {
   return remembered;
 }
 
+/** 先找紧邻的一条，再判断许可；不能跳过用户插话或已停用的消息去找更早的问题。 */
+async function precedingCatMessage(reader: typeof db | Tx, source: typeof messages.$inferSelect, learnAfterSeq: number) {
+  const [previous] = await reader.select({ id: messages.id, role: messages.role, text: messages.text,
+    allowed: messages.contextAllowed, boundaryId: boundaries.id }).from(messages)
+    .leftJoin(boundaries, eq(boundaries.sourceMessageId, messages.id))
+    .where(and(eq(messages.conversationId, source.conversationId), lt(messages.seq, source.seq), gt(messages.seq, learnAfterSeq)))
+    .orderBy(desc(messages.seq)).limit(1);
+  if (previous?.role === 'cat' && previous.allowed && !previous.boundaryId && previous.text.trim()) return previous;
+}
+
 /** 每条原话单独提取，来源不会误挂在同轮最后一句上。回复前的明确记忆操作也走同一写入门。 */
 export async function extractSource(catId: string, sourceId: string, turnId: string, jobId?: string, signal?: AbortSignal) {
   const [cat] = await db.select().from(cats).where(eq(cats.id, catId));
@@ -96,11 +108,12 @@ export async function extractSource(catId: string, sourceId: string, turnId: str
     .where(and(eq(memories.catId, catId), eq(conversations.catId, catId), eq(messages.role, 'user'), inArray(memories.status, ['active', 'conflicted']), eq(messages.contextAllowed, true)))
     .orderBy(desc(memories.lastConfirmedAt)).limit(60) : [];
   const existingBlock = existing.map(({ memories: x }) => `- ${x.subject}｜${x.predicate}｜${x.value}`).join('\n') || '（还没有，或已有记忆已停止参考）';
+  const previous = await precedingCatMessage(db, m, cat.learnAfterSeq);
   const slot = extractSlot();
   const started = Date.now();
   const { output, usage } = await generateText({
     model: slot.model, instructions: `${EXTRACT_INSTRUCTIONS}\n今天是${new Intl.DateTimeFormat('zh-CN', { timeZone: await userTimeZone(catId), dateStyle: 'full' }).format(m.createdAt)}。\n已有记忆：\n${existingBlock}`,
-    messages: [{ role: 'user', content: m.text }], output: Output.object({ schema: candidateSchema }),
+    messages: [...(previous ? [{ role: 'assistant' as const, content: previous.text }] : []), { role: 'user', content: m.text }], output: Output.object({ schema: candidateSchema }),
     providerOptions: slot.providerOptions, maxRetries: 2, abortSignal: signal,
   }).catch(rethrowForQueue);
   await recordModelCall({ purpose: 'memory_extract', modelId: slot.modelId, usage, latencyMs: Date.now() - started, turnId, jobId });
@@ -108,7 +121,7 @@ export async function extractSource(catId: string, sourceId: string, turnId: str
   const saved: string[] = [];
   for (const candidate of output.memories) {
     signal?.throwIfAborted();
-    if (await applyCandidate(catId, sourceId, candidate)) {
+    if (await applyCandidate(catId, sourceId, candidate, candidate.usesQuestion ? previous?.id : undefined)) {
       saved.push(candidate.value);
       remembered ||= candidate.explicit;
     }
@@ -126,7 +139,7 @@ export async function extractSource(catId: string, sourceId: string, turnId: str
  *
  * 返回这条是否被采纳（新写入或确认了已有的）。
  */
-export async function applyCandidate(catId: string, sourceMessageId: string, c: Candidate): Promise<boolean> {
+export async function applyCandidate(catId: string, sourceMessageId: string, c: Candidate, questionId?: string): Promise<boolean> {
   if (!c.explicit && (c.sensitivity === 'high' || c.confidence < MIN_CONFIDENCE)) return false;
   const fingerprint = memoryFingerprint(c.subject, c.predicate);
 
@@ -135,6 +148,7 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
     const [source] = await tx.select().from(messages).where(eq(messages.id, sourceMessageId));
     const [conv] = await tx.select().from(conversations).where(eq(conversations.catId, catId));
     if (!source || !canLearnFrom(cat, source, conv?.id)) return false;
+    if (questionId && (await precedingCatMessage(tx, source, cat.learnAfterSeq))?.id !== questionId) return false;
     const edited = await tx.select().from(memories).where(and(eq(memories.catId, catId), eq(memories.fingerprint, fingerprint)));
     if (edited.some(m => m.editedThroughSeq >= source.seq)) return false;
     const [receipt] = await tx.select().from(memoryReceipts).where(and(eq(memoryReceipts.sourceMessageId, sourceMessageId), eq(memoryReceipts.fingerprint, fingerprint)));
@@ -142,7 +156,7 @@ export async function applyCandidate(catId: string, sourceMessageId: string, c: 
     const [prior] = await tx.select().from(memories).where(and(eq(memories.sourceMessageId, sourceMessageId), eq(memories.fingerprint, fingerprint)));
     if (prior) return prior.status === 'active';
     const finish = async (accepted: boolean) => {
-      await tx.insert(memoryReceipts).values({ catId, sourceMessageId, fingerprint, accepted }).onConflictDoNothing();
+      await tx.insert(memoryReceipts).values({ catId, sourceMessageId, questionId, fingerprint, accepted }).onConflictDoNothing();
       if (accepted) await bumpMemory(tx, catId);
       return accepted;
     };

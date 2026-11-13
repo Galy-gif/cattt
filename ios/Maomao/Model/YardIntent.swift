@@ -50,6 +50,7 @@ struct YardIntent {
         moving = index != current; failure = nil; activityFallback = true
         activityRemaining = desire == "rest" ? rng.seconds(35, 65) : rng.seconds(12, 25)
         remaining = dwell(index)
+        if desire == "sit" { remaining = rng.seconds(35, 55) * behavior.idleScale }
     }
     private mutating func idleActivity(_ index: Int) -> String {
         if index == 3 { let pick = rng.unit(); return pick < 0.3 ? "chase" : pick < 0.55 ? "stretch" : pick < 0.7 ? "run" : "watch" }
@@ -69,6 +70,15 @@ struct YardIntent {
     private mutating func dwell(_ index: Int) -> Double {
         ((index == 0 || index == 2) ? rng.seconds(120, 180) : rng.seconds(45, 90)) * behavior.idleScale * (index == 0 ? behavior.homeIdleScale : 1)
     }
+    /// 作伴时用已有的迎门倾向。夜里、情绪低落或想安静时优先留在当前地点。
+    func companionSeat(quiet: Bool) -> String? {
+        guard ready, !(request.activity == "drink" && completedDrinkID != request.id) else { return nil }
+        let approaches = behavior.comesToDoor && !quiet && !night && mood != .sad && mood != .sulk
+        if approaches && allowed.contains(0) { return Self.places[0] }
+        if allowed.contains(current) { return Self.places[current] }
+        return Self.places.indices.first(where: allowed.contains).map { Self.places[$0] }
+    }
+
     mutating func greet() {
         guard autonomous, behavior.comesToDoor, allowed.contains(0) else { return }
         choose(0, activity: "watch")
@@ -82,6 +92,7 @@ struct YardIntent {
     mutating func tick(_ dt: Double) -> Bool {
         guard ready, autonomous, !moving else { return false }
         remaining -= dt; drinkWait -= dt; activityRemaining -= dt
+        if request.activity == "sit", remaining > 0 { return false }
         if !night, current == 0, drinkWait <= 0, drink() { return true }
         if remaining > 0 {
             if current == 0, activityRemaining <= 0, request.activity != "drink" {

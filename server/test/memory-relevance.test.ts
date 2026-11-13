@@ -11,6 +11,13 @@ describe('相关记忆排序', () => {
     const selected = selectMemories(rankMemories([old, ...noise], '帮我想想晚饭吃什么'));
     expect(selected.map(x => x.id)).toEqual(['diet']);
   });
+  it('问一件事最后怎么样能找回结果，普通的“怎么样”不会触发结果查询', () => {
+    const result = item('outcome', '面试结果', '没有通过');
+    const concern = item('plan', '面试安排', '担心现场拆解产品题');
+    const query = '之前我说先放一放的那件事，现在想聊聊了。你记得最后怎么样，还有我当时最担心哪一部分吗？';
+    expect(selectMemories(rankMemories([result, concern], query))).toEqual(expect.arrayContaining([result, concern]));
+    expect(selectMemories(rankMemories([result], '天气怎么样？'))).toEqual([]);
+  });
   it('语义扩词能找到没有相同字面的旧偏好，不编造新事实', () => {
     const old = item('book', '阅读偏好', '喜欢硬科幻小说');
     expect(selectMemories(rankMemories([old], '找本烧脑的读物'))).toEqual([]);

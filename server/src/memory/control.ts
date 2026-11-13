@@ -58,10 +58,14 @@ export async function sourceImpact(tx: Tx, catId: string, sourceIds: string[]) {
   const catTurns = await tx.select({ turn: turns }).from(turns).innerJoin(conversations, eq(conversations.id, turns.conversationId)).where(eq(conversations.catId, catId));
   const allMemories = await tx.select().from(memories).where(eq(memories.catId, catId));
   const receipts = await tx.select().from(memoryReceipts).where(and(eq(memoryReceipts.catId, catId), eq(memoryReceipts.accepted, true)));
+  const affectedAspects = () => new Set([
+    ...allMemories.filter(m => ids.has(m.sourceMessageId)).map(m => m.fingerprint),
+    ...receipts.filter(r => ids.has(r.sourceMessageId) || (r.questionId && ids.has(r.questionId))).map(r => r.fingerprint),
+  ]);
   let changed = true;
   while (changed) {
     changed = false;
-    const aspects = new Set([...allMemories.filter(m => ids.has(m.sourceMessageId)).map(m => m.fingerprint), ...receipts.filter(r => ids.has(r.sourceMessageId)).map(r => r.fingerprint)]);
+    const aspects = affectedAspects();
     const memoryIds = new Set(allMemories.filter(m => aspects.has(m.fingerprint)).map(m => m.id));
     for (const { turn: t } of catTurns) {
       const reply = owned.find(m => m.id === t.catMessageId);
@@ -71,7 +75,7 @@ export async function sourceImpact(tx: Tx, catId: string, sourceIds: string[]) {
       if (depends || legacy) { ids.add(reply.id); if (legacy && !depends) legacyIds.add(reply.id); changed = true; }
     }
   }
-  const aspects = new Set([...allMemories.filter(m => ids.has(m.sourceMessageId)).map(m => m.fingerprint), ...receipts.filter(r => ids.has(r.sourceMessageId)).map(r => r.fingerprint)]);
+  const aspects = affectedAspects();
   return { sourceIds: [...ids], legacyIds: [...legacyIds], messages: owned.filter(m => ids.has(m.id)), memories: allMemories.filter(m => aspects.has(m.fingerprint)), aspects: [...aspects] };
 }
 export async function withdrawSources(tx: Tx, catId: string, sourceIds: string[]) {

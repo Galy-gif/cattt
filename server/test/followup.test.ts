@@ -188,6 +188,9 @@ it('超过24小时只进信箱，不补聊天提问', async () => {
 });
 it('接口列表、改时、取消、信箱、已读归属鉴权与分页，别人的事项404', async () => {
   const r = await schedule();
+  const revised = new Date();
+  revised.setUTCDate(revised.getUTCDate() + 1);
+  revised.setUTCHours(4, 0, 0, 0); // 用户当地明天中午，不依赖运行测试的日期。
   const request = (path: string, method = 'GET', body?: unknown) =>
     app.request('/v1' + path, {
       method,
@@ -195,7 +198,7 @@ it('接口列表、改时、取消、信箱、已读归属鉴权与分页，别�
       body: body ? JSON.stringify(body) : undefined,
     });
   expect((await request('/tickets?status=open')).status).toBe(200);
-  expect((await request('/tickets/' + r.ticket_id, 'PATCH', { when: '2026-11-12T12:00:00' })).status).toBe(200);
+  expect((await request('/tickets/' + r.ticket_id, 'PATCH', { when: revised.toISOString() })).status).toBe(200);
   const [other] = await db
     .insert(tickets)
     .values({
@@ -207,10 +210,10 @@ it('接口列表、改时、取消、信箱、已读归属鉴权与分页，别�
     })
     .returning();
   for (const id of [randomUUID(), other!.id]) {
-    expect((await request('/tickets/' + id, 'PATCH', { when: '2026-11-12T13:00:00' })).status).toBe(404);
+    expect((await request('/tickets/' + id, 'PATCH', { when: revised.toISOString() })).status).toBe(404);
     expect((await request('/tickets/' + id + '/cancel', 'POST')).status).toBe(404);
   }
-  await fire();
+  await fire(revised);
   const data = (await (await request('/mailbox?after=0')).json()) as any;
   expect(data.letters).toHaveLength(1);
   expect((await request('/mailbox/' + data.letters[0].id + '/read', 'POST')).status).toBe(200);

@@ -13,7 +13,7 @@ export function estimateTokens(value:string) {
  return chinese+Math.ceil(([...value].length-chinese)/4);
 }
 export function routerInput(snapshot:RouteSnapshot) {
- const system=snapshot.persona+'\n只为用户亲口保存的约定措辞。到期必须发送；ticket_ids恰好覆盖本批，merge=true。text为120字内一条自然提问，可换说法，不复述保存过程、不加时间人名或新事实，不含换行列表，不说记下了、提醒、任务、打卡。';
+ const system=snapshot.persona+'\n只为用户亲口保存的约定措辞。到期必须发送；ticket_ids恰好覆盖本批，merge=true。text为120字内一条自然提问，单件约定只问一件事。用户当时的担心不等于事情真的发生；把结果留给对方说。直接开口，不报时，不复述保存过程、不加时间人名或新事实，不含换行列表，不说记下了、提醒、任务、打卡。';
  const card={rules:snapshot.rules,version:snapshot.version,tickets:snapshot.tickets,recent:snapshot.recent.slice(0,6).map(m=>({...m,text:m.text.slice(0,120)}))};
  while(estimateTokens(system+JSON.stringify(card))>3000 && card.recent.some(m=>m.text.length>8))
    card.recent=card.recent.map(m=>({...m,text:m.text.slice(0,Math.max(8,Math.floor(m.text.length*.8)))}));

@@ -35,7 +35,7 @@ export class HomeBehavior {
     }
   }
   accept(value: HomeIntent) {
-    if (!value.id || !PLACE_ORDER.includes(value.place) || !['rest', 'watch', 'drink', 'flower', 'scratch', 'chase', 'stretch', 'run', ...EXPRESSIONS].includes(value.activity)) throw new Error('行为意图无效');
+    if (!value.id || !PLACE_ORDER.includes(value.place) || !['sit', 'rest', 'watch', 'drink', 'flower', 'scratch', 'chase', 'stretch', 'run', ...EXPRESSIONS].includes(value.activity)) throw new Error('行为意图无效');
     if (value.id === this.intent.id) return;
     if (this.cat.nestCanRest && value.place === 'tree' && ['rest', 'watch'].includes(value.activity)) {
       this.intent = { ...value }; this.cat.setNestRest(value.activity === 'rest');
@@ -230,6 +230,8 @@ export class HomeBehavior {
         return;
       }
       this.cat.stand(); this.cat.lookAt({ x: basin.x, y: .045, z: basin.z });
+    } else if (this.intent.activity === 'sit') {
+      this.cat.sit();
     } else if (this.intent.activity === 'rest' && this.intent.place === 'house') {
       this.cat.faceToward({ x: this.cat.position.x, y: 0, z: this.cat.position.z + 1 });
       this.stage = 'house-face'; return;
@@ -251,6 +253,7 @@ export class HomeBehavior {
     if (this.intent.place === 'pond' && this.intent.activity === 'watch') return !this.cat.pondBusy && this.cat.state === 'idle';
     if (this.intent.activity === 'drink') return this.degraded ? this.cat.state === 'idle' : this.drinkDone && this.cat.state === 'idle';
     if (isExpression(this.intent.activity)) return this.cat.state === `${this.intent.activity}_idle`;
+    if (this.intent.activity === 'sit') return this.cat.state === 'sit_idle';
     const expected = this.intent.activity === 'rest' && !this.degraded ? (this.intent.place === 'bed' ? 'sleep_idle' : 'doze_idle') : ['rest', 'groom'].includes(this.intent.activity) ? 'sit_idle' : 'idle';
     return this.cat.state === expected;
   }

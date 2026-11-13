@@ -19,6 +19,7 @@ export const worldActions = pgTable('world_actions', {
   sessionId: uuid('session_id').notNull(),
   generation: uuid('generation').notNull(),
   destinationId: text('destination_id').notNull(),
+  activity: text('activity').$type<'sit'>(),
   stateVersion: integer('state_version').notNull(),
   status: text('status').$type<ActionStatus>().notNull().default('requested'),
   reason: text('reason'),

@@ -73,7 +73,7 @@ export async function getWorldState(catId: string) {
   return { available: !error, error, sessionId: session.session.id, generation: session.session.generation,
     observedAt: session.session.observedAt, ...session.session.snapshot };
 }
-export type MoveInput = { catId: string; turnId: string; userMessageId: string; destinationId: string; stateVersion: number; sessionId: string; generation: string };
+export type MoveInput = { catId: string; turnId: string; userMessageId: string; destinationId: string; activity?: 'sit'; stateVersion: number; sessionId: string; generation: string };
 export async function moveCat(input: MoveInput) {
   return db.transaction(async (tx) => {
     const [owned] = await tx.select({ conversationId: conversations.id }).from(turns)
@@ -87,7 +87,7 @@ export async function moveCat(input: MoveInput) {
     await expire(tx, input.catId, instant);
     const [existing] = await tx.select().from(worldActions).where(and(eq(worldActions.catId, input.catId), eq(worldActions.userMessageId, input.userMessageId)));
     if (existing) {
-      if (existing.destinationId !== input.destinationId) throw new WorldError('action_already_requested');
+      if (existing.destinationId !== input.destinationId || existing.activity !== (input.activity ?? null)) throw new WorldError('action_already_requested');
       return existing;
     }
     // Recheck persisted turn eligibility in the same critical section before creating a command.
@@ -98,6 +98,7 @@ export async function moveCat(input: MoveInput) {
     if (error) throw new WorldError(error);
     if (session.stateVersion !== input.stateVersion) throw new WorldError('stale_state');
     if (!session.snapshot!.destinationIds.includes(input.destinationId as never)) throw new WorldError('unsupported_destination');
+    if (input.activity === 'sit' && session.snapshot!.companionSeat !== input.destinationId) throw new WorldError('seat_unavailable');
     const [busy] = await tx.select({ id: worldActions.id }).from(worldActions).where(and(eq(worldActions.catId, input.catId), inArray(worldActions.status, ['requested', 'accepted', 'running']))).limit(1);
     if (busy) throw new WorldError('world_busy');
     const [action] = await tx.insert(worldActions).values({ ...input, acceptBefore: new Date(instant.getTime() + 5_000), finishBefore: new Date(instant.getTime() + 60_000), requestedAt: instant, updatedAt: instant }).returning();
@@ -133,6 +134,8 @@ export async function acknowledge(catId: string, actionId: string, sessionId: st
     if (snapshot.stateVersion === session.stateVersion && !isDeepStrictEqual(snapshot, session.snapshot)) throw new WorldError('state_version_conflict');
     if (status === 'accepted' && (snapshot.paused || !snapshot.runnable || action.stateVersion !== snapshot.stateVersion)) throw new WorldError('world_changed');
     if (status === 'arrived' && (snapshot.currentDestinationId !== action.destinationId || snapshot.targetDestinationId !== action.destinationId || ['moving', 'approaching', 'exiting'].includes(snapshot.phase) || snapshot.paused)) throw new WorldError('arrival_not_observed');
+    if (status === 'arrived' && action.activity === 'sit' &&
+        (snapshot.activity !== 'sit' || snapshot.action !== 'sit_idle' || snapshot.activityFallback !== false)) throw new WorldError('arrival_not_observed');
     // 动作回执记录历史执行事实；比当前观察旧的回执不能倒退世界。
     if (snapshot.stateVersion > session.stateVersion) {
       await tx.update(worldSessions).set({ snapshot, stateVersion: snapshot.stateVersion, observedAt: occurredAt ?? instant }).where(eq(worldSessions.id, sessionId));

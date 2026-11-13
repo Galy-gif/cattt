@@ -60,6 +60,10 @@ export function mockChatModel() {
         }
         const currentResults = options.prompt.slice(options.prompt.map(m=>m.role).lastIndexOf('user')+1).filter(m=>m.role==='tool').flatMap(m=>m.content).filter(p=>p.type==='tool-result');
         const has = (name:string) => currentResults.some(p=>p.toolName===name);
+        if (['陪我坐一会儿', '今天有点累，陪我坐一会儿'].includes(said.replace(/[。！？]$/, '')) &&
+            options.tools.some(t => t.name === 'sit_together') && !has('sit_together')) {
+          toolName = 'sit_together';
+        }
         const list = currentResults.find(p=>p.toolName==='list_tickets');
         const listed = list?.output.type==='json' ? (list.output.value as any)?.data?.tickets : [];
         const systemText = options.prompt.find(m=>m.role==='system')?.content ?? '';
@@ -115,7 +119,8 @@ export function mockChatModel() {
         : agreement!.toolName==='cancel_ticket'?'好，这件事取消了。'
         : observation.data.when ? `好，${agreement!.toolName==='update_ticket'?'改好了':'约好了'}，${observation.data.when.replace('T',' ')}，到时候问你。` : '好，这句也放进那件事里了。'
         : agreement?'这次没存好，稍后再试。': /改天|明晚/.test(said)&&/问我|提醒我/.test(said)?'你想约哪一天、几点呢？':undefined;
-      const reply = confirmation ?? (said.includes('[diary]') ? `合成验收：本轮日记来源${diary ?? '为空'}`
+      const sitting = finalTools.some(p => p.toolName === 'sit_together');
+      const reply = confirmation ?? (sitting ? '嗯，我陪你。' : undefined) ?? (said.includes('[diary]') ? `合成验收：本轮日记来源${diary ?? '为空'}`
         : said.includes('[recall]') ? `合成验收：本轮可参考的长期记忆${recalled ? `如下。\n${recalled}` : '为空。'}`
         : `喵，我听到了：「${said.replace(/\[(fail1?|slow)\]/g, '').trim()}」。`);
       // 诊断回复只验证上下文到达，不逐字放大本机PG往返；故障/慢流标记仍按字输出。

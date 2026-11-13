@@ -41,7 +41,7 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
       .where(eq(boundaries.catId, catId))
       .orderBy(boundaries.createdAt),
     db
-      .select({ id: messages.id, role: messages.role, text: messages.text })
+      .select({ id: messages.id, role: messages.role, text: messages.text, createdAt: messages.createdAt })
       .from(messages)
       .where(and(eq(messages.conversationId, conversationId), eq(messages.contextAllowed, true), anchor ? lte(messages.seq, anchor.seq) : undefined))
       .orderBy(desc(messages.seq))
@@ -72,9 +72,14 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
     parts.push(`## 对方不想再聊的，不要主动提起。只有对方本轮明确重新问起，才回答眼前的问题；不代表撤销边界\n${lines.join('\n')}`);
   }
 
+  const localDay = new Intl.DateTimeFormat('en-CA', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' });
   if (permittedRecall.length > 0) {
-    const lines = permittedRecall.map((m) => `- ${m.subject}的${m.predicate}：${m.value}${m.explicit ? '（对方让你记住的）' : ''}`);
-    parts.push('下列是与当前话题相关的有效记忆，只在有帮助时使用，不要逐条复述或把话题拉回旧事；与旧聊天不同的，以最新更正为准。不要声称这次刚保存过，保存结果另有说明。');
+    const lines = permittedRecall.map(m => {
+      const dated = m.extractorVersion !== 'user-edit-v1' && /今天|明天|昨天|后天|前天|本周|上周|下周|这周|下个月|上个月|今年|去年|明年/.test(m.value);
+      const date = dated ? `〔原话日期 ${localDay.format(m.sourceCreatedAt)}〕` : '';
+      return `- ${date}${m.subject}的${m.predicate}：${m.value}${m.explicit ? '（对方让你记住的）' : ''}`;
+    });
+    parts.push('下列是与当前话题相关的有效记忆，按原话日期理解相对时间；如果几件事都可能符合指代，先问清是哪件事。只在有帮助时使用，不要逐条复述或把话题拉回旧事；与旧聊天不同的，以最新更正为准。不要声称这次刚保存过，保存结果另有说明。');
     parts.push(`## 你记得的事\n${lines.join('\n')}`);
   }
 
@@ -88,10 +93,20 @@ export async function buildTurnContext(catId: string, conversationId: string, tu
 
   parts.push(`## 现在\n${formatNow(timeZone)}`);
 
+  const turnDay = current && localDay.format(current.createdAt);
+  let hasEarlierDay = false;
   const modelMessages: ModelMessage[] = permittedHistory
     .reverse()
-    .filter((m) => m.text.length > 0)
-    .map((m) => (m.role === 'user' ? { role: 'user', content: m.text } : { role: 'assistant', content: m.text }));
+    .filter(m => m.text.length > 0)
+    .map(m => {
+      const day = localDay.format(m.createdAt);
+      if (day !== turnDay) hasEarlierDay = true;
+      const content = day === turnDay ? m.text : `〔${day}〕\n${m.text}`;
+      return { role: m.role === 'user' ? 'user' : 'assistant', content };
+    });
+  if (turnDay && hasEarlierDay) {
+    parts.push(`本轮来信的当地日期是 ${turnDay}。旧消息开头的〔日期〕是当时的日期；按那一天理解其中的“明天”“今天”。`);
+  }
 
   return {
     instructions: parts.join('\n\n'),

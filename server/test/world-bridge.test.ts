@@ -25,6 +25,20 @@ async function fixture() {
 }
 afterAll(async () => { for (const id of ids) await db.delete(users).where(eq(users.id, id)); await sql.end(); });
 describe('世界动作真实 PG 状态机', () => {
+  it('陪坐只采用设备给出的座位，并要真实坐稳才记到达', async () => {
+    const { input, snapshot } = await fixture();
+    const command = { ...input, activity: 'sit' as const };
+    await expect(moveCat(command)).rejects.toMatchObject({ code: 'seat_unavailable' });
+    const ready = snapshotSchema.parse({ ...snapshot, stateVersion: 2, companionSeat: 'tree' });
+    await putState(input.catId, input.sessionId, input.generation, ready);
+    await expect(moveCat({ ...command, stateVersion: 2 })).rejects.toMatchObject({ code: 'seat_unavailable' });
+    const action = await moveCat({ ...command, destinationId: 'tree', stateVersion: 2 });
+    expect(action.activity).toBe('sit');
+    await acknowledge(input.catId, action.id, input.sessionId, input.generation, 'accepted', ready);
+    const seated = { ...ready, stateVersion: 3, activity: 'sit' as const, activityFallback: false };
+    await expect(acknowledge(input.catId, action.id, input.sessionId, input.generation, 'arrived', { ...seated, action: 'sit_down' })).rejects.toMatchObject({ code: 'arrival_not_observed' });
+    await acknowledge(input.catId, action.id, input.sessionId, input.generation, 'arrived', { ...seated, action: 'sit_idle' });
+  });
   it('协议地点与 App 实际加载的 scene.json 一致', () => {
     const scene = JSON.parse(readFileSync(new URL('../../ios/Maomao/Assets.xcassets/world-scene-v4.dataset/data.json', import.meta.url), 'utf8'));
     expect(snapshotSchema.safeParse({stateVersion: 0, sceneVersion: scene.version, destinationIds: scene.destinations.map((d: {id: string}) => d.id), currentDestinationId: 'house', targetDestinationId: 'house', phase: 'idle', action: 'idle', paused: false, runnable: true}).success).toBe(true);

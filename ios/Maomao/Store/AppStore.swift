@@ -623,9 +623,14 @@ final class AppStore: ObservableObject {
         // 用户消息里出现「记住」「别忘」时计入长期记忆。
         // TODO: 后端 —— 记忆抽取在服务端做，前端只消费「这条被记住了」的结果。
         let remembered = userText.contains("记住") || userText.contains("别忘")
-        let full = remembered
-            ? "好，我记下了。"
-            : (temperament.replies.randomElement() ?? "嗯。")
+        let demoInvitation = userText.trimmingCharacters(in: .punctuationCharacters)
+        let full: String
+        if ["陪我坐一会儿", "今天有点累，陪我坐一会儿"].contains(demoInvitation) {
+            world.sitTogetherInDemo()
+            full = "嗯，我陪你。"
+        } else {
+            full = remembered ? "好，我记下了。" : (temperament.replies.randomElement() ?? "嗯。")
+        }
 
         let id = "c" + UUID().uuidString
         isWaiting = false

@@ -180,6 +180,9 @@ final class WorldEngine: ObservableObject {
             mood: yard.mood, moodReason: yard.moodReason, dayPhase: yard.dayPhase, weather: yard.weather,
             bowlFilledToday: yard.bowlFilledToday, lastDrinkAt: yard.lastDrinkAt, placesToday: yard.placesToday)
         if uses3D { snapshot.activity = intent3D.request.activity; snapshot.activityFallback = intent3D.activityFallback }
+        if uses3D, canRunWorld, activeAgentCommand == nil {
+            snapshot.companionSeat = intent3D.companionSeat(quiet: runtimeQuiet)
+        }
         if var previous = lastBridgeSnapshot {
             previous.stateVersion = snapshot.stateVersion
             if previous != snapshot { bridgeVersion += 1; snapshot.stateVersion = bridgeVersion }
@@ -193,10 +196,11 @@ final class WorldEngine: ObservableObject {
         guard canRunWorld, snapshot.stateVersion == command.stateVersion,
               let index = scene.destinations.firstIndex(where: { $0.id == command.destinationId }),
               activeAgentCommand == nil else { return false }
+        if command.activity == "sit", snapshot.companionSeat != command.destinationId { return false }
         activeAgentCommand = command
         agentFinishUptime = ProcessInfo.processInfo.systemUptime + max(0, finishAfter)
         simulation.autonomous = false
-        if uses3D { intent3D.autonomous = false; intent3D.choose(index); dispatch3D() }
+        if uses3D { intent3D.autonomous = false; intent3D.choose(index, activity: command.activity); dispatch3D() }
         else { simulation.request(index) }
         agentActionChanged?(command, "running", nil)
         notifyState()
@@ -264,6 +268,12 @@ final class WorldEngine: ObservableObject {
         guard facts != yard else { return }
         yard = facts
         bridgeChanged?()
+    }
+    func sitTogetherInDemo() {
+        guard let seat = worldSnapshot().companionSeat, let index = YardIntent.places.firstIndex(of: seat) else { return }
+        intent3D.choose(index, activity: "sit")
+        dispatch3D()
+        notifyState()
     }
     func requestDrink() { if uses3D { if intent3D.drink() { dispatch3D(); notifyState() }; return }; if simulation.requestDrink() {notifyState()} }
     func togglePause() {

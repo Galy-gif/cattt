@@ -113,6 +113,20 @@
       "when": 1794335936834,
       "tag": "0015_inference_observe",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1794467674291,
+      "tag": "0016_companion_seat",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1794475486836,
+      "tag": "0017_memory_question_source",
+      "breakpoints": true
     }
   ]
 }

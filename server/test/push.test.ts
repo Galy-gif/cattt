@@ -40,7 +40,10 @@ it.each(['cancel','withdraw','boundary'] as const)('发送前%s变化，不发�
  let calls=0;await processPush(p.id,{now,transport:async()=>{calls++;return{status:200};}});expect(calls).toBe(0);expect((await pushes())[0]!.status).toBe('dropped');
 });
 it('无APNs配置不能标sent；503重试保持ID，410失效；响应丢失记uncertain不声称恰好一次',async()=>{
- const d=await register();await due();const p=(await pushes())[0]!;await processPush(p.id,{now});expect((await pushes())[0]!.status).not.toBe('sent');
+ const d=await register();
+ // 注册也使用夹具时钟，否则真实日期晚于 now 时，旧410会被正确忽略。
+ await db.update(devices).set({updatedAt:new Date(+now-1000)}).where(eq(devices.id,d.id));
+ await due();const p=(await pushes())[0]!;await processPush(p.id,{now});expect((await pushes())[0]!.status).not.toBe('sent');
  const apnsIds:string[]=[];await processPush(p.id,{now,transport:async req=>{apnsIds.push(req.apnsId);return{status:503};}});await processPush(p.id,{now,transport:async req=>{apnsIds.push(req.apnsId);return{status:410,reason:'Unregistered',timestamp:+now};}});expect(apnsIds).toHaveLength(2);expect(apnsIds[0]).toBe(apnsIds[1]);expect((await db.select().from(devices).where(eq(devices.id,d.id)))[0]!.invalidAt).not.toBeNull();
  await register();await due('另一件');await processPush((await pushes())[1]!.id,{now,transport:async()=>{throw new Error('connection lost after write');}});expect((await db.select().from(pushDeliveries).where(eq(pushDeliveries.notificationId,(await pushes())[1]!.id)))[0]!.status).toBe('uncertain');
 });

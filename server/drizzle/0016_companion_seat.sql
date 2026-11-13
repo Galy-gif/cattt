@@ -1,0 +1,1 @@
+ALTER TABLE "world_actions" ADD COLUMN "activity" text;

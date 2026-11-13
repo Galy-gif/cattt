@@ -55,6 +55,21 @@ import Foundation
             state.conditions(mood: mood, night: true, allowed: Set(0..<6), bowlFull: false, behavior: .default)
             state.choose(0); assert(state.request.activity == "rest")
         }
+        // 同一句邀请：从草地来门口、留在草地，或夜里就近找允许的地方。
+        for (temperament, seat) in [(Temperament.close, "house"), (.slow, "grass"), (.quiet, "grass")] {
+            var yard = YardIntent()
+            yard.choose(3)
+            _ = yard.observe(id: yard.request.id, nearest: "grass", moving: false, action: "idle", offscreen: false, cameraMode: "following")
+            yard.conditions(mood: .calm, night: false, allowed: Set(0..<6), bowlFull: false, behavior: .compile(temperament: temperament))
+            assert(yard.companionSeat(quiet: false) == seat)
+            assert(yard.companionSeat(quiet: true) == "grass")
+            yard.conditions(mood: .sad, night: true, allowed: [0, 2], bowlFull: false, behavior: .compile(temperament: temperament))
+            assert(yard.companionSeat(quiet: false) == "house")
+            yard.choose(0, activity: "sit")
+            _ = yard.observe(id: yard.request.id, nearest: "house", moving: false, action: "sit_idle", offscreen: false, cameraMode: "following")
+            assert(!yard.tick(10), "坐稳后能安静陪一会儿")
+            assert(yard.tick(300) && yard.request.activity != "sit", "之后自行恢复活动")
+        }
         var playful = YardIntent(); playful.seed(12)
         var fenceChoices = Set<String>()
         for _ in 0..<100 { playful.choose(5); fenceChoices.insert(playful.request.activity) }

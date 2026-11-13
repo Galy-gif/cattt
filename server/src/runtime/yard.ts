@@ -23,6 +23,9 @@ export function yardBlock(world: YardState | null, timeZone = DEFAULT_TIME_ZONE)
     `- ${PHASE_NAMES[world.dayPhase ?? 'day']}，${world.weather === 'rain' ? '在下雨' : '天晴'}。`,
     `- 碗里${world.bowlFilledToday ? '今天倒过水' : '今天还没有水'}；${world.lastDrinkAt ? `你上次喝水是${formatInstant(new Date(world.lastDrinkAt), timeZone)}` : '你今天还没喝过水'}。`,
   ];
+  if (world.activity === 'sit' && world.action === 'sit_idle' && !moving && world.activityFallback === false) {
+    lines.push('- 你已经坐稳，正安静作伴。');
+  }
   if (world.activityFallback) lines.push(`- 当前活动意图是${world.activity ?? '休息'}，画面使用基础动作降级（实际动作：${world.action}）。只可描述实际位置和动作，不能据此说已睡着、已理毛或已喝水；喝水事实只取上面的饮水记录。`);
   if (world.placesToday?.length) lines.push(`- 今天去过：${[...new Set(world.placesToday)].join('、')}。`);
   if (world.mood && world.mood !== 'calm') lines.push(`- 你现在${MOOD_NAMES[world.mood]}${world.moodReason ? `：${world.moodReason}` : ''}。`);

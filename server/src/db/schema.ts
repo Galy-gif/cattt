@@ -234,6 +234,7 @@ export const asyncJobs = pgTable('async_jobs', {
 
 /** 即使候选仅确认已有记忆，也保存来源凭证，重放不能再次改变状态。 */
 export const memoryReceipts = pgTable('memory_receipts', {
+  questionId: uuid('question_id').references(() => messages.id),
   catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
   sourceMessageId: uuid('source_message_id').notNull(),
   fingerprint: text('fingerprint').notNull(),

@@ -1,7 +1,7 @@
 import { PgBoss } from 'pg-boss';
 import { config } from './config.ts';
 import type { asyncJobs } from './db/schema.ts';
-export const EXTRACTOR_VERSION = 'v1';
+export const EXTRACTOR_VERSION = 'v2';
 export const QUEUE = { memoryExtract: 'memory-extract', boundarySummarize: 'boundary-summarize', diaryRead: 'diary-read', sweep: 'sweep', followup: 'followup', errand: 'errand', dailyDiary: 'daily-diary', push: 'push', inference: 'inference' } as const;
 type Kind = keyof typeof names;
 type Delivery = { taskId: string };

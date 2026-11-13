@@ -3,7 +3,8 @@ import { afterAll, afterEach, expect, it, vi } from 'vitest';
 import { MockLanguageModelV4 } from 'ai/test';
 import { eq } from 'drizzle-orm';
 import { db, sql } from '../src/db/client.ts';
-import { cats, conversations, memories, messages, users } from '../src/db/schema.ts';
+import { boundaries, cats, conversations, memories, messages, users } from '../src/db/schema.ts';
+import { recallPermissions } from '../src/memory/recall.ts';
 import { extractSource } from '../src/worker/memory.ts';
 import { changeSettings, lockMemory, withdrawSources } from '../src/memory/control.ts';
 import * as models from '../src/runtime/model.ts';
@@ -15,7 +16,7 @@ async function fixture() {
   const [cat] = await db.insert(cats).values({ userId: u!.id, name: '团子', appearance: 'orange', temperament: 'slow', traits: { energy: 1, initiative: 1, directness: 1, closeness: 1 } }).returning();
   const [conv] = await db.insert(conversations).values({ catId: cat!.id }).returning();
   const add = async (text: string) => (await db.insert(messages).values({ conversationId: conv!.id, role: 'user', text }).returning())[0]!.id;
-  return { catId: cat!.id, add };
+  return { catId: cat!.id, conversationId: conv!.id, add };
 }
 function extractor(output: object, inspect?: (prompt: string) => void) {
   const model = new MockLanguageModelV4({ doGenerate: async options => {
@@ -39,6 +40,46 @@ it('模型提取保存真实来源，更正沿用同方面并让旧值失效', a
   const stored = await db.select().from(memories).where(eq(memories.catId, f.catId));
   expect(stored.find(m => m.status === 'active')!.sourceMessageId).toBe(b);
   expect(stored.find(m => m.sourceMessageId === a)!.status).toBe('superseded');
+});
+it('用相邻的猫追问理解简答，记忆来源仍是用户的回答', async () => {
+  const f = await fixture();
+  const question = '面试怎么样？那个产品题现场拆解，还顺吗？';
+  const [asked] = await db.insert(messages).values({ conversationId: f.conversationId, role: 'cat', text: question, memoryEligible: false }).returning();
+  const answer = '没过，今天先不聊了。';
+  const source = await f.add(answer);
+  const later = '回复之后的消息';
+  await f.add(later);
+  extractor({ memories: [{ ...base, predicate: '面试结果', value: '没过', kind: 'fact', explicit: false }] }, prompt => {
+    const input = JSON.parse(prompt);
+    expect(input.filter((m: { role: string }) => m.role !== 'system').map((m: { role: string }) => m.role)).toEqual(['assistant', 'user']);
+    expect(input.at(-2).content).toEqual([{ type: 'text', text: question }]);
+    expect(input.at(-1).content).toEqual([{ type: 'text', text: answer }]);
+    expect(prompt).not.toContain(later);
+  });
+  await extractSource(f.catId, source, randomUUID());
+  const stored = await db.select().from(memories).where(eq(memories.catId, f.catId));
+  expect(stored).toMatchObject([{ value: '没过', sourceMessageId: source, explicit: false }]);
+  await db.insert(boundaries).values({ catId: f.catId, sourceMessageId: asked!.id });
+  expect((await recallPermissions(f.catId)).suppressedMemories.has(stored[0]!.id)).toBe(true);
+  await db.transaction(async tx => { await lockMemory(tx, f.catId); await withdrawSources(tx, f.catId, [asked!.id]); });
+  expect(await db.select().from(memories).where(eq(memories.catId, f.catId))).toHaveLength(0);
+});
+
+it.each(['withdrawn', 'boundary', 'intervening user'] as const)('不取被停用、设边界或被隔开的追问：%s', async reason => {
+  const f = await fixture();
+  const question = '那份实习的笔试怎么样？';
+  await db.insert(messages).values({ conversationId: f.conversationId, role: 'cat', text: '更早的追问' });
+  const [q] = await db.insert(messages).values({ conversationId: f.conversationId, role: 'cat', text: question,
+    contextAllowed: reason !== 'withdrawn' }).returning();
+  if (reason === 'boundary') await db.insert(boundaries).values({ catId: f.catId, sourceMessageId: q!.id });
+  if (reason === 'intervening user') await f.add('另外一件事');
+  const source = await f.add('过了');
+  extractor({ memories: [] }, prompt => {
+    expect(prompt).not.toContain(question);
+    expect(prompt).not.toContain('更早的追问');
+    expect(prompt).not.toContain('另外一件事');
+  });
+  await extractSource(f.catId, source, randomUUID());
 });
 it('含糊更正返回澄清，不虚构保存结果', async () => {
   const f = await fixture(); const a = await f.add('那个不是这样的');

@@ -46,6 +46,13 @@ it('旧相关记忆超过旧50条窗口仍能被找到，近期无关内容不�
   expect(ctx.sourceIds).toContain(old.sourceMessageId);
   expect(ctx.instructions).not.toContain('收藏蓝石');
 });
+it('带相对时间的旧记忆标明用户原话的当地日期', async () => {
+  await db.update(users).set({ timeZone: 'Asia/Kuala_Lumpur' }).where(eq(users.id, userId));
+  await memory('面试结果', '今天的面试没有通过', {}, { createdAt: new Date('2026-01-17T16:30:00Z') });
+  await source('那次面试结果呢？');
+  const ctx = await buildTurnContext(catId, convId);
+  expect(ctx.instructions).toContain('〔原话日期 2026-01-18〕用户的面试结果：今天的面试没有通过');
+});
 it('当前轮次用自己的消息为查询锚点，不拿稍后到来的新问题混入', async () => {
   const old = await memory('饮食习惯', '偏爱素食');
   const input = await source('晚饭吃什么');
