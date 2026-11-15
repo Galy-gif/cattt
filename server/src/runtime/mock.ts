@@ -279,7 +279,7 @@ export function mockWorkerModel(options:{onRequest?:()=>void|Promise<void>}={}) 
  else if(goal.includes('[dropped]'))input={status:'dropped'};
  else if(!has('report')&&!has('recall_memories')&&!has('read_permitted_diary'))input={status:'progress'};
  else input={status:'ready',result:'我想了想，周末可以留一段不用赶时间的空当，散散步，或者在家看点喜欢的东西。'+inputs};
- if(goal.includes('[whitelist]')&&call.tools?.some(t=>!['get_time','get_weather','recall_memories','read_permitted_diary','report'].includes(t.name)))throw new Error('unexpected worker tool');
+ if(goal.includes('[whitelist]')&&call.tools?.some(t=>!['get_time','get_weather','recall_memories','read_permitted_diary','search_chat_history','read_chat_history','report'].includes(t.name)))throw new Error('unexpected worker tool');
  const index=observations.length;
  return {content:[{type:'tool-call',toolCallId:`mock-worker-${index}`,toolName,input:JSON.stringify(input)}],finishReason:{unified:'tool-calls',raw:'tool_calls'},usage:usage(200,goal.includes('[output-budget]')?4000:60),warnings:[]};
  }});

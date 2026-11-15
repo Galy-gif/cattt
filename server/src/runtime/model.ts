@@ -43,6 +43,7 @@ export type ModelErrorInfo = { code: string; retryable: boolean; summary: string
 export function classifyModelError(err: unknown): ModelErrorInfo {
   if(err instanceof Error&&err.name==='ModelBudgetExceeded')return {code:'model_daily_budget',retryable:false,summary:'今天先歇一会儿，明天再聊。'};
   const e = RetryError.isInstance(err) ? err.lastError : err;
+  if(e instanceof Error&&e.message.startsWith('model_input_budget:'))return {code:'model_input_budget',retryable:false,summary:'这次需要的内容太长，请缩小问题后再试。'};
   if(e instanceof Error&&e.name==='ModelBudgetExceeded')return {code:'model_daily_budget',retryable:false,summary:'今天先歇一会儿，明天再聊。'};
   if (APICallError.isInstance(e)) {
     const summary = `${e.statusCode ?? '?'} ${e.message}`;

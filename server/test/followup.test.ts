@@ -1,7 +1,7 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { randomUUID } from 'node:crypto';
-import { afterAll, beforeEach, expect, it } from 'vitest';
+import { afterAll, beforeEach, expect, it, vi } from 'vitest';
 import { and, eq } from 'drizzle-orm';
 import { db, sql } from '../src/db/client.ts';
 import {
@@ -149,6 +149,9 @@ it('同一时刻三件合并为一条，每件都有去重凭证', async () => {
   ).toHaveLength(3);
 });
 it('“改成后天”通过工具直达事项，记录追加来源，旧事件失效', async () => {
+  // 工具默认取宿主时间；固定 Date，避免样例日期随真实日历过期。
+  vi.useFakeTimers({toFake:['Date']});vi.setSystemTime(now);
+  try {
   const r = await schedule();
   await scanFollowups(now, owner.catId);
   const [m] = await db
@@ -169,6 +172,7 @@ it('“改成后天”通过工具直达事项，记录追加来源，旧事件�
   expect(await said()).toHaveLength(0);
   await fire(new Date('2026-11-14T04:00:00Z'));
   expect(await said()).toHaveLength(1);
+  } finally {vi.useRealTimers();}
 });
 it('模型故障或结构复核失败用模板，explicit不能被模型否决', async () => {
   await schedule();

@@ -1,0 +1,306 @@
+[
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3399,
+    "outputTokens": 14,
+    "reasoningTokens": 0,
+    "latencyMs": 1008
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3644,
+    "outputTokens": 40,
+    "reasoningTokens": 0,
+    "latencyMs": 813
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3845,
+    "outputTokens": 23,
+    "reasoningTokens": 0,
+    "latencyMs": 931
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 1553,
+    "outputTokens": 19,
+    "reasoningTokens": 0,
+    "latencyMs": 653
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3538,
+    "outputTokens": 45,
+    "reasoningTokens": 0,
+    "latencyMs": 935
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3657,
+    "outputTokens": 40,
+    "reasoningTokens": 0,
+    "latencyMs": 931
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3862,
+    "outputTokens": 35,
+    "reasoningTokens": 0,
+    "latencyMs": 1023
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3647,
+    "outputTokens": 48,
+    "reasoningTokens": 0,
+    "latencyMs": 764
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 4067,
+    "outputTokens": 114,
+    "reasoningTokens": 0,
+    "latencyMs": 1285
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 5247,
+    "outputTokens": 26,
+    "reasoningTokens": 0,
+    "latencyMs": 877
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3582,
+    "outputTokens": 72,
+    "reasoningTokens": 0,
+    "latencyMs": 878
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3798,
+    "outputTokens": 28,
+    "reasoningTokens": 0,
+    "latencyMs": 1152
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 9667,
+    "outputTokens": 10,
+    "reasoningTokens": 0,
+    "latencyMs": 999
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": null,
+    "outputTokens": null,
+    "reasoningTokens": null,
+    "latencyMs": 122
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": null,
+    "outputTokens": null,
+    "reasoningTokens": null,
+    "latencyMs": 215
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 2445,
+    "outputTokens": 111,
+    "reasoningTokens": 39,
+    "latencyMs": 1008
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 2832,
+    "outputTokens": 91,
+    "reasoningTokens": 21,
+    "latencyMs": 878
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 3111,
+    "outputTokens": 207,
+    "reasoningTokens": 75,
+    "latencyMs": 1518
+  },
+  {
+    "purpose": "route",
+    "model": "deepseek-flash",
+    "inputTokens": null,
+    "outputTokens": null,
+    "reasoningTokens": null,
+    "latencyMs": 1003
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3638,
+    "outputTokens": 44,
+    "reasoningTokens": 0,
+    "latencyMs": 1039
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3768,
+    "outputTokens": 22,
+    "reasoningTokens": 0,
+    "latencyMs": 650
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3455,
+    "outputTokens": 10,
+    "reasoningTokens": 0,
+    "latencyMs": 823
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3700,
+    "outputTokens": 40,
+    "reasoningTokens": 0,
+    "latencyMs": 886
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3908,
+    "outputTokens": 19,
+    "reasoningTokens": 0,
+    "latencyMs": 1002
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3594,
+    "outputTokens": 71,
+    "reasoningTokens": 0,
+    "latencyMs": 937
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3997,
+    "outputTokens": 37,
+    "reasoningTokens": 0,
+    "latencyMs": 1033
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3703,
+    "outputTokens": 73,
+    "reasoningTokens": 0,
+    "latencyMs": 1243
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 4368,
+    "outputTokens": 22,
+    "reasoningTokens": 0,
+    "latencyMs": 677
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3638,
+    "outputTokens": 44,
+    "reasoningTokens": 0,
+    "latencyMs": 629
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3769,
+    "outputTokens": 14,
+    "reasoningTokens": 0,
+    "latencyMs": 575
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 9723,
+    "outputTokens": 10,
+    "reasoningTokens": 0,
+    "latencyMs": 1066
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3693,
+    "outputTokens": 103,
+    "reasoningTokens": 0,
+    "latencyMs": 1705
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 4294,
+    "outputTokens": 20,
+    "reasoningTokens": 0,
+    "latencyMs": 864
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 2501,
+    "outputTokens": 103,
+    "reasoningTokens": 31,
+    "latencyMs": 1353
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 2894,
+    "outputTokens": 91,
+    "reasoningTokens": 21,
+    "latencyMs": 627
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 3275,
+    "outputTokens": 82,
+    "reasoningTokens": 42,
+    "latencyMs": 1332
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": 3504,
+    "outputTokens": 149,
+    "reasoningTokens": 39,
+    "latencyMs": 1670
+  },
+  {
+    "purpose": "route",
+    "model": "deepseek-flash",
+    "inputTokens": null,
+    "outputTokens": null,
+    "reasoningTokens": null,
+    "latencyMs": 923
+  }
+]

@@ -115,3 +115,31 @@ describe('ToolLoopAgent 真实 SDK 循环', () => {
     expect(tool.inputSchema.safeParse({ timeZone: 'invented/city' }).success).toBe(false);
   });
 });
+
+it('真实mock请求首步和工具后续步都有界，当前中文emoji原话保持完整',async()=>{
+ const question='现在的问题🙂保持完整';let requests=0;
+ const m=new MockLanguageModelV4({doStream:async request=>{
+ requests++;expect(Buffer.byteLength(JSON.stringify({prompt:request.prompt,tools:request.tools}))).toBeLessThan(56*1024);
+ expect(JSON.stringify(request.prompt)).toContain(question);
+ const parts=requests===1?step('',[{name:'lookup',id:'lookup'}]):step('看到了');
+ return {stream:new ReadableStream({start(c){parts.forEach(p=>c.enqueue(p));c.close();}})};
+ }});
+ const messages:any[]=[{role:'user',content:'旧聊天'.repeat(40000)},{role:'assistant',content:'旧答复'},{role:'user',content:question}];
+ const original=JSON.stringify(messages);
+ await run({model:m,count:()=>requests},{lookup:fake},{messages});
+ expect(requests).toBe(2);expect(JSON.stringify(messages)).toBe(original);
+});
+it('当前问题本身超限，真实mock模型不收到请求',async()=>{
+ let calls=0;const m=new MockLanguageModelV4({doStream:async()=>{calls++;throw new Error('unexpected');}});
+ await expect(run({model:m,count:()=>calls},{},{messages:[{role:'user',content:'🙂中文'.repeat(50000)}]})).rejects.toThrow('model_input_budget');
+ expect(calls).toBe(0);
+});
+it('当前必需工具结果超限，工具后的mock请求不发送',async()=>{
+ let requests=0;
+ const m=new MockLanguageModelV4({doStream:async()=>{
+ requests++;const parts=step('',[{name:'large',id:'large'}]);
+ return {stream:new ReadableStream({start(c){parts.forEach(p=>c.enqueue(p));c.close();}})};
+ }});
+ await expect(run({model:m,count:()=>requests},{large:{...fake,execute:async()=>({...observation,data:'中文🙂'.repeat(30000)})}})).rejects.toThrow('model_input_budget');
+ expect(requests).toBe(1);
+});

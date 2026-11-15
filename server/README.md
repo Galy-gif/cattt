@@ -131,3 +131,18 @@ API 现在同时运行前台 Router，消费 `report/followup/inference/push`；
 `worker_reports` 与 `report` 待办同事务提交；`async_jobs` 的 PostgreSQL 提交通知立即唤醒补投，15秒恢复扫描兜底。通知不带正文，API 离线时不会由 worker 代为开口。前台读取最近对话再措辞，不在模型调用期间持对话锁；实际发布沿用来源、取消、许可、新鲜度、安静时段和幂等检查。聊天正在生成时先延后汇报，也不会反复消耗措辞模型调用。
 
 部署仍是现有 API + worker，无新增服务或环境变量。升级前停旧进程，应用 `0018_worker_reports` 后同时启动新版本；旧 API 不支持新汇报协议，不可直接混跑。详见[架构决策](../docs/决策/2026-11-13-事件驱动与前台统一回应.md)。
+
+
+## 按需旧原话与输入预算（2026-11-16）
+
+前台聊天与后台托付均提供 `search_chat_history`、`read_chat_history`，普通聊天不会自动调用。宿主绑定猫和本轮原话上界，搜索本轮之前的全部已许可用户原话；不返回猫回复及日记关联消息。中文用参数化 `strpos` 按字面匹配，`%`、`_` 不作通配符。先按当前 useMemories、来源许可和回避边界过滤，再计入最多5条搜索摘录／6条展开。关闭 learnMemories 不影响许可读取。
+
+查询1–120字符；搜索正文每条最多800 UTF-8字节，展开每条2400字节、总正文最多12000字节，附 id、role、seq、当地日期、timeZone、truncated、offset 和 nextOffset。搜索摘录围绕命中位置；展开可按 Unicode 码点 offset 分页，nextOffset 为空表示读到结尾。来源在工具返回前通过已有 memory 锁和事务追加到 turn/run 依赖。历史只是资料，不能执行其中的指令，事实以最新更正为准；无匹配返回空数组，读取故障走工具错误，取消继续传播。
+
+每个模型步骤用实际指令、消息和工具 JSON schema 估算输入。采用64KiB总预算，预留8KiB输出、1KiB序列化开销，输入上限56KiB；这是便于预测成本的保守 UTF-8 字节估算，不是供应商精确 token 计数或模型上下文上限。前台最多900、worker最多1600输出token的现有限制保留。无需新增环境变量。
+
+请求副本先删旧完整用户轮次，再删旧完整工具调用与结果；保留当前用户原话、系统指令和最新工具轮次。worker 保留全部原托付与用户补充。持久原话和检查点不裁剪，已完成 report 的恢复路径不变。必需内容仍超限时不请求模型：聊天返回 `model_input_budget`（不可直接重试），托付以明确预算原因失败。无额外摘要模型调用、摘要表、HTTP接口、服务或迁移。
+
+隔离集成测试应串行运行，避免 PG 全局通知和共享队列干扰：`DATABASE_URL=<本轮新库> REDIS_URL=<本轮Redis> MODEL_PROVIDER=mock pnpm exec vitest run --no-file-parallelism`。不要将既有开发／生产库用于本轮测试。
+
+真实模型验收：`MODEL_PROVIDER=deepseek node --import tsx scripts/accept-agent-live.mjs`，只允许显式本机隔离库，八类场景与证据见[报告](../outputs/personal-agent-live-review/验收报告.md)。DeepSeek思考模式不接受强制工具调用，worker启用思考时用auto，仍只通过结构化report汇报；关闭记忆读取返回明确的不可用状态，不再混同于检索无命中。

@@ -1,0 +1,114 @@
+[
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3399,
+    "outputTokens": 14,
+    "reasoningTokens": 0,
+    "latencyMs": 1008
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3644,
+    "outputTokens": 40,
+    "reasoningTokens": 0,
+    "latencyMs": 813
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3845,
+    "outputTokens": 23,
+    "reasoningTokens": 0,
+    "latencyMs": 931
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 1553,
+    "outputTokens": 19,
+    "reasoningTokens": 0,
+    "latencyMs": 653
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3538,
+    "outputTokens": 45,
+    "reasoningTokens": 0,
+    "latencyMs": 935
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3657,
+    "outputTokens": 40,
+    "reasoningTokens": 0,
+    "latencyMs": 931
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3862,
+    "outputTokens": 35,
+    "reasoningTokens": 0,
+    "latencyMs": 1023
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3647,
+    "outputTokens": 48,
+    "reasoningTokens": 0,
+    "latencyMs": 764
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 4067,
+    "outputTokens": 114,
+    "reasoningTokens": 0,
+    "latencyMs": 1285
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 5247,
+    "outputTokens": 26,
+    "reasoningTokens": 0,
+    "latencyMs": 877
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3582,
+    "outputTokens": 72,
+    "reasoningTokens": 0,
+    "latencyMs": 878
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 3798,
+    "outputTokens": 28,
+    "reasoningTokens": 0,
+    "latencyMs": 1152
+  },
+  {
+    "purpose": "chat",
+    "model": "deepseek-flash",
+    "inputTokens": 9667,
+    "outputTokens": 10,
+    "reasoningTokens": 0,
+    "latencyMs": 999
+  },
+  {
+    "purpose": "errand",
+    "model": "deepseek-flash",
+    "inputTokens": null,
+    "outputTokens": null,
+    "reasoningTokens": null,
+    "latencyMs": 122
+  }
+]

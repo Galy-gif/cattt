@@ -1,0 +1,42 @@
+{
+  "requests": [
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:57:06.524Z",
+      "bytes": 8663,
+      "sha256": "c5b77a95ec07170871b4959c72c4520a7c7b23aec67e1cb1fc1b75cdf2bedfcb",
+      "status": 400,
+      "providerError": "Thinking mode does not support this tool_choice (request_id: bae2d662-22ee-4c75-9000-5131be36a981)",
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "enabled"
+      },
+      "messageCount": 2,
+      "toolResults": []
+    }
+  ],
+  "result": [
+    {
+      "name": "worker_history_and_frontend_report",
+      "status": "failed",
+      "evidence": {
+        "report": {
+          "callId": "runtime-budget-or-error",
+          "reason": "这次没能继续想下去，暂时没有可靠的答案。",
+          "status": "failed",
+          "createdAt": "2026-11-15T18:57:06.495Z"
+        },
+        "dependencies": {
+          "diaries": [],
+          "messages": [
+            "8f5e03fb-b851-4d23-b003-a09d608f8c87"
+          ],
+          "usedMemories": false
+        }
+      },
+      "error": "Expected values to be strictly equal:\n\n'failed' !== 'ready'\n",
+      "durationMs": 265
+    }
+  ]
+}

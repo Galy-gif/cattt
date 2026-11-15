@@ -1,3 +1,6 @@
+import { historyTools } from './chat-history.ts';
+import { turns } from '../db/schema.ts';
+import { and,eq } from 'drizzle-orm';
 import { config } from '../config.ts';
 import { startErrand, appendTicketInput } from '../agent/errands.ts';
 import { scheduleFollowup, updateTicket, cancelTicket, listTickets, ticketView, TicketError } from '../agent/tickets.ts';
@@ -14,6 +17,11 @@ export async function catTools(owner: { catId: string; turnId: string; userMessa
     catch (error) { return { status: 'failed', error: { code: error instanceof WorldError ? error.code : 'world_failed', retryable: true }, source: 'world-bridge', observed_at: new Date().toISOString() }; }
   };
   const tools: Record<string, RuntimeTool> = {
+    ...await historyTools({catId:owner.catId,anchorId:owner.userMessageId,register:async(ids,revision,tx)=>{
+      const [turn]=await tx.select().from(turns).where(and(eq(turns.id,owner.turnId),eq(turns.status,'generating'))).for('update');
+      if(!turn || turn.contextRevision!==revision)throw new Error('history_context_changed');
+      await tx.update(turns).set({contextSourceIds:[...new Set([...(turn.contextSourceIds??[]),...ids])]}).where(eq(turns.id,owner.turnId));
+    }}),
     get_time: timeTool(undefined, await userTimeZone(owner.catId)),
     get_weather: weatherTool(),
     get_world_state: { description: '读取猫的真实世界观察；available=false 表示当前不能执行动作。移动中 current 是上次到达位置。', inputSchema: z.object({}), execute: () => observe(() => getWorldState(owner.catId)) },

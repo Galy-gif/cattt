@@ -1,0 +1,810 @@
+{
+  "at": "2026-11-15T18:59:44.262Z",
+  "models": {
+    "chat": "deepseek-flash",
+    "chatThinking": "disabled",
+    "worker": "deepseek-flash",
+    "workerThinking": "enabled"
+  },
+  "results": [
+    {
+      "name": "ordinary_chat",
+      "status": "passed",
+      "evidence": {
+        "chat": {
+          "turnId": "12b8766a-dcfa-4766-a559-a303f576d226",
+          "status": "completed",
+          "error": null,
+          "text": "嗯，我在。你就安静待着吧。",
+          "sourceIds": [
+            "f1092201-d29a-4640-91b6-458845895fbe"
+          ],
+          "tools": []
+        }
+      },
+      "durationMs": 907
+    },
+    {
+      "name": "history_outside_window",
+      "status": "passed",
+      "evidence": {
+        "chat": {
+          "turnId": "225b3d24-0f41-443e-ab9e-96de4816555c",
+          "status": "completed",
+          "error": null,
+          "text": "你选的是北窗旁第三桌，预约牌上写着青橙桥6719。",
+          "sourceIds": [
+            "fa03d78b-b42f-4afa-87a7-8037998d9a68",
+            "3fb5370f-ae5a-4dac-bb89-95b361665473",
+            "068914d8-a114-420a-8f36-a893ca4af1f6",
+            "eaaca596-2afc-4ec8-b994-3dab39d7dc0e",
+            "8077bced-3dce-45f3-80ca-082a2e2e0b19",
+            "9580fe06-9534-4dba-b032-6bfdbbd2d364",
+            "758e8958-f6da-47da-9199-503781e8785f",
+            "8e2f1836-c773-4a78-a35a-00e24288155e",
+            "74d6e11d-8a51-4c12-a8b2-64adf93dbf4f",
+            "730ba6ba-c4e5-4571-9aaf-3ee0480bdb15",
+            "b40f8c4a-c8fc-4d71-8066-5ec2ca64f75e",
+            "8c920fea-9776-45ef-9703-3b29a2fc01ba",
+            "c6dc2e88-25eb-4222-a0a2-40a50166dabd",
+            "e57006a6-17ad-428a-87cf-b2c82ed1b959",
+            "21d2153e-0a2e-4569-a250-57c8cfbe1dd9",
+            "99ef2358-6d66-43d8-b957-fa984b24ace6",
+            "5b44bb93-c4fd-4d45-a294-884ca75f6b8c",
+            "e328e0d7-2a9b-473a-86d1-aaedf969ef92",
+            "f47dc6bc-537b-431d-a9ee-edb906de2a67",
+            "35a0a849-5b90-402c-af0b-7c347ef90951",
+            "86203585-05f6-4f2b-8429-7af99afdd2a5",
+            "72139d3a-8bf7-4f96-a516-90dda627f299",
+            "9e731d27-940d-4258-81b7-192b83cd8d2e",
+            "3ab348d4-43cf-40b6-9a68-08614f53b7ee",
+            "a100d205-f6e0-4668-9f2f-d7958de1ad33",
+            "316e4d62-f647-4c7f-99cc-66cfddf1f714",
+            "6cfa32b8-efc9-4cee-accb-a72f71be3cdd",
+            "f25e87c4-7ffb-45a7-8d55-aa383d79a6ef",
+            "1f732d5e-b5aa-46c4-b744-ba8e9b6122bd",
+            "dfa00d89-70be-473e-82c7-59b6ac644bc9",
+            "b96af735-344a-4fd5-957e-da9edaf01580"
+          ],
+          "tools": [
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "栀子茶馆"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "messages": [
+                    {
+                      "id": "b96af735-344a-4fd5-957e-da9edaf01580",
+                      "seq": 308,
+                      "date": "2026-11-01",
+                      "role": "user",
+                      "text": "那次去栀子茶馆，我选的是北窗旁第三桌，桌上的预约牌写着青橙桥6719。",
+                      "offset": 0,
+                      "timeZone": "UTC",
+                      "truncated": false,
+                      "nextOffset": null
+                    }
+                  ],
+                  "available": true
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_00_5LgcVIhqLTkY1YiAFx0m9754",
+                "observed_at": "2026-11-15T18:59:28.229Z"
+              }
+            }
+          ]
+        },
+        "firstRequestExcludedAnswer": true
+      },
+      "durationMs": 1942
+    },
+    {
+      "name": "withdrawn_history",
+      "status": "passed",
+      "evidence": {
+        "chat": {
+          "turnId": "c4492ef7-9bec-44fe-b415-851102fe2af7",
+          "status": "completed",
+          "error": null,
+          "text": "能查到的只有你今天这两句问话，没找到之前聊栀子茶馆的原话。座位和预约牌的事我不猜，就当没听过。\n安静坐着挺好，我在。",
+          "sourceIds": [
+            "8dc8b8c2-aa18-453a-a88d-e4788b2bac38",
+            "520922e9-c158-49bd-949a-d93e4dea0df8",
+            "725ffe5f-17cf-424e-bc43-40cb6b0f411b",
+            "1f32789b-ccc0-47aa-9d7b-76640b13f54f",
+            "3fb5370f-ae5a-4dac-bb89-95b361665473",
+            "eaaca596-2afc-4ec8-b994-3dab39d7dc0e",
+            "9580fe06-9534-4dba-b032-6bfdbbd2d364",
+            "8e2f1836-c773-4a78-a35a-00e24288155e",
+            "730ba6ba-c4e5-4571-9aaf-3ee0480bdb15",
+            "8c920fea-9776-45ef-9703-3b29a2fc01ba",
+            "e57006a6-17ad-428a-87cf-b2c82ed1b959",
+            "99ef2358-6d66-43d8-b957-fa984b24ace6",
+            "e328e0d7-2a9b-473a-86d1-aaedf969ef92",
+            "35a0a849-5b90-402c-af0b-7c347ef90951",
+            "72139d3a-8bf7-4f96-a516-90dda627f299",
+            "3ab348d4-43cf-40b6-9a68-08614f53b7ee",
+            "316e4d62-f647-4c7f-99cc-66cfddf1f714",
+            "f25e87c4-7ffb-45a7-8d55-aa383d79a6ef",
+            "dfa00d89-70be-473e-82c7-59b6ac644bc9",
+            "9ee6da72-2b13-4717-8c47-3e897e516fa8"
+          ],
+          "tools": [
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "栀子茶馆"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "messages": [
+                    {
+                      "id": "dfa00d89-70be-473e-82c7-59b6ac644bc9",
+                      "seq": 345,
+                      "date": "2026-11-15",
+                      "role": "user",
+                      "text": "之前聊到的栀子茶馆，我当时选的座位在哪里，预约牌上写了什么？请翻原话核对。",
+                      "offset": 0,
+                      "timeZone": "UTC",
+                      "truncated": false,
+                      "nextOffset": null
+                    }
+                  ],
+                  "available": true
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_00_F10OoLphAuGpgFe9qSjf3152",
+                "observed_at": "2026-11-15T18:59:30.211Z"
+              }
+            },
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "预约牌"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "messages": [
+                    {
+                      "id": "dfa00d89-70be-473e-82c7-59b6ac644bc9",
+                      "seq": 345,
+                      "date": "2026-11-15",
+                      "role": "user",
+                      "text": "之前聊到的栀子茶馆，我当时选的座位在哪里，预约牌上写了什么？请翻原话核对。",
+                      "offset": 0,
+                      "timeZone": "UTC",
+                      "truncated": false,
+                      "nextOffset": null
+                    }
+                  ],
+                  "available": true
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_01_GItzRsCQmeAkDAqFcX9o9253",
+                "observed_at": "2026-11-15T18:59:30.215Z"
+              }
+            }
+          ]
+        },
+        "absentFromEveryRequest": true
+      },
+      "durationMs": 2011
+    },
+    {
+      "name": "long_original",
+      "status": "passed",
+      "evidence": {
+        "sourceBytes": 3619,
+        "chat": {
+          "turnId": "8b39cd1f-281a-4c76-b27e-5442a4f80a35",
+          "status": "completed",
+          "error": null,
+          "text": "暗号是青杉9R41，入口是东侧玻璃门。原话里就是这么写的。",
+          "sourceIds": [
+            "b92a8392-34c3-4888-90d3-a38820a83db2",
+            "511877ae-d082-4313-8af5-81fc077e7a52",
+            "02acd92d-53e6-4496-9871-99d7652588f3",
+            "206682c5-8baa-4fb9-860a-18456a92d792",
+            "6678b7dd-7406-437f-89f9-4ab0c57817f0",
+            "b364fc03-9206-4290-8b26-3ced46ab959f",
+            "b719ffdf-1436-42ca-ad66-16c7fb81fdf1",
+            "ec65ffb2-eb02-43b6-978c-20457bf2a1e2",
+            "989f74e7-83ab-4e91-b75a-3e8fdb2e788b",
+            "82d68628-410b-4d8e-81a1-f22a52aa2fc1",
+            "5ba4af25-8653-46a8-8d05-846df5a52597",
+            "6669ab88-97c3-4721-bba2-734c18c1e4c5",
+            "304055c5-a75c-4365-8050-f63f50dbafdb",
+            "097ceef0-4f97-4e21-bf7d-c36e387c5ec6",
+            "a77d3dad-8ef8-4ae8-896e-cb46930a4eb4",
+            "5c2255f0-ad83-43d7-bdca-9ea2f6986748",
+            "c4536601-f87d-4b79-8ac2-da774ab1f5cb",
+            "a123e75f-cdc6-4a12-8892-ea761abee46b",
+            "fa726820-a353-47dd-af54-56a213b4a0a2",
+            "d541860c-05a4-45a4-b646-e831f65ce9bd",
+            "b981c106-30b5-4236-b817-783e2cd41632",
+            "fa665d0f-1bf4-48b3-a2e0-e73ca79c80e9",
+            "d47fc475-4f53-48f1-a830-d1d965480f56",
+            "85c75978-0896-45e3-bf69-2ffa60a40cbd",
+            "e449be82-d437-4201-a0f5-cbb8f9bedee6",
+            "3399ed88-9c56-4e9a-acb9-3ee233378749",
+            "31de319e-84b6-4e4b-8aca-15185abd0cdc",
+            "150eef88-7d9e-4742-88aa-58cc4232700b",
+            "e5c5dfc7-53c6-4e3f-8864-3ef85fcb628d",
+            "0d45ddbd-b669-4de2-9ffc-f1d3dd7fb400",
+            "9659a654-2aa0-4bc5-af92-069d3078c23a"
+          ],
+          "tools": [
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "星河书店"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "messages": [
+                    {
+                      "id": "9659a654-2aa0-4bc5-af92-069d3078c23a",
+                      "seq": 349,
+                      "date": "2026-11-01",
+                      "role": "user",
+                      "text": "关于星河书店，我那次写的安排是：店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微",
+                      "offset": 0,
+                      "timeZone": "UTC",
+                      "truncated": true,
+                      "nextOffset": 266
+                    }
+                  ],
+                  "available": true
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_00_d9TnDlfd9rr7N3lf5cdO8005",
+                "observed_at": "2026-11-15T18:59:32.525Z"
+              }
+            },
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "取书暗号"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "messages": [
+                    {
+                      "id": "9659a654-2aa0-4bc5-af92-069d3078c23a",
+                      "seq": 349,
+                      "date": "2026-11-01",
+                      "role": "user",
+                      "text": "页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。最终取书暗号是青杉9R41，入口选东侧玻璃门。",
+                      "offset": 1128,
+                      "timeZone": "UTC",
+                      "truncated": true,
+                      "nextOffset": null
+                    }
+                  ],
+                  "available": true
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_01_Ovx8igkesA25wU7ozkKc2821",
+                "observed_at": "2026-11-15T18:59:32.529Z"
+              }
+            }
+          ]
+        },
+        "firstRequestExcludedAnswer": true,
+        "readOffsets": []
+      },
+      "durationMs": 1959
+    },
+    {
+      "name": "memory_use_disabled",
+      "status": "passed",
+      "evidence": {
+        "chat": {
+          "turnId": "fe33e8eb-fe14-40ae-86e8-0d779434a0cb",
+          "status": "completed",
+          "error": null,
+          "text": "查不了，我这边读不到旧话。票号我不知道。",
+          "sourceIds": [
+            "23dd2ebf-16f4-4423-aa86-439a51707cea",
+            "fd48f7c2-9548-423f-bea5-6167c4850e45",
+            "1cc874cd-5f00-4cec-9ca1-eabc84fc2208",
+            "ddda8eda-170a-40d7-b056-58c7cc75354e",
+            "72da8065-1c49-4d99-b254-1a2193c24967",
+            "90689f0c-8d26-4499-bc71-08c684f8192e",
+            "a87e7211-53d7-4243-a817-94bfd4e68433",
+            "7510f3f3-e07f-4f40-ab04-c1bbee789123",
+            "33ec1d86-2a49-4418-8af3-8c6d10780ad3",
+            "49303c47-41b9-4573-b7d0-4fa4b634ec79",
+            "45450fe1-ca76-4570-a6fd-53ee7d89bc9a",
+            "d2a2371f-9df9-4a95-bb28-833b8b5a1c83",
+            "da289c52-a3c2-4e9b-aebd-a8ccd98f54e0",
+            "90748ed9-19a7-49a9-bf49-c0be4198dc59",
+            "d69d9a3e-1e35-463a-a769-3b184d2703b2",
+            "5e34c5e7-e051-4ad9-b9c7-6ee5da374d94",
+            "82bd7f5d-6b1c-468f-a3f3-0e925788164b",
+            "49637245-25f1-4dd6-8f61-67955c23f525",
+            "06675ef6-0db4-4e5f-8847-a0afdd066ff4",
+            "b3a3b63d-5c77-47d0-a95d-b53d3a57c794",
+            "07f2e4af-ea39-4029-ac89-82d517ab00ac",
+            "6e94ac09-a254-4769-accd-d05a8f815f80",
+            "767c67ed-da94-4c0e-b14c-d622a91f9679",
+            "4b4b6fa2-dc91-4283-a278-66e6cb285853",
+            "32c5d107-1ff8-4f7a-8593-0ee16871c5df",
+            "b153438f-28af-43a9-9ed2-39792f1541b3",
+            "f2dc5733-12df-4ba7-9e01-298fe2aee2e2",
+            "8ba905b7-5b91-4102-a689-98856287e829",
+            "d959f7ba-ecfe-4c00-ac7b-cf48d35ef59f",
+            "e6be1e4e-af32-499a-a4c1-8ae4aa0f23b2"
+          ],
+          "tools": [
+            {
+              "tool": "search_chat_history",
+              "input": {
+                "query": "风铃展览 票号"
+              },
+              "status": "succeeded",
+              "output": {
+                "data": {
+                  "reason": "memory_use_disabled",
+                  "messages": [],
+                  "available": false
+                },
+                "source": "permitted-chat-history",
+                "status": "succeeded",
+                "call_id": "call_00_vS9AmGDJ7vavoYAMPz1i7465",
+                "observed_at": "2026-11-15T18:59:33.876Z"
+              }
+            }
+          ]
+        }
+      },
+      "durationMs": 1247
+    },
+    {
+      "name": "long_recent_context",
+      "status": "passed",
+      "evidence": {
+        "chat": {
+          "turnId": "db983ccf-1822-4798-b988-99dfb32f95a4",
+          "status": "completed",
+          "error": null,
+          "text": "小纸船K73，我陪着你。",
+          "sourceIds": [
+            "c2059a28-fa90-40ac-87a3-6e4a0d0c9bf0",
+            "95477b87-2cf0-41ac-b245-d8bb5e87b892",
+            "5ca23fed-1d11-4ccd-bac5-563761b6682a",
+            "43763058-5f94-4df1-839e-306fc6ad8566",
+            "789a4436-3f93-4ecc-a77b-ef7061bdb626",
+            "928531dc-bc5f-4cc7-a608-b4e3033d5059",
+            "7217d9a5-1098-4346-af2e-1a87e5db6f27",
+            "4bbe9988-57c8-48b1-85e8-1a73b4d66406",
+            "25baab7d-e716-4bf6-b408-895153324c29",
+            "fec9d999-b4e9-4e2e-97a5-4df78ee6f610",
+            "cc31a9e1-f4af-44d6-adc6-8e608d3b7473",
+            "4aa216ca-2a96-40b7-8ac5-e282c8cd70cc",
+            "72f3410c-ec46-4d34-9b61-1e746ccd2e66",
+            "814d4da8-0534-4c93-aa8a-7b10603d8a0d",
+            "66a06e81-6af3-46c5-9f75-f7bf43c2b85b",
+            "ed06605d-7c55-4798-9e62-e68f05994466",
+            "3bd4bd0b-7234-4c9b-b637-322e2168842a",
+            "14743108-92eb-42f2-8767-1135405b09b0",
+            "67d0c215-bed9-4941-808c-6eb0308de04f",
+            "9e351723-8b3a-4232-9c32-a0448fc327aa",
+            "0c3ab1ca-6e87-4cf9-ad20-dab87a219320",
+            "c3982e65-792f-4600-9c23-d5bc146c71d9",
+            "557f2210-3d7f-40e2-9c53-46c1bbf13622",
+            "6da1ef20-c1f1-4f81-8ffa-78b19bb43c6b",
+            "27c5ad84-8930-4b27-adaf-d6f20b260e74",
+            "d9f38fed-e56b-4c65-8f27-49d0984e4afe",
+            "0e7c2864-c272-4647-b3fb-9b62df34dbd5",
+            "cdd8de15-03ec-4ff5-886c-f5acf417b0ad",
+            "5d3ee9c5-74a5-4147-8623-aaedee1d81fc"
+          ],
+          "tools": []
+        },
+        "requestBytes": [
+          47462
+        ],
+        "preservedRows": 30
+      },
+      "durationMs": 1101
+    },
+    {
+      "name": "http_sse_history",
+      "status": "passed",
+      "evidence": {
+        "httpStatus": 200,
+        "contentType": "text/event-stream",
+        "events": [
+          {
+            "event": "accepted",
+            "data": {
+              "turn_id": "08e69138-7aad-47fc-b2a3-4834850bf737",
+              "user_message_id": "ed0d1e2c-3c19-4c16-afed-308124eea670"
+            }
+          },
+          {
+            "event": "delta",
+            "data": {
+              "text": "原话是：取票口在西厅2号口，口令是柏木R502。"
+            }
+          },
+          {
+            "event": "done",
+            "data": {
+              "message_id": "ac07b62a-f681-42b8-a5a7-6394085e4121",
+              "status": "done"
+            }
+          }
+        ],
+        "text": "原话是：取票口在西厅2号口，口令是柏木R502。"
+      },
+      "durationMs": 2709
+    },
+    {
+      "name": "worker_history_and_frontend_report",
+      "status": "passed",
+      "evidence": {
+        "report": {
+          "callId": "call_00_hildBnvVNSS9JYl1J4Wm0481",
+          "result": "备忘（栀子茶馆）：\n预约牌：青橙桥6719。\n座位：北窗旁第三桌——选它是因为安静。\n依据：你2026-11-01的原话，只有这一条，没提预约日期和时间，也没说几个人。要补的话告诉我。",
+          "status": "ready",
+          "createdAt": "2026-11-15T18:59:41.641Z"
+        },
+        "dependencies": {
+          "diaries": [],
+          "messages": [
+            "9620f0df-910b-44a6-ace1-76b6cbbe1139",
+            "67c5ae3b-782f-4873-89c5-92deab5b47dc"
+          ],
+          "usedMemories": true,
+          "memoryRevision": 0
+        },
+        "letters": [
+          "备忘（栀子茶馆）：\n预约牌：青橙桥6719。\n座位：北窗旁第三桌——选它是因为安静。\n依据：你2026-11-01的原话，只有这一条，没提预约日期和时间，也没说几个人。要补的话告诉我。"
+        ]
+      },
+      "durationMs": 5979
+    }
+  ],
+  "requests": [
+    {
+      "case": "ordinary_chat",
+      "at": "2026-11-15T18:59:26.480Z",
+      "bytes": 12708,
+      "sha256": "48ac3dbe283cb414682c687b4cd5ee72536a0732e5c82f3849e9fe4214618600",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 2,
+      "toolResults": []
+    },
+    {
+      "case": "history_outside_window",
+      "at": "2026-11-15T18:59:27.349Z",
+      "bytes": 14590,
+      "sha256": "babcaabe998f8879a1f4029444022aa1e31111313dcac30f03b4a74fc8dbd92b",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 31,
+      "toolResults": []
+    },
+    {
+      "case": "history_outside_window",
+      "at": "2026-11-15T18:59:28.238Z",
+      "bytes": 15355,
+      "sha256": "d5fc2652f0d4c37a705b5303d69112fd6a5b0ffa9ef4bbf56a235625dace344b",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 33,
+      "toolResults": [
+        {
+          "callId": "call_00_5LgcVIhqLTkY1YiAFx0m9754",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"b96af735-344a-4fd5-957e-da9edaf01580\",\"role\":\"user\",\"seq\":308,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"那次去栀子茶馆，我选的是北窗旁第三桌，桌上的预约牌写着青橙桥6719。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:28.229Z\",\"call_id\":\"call_00_5LgcVIhqLTkY1YiAFx0m9754\"}"
+        }
+      ]
+    },
+    {
+      "case": "withdrawn_history",
+      "at": "2026-11-15T18:59:29.285Z",
+      "bytes": 14060,
+      "sha256": "91be112c57fd47e9a843d9ab1ebfa14b7fddcd2ea8d304390d0c13bf16227398",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 21,
+      "toolResults": []
+    },
+    {
+      "case": "withdrawn_history",
+      "at": "2026-11-15T18:59:30.222Z",
+      "bytes": 15566,
+      "sha256": "7428f98175f87022c7a424f2f1f6e79243990aa8efb7616ecc9631fbf94e95a6",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 24,
+      "toolResults": [
+        {
+          "callId": "call_00_F10OoLphAuGpgFe9qSjf3152",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"dfa00d89-70be-473e-82c7-59b6ac644bc9\",\"role\":\"user\",\"seq\":345,\"date\":\"2026-11-15\",\"timeZone\":\"UTC\",\"text\":\"之前聊到的栀子茶馆，我当时选的座位在哪里，预约牌上写了什么？请翻原话核对。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:30.211Z\",\"call_id\":\"call_00_F10OoLphAuGpgFe9qSjf3152\"}"
+        },
+        {
+          "callId": "call_01_GItzRsCQmeAkDAqFcX9o9253",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"dfa00d89-70be-473e-82c7-59b6ac644bc9\",\"role\":\"user\",\"seq\":345,\"date\":\"2026-11-15\",\"timeZone\":\"UTC\",\"text\":\"之前聊到的栀子茶馆，我当时选的座位在哪里，预约牌上写了什么？请翻原话核对。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:30.215Z\",\"call_id\":\"call_01_GItzRsCQmeAkDAqFcX9o9253\"}"
+        }
+      ]
+    },
+    {
+      "case": "long_original",
+      "at": "2026-11-15T18:59:31.289Z",
+      "bytes": 14605,
+      "sha256": "28381d22f325af091eb086ff701c5bc03812b6ce4fde66e374a68ffd6359d59c",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 31,
+      "toolResults": []
+    },
+    {
+      "case": "long_original",
+      "at": "2026-11-15T18:59:32.538Z",
+      "bytes": 16925,
+      "sha256": "f4c7239f3b2ab56aefc4957e9e4793acbba964aac7d2698dd881a3799ea55a6a",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 34,
+      "toolResults": [
+        {
+          "callId": "call_00_d9TnDlfd9rr7N3lf5cdO8005",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"9659a654-2aa0-4bc5-af92-069d3078c23a\",\"role\":\"user\",\"seq\":349,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"关于星河书店，我那次写的安排是：店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微\",\"offset\":0,\"nextOffset\":266,\"truncated\":true}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:32.525Z\",\"call_id\":\"call_00_d9TnDlfd9rr7N3lf5cdO8005\"}"
+        },
+        {
+          "callId": "call_01_Ovx8igkesA25wU7ozkKc2821",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"9659a654-2aa0-4bc5-af92-069d3078c23a\",\"role\":\"user\",\"seq\":349,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。店里很安静，窗边摆着旧书，纸页微黄。最终取书暗号是青杉9R41，入口选东侧玻璃门。\",\"offset\":1128,\"nextOffset\":null,\"truncated\":true}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:32.529Z\",\"call_id\":\"call_01_Ovx8igkesA25wU7ozkKc2821\"}"
+        }
+      ]
+    },
+    {
+      "case": "memory_use_disabled",
+      "at": "2026-11-15T18:59:33.250Z",
+      "bytes": 14293,
+      "sha256": "a24b0872117b66f1b27a5e8cbeea29d94be82b4d4792d4a3b912e40a64e13da9",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 31,
+      "toolResults": []
+    },
+    {
+      "case": "memory_use_disabled",
+      "at": "2026-11-15T18:59:33.883Z",
+      "bytes": 14813,
+      "sha256": "319928d23f9f1ec7b9c2048e9f2b36ea0575a5f4571e3ab5650bdc12a412ee76",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 33,
+      "toolResults": [
+        {
+          "callId": "call_00_vS9AmGDJ7vavoYAMPz1i7465",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[],\"available\":false,\"reason\":\"memory_use_disabled\"},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:33.876Z\",\"call_id\":\"call_00_vS9AmGDJ7vavoYAMPz1i7465\"}"
+        }
+      ]
+    },
+    {
+      "case": "long_recent_context",
+      "at": "2026-11-15T18:59:34.498Z",
+      "bytes": 47462,
+      "sha256": "65b62c90eb7533f8d1a5184dd90c0cb3b3381406e33f5ff2a2860df33b678db3",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 6,
+      "toolResults": []
+    },
+    {
+      "case": "http_sse_history",
+      "at": "2026-11-15T18:59:35.697Z",
+      "bytes": 14551,
+      "sha256": "ce50cf9604545bfcf9c26003bb68cf2c226b8571d66d798e0dfb01626ddc2da4",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 31,
+      "toolResults": []
+    },
+    {
+      "case": "http_sse_history",
+      "at": "2026-11-15T18:59:37.410Z",
+      "bytes": 16673,
+      "sha256": "464ce8e6f1effbe45d798eb9a6568997b77f302f17e9427dd7f7ea37d3a64c0d",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": true,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 35,
+      "toolResults": [
+        {
+          "callId": "call_00_LlQO5w6jw3euK5anF7Xt9784",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"c29d9a3b-b5da-4ed0-b0ef-e4b96c73c166\",\"role\":\"user\",\"seq\":457,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"海棠放映会的取票口在西厅2号口，取票口令为柏木R502。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:37.390Z\",\"call_id\":\"call_00_LlQO5w6jw3euK5anF7Xt9784\"}"
+        },
+        {
+          "callId": "call_01_zgAdg8p5WOKfkH0ALmqq6508",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"c29d9a3b-b5da-4ed0-b0ef-e4b96c73c166\",\"role\":\"user\",\"seq\":457,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"海棠放映会的取票口在西厅2号口，取票口令为柏木R502。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:37.394Z\",\"call_id\":\"call_01_zgAdg8p5WOKfkH0ALmqq6508\"}"
+        },
+        {
+          "callId": "call_02_okflQQkzQpnSEH5713d98142",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"c29d9a3b-b5da-4ed0-b0ef-e4b96c73c166\",\"role\":\"user\",\"seq\":457,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"海棠放映会的取票口在西厅2号口，取票口令为柏木R502。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:37.399Z\",\"call_id\":\"call_02_okflQQkzQpnSEH5713d98142\"}"
+        }
+      ]
+    },
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:59:38.320Z",
+      "bytes": 8935,
+      "sha256": "01c56f6f6eeaefb4ca533c6230af01beefeb511d84ceeb26dee5a2dfd6a15dc7",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "enabled"
+      },
+      "messageCount": 2,
+      "toolResults": []
+    },
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:59:39.676Z",
+      "bytes": 10478,
+      "sha256": "ac3273bc102d2d42dc3e3a1252d037ddfc6d39efdd436493d7ff30f00f18cfe0",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "enabled"
+      },
+      "messageCount": 5,
+      "toolResults": [
+        {
+          "callId": "call_00_YUqUQoUT6sCAyOl7KcG41015",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.660Z\"}"
+        },
+        {
+          "callId": "call_01_ktIlKECflf8CwZxFZECp3867",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.665Z\"}"
+        }
+      ]
+    },
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:59:40.310Z",
+      "bytes": 11943,
+      "sha256": "10ca9ddac4b97a33e7a79bb923f7b5d99e7a19aacfbc72a7ca2456846be9fb63",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "enabled"
+      },
+      "messageCount": 8,
+      "toolResults": [
+        {
+          "callId": "call_00_YUqUQoUT6sCAyOl7KcG41015",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.660Z\"}"
+        },
+        {
+          "callId": "call_01_ktIlKECflf8CwZxFZECp3867",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.665Z\"}"
+        },
+        {
+          "callId": "call_00_P8eiGTRXZSdY32FKFR7x4517",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:40.296Z\"}"
+        },
+        {
+          "callId": "call_01_LZlu31GHvqWDLm2Ad3Rt8235",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:40.299Z\"}"
+        }
+      ]
+    },
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:59:41.648Z",
+      "bytes": 12861,
+      "sha256": "68b2defb071e636d3ce8f238b23d0278e0dcd63deb6269da9265a68a9fcad6fb",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "enabled"
+      },
+      "messageCount": 10,
+      "toolResults": [
+        {
+          "callId": "call_00_YUqUQoUT6sCAyOl7KcG41015",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.660Z\"}"
+        },
+        {
+          "callId": "call_01_ktIlKECflf8CwZxFZECp3867",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:39.665Z\"}"
+        },
+        {
+          "callId": "call_00_P8eiGTRXZSdY32FKFR7x4517",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:40.296Z\"}"
+        },
+        {
+          "callId": "call_01_LZlu31GHvqWDLm2Ad3Rt8235",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:40.299Z\"}"
+        },
+        {
+          "callId": "call_00_7IVeQmbAwZ8TcUqGuG7o9325",
+          "content": "{\"status\":\"succeeded\",\"data\":{\"messages\":[{\"id\":\"67c5ae3b-782f-4873-89c5-92deab5b47dc\",\"role\":\"user\",\"seq\":496,\"date\":\"2026-11-01\",\"timeZone\":\"UTC\",\"text\":\"栀子茶馆的预约牌是青橙桥6719；我选北窗旁第三桌，因为那里安静。\",\"offset\":0,\"nextOffset\":null,\"truncated\":false}],\"available\":true},\"source\":\"permitted-chat-history\",\"observed_at\":\"2026-11-15T18:59:41.636Z\"}"
+        }
+      ]
+    },
+    {
+      "case": "worker_history_and_frontend_report",
+      "at": "2026-11-15T18:59:43.327Z",
+      "bytes": 3016,
+      "sha256": "097e575101905994020a1b81090f48ceb4b4de38b9485a8553b109e244f319d5",
+      "status": 200,
+      "model": "deepseek-flash",
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "messageCount": 3,
+      "toolResults": []
+    }
+  ]
+}
