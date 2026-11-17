@@ -155,7 +155,9 @@ export async function publishErrand(candidate:{runId:string;attempt:number;callI
  const journal=r.report,a=journal.active;if(!a||a.callId!==candidate.callId)return 'sent';
  if(t.catId!==cat.id||conv.catId!==cat.id||t.kind!=='errand')throw new Error('errand_owner');
  const denied=await errandDenial(tx,cat,conv,t,journal,candidate.text);
- const purpose=`errand:${a.status==='waiting'?'waiting:'+a.callId:a.status}`;
+ // 第一代保持历史收据键；续办的失败/提问按执行隔离，旧失败不吞掉新汇报。
+ const runScope=r.generation>0?`:run:${r.id}`:'';
+ const purpose=`errand:${a.status==='waiting'?'waiting:'+a.callId:a.status}${runScope}`;
  const [receipt]=await tx.select().from(outbox).where(and(eq(outbox.ticketId,t.id),eq(outbox.purpose,purpose+':chat')));
  if(receipt)return 'sent';
  const finish=async(stage:string,reason:string)=>{
@@ -187,7 +189,7 @@ export async function publishErrand(candidate:{runId:string;attempt:number;callI
  await tx.insert(outbox).values({catId:cat.id,ticketId:t.id,purpose:'errand:ready:letter',kind:'mailbox_letter',status:'sent'});
  }
  if(a.status==='waiting'){
- await enqueuePush(tx,{catId:cat.id,ticketIds:[t.id],reason:'errand_waiting',payload:{route:'chat',message_id:chatMessage!.id},proof:{messageIds:[...new Set([t.sourceMessageId!,...journal.dependencies.messages])],diaries:journal.dependencies.diaries,usedMemories:journal.dependencies.usedMemories,memoryRevision:journal.dependencies.memoryRevision,content:a.question!,callId:a.callId},now:candidate.now,purpose:'push:errand:waiting:'+a.callId});
+ await enqueuePush(tx,{catId:cat.id,ticketIds:[t.id],reason:'errand_waiting',payload:{route:'chat',message_id:chatMessage!.id},proof:{messageIds:[...new Set([t.sourceMessageId!,...journal.dependencies.messages])],diaries:journal.dependencies.diaries,usedMemories:journal.dependencies.usedMemories,memoryRevision:journal.dependencies.memoryRevision,content:a.question!,callId:a.callId,runId:r.id},now:candidate.now,purpose:'push:errand:waiting:'+a.callId+runScope});
  await tx.update(tickets).set({stage:'waiting',updatedAt:candidate.now}).where(eq(tickets.id,t.id));
  await tx.update(runs).set({status:'pending',leaseUntil:null,stepStartedAt:null}).where(eq(runs.id,r.id));
  }else await finish(a.status,'delivered');

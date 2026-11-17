@@ -35,7 +35,9 @@ async function pushAllowed(tx:Tx,p:typeof pushNotifications.$inferSelect,cat:typ
  if(p.reason==='followup_due'&&(t.kind!=='followup'||!t.dueAt||+now-+t.dueAt>86400000))return false;
  if(p.reason.startsWith('errand')&&t.kind!=='errand')return false;
  if(p.reason==='errand_waiting'){
-  const[r]=await tx.select().from(runs).where(eq(runs.ticketId,t.id));if(t.stage!=='waiting'||!r?.report.active||r.report.active.callId!==p.proof.callId||+now-Date.parse(r.report.active.createdAt)>86400000)return false;
+  const[r]=await tx.select().from(runs).where(eq(runs.ticketId,t.id)).orderBy(desc(runs.generation)).limit(1);
+  if(t.stage!=='waiting'||!r?.report.active||r.report.active.callId!==p.proof.callId||+now-Date.parse(r.report.active.createdAt)>86400000)return false;
+  if(p.proof.runId?p.proof.runId!==r.id:r.generation!==0)return false;
  }
  text.push(t.goal);}
  for(const id of p.proof.messageIds){const[m]=await tx.select({m:messages,catId:sql<string>`(select cat_id from conversations where id=${messages.conversationId})`}).from(messages).where(eq(messages.id,id));if(!m?.m.contextAllowed||m.catId!==cat.id||topics.suppressedSources.has(id))return false;text.push(m.m.text);}

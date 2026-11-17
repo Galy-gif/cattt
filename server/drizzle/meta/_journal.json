@@ -134,6 +134,13 @@
       "when": 1794534042929,
       "tag": "0018_worker_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1794929044593,
+      "tag": "0019_errand_resume",
+      "breakpoints": true
     }
   ]
 }

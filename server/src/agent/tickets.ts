@@ -59,7 +59,9 @@ export async function listTickets(catId: string, status = 'open') {
   return db
     .select()
     .from(tickets)
-    .where(and(eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, status === 'all' ? undefined : eq(tickets.status, status)))
+    .where(and(eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, status === 'all' ? undefined
+      : status === 'actionable' ? sql`(${tickets.status}='open' or (${tickets.kind}='errand' and ${tickets.status}='ended' and ${tickets.stage} in ('failed','blocked')))`
+      : eq(tickets.status, status)))
     .orderBy(asc(tickets.dueAt), asc(tickets.createdAt));
 }
 export async function scheduleFollowup(catId: string, sourceId: string, when: string, about: string, now = new Date()) {
@@ -110,7 +112,7 @@ export async function cancelTicket(catId: string, ticketId: string, sourceId?: s
   }, async tx => {
     const [ticket] = await tx.update(tickets)
       .set({ status: 'ended', stage: 'cancelled', endedReason: 'cancelled', updatedAt: sql`now()` })
-      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, sql`(${tickets.status}='open' or exists(select 1 from outbox o where o.ticket_id=${tickets.id} and o.kind='push' and o.status='pending'))`))
+      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, sql`(${tickets.status}='open' or (${tickets.kind}='errand' and ${tickets.status}='ended' and ${tickets.stage} in ('failed','blocked')) or exists(select 1 from outbox o where o.ticket_id=${tickets.id} and o.kind='push' and o.status='pending'))`))
       .returning();
     if (!ticket) throw new TicketError(404, '没有这件约定');
     // attach表示对既有事项的决定；取消以command.kind及事项终态明确记录。

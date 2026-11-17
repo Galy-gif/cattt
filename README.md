@@ -1,117 +1,142 @@
-# cattt · 猫猫 App
+# Cattt · 猫猫
 
-一个没有打卡、没有等级、没有喂养任务的陪伴 App：团子住在一个毛毡小院里，你来不来它都在过自己的日子。
+一款以猫为伴的 iOS App。团子住在毛毡小院里，有自己的性格、作息和小情绪。你可以来看看它、聊会儿天，或记下一天里的小事；几天不来，它也不会催你。
 
-2026-11-17：显式约定／托付已接入统一指令入口，补齐来源校验、操作记录和请求重放收据，保留现有 App 接口与后台发布链路。范围及验证见[Agent统一指令入口](docs/决策/2026-11-17-Agent统一指令入口.md)；同日复核发现的4项缺陷已修复，后端289/289及全仓检查通过，见[复核报告](outputs/agent-core-review/验收报告.md)。本批按用户要求合入 main 并推送，交付以 Git 记录为准；未部署。
+项目包含 SwiftUI 客户端、Three.js 3D 小院和支持长期记忆与异步托付的后端。目前处于开发阶段，部署与设备验收状态见[项目文档](docs/README.md)。
 
-**这个仓库是项目的唯一真相源。** 现在是什么样、为什么这样，只看这里。产品文档也在这里（`docs/产品/`），不再以飞书为准；本机的出图目录、AI 助手的记忆都只是输入；一条信息要算数，必须落进仓库。规则见 [工作约定](docs/工作约定.md)。
+## 主要功能
 
-2026-11-11（独立 worktree，本批代码交付）：异步 Agent 六段本机代码已实施，包含约定、托付、每日猫日记、正式身份/推送部署包与 observe 推断；后端232项、HTTPS冒烟16项见子代理记录，父代理补主要模拟器链路、点击修复及最终Debug/Release。真实模型质量、一次未定位的WebGL重载错误及真实Apple/APNs/云环境验收仍待；本批按用户要求提交、推送开发分支，实际交付以 Git 记录为准；当前代码位置和证据见[实施与验收](docs/方案/团子异步Agent与后端架构-实施与验收-2026-11-10.md)及[统一模拟器记录](outputs/async-agent-review/模拟器实测记录.md)。
+- **3D 小院**：团子会散步、喝水、休息和玩耍，院子随时段与天气变化；支持拖动、缩放和找团子。
+- **聊天与记忆**：流式对话、历史回看和断线恢复；可查看、更正或撤回记忆，设置不想再聊的话题。
+- **私人日记**：按日记录和回看，默认私密。只有主动允许团子阅读的日记，才会用于回应或留言。
+- **约定与托付**：约好之后再聊，也可以让团子在后台整理想法。失败或受阻的托付可在聊天中补充后继续原事项。
+- **猫的个性**：气质影响团子在院子里的活动与聊天方式；团子也会写自己的日记。
 
-2026-11-07：第六批将原生头像的动作帧改为在原有停顿内异步准备、各处头像共享结果。单轮模拟器首播的主线程同步启动片段：眨眼26.385→5.380ms、歪头19.031→0.343ms；帧数与动作时长保留，后台、遮挡、等待期间关闭和减弱动态效果检查通过，全仓检查与Debug/Release构建通过。本批按用户要求提交并推送 main，交付以 Git 记录为准，本次开发到此结束；异步准备耗时、恢复时较慢的样本与真机边界见[头像动画性能报告](outputs/ios-avatar-performance-review/验收报告.md)。
+院子是 App 首页，聊天、日记和“我的”从场景进入。产品围绕陪伴展开，不设置打卡、等级或喂养任务。
 
-2026-11-07：第五批将 iOS 水碗/邮件事实改为状态变化即时同步、每秒核对跨日与恢复；院子/聊天五秒内检查次数由307/312次降到各5次。即时同步、受控跨日条件、模拟器重载、全仓检查及Debug/Release构建通过；已以 `2fa72b0` 提交并推送 main，远端网页/后端检查通过、Swift作业取消，真机性能未测，见[事实同步性能报告](outputs/ios-facts-performance-review/验收报告.md)及[交付记录](outputs/ios-avatar-performance-review/验收报告.md#第五批交付)。
+## 技术栈与架构
 
-2026-11-07：第四批将 iOS 原生日记列表的重复筛选排序改为记录变化时建立日期索引；索引契约、全仓检查、Debug/Release构建及模拟器保存重开通过。已以 `caf5113` 提交并推送 main，远端网页/后端检查通过、Swift作业取消；1,000条/100天批量基准和更新成本见[日记读取性能报告](outputs/ios-diary-performance-review/验收报告.md)及[交付记录](outputs/ios-facts-performance-review/验收报告.md#复测与交付边界)，真机性能未测。
+| 部分 | 技术 |
+| --- | --- |
+| iOS 客户端 | Swift、SwiftUI、WKWebView，最低 iOS 17 |
+| 3D 世界与展示页 | TypeScript、Three.js、Vite |
+| 服务端 | Node.js、TypeScript、Hono、AI SDK |
+| 数据与后台执行 | PostgreSQL、Drizzle ORM、pg-boss |
+| 实时消息 | SSE、Redis |
+| 模型与资源 | DeepSeek / mock 模型、Blender 3D 资源 |
 
-2026-11-07：第三批减少 iOS 原生日记日期处理的格式化器重复构造，日期契约、全仓检查、Debug/Release构建及模拟器保存/重开检查通过；已以 `dbff87e` 提交并推送 main，远端网页/后端检查通过、Swift作业取消，真机性能未测，见[原生性能报告](outputs/ios-native-performance-review/验收报告.md)及[交付记录](outputs/ios-diary-performance-review/验收报告.md#复测与交付边界)。
+SwiftUI 承载原生页面，WKWebView 渲染小院，首页与聊天共享同一个世界。后端分为 API 和 worker 两个进程：API 处理聊天与最终回应，worker 执行后台托付、记忆提取和日记处理，再提交持久化汇报。API 发布前重新检查上下文、用户许可和安静时段。
 
-2026-11-07：第二批减少 3D 帧循环的投影重算、固定路点枚举与无用树窝支撑计算；网页39项测试、全仓检查、Debug构建与模拟器树窝恢复检查通过。本批已以 `a70cf99` 提交并推送 main，远端网页/后端检查通过、Swift作业取消，真机性能未测，见[第二批报告](outputs/ios-performance-round2-review/验收报告.md)及[交付记录](outputs/ios-native-performance-review/验收报告.md#交付与边界)。
+PostgreSQL 保存业务状态、执行检查点与汇报，pg-boss 投递后台工作；Redis 用于聊天事件流和断线续传。Agent 的事项与执行分离设计参考了 [DeepSeek Super-agent](https://github.com/deepseek-ai/dsh-superagent-prototype)，实现按 Cattt 的陪伴场景组织。
 
-2026-11-07：iOS 3D 跟随的重复状态通知已消除，正式运行关闭详细帧采样并保留每秒恢复快照；模拟器对比、全仓检查与 Debug/Release 构建通过，真机能耗与帧率未测。本批已以 `2e5f15e` 提交并推送 main，远端网页/后端检查通过、macOS 作业取消，见[性能验收](outputs/ios-performance-review/验收报告.md)及[交付记录](outputs/ios-performance-round2-review/验收报告.md#交付与边界)。
+## 快速开始
 
-2026-11-06：按用户要求统一收录截至目前的代码、模型、资源和验收材料，并对齐后端与 iOS 的正式 3D 活动协议。各轮报告中的“未提交／未推送”为当时状态，当前以 Git 记录为准，见[本次记录](docs/决策/2026-11-06-统一提交与活动协议对齐.md)。
+以下命令从仓库根目录执行，标有 `cd server` 的代码块除外。
 
-2026-10-24：真实模型已完成8类App端到端检查、固定30轮连续对话及四气质各2条采样；修正上下文构建并发与无院子观察时的位移误述，120项后端回归通过。范围见[真实模型App验收](outputs/real-model-e2e-review/验收报告.md)，更广质量、真机与公网仍另验。
+### 环境要求
 
-2026-10-24：新模型凭证已通过认证与固定生成；真实聊天/记忆更正、旧记忆召回/撤回、日记读取的小样本检查已进行，并修正关闭学习后误称“记下了”的表达。本段为前期小样本，后续App验收见上行；原始证据见[真实模型报告](outputs/model-connection-review/验收报告.md)。
+- Node.js 22.12+、pnpm 11。
+- 构建 iOS：macOS、Xcode、Python 3。
+- 运行后端：PostgreSQL、Redis；仓库提供 Docker Compose 配置。
+- 修改 3D 源资源时需要 Blender，运行现有资源不需要。
 
-2026-10-24：创建步骤、猫名、气质细调和初见输入已接入本机保存与重开恢复；完成身份与领养日期稳定，故障重试与隔离检查通过，见[创建恢复验收](outputs/creation-recovery-review/验收报告.md)。真实模型后续检查见上行；云端档案/换设备恢复另做。
-
-2026-10-20历史：认证通过但余额不足；当前已由10-24新凭证检查更新，见[模型连接排查](outputs/model-connection-review/验收报告.md)。
-
-2026-10-19：日记已接入本机按日保存、账号同步与逐条读取许可；默认私密，主动给团子看后才读取/可能留言，日记来源可带进聊天，撤回统一停用。118项后端、7类HTTP、6类实际模拟器检查通过（受控模型）。真实模型认证失败；用户明确公网部署另做，后台每日写日记仍未接通，见[同步与读取报告](outputs/diary-sync-review/验收报告.md)。
-
-## 从这里开始
-
-| 想知道 | 看 |
-|---|---|
-| 产品要做什么 | [`docs/产品/`](docs/产品/)：产品需求、功能与页面清单、猫的个体差异机制 |
-| 做了哪些决定、为什么 | [`docs/决策/*.md`](docs/README.md#决策)，按日期从新往旧读 |
-| 现行方案和实施记录 | [`docs/README.md`](docs/README.md) 的"现行"一节 |
-| 怎么干活：出图、收图、验收、提交 | [`docs/工作约定.md`](docs/工作约定.md) |
-| iOS 工程结构 | [`ios/README.md`](ios/README.md) |
-| 后端 | [`server/README.md`](server/README.md) |
-| 给 AI 助手的入口 | [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) |
-
-## 现在的样子（2026-10-13）
-
-- **原生界面配套**：聊天已换为正式3D小院的六地点/五时段/晴雨背景，头像、我的与创建预览使用同一3D团子；原生页统一米白毛毡与淡蓝光晕，收起未实现的入口。模拟器核对与范围见[原生页面验收](outputs/native-ui-review/验收报告.md)，本轮页面观感已获用户确认；头像歪头动画已获确认，大头照图标方向已否决，小窗方向亦被否决；已选定第三款手绘趴姿符号并接入常规图标，模拟器主屏幕与四种图标外观已复核，真机按用户要求暂缓。
-
-- **导航**：没有底部 Tab 栏。院子就是首页；聊天是场景上的"聊会儿"，日记是院子里的信箱（点开抽出一张纸），"我的"是右上角头像按钮。
-- **世界层**：普通首页默认内嵌 3D 毛毡小院，院子和聊天复用一个世界；性格、作息、情绪选择活动意图，网页执行位移与实际回执。地点轨、拖动、缩放和找团子只改镜头。第3项第一批已接入猫窝趴睡呼吸、门口打瞌睡和完整喝水，饮水完成按真实回执去重；其他未接动作仍按实际能力降级，第一批三组动作观感已获用户确认，第二批歪头、理毛和情绪动作已接入，理毛舌头最终版已确认；第三批树窝看/睡与安全进出已接入，躺睡修正版已确认；第四批池塘探爪/拍水/甩水已确认，栅栏跳起与换爪转身修正版已确认，扑花已获用户确认，抓树已获用户确认，追尾巴颈部修正版已确认，伸懒腰抬臀版已确认，小跑节奏版已确认，第四批猫动作及倒水观感已确认；第二批闷着/难过眼嘴联动已确认，歪头/开心待单独确认。最新真机连续运行与正式首页逐帧证据仍待补，见[本批报告](outputs/tuanzi-life-review/验收报告.md)。Swift 2D 表现层与素材继续冻结，显式 `-world 2d` 可回退；不同时推进两个表现层。见[接入决策](docs/决策/2026-10-05-正式3D首页.md)与[本轮验收](outputs/yard-home-review/验收报告.md)。
-- **聊天**：默认本地模拟；调试面板可以切到本机后端（`server/`，开发者版，只在本机跑）。历史分页与本机当前回复的重启恢复已接入；11种真实模拟器客户端贯穿HTTP/SSE、PG与Redis联调通过（可控mock模型）。模拟器手动滚动实拍已通过，见[连续聊天验收](outputs/chat-continuity-review/验收报告.md)；真机暂缓。
-- **后端本轮改动**：工具循环、聊天移动、世界回执恢复、真实天气、Soul 与临时状态初版已接入；原开发库已迁移。范围与证据见 [实施验收](docs/方案/后端与Agent循环-实施与验收-2026-09-12.md)。
-- **最低系统**：iOS 17.0（`docs/决策/2026-09-12.md` 定）。
-- **iOS 换成网页版的视觉**（2026-09-17 定，09-18 定走 WKWebView 内嵌）：世界层和界面都换，2D 世界层在 3D 逐项对齐前继续用。第 0 轮已选定 ×1.5 完整效果；针对真机录屏确认的 12 次运行期画布闪空、镜头自动回弹和多处穿模，A/B/C 修复已实施。最终修复版在 iPhone 16 Pro Max 连续运行 7 分 34 秒，性能、触摸和轨迹净距过线，用户确认无白闪、镜头回弹/跳动或穿模。最终系统录屏逐帧复核也已通过：冷启动约 0.78 秒见到 3D、约 0.92 秒稳定，倍率循环 53.6 秒无闪空，内容进程终止后约 0.52 秒稳定恢复，连续三次重开均在 0.9 秒内稳定且无白屏；故障注入报告仍按硬规则记为“未通过”。App 与 WebContent 合计内存峰值 281.27MB，低于 450MiB；拔线 Power Profiler 采样中位 12.23%/小时、亮度 52%、热状态 fair。**第 0 轮已通过**，结论只覆盖这台 iPhone 16 Pro Max；第1轮独立构图预览已实施：双指缩放与找团子、全院取景、七处真机画面及夜雨复核；用户要求总览只覆盖院子，并扩展真实院内空间、少量添景，形成开阔的半山小院；已按确认后的[扩展方案](docs/方案/半山小院扩展与总览收紧-方案-2026-09-26.md)实现草地与路线扩展、少量添景；后续按看图反馈放大屋／池、延长栅栏、移除木牌并把石路整理成环路；[上一版真机评审](outputs/yard-layout-review/验收报告.md)已交付。本轮进一步细化 3D 小院空间、模型与光色，见[最新小院评审图及验收](outputs/yard-depth-review/验收报告.md)；10-02小院画面与手感已由用户确认，一键全景按钮已移除；真实故障恢复遮罩修复后录像过线。最终候选2525…aa27已完成20分钟持续矩阵、夜雨/往返内存观测窗口与有效拔线能耗，第1项收尾完成；结论限本台iPhone16ProMax/iOS26.6.2，10-05第2项已接入默认首页和行为，人工操作已获用户确认正常，逐帧证据范围见[正式首页报告](outputs/yard-home-review/验收报告.md)。见 [第一轮构图方案](docs/方案/iOS-第一轮竖屏构图与全景-方案-2026-09-26.md)。见 [问题修复方案](docs/方案/iOS-白闪自由滑动与3D穿模-方案-2026-09-20.md)、[原方案](docs/方案/iOS-3D世界层与界面同步-方案-2026-09-17.md) 与 [实施验收](docs/方案/iOS-3D世界层与界面同步-实施与验收-2026-09-20.md)。
-- **电脑网页版**（2026-09-17 起）：展示页，three.js 做的 3D 院子和 3D 团子，滚动带镜头走过院子六处地点，五个时段 × 晴雨。三轮交付（结构、材质与天色、合并）都已实施（分支 `web-desktop`）；团子的建模还在优化。见 [决策](docs/决策/2026-09-17-网页版.md) 与 [实施与验收](docs/方案/网页版-院子页面与天气-实施与验收-2026-09-17.md)。
-
-## 跑起来
-
-**App**：
+安装依赖：
 
 ```bash
-open ios/Maomao.xcodeproj
+pnpm --dir web install --frozen-lockfile
+pnpm --dir server install --frozen-lockfile
 ```
 
-选 iPhone 模拟器直接运行。App 里的 3D 院子（默认首页及调试面板的实测页）读的是打进包里的网页版，构建 App 前先打一次（产物在 `ios/Maomao/Resources/YardWeb/`，不进仓库）：
+### 运行 iOS App
+
+先打包内嵌小院，再打开 Xcode 工程：
 
 ```bash
 pnpm --dir web build:ios
+open ios/Maomao.xcodeproj
 ```
 
-增删文件后重建工程文件：
+在 Xcode 中选择 `Maomao` scheme 和 iPhone 模拟器运行。真机运行需配置自己的签名团队。新机器若缺少 Metal 工具链，执行 `xcodebuild -downloadComponent MetalToolchain`。
+
+App 默认使用本地模拟，可先体验小院和界面。需要真实后端时，按下一节启动服务，再在 App 调试面板中切换到本机后端并填入开发 token。
+
+### 运行本机后端
+
+启动 Docker；macOS 使用 Colima 时先执行 `colima start`。首次配置：
 
 ```bash
-cd ios && python3 generate_project.py
+cd server
+cp .env.example .env
+docker compose up -d --wait
+pnpm db:migrate
+MODEL_PROVIDER=mock pnpm create-dev-user dev
+MODEL_PROVIDER=mock pnpm dev
 ```
 
-**后端**：需要 Node 22+、pnpm、Docker（本机用 colima），步骤见 [`server/README.md`](server/README.md)。App 连本机后端：调试面板切到 local 并填 token，或者启动参数 `-backendMode local -backendToken <token>`。
+已有 `.env` 时保留原文件。`create-dev-user` 会创建开发账号并输出一次 token，`pnpm dev` 同时启动 API 和 worker；API 默认地址为 `http://localhost:8787`。iOS 模拟器可直接连接此地址。
 
-**网页版**：需要 Node 22+、pnpm。
+上面的命令使用固定回复的 mock 模型，无需模型密钥。连接真实模型时，在 `server/.env` 中设置：
+
+```dotenv
+MODEL_PROVIDER=deepseek
+MAOMAO_DEEPSEEK_API_KEY=你的密钥
+```
+
+然后用 `pnpm dev` 启动。模型、数据库、身份与推送配置见 [server/.env.example](server/.env.example)，更多后端说明见 [server/README.md](server/README.md)。
+
+### 运行网页展示页
 
 ```bash
-pnpm --dir web install
-pnpm --dir web dev        # 首页 http://localhost:5173/ ，团子调试页 /tuanzi.html ；调试面板加 ?debug=1
-pnpm --dir web typecheck && pnpm --dir web build
+pnpm --dir web dev
 ```
 
-改了院子物件或落点要重新生成：`python3 assets/yard-3d/make_paths.py`、`blender -b --factory-startup -P assets/yard-3d/build_yard.py`（见 [`assets/yard-3d/README.md`](assets/yard-3d/README.md)）。
+打开 `http://localhost:5173` 查看小院，`/tuanzi.html` 为团子调试页。网页用于 3D 展示，不提供完整 App 的聊天和日记功能。
 
-**测试**：一把跑完本机能跑的全部检查：
+## 测试与构建
+
+在 macOS 开发环境运行仓库检查：
 
 ```bash
 sh tools/check_all.sh
 ```
 
-它依次跑：`tools/repo_check.py --all`（大文件、日志、文档登记）、`tools/check_shared_rules.py`（行为表与关键帧等跨端规则、生成物是否与源同步）、`tools/check_world_logic.sh`（iOS 世界层逻辑测试）、日记/创建资料存储测试、网页 typecheck 与 `test:app`、后端 typecheck。`tools/repo_check.py` 和 `tools/check_shared_rules.py` 也挂在 pre-commit 钩子上。
+包括仓库规范、跨端规则、iOS 逻辑测试、网页测试和前后端类型检查。后端集成测试另需一套已迁移的独立测试数据库与 Redis，配置 `DATABASE_URL`、`REDIS_URL` 后执行：
 
-分开跑：`sh tools/check_world_logic.sh`、`pnpm --dir web test:app`、`cd server && pnpm test`（要本机 PG/Redis）。资源校验传入构建好的 .app：`python3 assets/tools/validate_world_v4.py <Maomao.app 路径>`。
+```bash
+MODEL_PROVIDER=mock pnpm --dir server test --maxWorkers=1
+```
 
-## 仓库地图
+常用的单项命令：
 
-| 目录 | 放什么 |
-|---|---|
-| `ios/` | SwiftUI App、工程生成脚本、世界层逻辑测试 |
-| `server/` | 开发者版后端：聊天流式、记忆、本地运行 |
-| `assets/` | 美术源文件与出图委托单。`tuanzi/` 团子（`canonical/` 是唯一角色基准及其出处），`scenes/` 场景，`props/`、`icons/` 道具与图标，`cats/` 早期三只猫（历史） |
-| `assets/tools/` | 素材产线脚本：收图验收、切帧打包、场景配置、资源校验 |
-| `assets/tuanzi-3d/` | 电脑网页版的 3D 团子：Blender 建模脚本、`.blend`、烘好的贴图、与 R3 的剪影对比脚本（见 [`README`](assets/tuanzi-3d/README.md)） |
-| `assets/yard-3d/` | 电脑网页版的 3D 院子：2D→3D 落点换算、路网导出脚本、Blender 建模脚本与 `.blend`（见 [`README`](assets/yard-3d/README.md)） |
-| `web/` | 电脑网页版（Vite + three.js）：`index.html` 是首页（院子 + 整页，`web/src/yard/`、`web/src/page/`、`web/src/render/`），`tuanzi.html` 是团子小样调试页，`web/src/tuanzi/` 是团子运行时 |
-| `docs/` | `README.md` 是文档索引，`工作约定.md` 是干活的规矩；`决策/` 按日期记"定了什么"，`方案/` 放现行方案与实施验收，`产品/` 是产品需求、功能与页面清单、猫的个体差异机制，`参考/` 是外部资料 |
-| `outputs/` | 每一轮的出图交付（`*-delivery/`）与验收证据（`*-review/`、`world-v*/`） |
-| `design/`、`wireframes/` | 早期设计画布与线框稿，历史参考；现行界面以 App 为准 |
-| `tools/`、`.githooks/` | 仓库维护：提交前检查 `repo_check.py`（大文件、日志录屏、文档登记），白名单 `.repo-allow-large` |
+```bash
+pnpm --dir web typecheck
+pnpm --dir web test:app
+pnpm --dir web build
+pnpm --dir server typecheck
+```
 
-构建缓存、录屏、逐帧截图、本机缓存不进仓库（见 `.gitignore`）。提交前会自动检查大文件和文档登记，见 [工作约定](docs/工作约定.md#提交)。
+iOS 增删源文件后，在 `ios/` 目录运行 `python3 generate_project.py` 更新工程；修改小院网页后，重新运行 `pnpm --dir web build:ios` 再构建 App。
+
+## 目录结构
+
+```text
+.
+├── ios/          SwiftUI App 与 Xcode 工程生成脚本
+├── web/          3D 小院、团子运行时与网页展示页
+├── server/       API、后台执行、数据模型与数据库迁移
+├── assets/       3D 模型、美术源文件与资源工具
+├── docs/         产品文档、架构决策与开发约定
+├── outputs/      资源交付与验收记录
+├── tools/        仓库检查与验证脚本
+└── .githooks/    提交前检查
+```
+
+## 文档与开发约定
+
+- [文档索引](docs/README.md)：当前决策、实施记录和验收证据。
+- [产品文档](docs/产品/)：产品需求、页面清单和猫的个性设计。
+- [iOS 开发说明](ios/README.md)、[后端说明](server/README.md)、[部署说明](server/deploy/README.md)。
+- [小院资源](assets/yard-3d/README.md)、[团子资源](assets/tuanzi-3d/README.md)：模型与资源的生成方式。
+- [工作约定](docs/工作约定.md)、[AGENTS.md](AGENTS.md)：开发、资源验收和提交规则。
+
+仓库是项目事实的唯一来源，历史交付与性能数据保留在对应文档中。开发使用独立 worktree，保持 main 干净；世界层以 3D 为准，旧 Swift 2D 层与逐帧素材已冻结。

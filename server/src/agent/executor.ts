@@ -73,6 +73,10 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  const zone=await userTimeZone(cat.id);
  let checkpoints=await db.select().from(runSteps).where(eq(runSteps.runId,runId)).orderBy(asc(runSteps.step));
  let history:ModelMessage[]=checkpoints.at(-1)?.messages??[{role:'user',content:`用户托付：${current.t.goal}`}];
+ if(claimed.generation>0&&!checkpoints.length){
+ const previousInputs=await db.select().from(ticketInputs).where(and(eq(ticketInputs.ticketId,current.t.id),sql`${ticketInputs.readAt} is not null`)).orderBy(asc(ticketInputs.createdAt),asc(ticketInputs.id));
+ history.push(...previousInputs.map(i=>({role:'user' as const,content:`用户补充：${i.text??''}`})));
+ }
  let restored=claimed.attempt>1;
  let refreshed=false;
  // 每次只让SDK完成一步；完整消息和消费标记提交后才进入下一步，因此跨进程续跑同一循环。

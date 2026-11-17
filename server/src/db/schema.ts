@@ -317,13 +317,14 @@ export type RunJournal = {
  version?:number;timeZone?:string;freshRetries:number;
 };
 export const runs=pgTable('runs',{
- id:id(),ticketId:uuid('ticket_id').notNull().unique().references(()=>tickets.id,{onDelete:'cascade'}),
+ id:id(),ticketId:uuid('ticket_id').notNull().references(()=>tickets.id,{onDelete:'cascade'}),
+ generation:integer('generation').notNull().default(0),localDay:text('local_day'),
  status:text('status').notNull().default('pending'),attempt:integer('attempt').notNull().default(0),
  leaseUntil:timestamp('lease_until',{withTimezone:true}),report:jsonb('report').$type<RunJournal>().notNull().default({calls:{},dependencies:{messages:[],diaries:[],usedMemories:false},freshRetries:0}),
  outputTokens:integer('output_tokens').notNull().default(0),elapsedMs:integer('elapsed_ms').notNull().default(0),
  stepStartedAt:timestamp('step_started_at',{withTimezone:true}),
  createdAt:createdAt(),
-},t=>[uniqueIndex('runs_one_running').on(t.ticketId).where(sql`${t.status} = 'running'`),check('runs_status',sql`${t.status} in ('pending','running','ended')`)]);
+},t=>[uniqueIndex('runs_ticket_generation').on(t.ticketId,t.generation),uniqueIndex('runs_one_running').on(t.ticketId).where(sql`${t.status} = 'running'`),check('runs_status',sql`${t.status} in ('pending','running','ended')`)]);
 export const runSteps=pgTable('run_steps',{
  id:id(),runId:uuid('run_id').notNull().references(()=>runs.id,{onDelete:'cascade'}),step:integer('step').notNull(),
  messages:jsonb('messages').$type<import('ai').ModelMessage[]>().notNull(),usage:jsonb('usage').$type<{outputTokens:number}>().notNull(),
@@ -347,7 +348,7 @@ export const diaryCalendars = pgTable('diary_calendars', {
 export const authNonces = pgTable('auth_nonces', { hash:text('hash').primaryKey(), expiresAt:timestamp('expires_at',{withTimezone:true}).notNull(), usedAt:timestamp('used_at',{withTimezone:true}) });
 export const sessions = pgTable('sessions', { id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),tokenHash:text('token_hash').notNull().unique(),expiresAt:timestamp('expires_at',{withTimezone:true}).notNull(),revokedAt:timestamp('revoked_at',{withTimezone:true}),createdAt:createdAt() });
 export const devices = pgTable('devices', { id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),token:text('token').notNull(),environment:text('environment').notNull(),topic:text('topic').notNull(),invalidAt:timestamp('invalid_at',{withTimezone:true}),updatedAt:timestamp('updated_at',{withTimezone:true}).notNull().defaultNow() },t=>[uniqueIndex('devices_identity').on(t.token,t.environment,t.topic)]);
-export type PushProof={messageIds:string[];diaries:{id:string;revision:number}[];usedMemories:boolean;memoryRevision?:number;content:string;callId?:string};
+export type PushProof={messageIds:string[];diaries:{id:string;revision:number}[];usedMemories:boolean;memoryRevision?:number;content:string;callId?:string;runId?:string};
 export const pushNotifications = pgTable('push_notifications', {id:id(),catId:uuid('cat_id').notNull().references(()=>cats.id,{onDelete:'cascade'}),outboxId:uuid('outbox_id').notNull().unique().references(()=>outbox.id,{onDelete:'cascade'}),ticketIds:uuid('ticket_ids').array().notNull(),reason:text('reason').notNull(),payload:jsonb('payload').$type<Record<string,unknown>>().notNull(),proof:jsonb('proof').$type<PushProof>().notNull(),status:text('status').notNull().default('pending'),budgetDay:text('budget_day'),createdAt:createdAt() });
 export const pushDeliveries = pgTable('push_deliveries',{id:id(),notificationId:uuid('notification_id').notNull().references(()=>pushNotifications.id,{onDelete:'cascade'}),deviceId:uuid('device_id').notNull().references(()=>devices.id,{onDelete:'cascade'}),apnsId:uuid('apns_id').notNull().defaultRandom(),status:text('status').notNull().default('pending'),attempts:integer('attempts').notNull().default(0),reason:text('reason'),updatedAt:timestamp('updated_at',{withTimezone:true}).notNull().defaultNow()},t=>[uniqueIndex('push_delivery_identity').on(t.notificationId,t.deviceId)]);
 export const modelReservations=pgTable('model_reservations',{id:id(),userId:uuid('user_id').notNull().references(()=>users.id,{onDelete:'cascade'}),day:text('day').notNull(),purpose:text('purpose').notNull(),reservedTokens:integer('reserved_tokens').notNull(),status:text('status').notNull().default('reserved'),createdAt:createdAt()},t=>[index('model_reservations_daily').on(t.userId,t.day)]);
