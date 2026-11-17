@@ -50,14 +50,15 @@ export async function processErrand(runId:string,options:ExecutorOptions={}):Pro
  const [r]=await tx.select().from(runs).where(owned).for('update');if(!r)throw new RunStopped();
  change(r.report);await tx.update(runs).set({report:r.report}).where(owned);return r.report;
  });
- const report=async(input:ErrandReport,callId:string)=>{
+ const report=async(input:ErrandReport,callId:string,runtimeFailure=false)=>{
  await guard();
- await changeJournal(j=>{if(j.calls[callId])return;j.calls[callId]=input;if(input.status!=='progress')j.active={...input,callId,createdAt:currentInstant.toISOString()};});
+ await changeJournal(j=>{if(j.calls[callId])return;j.calls[callId]=input;if(input.status!=='progress')j.active={...input,callId,createdAt:currentInstant.toISOString(),...(runtimeFailure?{runtimeFailure:true as const}:{})};});
  return {saved:true,call_id:callId};
  };
  let currentInstant=await now();
  const invocationStart=+currentInstant,initialElapsed=claimed.elapsedMs;
- const fail=async(reason:string)=>report({status:'failed',reason},'runtime-budget-or-error');
+ // 新补充可能撤销上次候选；每次执行的运行时失败都需要自己的可发布凭证。
+ const fail=async(reason:string)=>report({status:'failed',reason},`runtime-budget-or-error:${claimed.attempt}`,true);
  const handoff=async()=>db.transaction(async tx=>{
    const [r]=await tx.select().from(runs).where(owned).for('update');
    if(!r?.report.active)throw new RunStopped();

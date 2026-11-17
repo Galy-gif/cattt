@@ -1,15 +1,15 @@
-import { appendTicketInput } from '../agent/errands.ts';
+import { dispatchTicketCommand } from '../agent/engine.ts';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { and, asc, eq, gt, sql } from 'drizzle-orm';
 import type { Env } from './auth.ts';
 import { db } from '../db/client.ts';
 import { mailboxLetters } from '../db/schema.ts';
-import { cancelTicket, listTickets, TicketError, ticketView, updateTicket } from '../agent/tickets.ts';
+import { listTickets, TicketError, ticketView } from '../agent/tickets.ts';
 export const ticketRoutes = new Hono<Env>();
 ticketRoutes.onError((e, c) => {
   if (e instanceof TicketError)
-    return c.json({ error: { code: e.status === 404 ? 'not_found' : 'bad_request', message: e.message } }, e.status);
+    return c.json({ error: { code: e.status === 404 ? 'not_found' : e.status === 409 ? 'conflict' : 'bad_request', message: e.message } }, e.status);
   throw e;
 });
 ticketRoutes.get('/tickets', async (c) => {
@@ -22,12 +22,16 @@ ticketRoutes.patch('/tickets/:id', async (c) => {
   if (!id.success) return c.json({ error: { code: 'not_found' } }, 404);
   const body = z.union([z.object({when:z.string()}).strict(), z.object({text:z.string().trim().min(1).max(2000)}).strict()]).safeParse(await c.req.json().catch(() => null));
   if (!body.success) return c.json({ error: { code: 'bad_request' } }, 400);
-  return c.json('text' in body.data ? await appendTicketInput(c.get('owner').catId,id.data,body.data.text) : await updateTicket(c.get('owner').catId, id.data, body.data.when));
+  return c.json(await dispatchTicketCommand({ catId: c.get('owner').catId,
+    origin: { source: 'app', requestId: c.req.header('Idempotency-Key') } },
+    'text' in body.data ? { kind: 'append', ticketId: id.data, text: body.data.text }
+      : { kind: 'reschedule', ticketId: id.data, when: body.data.when }));
 });
 ticketRoutes.post('/tickets/:id/cancel', async (c) => {
   const id = z.uuid().safeParse(c.req.param('id'));
   if (!id.success) return c.json({ error: { code: 'not_found' } }, 404);
-  return c.json(await cancelTicket(c.get('owner').catId, id.data));
+  return c.json(await dispatchTicketCommand({ catId: c.get('owner').catId,
+    origin: { source: 'app', requestId: c.req.header('Idempotency-Key') } }, { kind: 'cancel', ticketId: id.data }));
 });
 ticketRoutes.get('/mailbox', async (c) => {
   const after = z.coerce

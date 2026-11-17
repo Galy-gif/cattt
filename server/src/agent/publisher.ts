@@ -167,7 +167,10 @@ export async function publishErrand(candidate:{runId:string;attempt:number;callI
  await finish('dropped',denied??'dropped');return 'sent';
  }
  const [unread]=await tx.select().from(ticketInputs).where(and(eq(ticketInputs.ticketId,t.id),sql`${ticketInputs.readAt} is null`)).limit(1);
- if(conv.version!==journal.version||user.timeZone!==journal.timeZone||unread)return 'stale';
+ // 宿主的预算/运行错误没有依赖旧对话的计算结果，补充不能恢复已耗尽的预算。
+ // 仍经过上方许可检查和下方出版保护、安静时段；兼容旧版固定标识的失败凭证。
+ const runtimeFailure=a.status==='failed'&&(a.runtimeFailure===true||a.callId==='runtime-budget-or-error');
+ if(!runtimeFailure&&(conv.version!==journal.version||user.timeZone!==journal.timeZone||unread))return 'stale';
  if(candidate.protection&&!await turnPublicationChecks(cat.id,tx).protectionUnchanged(candidate.protection))return 'stale';
  if(a.status==='waiting'&&+candidate.now-Date.parse(a.createdAt)>=86400000){
  await tx.update(tickets).set({stage:'quiet_waiting',updatedAt:candidate.now}).where(eq(tickets.id,t.id));

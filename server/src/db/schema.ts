@@ -270,7 +270,7 @@ export * from './schema-runtime.ts';
 export const triggers = pgTable('triggers', {
   id: id(), catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
   source: text('source').notNull(), idempotencyKey: text('idempotency_key').notNull(),
-  payload: jsonb('payload').$type<{ ticket_id?: string; due_at?: string; message_id?: string; when?: string; about?: string; local_day?: string; time_zone?: string; start_at?: string; end_at?: string; inference_rule?: string; permission_revision?: number; watch_id?: string }>().notNull(), receivedAt: timestamp('received_at', { withTimezone: true }).notNull().defaultNow(),
+  payload: jsonb('payload').$type<{ ticket_id?: string; due_at?: string; message_id?: string; when?: string; about?: string; local_day?: string; time_zone?: string; start_at?: string; end_at?: string; inference_rule?: string; permission_revision?: number; watch_id?: string; command?: { kind: string; fingerprint: string }; receipt?: Record<string, string | boolean> }>().notNull(), receivedAt: timestamp('received_at', { withTimezone: true }).notNull().defaultNow(),
 }, t => [uniqueIndex('triggers_identity').on(t.catId, t.source, t.idempotencyKey)]);
 export type Mandate = { kind: 'explicit'; source_message_id: string } | { kind: 'inferred'; rule_id: string; version: number; source_hash?: string; source_message_id?: string; permission_revision?: number; topic?: string };
 export const tickets = pgTable('tickets', {
@@ -312,7 +312,7 @@ export const proactiveRules = pgTable('proactive_rules', {
 export type ErrandReport = {status:'progress'|'waiting'|'ready'|'blocked'|'failed'|'dropped';question?:string;result?:string;reason?:string};
 export type RunJournal = {
  calls:Record<string,ErrandReport>;
- active?:ErrandReport & {callId:string;createdAt:string};
+ active?:ErrandReport & {callId:string;createdAt:string;runtimeFailure?:true};
  dependencies:{messages:string[];diaries:{id:string;revision:number}[];usedMemories:boolean;memoryRevision?:number};
  version?:number;timeZone?:string;freshRetries:number;
 };

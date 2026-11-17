@@ -1,15 +1,10 @@
 import { and, asc, eq, sql } from 'drizzle-orm';
-import { db, type Tx } from '../db/client.ts';
-import { cats, conversations, decisions, messages, ticketInputs, tickets, triggers } from '../db/schema.ts';
+import { db } from '../db/client.ts';
+import { ticketInputs, tickets } from '../db/schema.ts';
 import { userTimeZone } from '../runtime/time.ts';
-export class TicketError extends Error {
-  constructor(
-    public status: 400 | 404,
-    message: string,
-  ) {
-    super(message);
-  }
-}
+import { TicketError } from './errors.ts';
+import { commandOrigin, receiveCommand } from './intake.ts';
+export { TicketError } from './errors.ts';
 export const ticketView = (t: typeof tickets.$inferSelect) => ({
   id: t.id,
   source_message_id:t.sourceMessageId,
@@ -37,6 +32,12 @@ export function localISO(date: Date, timeZone: string): string {
 }
 /** 只接具体本地ISO时间或带偏移的ISO。自然语言由聊天结合 get_time 澄清后再调用。 */
 export function parseFollowupTime(when: string, timeZone: string): Date {
+  const parts = /^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?(Z|[+-]\d\d:\d\d)?$/.exec(when);
+  if (!parts || (parts[7] && !parts[8])) throw new TicketError(400, '请先说清具体日期和时间');
+  const year = Number(parts[1]), month = Number(parts[2]), day = Number(parts[3]);
+  const days = [31, year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (month < 1 || month > 12 || day < 1 || day > days[month - 1]! || Number(parts[4]) > 23 || Number(parts[5]) > 59 || Number(parts[6] ?? 0) > 59)
+    throw new TicketError(400, '请填写有效的日期和时间');
   if (/^\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d(?:\.\d{1,3})?)?(Z|[+-]\d\d:\d\d)$/.test(when)) {
     const value = new Date(when);
     if (Number.isFinite(+value)) return value;
@@ -54,11 +55,6 @@ export function parseFollowupTime(when: string, timeZone: string): Date {
       throw new TicketError(400, '这个时间有两个时区偏移，请说清具体偏移');
   return new Date(instant);
 }
-async function lockCat(tx: Tx, catId: string) {
-  const [cat] = await tx.select().from(cats).where(eq(cats.id, catId)).for('update');
-  if (!cat) throw new TicketError(404, '没有这件约定');
-  return cat;
-}
 export async function listTickets(catId: string, status = 'open') {
   return db
     .select()
@@ -69,106 +65,57 @@ export async function listTickets(catId: string, status = 'open') {
 export async function scheduleFollowup(catId: string, sourceId: string, when: string, about: string, now = new Date()) {
   const zone = await userTimeZone(catId);
   const due = parseFollowupTime(when, zone);
-  if (+due <= +now || !about.trim() || about.length > 60)
-    throw new TicketError(400, '请约一个之后的具体时间，主题不超过60字');
-  return db.transaction(async (tx) => {
-    await lockCat(tx, catId);
-    const [source] = await tx
-      .select({ m: messages })
-      .from(messages)
-      .innerJoin(conversations, eq(conversations.id, messages.conversationId))
-      .where(
-        and(
-          eq(messages.id, sourceId),
-          eq(conversations.catId, catId),
-          eq(messages.role, 'user'),
-          eq(messages.contextAllowed, true),
-        ),
-      );
-    if (!source) throw new TicketError(404, '原话已不可使用');
-    const key = `chat:${sourceId}:${due.toISOString()}:${about.trim()}`;
-    await tx
-      .insert(triggers)
-      .values({
-        catId,
-        source: 'chat',
-        idempotencyKey: key,
-        payload: { message_id: sourceId, when: due.toISOString(), about: about.trim() },
-      })
-      .onConflictDoNothing();
-    const [event] = await tx
-      .select()
-      .from(triggers)
-      .where(and(eq(triggers.catId, catId), eq(triggers.source, 'chat'), eq(triggers.idempotencyKey, key)));
-    const [prior] = await tx
-      .select({ t: tickets })
-      .from(decisions)
-      .innerJoin(tickets, eq(tickets.id, decisions.ticketId))
-      .where(eq(decisions.triggerId, event!.id));
-    if (prior) return { ticket_id: prior.t.id, when: localISO(prior.t.dueAt!, zone), time_zone: zone };
-    const [ticket] = await tx
-      .insert(tickets)
-      .values({
-        catId,
-        kind: 'followup',
-        goal: about.trim(),
-        mandate: { kind: 'explicit', source_message_id: sourceId },
-        dueAt: due,
-        timeZone: zone,
-        sourceMessageId: sourceId,
-      })
-      .returning();
-    await tx
-      .insert(decisions)
-      .values({ triggerId: event!.id, outcome: 'accept', ticketId: ticket!.id, reasons: ['用户亲口约定'] });
-    return { ticket_id: ticket!.id, when: localISO(due, zone), time_zone: zone };
-  });
+  about = about.trim();
+  if (!about || about.length > 60) throw new TicketError(400, '请约一个之后的具体时间，主题不超过60字');
+  return receiveCommand(catId, { source: 'chat', messageId: sourceId }, {
+    kind: 'schedule', input: { when: due.toISOString(), about },
+    legacyKey: `chat:${sourceId}:${due.toISOString()}:${about}`,
+    payload: { when: due.toISOString(), about },
+  }, async tx => {
+    // 时间检查放在首次执行；重放只读取原收据，不因时间流逝重新建单。
+    if (+due <= +now) throw new TicketError(400, '请约一个之后的具体时间，主题不超过60字');
+    const [ticket] = await tx.insert(tickets).values({
+      catId, kind: 'followup', goal: about,
+      mandate: { kind: 'explicit', source_message_id: sourceId },
+      dueAt: due, timeZone: zone, sourceMessageId: sourceId,
+    }).returning();
+    return { receipt: { ticket_id: ticket!.id, when: localISO(due, zone), time_zone: zone },
+      ticketId: ticket!.id, outcome: 'accept', reasons: ['用户亲口约定'] };
+  }, prior => ({ ticket_id: prior.id, when: localISO(prior.dueAt!, zone), time_zone: zone }));
 }
-export async function updateTicket(catId: string, ticketId: string, when: string, sourceId?: string, now = new Date()) {
-  const zone = await userTimeZone(catId);
-  const due = parseFollowupTime(when, zone);
-  return db.transaction(async (tx) => {
-    await lockCat(tx, catId);
-    const [ticket] = await tx
-      .select()
-      .from(tickets)
-      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, eq(tickets.status, 'open')))
+
+export async function updateTicket(catId: string, ticketId: string, when: string, sourceId?: string, now = new Date(), requestId?: string) {
+  return receiveCommand(catId, commandOrigin(sourceId, requestId), {
+    // 重放按原始请求识别；首次执行才用当时的时区解释时间。
+    kind: 'reschedule', input: { ticket_id: ticketId, when },
+    payload: { when },
+  }, async (tx, source) => {
+    const zone = await userTimeZone(catId);
+    const due = parseFollowupTime(when, zone);
+    const [ticket] = await tx.select().from(tickets)
+      .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), eq(tickets.kind, 'followup'), eq(tickets.status, 'open')))
       .for('update');
-    if (!ticket || ticket.kind !== 'followup') throw new TicketError(404, '没有这件约定');
+    if (!ticket) throw new TicketError(404, '没有这件约定');
     if (+due <= +now) throw new TicketError(400, '请选之后的时间');
-    if (sourceId) {
-      const [input] = await tx
-        .select({ m: messages })
-        .from(messages)
-        .innerJoin(conversations, eq(conversations.id, messages.conversationId))
-        .where(
-          and(
-            eq(messages.id, sourceId),
-            eq(conversations.catId, catId),
-            eq(messages.role, 'user'),
-            eq(messages.contextAllowed, true),
-          ),
-        );
-      if (!input) throw new TicketError(404, '原话已不可使用');
-      await tx.insert(ticketInputs).values({ ticketId, messageId: sourceId, text: input.m.text, readAt: sql`now()` });
-    }
-    await tx
-      .update(tickets)
-      .set({ dueAt: due, timeZone: zone, updatedAt: sql`now()` })
-      .where(eq(tickets.id, ticketId));
-    return { ticket_id: ticketId, when: localISO(due, zone), time_zone: zone };
+    if (source) await tx.insert(ticketInputs).values({ ticketId, messageId: source.id, text: source.text, readAt: sql`now()` });
+    await tx.update(tickets).set({ dueAt: due, timeZone: zone, updatedAt: sql`now()` }).where(eq(tickets.id, ticketId));
+    return { receipt: { ticket_id: ticketId, when: localISO(due, zone), time_zone: zone },
+      ticketId, outcome: 'attach', reasons: ['用户改期'] };
   });
 }
-export async function cancelTicket(catId: string, ticketId: string) {
-  return db.transaction(async (tx) => {
-    await lockCat(tx, catId);
-    const [ticket] = await tx
-      .update(tickets)
+
+export async function cancelTicket(catId: string, ticketId: string, sourceId?: string, requestId?: string) {
+  return receiveCommand(catId, commandOrigin(sourceId, requestId), {
+    kind: 'cancel', input: { ticket_id: ticketId },
+  }, async tx => {
+    const [ticket] = await tx.update(tickets)
       .set({ status: 'ended', stage: 'cancelled', endedReason: 'cancelled', updatedAt: sql`now()` })
       .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), sql`${tickets.kind} in ('followup','errand')`, sql`(${tickets.status}='open' or exists(select 1 from outbox o where o.ticket_id=${tickets.id} and o.kind='push' and o.status='pending'))`))
       .returning();
     if (!ticket) throw new TicketError(404, '没有这件约定');
-    return { ticket_id: ticket.id, cancelled: true };
+    // attach表示对既有事项的决定；取消以command.kind及事项终态明确记录。
+    return { receipt: { ticket_id: ticket.id, cancelled: true }, ticketId: ticket.id,
+      outcome: 'attach', reasons: ['用户取消'] };
   });
 }
 
