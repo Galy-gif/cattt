@@ -34,10 +34,15 @@ export async function scanFollowups(at?: Date, catId?: string) {
         eq(tickets.status, 'open'),
         eq(tickets.kind, 'followup'),
         lte(tickets.dueAt, now),
+        // 已登记的本次到期由持久待办继续处理，安静时段内不占下一批名额。
+        sql`not exists (select 1 from ${triggers}
+          where ${triggers.catId} = ${tickets.catId} and ${triggers.source} = 'clock'
+          and ${triggers.idempotencyKey} = 'clock:' || ${tickets.id}::text || ':' ||
+            to_char(${tickets.dueAt} at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'))`,
         catId ? eq(tickets.catId, catId) : undefined,
       ),
     )
-    .orderBy(asc(tickets.dueAt))
+    .orderBy(asc(tickets.dueAt), asc(tickets.id))
     .limit(500);
   for (const t of due)
     await db.transaction(async (tx) => {

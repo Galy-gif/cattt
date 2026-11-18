@@ -316,7 +316,8 @@ await check('托付想好后只来一封信和一句话；等待回答经工具�
 await check('每日猫日记三日补齐、HTTP保护、inbox提示，不写聊天和普通来信', async()=>{
   await fetch(BASE+'/v1/me/time-zone',{method:'PUT',headers,body:JSON.stringify({time_zone:'UTC'})}).then(r=>{expect(r.ok,'时区上报失败');});
   const [fixture]=await sql`select c.id as cat_id, to_char(now()-interval '3 days','YYYY-MM-DD') as start_day from cats c where user_id=${devUser.userId}`;
-  await sql`insert into diary_calendars(cat_id,start_day) values(${fixture!.cat_id},${fixture!.start_day}) on conflict(cat_id) do update set start_day=excluded.start_day`;
+  await sql`update diary_calendars set start_day=${fixture!.start_day}, next_day=${fixture!.start_day}, next_scan_at='epoch'
+    where cat_id=${fixture!.cat_id}`;
   const session=await fetch(BASE+'/v1/world/sessions',{method:'POST',headers,body:JSON.stringify({protocolVersion:1})}).then(r=>r.json()) as any;
   const state=await fetch(BASE+'/v1/world/state',{method:'PUT',headers,body:JSON.stringify({...session,snapshot:{stateVersion:1,sceneVersion:4,destinationIds:['grass'],currentDestinationId:'grass',targetDestinationId:'grass',phase:'idle',action:'rest',activity:'rest',paused:false,runnable:true}})});
   expect(state.ok,'真实世界上报失败');

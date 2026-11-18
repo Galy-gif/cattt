@@ -10,7 +10,7 @@ extension AppStore {
         return DiaryStorage(url: root.appendingPathComponent("DiaryRecords/" + digest + ".json"))
     }
 
-    var diaryArchive: DiaryArchive { DiaryArchive(entries: entries) }
+    var diaryArchive: DiaryArchive { DiaryArchive(changeCursor: diaryChangeCursor, entries: entries) }
     var diaryToday: String { DiaryDay.key(for: currentDate()) }
     var diaryDay: String { selectedDiaryDay ?? diaryToday }
     var diaryEarlierDays: [String] {
@@ -22,6 +22,7 @@ extension AppStore {
 
     func loadDiary() {
         // 先清空前一账号的界面；文件损坏时不覆盖，也不显示演示内容。
+        diaryChangeCursor = nil
         entries = []
         diarySyncTask?.cancel()
         diarySyncTask = nil
@@ -42,6 +43,7 @@ extension AppStore {
         diaryLoadFailed = false
         do {
             if let saved = try diaryStorage.load() {
+                diaryChangeCursor = saved.changeCursor
                 entries = saved.entries
             } else if !backend.isRemote {
                 // 旧版仅保存过一条猫日记，归入原本地空间，不导入到远端账号。
@@ -66,6 +68,7 @@ extension AppStore {
         guard !diaryLoadFailed else { flash("请先重新读取日记"); return false }
         do {
             try diaryStorage.save(archive)
+            diaryChangeCursor = archive.changeCursor
             entries = archive.entries
             return true
         } catch {

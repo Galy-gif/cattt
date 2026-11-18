@@ -22,7 +22,7 @@ struct APIDiaryEntry: Decodable {
         let date = f.date(from: recordedAt) ?? ISO8601DateFormatter().date(from: recordedAt)
         guard let date, let zone = TimeZone(identifier: timeZone), let type = DiaryEntry.Kind(rawValue: kind), let seen = DiaryEntry.Visit(rawValue: visit) else { throw APIError.badResponse }
         var entry = DiaryEntry(id: clientId, time: time, kind: type, visit: seen, text: text, note: note,
-                               isPrivate: !catAllowed, createdAt: date, timeZone: zone)
+                               isPrivate: !catAllowed, createdAt: date, timeZone: zone, recordedTimeZoneID: timeZone)
         guard entry.dayKey == day else { throw APIError.badResponse }
         entry.cloudID = id
         entry.cloudRevision = revision
@@ -34,6 +34,18 @@ struct APIDiaryEntry: Decodable {
 extension APIClient {
     struct DiaryPage: Decodable { let entries: [APIDiaryEntry]; let nextSeq: Int? }
     enum DiarySave { case saved(APIDiaryEntry), conflict(APIDiaryEntry) }
+    struct DiaryChanges: Decodable { let entries: [APIDiaryEntry]; let cursor: Int; let hasMore: Bool }
+
+    func diaryChanges(after cursor: Int) async throws -> DiaryChanges {
+        var req = request("GET", "v1/diary/changes")
+        req.url?.append(queryItems: [URLQueryItem(name: "after", value: String(cursor))])
+        req.timeoutInterval = 12
+        let page = try await json(DiaryChanges.self, req)
+        guard page.entries.isEmpty ? (!page.hasMore && page.cursor == cursor) : page.cursor > cursor else {
+            throw APIError.badResponse
+        }
+        return page
+    }
 
     func diaryPage(after: Int) async throws -> DiaryPage {
         var r = request("GET", "v1/diary")

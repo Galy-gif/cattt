@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm';
 import {
+  bigint,
   bigserial,
   check,
   type AnyPgColumn,
@@ -244,6 +245,7 @@ export const memoryReceipts = pgTable('memory_receipts', {
 /** 同步保存与模型读取是两种许可；private 记录可同步但不能进入模型。 */
 export const diaryEntries = pgTable('diary_entries', {
   id: id(),
+  changeSeq: bigint('change_seq', { mode: 'number' }).notNull().default(0),
   seq: bigserial('seq', { mode: 'number' }).notNull().unique(),
   catId: uuid('cat_id').notNull().references(() => cats.id, { onDelete: 'cascade' }),
   clientId: text('client_id').notNull(),
@@ -260,7 +262,8 @@ export const diaryEntries = pgTable('diary_entries', {
   note: text('note').notNull().default(''),
   createdAt: createdAt(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, t => [uniqueIndex('diary_cat_client').on(t.catId, t.clientId), index('diary_cat_seq').on(t.catId, t.seq)]);
+}, t => [uniqueIndex('diary_cat_client').on(t.catId, t.clientId), index('diary_cat_seq').on(t.catId, t.seq),
+  index('diary_cat_change').on(t.catId, t.changeSeq)]);
 
 export * from './schema-world.ts';
 export * from './schema-soul.ts';
@@ -342,7 +345,9 @@ export const diaryFacts = pgTable('diary_facts', {
 export const diaryCalendars = pgTable('diary_calendars', {
   catId: uuid('cat_id').primaryKey().references(() => cats.id, { onDelete: 'cascade' }),
   startDay: text('start_day').notNull(),
-});
+  nextDay: text('next_day'),
+  nextScanAt: timestamp('next_scan_at', { withTimezone: true }).notNull().default(sql`'epoch'::timestamptz`),
+}, t => [index('diary_calendar_due').on(t.nextScanAt, t.catId)]);
 
 /** 正式身份只保存不可逆会话摘要；Apple sub不会按邮箱合并。 */
 export const authNonces = pgTable('auth_nonces', { hash:text('hash').primaryKey(), expiresAt:timestamp('expires_at',{withTimezone:true}).notNull(), usedAt:timestamp('used_at',{withTimezone:true}) });

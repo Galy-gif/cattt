@@ -39,6 +39,29 @@ afterAll(async () => {
   }
   await closeQueues(); await redis.quit(); await sql.end();
 });
+it('增量游标可跨页和空轮询；旧日记的留言和撤回均可见', async () => {
+  const original = input({ cat_allowed: true });
+  const first = await saveDiary(owner.catId, original);
+  await saveDiary(owner.catId, input());
+  const changes = async (after: number) => {
+    const response = await req('diary/changes?after=' + after + '&limit=1');
+    expect(response.status).toBe(200);
+    return response.json();
+  };
+  const page = await changes(0);
+  expect(page.entries.map((entry: {id:string}) => entry.id)).toEqual([first.id]);
+  expect(page.has_more).toBe(true);
+  const last = await changes(page.cursor);
+  expect(last.has_more).toBe(false);
+  expect(await changes(last.cursor)).toEqual({entries: [], cursor: last.cursor, has_more: false});
+  await readDiary(first.id, '1', randomUUID(), async () => '在旁边坐一会儿。');
+  const read = await changes(last.cursor);
+  expect(read.entries).toMatchObject([{id: first.id, visit: 2, note: '在旁边坐一会儿。'}]);
+  await saveDiary(owner.catId, change(original, 1, false));
+  expect((await changes(read.cursor)).entries).toMatchObject([{id: first.id, cat_allowed: false, visit: 0, note: ''}]);
+  expect((await (await req('diary?after_seq=' + first.seq)).json()).entries).toHaveLength(1);
+});
+
 it('私密文字同步、重复回执只存一条，不创建读取任务', async () => {
   const body = input();
   const first = await (await req('diary', 'PUT', body)).json();

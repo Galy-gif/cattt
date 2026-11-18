@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { and, asc, desc, eq, gte, lt, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, lt, lte, sql } from 'drizzle-orm';
 import { db, type Tx } from '../db/client.ts';
 import { asyncJobs, cats, conversations, decisions, diaryCalendars, diaryEntries, diaryFacts, messages, proactiveRules, tickets, triggers, users } from '../db/schema.ts';
 import type { WorldSnapshot } from '../world/protocol.ts';
@@ -48,18 +48,24 @@ export async function recordDiaryObservation(tx: Tx, catId: string, snapshot: Wo
 /** 00:05 后，为上一完整日期及更早缺项建 PG 事项/待办。每轮至多32个缺日，下轮接续。 */
 export async function scanDailyDiaries(now?: Date, catId?: string) {
   const instant = now ?? new Date((await db.execute<{instant:string}>(sql`select now() as instant`))[0]!.instant);
-  const all = await db.select({ c: cats, u: users }).from(cats).innerJoin(users, eq(users.id, cats.userId)).where(catId ? eq(cats.id, catId) : undefined);
-  for (const { c, u } of all) await db.transaction(async tx => {
-    await tx.select().from(cats).where(eq(cats.id, c.id)).for('update');
-    const [owner] = await tx.select().from(users).where(eq(users.id, u.id)).for('update');
-    if (!owner) return;
+  const due = await db.select({ catId: diaryCalendars.catId }).from(diaryCalendars)
+    .where(and(lte(diaryCalendars.nextScanAt, instant), catId ? eq(diaryCalendars.catId, catId) : undefined))
+    .orderBy(asc(diaryCalendars.nextScanAt), asc(diaryCalendars.catId)).limit(500);
+  for (const candidate of due) await db.transaction(async tx => {
+    const [c] = await tx.select().from(cats).where(eq(cats.id, candidate.catId)).for('update');
+    if (!c) return;
+    const [owner] = await tx.select().from(users).where(eq(users.id, c.userId)).for('update');
+    const [calendar] = await tx.select().from(diaryCalendars).where(eq(diaryCalendars.catId, c.id)).for('update');
+    if (!owner || !calendar || calendar.nextScanAt > instant) return;
     const zone = owner.timeZone, local = localISO(instant, zone);
     const last = nextDay(local.slice(0, 10), local.slice(11, 16) >= '00:05' ? -1 : -2);
-    await tx.insert(diaryCalendars).values({ catId: c.id, startDay: localISO(c.createdAt, zone).slice(0, 10) }).onConflictDoNothing();
-    const [calendar] = await tx.select().from(diaryCalendars).where(eq(diaryCalendars.catId, c.id));
-    const existing = new Set((await tx.select({day:tickets.localDay}).from(tickets).where(and(eq(tickets.catId,c.id),eq(tickets.kind,'diary')))).map(t=>t.day));
-    let added = 0;
-    for (let day = calendar!.startDay; day <= last && added < 32; day = nextDay(day)) {
+    const startDay = calendar.nextDay === null ? localISO(c.createdAt, zone).slice(0, 10) : calendar.startDay;
+    let day = calendar.nextDay ?? startDay;
+    const endDay = nextDay(day, 32);
+    const existing = new Set((await tx.select({day: tickets.localDay}).from(tickets)
+      .where(and(eq(tickets.catId, c.id), eq(tickets.kind, 'diary'), gte(tickets.localDay, day), lt(tickets.localDay, endDay))))
+      .map(ticket => ticket.day));
+    for (; day <= last && day < endDay; day = nextDay(day)) {
       if (existing.has(day)) continue;
       const start = dayStart(day, zone), end = dayStart(nextDay(day), zone);
       // IANA 日历曾跳过的整天不是完整本地日，明确不生成。
@@ -71,8 +77,15 @@ export async function scanDailyDiaries(now?: Date, catId?: string) {
         mandate:{kind:'inferred',rule_id:'daily_diary',version:1},stage:'writing'}).returning();
       await tx.insert(decisions).values({triggerId:event.id,ticketId:ticket!.id,outcome:'accept',reasons:['产品规则：为已完整结束的本地日期写日记']});
       await tx.insert(asyncJobs).values({kind:'daily_diary',sourceId:event.id,objectId:event.id,version:'v1'}).onConflictDoNothing();
-      added++;
     }
+    // 本地日期完成后的 00:05 再唤醒；跨午夜的夏令时跳变按第一个真实时刻处理。
+    let nextScanAt = instant;
+    if (day > last) {
+      const midnight = dayStart(nextDay(day), zone);
+      const wallTime = localISO(midnight, zone).slice(11, 16);
+      nextScanAt = wallTime >= '00:05' ? midnight : new Date(+midnight + (5 - Number(wallTime.slice(3))) * 60_000);
+    }
+    await tx.update(diaryCalendars).set({ startDay, nextDay: day, nextScanAt }).where(eq(diaryCalendars.catId, c.id));
   });
 }
 

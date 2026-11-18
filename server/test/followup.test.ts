@@ -62,6 +62,19 @@ afterAll(async () => {
   await redis.quit();
   await sql.end();
 });
+it('500 个已经投递但仍开放的约定不会挡住下一件', async () => {
+  const dueAt = new Date(+now - 60_000);
+  await db.insert(tickets).values(Array.from({length: 500}, () => ({
+    catId: owner.catId, kind: 'followup', goal: '等到白天再聊', dueAt,
+    mandate: {kind: 'explicit' as const, source_message_id: sourceId},
+  })));
+  await scanFollowups(now, owner.catId);
+  const later = await schedule();
+  await scanFollowups(now, owner.catId);
+  const clocks = await db.select().from(triggers).where(and(eq(triggers.catId, owner.catId), eq(triggers.source, 'clock')));
+  expect(clocks.map(row => row.payload.ticket_id)).toContain(later.ticket_id);
+}, 20_000);
+
 const schedule = (when = '2026-11-12T12:00:00', about = '面试怎么样') =>
   scheduleFollowup(owner.catId, sourceId, when, about, new Date('2026-11-11T04:00:00Z'));
 async function fire(at = now, route?: () => Promise<unknown>) {

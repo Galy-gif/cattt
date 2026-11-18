@@ -33,6 +33,20 @@ diaryRoutes.put('/diary', async c => {
   // 待办在同一PG事务中已保存，由常驻恢复扫描器投递，HTTP不等待Redis。
   return c.json({ entry: diaryJSON(entry) });
 });
+diaryRoutes.get('/diary/changes', async c => {
+  const query = z.object({
+    after: z.coerce.number().int().min(0).default(0),
+    limit: z.coerce.number().int().min(1).max(100).default(100),
+  }).safeParse(c.req.query());
+  if (!query.success) return c.json(bad('分页位置不正确'), 400);
+  const { after, limit } = query.data;
+  const rows = await db.select().from(diaryEntries)
+    .where(and(eq(diaryEntries.catId, c.get('owner').catId), gt(diaryEntries.changeSeq, after)))
+    .orderBy(asc(diaryEntries.changeSeq)).limit(limit + 1);
+  const page = rows.slice(0, limit);
+  return c.json({ entries: page.map(diaryJSON), cursor: page.at(-1)?.changeSeq ?? after, has_more: rows.length > limit });
+});
+
 diaryRoutes.get('/diary', async c => {
   const after = z.coerce.number().int().min(0).safeParse(c.req.query('after_seq') ?? 0);
   if (!after.success) return c.json(bad('分页位置不正确'), 400);

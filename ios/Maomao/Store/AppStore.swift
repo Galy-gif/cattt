@@ -246,6 +246,7 @@ final class AppStore: ObservableObject {
     @Published var diarySyncFinished = false
     @Published var diarySyncTask: Task<Void, Never>?
     var diarySyncAgain = false
+    var diaryChangeCursor: Int?
     @Published var diaryFilter: DiaryFilter = .all
     var shownEntries: [DiaryEntry] { diaryEntries(on: diaryDay).filter(diaryFilter.matches) }
     /// 信箱里有新东西（团子来看过 / 留了一句）：旗子立起来。打开信箱就放下。

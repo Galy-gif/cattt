@@ -121,7 +121,8 @@ enum APIError: LocalizedError {
 struct APIClient {
     let config: BackendConfig
 
-    private static let session: URLSession = {
+    var session: URLSession = APIClient.defaultSession
+    private static let defaultSession: URLSession = {
         let configuration = URLSessionConfiguration.default
         // 流式回复期间服务端每 15 秒发一次心跳，60 秒没动静才算断
         configuration.timeoutIntervalForRequest = 60
@@ -150,7 +151,7 @@ struct APIClient {
     }
 
     func json<T: Decodable>(_ type: T.Type, _ request: URLRequest) async throws -> T {
-        let (data, response) = try await Self.session.data(for: request)
+        let (data, response) = try await session.data(for: request)
         try Self.check(response, body: data)
         return try Self.decode(type, from: data)
     }
@@ -250,7 +251,7 @@ struct APIClient {
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let (bytes, response) = try await Self.session.bytes(for: request)
+                    let (bytes, response) = try await session.bytes(for: request)
                     if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
                         var body = Data()
                         for try await byte in bytes.prefix(4096) { body.append(byte) }

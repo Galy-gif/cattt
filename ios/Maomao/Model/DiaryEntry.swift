@@ -49,12 +49,13 @@ struct DiaryEntry: Identifiable, Equatable, Codable {
         meta: String? = nil,
         photoCaption: String? = nil,
         createdAt: Date = Date(),
-        timeZone: TimeZone = .current
+        timeZone: TimeZone = .current,
+        recordedTimeZoneID: String? = nil
     ) {
         self.id = id
         self.time = time
         self.createdAt = createdAt
-        self.timeZoneID = timeZone.identifier
+        self.timeZoneID = recordedTimeZoneID ?? timeZone.identifier
         self.dayKey = DiaryDay.key(for: createdAt, timeZone: timeZone)
         self.kind = kind
         self.visit = visit

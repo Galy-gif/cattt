@@ -27,6 +27,16 @@ afterAll(async()=>{
  for(const id of accounts){await sql`delete from async_jobs where source_id in (select t.id from triggers t join cats c on c.id=t.cat_id where c.user_id=${id})`;await db.delete(users).where(eq(users.id,id));}
  await closeQueues();await redis.quit();await sql.end();
 });
+it('日历保存扫描进度，空闲时跳过；积压超过32天后可继续补齐', async () => {
+  const later = new Date('2026-12-22T01:00:00Z');
+  await scan(later);
+  expect(await events()).toHaveLength(32);
+  await scan(later);
+  expect(await events()).toHaveLength(42);
+  const [calendar] = await sql`select next_day, next_scan_at from diary_calendars where cat_id = ${catId}`;
+  expect(calendar!.next_day).toBe('2026-12-22');
+  expect(new Date(calendar!.next_scan_at).toISOString()).toBe('2026-12-23T00:05:00.000Z');
+});
 const entries=()=>db.select().from(diaryEntries).where(eq(diaryEntries.catId,catId));
 const events=()=>db.select().from(triggers).where(and(eq(triggers.catId,catId),eq(triggers.source,'clock')));
 const scan=(date=at)=>scanDailyDiaries(date,catId);

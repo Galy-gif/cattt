@@ -5,7 +5,7 @@ extension AppStore {
         if !backend.isRemote { return "仅存本机" }
         if diarySyncFailed { return "同步未完成 · 重试" }
         if diarySyncTask != nil { return "正在同步" }
-        if !diarySyncFinished || entries.contains(where: { $0.kind != .cat && $0.needsSync }) { return "等待同步" }
+        if !diarySyncFinished || !diaryReadIndex.pendingUploads.isEmpty { return "等待同步" }
         return "已同步"
     }
 
@@ -39,11 +39,12 @@ extension AppStore {
     private func performDiarySync(client: APIClient, generation: UUID) async throws {
         try checkDiarySync(generation, client)
         var prepared = diaryArchive
-        for i in prepared.entries.indices where prepared.entries[i].kind != .cat && prepared.entries[i].needsSync && prepared.entries[i].pendingMutationID == nil {
-            prepared.entries[i].pendingMutationID = UUID().uuidString
-        }
-        if prepared.entries != entries, !persistDiary(prepared) { throw APIError.badResponse }
-        for id in entries.filter({ $0.kind != .cat && $0.needsSync }).map(\.id) {
+        let pending = diaryReadIndex.pendingUploads
+        let missingKeys = pending.filter { prepared.entries[$0].pendingMutationID == nil }
+        for i in missingKeys { prepared.entries[i].pendingMutationID = UUID().uuidString }
+        if !missingKeys.isEmpty, !persistDiary(prepared) { throw APIError.badResponse }
+        let pendingIDs = pending.map { prepared.entries[$0].id }
+        for id in pendingIDs {
             for _ in 0..<3 {
                 guard let sent = entries.first(where: { $0.id == id }), let mutation = sent.pendingMutationID else { break }
                 let result = try await client.saveDiary(sent)
@@ -63,26 +64,43 @@ extension AppStore {
                 guard persistDiary(archive) else { throw APIError.badResponse }
             }
         }
-        var after = 0
-        repeat {
-            let page = try await client.diaryPage(after: after)
-            try checkDiarySync(generation, client)
-            var archive = diaryArchive
-            var mail = false
-            for row in page.entries {
-                let remote = try row.local()
-                let old = entries.first(where: { $0.id == remote.id })
-                if remote.visit > (old?.visit ?? .unread), !remote.isPrivate { mail = true }
-                if remote.hasUnreadCatDiary && old == nil { mail = true }
-                if archive.merge(remote) { flash("记录已在其他设备更新，请重新选择权限") }
-            }
-            guard persistDiary(archive) else { throw APIError.badResponse }
-            if mailboxOpen { markCatDiariesRead(on: diaryDay) }
-            if (mail && !mailboxOpen) || entries.contains(where: \.hasUnreadCatDiary) { hasMail = true }
-            guard let next = page.nextSeq else { break }
-            guard next > after else { throw APIError.badResponse }
-            after = next
-        } while !Task.isCancelled
+        do {
+            repeat {
+                let page = try await client.diaryChanges(after: diaryChangeCursor ?? 0)
+                try checkDiarySync(generation, client)
+                if page.entries.isEmpty { return }
+                try applyDiaryPage(page.entries, cursor: page.cursor)
+                if !page.hasMore { return }
+            } while !Task.isCancelled
+        } catch APIError.http(status: 404, code: _) {
+            // 服务端尚未升级时沿用创建序号分页；两种游标不能混用。
+            var after = 0
+            repeat {
+                let page = try await client.diaryPage(after: after)
+                try checkDiarySync(generation, client)
+                try applyDiaryPage(page.entries, cursor: nil)
+                guard let next = page.nextSeq else { return }
+                guard next > after else { throw APIError.badResponse }
+                after = next
+            } while !Task.isCancelled
+        }
+    }
+
+    private func applyDiaryPage(_ rows: [APIDiaryEntry], cursor: Int?) throws {
+        var archive = diaryArchive
+        archive.changeCursor = cursor
+        var mail = false
+        for row in rows {
+            let remote = try row.local()
+            let old = entries.first(where: { $0.id == remote.id })
+            if remote.visit > (old?.visit ?? .unread), !remote.isPrivate { mail = true }
+            if remote.hasUnreadCatDiary && old == nil { mail = true }
+            if archive.merge(remote) { flash("记录已在其他设备更新，请重新选择权限") }
+        }
+        // 磁盘成功后才推进游标，失败或进程中断后可安全重读同一页。
+        if archive != diaryArchive, !persistDiary(archive) { throw APIError.badResponse }
+        if mailboxOpen { markCatDiariesRead(on: diaryDay) }
+        if (mail && !mailboxOpen) || entries.contains(where: \.hasUnreadCatDiary) { hasMail = true }
     }
 
     func setDiaryVisibility(_ entry: DiaryEntry, forCat: Bool) {

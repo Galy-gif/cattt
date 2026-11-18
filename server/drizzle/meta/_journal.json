@@ -141,6 +141,13 @@
       "when": 1794929044593,
       "tag": "0019_errand_resume",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1794995497936,
+      "tag": "0020_diary_changes_and_calendar",
+      "breakpoints": true
     }
   ]
 }

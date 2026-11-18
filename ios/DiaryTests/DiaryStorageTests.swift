@@ -56,7 +56,10 @@ struct DiaryStorageTests {
         let day1 = ISO8601DateFormatter().date(from: "2026-10-18T15:59:00Z")!
         let day2 = day1.addingTimeInterval(120)
         check(try a.load() == nil)
+        let legacyArchive = try JSONDecoder().decode(DiaryArchive.self, from: Data(#"{"version":1,"entries":[]}"#.utf8))
+        check(legacyArchive.changeCursor == nil, "旧档案从头同步")
         var archive = DiaryArchive()
+        archive.changeCursor = 47
         archive.entries.append(DiaryEntry(id: "user-1", time: "23:59", kind: .text, visit: .unread,
                                          text: "测试记录，保留换行\n和中文。", isPrivate: true, createdAt: day1, timeZone: tz))
         archive.upsertCatDiary(text: "第一天", time: "23:59", now: day1, timeZone: tz)

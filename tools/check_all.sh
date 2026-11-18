@@ -17,6 +17,7 @@ sh tools/check_world_logic.sh
 
 echo '· iOS 日记存储与日期归档'
 sh tools/check_diary_logic.sh
+sh tools/check_sync_requests.sh
 
 echo '· iOS 创建资料与进度恢复'
 sh tools/check_creation_logic.sh

@@ -32,9 +32,11 @@ enum DiaryDay {
 /// 原生列表的派生读取索引；仅随 entries 更新，不参与落盘和同步。
 struct DiaryReadIndex {
     let days: [String]
+    let pendingUploads: [Int]
     private let byDay: [String: [DiaryEntry]]
 
     init(entries: [DiaryEntry]) {
+        pendingUploads = entries.indices.filter { entries[$0].kind != .cat && entries[$0].needsSync }
         byDay = Dictionary(grouping: entries, by: \.dayKey).mapValues {
             let authoritative = $0.contains(where: \.isServerCatDiary)
             return $0.filter { !authoritative || $0.kind != .cat || $0.isServerCatDiary }
@@ -48,6 +50,7 @@ struct DiaryReadIndex {
 
 struct DiaryArchive: Codable, Equatable {
     var version = 1
+    var changeCursor: Int?
     var entries: [DiaryEntry] = []
 
     var days: [String] { Array(Set(entries.map(\.dayKey))).sorted(by: >) }
