@@ -1,7 +1,7 @@
 import { followupDenial } from './gate.ts';
 import { randomUUID } from 'node:crypto';
-import { and, asc, desc, eq, lte } from 'drizzle-orm';
-import { db, sql } from '../db/client.ts';
+import { and, asc, desc, eq, lte, sql } from 'drizzle-orm';
+import { db, type Tx } from '../db/client.ts';
 import {
   asyncJobs,
   boundaries,
@@ -19,8 +19,9 @@ import { publishFollowups } from './publisher.ts';
 import { routeFollowup, reviewRoute, followupText } from './router.ts';
 type FollowupTicket = typeof tickets.$inferSelect;
 import { personaBlock } from '../runtime/persona.ts';
-export async function clockNow() {
-  const [r] = await sql`select now() as now`;
+export async function clockNow(reader: Tx | typeof db = db) {
+  // 事务可能等锁跨过午夜，日预算按实际准入的数据库时间计算。
+  const [r] = await reader.execute<{ now: string }>(sql`select clock_timestamp() as now`);
   return new Date(r!.now);
 }
 export async function scanFollowups(at?: Date, catId?: string) {

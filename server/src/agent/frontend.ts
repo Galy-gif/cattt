@@ -10,13 +10,13 @@ import { processPush } from '../push/service.ts';
 /** 与聊天同属 API 的前台团子。执行 worker 不注册这些消费者。 */
 export async function startFrontendRouter() {
   const whenEnabled=(run:()=>Promise<any>)=>config.AGENT_ENABLED==='true'?run():Promise.resolve({retryAt:new Date(Date.now()+60000)});
-  await startQueueWorkers({
+  const kinds = await startQueueWorkers({
     report:id=>executeJob(id,job=>whenEnabled(()=>processReport(job.objectId))),
     followup:id=>executeJob(id,job=>whenEnabled(()=>processFollowup(job.objectId))),
     inference:id=>executeJob(id,job=>whenEnabled(()=>processInference(job.objectId))),
     push:id=>executeJob(id,job=>whenEnabled(()=>processPush(job.objectId))),
   });
-  const stopWake=await startJobWakeup();
+  const stopWake=await startJobWakeup(kinds);
   let scanning:Promise<void>|undefined;
   const clock=()=>{
     if(scanning||config.AGENT_ENABLED!=='true')return;

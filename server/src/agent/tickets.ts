@@ -92,7 +92,7 @@ export async function updateTicket(catId: string, ticketId: string, when: string
     kind: 'reschedule', input: { ticket_id: ticketId, when },
     payload: { when },
   }, async (tx, source) => {
-    const zone = await userTimeZone(catId);
+    const zone = await userTimeZone(catId, tx);
     const due = parseFollowupTime(when, zone);
     const [ticket] = await tx.select().from(tickets)
       .where(and(eq(tickets.id, ticketId), eq(tickets.catId, catId), eq(tickets.kind, 'followup'), eq(tickets.status, 'open')))

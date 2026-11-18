@@ -2,6 +2,7 @@ import { jobModelAccount } from '../runtime/budget.ts';
 import { and, asc, eq, inArray, isNull, lte, or, sql } from 'drizzle-orm';
 import { db, dbNow, type Tx } from '../db/client.ts';
 import { asyncJobs, boundaries, cats, conversations, memories, memoryReceipts, messages, turns } from '../db/schema.ts';
+import type { JobKind } from '../queue.ts';
 export const JOB_VERSION = 'v1';
 export const MAX_JOB_ATTEMPTS = 3;
 
@@ -31,10 +32,12 @@ export async function backfillJobs(limit = 100) {
   });
 }
 
-export async function recoverJobs() {
+/** 只补投本进程消费的类型，另一进程积压时仍能推进自己的待办。 */
+export async function recoverJobs(kinds: JobKind[]) {
+  const ownedKinds = inArray(asyncJobs.kind, kinds);
   await db.update(asyncJobs).set({ state: 'failed', error: 'lease expired after final attempt', leaseUntil: null })
-    .where(and(eq(asyncJobs.state, 'running'), sql`${asyncJobs.kind} not in ('followup','errand','daily_diary','push','inference','report')`, lte(asyncJobs.leaseUntil, dbNow()), sql`${asyncJobs.attempts} >= ${MAX_JOB_ATTEMPTS}`));
-  const due = await db.select().from(asyncJobs).where(and(sql`(${asyncJobs.kind} in ('followup','errand','daily_diary','push','inference','report') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
+    .where(and(ownedKinds, eq(asyncJobs.state, 'running'), sql`${asyncJobs.kind} not in ('followup','errand','daily_diary','push','inference','report')`, lte(asyncJobs.leaseUntil, dbNow()), sql`${asyncJobs.attempts} >= ${MAX_JOB_ATTEMPTS}`));
+  const due = await db.select().from(asyncJobs).where(and(ownedKinds, sql`(${asyncJobs.kind} in ('followup','errand','daily_diary','push','inference','report') or ${asyncJobs.attempts} < ${MAX_JOB_ATTEMPTS})`,
     or(and(eq(asyncJobs.state, 'pending'), lte(asyncJobs.nextAttemptAt, dbNow())),
       and(eq(asyncJobs.state, 'running'), lte(asyncJobs.leaseUntil, dbNow()))))).limit(100);
   const { dispatchJob } = await import('../queue.ts');

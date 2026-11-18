@@ -3,7 +3,7 @@ import { config } from './config.ts';
 import type { asyncJobs } from './db/schema.ts';
 export const EXTRACTOR_VERSION = 'v2';
 export const QUEUE = { memoryExtract: 'memory-extract', boundarySummarize: 'boundary-summarize', diaryRead: 'diary-read', sweep: 'sweep', followup: 'followup', errand: 'errand', dailyDiary: 'daily-diary', push: 'push', inference: 'inference', report: 'report' } as const;
-type Kind = keyof typeof names;
+export type JobKind = keyof typeof names;
 type Delivery = { taskId: string };
 const names = { memory: QUEUE.memoryExtract, boundary: QUEUE.boundarySummarize, diary_read: QUEUE.diaryRead, followup: QUEUE.followup, errand: QUEUE.errand, daily_diary: QUEUE.dailyDiary, push: QUEUE.push, inference: QUEUE.inference, report: QUEUE.report } as const;
 let boss: Promise<PgBoss> | undefined;
@@ -38,7 +38,7 @@ export async function dispatchJob(job: typeof asyncJobs.$inferSelect) {
       (async () => {
         const current = await getBoss();
         // 只合并尚未领取的同次投递；新尝试不受旧的 active/failed/completed 投递阻断。
-        await current.send(names[job.kind as Kind] ?? QUEUE.boundarySummarize, { taskId: job.id }, { singletonKey: `${job.id}.${job.attempts}`, retryLimit: 0 });
+        await current.send(names[job.kind as JobKind] ?? QUEUE.boundarySummarize, { taskId: job.id }, { singletonKey: `${job.id}.${job.attempts}`, retryLimit: 0 });
       })(),
       new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error('queue_dispatch_timeout')), 2500); }),
     ]);
@@ -46,25 +46,29 @@ export async function dispatchJob(job: typeof asyncJobs.$inferSelect) {
 }
 
 /** batchSize 保持 1；localConcurrency 是同时运行的处理器数，不是批量大小。 */
-export async function startQueueWorkers(handlers: Partial<Record<Kind, (taskId: string) => Promise<void>>> & { sweep?: () => Promise<void> }) {
+export async function startQueueWorkers(handlers: Partial<Record<JobKind, (taskId: string) => Promise<void>>> & { sweep?: () => Promise<void> }) {
   const current = await getBoss();
   const concurrency = { memory: 4, boundary: 2, diary_read: 2, followup: 2, errand: 2, daily_diary: 2, push: 2, inference: 2, report: 2 };
-  for (const kind of Object.keys(names) as Kind[]) {
-    if (!handlers[kind]) continue;
+  const kinds: JobKind[] = [];
+  for (const kind of Object.keys(names) as JobKind[]) {
+    const handler = handlers[kind];
+    if (!handler) continue;
     await current.work<Delivery>(names[kind], { localConcurrency: concurrency[kind], pollingIntervalSeconds: 0.5 }, async ([job]) => {
-      try { await handlers[kind]!(job!.data.taskId); }
+      try { await handler(job!.data.taskId); }
       catch (error) { console.error(`[worker ${names[kind]}] ${job!.id} 失败`, error); throw error; }
     });
+    kinds.push(kind);
   }
   if (handlers.sweep) await current.work(QUEUE.sweep, { localConcurrency: 1, pollingIntervalSeconds: 0.5 }, async () => { await handlers.sweep!(); });
+  return kinds;
 }
 export async function enqueueMemoryExtract(_turnId: string, _userMessageId: string) {
   const { recoverJobs } = await import('./jobs/store.ts');
-  await recoverJobs();
+  await recoverJobs(['memory']);
 }
 export async function enqueueBoundarySummarize(_boundaryId: string) {
   const { recoverJobs } = await import('./jobs/store.ts');
-  await recoverJobs();
+  await recoverJobs(['boundary']);
 }
 export async function closeQueues() {
   const current = boss; boss = undefined;

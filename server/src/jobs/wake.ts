@@ -1,8 +1,9 @@
 import { sql } from '../db/client.ts';
+import type { JobKind } from '../queue.ts';
 import { recoverJobs } from './store.ts';
 
 /** 合并突发通知；扫描中再收到通知时补扫，断线/漏通知由15秒恢复兜底。 */
-export async function startJobWakeup(recover:()=>Promise<void> = recoverJobs) {
+export async function startJobWakeup(kinds: JobKind[]) {
   let stopped=false, dirty=false;
   let running:Promise<void>|undefined;
   const wake=()=>{
@@ -10,7 +11,7 @@ export async function startJobWakeup(recover:()=>Promise<void> = recoverJobs) {
     dirty=true;
     if(running)return;
     running=(async()=>{
-      while(dirty&&!stopped){dirty=false;try{await recover();}catch(error){console.error('[agent wake]',error);}}
+      while(dirty&&!stopped){dirty=false;try{await recoverJobs(kinds);}catch(error){console.error('[agent wake]',error);}}
     })().finally(()=>{running=undefined;});
   };
   const listener=await sql.listen('cattt_agent_wake',wake,wake);

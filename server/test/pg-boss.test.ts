@@ -60,9 +60,9 @@ it('永久失败只执行一次，不耗尽全部尝试', async () => {
 it('投递失败保留 PG 待办，恢复扫描可以补投', async () => {
   const job = await pending(async () => {}); const boss = await getBoss();
   const send = vi.spyOn(boss, 'send').mockRejectedValue(new Error('受控投递失败'));
-  try { await recoverJobs(); expect((await state(job.id)).state).toBe('pending'); expect((await state(job.id)).attempts).toBe(0); }
+  try { await recoverJobs(['boundary']); expect((await state(job.id)).state).toBe('pending'); expect((await state(job.id)).attempts).toBe(0); }
   finally { send.mockRestore(); }
-  await recoverJobs();
+  await recoverJobs(['boundary']);
   await vi.waitFor(async () => expect((await state(job.id)).state).toBe('done'), { timeout: 10000 });
 });
 it('三类真实处理器经 pg-boss 完成；可在 Redis 停止时独立复验', async () => {

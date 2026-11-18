@@ -69,7 +69,7 @@ export async function appendTicketInput(catId: string, ticketId: string, text: s
       const denied = !cat || !conv ? '原话已不可使用' : await errandDenial(tx, cat, conv, { ...t, status: 'open' }, journal,
         [...inputs.map(i => i.text), source?.text ?? text].join('\n'));
       if (denied) throw new TicketError(409, denied);
-      const now = await clockNow(), zone = await userTimeZone(catId), day = localISO(now, zone).slice(0, 10);
+      const now = await clockNow(tx), zone = await userTimeZone(catId, tx), day = localISO(now, zone).slice(0, 10);
       const queued = !await capacity(tx, catId, day);
       await tx.insert(ticketInputs).values({ ticketId, messageId: source?.id, text: source?.text ?? text });
       const [next] = await tx.insert(runs).values({ ticketId, generation: r.generation + 1, localDay: queued ? null : day, report: journal }).returning();

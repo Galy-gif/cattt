@@ -15,7 +15,7 @@ import { recoveryScanner } from './worker/recovery.ts';
 import { readDiary } from './worker/diary.ts';
 
 assertModelConfig();
-await startQueueWorkers({
+const kinds = await startQueueWorkers({
   memory: id => executeJob(id, task => extractMemories(task.objectId, task.id)),
   boundary: id => executeJob(id, task => summarizeBoundary(task.objectId, task.id)),
   diary_read: id => executeJob(id, task => readDiary(task.objectId, task.version, task.id)),
@@ -24,11 +24,11 @@ await startQueueWorkers({
   sweep: sweepStaleTurns,
 });
 
-const stopWake = await startJobWakeup();
+const stopWake = await startJobWakeup(kinds);
 const scan = recoveryScanner(async()=>{}, sweepStaleTurns);
 const scanTimer = setInterval(() => void scan().then(()=>writeFileSync('/tmp/cattt-worker-heartbeat','ready')), 15_000);
 void scan().then(()=>writeFileSync('/tmp/cattt-worker-heartbeat','ready'));
-const followupScan = () => config.AGENT_ENABLED==='false'?Promise.resolve():scanErrands().then(()=>scanDailyDiaries()).then(() => recoverJobs()).catch(error=>console.error('[followup scan]',error));
+const followupScan = () => config.AGENT_ENABLED==='false'?Promise.resolve():scanErrands().then(()=>scanDailyDiaries()).then(() => recoverJobs(kinds)).catch(error=>console.error('[followup scan]',error));
 const followupTimer = setInterval(() => void followupScan(),30_000);
 void followupScan();
 

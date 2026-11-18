@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm';
-import { db } from '../db/client.ts';
+import { db, type Tx } from '../db/client.ts';
 import { cats, users } from '../db/schema.ts';
 import { z } from 'zod';
 import type { RuntimeTool } from './agent.ts';
 
 export const DEFAULT_TIME_ZONE = 'Asia/Shanghai';
 
-export async function userTimeZone(catId: string): Promise<string> {
-  const [owner] = await db.select({ timeZone: users.timeZone }).from(users)
+export async function userTimeZone(catId: string, reader: Tx | typeof db = db): Promise<string> {
+  const [owner] = await reader.select({ timeZone: users.timeZone }).from(users)
     .innerJoin(cats, eq(cats.userId, users.id)).where(eq(cats.id, catId));
   return owner?.timeZone ?? DEFAULT_TIME_ZONE;
 }
