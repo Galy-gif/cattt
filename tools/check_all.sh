@@ -1,5 +1,5 @@
 #!/bin/sh
-# 本机能跑的全部检查，一把跑完。CI 用同一批命令（.github/workflows/checks.yml）。
+# 本机检查汇总。GitHub Actions 的步骤见 .github/workflows/checks.yml。
 # 用法（仓库根目录）：sh tools/check_all.sh
 #
 # 后端集成测试要本机 PG/Redis，不在这里跑：cd server && pnpm test
